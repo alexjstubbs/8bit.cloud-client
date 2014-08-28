@@ -1,0 +1,1274 @@
+// Based off of Cyborg 2.3.1 by Bootswatch
+// -----------------------------------------------------
+
+/* Includes
+-------------------------------------------------- */
+@import "../components/bootstrap/less/bootstrap.less";
+@import "../../../themes/moon/src/variables.less";
+
+
+/* Typography
+-------------------------------------------------- */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Open Sans Light'), local('OpenSans-Light'), url('../fonts/OSlite.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Open Sans'), local('OpenSans'), url('../fonts/OS.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../fonts/OSBold.woff') format('woff');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url('../fonts/OSExtended.woff') format('woff');
+}
+
+
+/* Helpers
+-------------------------------------------------- */
+
+.square.gold-bg {
+    background:gold !important;
+    color:white !important;
+    font-size:3em !important;
+    padding:0 10px !important;
+}
+
+.square.blue-bg {
+    background:@blue !important;
+    color:white !important;
+    font-size:3em !important;
+    padding:0 10px !important;
+}
+
+.square.green-bg {
+    background:@green !important;
+    color:white !important;
+    font-size:3em !important;
+    padding:0 10px !important;
+}
+
+.square.red-bg {
+    background:@red !important;
+    color:white !important;
+    font-size:3em !important;
+    padding:0 10px !important;
+}
+
+.square.purple-bg {
+    background:@purple !important;
+    color:white !important;
+    font-size:3em !important;
+    padding:0 10px !important;
+}
+
+.no-padding {
+    padding:0 !important;
+}
+
+.no-margin {
+    margin:0 !important;
+}
+
+/* Community Block
+-------------------------------------------------- */
+
+td.rss_image {
+    background:none !important;
+    padding:0px 0 15px 0 !important;
+}
+
+td.rss_image img {
+    position:relative;
+    left:40px;
+}
+
+.rss_author {
+    font-weight:100;
+    padding-top:2px;
+}
+
+.rss_title {
+    position:relative;
+    top:-10px;
+}
+
+td#rss_info {
+    padding:0 10px;
+    background:@black;
+}
+
+/* WebKit
+-------------------------------------------------- */
+
+::-webkit-scrollbar {
+    height: 12px;
+    width: 5px;
+background: #000;
+    }
+::-webkit-scrollbar-thumb {
+    background: #333;
+    -webkit-border-radius: 1ex;
+    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+}
+::-webkit-scrollbar-corner {
+    background: #000;
+}
+
+
+/* Ignition Specific
+-------------------------------------------------- */
+
+body {
+    // background-repeat:no-repeat;
+    // background-size:cover;
+    overflow:hidden;
+    // background:@white !important;
+    // background:none !important;
+    // background-color:none !important;
+    // background:#111 url('../../../img/demobg.jpg') top center no-repeat;
+    
+}
+
+#main {
+    width:100%;
+    height:100%;
+    position:relative;
+    // background:rgba(0,0,0,0.7);
+}
+
+#appendices {
+    // z-index:1981;
+    // position:relative;
+}
+
+ul#screens {
+    list-style-type:none;
+    padding:0;
+    margin: 0;
+}
+
+ul#screens > li {
+    padding:0;
+    margin:0;
+}
+
+#backdrop {
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:1980;
+    background:@black;
+    opacity:0.8;
+    top:0;
+}
+
+.ignition-modal {
+    position:fixed;
+    top:0%;
+    left:10%;
+    width:80%;
+    height:auto;
+    min-height:250px;
+    z-index:1982;
+    padding:15px;
+}
+
+.yellow {
+    color:@yellow;
+}
+
+.mute {
+    opacity:0.5;
+}
+
+.progress-bar.mute {
+    background:@gray-darker;
+}
+
+.hidden {
+    display:none;
+}
+
+.text-right {
+    text-align:right;
+}
+
+#main {
+    padding-top:20px;
+
+}
+
+i.button_go {
+    color:@primary;
+    font-size:2em !important;
+}
+.square {
+    font-size:3em;
+    max-width:70px;
+    max-height:75px;
+    .make-md-column(12);
+    padding:10px 5px 10px 5px;
+    text-align:center;
+    background:@primary;
+    color:@white;
+    position:relative;
+}
+
+i.large-icon-bg {
+    z-index:0;
+    color:@gray;
+    margin-top:-10px;
+    font-size:2.5em;
+    position:fixed;
+}
+
+.large-notification {
+    position:relative;
+    left:50px;
+}
+
+.left-adjust {
+    padding-left:20px;
+}
+
+.selectedNav {
+    outline:@blue ridge 1px;
+}
+
+.selectedActive {
+     outline:@purple ridge 1px;
+}
+
+
+.selectedNav[data-mute='true'] {
+    // outline:none !important;
+}
+
+.selectedNav[data-nav='011'] {
+    outline:none !important;
+}
+
+.unselected {
+    opacity:0.5;
+}
+
+.blue {
+    background:@blue !important;
+}
+
+.dark-gray {
+    background:@gray-darker !important;
+}
+
+.purple {
+    color:@purple;
+}
+
+.red {
+    color:@red;
+}
+
+.green {
+    color:@green;
+}
+
+.nopadding {
+    padding:0;
+    margin:0;
+}
+
+.hello h3 {
+    margin:5px 0 10px 0;
+}
+
+.bart {
+    background:@gray-dark;
+    width:100%;
+    height:100%;
+}
+
+.boxed {
+    padding:10px;
+}
+
+hr {
+    color: @lighttide !important;
+    background-color: @lighttide !important;
+    height:1px;
+    border:0 !important;
+    border-bottom:1px solid !important;
+    border-color:lighten(@lighttide, 0%) !important;
+}
+
+.sq_top {
+    position:absolute;
+    top:-8px;
+    left:-8px;
+}
+
+.pad_h_5 {
+    padding-top:10px;
+    padding-left:10px;
+}
+
+.slide {
+    // background:@black;
+    height:100%;
+}
+
+i.start {
+    font-size:2em;
+    position:relative;
+    top:7px;
+    margin-right:10px;
+}
+
+
+/* CHANGE ME */
+
+.offline {
+    display:none;
+}
+
+td strong {
+    color:@white;
+}
+
+td.text-right {
+    text-align:right;
+}
+
+td.td_square {
+
+}
+
+td .square {
+    font-size:1.8em !important;
+}
+
+td.td_square img {
+    width:70px;
+    height:60px;
+}
+
+th h4 i {
+    padding-left:15px;
+    font-size:1.4em;
+}
+
+#events {
+    background:lighten(@black, 10%);
+    padding:10px;
+    overflow:hidden;
+    font-size:1.4em;
+    color:@white;
+    margin:20px auto;
+}
+
+#events div {
+    // border-right:2px solid @gray-darker;
+    position:relative;
+    top:5px;
+    padding:0 0 0 10px;
+}
+
+#events div:last-child {
+    border-right:none;
+}
+
+#events .muted {
+    color:lighten(@gray-dark, 15%);
+    margin-left:30px;
+    font-size:0.8em;
+    display:block;
+    text-align:left;
+    
+}
+
+div.event-update:before {
+    position:absolute;
+    font-family: FontAwesome;
+    color:lighten(@gray-dark, 5%);    
+    top:-40px;
+    left:-10px;
+    font-size:5em;
+    content: "\f135";
+}
+
+div.event-social:before {
+    position:absolute;
+    font-family: FontAwesome;
+    color:lighten(@gray-dark, 5%);    
+    top:-40px;
+    left:-20px;
+    font-size:5em;
+    content: "\f0c0";
+}
+
+
+#events span {
+    z-index:9;
+    position:relative;
+}
+
+#events i {
+    color:@purple;
+    padding-right:10px;
+}
+
+.home_well {
+    .clearfix;
+    text-align:center;
+
+}
+
+.home_well ul {
+    list-style-type: none;
+    text-align:center;
+    margin:0 auto;
+
+        margin: 0;
+        padding: 0;
+    }
+
+.home_well li {
+    text-align:center;
+}
+
+.progress {
+    background:none !important;
+    position:relative;
+    margin-top:-10px;
+}
+
+footer {
+    position:fixed;
+    bottom:0;
+    left:0;
+    height:10px;
+    width:100%;
+    background:none !important;
+    // background:@black;
+    // display:none;
+}
+
+footer .progress {
+    top:0;
+}
+
+.progress-bar.mute {
+    opacity:0 !important;
+}
+
+
+
+/* System Notifications
+-------------------------------------------------- */
+
+.systemNotificationContent {
+    background:@black !important;
+    color:@white !important;
+    border:1px solid @primary !important;
+    font-size:1.4em;
+}
+
+.systemNotificationContent h1 {
+    color:@gray;
+}
+
+.systemNotificationContent h1 i {
+    color:@primary;
+    margin:0 20px 0 0;
+}
+
+/* Game Profile (large)
+-------------------------------------------------- */
+
+
+#main[data-screen='profile'] header {
+    .make-md-column(12);
+    color:@white;
+    font-size:1.2em;
+
+}
+
+#profile-boxart {
+    height:100%;
+    min-height:1500px;
+}
+
+#no-boxart {
+    background-color:@blue;
+    color:@white;
+    width:100%;
+    height:250px;
+    text-align:center;
+}
+
+#no-boxart i {
+    position: relative;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-size:3em;
+}
+
+.no-screenshot {
+    background:@gray-darker;
+    color:@white;
+    width:100%;
+    height:120px;
+    text-align:center;
+}
+
+.no-screenshot i {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size:3em;
+}
+
+.timer {
+    font-size:1.1em;
+    color:@white;
+    margin:20px 0;
+}
+
+a.btn-alt {
+    color:@white;
+    text-decoration:none;
+    border-radius:0;
+    background:@gray-darker;
+    padding:10px 20px;
+    font-size:1.5em;
+}
+
+.btn-purple {
+    color:@white;
+    text-decoration:none;
+    border-radius:0;
+    background:darken(@purple, 5%) !important;
+    padding:10px 20px;
+    font-size:1em;
+    width:100%;
+}
+
+.slot-number {
+    margin-top:10px;
+    color:@white;
+}
+
+.save-slot img {
+    border:1px solid #000;
+}
+
+.profile-section {
+    margin:50px 0 0 0;
+}
+
+.profile-section h1 span {
+    color:@gray;
+    font-size:0.3em;
+    position:relative;
+    top:-5px;
+    left:15px;
+}
+
+
+ul#profile-sub-buttons {
+    margin:30px 0 0 0;
+    padding:0 17px;
+    list-style-type:none;
+
+}
+
+// Achievements
+
+ul#achievements {
+    margin:0px 0 0 0;
+    padding:0;
+    list-style-type: none;
+    position:relative;
+    top:50px;
+    left:-20px;
+}
+
+ul#achievements li {
+    text-align:left;
+    margin:0 0 40px 0px;
+}
+
+ul#achievements li .trophy {
+    position:relative;
+    width:40px;
+    height:40px;
+}
+
+ul#achievements li i.base {
+    color:@gray-dark;
+    font-size:5em;
+}
+
+
+ul#achievements li i.achieved.base {
+    color:@yellow;
+}
+
+ul#achievements li .sub {
+    color:@white;
+    font-size:1.7em;
+    position:absolute;
+    top:-60px;
+    right:-10px;
+    color:@black;
+}
+
+ul#achievements  li > .trophy-icon {
+    text-align:left;
+}
+
+ul#achievements li > .trophy-info {
+    position:relative;
+    top:10px;
+}
+
+/* Form / Sign up / Log in
+-------------------------------------------------- */
+
+#signup {
+    display:none;
+}
+
+#signup .btn {
+    box-shadow: 0 0 0;
+}
+
+.form_block .row {
+    margin-left:0 !important;
+}
+
+#signup form input[type='text'], #signup form input[type='password'] {
+    background:@white;
+    font-size:2em;
+    color:@inputtext !important;
+    line-height:140% !important;
+}
+
+div.centered {
+    text-align:center;
+}
+
+.form_block {
+    position:relative;
+    width:600px;
+    min-height:500px;
+    background:@grayLighter;
+    margin:0px auto;
+}
+
+#form_header {
+     width:100%;
+     min-height:85px;
+     background:#bcc1c8;
+     margin:0 0 20px 0;
+}
+
+#form_header img {
+    float:left;
+    margin:15px 10px 0 35px;
+}
+
+#form_header span {
+    float:right;
+    font-size:2.2em;
+    color:@grayLighter;
+    margin:18px 30px 0 20px;
+    padding:10px 0 10px 20px;
+    border-left:1px solid @gray;
+}
+
+#form_footer {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    min-height:50px;
+    background:#5bf7bb;
+    border-top:1px solid #3ec792;
+    width:560px;
+    padding:20px;
+}
+
+#signup hr {
+    width:600px;
+    margin:0 auto;
+    padding:0;
+    margin:15px 0 15px 0;
+    height:1.5px !important;
+    background:lighten(@gray, 25%) !important;
+    border:0 !important;
+    border-bottom:1px solid darken(@white, 3%) !important;
+}
+
+.form_section {
+    padding:5px 0 0px 0;
+    width:90%;
+    position:relative;
+    left:0px;
+    margin:0 auto;
+
+}
+
+.form_section i {
+    font-size:3em;
+    color:#bcc1c8;
+    position:relative;
+    top:3px;
+    left:-15px;
+}
+
+.form_section .span2 {
+    text-align:center;
+}
+
+.privacy {
+    min-height:90px;
+    margin-bottom:50px;
+    // background:#BCC1C8;
+    // .border-radius(5px);
+}
+
+.privacy a {
+    border-bottom:1px dashed @gray;
+    color:@gray-darker;
+    padding-bottom:2px;
+}
+
+#error_form {
+    width:100%;
+    height:50px;
+    position:relative;
+    top:5px;
+}
+
+#error_form .alert {
+    display:none;
+}
+
+.alert-error span {
+    color:#A50000;
+}
+#error_form span.error {
+    color:@white;
+}
+
+/* List Page
+-------------------------------------------------- */
+
+.browser-list {
+    // background-color: rgba(21,21,21,0.8);
+    .make-lg-column(12);
+    min-height:500px;
+}
+
+.break_up {
+    margin:0 !important;
+    margin-top:20px !important;
+}
+
+.browser_header {
+    padding:0 0 0 10px;
+}
+
+.game_control {
+    display:none;
+}
+
+.game_info {
+     // background:@black;
+}
+
+.game_info_header {
+    width:103% !important;
+    height:40px;
+    // background:@black;
+    margin:0 0 15px 0;
+    font-size:1em;
+    color:@white;
+    padding:10px 15px 0 15px;
+    border-bottom:1px solid lighten(@black, 10%);
+
+}
+
+hr {
+    border-color:lighten(@black, 10%) !important;
+}
+
+.game_info_header .pull-left i {
+    font-size:1.4em;
+}
+
+ul.platform-list {
+    list-style-type: none !important;
+    margin:0;
+    padding:0;
+}
+
+ul.platform-list li {
+    display:inline;
+    margin:0 30px 0 0;
+    color:@gray-dark;
+}
+
+ul.platform-list li.selected {
+    color:@white;
+
+}
+
+ul.platform-list li span.emulator {
+    font-size:0.7em;
+}
+
+.platform {
+    color:@white;
+    font-size:1.5em;
+    padding:10px 10px 10px 10px;
+}
+
+.platform span {
+    color:@gray;
+}
+
+#listbox {
+    background:lighten(@black, 5%);
+    border:1px solid @gray-dark;
+    border-radius:5px;
+    height:500px;
+}
+
+.left_alpha {
+    color:@white;
+    text-align:center;
+    width:10px;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+background-color:@blue;
+}
+
+.alpha_list {
+    top:0;
+    padding:0px 0 0 0px;
+    margin:0 0 0 -15px;
+    height:500px;
+    overflow-y:auto;
+
+    background:@black;
+    border:1px solid @gray-darker;
+    // border-bottom:1px solid @gray-darker;
+    // border-right:10px solid @black;
+}
+
+.alpha_list table td:hover {
+    background:@purple;
+}
+
+.browser_hovered {
+    // background:@purple !important;
+}
+
+
+table#list > tbody > tr > td > a {
+    opacity:0.5;
+}
+
+table#list > tbody > tr.selectedNav {
+    outline:none !important;
+}
+
+table#list > tbody > tr.selectedNav > td > a {
+    opacity:1.0;
+}
+
+table#list > tbody > tr.selectedNav td {
+    background:@purple;
+     // -webkit-animation: myfirst 2s; /* Chrome, Safari, Opera */
+    // animation: myfirst 2s;
+}
+
+@-webkit-keyframes myfirst {
+    from {background: @purple;}
+    to {background: @blue;}
+}
+
+@keyframes myfirst {
+   from {background: @purple;}
+    to {background: @blue;}
+} 
+
+
+table#list > tbody > tr.selectedNav td.selectedActiveBrowse {
+    background:darken(@purple, 10%);
+}
+
+.alpha_list a {
+    color:@white;
+}
+
+.alpha_list a:hover {
+    text-decoration: none;
+}
+
+.info_list {
+
+}
+
+
+.info_list_name {
+
+}
+
+.game_info {
+    text-align:left;
+    height:500px;
+    padding:0 22px 0 0;
+    margin:0;
+    position:relative;
+}
+
+.game_info .archive {
+    position:absolute;
+    bottom:25px;
+    right:15px;
+    opacity:0.4;
+}
+
+.game_info h2:first-child {
+    padding-top:0;
+    margin-top:0;
+}
+
+.game_image {
+    text-align:right;
+    float:right;
+    position:relative;
+    // left:-20px;
+    width:330px;
+    max-height:430px;
+    overflow:hidden;
+}
+
+.game_image img {
+   text-align:right;
+   float:right;
+}
+
+// .fold {
+//   display: block;
+//   position: relative;
+//   width: 512px;
+//   height: 340px;
+//   margin: 50px auto 0;
+//   -moz-perspective: 650px;
+//   -webkit-perspective: 650px;
+//   perspective: 650px;
+// }
+// .fold .image {
+//   position: absolute;
+//   top: 5px;
+//   right: 265px;
+//   width: 45px;
+//   height: 233px;
+//   border: 5px solid #000;
+//   border-left: none;
+//   border-right: none;
+//   background: url("http://i414.photobucket.com/albums/pp223/chicore96/Emulator%20Full%20Cover%20Sets%20Updated%201090/Atari%202600/Pitfall1982Activisiona26.png") -173px 0px no-repeat;
+//   -moz-transform: rotateY(-70deg);
+//   -ms-transform: rotateY(-70deg);
+//   -webkit-transform: rotateY(-70deg);
+//   transform: rotateY(-70deg);
+// }
+// .fold .image, .fold .image-fold {
+//   -moz-background-size: 390px 240px !important;
+//   -o-background-size: 390px 240px !important;
+//   -webkit-background-size: 390px 240px !important;
+//   background-size: 390px 240px !important;
+// }
+// .fold .shadow, .fold .image-fold, .fold .image-fold-shadow {
+//   -moz-transition: all 0.485s cubic-bezier(0.075, 0.45, 0.165, 0);
+//   -o-transition: all 0.485s cubic-bezier(0.075, 0.45, 0.165, 0);
+//   -webkit-transition: all 0.485s cubic-bezier(0.075, 0.45, 0.165, 0);
+//   transition: all 0.485s cubic-bezier(0.075, 0.45, 0.165, 0);
+// }
+// .fold .image-fold, .fold .image-fold-shadow {
+//   position: absolute;
+//   top: 0;
+//   left: 200px;
+//   width: 174px;
+//   height: 240px;
+//   -moz-transform-style: preserve-3d;
+//   -webkit-transform-style: preserve-3d;
+//   transform-style: preserve-3d;
+//   -moz-transform-origin: left bottom;
+//   -ms-transform-origin: left bottom;
+//   -webkit-transform-origin: left bottom;
+//   transform-origin: left bottom;
+//   -moz-transform: rotateY(0deg);
+//   -ms-transform: rotateY(0deg);
+//   -webkit-transform: rotateY(0deg);
+//   transform: rotateY(0deg);
+// }
+// .fold .image-fold {
+//   border: 5px solid #000;
+//   border-left: none;
+//   background: url("http://i414.photobucket.com/albums/pp223/chicore96/Emulator%20Full%20Cover%20Sets%20Updated%201090/Atari%202600/Pitfall1982Activisiona26.png") 100% 0 no-repeat;
+//   -moz-transform: rotateY(-15deg);
+//   -ms-transform: rotateY(-15deg);
+//   -webkit-transform: rotateY(-15deg);
+//   transform: rotateY(-15deg);
+// }
+// // }
+
+.info_list_images {
+
+}
+
+span.game_deck {
+    color:@white;
+    position:relative;
+    top:20px;
+}
+
+.info_list_name span.muted {
+    color:darken(@white, 20%);
+    padding-right:5px;
+}
+
+.up10 {
+    position:relative;
+    top:-20px;
+}
+
+/* Sign Up (Overrides Login)
+-------------------------------------------------- */
+
+#login .form_block  {
+    position:relative;
+    width:400px;
+    height:450px;
+    min-height:0;
+    background:@grayLighter;
+    margin:0px auto;
+
+}
+
+#login input[type='password'] {
+    text-align:center;
+}
+
+#login #form_header  {
+    background:@purple;
+    height:5px !important;
+    min-height:0;
+    border-bottom:1px solid darken(@purple, 15%);
+}
+
+#login #avatar img {
+    margin:0 auto;
+    text-align:center;
+    width:125px;
+    height:125px;
+    margin-top:10px;
+}
+
+#login .form_block .signin_profile {
+    padding:0 20px 0 20px;
+}
+
+#login h1 {
+    color:@gray;
+}
+
+#login .form_block .signin_profile input {
+    width:90%;
+}
+
+#signin_profile {
+    background:@gray;
+}
+
+#login #form_footer {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    min-height:50px;
+    background:#5bf7bb;
+    border-top:1px solid #3ec792;
+    width:360px;
+    padding:20px;
+}
+
+// Cyborg 3.0.3
+// Bootswatch
+// -----------------------------------------------------
+
+
+// Navbar =====================================================================
+
+.navbar {
+
+    border-bottom: 1px solid @gray-dark;
+}
+
+// Buttons ====================================================================
+
+// Typography =================================================================
+
+.text-primary,
+.text-primary:hover {
+    color: @brand-primary;
+}
+
+.text-success,
+.text-success:hover {
+    color: @brand-success;
+}
+
+.text-danger,
+.text-danger:hover {
+    color: @brand-danger;
+}
+
+.text-warning,
+.text-warning:hover {
+    color: @brand-warning;
+}
+
+.text-info,
+.text-info:hover {
+    color: @brand-info;
+}
+
+// Tables =====================================================================
+
+.table {
+
+    tr.success,
+    tr.warning,
+    tr.danger {
+        color: #fff;
+    }
+}
+
+.table-responsive > .table {
+    background-color: @table-bg;
+}
+
+.table td, .table th {
+    border:0 !important;
+}
+
+// Forms ======================================================================
+
+.has-warning {
+    .help-block,
+    .control-label {
+        color: @brand-warning;
+    }
+
+    .form-control,
+    .form-control:focus {
+        border-color: @brand-warning;
+    }
+}
+
+.has-error {
+    .help-block,
+    .control-label {
+        color: @brand-danger;
+    }
+
+    .form-control,
+    .form-control:focus {
+        border-color: @brand-danger;
+    }
+}
+
+.has-success {
+    .help-block,
+    .control-label {
+        color: @brand-success;
+    }
+
+    .form-control,
+    .form-control:focus {
+        border-color: @brand-success;
+    }
+}
+
+legend {
+    color: #fff;
+}
+
+.input-group-addon {
+    background-color: @btn-default-bg;
+}
+
+// Navs =======================================================================
+
+.nav {
+
+    .caret,
+    a:hover .caret {
+        border-top-color: #fff;
+        border-bottom-color: #fff;
+    }
+}
+
+.nav-tabs,
+.nav-pills,
+.breadcrumb,
+.pagination,
+.pager {
+
+    a {
+        color: #fff;
+
+    }
+}
+
+// Indicators =================================================================
+
+.alert {
+
+    .alert-link,
+    a {
+        color: @alert-warning-text;
+        text-decoration: underline;
+    }
+}
+
+// Progress bars ==============================================================
+
+// Containers =================================================================
+
+.jumbotron {
+
+    h1, h2, h3, h4, h5, h6 {
+        color: #fff;
+    }
+}

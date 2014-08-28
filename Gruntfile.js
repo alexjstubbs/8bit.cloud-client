@@ -10,20 +10,20 @@ module.exports = function(grunt) {
               optimization: 2
             },
             files: {
-              "public/components/bootstrap/css/bootstrap.css": "public/components/bootstrap/less/bootstrap.less"
+              "client/client.styles.css" : "client/src/less/ignition.less"
             }
           }
         },
         watch: {
           styles: {
-            files: ['public/components/**/*.less'], // which files to watch
+            files: ['client/src/less/*.less'], // which files to watch
             tasks: ['less'],
             options: {
               nospawn: true
             }
           },
           react: {
-                files: ['public/client/**/*.jsx', 'public/js/**/*.js'],
+                files: ['client/src/**/*.jsx', 'client/src/js/**/*.js'],
                 tasks: ['browserify']
             },
         },
@@ -33,8 +33,8 @@ module.exports = function(grunt) {
                     transform: [ require('grunt-react').browserify ]
                 },
                 client: {
-                    src: ['public/client/**/*.jsx', 'public/js/**/*.js'],
-                    dest: 'public/client/app.built.js'
+                    src: ['client/src/**/*.jsx', 'client/src/js/**/*.js'],
+                    dest: 'client/client.build.js'
                 },
 
             }

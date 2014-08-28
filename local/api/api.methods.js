@@ -4,15 +4,15 @@
 var api = {
     
     gamesList: function(nsp, param){
-        Common.listroms.listRoms(nsp, param);
+        common.listroms.listRoms(nsp, param);
     },
 
     platformList: function(nsp){
-        Common.listPlatforms.listPlatforms(nsp);
+        common.listPlatforms.listPlatforms(nsp);
     },
 
     gameInfo: function(nsp, game) {
-        Common.game.gameProfileSmall(nsp, game);
+        common.game.gameProfileSmall(nsp, game);
     },
 
     messages: function(nsp) {
@@ -20,7 +20,7 @@ var api = {
     },
 
     isOnline: function(nsp, username) {
-        Common.network.isOnline(nsp, username);
+        common.network.isOnline(nsp, username);
     },
 
 }

@@ -7,8 +7,8 @@ var systemNotify = require('./notification.init.js'),
     mousetrap = require('./mousetrap.min.js'),
     api = require('socket.io-client')('/api'),
     React = require('react/addons'),
-    Modal = require('../client/Modal.jsx'),
-    Messages = require('../client/Messages.jsx');
+    Modal = require('../interface/Modal.jsx'),
+    Messages = require('../interface/Messages.jsx');
 
     // browser = require("./browser.js");
 
