@@ -1,0 +1,30 @@
+{
+    "Nintendo": {
+        "short": "nes",
+        "ext": ".nes",
+        "emulators": {
+            "FCEU-next": {
+                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
+                "Achievements": {
+                    "offset": "0x54",
+                    "buffer_length": "4390",
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Super Nintendo": {
+        "short": "snes",
+        "ext": ".sms",
+        "emulators": {
+            "snes9x": {
+                "path": "/path/to/emu.so",
+                "Achievements": {
+                    "offset": 123,
+                    "buffer_length": 321,
+                    "timing": 1
+                }
+            }
+        }
+    }
+}
