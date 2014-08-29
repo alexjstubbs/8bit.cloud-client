@@ -16,7 +16,7 @@ module.exports = function(grunt) {
         },
         watch: {
           styles: {
-            files: ['client/src/less/*.less'], // which files to watch
+            files: ['client/src/less/*.less', 'client/src/components/**/*.less'], // which files to watch
             tasks: ['less'],
             options: {
               nospawn: true
@@ -36,7 +36,6 @@ module.exports = function(grunt) {
                     src: ['client/src/**/*.jsx', 'client/src/js/**/*.js'],
                     dest: 'client/client.build.js'
                 },
-
             }
 
         });

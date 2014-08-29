@@ -4,7 +4,7 @@ var fs = require('fs'),
     path = require('path'),
     _ = require('lodash');
 
-var platforms = require(appDir+'/config/systems.json'),
+var platforms = require(appDir+'/config/platforms.json'),
     config = require(appDir+'/config/config.json');
 
 function listRoms(nsp, platform) {

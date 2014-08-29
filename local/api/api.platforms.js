@@ -12,14 +12,12 @@ function listPlatforms(nsp) {
         var listObj = [],
             list;
 
-        var initDir = path.join(__dirname, '../', 'config/platforms');
+        var initDir = path.join(appDir+'/config/platforms');
 
         fs.readdir(initDir, function(err, list) {
             if (err) {
                 console.log(err)
             } else {
-                console.log(list);
-
                 _(list).forEach(function(filename) { 
 
                     listObj.push(

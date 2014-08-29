@@ -54,6 +54,7 @@ app.configure(function() {
     app.use(common.express.methodOverride());
 
     app.use(app.router);
+    app.use(common.express.compress());
     app.use(common.express.static(__dirname + '/client'));
  
 });
