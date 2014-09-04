@@ -1545,16 +1545,13 @@ console.log("window.location.hostname");
 /* Module Definitions
 -------------------------------------------------- */
 
-console.log("im included");
 // Remove dependancy on this file 
 
 var connect = function() {
 
 
-    console.log("inc twice")
-  api.on('connect', function(){
+    api.on('connect', function(){
 
-    console.log("Well i connected here")
 
     //  setTimeout(function() {
     //     api.emit('request', { request: 'listRoms', param: "Nintendo" });
@@ -2509,11 +2506,16 @@ module.exports = function(e) {
             if (_el) { 
                  if (_.contains(_el.classList, 'parent')) {
 
-                     document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
-                     document.getElementsByClassName("Browser")[0].classList.remove("hidden");
-                     document.getElementsByClassName("browser_header")[0].classList.remove("hidden");
+                document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
+                document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");
+                document.getElementsByClassName("Browser")[0].classList.remove("hidden");
+                document.getElementsByClassName("Browser")[0].children[0].classList.add("parent");
+                document.getElementsByClassName("browser_header")[0].classList.remove("hidden");
                       // events.screenTransition('Dashboard', true, false);
                       // events.screenTransition('Browser', false, true);
+
+                      console.log(document.querySelectorAll(".parent"));
+
 
 
                       navigationInit.navigationInit();
@@ -2542,6 +2544,11 @@ module.exports = function(e) {
         return
     }
 };
+
+/* Notes:
+ * Make screen switching dynamic by src release 
+ *
+-------------------------------------------------- */
 },{"./account.js":31,"./community.js":33,"./events.js":34,"./helpers.js":36,"./navigation.init.js":43,"lodash":53}],42:[function(require,module,exports){
 /* UI Helper Functions
 -------------------------------------------------- */
