@@ -36,11 +36,14 @@ module.exports = function(e) {
             if (_el) { 
                  if (_.contains(_el.classList, 'parent')) {
 
-                     document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
-                     document.getElementsByClassName("Browser")[0].classList.remove("hidden");
+
+                     document.getElementsByClassName("Dashboard")[0].classList.add("hidden").classList.remove("parent");
+                     document.getElementsByClassName("Browser")[0].classList.remove("hidden").classList.add("parent");
                      document.getElementsByClassName("browser_header")[0].classList.remove("hidden");
                       // events.screenTransition('Dashboard', true, false);
                       // events.screenTransition('Browser', false, true);
+
+                      console.log(document.querySelectorAll(".parent"));
 
 
                       navigationInit.navigationInit();
@@ -69,3 +72,8 @@ module.exports = function(e) {
         return
     }
 };
+
+/* Notes:
+ * Make screen switching dynamic by src release 
+ *
+-------------------------------------------------- */

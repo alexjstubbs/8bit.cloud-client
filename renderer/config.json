@@ -1,4 +1,4 @@
 {
-    "renderer": "ignition-qtbrowser-metrological"
+    "renderer": "ignition-qtbrowser-metrological",
     "link": "default.sym"
 }
