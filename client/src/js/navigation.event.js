@@ -41,10 +41,6 @@ module.exports = function(e) {
                       // events.screenTransition('Dashboard', true, false);
                       // events.screenTransition('Browser', false, true);
 
-                      console.log(document.querySelectorAll(".parent"));
-
-
-
                       navigationInit.navigationInit();
                       
                       return;
@@ -58,8 +54,6 @@ module.exports = function(e) {
     // |-- Left Arrow (D-LEFT)
 
     if (k == 219) {
-
-    console.log("E");
 
     _(screens).forEach(function(el, i) { 
 
@@ -75,10 +69,6 @@ module.exports = function(e) {
                 document.getElementsByClassName("browser_header")[0].classList.add("hidden");
                       // events.screenTransition('Dashboard', true, false);
                       // events.screenTransition('Browser', false, true);
-
-                      console.log(document.querySelectorAll(".parent"));
-
-
 
                       navigationInit.navigationInit();
                       

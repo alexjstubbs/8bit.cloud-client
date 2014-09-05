@@ -9,7 +9,7 @@ var api = function(nsp) {
 
     nsp.on('connection', function(nsp){
 
-      console.log('client connected to API');
+      console.log('[i] client connected to API');
       
       nsp.on('request', function(request) {
 

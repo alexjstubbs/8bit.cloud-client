@@ -16,6 +16,17 @@ function initDatabases(callback) {
     });
 }
 
+/* Get Databases 
+-------------------------------------------------- */
+function storeGet(nsp, database) {
+     
+    db.games.find({}, function (err, docs) {
+        nsp.emit('api', {database: docs});
+    });
+
+}
+
+
 /* Store Achievement Document
 -------------------------------------------------- */
 function storeAchievement(document, callback) {
@@ -31,11 +42,11 @@ function storeAchievement(document, callback) {
             // It Exists Already. Update Sub
             callback(doc);
         } else {
-            console.log("creating...");
+            console.log("[i] creating...");
             // Game Doesnt Have any DB Achievement Entries
             db.achievements.insert(document, function(err, doc) {
                 if (err) {
-                    console.log("error storing achievement: " + err)
+                    console.log("[!] error storing achievement: " + err)
                     callback();
                 } else {
                     callback(doc);
@@ -49,7 +60,7 @@ function storeAchievement(document, callback) {
 -------------------------------------------------- */
 function findAchievements(criteria, callback) {
 
-    console.log("Searching For: " + JSON.stringify(criteria));
+    console.log("[i] Searching For: " + JSON.stringify(criteria));
 
     db.achievements.find(criteria, function(err, docs) {
         console.log(err)
@@ -67,7 +78,7 @@ function findAchievements(criteria, callback) {
 function storeGame(document, callback) {
     db.games.insert(document, function(err, doc) {
         if (err) {
-            console.log("error storing game: " + err)
+            console.log("[!] error storing game: " + err)
             callback();
         } else {
             callback(doc);
@@ -98,3 +109,4 @@ exports.findGame = findGame;
 exports.storeAchievement = storeAchievement;
 exports.findAchievements = findAchievements;
 exports.initDatabases = initDatabases;
+exports.storeGet = storeGet;

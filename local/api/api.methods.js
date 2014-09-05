@@ -6,6 +6,10 @@ var api = {
     gamesList: function(nsp, param){
         common.listroms.listRoms(nsp, param);
     },
+    
+    storeGet: function(nsp, database){
+        common.databases.storeGet(nsp, database);
+    },
 
     platformList: function(nsp){
         common.listPlatforms.listPlatforms(nsp);

@@ -18,7 +18,7 @@ module.exports = React.createClass({
             functionParams: null,
             game: null,
             alpha: "."
-        }
+        } 
     }, 
     
     render: function() {
@@ -32,5 +32,5 @@ module.exports = React.createClass({
                     </td>
                 </tr>
         )
-    }
+    } 
 });

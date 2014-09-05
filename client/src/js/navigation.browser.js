@@ -81,6 +81,8 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
+    console.log("HERE");
+
 var game = removeBrackets(g.getAttribute("data-parameters")),
     game = game.replace(/\.[^/.]+$/, "");
 

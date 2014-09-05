@@ -76,7 +76,7 @@ function gameLaunch(req, res, callback) {
 function apicall(game, callback) {
 
 
-    // !!!!!YOU MUST HAVE PYTHON INSTALED!!!!!!
+    // !!!!!YOU MUST HAVE PYTHON INSTALLED!!!!!!
     // python archive_api_call.py api.archive.vg/2.0/Archive.search/json/ Super+Castlevania 
     var vg = spawn('python', [__dirname + '/py/archive_api_call.py', 'api.archive.vg/2.0/Archive.search/json/', game]);
 

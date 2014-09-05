@@ -38,9 +38,7 @@ module.exports = React.createClass({
 
     },
 
-
     getDefaultProps: function() {
-
         return {
           hidden: true,
             parent: false,
@@ -125,7 +123,7 @@ module.exports = React.createClass({
                  
                 </div> 
 
-             <div className="hidden" id="gameList">[".DS_Store","Bionic Commando.nes","Castlevania.zip","Double Dragon (U).nes","Ice Climber (U).nes","New Folder With Items","Super Mario Bros..zip","T&amp;C Surf Design.nes","Takeda Shingen (J).nes","Tecmo Baseball (U).nes","Tecmo Bowl (U).nes","Tetris.NES","Ultima - Exodus (U).nes","WWF Wrestlemania (U).nes","Willow.NES"]</div>
+             <div className="hidden" id="gameList"></div>
              <div className="hidden" id="shortnames">["nes","snes"]</div>
              <div className="hidden" id="working_params">{this.props.params}</div>
              

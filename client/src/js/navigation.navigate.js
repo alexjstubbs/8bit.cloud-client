@@ -10,19 +10,13 @@ module.exports = function(k) {
         var s = document.getElementsByClassName("selectedNav")[0];
         var i = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");
 
-        console.log(s);
-        console.log(i);
-
         s.classList.remove('selectedActive');
 
         var q = document.querySelectorAll(".parent .navable");
         var us = document.querySelectorAll(".unselected");
 
-        console.log(q);
-
         var screen = document.getElementById("main").getAttribute("data-screen");
 
-        console.log(screen);
 
         function currentSelection() {
             var currentSelection = document.querySelectorAll(".selectedNav");
@@ -53,7 +47,6 @@ module.exports = function(k) {
                     i = s.parentNode.parentNode.getAttribute("data-nav");
                 }
                 if (i < q) {
-                    console.log(i+":"+q)
                     i++;
                 }
             }

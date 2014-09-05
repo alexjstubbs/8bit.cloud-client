@@ -7,10 +7,10 @@
 var React = require('react/addons'),
         _ = require('lodash'),
         ListedGame = require('./ListedGame.jsx'),
-        api = require('socket.io-client')('/api');
+        api = require('socket.io-client')('/api'),
+        keyboard = require('./mixins/KeyboardShortcutsMixin');
 
 module.exports = React.createClass({
-
      getInitialState: function() {
         return {
             gamesList: [
