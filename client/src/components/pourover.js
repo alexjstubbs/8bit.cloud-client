@@ -1,4 +1,4 @@
-var _ = require('lodash');
+var _ = require('underscore');
 
 var PourOver = (function(){
 
@@ -1853,4 +1853,5 @@ var PourOver = (function(){
     return PourOver;
 })();
 
+exports.PourOver = PourOver;
 

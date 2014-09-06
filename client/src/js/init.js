@@ -7,8 +7,7 @@
       navigationEvent = require("./navigation.event.js"),
       api = require("./api/connection.js"),
       browserNavigation = require('../js/navigation.browser.js').browserNavigation,
-      nsp = require('socket.io-client')('/api'),
-      _PourOver = require('../components/pourover');
+      database = require('./database.helpers');
 
 module.exports = function() {
     api.connect();
@@ -17,15 +16,6 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     document.onkeydown = navigationEvent;
     
-
-    // Break this into module for specific filters that can be called in other modules
-    
-    nsp.emit('request', { request: 'storeGet', param: "games" });   
-    nsp.on('api', function(data){   
-        if (data.database) {
-          var collection = new PourOver.Collection(data.database);
-        }
-    });
-
+    database.storeDatabase("games");
          
 }

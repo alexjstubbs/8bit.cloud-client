@@ -73,17 +73,17 @@ app.get('/games/:platform/:name', common.db.gameImage);
 
 // Actions
 // app.get('/systemNotification/:title/:message', common.systemNotification.systemNotification);
-app.post('/clientNotification/:width/:icon/:text', common.clientNotification.clientNotification);
-app.post('/game/launch', common.game.gameLaunch);
-app.post('/game/profile/small/:game', common.game.gameProfileSmall);
-app.get('/game/profile/large/:game', common.game.gameProfileLarge);
-app.post('/sounds/:event', common.sounds.play);
+// app.post('/clientNotification/:width/:icon/:text', common.clientNotification.clientNotification);
+// app.post('/game/launch', common.game.gameLaunch);
+// app.post('/game/profile/small/:game', common.game.gameProfileSmall);
+// app.get('/game/profile/large/:game', common.game.gameProfileLarge);
+// app.post('/sounds/:event', common.sounds.play);
 
-app.get('/hex/:offset/:bufflength/:address', common.hex.readHex);
-app.get('/achievement', common.achievements.achievementCheck);
-app.post('/hash', common.hash.getCRC32);
+// app.get('/hex/:offset/:bufflength/:address', common.hex.readHex);
+// app.get('/achievement', common.achievements.achievementCheck);
+// app.post('/hash', common.hash.getCRC32);
 
-app.post('/list', common.listroms.listRoms);
+// app.post('/list', common.listroms.listRoms);
 
 
 /* Server Initialization
