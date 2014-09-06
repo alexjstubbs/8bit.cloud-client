@@ -16,6 +16,6 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     document.onkeydown = navigationEvent;
     
-    database.storeDatabase("games");
+    database.filterByAttribute("games", "developer", "Konami");
          
 }
