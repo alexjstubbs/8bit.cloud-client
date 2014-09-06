@@ -16,6 +16,17 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     document.onkeydown = navigationEvent;
     
-    database.filterByAttribute("games", "developer", "Konami");
+    database.filterByAttribute("games", {
+        "query": {
+            type: "exact",
+            filter: "title",
+            query: "Super Mario Bros."
+        },
+        "subquery": {
+            type:"exact",
+            filter: "system",
+            query: "snes"
+        }
+    });
          
 }

@@ -2596,7 +2596,8 @@ var React = require('react/addons'),
         _ = require('lodash'),
         ListedGame = require('./ListedGame.jsx'),
         api = require('socket.io-client')('/api'),
-        keyboard = require('./mixins/KeyboardShortcutsMixin');
+        keyboard = require('./mixins/KeyboardShortcutsMixin'),
+        removeBrackets = require('../js/helpers').removeBrackets;
 
 module.exports = React.createClass({displayName: 'exports',
      getInitialState: function() {
@@ -2627,7 +2628,8 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         var listNodes = this.state.gamesList.map(function (game, i) {
-          return ListedGame({key: i.id, navStack: i+1, game: game.title})
+            var gameTitle = removeBrackets(game.title);
+            return ListedGame({key: i.id, navStack: i+1, game: gameTitle})
         });
     
         return (
@@ -2643,7 +2645,7 @@ module.exports = React.createClass({displayName: 'exports',
             );
     }
 });
-},{"./ListedGame.jsx":19,"./mixins/KeyboardShortcutsMixin":32,"lodash":53,"react/addons":55,"socket.io-client":214}],16:[function(require,module,exports){
+},{"../js/helpers":39,"./ListedGame.jsx":19,"./mixins/KeyboardShortcutsMixin":32,"lodash":53,"react/addons":55,"socket.io-client":214}],16:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3514,7 +3516,7 @@ var nsp = require('socket.io-client')('/api')
 var collection;
 
 
-var filterByAttribute = function(database, filter, op) {
+var filterByAttribute = function(database, query) {
 
     nsp.emit('request', { request: 'storeGet', param: database });   
     nsp.on('api', function(data){   
@@ -3527,42 +3529,29 @@ var filterByAttribute = function(database, filter, op) {
             data = _.flatten(data, 'games');
             data = _.flatten(data, 'game');
         }
-   
+
         collection = new PourOver.PourOver.Collection(data);
+            
+        filters = [];
 
-        var unique_filter = PourOver.PourOver.makeExactFilter(filter, op);
+        _(query).forEach(function(_query) {
+            if (_query['type']) {
+                var unique_filter = PourOver.PourOver.makeExactFilter(_query['filter'], [_query['query']]);  
+                collection.addFilters(unique_filter); 
+                var results = collection.filters[_query['filter']].getFn(_query['query']);
+                filters.push(results);
+            }
+        });
 
-        collection.addFilters(unique_filter);
+        console.log(query.length);
 
-        var str = "collection.filters."+filter+".getFn(op)";
-        var results = eval(str);
+        var filtered = filters[0].and(filters[1]);
+        var filter_results = collection.get(filtered.cids);
 
-        var _results = collection.get(results.cids);
-
-        console.log(_results);
-    
+        console.log(filter_results);
     } 
 
    });
-
-        // if (database == 'games') {
-        //     db = _.flatten(data.database, 'games');
-        //     flat = _.flatten(flat, 'game');
-        // }
-
-        // collection = new PourOver.PourOver.Collection(flat);
-
-        // var system_filter = PourOver.PourOver.makeExactFilter("developer", ["Konami"]);
-
-        // collection.addFilters(system_filter);
-
-        // var konami = collection.filters.developer.getFn("Konami");
-
-        // var _konami = collection.get(konami.cids);
-
-        // console.log(_konami)
-
-
 }
 
 exports.filterByAttribute = filterByAttribute;
@@ -4009,13 +3998,13 @@ var getFirstChild = function(el) {
 
 
 var removeBrackets = function(input) {
-    return input
-    .replace(/\[.*?\]\s?/g, "") // [*]
+    return input.replace(/\[.*?\]\s?/g, "") // [*]
     .replace(/[\[\]']+/g, "") // []
     .replace(/\{.*?\}\s?/g, "") // {*}
     .replace(/\(.*?\)\s?/g, "") // (*)
     .replace(", The", "") // ', The' alpha
 }
+
 
 /* Exports
 -------------------------------------------------- */
@@ -4041,7 +4030,18 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     document.onkeydown = navigationEvent;
     
-    database.filterByAttribute("games", "developer", "Konami");
+    database.filterByAttribute("games", {
+        "query": {
+            type: "exact",
+            filter: "title",
+            query: "Super Mario Bros."
+        },
+        "subquery": {
+            type:"exact",
+            filter: "system",
+            query: "snes"
+        }
+    });
          
 }
 },{"../js/navigation.browser.js":43,"./api/connection.js":34,"./community.js":35,"./database.helpers":36,"./gamepad.js":38,"./navigation.bindings.js":42,"./navigation.event.js":44}],41:[function(require,module,exports){

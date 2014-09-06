@@ -8,7 +8,7 @@ var nsp = require('socket.io-client')('/api')
 var collection;
 
 
-var filterByAttribute = function(database, filter, op) {
+var filterByAttribute = function(database, query) {
 
     nsp.emit('request', { request: 'storeGet', param: database });   
     nsp.on('api', function(data){   
@@ -21,42 +21,29 @@ var filterByAttribute = function(database, filter, op) {
             data = _.flatten(data, 'games');
             data = _.flatten(data, 'game');
         }
-   
+
         collection = new PourOver.PourOver.Collection(data);
+            
+        filters = [];
 
-        var unique_filter = PourOver.PourOver.makeExactFilter(filter, op);
+        _(query).forEach(function(_query) {
+            if (_query['type']) {
+                var unique_filter = PourOver.PourOver.makeExactFilter(_query['filter'], [_query['query']]);  
+                collection.addFilters(unique_filter); 
+                var results = collection.filters[_query['filter']].getFn(_query['query']);
+                filters.push(results);
+            }
+        });
 
-        collection.addFilters(unique_filter);
+        console.log(query.length);
 
-        var str = "collection.filters."+filter+".getFn(op)";
-        var results = eval(str);
+        var filtered = filters[0].and(filters[1]);
+        var filter_results = collection.get(filtered.cids);
 
-        var _results = collection.get(results.cids);
-
-        console.log(_results);
-    
+        console.log(filter_results);
     } 
 
    });
-
-        // if (database == 'games') {
-        //     db = _.flatten(data.database, 'games');
-        //     flat = _.flatten(flat, 'game');
-        // }
-
-        // collection = new PourOver.PourOver.Collection(flat);
-
-        // var system_filter = PourOver.PourOver.makeExactFilter("developer", ["Konami"]);
-
-        // collection.addFilters(system_filter);
-
-        // var konami = collection.filters.developer.getFn("Konami");
-
-        // var _konami = collection.get(konami.cids);
-
-        // console.log(_konami)
-
-
 }
 
 exports.filterByAttribute = filterByAttribute;

@@ -8,7 +8,8 @@ var React = require('react/addons'),
         _ = require('lodash'),
         ListedGame = require('./ListedGame.jsx'),
         api = require('socket.io-client')('/api'),
-        keyboard = require('./mixins/KeyboardShortcutsMixin');
+        keyboard = require('./mixins/KeyboardShortcutsMixin'),
+        removeBrackets = require('../js/helpers').removeBrackets;
 
 module.exports = React.createClass({
      getInitialState: function() {
@@ -39,7 +40,8 @@ module.exports = React.createClass({
     render: function() {
 
         var listNodes = this.state.gamesList.map(function (game, i) {
-          return <ListedGame key={i.id} navStack={i+1} game={game.title} />
+            var gameTitle = removeBrackets(game.title);
+            return <ListedGame key={i.id} navStack={i+1} game={gameTitle} />
         });
     
         return (
