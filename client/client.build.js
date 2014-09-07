@@ -3528,60 +3528,82 @@ var nsp = require('socket.io-client')('/api')
 ,   _ = require("lodash")
 ,   nedb = require("../../../node_modules/nedb/browser-version/out/nedb.min");
 
-var collection,
-    db;
+var collection = {},
+    filters = {};
 
-var initLocalDatabase = function(database) {
+String.prototype.hashCode = function() {
+  var hash = 0, i, chr, len;
+  if (this.length == 0) return hash;
+  for (i = 0, len = this.length; i < len; i++) {
+    chr   = this.charCodeAt(i);
+    hash  = ((hash << 5) - hash) + chr;
+    hash |= 0; // Convert to 32bit integer
+  }
+  return hash;
+};
+
+
+var initLocalDatabase = function(database, callback) {
     nsp.emit('request', { request: 'storeGet', param: database });   
     nsp.on('api', function(data){   
         if (data.database) {
-             db = new nedb({
-                autoload: true,
-                filename: database
-             }); 
-             db.insert(data.database);
+
+
+            if (database == "games") {
+                    data = _.flatten(data.database, 'games'),
+                    data = _.flatten(data, 'game');
+            }
+            
+
+            collection[database] = new PourOver.PourOver.Collection(data);
+
         }
     });
+    return;
 }
 
 var filterByAttribute = function(database, query, callback) {
 
-    var items = localStorage.getItem(database);
+    if (collection[database]) {
 
-    items = JSON.stringify(items);
-    console.log(JSON.parse(items));
-
-    // console.log(items);
-
-    if (items) {
-
-        var data = items;
-         
-        // if (database == 'games') {
-        //     data = _.flatten(data, 'games');
-        //     data = _.flatten(data, 'game');
-        // }
-
-        // console.log(data);
-
-        collection = new PourOver.PourOver.Collection(data);
-            
-        filters = [];
+        var filter = [];
 
         _(query).forEach(function(_query) {
             if (_query['type']) {
-                var unique_filter = PourOver.PourOver.makeExactFilter(_query['filter'], [_query['query']]);  
-                collection.addFilters(unique_filter); 
-                var results = collection.filters[_query['filter']].getFn(_query['query']);
-                filters.push(results);
+                var hash = JSON.stringify(_query).hashCode();
+                filters[hash] = PourOver.PourOver.makeExactFilter(_query['filter'], [_query['query']]);
+                collection[database].addFilters(filters[hash]);
+                var results = collection[database].filters[_query['filter']].getFn(_query['query']);
+                filter.push(results);
             }
         });
 
-        var filtered = filters[0].and(filters[1]);
-        var filter_results = collection.get(filtered.cids);
 
+        var filtered = filter[0].and(filter[1]);
+        var filter_results = collection[database].get(filtered.cids);
+
+        console.log(filter_results);
         callback(filter_results);
+
+
+  // var unique_filter = PourOver.PourOver.makeExactFilter(_query['filter'], [_query['query']]);  
+  //               collection.addFilters(unique_filter); 
+  //               var results = collection.filters[_query['filter']].getFn(_query['query']);
+  //               filters.push(results);
+
+
+
+  //       var filtered = filters[0].and(filters[1]);
+  //       var filter_results = collection.get(filtered.cids);
+
+  //       callback(filter_results);
     } 
+
+    else {
+        initLocalDatabase(database, function() {
+            filterByAttribute(database, query, callback);
+        })
+    }
 
 }
 
@@ -4234,11 +4256,7 @@ var game = removeBrackets(g.getAttribute("data-parameters")),
             query: platform
         },
     },function(result){
-        console.log(result);
-        
             events.updateGame(result);
-
-           // console.log(result);
         }
     );
 

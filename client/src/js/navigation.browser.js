@@ -102,11 +102,7 @@ var game = removeBrackets(g.getAttribute("data-parameters")),
             query: platform
         },
     },function(result){
-        console.log(result);
-        
             events.updateGame(result);
-
-           // console.log(result);
         }
     );
 
