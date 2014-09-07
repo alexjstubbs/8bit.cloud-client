@@ -12,26 +12,25 @@ module.exports = React.createClass({
 
   getInitialState: function() {
           return {
-            gameInfo: [
-                    {
-                      "rating": {},
-                      "description": "Super Mario Bros., which stars Nintendo's classic mascot hero Mario in 30-some levels of inspired 2D platforming, introduced millions of players to videogames and left them captivated. Super Mario Bros. remains one of the most pioneering and influential titles to date. More importantly, it's every bit as addictive, enjoyable, and satisfying today as it was two decades ago. ",
-                      "title": "Super Mario Bros.",
-                      "system": "nes",
-                      "system_title": "NES",
-                      "esrb_rating": {},
-                      "genre": "2D > Action > Platformer",
-                      "id": "5379",
-                      "developer": "Nintendo"
-                    }
-
-                ]
+              "rating": {},
+              "description": "",
+              "title": "",
+              "esrb_rating": {},
+              "genre": "",
+              "id": "",
+              "developer": ""
         };
     },
 
     componentDidMount: function () {
         // api.emit('request', { request: 'gameInfo', param: "Super Mario" });
-        api.on('api', this.setState.bind(this));
+        // api.on('api', this.setState.bind(this));
+
+        var component = this;
+        window.addEventListener('updateGame', function eventHandler(e) {
+            component.setState(e.detail)
+        });
+
      },
 
 // <img className="img-responsive" src={gameImage} />
@@ -39,7 +38,7 @@ module.exports = React.createClass({
     render: function() {
 
 
-        var gameImage = "http://localhost:1210/games/nes/bionic commando";
+        var gameImage;
 
         return (
 
@@ -56,17 +55,17 @@ module.exports = React.createClass({
                       
                 <div className="info_list_name col-md-6">
                     
-                    <h2><span className="game_name">{this.state.gameInfo.title}</span></h2>
+                    <h2><span className="game_name">{this.state.title}</span></h2>
                     
                     <hr />
                  
-                    <span className="game_genre">{this.state.gameInfo.genre}</span> 
+                    <span className="game_genre">{this.state.genre}</span> 
 
                     <h4>Overview</h4>
                     
-                    <span className="game_deck">{this.state.gameInfo.description}</span> 
+                    <span className="game_deck">{this.state.description}</span> 
 
-                    <span className="game_ersb">{this.state.gameInfo.ersp_rating}</span>
+                    <span className="game_ersb">{this.state.ersp_rating}</span>
 
 
                 </div>

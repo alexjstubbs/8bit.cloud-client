@@ -39,11 +39,26 @@ module.exports = React.createClass({
 
     render: function() {
 
+        var skipped;
+
         var listNodes = this.state.gamesList.map(function (game, i) {
             var gameTitle = removeBrackets(game.title);
-            return <ListedGame key={i.id} navStack={i+1} game={gameTitle} />
+            
+            if (gameTitle) {
+                if (skipped == true) {
+                    return <ListedGame key={i.id} navStack={i} game={gameTitle} />
+                    skipped = false;
+                }
+                else {
+                    return <ListedGame key={i.id} navStack={i+1} game={gameTitle} />
+                }
+            }
+            else {
+                skipped = true;
+            }
+           
         });
-    
+
         return (
 
                 <div className="col-md-4 alpha_list navable" data-mute='true' data-function={this.props.functionCall} data-function-deprecated='launchGame' id="alpha_list">

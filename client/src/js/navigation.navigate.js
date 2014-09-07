@@ -17,11 +17,12 @@ module.exports = function(k) {
 
         var screen = document.getElementById("main").getAttribute("data-screen");
 
+        console.log(screen);
 
         function currentSelection() {
             var currentSelection = document.querySelectorAll(".selectedNav");
 
-            if (screen == 'browser') {
+            if (screen == 'Browser') {
                 
                 // Module pointer to navigation.browser refactor:
                 navigationBrowse(currentSelection[0]);

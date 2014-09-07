@@ -21,11 +21,13 @@ var getFirstChild = function(el) {
 
 
 var removeBrackets = function(input) {
+    var re = /(?:\.([^.]+))?$/;
     return input.replace(/\[.*?\]\s?/g, "") // [*]
     .replace(/[\[\]']+/g, "") // []
     .replace(/\{.*?\}\s?/g, "") // {*}
     .replace(/\(.*?\)\s?/g, "") // (*)
     .replace(", The", "") // ', The' alpha
+    .replace(re, '');
 }
 
 

@@ -33,17 +33,19 @@ module.exports = function(e) {
             if (_el) { 
                  if (_.contains(_el.classList, 'parent')) {
 
-                document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
-                document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");
-                document.getElementsByClassName("Browser")[0].classList.remove("hidden");
-                document.getElementsByClassName("Browser")[0].children[0].classList.add("parent");
-                document.getElementsByClassName("browser_header")[0].classList.remove("hidden");
-                      // events.screenTransition('Dashboard', true, false);
-                      // events.screenTransition('Browser', false, true);
+                  document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
+                  document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");
+                  document.getElementsByClassName("Browser")[0].classList.remove("hidden");
+                  document.getElementsByClassName("Browser")[0].children[0].classList.add("parent");
+                  document.getElementsByClassName("browser_header")[0].classList.remove("hidden");
+                  // events.screenTransition('Dashboard', true, false);
+                  // events.screenTransition('Browser', false, true);
 
-                      navigationInit.navigationInit();
-                      
-                      return;
+                  document.getElementById("main").setAttribute("data-screen", "Browser");
+
+                  navigationInit.navigationInit();
+
+                  return;
 
                  }
             }
@@ -62,17 +64,20 @@ module.exports = function(e) {
             if (_el) { 
                  if (_.contains(_el.classList, 'parent')) {
 
-                document.getElementsByClassName("Dashboard")[0].classList.remove("hidden");
-                document.getElementsByClassName("Dashboard")[0].children[0].classList.add("parent");
-                document.getElementsByClassName("Browser")[0].classList.add("hidden");
-                document.getElementsByClassName("Browser")[0].children[0].classList.remove("parent");
-                document.getElementsByClassName("browser_header")[0].classList.add("hidden");
-                      // events.screenTransition('Dashboard', true, false);
-                      // events.screenTransition('Browser', false, true);
+                    document.getElementsByClassName("Dashboard")[0].classList.remove("hidden");
+                    document.getElementsByClassName("Dashboard")[0].children[0].classList.add("parent");
+                    document.getElementsByClassName("Browser")[0].classList.add("hidden");
+                    document.getElementsByClassName("Browser")[0].children[0].classList.remove("parent");
+                    document.getElementsByClassName("browser_header")[0].classList.add("hidden");
+                    // events.screenTransition('Dashboard', true, false);
+                    // events.screenTransition('Browser', false, true);
 
-                      navigationInit.navigationInit();
-                      
-                      return;
+                    navigationInit.navigationInit();
+
+
+                  document.getElementById("main").setAttribute("data-screen", "Dashboard");
+
+                    return;
 
                  }
             }

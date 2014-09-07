@@ -3,8 +3,11 @@
 
 var getFirstChild = require('./helpers.js').getFirstChild;
     removeBrackets = require('./helpers.js').removeBrackets,
-    api = require('socket.io-client')('/api');
-    
+    api = require('socket.io-client')('/api'),
+    browserNavigation = require('../js/navigation.browser.js').browserNavigation,
+    database = require('./database.helpers'),
+    events = require('./events');
+
 /* Module Definitions
 -------------------------------------------------- */
 
@@ -76,17 +79,41 @@ var browserNavigation = function(k) {
 
 };
 
+
 /* Browser Navigation Events
 -------------------------------------------------- */
 
 var browserNavigationEvents = function(g) {
 
-    console.log("HERE");
-
 var game = removeBrackets(g.getAttribute("data-parameters")),
     game = game.replace(/\.[^/.]+$/, "");
 
-api.emit('request', { request: 'gameInfo', param: game });
+    var platform = "nes";
+
+    database.filterByAttribute("games", {
+        "query": {
+            type: "exact",
+            filter: "title",
+            query: game
+        },
+        "subquery": {
+            type:"exact",
+            filter: "system",
+            query: platform
+        },
+    },function(result){
+        console.log(result);
+        
+            events.updateGame(result);
+
+           // console.log(result);
+        }
+    );
+
+
+
+
+    // api.emit('request', { request: 'gameInfo', param: game });
 
 
 //     console.log(g);

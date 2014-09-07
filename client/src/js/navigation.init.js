@@ -14,7 +14,6 @@ var navigationInit = function() {
     });
 
     var parent = _.first(document.querySelectorAll(".parent"));
-    console.log(parent);
     var navables = parent.querySelectorAll('.navable');
 
     _(navables).forEach(function(el, i) { 
