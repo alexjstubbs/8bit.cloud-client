@@ -3298,7 +3298,8 @@ module.exports = React.createClass({displayName: 'exports',
               "esrb_rating": {},
               "genre": "",
               "id": "",
-              "developer": ""
+              "developer": "",
+              "image": ""
         };
     },
 
@@ -3313,12 +3314,8 @@ module.exports = React.createClass({displayName: 'exports',
 
      },
 
-// <img className="img-responsive" src={gameImage} />
     
     render: function() {
-
-
-        var gameImage;
 
         return (
 
@@ -3351,7 +3348,7 @@ module.exports = React.createClass({displayName: 'exports',
                 ), 
                         
                 React.DOM.span({className: "col-md-3 game_image"}, 
-                    React.DOM.img({className: "img-responsive", src: gameImage})
+                    React.DOM.img({className: "img-responsive", src: this.state.image})
                 ), 
 
                 React.DOM.div({className: "clearfix"})
@@ -3557,6 +3554,7 @@ var initLocalDatabase = function(database, callback) {
 
             collection[database] = new PourOver.PourOver.Collection(data);
 
+            console.log(collection[database]);
         }
     });
     return;
@@ -3565,6 +3563,7 @@ var initLocalDatabase = function(database, callback) {
 var filterByAttribute = function(database, query, callback) {
 
     if (collection[database]) {
+
 
         var filter = [];
 
@@ -3578,11 +3577,19 @@ var filterByAttribute = function(database, query, callback) {
             }
         });
 
+        console.log(filter);
 
-        var filtered = filter[0].and(filter[1]);
-        var filter_results = collection[database].get(filtered.cids);
+        if (filter.length > 1) {
+            var filtered = filter[0].and(filter[1]);
+            var filter_results = collection[database].get(filtered.cids);
+        }
 
-        console.log(filter_results);
+        else {
+            var filtered = filter[0];
+            var filter_results = collection[database].get(filtered.cids);
+            console.log(filter_results);
+        }
+
         callback(filter_results);
 
 
@@ -3637,7 +3644,9 @@ var updateGame = function(results, callback) {
             ersb_rating: results[0].rating,
             genre: results[0].genre,
             id: results[0].id,
-            developer: results[0].developer
+            developer: results[0].developer,
+            image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title
+
         }
     });
   
@@ -4248,12 +4257,12 @@ var game = removeBrackets(g.getAttribute("data-parameters")),
         "query": {
             type: "exact",
             filter: "title",
-            query: game
+            query: game.trim()
         },
         "subquery": {
             type:"exact",
             filter: "system",
-            query: platform
+            query: platform.trim()
         },
     },function(result){
             events.updateGame(result);

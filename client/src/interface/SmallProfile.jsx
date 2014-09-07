@@ -18,7 +18,8 @@ module.exports = React.createClass({
               "esrb_rating": {},
               "genre": "",
               "id": "",
-              "developer": ""
+              "developer": "",
+              "image": ""
         };
     },
 
@@ -33,12 +34,8 @@ module.exports = React.createClass({
 
      },
 
-// <img className="img-responsive" src={gameImage} />
     
     render: function() {
-
-
-        var gameImage;
 
         return (
 
@@ -71,7 +68,7 @@ module.exports = React.createClass({
                 </div>
                         
                 <span className="col-md-3 game_image">
-                    <img className="img-responsive" src={gameImage} />
+                    <img className="img-responsive" src={this.state.image} />
                 </span>
 
                 <div className="clearfix"></div>

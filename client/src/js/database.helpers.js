@@ -35,6 +35,7 @@ var initLocalDatabase = function(database, callback) {
 
             collection[database] = new PourOver.PourOver.Collection(data);
 
+            console.log(collection[database]);
         }
     });
     return;
@@ -43,6 +44,7 @@ var initLocalDatabase = function(database, callback) {
 var filterByAttribute = function(database, query, callback) {
 
     if (collection[database]) {
+
 
         var filter = [];
 
@@ -56,11 +58,19 @@ var filterByAttribute = function(database, query, callback) {
             }
         });
 
+        console.log(filter);
 
-        var filtered = filter[0].and(filter[1]);
-        var filter_results = collection[database].get(filtered.cids);
+        if (filter.length > 1) {
+            var filtered = filter[0].and(filter[1]);
+            var filter_results = collection[database].get(filtered.cids);
+        }
 
-        console.log(filter_results);
+        else {
+            var filtered = filter[0];
+            var filter_results = collection[database].get(filtered.cids);
+            console.log(filter_results);
+        }
+
         callback(filter_results);
 
 

@@ -94,12 +94,12 @@ var game = removeBrackets(g.getAttribute("data-parameters")),
         "query": {
             type: "exact",
             filter: "title",
-            query: game
+            query: game.trim()
         },
         "subquery": {
             type:"exact",
             filter: "system",
-            query: platform
+            query: platform.trim()
         },
     },function(result){
             events.updateGame(result);

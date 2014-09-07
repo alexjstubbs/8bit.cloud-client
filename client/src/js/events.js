@@ -25,7 +25,9 @@ var updateGame = function(results, callback) {
             ersb_rating: results[0].rating,
             genre: results[0].genre,
             id: results[0].id,
-            developer: results[0].developer
+            developer: results[0].developer,
+            image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title
+
         }
     });
   
