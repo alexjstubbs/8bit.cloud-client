@@ -27,6 +27,10 @@ var api = {
         common.network.isOnline(nsp, username);
     },
 
+    lookupGame: function(nsp, game) {
+        common.game.apicall(nsp, game);
+    },
+
 }
 
 exports.apiMethod = api;

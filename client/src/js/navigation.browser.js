@@ -94,12 +94,12 @@ var browserNavigationEvents = function(g) {
 
     database.filterByAttribute("games", {
         "query": {
-            type: "exact",
+            type: "makeExactFilter",
             filter: "title",
             query: game.trim()
         },
         "subquery": {
-            type:"exact",
+            type:"makeExactFilter",
             filter: "system",
             query: longname.trim()
         },
@@ -107,6 +107,8 @@ var browserNavigationEvents = function(g) {
             events.updateGame(result);
         }
     );
+
+    
 
 
 

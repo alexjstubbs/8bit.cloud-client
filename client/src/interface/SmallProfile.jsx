@@ -30,6 +30,7 @@ module.exports = React.createClass({
         var component = this;
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail)
+            console.log("got an update")
         });
 
      },
@@ -38,7 +39,6 @@ module.exports = React.createClass({
     render: function() {
 
         return (
-
 
             <div className="col-md-8 game_info col-md-offset-1 pull-right"  id="small_profile">
                      

@@ -1,8 +1,8 @@
 /* Game Helpers
 -------------------------------------------------- */
-var database = require(appDir+'/local/common').databases
-,   execute = require(appDir+'/local/common').exec
-,   achievements = require(appDir+'/local/common').achievements
+var database = require(appDir+'/local/api/database/database.local')
+,   execute = require(appDir+'/local/system/system.exec')
+,   achievements = require(appDir+'/local/system/achievements/achievement.loop').achievements
 ,   util = require('util')
 ,   spawn = require('child_process').spawn
 ,   fs = require('fs')
@@ -73,12 +73,11 @@ function gameLaunch(req, res, callback) {
 
 /* Call Archive.vg API to store and populate game
 -------------------------------------------------- */
-function apicall(game, callback) {
-
+function apicall(nsp, game) {
 
     // !!!!!YOU MUST HAVE PYTHON INSTALLED!!!!!!
     // python archive_api_call.py api.archive.vg/2.0/Archive.search/json/ Super+Castlevania 
-    var vg = spawn('python', [__dirname + '/py/archive_api_call.py', 'api.archive.vg/2.0/Archive.search/json/', game]);
+    var vg = spawn('python', ['/Users/alexstubbs/projects/Ignition/Release/local/api/database/py/archive_api_call.py', 'api.archive.vg/2.0/Archive.search/json/', game]);
 
     var data = '';
 
@@ -94,38 +93,39 @@ function apicall(game, callback) {
         var rLength = data.length;
         var isjson = isJson(data);
 
+        console.log(data);
+
         // JSON Friendly Data
         if (isjson == true) {
 
             data = JSON.parse(data); // Errors
 
-
             document = data;
 
             if (rLength > 50) {
+                console.log(database);
                 database.storeGame(document, function(newDocument) {
                     if (newDocument) {
-                        callback(null, newDocument);
+                        // callback(null, newDocument);
+                        console.log("found and stored");
+                          nsp.emit('api', {updateGame: newDocument});
                     } else {
-                        callback('err', null)
+                        console.log("error: No New Document");
                     }
                 });
             } else {
-                callback('err', null);
+                console.log("error: Shorter than 50 chars")
             }
-
         }
 
         // Not JSON friendly DATA
         else {
-
-            callback('err', 'null');
+            console.log("error: not JSON data")
         }
 
     });
 
     vg.stderr.on('data', function(data) {
-
         console.log("error stdouts: " + data)
         // callback('err');
     });
@@ -217,6 +217,7 @@ function gameProfileLarge(req, res, callback) {
 /* Exports
 -------------------------------------------------- */
 
+exports.apicall = apicall;
 exports.gameLaunch = gameLaunch;
 exports.gameProfileSmall = gameProfileSmall;
 exports.gameProfileLarge = gameProfileLarge;
