@@ -26,16 +26,13 @@ var initLocalDatabase = function(database, callback) {
     nsp.on('api', function(data){   
         if (data.database) {
 
-
             if (database == "games") {
                     data = _.flatten(data.database, 'games'),
                     data = _.flatten(data, 'game');
             }
             
-
             collection[database] = new PourOver.PourOver.Collection(data);
 
-            console.log(collection[database]);
         }
     });
     return;
@@ -44,7 +41,6 @@ var initLocalDatabase = function(database, callback) {
 var filterByAttribute = function(database, query, callback) {
 
     if (collection[database]) {
-
 
         var filter = [];
 
@@ -71,20 +67,14 @@ var filterByAttribute = function(database, query, callback) {
             console.log(filter_results);
         }
 
-        callback(filter_results);
+        if (filter_results.length && database == "games") {
+            callback(filter_results);
+        }
 
+        else {
+          var title = query.query.query;
+        }
 
-  // var unique_filter = PourOver.PourOver.makeExactFilter(_query['filter'], [_query['query']]);  
-  //               collection.addFilters(unique_filter); 
-  //               var results = collection.filters[_query['filter']].getFn(_query['query']);
-  //               filters.push(results);
-
-
-
-  //       var filtered = filters[0].and(filters[1]);
-  //       var filter_results = collection.get(filtered.cids);
-
-  //       callback(filter_results);
     } 
 
     else {

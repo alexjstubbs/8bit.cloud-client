@@ -88,7 +88,6 @@ var browserNavigationEvents = function(g) {
 
     var longname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
 
-
     var game = removeBrackets(g.getAttribute("data-parameters")),
         game = game.replace(/\.[^/.]+$/, "");
 
