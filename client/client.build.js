@@ -3053,7 +3053,7 @@ module.exports = React.createClass({displayName: 'exports',
             navStack: 1,
             functionCall: "switchEmulator",
             platform: null,
-            classList: "platform navable "
+            classList: "platform navable"
         }
     },
 
@@ -5096,7 +5096,8 @@ var systemNotify = require('./notification.init.js'),
     api = require('socket.io-client')('/api'),
     React = require('react/addons'),
     Modal = require('../interface/Modal.jsx'),
-    Messages = require('../interface/Messages.jsx');
+    Messages = require('../interface/Messages.jsx'),
+    _ = require('lodash');
 
     // browser = require("./browser.js");
 
@@ -5252,13 +5253,21 @@ module.exports = function(event, p) {
 
         if (event == 'switchEmulator') {
 
-            var list = document.querySelectorAll(".platform");
+            var longname,
+                list = document.querySelectorAll(".platform");
 
-            for (var i = 0; i < list.length; i++) {
-                list[i].classList.remove("selected");
-            }
+            _(list).forEach(function(item) { 
+                item.classList.remove("selected");
+                if (item.getAttribute("data-parameters") == p) {
+                    item.classList.add("selected");
+                    longname = item.textContent;
+                }; 
+            });
 
-            console.log(list);
+
+            api.emit('request', { request: 'gamesList', param: longname });
+
+             // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
 
             // var platform = list[p].innerHTML;
 
@@ -5304,14 +5313,7 @@ module.exports = function(event, p) {
 
 
         if (event == 'viewMessages') {
-            
             React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
-
-           
-            // var title = "Uh Oh!"
-            // var message = "1";
-            // var height = 0
-            // systemNotify('/systemNotification/' + title + '/' + message, height);
         }
 
         if (event == 'largeProfile') {
@@ -5400,7 +5402,7 @@ module.exports = function(event, p) {
 
 
 };
-},{"../interface/Messages.jsx":22,"../interface/Modal.jsx":23,"./mousetrap.min.js":41,"./notification.init.js":49,"react/addons":56,"socket.io-client":215}],51:[function(require,module,exports){
+},{"../interface/Messages.jsx":22,"../interface/Modal.jsx":23,"./mousetrap.min.js":41,"./notification.init.js":49,"lodash":53,"react/addons":56,"socket.io-client":215}],51:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 
