@@ -16,7 +16,6 @@ var screenTransition = function(screen, hidden, parent) {
 };
 
 var updateGame = function(results, callback) {
-
     if (results[0]) {
        var event = new CustomEvent('updateGame', { 
             'detail': {

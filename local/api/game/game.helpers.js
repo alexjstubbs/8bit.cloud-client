@@ -108,7 +108,7 @@ function apicall(nsp, game) {
                     if (newDocument) {
                         // callback(null, newDocument);
                         console.log("found and stored");
-                          nsp.emit('api', {updateGame: newDocument});
+                        nsp.emit('api', {updateGame: newDocument});
                     } else {
                         console.log("error: No New Document");
                     }

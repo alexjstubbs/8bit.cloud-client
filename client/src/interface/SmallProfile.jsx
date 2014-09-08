@@ -2,6 +2,9 @@
  * @jsx React.DOM
  */
 
+/* TODO: Get event listener to update state correctly on newly stored games.
+-------------------------------------------------- */
+
 'use strict';
 
 var React = require('react/addons'),
@@ -30,7 +33,6 @@ module.exports = React.createClass({
         var component = this;
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail)
-            console.log("got an update")
         });
 
      },
