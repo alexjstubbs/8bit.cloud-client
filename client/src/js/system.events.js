@@ -163,45 +163,47 @@ module.exports = function(event, p) {
         }
 
         if (event == 'switchEmulator') {
-            var lis = document.querySelectorAll(".platform");
 
-            for (var i = 0; i < lis.length; i++) {
-                lis[i].classList.remove("selected");
+            var list = document.querySelectorAll(".platform");
+
+            for (var i = 0; i < list.length; i++) {
+                list[i].classList.remove("selected");
             }
 
-            lis[p].classList.add("selected");
-            var platform = lis[p].innerHTML;
+            console.log(list);
 
-            var handleResponse = function(status, list) {
-                // list = JSON.stringify(list);
-                var gamesList = document.getElementById('gameList');
-                gamesList.innerHTML = list;
+            // var platform = list[p].innerHTML;
 
-                // SWITCH EMU CHECK
-                // browser(list);
+            // var handleResponse = function(status, list) {
+            //     // list = JSON.stringify(list);
+            //     var gamesList = document.getElementById('gameList');
+            //     gamesList.innerHTML = list;
 
-            }
+            //     // SWITCH EMU CHECK
+            //     // browser(list);
 
-            var handleStateChange = function() {
-                switch (xmlhttpl.readyState) {
-                    case 0: // UNINITIALIZED
-                    case 1: // LOADING
-                    case 2: // LOADED
-                    case 3: // INTERACTIVE
-                        break;
-                    case 4: // COMPLETED
-                        handleResponse(xmlhttpl.status, xmlhttpl.responseText);
-                        break;
-                    default:
-                        console.log("error");
-                }
-            }
+            // }
 
-            urllaunch = "http://localhost:1210/list";
-            var xmlhttpl = new XMLHttpRequest();
-            xmlhttpl.onreadystatechange = handleStateChange;
-            xmlhttpl.open("POST", urllaunch, true);
-            xmlhttpl.send(platform);
+            // var handleStateChange = function() {
+            //     switch (xmlhttpl.readyState) {
+            //         case 0: // UNINITIALIZED
+            //         case 1: // LOADING
+            //         case 2: // LOADED
+            //         case 3: // INTERACTIVE
+            //             break;
+            //         case 4: // COMPLETED
+            //             handleResponse(xmlhttpl.status, xmlhttpl.responseText);
+            //             break;
+            //         default:
+            //             console.log("error");
+            //     }
+            // }
+
+            // urllaunch = "http://localhost:1210/list";
+            // var xmlhttpl = new XMLHttpRequest();
+            // xmlhttpl.onreadystatechange = handleStateChange;
+            // xmlhttpl.open("POST", urllaunch, true);
+            // xmlhttpl.send(platform);
 
         }
 

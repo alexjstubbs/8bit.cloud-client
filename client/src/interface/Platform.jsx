@@ -15,17 +15,14 @@ module.exports = React.createClass({
             subNavable: true,
             navStack: 1,
             functionCall: "switchEmulator",
-            functionParams: 0,
-            platform: null
+            platform: null,
+            classList: "platform navable"
         }
     },
 
     render: function() {
-
-
         return (
-        
-              <li className="platform navable" data-function={this.props.functionCall} data-paramaters={this.props.functionParams} data-order={this.props.navStack}>{this.props.platform}</li>
+              <li className={this.props.classList} data-emulators={this.props.emulators} data-ext={this.props.ext} data-function={this.props.functionCall} data-parameters={this.props.short} data-order={this.props.navStack}>{this.props.platform}</li>
         )
     }
 });

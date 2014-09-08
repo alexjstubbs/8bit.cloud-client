@@ -22,7 +22,6 @@ function storeGet(nsp, database) {
      
     db.games.find({}, function (err, docs) {
         nsp.emit('api', {database: docs});
-        console.log("sent")
     });
 
 }

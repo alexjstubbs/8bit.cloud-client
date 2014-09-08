@@ -1,5 +1,6 @@
 {
     "Nintendo": {
+        "long": "Nintendo",
         "short": "nes",
         "ext": ".nes",
         "emulators": {
@@ -14,6 +15,7 @@
         }
     },
     "Super Nintendo": {
+        "long": "Super Nintendo",
         "short": "snes",
         "ext": ".sms",
         "emulators": {

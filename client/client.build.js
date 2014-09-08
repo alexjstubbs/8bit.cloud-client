@@ -3052,17 +3052,14 @@ module.exports = React.createClass({displayName: 'exports',
             subNavable: true,
             navStack: 1,
             functionCall: "switchEmulator",
-            functionParams: 0,
-            platform: null
+            platform: null,
+            classList: "platform navable "
         }
     },
 
     render: function() {
-
-
         return (
-        
-              React.DOM.li({className: "platform navable", 'data-function': this.props.functionCall, 'data-paramaters': this.props.functionParams, 'data-order': this.props.navStack}, this.props.platform)
+              React.DOM.li({className: this.props.classList, 'data-emulators': this.props.emulators, 'data-ext': this.props.ext, 'data-function': this.props.functionCall, 'data-parameters': this.props.short, 'data-order': this.props.navStack}, this.props.platform)
         )
     }
 });
@@ -3115,7 +3112,7 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
          var platformNodes = this.state.platforms.map(function (platform, i) {
-            return Platform({platform: platform.name, navStack: i+1})
+            return Platform({platform: platform.long, short: platform.short, emulators: platform.emulators, navStack: i+1})
         });
 
         return (
@@ -3636,20 +3633,38 @@ var screenTransition = function(screen, hidden, parent) {
 
 var updateGame = function(results, callback) {
 
-   var event = new CustomEvent('updateGame', { 
-        'detail': {
-            title: results[0].title,
-            description: results[0].description,
-            rating: results[0].rating,
-            ersb_rating: results[0].rating,
-            genre: results[0].genre,
-            id: results[0].id,
-            developer: results[0].developer,
-            image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title
+    if (results[0]) {
+       var event = new CustomEvent('updateGame', { 
+            'detail': {
+                title: results[0].title,
+                description: results[0].description,
+                rating: results[0].rating,
+                ersb_rating: results[0].rating,
+                genre: results[0].genre,
+                id: results[0].id,
+                developer: results[0].developer,
+                image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title
 
-        }
-    });
+            }
+        });
+    }
   
+    else {
+        var event = new CustomEvent('updateGame', { 
+            'detail': {
+                title: "Game Title",
+                description: "",
+                rating: "",
+                ersb_rating: "",
+                genre: "",
+                id: "",
+                developer: "",
+                image: ""
+
+            }
+        });
+    }
+
     window.dispatchEvent(event);
 
 }
@@ -5236,45 +5251,47 @@ module.exports = function(event, p) {
         }
 
         if (event == 'switchEmulator') {
-            var lis = document.querySelectorAll(".platform");
 
-            for (var i = 0; i < lis.length; i++) {
-                lis[i].classList.remove("selected");
+            var list = document.querySelectorAll(".platform");
+
+            for (var i = 0; i < list.length; i++) {
+                list[i].classList.remove("selected");
             }
 
-            lis[p].classList.add("selected");
-            var platform = lis[p].innerHTML;
+            console.log(list);
 
-            var handleResponse = function(status, list) {
-                // list = JSON.stringify(list);
-                var gamesList = document.getElementById('gameList');
-                gamesList.innerHTML = list;
+            // var platform = list[p].innerHTML;
 
-                // SWITCH EMU CHECK
-                // browser(list);
+            // var handleResponse = function(status, list) {
+            //     // list = JSON.stringify(list);
+            //     var gamesList = document.getElementById('gameList');
+            //     gamesList.innerHTML = list;
 
-            }
+            //     // SWITCH EMU CHECK
+            //     // browser(list);
 
-            var handleStateChange = function() {
-                switch (xmlhttpl.readyState) {
-                    case 0: // UNINITIALIZED
-                    case 1: // LOADING
-                    case 2: // LOADED
-                    case 3: // INTERACTIVE
-                        break;
-                    case 4: // COMPLETED
-                        handleResponse(xmlhttpl.status, xmlhttpl.responseText);
-                        break;
-                    default:
-                        console.log("error");
-                }
-            }
+            // }
 
-            urllaunch = "http://localhost:1210/list";
-            var xmlhttpl = new XMLHttpRequest();
-            xmlhttpl.onreadystatechange = handleStateChange;
-            xmlhttpl.open("POST", urllaunch, true);
-            xmlhttpl.send(platform);
+            // var handleStateChange = function() {
+            //     switch (xmlhttpl.readyState) {
+            //         case 0: // UNINITIALIZED
+            //         case 1: // LOADING
+            //         case 2: // LOADED
+            //         case 3: // INTERACTIVE
+            //             break;
+            //         case 4: // COMPLETED
+            //             handleResponse(xmlhttpl.status, xmlhttpl.responseText);
+            //             break;
+            //         default:
+            //             console.log("error");
+            //     }
+            // }
+
+            // urllaunch = "http://localhost:1210/list";
+            // var xmlhttpl = new XMLHttpRequest();
+            // xmlhttpl.onreadystatechange = handleStateChange;
+            // xmlhttpl.open("POST", urllaunch, true);
+            // xmlhttpl.send(platform);
 
         }
 
