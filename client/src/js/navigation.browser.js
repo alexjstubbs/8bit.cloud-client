@@ -6,7 +6,8 @@ var getFirstChild = require('./helpers.js').getFirstChild;
     api = require('socket.io-client')('/api'),
     browserNavigation = require('../js/navigation.browser.js').browserNavigation,
     database = require('./database.helpers'),
-    events = require('./events');
+    events = require('./events'),
+    _ = require('lodash');
 
 /* Module Definitions
 -------------------------------------------------- */
@@ -85,10 +86,12 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
-var game = removeBrackets(g.getAttribute("data-parameters")),
-    game = game.replace(/\.[^/.]+$/, "");
+    var longname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
 
-    var platform = "nes";
+
+    var game = removeBrackets(g.getAttribute("data-parameters")),
+        game = game.replace(/\.[^/.]+$/, "");
+
 
     database.filterByAttribute("games", {
         "query": {
@@ -99,7 +102,7 @@ var game = removeBrackets(g.getAttribute("data-parameters")),
         "subquery": {
             type:"exact",
             filter: "system",
-            query: platform.trim()
+            query: longname.trim()
         },
     },function(result){
             events.updateGame(result);

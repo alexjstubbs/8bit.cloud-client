@@ -4184,7 +4184,8 @@ var getFirstChild = require('./helpers.js').getFirstChild;
     api = require('socket.io-client')('/api'),
     browserNavigation = require('../js/navigation.browser.js').browserNavigation,
     database = require('./database.helpers'),
-    events = require('./events');
+    events = require('./events'),
+    _ = require('lodash');
 
 /* Module Definitions
 -------------------------------------------------- */
@@ -4263,10 +4264,12 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
-var game = removeBrackets(g.getAttribute("data-parameters")),
-    game = game.replace(/\.[^/.]+$/, "");
+    var longname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
 
-    var platform = "nes";
+
+    var game = removeBrackets(g.getAttribute("data-parameters")),
+        game = game.replace(/\.[^/.]+$/, "");
+
 
     database.filterByAttribute("games", {
         "query": {
@@ -4277,7 +4280,7 @@ var game = removeBrackets(g.getAttribute("data-parameters")),
         "subquery": {
             type:"exact",
             filter: "system",
-            query: platform.trim()
+            query: longname.trim()
         },
     },function(result){
             events.updateGame(result);
@@ -4568,7 +4571,7 @@ var game = removeBrackets(g.getAttribute("data-parameters")),
 
 exports.browserNavigation = browserNavigation;
 exports.browserNavigationEvents = browserNavigationEvents;
-},{"../js/navigation.browser.js":43,"./database.helpers":36,"./events":37,"./helpers.js":39,"socket.io-client":215}],44:[function(require,module,exports){
+},{"../js/navigation.browser.js":43,"./database.helpers":36,"./events":37,"./helpers.js":39,"lodash":53,"socket.io-client":215}],44:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -5264,51 +5267,12 @@ module.exports = function(event, p) {
                 }; 
             });
 
-
             api.emit('request', { request: 'gamesList', param: longname });
-
-             // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
-
-            // var platform = list[p].innerHTML;
-
-            // var handleResponse = function(status, list) {
-            //     // list = JSON.stringify(list);
-            //     var gamesList = document.getElementById('gameList');
-            //     gamesList.innerHTML = list;
-
-            //     // SWITCH EMU CHECK
-            //     // browser(list);
-
-            // }
-
-            // var handleStateChange = function() {
-            //     switch (xmlhttpl.readyState) {
-            //         case 0: // UNINITIALIZED
-            //         case 1: // LOADING
-            //         case 2: // LOADED
-            //         case 3: // INTERACTIVE
-            //             break;
-            //         case 4: // COMPLETED
-            //             handleResponse(xmlhttpl.status, xmlhttpl.responseText);
-            //             break;
-            //         default:
-            //             console.log("error");
-            //     }
-            // }
-
-            // urllaunch = "http://localhost:1210/list";
-            // var xmlhttpl = new XMLHttpRequest();
-            // xmlhttpl.onreadystatechange = handleStateChange;
-            // xmlhttpl.open("POST", urllaunch, true);
-            // xmlhttpl.send(platform);
 
         }
 
-        // Panel Sub Navigation
         if (event == 'highlightPanel') {
-
             Mousetrap.trigger('down');
-
         }
 
 
@@ -5318,8 +5282,7 @@ module.exports = function(event, p) {
 
         if (event == 'largeProfile') {
 
-            // Turn this into document fragment and clone small profile as starting point
-
+           
             // var alist = document.getElementById("alpha_list");
             // var smallp = document.getElementById("small_profile");
             // var smallp_header = document.getElementById("profile_header");
@@ -5342,9 +5305,7 @@ module.exports = function(event, p) {
             console.dir(p);
             var path = p.pack[p.system].emulators[p.emulator].path;
 
-
             var payload = p.base + " " + p.paramaters + " " + path + " \"/home/pi/roms/" + p.pack[p.system].short + "/" + p.rom + "\"";
-
 
             // REST API
 
