@@ -62,7 +62,7 @@ module.exports = React.createClass({
 
                     <h4>Overview</h4>
                     
-                    <span className="game_deck">{this.state.description}</span> 
+                    <p className="game_deck">{this.state.description}</p> 
 
                     <span className="game_ersb">{this.state.ersp_rating}</span>
 

@@ -28,5 +28,185 @@
                 }
             }
         }
+    },
+    "Nintendo 64": {
+        "long": "Nintendo 64",
+        "short": "nes",
+        "ext": ".nes",
+        "emulators": {
+            "FCEU-next": {
+                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
+                "Achievements": {
+                    "offset": "0x54",
+                    "buffer_length": "4390",
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Sega Master System": {
+        "long": "Sega Master System",
+        "short": "snes",
+        "ext": ".sms",
+        "emulators": {
+            "snes9x": {
+                "path": "/path/to/emu.so",
+                "Achievements": {
+                    "offset": 123,
+                    "buffer_length": 321,
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Sega Genesis": {
+        "long": "Sega Genesis",
+        "short": "nes",
+        "ext": ".nes",
+        "emulators": {
+            "FCEU-next": {
+                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
+                "Achievements": {
+                    "offset": "0x54",
+                    "buffer_length": "4390",
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Sega Saturn": {
+        "long": "Sega Saturn",
+        "short": "snes",
+        "ext": ".sms",
+        "emulators": {
+            "snes9x": {
+                "path": "/path/to/emu.so",
+                "Achievements": {
+                    "offset": 123,
+                    "buffer_length": 321,
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Neo Geo": {
+        "long": "Neo Geo",
+        "short": "nes",
+        "ext": ".nes",
+        "emulators": {
+            "FCEU-next": {
+                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
+                "Achievements": {
+                    "offset": "0x54",
+                    "buffer_length": "4390",
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Arcade": {
+        "long": "Arcade",
+        "short": "snes",
+        "ext": ".sms",
+        "emulators": {
+            "snes9x": {
+                "path": "/path/to/emu.so",
+                "Achievements": {
+                    "offset": 123,
+                    "buffer_length": 321,
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Playstation": {
+        "long": "Playstation",
+        "short": "nes",
+        "ext": ".nes",
+        "emulators": {
+            "FCEU-next": {
+                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
+                "Achievements": {
+                    "offset": "0x54",
+                    "buffer_length": "4390",
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Commodore 64": {
+        "long": "Commodore 64",
+        "short": "snes",
+        "ext": ".sms",
+        "emulators": {
+            "snes9x": {
+                "path": "/path/to/emu.so",
+                "Achievements": {
+                    "offset": 123,
+                    "buffer_length": 321,
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Amiga": {
+        "long": "Amiga",
+        "short": "nes",
+        "ext": ".nes",
+        "emulators": {
+            "FCEU-next": {
+                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
+                "Achievements": {
+                    "offset": "0x54",
+                    "buffer_length": "4390",
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Gameboy": {
+        "long": "Gameboy",
+        "short": "snes",
+        "ext": ".sms",
+        "emulators": {
+            "snes9x": {
+                "path": "/path/to/emu.so",
+                "Achievements": {
+                    "offset": 123,
+                    "buffer_length": 321,
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Gameboy Color": {
+        "long": "Gameboy Color",
+        "short": "nes",
+        "ext": ".nes",
+        "emulators": {
+            "FCEU-next": {
+                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
+                "Achievements": {
+                    "offset": "0x54",
+                    "buffer_length": "4390",
+                    "timing": 1
+                }
+            }
+        }
+    },
+    "Gameboy Advance": {
+        "long": "Gameboy Advance",
+        "short": "snes",
+        "ext": ".sms",
+        "emulators": {
+            "snes9x": {
+                "path": "/path/to/emu.so",
+                "Achievements": {
+                    "offset": 123,
+                    "buffer_length": 321,
+                    "timing": 1
+                }
+            }
+        }
     }
 }

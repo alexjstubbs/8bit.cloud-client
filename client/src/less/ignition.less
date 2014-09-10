@@ -35,6 +35,7 @@
 }
 
 
+
 /* Helpers
 -------------------------------------------------- */
 
@@ -129,6 +130,13 @@ background: #000;
 
 /* Ignition Specific
 -------------------------------------------------- */
+
+/* (1920x1080) Full HD Display */
+@media  screen and (min-width: 1920px) {
+    body {
+        zoom:1.5;
+    }
+}
 
 body {
     // background-repeat:no-repeat;
@@ -369,7 +377,7 @@ th h4 i {
 }
 
 #events {
-    background:lighten(@black, 10%);
+    background:@gray-darker;
     padding:10px;
     overflow:hidden;
     font-size:1.4em;
@@ -823,15 +831,21 @@ hr {
 }
 
 ul.platform-list {
+    overflow-y:hidden;
+    overflow-x:visible;
+    white-space:nowrap;
     list-style-type: none !important;
     margin:0;
-    padding:0;
+    padding:10px 5px;
 }
 
+ul.platform-list::-webkit-scrollbar { width: 0 !important }
+
 ul.platform-list li {
-    display:inline;
+    display:inline-block;
     margin:0 30px 0 0;
     color:@gray-dark;
+
 }
 
 ul.platform-list li.selected {
@@ -1046,10 +1060,13 @@ table#list > tbody > tr.selectedNav td.selectedActiveBrowse {
 
 }
 
-span.game_deck {
+p.game_deck {
     color:@white;
     position:relative;
     top:20px;
+    height:257px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .info_list_name span.muted {

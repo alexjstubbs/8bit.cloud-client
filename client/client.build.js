@@ -3339,7 +3339,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.h4(null, "Overview"), 
                     
-                    React.DOM.span({className: "game_deck"}, this.state.description), 
+                    React.DOM.p({className: "game_deck"}, this.state.description), 
 
                     React.DOM.span({className: "game_ersb"}, this.state.ersp_rating)
 
