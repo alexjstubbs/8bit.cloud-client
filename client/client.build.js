@@ -3125,7 +3125,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.div({className: "col-md-12 text-left"}, 
 
-                            React.DOM.ul({id: "platform-list", className: "platform-list"}, 
+                            React.DOM.ul({id: "platform-list", className: "platform-list scroll-into-view"}, 
                            
                                 platformNodes
                            
@@ -4871,6 +4871,13 @@ module.exports = function(k) {
 
             var lastNodeNav = document.querySelectorAll(".parent .navable")[i];
 
+            // element.scrollIntoView(alignWithTop);
+
+            console.log(s.parentNode.classList);
+
+            if (s.parentNode.classList.contains("scroll-into-view")) {
+                document.querySelectorAll(".parent .navable")[i].scrollIntoView(false);
+            }''
 
             // Outside Panel
             if (lastNodeNav) {

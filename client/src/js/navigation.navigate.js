@@ -70,6 +70,13 @@ module.exports = function(k) {
 
             var lastNodeNav = document.querySelectorAll(".parent .navable")[i];
 
+            // element.scrollIntoView(alignWithTop);
+
+            console.log(s.parentNode.classList);
+
+            if (s.parentNode.classList.contains("scroll-into-view")) {
+                document.querySelectorAll(".parent .navable")[i].scrollIntoView(false);
+            }''
 
             // Outside Panel
             if (lastNodeNav) {

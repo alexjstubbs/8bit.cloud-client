@@ -57,7 +57,7 @@ module.exports = React.createClass({
 
                         <div className="col-md-12 text-left">
 
-                            <ul id="platform-list" className="platform-list">      
+                            <ul id="platform-list" className="platform-list scroll-into-view">      
                            
                                 {platformNodes}      
                            
