@@ -4834,6 +4834,7 @@ module.exports = function(k) {
         // Left & Right
         if (k == 'right' || k == 'left') {
 
+        
             if (us[0]) {
                 us[0].classList.toggle("unselected");
             }
@@ -4855,6 +4856,7 @@ module.exports = function(k) {
 
             // left
             if (k == 'left') {
+               
                 if (!i) {
                     i = s.parentNode.parentNode.getAttribute("data-nav");
                     i - 1;
@@ -4877,10 +4879,10 @@ module.exports = function(k) {
 
             // Inside Panel
             else {
-                if (screen != 'browser') {
+                if (screen != 'Browser') {
                     s.parentNode.parentNode.classList.add("selectedNav");
                 } else {
-                    document.querySelectorAll(".parent .navable")[1].classList.add("selectedNav");
+                    document.querySelectorAll(".parent .navable")[0].classList.add("selectedNav");
                 }
             }
 
@@ -4916,12 +4918,13 @@ module.exports = function(k) {
                     currentSelection();
 
                 } else {
-                    if (screen == 'browser') {
+                    if (screen == 'Browser') {
                         if (!sub[0]) {
+                            console.log("down on browser...")
                             // If on System Selection, but not on game selection, down goes to game selection.
                             sel[0].classList.remove("selectedNav");
 
-                            q[2].classList.add("selectedNav");
+                            document.getElementById("alpha_list").classList.add("selectedNav");
 
                         }
                     }
