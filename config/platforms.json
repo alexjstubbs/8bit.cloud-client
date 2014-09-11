@@ -31,7 +31,7 @@
     },
     "Nintendo 64": {
         "long": "Nintendo 64",
-        "short": "nes",
+        "short": "n64",
         "ext": ".nes",
         "emulators": {
             "FCEU-next": {
@@ -46,7 +46,7 @@
     },
     "Sega Master System": {
         "long": "Sega Master System",
-        "short": "snes",
+        "short": "sms",
         "ext": ".sms",
         "emulators": {
             "snes9x": {
@@ -61,7 +61,7 @@
     },
     "Sega Genesis": {
         "long": "Sega Genesis",
-        "short": "nes",
+        "short": "gen",
         "ext": ".nes",
         "emulators": {
             "FCEU-next": {
@@ -76,7 +76,7 @@
     },
     "Sega Saturn": {
         "long": "Sega Saturn",
-        "short": "snes",
+        "short": "ss",
         "ext": ".sms",
         "emulators": {
             "snes9x": {
@@ -91,7 +91,7 @@
     },
     "Neo Geo": {
         "long": "Neo Geo",
-        "short": "nes",
+        "short": "neogeo",
         "ext": ".nes",
         "emulators": {
             "FCEU-next": {
@@ -106,7 +106,7 @@
     },
     "Arcade": {
         "long": "Arcade",
-        "short": "snes",
+        "short": "mame",
         "ext": ".sms",
         "emulators": {
             "snes9x": {
@@ -121,7 +121,7 @@
     },
     "Playstation": {
         "long": "Playstation",
-        "short": "nes",
+        "short": "ps1",
         "ext": ".nes",
         "emulators": {
             "FCEU-next": {
@@ -136,7 +136,7 @@
     },
     "Commodore 64": {
         "long": "Commodore 64",
-        "short": "snes",
+        "short": "c64",
         "ext": ".sms",
         "emulators": {
             "snes9x": {
@@ -151,7 +151,7 @@
     },
     "Amiga": {
         "long": "Amiga",
-        "short": "nes",
+        "short": "amiga",
         "ext": ".nes",
         "emulators": {
             "FCEU-next": {
@@ -166,7 +166,7 @@
     },
     "Gameboy": {
         "long": "Gameboy",
-        "short": "snes",
+        "short": "gb",
         "ext": ".sms",
         "emulators": {
             "snes9x": {
@@ -181,7 +181,7 @@
     },
     "Gameboy Color": {
         "long": "Gameboy Color",
-        "short": "nes",
+        "short": "gbc",
         "ext": ".nes",
         "emulators": {
             "FCEU-next": {
@@ -196,7 +196,7 @@
     },
     "Gameboy Advance": {
         "long": "Gameboy Advance",
-        "short": "snes",
+        "short": "gba",
         "ext": ".sms",
         "emulators": {
             "snes9x": {

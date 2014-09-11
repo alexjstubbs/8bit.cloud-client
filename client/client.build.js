@@ -2611,7 +2611,7 @@ module.exports = React.createClass({displayName: 'exports',
      getInitialState: function() {
         return {
             gamesList: [
-                {"filename":"super castlevania.zip","ext":".nes","title":"Super Mario Brothers","CRC32":"D445F698","achievements":{"CRC32":["D445F698","3337ec46","3448e736"],"SHA1":["FACEE9C577A5262DBE33AC4930BB0B58C8C037F7","ea343f4e445a9050d4b4fbac2c77d0693b1d0922"],"strict":false,"Hello World":{"description":"Get a Mushroom","address":"0x754","operator":"==","operand":"00","unique":"smb_getamushroom","count":true,"single":true},"Goodbye World":{"description":"Die once (test)","address":"0x000E","operator":"==","operand":"0B","unique":"smb_die","count":true,"single":true},"Crouching":{"description":"Crouch (test)","address":"0x06D5 ","operator":"==","operand":"50","unique":"smb_crouch","count":true,"single":true}}}
+                {"filename":"","ext":"","title":"","CRC32":"","achievements":""}
              ]
         };
     },
@@ -2662,11 +2662,11 @@ module.exports = React.createClass({displayName: 'exports',
             
             if (gameTitle) {
                 if (skipped == true) {
-                    return ListedGame({key: i.id, navStack: i, game: gameTitle})
+                    return ListedGame({key: i.id, navStack: i, game: gameTitle, filename: i.filename})
                     skipped = false;
                 }
                 else {
-                    return ListedGame({key: i.id, navStack: i+1, game: gameTitle})
+                    return ListedGame({key: i.id, navStack: i+1, game: gameTitle, filename: i.filename})
                 }
             }
             else {
@@ -2845,7 +2845,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
         
-                React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.game}, 
+                React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.filename, 'data-title': this.props.game}, 
                     React.DOM.td({'data-tdalpha': "alpha_selection"}, 
                         React.DOM.div({className: "left_alpha pull-left"}, this.props.alpha), 
                         React.DOM.a({className: "launch", 'data-ref': this.props.navStack, 'data-game': this.props.game, href: "#"}, this.props.game)
@@ -3151,6 +3151,8 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.header({id: "heading"}, 
 
+                        React.DOM.div({id: "ul-wrap"}), 
+                    
                         React.DOM.div({className: "col-md-12 text-left"}, 
                         
                             React.DOM.ul({id: "platform-list", className: "platform-list scroll-into-view"}, 
@@ -4311,9 +4313,9 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
-    var longname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
+    var longname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
 
-    var game = removeBrackets(g.getAttribute("data-parameters")),
+    var game = removeBrackets(g.getAttribute("data-title")),
         game = game.replace(/\.[^/.]+$/, "");
 
 
@@ -4341,282 +4343,6 @@ var browserNavigationEvents = function(g) {
 
     document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
 
-
-
-
-    // api.emit('request', { request: 'gameInfo', param: game });
-
-
-//     console.log(g);
-
-//        getInfo(g);
-
-// /* Display Game
-// -------------------------------------------------- */
-
-//     function displayGame(obj, selected) {
-
-
-//         var elt = document.getElementsByClassName("selectedNav")[0];
-
-//         var ref = elt.getAttribute("data-snav");
-//         var refAttr = document.querySelectorAll("[data-ref]");
-
-//         var recent = refAttr[ref].innerHTML;
-
-//         recent = removeBrackets(recent);
-//         recent = recent.trim();
-//         selected = selected.trim();
-
-//         if (recent != selected) {
-//             return
-//         }
-
-//         if (obj) {
-
-//             if (obj.box_front.length) {
-//                 var domain = obj.box_front;
-//                 var game_image_sorted = obj.box_front;
-//                 domain = domain.split('/');
-
-//                 if (domain[2] == 'image.com.com') {
-//                     var url_ = "http://image.gamespotcdn.net/gamespot/" + domain.slice(-4).join('/');
-//                     var el = document.getElementsByClassName("game_image")[0];
-//                     el.innerHTML = "<img src='" + url_ + "' class='img-rounded img-responsive'>";
-//                     game_image_sorted = url_;
-
-//                 } else {
-//                     var el = document.getElementsByClassName("game_image")[0];
-//                     el.innerHTML = "<img src='" + obj.box_front + "' class='img-rounded img-responsive'>";
-//                 }
-
-//             } else {
-//                 var el = document.getElementsByClassName("game_image")[0];
-//                 el.innerHTML = "<h1><i class='icon ion-filing'></i></h1>";
-//             }
-
-
-
-//             if (obj.genre) {
-//                 var el = document.getElementsByClassName("game_genre")[0];
-//                 el.innerHTML = obj.genre;
-//             }
-//             if (obj.description) {
-
-//                 var el = document.getElementsByClassName("game_deck")[0];
-//                 if (obj.description.length) {
-//                     el.innerHTML = obj.description.split(" ").splice(0, 100).join(" ").concat(" [...]");
-//                 }
-//             } else {
-//                 var el = document.getElementsByClassName("info_list_name")[0];
-//                 el.innerHTML = "Game Description"
-//             }
-//             // document.body.style.backgroundImage="url('http://s3.amazonaws.com/data.archive.vg/images/games/4791/z9ttl_1080p.jpg')";
-
-//             // obj.id
-
-//         } else {
-
-
-//         }
-
-//         document.getElementById("working_params").innerHTML = JSON.stringify(obj);
-//         // console.log(obj);
-
-//         document.querySelectorAll(".game_name")[0].innerHTML = selected;
-//     }
-
-
-//     /* Get Info
-// -------------------------------------------------- */
-
-//     function getInfo(game) {
-
-        
-//         var handleResponse = function(status, response) {
-
-
-//             // Get Shortname of System 
-//             var sysorder = document.querySelectorAll(".platform.selected")[0].getAttribute("data-order");
-//             var platforms = document.getElementById("shortnames").innerHTML;
-//             platforms = JSON.parse(platforms);
-
-//             var system = platforms[sysorder];
-
-//             if (response.indexOf("game") != -1) {
-//                 var obj = JSON.parse(response);
-//                 if (obj) {
-//                     var results_length = obj.games.game.length;
-
-//                     // Multiple Results
-//                     if (results_length != null) {
-
-//                         // displayGame(obj.games.game[0], game)
-
-//                         for (var i = 0; i < results_length; i++) {
-
-//                             // Give Specific Platform Priority if possible
-//                             if (obj.games.game[i].system != system && i != results_length - 1) {
-//                                 delete obj.games.game[i];
-//                             } else {
-//                                 displayGame(obj.games.game[i], game)
-//                                 break;
-//                             }
-
-//                         }
-//                     }
-
-//                     // Single Result
-//                     else {
-//                         displayGame(obj.games.game, game)
-//                     }
-//                 }
-
-//                 // No Results
-//                 else {
-//                     displayGame(null, game);
-//                 }
-
-//             } else {
-//                 displayGame(null, game);
-//             }
-
-//         }
-
-//         var handleStateChange = function() {
-//             switch (xmlhttp.readyState) {
-//                 case 0: // UNINITIALIZED
-//                 case 1: // LOADING
-//                 case 2: // LOADED
-//                 case 3: // INTERACTIVE
-//                     break;
-//                 case 4: // COMPLETED
-//                     handleResponse(xmlhttp.status, xmlhttp.responseText);
-//                     break;
-//                 default:
-//                     console.log("error")
-//             }
-//         }
-
-//         // game = game.replace(/ /g, '+');
-
-//         url = "../game/profile/small/" + game;
-//         var xmlhttp = new XMLHttpRequest();
-//         xmlhttp.onreadystatechange = handleStateChange;
-//         xmlhttp.open("POST", url, true);
-//         xmlhttp.send(null);
-//     }
-
-//     return function selectedGame(el) {
-
-//         var p = document.getElementById('platforms').innerHTML;
-//         console.log(p);
-//         p = JSON.parse(p);
-
-//         var ref = el.getAttribute("data-snav");
-//         var refAttr = document.querySelectorAll("[data-ref]");
-
-//         var offSelect = -36;
-//         var alphalist = document.getElementById("alpha_list");
-
-//         alphalist.scrollTop = 0;
-
-//         offSelect = offSelect + 36;
-//         alphalist.scrollTop = offSelect;
-
-//         var g = refAttr[ref].innerHTML;
-
-//         var num = g.charAt(0);
-//         if (!isNaN(num)) {
-//             num = "#";
-//         }
-
-//         // Add Alpha List Active
-//         [].forEach.call(
-//             document.querySelectorAll('[data-alpha]'),
-//             function(el) {
-//                 if (el.attributes[0].nodeValue == num) {
-//                     el.classList.add('active')
-//                 } else {
-//                     el.classList.remove('active');
-//                 }
-//             }
-//         );
-
-//         g = g.replace(/\[.*\]/, '');
-//         g = g.replace(/\(.*\)/, '');
-
-//         var elements = document.getElementsByClassName('nameOfClassHere');
-
-//         var emptyDiv = document.querySelectorAll("span.game_image, span.game_genre, span.game_genre, span.game_deck, span.game_ersb");
-//         emptyDiv.innerHTML = "";
-//         // $("span.game_image, span.game_genre, span.game_genre, span.game_deck, span.game_ersb").html("");
-
-//         var workingDiv = document.querySelectorAll('span.game_image').innerHTM = "<i class='icon purple ion-loading-c' style='font-size:5em;padding:10px'></i>";
-//         // $("span.game_image").html("<i class='icon purple ion-loading-c' style='font-size:5em;padding:10px'></i>");
-
-//         workingDiv = document.querySelectorAll('span.game_name').innerHTML = g;
-//         // $("span.game_name").html(g);
-//         workingDiv = document.querySelectorAll('.info_list_name h4').innerHTML = '';
-//         // $(".info_list_name h4").html("");
-
-//         // Construct Initial Launch Parameters
-//         var launchParms = new Object();
-
-//         launchParms.base = "retroarch";
-//         launchParms.paramaters = "L";
-//         launchParms.system = document.querySelectorAll('li.selected')[0].firstChild.nodeValue;
-//         launchParms.emulator = document.querySelectorAll('li.selected')[0].attributes[5].nodeValue;
-//         launchParms.rom = document.querySelectorAll('.selectedNav')[0].childNodes[0].childNodes[1].attributes[2].nodeValue;
-
-//         launchParms.pack = p;
-
-
-//         var rompath = "/home/pi/roms/" + launchParms.pack[launchParms.system].short + "/" + launchParms.rom + "";
-
-//         workingDiv = document.querySelector('#alpha_list').setAttribute('data-parameters', JSON.stringify(launchParms));
-
-//         // $("#alpha_list").attr("data-parameters", JSON.stringify(launchParms));
-
-//         console.log(launchParms.rom);
-//         // Achievement Lookup
-
-//         var handleResponse = function(status, response) {
-//             if (status == 200) {
-//                 var achievement_display = document.getElementById("achievement_display");
-//                 if (response) {
-//                     achievement_display.classList.remove("hidden");
-//                 } else {
-//                     achievement_display.classList.add("hidden");
-//                 }
-//             } else {
-//                 return;
-//             }
-//         };
-
-//         var handleStateChange = function() {
-//             switch (xmlhttp.readyState) {
-//                 case 0: // UNINITIALIZED
-//                 case 1: // LOADING
-//                 case 2: // LOADED
-//                 case 3: // INTERACTIVE
-//                     break;
-//                 case 4: // COMPLETED
-//                     handleResponse(xmlhttp.status, xmlhttp.responseText);
-//                     break;
-//                 default:
-//                     console.log("error")
-//             }
-//         }
-
-//         var xmlhttp = new XMLHttpRequest();
-//         xmlhttp.open("POST", "http://localhost:1210/hash", true);
-//         xmlhttp.onreadystatechange = handleStateChange;
-//         xmlhttp.send(rompath);
-
-
-     
-//     }
 
 };
 
@@ -5199,7 +4925,6 @@ module.exports = function(event, p) {
 
             if (p) {
 
-
                 var allBacks = document.querySelectorAll(".systemNotificationContentBackdrop");
                 var allConts = document.querySelectorAll(".systemNotificationContent");
 
@@ -5208,8 +4933,6 @@ module.exports = function(event, p) {
                 // document.body.removeChild(content);
 
             }
-
-
         }
 
         if (event == 'community') {
@@ -5267,51 +4990,53 @@ module.exports = function(event, p) {
         if (event == 'largeProfile') {
 
 
-            var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
+            console.log(p);
 
-            var httpRequest = new XMLHttpRequest();
-            httpRequest.open("GET", "../includes/screens.json", false);
-            httpRequest.send()
+            // var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
 
-            document.getElementById('content_load').style.display = 'none'
+            // var httpRequest = new XMLHttpRequest();
+            // httpRequest.open("GET", "../includes/screens.json", false);
+            // httpRequest.send()
 
-            var url = "http://localhost:1210/game/profile/large/" + p;
+            // document.getElementById('content_load').style.display = 'none'
 
-            var httpRequest = new XMLHttpRequest();
-            httpRequest.onreadystatechange = function(data) {
+            // var url = "http://localhost:1210/game/profile/large/" + p;
 
-                {
-                    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+            // var httpRequest = new XMLHttpRequest();
+            // httpRequest.onreadystatechange = function(data) {
 
-                        var fragment = document.createDocumentFragment();
+            //     {
+            //         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
 
-                        var s = fragment.appendChild(document.createElement('div'));
-                        s.setAttribute("data-package", workingPack);
-                        s.innerHTML = httpRequest.responseText;
-                        fragment.appendChild(s);
+            //             var fragment = document.createDocumentFragment();
 
-                        var recentObj = document.getElementById("working_params").innerHTML;
+            //             var s = fragment.appendChild(document.createElement('div'));
+            //             s.setAttribute("data-package", workingPack);
+            //             s.innerHTML = httpRequest.responseText;
+            //             fragment.appendChild(s);
 
-                        var objParsed = JSON.stringify(recentObj);
-                        objParsed = JSON.parse(objParsed);
+            //             var recentObj = document.getElementById("working_params").innerHTML;
 
-                        document.body.innerHTML = "";
-                        document.getElementsByTagName('body').item(0).appendChild(fragment);
+            //             var objParsed = JSON.stringify(recentObj);
+            //             objParsed = JSON.parse(objParsed);
 
-                        document.getElementById('profile-gametitle').innerHTML = removeBrackets(p).replace(/\.[^/.]+$/, "");
-                        document.getElementById('play-game').setAttribute("data-parameters", workingPack);
+            //             document.body.innerHTML = "";
+            //             document.getElementsByTagName('body').item(0).appendChild(fragment);
 
-
-                    }
-                }
-
-            }
-
-            httpRequest.open('GET', url);
-            httpRequest.send();
+            //             document.getElementById('profile-gametitle').innerHTML = removeBrackets(p).replace(/\.[^/.]+$/, "");
+            //             document.getElementById('play-game').setAttribute("data-parameters", workingPack);
 
 
-            document.getElementById('content_load').style.display = ''
+            //         }
+            //     }
+
+            // }
+
+            // httpRequest.open('GET', url);
+            // httpRequest.send();
+
+
+            // document.getElementById('content_load').style.display = ''
 
 
 

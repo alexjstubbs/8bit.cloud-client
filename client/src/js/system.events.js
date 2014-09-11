@@ -45,7 +45,6 @@ module.exports = function(event, p) {
 
             if (p) {
 
-
                 var allBacks = document.querySelectorAll(".systemNotificationContentBackdrop");
                 var allConts = document.querySelectorAll(".systemNotificationContent");
 
@@ -54,8 +53,6 @@ module.exports = function(event, p) {
                 // document.body.removeChild(content);
 
             }
-
-
         }
 
         if (event == 'community') {
@@ -113,51 +110,53 @@ module.exports = function(event, p) {
         if (event == 'largeProfile') {
 
 
-            var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
+            console.log(p);
 
-            var httpRequest = new XMLHttpRequest();
-            httpRequest.open("GET", "../includes/screens.json", false);
-            httpRequest.send()
+            // var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
 
-            document.getElementById('content_load').style.display = 'none'
+            // var httpRequest = new XMLHttpRequest();
+            // httpRequest.open("GET", "../includes/screens.json", false);
+            // httpRequest.send()
 
-            var url = "http://localhost:1210/game/profile/large/" + p;
+            // document.getElementById('content_load').style.display = 'none'
 
-            var httpRequest = new XMLHttpRequest();
-            httpRequest.onreadystatechange = function(data) {
+            // var url = "http://localhost:1210/game/profile/large/" + p;
 
-                {
-                    if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+            // var httpRequest = new XMLHttpRequest();
+            // httpRequest.onreadystatechange = function(data) {
 
-                        var fragment = document.createDocumentFragment();
+            //     {
+            //         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
 
-                        var s = fragment.appendChild(document.createElement('div'));
-                        s.setAttribute("data-package", workingPack);
-                        s.innerHTML = httpRequest.responseText;
-                        fragment.appendChild(s);
+            //             var fragment = document.createDocumentFragment();
 
-                        var recentObj = document.getElementById("working_params").innerHTML;
+            //             var s = fragment.appendChild(document.createElement('div'));
+            //             s.setAttribute("data-package", workingPack);
+            //             s.innerHTML = httpRequest.responseText;
+            //             fragment.appendChild(s);
 
-                        var objParsed = JSON.stringify(recentObj);
-                        objParsed = JSON.parse(objParsed);
+            //             var recentObj = document.getElementById("working_params").innerHTML;
 
-                        document.body.innerHTML = "";
-                        document.getElementsByTagName('body').item(0).appendChild(fragment);
+            //             var objParsed = JSON.stringify(recentObj);
+            //             objParsed = JSON.parse(objParsed);
 
-                        document.getElementById('profile-gametitle').innerHTML = removeBrackets(p).replace(/\.[^/.]+$/, "");
-                        document.getElementById('play-game').setAttribute("data-parameters", workingPack);
+            //             document.body.innerHTML = "";
+            //             document.getElementsByTagName('body').item(0).appendChild(fragment);
 
-
-                    }
-                }
-
-            }
-
-            httpRequest.open('GET', url);
-            httpRequest.send();
+            //             document.getElementById('profile-gametitle').innerHTML = removeBrackets(p).replace(/\.[^/.]+$/, "");
+            //             document.getElementById('play-game').setAttribute("data-parameters", workingPack);
 
 
-            document.getElementById('content_load').style.display = ''
+            //         }
+            //     }
+
+            // }
+
+            // httpRequest.open('GET', url);
+            // httpRequest.send();
+
+
+            // document.getElementById('content_load').style.display = ''
 
 
 

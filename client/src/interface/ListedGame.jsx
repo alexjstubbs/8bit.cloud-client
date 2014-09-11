@@ -25,7 +25,7 @@ module.exports = React.createClass({
 
         return (
         
-                <tr className='subNavable' data-snav={this.props.navStack} data-function={this.props.functionCall} data-parameters={this.props.game}>
+                <tr className='subNavable' data-snav={this.props.navStack} data-function={this.props.functionCall} data-parameters={this.props.filename} data-title={this.props.game}>
                     <td data-tdalpha='alpha_selection'>
                         <div className='left_alpha pull-left'>{this.props.alpha}</div>
                         <a className='launch' data-ref={this.props.navStack} data-game={this.props.game} href='#'>{this.props.game}</a>
