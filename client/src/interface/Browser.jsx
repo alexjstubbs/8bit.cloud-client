@@ -91,7 +91,7 @@ module.exports = React.createClass({
                             <li data-alpha='Q'><a href="#Q">Q</a></li>
                             <li data-alpha='R'><a href="#R">R</a></li>
                             <li data-alpha='S'><a href="#S">S</a></li>
-                            <li data-alpha='Y'><a href="#T">T</a></li>
+                            <li data-alpha='T'><a href="#T">T</a></li>
                             <li data-alpha='U'><a href="#U">U</a></li>
                             <li data-alpha='V'><a href="#V">V</a></li>
                             <li data-alpha='W'><a href="#W">W</a></li>

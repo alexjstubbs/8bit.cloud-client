@@ -108,7 +108,13 @@ var browserNavigationEvents = function(g) {
         }
     );
 
+    var alpha = game.charAt(0);
+    var pagination = document.getElementById("browser_pagination");
 
+    var actives = document.querySelectorAll(".active")[0];
+    if (actives) { actives.classList.remove("active"); }
+
+    document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
 
 
 
