@@ -20,7 +20,7 @@ var navigationInit = function() {
         el.setAttribute("data-nav", i)
     });
 
-    _.first(navables).classList.add("selectedNav");
+    _.first(navables).classList.add("selectedNav", "selected");
 
     highlight();
 }

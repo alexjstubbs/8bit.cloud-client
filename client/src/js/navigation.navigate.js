@@ -52,6 +52,14 @@ module.exports = function(k) {
                 if (i < q) {
                     i++;
                 }
+
+                if (s.parentNode.classList.contains("scroll-into-view")) {
+                    // var d = document.querySelectorAll(".selectedNav");
+
+                    var d = s.nextElementSibling.nextElementSibling;
+                    d.scrollIntoView(false); 
+             
+                }
             }
 
             // left
@@ -63,6 +71,13 @@ module.exports = function(k) {
                 }
                 if (i - 1 != -1) {
                     i--;
+                }
+
+                if (s.parentNode.classList.contains("scroll-into-view")) {
+                  
+                    var d = s.previousElementSibling.previousElementSibling;
+                    d.scrollIntoView(false); 
+               
                 }
             }
 
@@ -83,12 +98,6 @@ module.exports = function(k) {
                 } else {
                     document.querySelectorAll(".parent .navable")[0].classList.add("selectedNav");
                 }
-            }
-
-
-            if (s.parentNode.classList.contains("scroll-into-view")) {
-                    var d = document.querySelectorAll(".selectedNav");
-                    d[0].scrollIntoView(false);
             }
 
 

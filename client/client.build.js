@@ -3120,9 +3120,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function () {
 
-        var el = getFirstChild(document.getElementById("platform-list"));
-        el.classList.add("selectedNav", "selected");
-
         api.emit('request', { request: 'platformList'});
         api.on('api', this.setState.bind(this));
 
@@ -3152,12 +3149,16 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.header({id: "heading"}, 
 
                         React.DOM.div({id: "ul-wrap"}), 
-                    
+
                         React.DOM.div({className: "col-md-12 text-left"}, 
                         
                             React.DOM.ul({id: "platform-list", className: "platform-list scroll-into-view"}, 
+
+                                React.DOM.li({className: "no-show"}, "   "), 
                               
-                                platformNodes
+                                platformNodes, 
+
+                                 React.DOM.li({className: "no-show"}, "   ")
                                
                             )
                 
@@ -4517,7 +4518,7 @@ var navigationInit = function() {
         el.setAttribute("data-nav", i)
     });
 
-    _.first(navables).classList.add("selectedNav");
+    _.first(navables).classList.add("selectedNav", "selected");
 
     highlight();
 }
@@ -4629,6 +4630,14 @@ module.exports = function(k) {
                 if (i < q) {
                     i++;
                 }
+
+                if (s.parentNode.classList.contains("scroll-into-view")) {
+                    // var d = document.querySelectorAll(".selectedNav");
+
+                    var d = s.nextElementSibling.nextElementSibling;
+                    d.scrollIntoView(false); 
+             
+                }
             }
 
             // left
@@ -4640,6 +4649,13 @@ module.exports = function(k) {
                 }
                 if (i - 1 != -1) {
                     i--;
+                }
+
+                if (s.parentNode.classList.contains("scroll-into-view")) {
+                  
+                    var d = s.previousElementSibling.previousElementSibling;
+                    d.scrollIntoView(false); 
+               
                 }
             }
 
@@ -4660,12 +4676,6 @@ module.exports = function(k) {
                 } else {
                     document.querySelectorAll(".parent .navable")[0].classList.add("selectedNav");
                 }
-            }
-
-
-            if (s.parentNode.classList.contains("scroll-into-view")) {
-                    var d = document.querySelectorAll(".selectedNav");
-                    d[0].scrollIntoView(false);
             }
 
 

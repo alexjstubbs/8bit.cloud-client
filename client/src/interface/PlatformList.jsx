@@ -24,9 +24,6 @@ module.exports = React.createClass({
 
     componentDidMount: function () {
 
-        var el = getFirstChild(document.getElementById("platform-list"));
-        el.classList.add("selectedNav", "selected");
-
         api.emit('request', { request: 'platformList'});
         api.on('api', this.setState.bind(this));
 
@@ -56,12 +53,16 @@ module.exports = React.createClass({
                     <header id="heading">
 
                         <div id="ul-wrap"></div>
-                    
+
                         <div className="col-md-12 text-left">
                         
-                            <ul id="platform-list" className="platform-list scroll-into-view">      
+                            <ul id="platform-list" className="platform-list scroll-into-view">   
+
+                                <li className="no-show"> &nbsp; &nbsp; </li>   
                               
-                                {platformNodes}      
+                                {platformNodes}  
+
+                                 <li className="no-show"> &nbsp; &nbsp; </li>   
                                
                             </ul>
                 
