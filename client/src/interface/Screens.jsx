@@ -18,7 +18,7 @@ init();
 /* Set up Screens
 -------------------------------------------------- */
 
-var _screens = ["Dashboard", "Browser"];
+var _screens = ["Dashboard", "Browser", "Profile"];
 var screens = [<Dashboard />, <Browser />, <LargeProfile />];
 
 var container = document.getElementById("screens");

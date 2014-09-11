@@ -86,7 +86,7 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
-    var longname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
+    var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters");
 
     var game = removeBrackets(g.getAttribute("data-title")),
         game = game.replace(/\.[^/.]+$/, "");
@@ -101,7 +101,7 @@ var browserNavigationEvents = function(g) {
         "subquery": {
             type:"makeExactFilter",
             filter: "system",
-            query: longname.trim()
+            query: shortname.trim()
         },
     },function(result){
             events.updateGame(result);

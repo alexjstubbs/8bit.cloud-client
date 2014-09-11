@@ -2366,6 +2366,8 @@ module.exports = React.createClass({displayName: 'exports',
             )
             ), 
 
+            
+
             IgnitionEvents({events: ignitionEvents, eventSet: eventSet}), 
 
             React.DOM.div({class: "clearfix"}), 
@@ -2855,9 +2857,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-            React.DOM.div({id: "Profile"}, 
-
-
+        React.DOM.div({id: "Profile", className: "hidden"}, 
     
         React.DOM.div({className: "container-fluid"}, 
          
@@ -3358,7 +3358,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
         return (
-              React.DOM.li({className: this.props.classList, 'data-emulators': this.props.emulators, 'data-ext': this.props.ext, 'data-function': this.props.functionCall, 'data-parameters': this.props.short, 'data-order': this.props.navStack}, this.props.platform)
+              React.DOM.li({className: this.props.classList, 'data-emulators': this.props.emulators, 'data-ext': this.props.ext, 'data-function': this.props.functionCall, 'data-parameters': this.props.short, 'data-order': this.props.navStack, 'data-title': this.props.platform}, this.props.platform)
         )
     }
 });
@@ -3535,7 +3535,7 @@ init();
 /* Set up Screens
 -------------------------------------------------- */
 
-var _screens = ["Dashboard", "Browser"];
+var _screens = ["Dashboard", "Browser", "Profile"];
 var screens = [Dashboard(null), Browser(null), LargeProfile(null)];
 
 var container = document.getElementById("screens");
@@ -4586,7 +4586,7 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
-    var longname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
+    var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters");
 
     var game = removeBrackets(g.getAttribute("data-title")),
         game = game.replace(/\.[^/.]+$/, "");
@@ -4601,7 +4601,7 @@ var browserNavigationEvents = function(g) {
         "subquery": {
             type:"makeExactFilter",
             filter: "system",
-            query: longname.trim()
+            query: shortname.trim()
         },
     },function(result){
             events.updateGame(result);
@@ -5283,6 +5283,7 @@ module.exports = function(event, p) {
 
             document.getElementsByClassName("Profile")[0].classList.remove("hidden");
             document.getElementsByClassName("Profile")[0].children[0].classList.add("parent");
+            document.getElementById("Profile").classList.remove("hidden");
 
             document.getElementById("main").setAttribute("data-screen", "Profile");
 

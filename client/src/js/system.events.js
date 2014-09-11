@@ -119,6 +119,7 @@ module.exports = function(event, p) {
 
             document.getElementsByClassName("Profile")[0].classList.remove("hidden");
             document.getElementsByClassName("Profile")[0].children[0].classList.add("parent");
+            document.getElementById("Profile").classList.remove("hidden");
 
             document.getElementById("main").setAttribute("data-screen", "Profile");
 

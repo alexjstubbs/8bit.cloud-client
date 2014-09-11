@@ -22,7 +22,7 @@ module.exports = React.createClass({
 
     render: function() {
         return (
-              <li className={this.props.classList} data-emulators={this.props.emulators} data-ext={this.props.ext} data-function={this.props.functionCall} data-parameters={this.props.short} data-order={this.props.navStack}>{this.props.platform}</li>
+              <li className={this.props.classList} data-emulators={this.props.emulators} data-ext={this.props.ext} data-function={this.props.functionCall} data-parameters={this.props.short} data-order={this.props.navStack} data-title={this.props.platform}>{this.props.platform}</li>
         )
     }
 });

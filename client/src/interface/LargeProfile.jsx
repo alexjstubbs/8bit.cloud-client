@@ -35,9 +35,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div id="Profile">
-
-
+        <div id="Profile" className="hidden">
     
         <div className="container-fluid">
          

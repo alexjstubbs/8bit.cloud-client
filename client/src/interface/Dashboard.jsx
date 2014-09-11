@@ -132,6 +132,8 @@ module.exports = React.createClass({
             </div>
             </div>
 
+            
+
             <IgnitionEvents events={ignitionEvents} eventSet={eventSet} />
 
             <div class="clearfix"></div>
