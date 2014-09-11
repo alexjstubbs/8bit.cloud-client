@@ -2637,7 +2637,6 @@ module.exports = React.createClass({displayName: 'exports',
 
                 if (nodeList[index] && _.contains(alpha_list, alpha) == false) {
                     nodeList[index].innerHTML = alpha;
-                    console.log(alpha_list);
                 }
 
              alpha_list.push(alpha);
