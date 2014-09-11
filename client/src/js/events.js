@@ -32,22 +32,6 @@ var updateGame = function(results, callback) {
         });
     }
   
-    else {
-        var event = new CustomEvent('updateGame', { 
-            'detail': {
-                title: "Game Title",
-                description: "",
-                rating: "",
-                ersb_rating: "",
-                genre: "",
-                id: "",
-                developer: "",
-                image: ""
-
-            }
-        });
-    }
-
     window.dispatchEvent(event);
 
 }

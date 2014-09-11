@@ -32,11 +32,18 @@ module.exports = React.createClass({
 
         var nodeList = document.querySelectorAll(".left_alpha");
 
-        _(this.state.gamesList).forEach(function(_char, index)
-          {
-            console.log(nodeList);
+        var alpha_list = [];
+        _(this.state.gamesList).forEach(function(_char, index) {
+
+            index--;
+
             var alpha = _char.filename.charAt(0);
-            nodeList[index].innerHTML = alpha;
+
+                if (nodeList[index] && _.contains(alpha_list, alpha) == false) {
+                    nodeList[index].innerHTML = alpha;
+                }
+
+             alpha_list.push(alpha);
         });
     },
       

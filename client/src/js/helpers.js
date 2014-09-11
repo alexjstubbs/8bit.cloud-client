@@ -30,9 +30,17 @@ var removeBrackets = function(input) {
     .replace(re, '');
 }
 
+var preloadImage = function(url, callback) {
+    var img=new Image();
+    img.src=url;
+    img.onload = function () {
+        callback(true)        
+    };
+}
 
 /* Exports
 -------------------------------------------------- */
 
 exports.getFirstChild = getFirstChild;
 exports.removeBrackets = removeBrackets;
+exports.preloadImage = preloadImage;

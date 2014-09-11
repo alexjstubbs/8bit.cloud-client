@@ -4,7 +4,8 @@
 
 'use strict';
 
-var React = require('react/addons');
+var React = require('react/addons'),
+    helpers = require('../js/helpers');
 
 module.exports = React.createClass({
 
@@ -21,12 +22,19 @@ module.exports = React.createClass({
             classString: "slide col-md-4",
             title: "Community",
             id: "panel_community",
-            imageStyles: null
+            imageStyles: null,
+            hidden: "hidden"
         }
     },
     render: function() {
 
         var imageStyles = this.props.imageStyles;
+
+        var component = this;
+        helpers.preloadImage(this.props.image, function() {
+            document.getElementById("community_image").classList.remove("hidden");
+
+        });
 
         return (
          <div className={this.props.classString}>
@@ -45,7 +53,7 @@ module.exports = React.createClass({
                 
             <tr>
                 <td colSpan='2' className="rss_image"><br />                        
-                  <span className="rImg"><img src={this.props.image} className='img-responsive' style={JSON.parse(imageStyles)} /></span>
+                  <span className="rImg"><img id="community_image" src={this.props.image} className='img-responsive hidden' style={JSON.parse(imageStyles)} /></span>
                 </td>
             </tr>
 

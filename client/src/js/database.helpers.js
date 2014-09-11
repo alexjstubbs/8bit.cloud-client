@@ -51,8 +51,6 @@ var filterByAttribute = function(database, query, callback) {
             }
         });
 
-        console.log(filter);
-
         if (filter.length > 1) {
             var filtered = filter[0].and(filter[1]);
             var filter_results = collection[database].get(filtered.cids);
@@ -61,7 +59,6 @@ var filterByAttribute = function(database, query, callback) {
         else {
             var filtered = filter[0];
             var filter_results = collection[database].get(filtered.cids);
-            console.log(filter_results);
         }
 
         if (filter_results.length && database == "games") {
@@ -69,9 +66,18 @@ var filterByAttribute = function(database, query, callback) {
         }
 
         else {
-            var title = query.query.query;
-            api.emit('request', { request: 'lookupGame', param: title });
-            console.log("sent request");
+
+            if (database == "games") {
+                var title = query.query.query;
+                api.emit('request', { request: 'lookupGame', param: title });
+                console.log("here");
+                var obj = [{ 
+                    title: title,
+                    description: title+" the videogame"
+                }];
+                callback(obj);
+            }
+
         }
 
     } 
