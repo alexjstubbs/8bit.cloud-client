@@ -1,4 +1,4 @@
-/* List Roms by System
+/* Network.isOnline
 -------------------------------------------------- */
 var fs = require('fs'),
     _ = require('lodash');

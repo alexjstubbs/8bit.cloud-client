@@ -18,6 +18,7 @@ common = {
     databases: require('../local/api/database/database.local'),
     listPlatforms: require('../local/api/api.platforms'),
     network: require('../local/api/network/network.online'),
+    location: require('../local/api/network/network.location'),
     db: require('../local/api/game/game.image'),
     exec: require('../local/system/system.exec')
 };

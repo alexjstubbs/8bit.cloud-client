@@ -31,6 +31,10 @@ var api = {
         common.game.apicall(nsp, game);
     },
 
+    ipInfo: function(nsp) {
+        common.location.ipInfo(nsp);
+    }
+
 }
 
 exports.apiMethod = api;

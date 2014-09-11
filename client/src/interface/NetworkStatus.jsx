@@ -11,7 +11,8 @@ module.exports = React.createClass({
     
     getInitialState: function() {
         return {
-            isOnline: false
+            isOnline: false,
+            ip: '127.0.0.1'
         };
     },
 
@@ -20,12 +21,15 @@ module.exports = React.createClass({
         var _this = this;
         var user = this.props.username;
         api.emit('request', { request: 'isOnline', param: this.props.username});
+        api.emit('request', { request: 'ipInfo', param: null});
         
         api.on('api', function(response) {
     
             if (response.username == user) { 
                 _this.setState({isOnline: response.isOnline})
             }
+
+           _this.setState({ip: response.ip})
 
         });
 
@@ -47,7 +51,7 @@ module.exports = React.createClass({
 
         return (
             <span>
-                <span className="muted well online" style={inlineStyle}><strong><i className={classes}></i></strong> {this.state.isOnline ? "Online" : "Offline"}</span> 
+                <span className="muted well online" data-location={this.state.ip} style={inlineStyle}><strong><i className={classes}></i></strong> {this.state.isOnline ? "Online" : "Offline"}</span> 
             </span>
             )
     }
