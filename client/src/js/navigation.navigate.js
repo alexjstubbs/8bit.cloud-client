@@ -26,6 +26,7 @@ module.exports = function(k) {
                 
                 // Module pointer to navigation.browser refactor:
                 navigationBrowse(currentSelection[0]);
+                currentSelection[0].scrollIntoView(false);
               
             }
         }
@@ -70,14 +71,6 @@ module.exports = function(k) {
 
             var lastNodeNav = document.querySelectorAll(".parent .navable")[i];
 
-            // element.scrollIntoView(alignWithTop);
-
-            console.log(s.parentNode.classList);
-
-            if (s.parentNode.classList.contains("scroll-into-view")) {
-                document.querySelectorAll(".parent .navable")[i].scrollIntoView(false);
-            }''
-
             // Outside Panel
             if (lastNodeNav) {
                document.querySelectorAll(".parent .navable")[i].classList.add("selectedNav");
@@ -91,6 +84,13 @@ module.exports = function(k) {
                     document.querySelectorAll(".parent .navable")[0].classList.add("selectedNav");
                 }
             }
+
+
+            if (s.parentNode.classList.contains("scroll-into-view")) {
+                    var d = document.querySelectorAll(".selectedNav");
+                    d[0].scrollIntoView(false);
+            }
+
 
         }
 
@@ -126,7 +126,6 @@ module.exports = function(k) {
                 } else {
                     if (screen == 'Browser') {
                         if (!sub[0]) {
-                            console.log("down on browser...")
                             // If on System Selection, but not on game selection, down goes to game selection.
                             sel[0].classList.remove("selectedNav");
 

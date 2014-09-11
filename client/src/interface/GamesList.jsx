@@ -26,6 +26,19 @@ module.exports = React.createClass({
         api.on('api', this.setState.bind(this));
 
     },
+
+    componentDidUpdate: function() {
+        // console.log(this.state.gamesList);
+
+        var nodeList = document.querySelectorAll(".left_alpha");
+
+        _(this.state.gamesList).forEach(function(_char, index)
+          {
+            console.log(nodeList);
+            var alpha = _char.filename.charAt(0);
+            nodeList[index].innerHTML = alpha;
+        });
+    },
       
     getDefaultProps: function() {
 

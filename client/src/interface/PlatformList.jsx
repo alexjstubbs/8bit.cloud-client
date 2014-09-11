@@ -56,11 +56,11 @@ module.exports = React.createClass({
                     <header id="heading">
 
                         <div className="col-md-12 text-left">
-
+                        
                             <ul id="platform-list" className="platform-list scroll-into-view">      
-                           
+                              
                                 {platformNodes}      
-                           
+                               
                             </ul>
                 
                         </div>

@@ -110,18 +110,26 @@ td#rss_info {
     background:@black;
 }
 
-/* WebKit
+/* WebKit (refer to: http://css-tricks.com/custom-scrollbars-in-webkit/)
 -------------------------------------------------- */
 
 ::-webkit-scrollbar {
-    height: 12px;
-    width: 5px;
-background: #000;
-    }
+//     height: 12px;
+//     width: 5px;
+//     color:#fff;
+// background: #000;
+    // width: 0 !important 
+    // height:1px;
+     display: none !important;
+}
+
 ::-webkit-scrollbar-thumb {
-    background: #333;
-    -webkit-border-radius: 1ex;
-    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    // background: #333;
+    // -webkit-border-radius: 1ex;
+    // -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1);
+    // background-color:#00eaff;
+    // width:10px;
+    display:none;
 }
 ::-webkit-scrollbar-corner {
     background: #000;
@@ -836,16 +844,14 @@ ul.platform-list {
     white-space:nowrap;
     list-style-type: none !important;
     margin:0;
-    padding:10px 5px;
+    padding:10px 25px;
 }
 
-ul.platform-list::-webkit-scrollbar { width: 0 !important }
 
 ul.platform-list li {
     display:inline-block;
     margin:0 30px 0 0;
     color:@gray-dark;
-
 }
 
 ul.platform-list li.selected {
