@@ -7,6 +7,7 @@
 var React = require('react/addons')
 ,   Dashboard = require('./Dashboard.jsx')
 ,   Browser = require('./Browser.jsx')
+,   LargeProfile = require('./LargeProfile.jsx')
 ,   init = require('../js/init.js')
 ,   _ = require('lodash')
 ,   navigationInit = require('../js/navigation.init.js');
@@ -18,7 +19,7 @@ init();
 -------------------------------------------------- */
 
 var _screens = ["Dashboard", "Browser"];
-var screens = [<Dashboard />, <Browser />];
+var screens = [<Dashboard />, <Browser />, <LargeProfile />];
 
 var container = document.getElementById("screens");
 

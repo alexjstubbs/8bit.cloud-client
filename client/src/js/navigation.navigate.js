@@ -57,8 +57,9 @@ module.exports = function(k) {
                     // var d = document.querySelectorAll(".selectedNav");
 
                     var d = s.nextElementSibling.nextElementSibling;
-                    d.scrollIntoView(false); 
-             
+
+                        d.scrollIntoView(false); 
+               
                 }
             }
 
@@ -76,8 +77,9 @@ module.exports = function(k) {
                 if (s.parentNode.classList.contains("scroll-into-view")) {
                   
                     var d = s.previousElementSibling.previousElementSibling;
-                    d.scrollIntoView(false); 
-               
+                    if (d) {
+                        d.scrollIntoView(false); 
+                    }
                 }
             }
 

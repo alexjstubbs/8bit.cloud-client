@@ -109,9 +109,22 @@ module.exports = function(event, p) {
         // Large Profile Page
         if (event == 'largeProfile') {
 
-
             console.log(p);
 
+            document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
+            document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");
+            document.getElementsByClassName("Browser")[0].classList.add("hidden");
+            document.getElementsByClassName("Browser")[0].children[0].classList.remove("parent");
+            document.getElementsByClassName("browser_header")[0].classList.add("hidden");
+
+            document.getElementsByClassName("Profile")[0].classList.remove("hidden");
+            document.getElementsByClassName("Profile")[0].children[0].classList.add("parent");
+
+            document.getElementById("main").setAttribute("data-screen", "Profile");
+
+            navigationInit.navigationInit();
+
+           
             // var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
 
             // var httpRequest = new XMLHttpRequest();
