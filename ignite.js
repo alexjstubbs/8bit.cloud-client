@@ -31,7 +31,9 @@ var express = require('express')
 ,   io = require('socket.io').listen(http)
 ,   nsp = io.of('/api')
 ,   fs = require('fs')
-,   api = require('./local/api/api');
+,   api = require('./local/api/api')
+,   Insight = require('insight')
+    pkg = require('./package.json');
 
 api(nsp);
 
@@ -62,6 +64,25 @@ app.configure(function() {
 app.configure('development', function() {
     app.use(common.express.errorHandler());
 });
+
+/* Anonymous Analytics OPT-IN
+-------------------------------------------------- */
+
+var insight = new Insight({
+    // Google Analytics tracking code
+    trackingCode: 'UA-54752042-1',
+    packageName: pkg.name,
+    packageVersion: pkg.version
+});
+
+// ask for permission the first time
+// if (insight.optOut === undefined) {
+//     return insight.askPermission();
+// }
+
+insight.optOut = false;
+
+insight.track('ignition', 'beta');
 
 /* Client Routes
 -------------------------------------------------- */

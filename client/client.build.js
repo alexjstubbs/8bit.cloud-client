@@ -2905,8 +2905,14 @@ module.exports = React.createClass({displayName: 'exports',
             "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
             "genre": "Action > Adventure",
             "playtime": "1:12:02",
-            "saves": [{}],
-            "achievements": [{}]
+            "saves": [
+                {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
+            ],
+            "CRC32": 123,
+            "achievements": [
+                {"title": "Hello World", "Description": "Collect Your First Mushroom!"},
+                {"title": "Hello World", "Description": "Collect Your Second Mushroom!"}
+            ]
         };
     },
 
@@ -2972,7 +2978,7 @@ module.exports = React.createClass({displayName: 'exports',
     
         )
         ), 
-           
+
          React.DOM.div({className: "col-md-10 profile-section hidden"}, 
             React.DOM.h1(null, "Screenshots")
             
