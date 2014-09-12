@@ -13,18 +13,15 @@ var React = require('react/addons'),
 
 module.exports = React.createClass({
 
-  // getInitialState: function() {
-  //       //   return {
-  //       //       "rating": {},
-  //       //       "description": "",
-  //       //       "title": "",
-  //       //       "esrb_rating": {},
-  //       //       "genre": "",
-  //       //       "id": "",
-  //       //       "developer": "",
-  //       //       "image": ""
-  //       // };
-  //   },
+  getInitialState: function() {
+          return {
+            "title": "The Legend of Zelda",            
+            "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
+            "genre": "Action > Adventure",
+            "playtime": "1:12:02",
+            "saves": [{}]   
+        };
+    },
 
     componentDidMount: function () {
 
@@ -32,6 +29,10 @@ module.exports = React.createClass({
 
     
     render: function() {
+
+        var saveNodes = this.state.savestates.map(function (state, i) {
+            return <SaveStates filename={state} image={platform.short} emulators={platform.emulators} navStack={i+1} />
+        });
 
         return (
 
@@ -54,49 +55,25 @@ module.exports = React.createClass({
          <br /><br />
 
          <div className="col-md-2" id="profile-boxart">  
-            <img src="https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png" className="img-responsive" />
-            <ul id="profile-sub-buttons">
+            <img src={this.state.boxart} className="img-responsive" />
+            <ul id="profile-sub-buttons" className="hidden">
                <li><button className='btn btn-purple'><i className='fa fa-video-camera '></i> &nbsp; Live Stream</button></li>
             </ul>
          </div>
       
          <div className="col-md-4" id="profile-gameinfo">
-            <h2 id="profile-gametitle">The Legend of Zelda</h2>
-            <span className='muted'>Action > Adventure</span>
+            <h2 id="profile-gametitle">{this.state.title}</h2>
+            <span className='muted'>{this.state.genre}</span>
             <br />
-            <div className="timer">Time Played: 1:30:21</div>
+            <div className="timer">Time Played: {this.state.playtime}</div>
             <br />
             <a id="play-game" className='btn-alt btn-lg navable selectedNav' data-nav='2' data-function="launchGame" data-parameters="">Play Game</a>
             &nbsp; 
             <a className='btn-alt btn-lg navable' data-nav='3'>Multiplayer</a>
          </div>
         
-         <div className="col-md-5  pull-left" id="profile-saves">
-            <div className="row">
-               <div className="col-md-4">
-                  <a href="#">
-                  <img src="http://www.mobygames.com/images/shots/l/223581-super-mario-bros-nes-screenshot-some-worlds-are-underground.png" className="img-responsive save-slot navable" data-nav='4' />
-                  </a>
-                  <div className='slot-number'>Slot 1</div>
-                  06/27/2014 @ 5:58pm
-               </div>
-               <div className="col-md-4">
-                  <a href="#">
-                  <img src="http://img.gamefaqs.net/screens/e/d/b/gfs_18739_2_4.jpg" className="img-responsive save-slot navable" data-nav='5' />
-                  </a>
-                  <div className='slot-number'>Slot 2</div>
-                  01/21/2013 @ 2:01pm
-               </div>
-               <div className="col-md-4">
-                  <a href="#">
-                  <img src="http://www.consoleclassix.com/info_img/Super_Mario_Brothers_NES_ScreenShot2.jpg" className="img-responsive save-slot navable" data-nav='5' />
-                  </a>
-                  <div className='slot-number'>Slot 3</div>
-                  06/27/2014 @ 5:58pm
-               </div>
-            </div>
-         </div>
-       
+        <saveNodes />
+
          <div className="col-md-9 profile-section">
             <h1>Achievements <span className="achievement-stats">1 out of 10 Accomplished.</span></h1>
             <ul id="achievements">
