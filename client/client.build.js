@@ -2905,7 +2905,7 @@ module.exports = React.createClass({displayName: 'exports',
             "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
             "genre": "Action > Adventure",
             "playtime": "1:12:02",
-            "saves": [
+            "savestates": [
                 {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
             ],
             "CRC32": 123,
@@ -2924,12 +2924,13 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         var saveNodes = this.state.savestates.map(function (state, i) {
-            return SaveStates({filename: state, image: platform.short, emulators: platform.emulators, navStack: i+1})
+            return SaveStates({filename: state.filename, image: state.image, slot: state.slot, navStack: i+1})
         });
 
         var achievementNodes = this.state.savestates.map(function (achievement, i) {
-            return AchievementList({filename: state, image: platform.short, emulators: platform.emulators, navStack: i+1})
+            return AchievementList({title: achievement.title, description: achievement.description, navStack: i+1})
         });
+
         return (
 
         React.DOM.div({id: "Profile", className: "hidden"}, 
@@ -2968,13 +2969,13 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.a({className: "btn-alt btn-lg navable", 'data-nav': "3"}, "Multiplayer")
          ), 
         
-        saveNodes(null), 
+            saveNodes, 
 
         React.DOM.div({className: "col-md-9 profile-section"}, 
         React.DOM.h1(null, "Achievements ", React.DOM.span({className: "achievement-stats"}, "1 out of 10 Accomplished.")), 
         React.DOM.ul({id: "achievements"}, 
 
-            achievementNodes(null)
+             achievementNodes
     
         )
         ), 
@@ -5149,7 +5150,8 @@ var systemNotify = require('./notification.init.js'),
     React = require('react/addons'),
     Modal = require('../interface/Modal.jsx'),
     Messages = require('../interface/Messages.jsx'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    navigationInit = require("./navigation.init.js");
 
     // browser = require("./browser.js");
 
@@ -5425,7 +5427,7 @@ module.exports = function(event, p) {
 
 
 };
-},{"../interface/Messages.jsx":24,"../interface/Modal.jsx":25,"./mousetrap.min.js":46,"./notification.init.js":54,"lodash":58,"react/addons":61,"socket.io-client":220}],56:[function(require,module,exports){
+},{"../interface/Messages.jsx":24,"../interface/Modal.jsx":25,"./mousetrap.min.js":46,"./navigation.init.js":51,"./notification.init.js":54,"lodash":58,"react/addons":61,"socket.io-client":220}],56:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

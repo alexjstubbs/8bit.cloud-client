@@ -9,7 +9,8 @@ var systemNotify = require('./notification.init.js'),
     React = require('react/addons'),
     Modal = require('../interface/Modal.jsx'),
     Messages = require('../interface/Messages.jsx'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    navigationInit = require("./navigation.init.js");
 
     // browser = require("./browser.js");
 

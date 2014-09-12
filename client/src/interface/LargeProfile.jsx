@@ -21,7 +21,7 @@ module.exports = React.createClass({
             "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
             "genre": "Action > Adventure",
             "playtime": "1:12:02",
-            "saves": [
+            "savestates": [
                 {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
             ],
             "CRC32": 123,
@@ -40,12 +40,13 @@ module.exports = React.createClass({
     render: function() {
 
         var saveNodes = this.state.savestates.map(function (state, i) {
-            return <SaveStates filename={state} image={platform.short} emulators={platform.emulators} navStack={i+1} />
+            return <SaveStates filename={state.filename} image={state.image} slot={state.slot} navStack={i+1} />
         });
 
         var achievementNodes = this.state.savestates.map(function (achievement, i) {
-            return <AchievementList filename={state} image={platform.short} emulators={platform.emulators} navStack={i+1} />
+            return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />
         });
+
         return (
 
         <div id="Profile" className="hidden">
@@ -84,13 +85,13 @@ module.exports = React.createClass({
             <a className='btn-alt btn-lg navable' data-nav='3'>Multiplayer</a>
          </div>
         
-        <saveNodes />
+            {saveNodes}  
 
         <div className="col-md-9 profile-section">
         <h1>Achievements <span className="achievement-stats">1 out of 10 Accomplished.</span></h1>
         <ul id="achievements">
 
-            <achievementNodes />
+             {achievementNodes}
     
         </ul>
         </div>

@@ -33,18 +33,28 @@ var express = require('express')
 ,   fs = require('fs')
 ,   api = require('./local/api/api')
 ,   Insight = require('insight')
-    pkg = require('./package.json');
+    pkg = require('./package.json'),
+    redis = require('redis');
 
 api(nsp);
 
 common.render.ignite
 
+
+// var pub = redis.createClient();
+// var sub = redis.createClient();
+// var client = redis.createClient();
+
+// io.set('store', new RedisStore({
+//     redisPub: pub,
+//     redisSub: sub,
+//     redisClient : client
+// }));
+
+
 //  Server Configuration
 app.configure(function() {
 
-    // app.set('port', process.env.PORT || 1210);
-    // app.set( "ipaddr", "127.0.0.1" );
-    // app.set( "port", 1210 );
 
     app.set('views', './local/render/');
 
