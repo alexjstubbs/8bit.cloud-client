@@ -9,7 +9,9 @@
 
 var React = require('react/addons'),
     api = require('socket.io-client')('/api'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    SaveStates = require('./SaveStates.jsx'),
+    AchievementList = require('./AchievementList.jsx');
 
 module.exports = React.createClass({
 
@@ -19,7 +21,8 @@ module.exports = React.createClass({
             "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
             "genre": "Action > Adventure",
             "playtime": "1:12:02",
-            "saves": [{}]   
+            "saves": [{}],
+            "achievements": [{}]
         };
     },
 
@@ -34,6 +37,9 @@ module.exports = React.createClass({
             return <SaveStates filename={state} image={platform.short} emulators={platform.emulators} navStack={i+1} />
         });
 
+        var achievementNodes = this.state.savestates.map(function (achievement, i) {
+            return <AchievementList filename={state} image={platform.short} emulators={platform.emulators} navStack={i+1} />
+        });
         return (
 
         <div id="Profile" className="hidden">
@@ -74,149 +80,15 @@ module.exports = React.createClass({
         
         <saveNodes />
 
-         <div className="col-md-9 profile-section">
-            <h1>Achievements <span className="achievement-stats">1 out of 10 Accomplished.</span></h1>
-            <ul id="achievements">
-              
+        <div className="col-md-9 profile-section">
+        <h1>Achievements <span className="achievement-stats">1 out of 10 Accomplished.</span></h1>
+        <ul id="achievements">
 
-               <li className='col-md-3'>
-                  <div className="col-md-4 pull-left trophy-icon">
-                     <span className='trophy'>
-                     <i className='icon base achieved fa fa-trophy'></i>
-                     <span className="fa-stack sub fa-lg">
-                     <i className="fa fa-circle fa-stack-2x"></i>
-                     <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
-                     </span>
-                     </span>
-                  </div>
-                  <span className='pull-right col-md-8 offset-md-2 trophy-info'>
-                     <h5 className='achievement-title no-padding no-margin'>"Hello World!"</h5>
-                     <span className='achievement-description'>Collect your first mushroom</span>
-                  </span>
-               </li>
-         
-
-               <li className='col-md-3'>
-                  <div className="col-md-4 pull-left trophy-icon">
-                     <span className='trophy'>
-                     <i className='icon base fa fa-trophy'></i>
-                     <span className="fa-stack sub fa-lg hidden">
-                     <i className="fa fa-circle fa-stack-2x"></i>
-                     <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
-                     </span>
-                     </span>
-                  </div>
-                  <span className='pull-right col-md-8 offset-md-2 trophy-info'>
-                     <h5 className='achievement-title no-padding no-margin'>"Bowser Beatdown"</h5>
-                     <span className='achievement-description'>Defeat Bowser</span>
-                  </span>
-               </li>
-               
-
-               <li className='col-md-3'>
-                  <div className="col-md-4 pull-left trophy-icon">
-                     <span className='trophy'>
-                     <i className='icon base fa fa-trophy'></i>
-                     <span className="fa-stack sub fa-lg hidden">
-                     <i className="fa fa-circle fa-stack-2x"></i>
-                     <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
-                     </span>
-                     </span>
-                  </div>
-                  <span className='pull-right col-md-8 offset-md-2 trophy-info'>
-                     <h5 className='achievement-title no-padding no-margin'>"Treasurer"</h5>
-                     <span className='achievement-description'>Collect 3,000 coins</span>
-                  </span>
-               </li>
-               
-
-               <li className='col-md-3'>
-                  <div className="col-md-4 pull-left trophy-icon">
-                     <span className='trophy'>
-                     <i className='icon base fa fa-trophy'></i>
-                     <span className="fa-stack sub fa-lg hidden">
-                     <i className="fa fa-circle fa-stack-2x"></i>
-                     <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
-                     </span>
-                     </span>
-                  </div>
-                  <span className='pull-right col-md-8 offset-md-2 trophy-info'>
-                     <h5 className='achievement-title no-padding no-margin'>"Minus Hero"</h5>
-                     <span className='achievement-description'>Finish minus world</span>
-                  </span>
-               </li>
-               
-
-               <li className='col-md-3'>
-                  <div className="col-md-4 pull-left trophy-icon">
-                     <span className='trophy'>
-                     <i className='icon base fa fa-trophy'></i>
-                     <span className="fa-stack sub fa-lg hidden">
-                     <i className="fa fa-circle fa-stack-2x"></i>
-                     <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
-                     </span>
-                     </span>
-                  </div>
-                  <span className='pull-right col-md-8 offset-md-2 trophy-info'>
-                     <h5 className='achievement-title no-padding no-margin'>"Pipe Dream"</h5>
-                     <span className='achievement-description'>Find all Pipes</span>
-                  </span>
-               </li>
-               
-
-               <li className='col-md-3'>
-                  <div className="col-md-4 pull-left trophy-icon">
-                     <span className='trophy'>
-                     <i className='icon base fa fa-trophy'></i>
-                     <span className="fa-stack sub fa-lg hidden">
-                     <i className="fa fa-circle fa-stack-2x"></i>
-                     <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
-                     </span>
-                     </span>
-                  </div>
-                  <span className='pull-right col-md-8 offset-md-2 trophy-info'>
-                     <h5 className='achievement-title no-padding no-margin'>"Miyamoto"</h5>
-                     <span className='achievement-description'>Finish the game in 20:00 minutes or less</span>
-                  </span>
-               </li>
-               
-
-               <li className='col-md-3'>
-                  <div className="col-md-4 pull-left trophy-icon">
-                     <span className='trophy'>
-                     <i className='icon base fa fa-trophy'></i>
-                     <span className="fa-stack sub fa-lg hidden">
-                     <i className="fa fa-circle fa-stack-2x"></i>
-                     <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
-                     </span>
-                     </span>
-                  </div>
-                  <span className='pull-right col-md-8 offset-md-2 trophy-info'>
-                     <h5 className='achievement-title no-padding no-margin'>"1up"</h5>
-                     <span className='achievement-description'>Find 100 1ups</span>
-                  </span>
-               </li>
-              
-
-               <li className='col-md-3'>
-                  <div className="col-md-4 pull-left trophy-icon">
-                     <span className='trophy'>
-                     <i className='icon base fa fa-trophy'></i>
-                     <span className="fa-stack sub fa-lg hidden">
-                     <i className="fa fa-circle fa-stack-2x"></i>
-                     <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
-                     </span>
-                     </span>
-                  </div>
-                  <span className='pull-right col-md-8 offset-md-2 trophy-info'>
-                     <h5 className='achievement-title no-padding no-margin'>"Green Machine"</h5>
-                     <span className='achievement-description'>Beat game with Luigi</span>
-                  </span>
-               </li>
-               
-            </ul>
-         </div>
-       
+            <achievementNodes />
+    
+        </ul>
+        </div>
+           
          <div className="col-md-10 profile-section hidden">
             <h1>Screenshots</h1>
             
