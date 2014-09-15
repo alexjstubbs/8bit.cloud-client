@@ -1,6 +1,5 @@
 /* Custom Events
 -------------------------------------------------- */
-
 var screenTransition = function(screen, hidden, parent) {
    
     var event = new CustomEvent('screenTransition', { 
@@ -17,6 +16,18 @@ var screenTransition = function(screen, hidden, parent) {
 
 var updateGame = function(results, callback) {
     if (results[0]) {
+    
+        var achievements;
+        
+        
+        // nsp.emit('request', { request: 'getCRC32', param: filepath });   
+
+        //     path = path.join('../databases/achievements/')
+
+        // fs.readJson('./package.json', function(err, contentsObj) {
+        //     achievements = contentsObj); 
+        // });
+
        var event = new CustomEvent('updateGame', { 
             'detail': {
                 title: results[0].title,
@@ -26,8 +37,8 @@ var updateGame = function(results, callback) {
                 genre: results[0].genre,
                 id: results[0].id,
                 developer: results[0].developer,
-                image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title
-
+                image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title,
+                achievements: achievements
             }
         });
     }

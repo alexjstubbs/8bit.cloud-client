@@ -86,6 +86,9 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
+
+    console.log(g);
+
     var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters");
 
     var game = removeBrackets(g.getAttribute("data-title")),
@@ -116,6 +119,7 @@ var browserNavigationEvents = function(g) {
 
     document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
 
+    
 
 };
 

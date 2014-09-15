@@ -33,6 +33,9 @@ var api = {
 
     ipInfo: function(nsp) {
         common.location.ipInfo(nsp);
+    },
+    crc32: function(nsp, path) {
+        common.hash.getCRC32(nsp, path);
     }
 
 }

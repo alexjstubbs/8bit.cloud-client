@@ -63,14 +63,17 @@ module.exports = React.createClass({
 
         var listNodes = this.state.gamesList.map(function (game, i) {
             var gameTitle = removeBrackets(game.title);
+
+            console.log(game);
             
             if (gameTitle) {
                 if (skipped == true) {
-                    return <ListedGame key={i.id} navStack={i} game={gameTitle} filename={i.filename} />
+                    
+                    return <ListedGame key={i.id} navStack={i} game={gameTitle} filename={game.filename} path={game.path} />
                     skipped = false;
                 }
                 else {
-                    return <ListedGame key={i.id} navStack={i+1} game={gameTitle} filename={i.filename} />
+                    return <ListedGame key={i.id} navStack={i+1} game={gameTitle} filename={game.filename} path={game.path} />
                 }
             }
             else {

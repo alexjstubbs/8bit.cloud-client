@@ -1,8 +1,11 @@
 /* State and RAM reading helper.
 -------------------------------------------------- */
-var fs = require('fs');
-var Buffer = require('buffer').Buffer;
-var constants = require('constants');
+var fs = require('fs-extra')
+,   Buffer = require('buffer').Buffer
+,   constants = require('constants')
+,   crc32 = require('buffer-crc32')
+,   path = require('path');
+
 
 // NES has 2kb of working RAM header. 13kb of state sizes (just under);
 
@@ -79,5 +82,42 @@ function readHex(req, res, callback) {
 
 };
 
+
+function getCRC32(nsp, path) {
+
+    var game = '';
+
+    fs.readFile(path, function (err, data) {
+      if (err) throw err;
+      console.log(data);
+    });
+    
+    req.on('end', function() {
+
+        var extLength = game.split('.').pop();
+
+        if (extLength.length < 5) {
+            fs.readFile(game, function(err, data) {
+                if (data) {
+                    buffered = crc32(data);
+                    database.findAchievements({
+                        CRC32: {
+                            $in: [buffered.toString('hex')]
+                        }
+                    }, function(data) {
+                        res.send(data);
+                    })
+                } else {
+                    res.send(null);
+                }
+                        // res.send(buffered.toString('hex'));
+                    })
+                
+            }
+        });
+
+};
+
 exports.readHex = readHex;
 exports.checkHex = checkHex;
+exports.getCRC32 = getCRC32;

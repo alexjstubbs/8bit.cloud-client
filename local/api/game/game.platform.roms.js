@@ -10,12 +10,13 @@ var platforms = require(appDir+'/config/platforms.json'),
 function listRoms(nsp, platform) {
 
     var listObj = [],
-        list;
+        list,
+        _path;
 
     var initDir = process.env['HOME'] + config.roms + platforms[platform].short;
 
     fs.readdir(initDir, function(err, list) {
-        
+
         if (err) {
 
             console.log(err)
@@ -24,7 +25,10 @@ function listRoms(nsp, platform) {
 
             _(list).forEach(function(filename) { 
 
-                listObj.push({"filename":filename,"ext":path.extname(filename),"title":filename})
+                _path = path.join(initDir, filename);
+        
+
+                listObj.push({"filename":filename,"path":_path,"ext":path.extname(filename),"title":filename})
                 
                 });
 

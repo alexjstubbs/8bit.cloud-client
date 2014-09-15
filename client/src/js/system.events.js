@@ -16,17 +16,7 @@ var systemNotify = require('./notification.init.js'),
 
 module.exports = function(event, p) {
 
-        function removeBrackets(input) {
-            return input
-                .replace(/\[.*?\]\s?/g, "") // [*]
-            .replace(/[\[\]']+/g, "") // []
-            .replace(/\{.*?\}\s?/g, "") // {*}
-            .replace(/\(.*?\)\s?/g, "") // (*)
-            .replace(", The", "") // ', The' alpha
-        }
-
         // Message 
-
 
         if (event == 'viewFriends') {
             var title = "Uh Oh!"
@@ -126,7 +116,7 @@ module.exports = function(event, p) {
 
             navigationInit.navigationInit();
 
-           
+
             // var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
 
             // var httpRequest = new XMLHttpRequest();
@@ -201,25 +191,6 @@ module.exports = function(event, p) {
 
         if (event == 'viewMessages') {
             React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
-        }
-
-        if (event == 'largeProfile') {
-
-           
-            // var alist = document.getElementById("alpha_list");
-            // var smallp = document.getElementById("small_profile");
-            // var smallp_header = document.getElementById("profile_header");
-            // document.getElementById("browser_pagination").classList.toggle("hidden");
-            // document.getElementById("heading").classList.toggle("hidden");
-
-            // alist.classList.toggle('hidden');
-
-            // smallp.classList.toggle('col-md-8');
-            // smallp.classList.toggle('col-md-12');
-            // smallp.classList.toggle('break_up');
-            // smallp.classList.toggle('selectedNav');
-
-            // smallp_header.classList.toggle('hidden');
         }
 
         if (event == 'launchGame') {

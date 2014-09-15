@@ -17,7 +17,7 @@ module.exports = React.createClass({
 
   getInitialState: function() {
           return {
-            "title": "The Legend of Zelda",            
+            "title": "Unknown Title",            
             "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
             "genre": "Action > Adventure",
             "playtime": "1:12:02",
@@ -34,6 +34,11 @@ module.exports = React.createClass({
 
     componentDidMount: function () {
 
+        var component = this;
+        window.addEventListener('updateGame', function eventHandler(e) {
+            component.setState(e.detail)
+        });
+        
      },
 
     

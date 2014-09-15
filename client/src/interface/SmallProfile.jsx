@@ -27,8 +27,6 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function () {
-        // api.emit('request', { request: 'gameInfo', param: "Super Mario" });
-        // api.on('api', this.setState.bind(this));
 
         var component = this;
         window.addEventListener('updateGame', function eventHandler(e) {

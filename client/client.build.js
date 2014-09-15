@@ -2723,14 +2723,17 @@ module.exports = React.createClass({displayName: 'exports',
 
         var listNodes = this.state.gamesList.map(function (game, i) {
             var gameTitle = removeBrackets(game.title);
+
+            console.log(game);
             
             if (gameTitle) {
                 if (skipped == true) {
-                    return ListedGame({key: i.id, navStack: i, game: gameTitle, filename: i.filename})
+                    
+                    return ListedGame({key: i.id, navStack: i, game: gameTitle, filename: game.filename, path: game.path})
                     skipped = false;
                 }
                 else {
-                    return ListedGame({key: i.id, navStack: i+1, game: gameTitle, filename: i.filename})
+                    return ListedGame({key: i.id, navStack: i+1, game: gameTitle, filename: game.filename, path: game.path})
                 }
             }
             else {
@@ -2901,7 +2904,7 @@ module.exports = React.createClass({displayName: 'exports',
 
   getInitialState: function() {
           return {
-            "title": "The Legend of Zelda",            
+            "title": "Unknown Title",            
             "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
             "genre": "Action > Adventure",
             "playtime": "1:12:02",
@@ -2918,6 +2921,11 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function () {
 
+        var component = this;
+        window.addEventListener('updateGame', function eventHandler(e) {
+            component.setState(e.detail)
+        });
+        
      },
 
     
@@ -3030,7 +3038,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
         
-                React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.filename, 'data-title': this.props.game}, 
+                React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.filename, 'data-title': this.props.game, 'data-path': this.props.path}, 
                     React.DOM.td({'data-tdalpha': "alpha_selection"}, 
                         React.DOM.div({className: "left_alpha pull-left"}, this.props.alpha), 
                         React.DOM.a({className: "launch", 'data-ref': this.props.navStack, 'data-game': this.props.game, href: "#"}, this.props.game)
@@ -3584,8 +3592,6 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function () {
-        // api.emit('request', { request: 'gameInfo', param: "Super Mario" });
-        // api.on('api', this.setState.bind(this));
 
         var component = this;
         window.addEventListener('updateGame', function eventHandler(e) {
@@ -3906,7 +3912,6 @@ api.on('api', function(_event){
 },{"./events":41,"lodash":58,"socket.io-client":220}],41:[function(require,module,exports){
 /* Custom Events
 -------------------------------------------------- */
-
 var screenTransition = function(screen, hidden, parent) {
    
     var event = new CustomEvent('screenTransition', { 
@@ -3923,6 +3928,18 @@ var screenTransition = function(screen, hidden, parent) {
 
 var updateGame = function(results, callback) {
     if (results[0]) {
+    
+        var achievements;
+        
+        
+        // nsp.emit('request', { request: 'getCRC32', param: filepath });   
+
+        //     path = path.join('../databases/achievements/')
+
+        // fs.readJson('./package.json', function(err, contentsObj) {
+        //     achievements = contentsObj); 
+        // });
+
        var event = new CustomEvent('updateGame', { 
             'detail': {
                 title: results[0].title,
@@ -3932,8 +3949,8 @@ var updateGame = function(results, callback) {
                 genre: results[0].genre,
                 id: results[0].id,
                 developer: results[0].developer,
-                image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title
-
+                image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title,
+                achievements: achievements
             }
         });
     }
@@ -4563,6 +4580,9 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
+
+    console.log(g);
+
     var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters");
 
     var game = removeBrackets(g.getAttribute("data-title")),
@@ -4593,6 +4613,7 @@ var browserNavigationEvents = function(g) {
 
     document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
 
+    
 
 };
 
@@ -5157,17 +5178,7 @@ var systemNotify = require('./notification.init.js'),
 
 module.exports = function(event, p) {
 
-        function removeBrackets(input) {
-            return input
-                .replace(/\[.*?\]\s?/g, "") // [*]
-            .replace(/[\[\]']+/g, "") // []
-            .replace(/\{.*?\}\s?/g, "") // {*}
-            .replace(/\(.*?\)\s?/g, "") // (*)
-            .replace(", The", "") // ', The' alpha
-        }
-
         // Message 
-
 
         if (event == 'viewFriends') {
             var title = "Uh Oh!"
@@ -5267,7 +5278,7 @@ module.exports = function(event, p) {
 
             navigationInit.navigationInit();
 
-           
+
             // var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
 
             // var httpRequest = new XMLHttpRequest();
@@ -5342,25 +5353,6 @@ module.exports = function(event, p) {
 
         if (event == 'viewMessages') {
             React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
-        }
-
-        if (event == 'largeProfile') {
-
-           
-            // var alist = document.getElementById("alpha_list");
-            // var smallp = document.getElementById("small_profile");
-            // var smallp_header = document.getElementById("profile_header");
-            // document.getElementById("browser_pagination").classList.toggle("hidden");
-            // document.getElementById("heading").classList.toggle("hidden");
-
-            // alist.classList.toggle('hidden');
-
-            // smallp.classList.toggle('col-md-8');
-            // smallp.classList.toggle('col-md-12');
-            // smallp.classList.toggle('break_up');
-            // smallp.classList.toggle('selectedNav');
-
-            // smallp_header.classList.toggle('hidden');
         }
 
         if (event == 'launchGame') {
