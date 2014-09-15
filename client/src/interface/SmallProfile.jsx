@@ -38,22 +38,25 @@ module.exports = React.createClass({
         
         api.on('api', this.setState.bind(this));
 
-        api.on('api', function(ap) {
-          console.log("ap: "+JSON.stringify(ap));
-        });
-
      },
+
 
     
     render: function() {
 
-      console.log("CRC? "+this.state.crc32)
+        console.log(this.state.crc32);
+        
+        var cx = React.addons.classSet;
+        var classes = cx({
+            'pull-left': true
+        });
+
         return (
 
             <div className="col-md-8 game_info col-md-offset-1 pull-right"  id="small_profile">
                      
                 <div className="game_info_header" id="profile_header">
-                    <div className="pull-left hidden" data-crc32={this.props.crc32} id="achievement_display"><i className='icon ion-ios7-star yellow'></i>  Achievements Available</div>
+                    <div className={this.state.crc32 ? classes : classes + " hidden"} data-achievements={this.props.crc32} id="achievement_display"><i className='icon ion-ios7-star yellow'></i>  Achievements Available</div>
                     <div className="pull-right"><strong>Game Profile  <i className='ion-ios7-arrow-thin-right'></i></strong></div>
                 </div>
 
@@ -62,7 +65,7 @@ module.exports = React.createClass({
                       
                 <div className="info_list_name col-md-6">
                     
-                    <h2><span className="game_name">{this.state.title} {this.state.crc32}</span></h2>
+                    <h2><span className="game_name">{this.state.title}</span></h2>
                     
                     <hr />
                  

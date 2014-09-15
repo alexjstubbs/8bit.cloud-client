@@ -90,16 +90,20 @@ function getCRC32(nsp, filepath) {
 
     fs.readFile(filepath, function(err, data) {
         if (data) {
+
             buffered = crc32(data);
+
             database.findAchievements({
                 CRC32: {
                     $in: [buffered.toString('hex')]
                 }
             }, function(data) {
-                 nsp.emit('api', {crc32: data});
+                    if (buffered) {
+                         nsp.emit('api', {crc32: data});
+                    }
             })
         } else {
-             nsp.emit('api', {crc32: "not found"});
+             nsp.emit('api', {crc32: null});
         }
                 // res.send(buffered.toString('hex'));
             })

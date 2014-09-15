@@ -65,9 +65,11 @@ function findAchievements(criteria, callback) {
     db.achievements.find(criteria, function(err, docs) {
         console.log(err)
         if (docs[0]) {
+            console.log(docs);
             callback(docs)
         } else {
-            callback();
+            console.log("NOTHING")
+            callback(null);
         }
     });
 }
