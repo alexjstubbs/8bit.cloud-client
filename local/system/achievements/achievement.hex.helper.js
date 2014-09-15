@@ -99,7 +99,7 @@ function getCRC32(nsp, filepath) {
                  nsp.emit('api', {crc32: data});
             })
         } else {
-             nsp.emit('api', {crc32: null});
+             nsp.emit('api', {crc32: "not found"});
         }
                 // res.send(buffered.toString('hex'));
             })

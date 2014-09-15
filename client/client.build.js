@@ -3601,17 +3601,22 @@ module.exports = React.createClass({displayName: 'exports',
         
         api.on('api', this.setState.bind(this));
 
+        api.on('api', function(ap) {
+          console.log("ap: "+JSON.stringify(ap));
+        });
+
      },
 
     
     render: function() {
 
+      console.log("CRC? "+this.state.crc32)
         return (
 
             React.DOM.div({className: "col-md-8 game_info col-md-offset-1 pull-right", id: "small_profile"}, 
                      
                 React.DOM.div({className: "game_info_header", id: "profile_header"}, 
-                    React.DOM.div({className: "pull-left hidden", id: "achievement_display"}, React.DOM.i({className: "icon ion-ios7-star yellow"}), "  Achievements Available"), 
+                    React.DOM.div({className: "pull-left hidden", 'data-crc32': this.props.crc32, id: "achievement_display"}, React.DOM.i({className: "icon ion-ios7-star yellow"}), "  Achievements Available"), 
                     React.DOM.div({className: "pull-right"}, React.DOM.strong(null, "Game Profile  ", React.DOM.i({className: "ion-ios7-arrow-thin-right"})))
                 ), 
 
@@ -3620,7 +3625,7 @@ module.exports = React.createClass({displayName: 'exports',
                       
                 React.DOM.div({className: "info_list_name col-md-6"}, 
                     
-                    React.DOM.h2(null, React.DOM.span({className: "game_name"}, this.state.title)), 
+                    React.DOM.h2(null, React.DOM.span({className: "game_name"}, this.state.title, " ", this.state.crc32)), 
                     
                     React.DOM.hr(null), 
                  
