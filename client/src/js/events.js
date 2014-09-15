@@ -1,5 +1,7 @@
 /* Custom Events
 -------------------------------------------------- */
+var api = require('socket.io-client')('/api');
+
 var screenTransition = function(screen, hidden, parent) {
    
     var event = new CustomEvent('screenTransition', { 
@@ -14,20 +16,12 @@ var screenTransition = function(screen, hidden, parent) {
 
 };
 
-var updateGame = function(results, callback) {
+var updateGame = function(results, filepath, callback) {
     if (results[0]) {
+
+
+    api.emit('request', { request: 'crc32', param: filepath });
     
-        var achievements;
-        
-        
-        // nsp.emit('request', { request: 'getCRC32', param: filepath });   
-
-        //     path = path.join('../databases/achievements/')
-
-        // fs.readJson('./package.json', function(err, contentsObj) {
-        //     achievements = contentsObj); 
-        // });
-
        var event = new CustomEvent('updateGame', { 
             'detail': {
                 title: results[0].title,
@@ -38,7 +32,7 @@ var updateGame = function(results, callback) {
                 id: results[0].id,
                 developer: results[0].developer,
                 image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title,
-                achievements: achievements
+                filepath: filepath
             }
         });
     }
@@ -46,7 +40,6 @@ var updateGame = function(results, callback) {
     window.dispatchEvent(event);
 
 }
-
 
 exports.screenTransition = screenTransition;
 exports.updateGame = updateGame;

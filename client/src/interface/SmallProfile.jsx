@@ -9,7 +9,9 @@
 
 var React = require('react/addons'),
     api = require('socket.io-client')('/api'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    achievements;
+
 
 module.exports = React.createClass({
 
@@ -22,7 +24,8 @@ module.exports = React.createClass({
               "genre": "",
               "id": "",
               "developer": "",
-              "image": ""
+              "image": "",
+              "crc32": ""
         };
     },
 
@@ -32,6 +35,8 @@ module.exports = React.createClass({
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail)
         });
+        
+        api.on('api', this.setState.bind(this));
 
      },
 

@@ -2723,8 +2723,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         var listNodes = this.state.gamesList.map(function (game, i) {
             var gameTitle = removeBrackets(game.title);
-
-            console.log(game);
             
             if (gameTitle) {
                 if (skipped == true) {
@@ -3574,7 +3572,9 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React = require('react/addons'),
     api = require('socket.io-client')('/api'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    achievements;
+
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3587,7 +3587,8 @@ module.exports = React.createClass({displayName: 'exports',
               "genre": "",
               "id": "",
               "developer": "",
-              "image": ""
+              "image": "",
+              "crc32": ""
         };
     },
 
@@ -3597,6 +3598,8 @@ module.exports = React.createClass({displayName: 'exports',
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail)
         });
+        
+        api.on('api', this.setState.bind(this));
 
      },
 
@@ -3912,6 +3915,8 @@ api.on('api', function(_event){
 },{"./events":41,"lodash":58,"socket.io-client":220}],41:[function(require,module,exports){
 /* Custom Events
 -------------------------------------------------- */
+var api = require('socket.io-client')('/api');
+
 var screenTransition = function(screen, hidden, parent) {
    
     var event = new CustomEvent('screenTransition', { 
@@ -3926,20 +3931,12 @@ var screenTransition = function(screen, hidden, parent) {
 
 };
 
-var updateGame = function(results, callback) {
+var updateGame = function(results, filepath, callback) {
     if (results[0]) {
+
+
+    api.emit('request', { request: 'crc32', param: filepath });
     
-        var achievements;
-        
-        
-        // nsp.emit('request', { request: 'getCRC32', param: filepath });   
-
-        //     path = path.join('../databases/achievements/')
-
-        // fs.readJson('./package.json', function(err, contentsObj) {
-        //     achievements = contentsObj); 
-        // });
-
        var event = new CustomEvent('updateGame', { 
             'detail': {
                 title: results[0].title,
@@ -3950,7 +3947,7 @@ var updateGame = function(results, callback) {
                 id: results[0].id,
                 developer: results[0].developer,
                 image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title,
-                achievements: achievements
+                filepath: filepath
             }
         });
     }
@@ -3959,11 +3956,10 @@ var updateGame = function(results, callback) {
 
 }
 
-
 exports.screenTransition = screenTransition;
 exports.updateGame = updateGame;
 
-},{}],42:[function(require,module,exports){
+},{"socket.io-client":220}],42:[function(require,module,exports){
 /**
  * Copyright 2012 Google Inc. All Rights Reserved.
  *
@@ -4580,14 +4576,10 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
-
-    console.log(g);
-
-    var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters");
-
-    var game = removeBrackets(g.getAttribute("data-title")),
-        game = game.replace(/\.[^/.]+$/, "");
-
+    var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
+        game = removeBrackets(g.getAttribute("data-title")),
+        game = game.replace(/\.[^/.]+$/, ""),
+        filepath = g.getAttribute("data-path");
 
     database.filterByAttribute("games", {
         "query": {
@@ -4601,7 +4593,7 @@ var browserNavigationEvents = function(g) {
             query: shortname.trim()
         },
     },function(result){
-            events.updateGame(result);
+            events.updateGame(result, filepath);
         }
     );
 

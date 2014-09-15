@@ -4,7 +4,8 @@ var fs = require('fs-extra')
 ,   Buffer = require('buffer').Buffer
 ,   constants = require('constants')
 ,   crc32 = require('buffer-crc32')
-,   path = require('path');
+,   path = require('path')
+    database = require(appDir+'/local/api/database/database.local');
 
 
 // NES has 2kb of working RAM header. 13kb of state sizes (just under);
@@ -83,40 +84,27 @@ function readHex(req, res, callback) {
 };
 
 
-function getCRC32(nsp, path) {
+function getCRC32(nsp, filepath) {
 
-    var game = '';
+    console.log(filepath);
 
-    fs.readFile(path, function (err, data) {
-      if (err) throw err;
-      console.log(data);
-    });
-    
-    req.on('end', function() {
-
-        var extLength = game.split('.').pop();
-
-        if (extLength.length < 5) {
-            fs.readFile(game, function(err, data) {
-                if (data) {
-                    buffered = crc32(data);
-                    database.findAchievements({
-                        CRC32: {
-                            $in: [buffered.toString('hex')]
-                        }
-                    }, function(data) {
-                        res.send(data);
-                    })
-                } else {
-                    res.send(null);
+    fs.readFile(filepath, function(err, data) {
+        if (data) {
+            buffered = crc32(data);
+            database.findAchievements({
+                CRC32: {
+                    $in: [buffered.toString('hex')]
                 }
-                        // res.send(buffered.toString('hex'));
-                    })
-                
-            }
-        });
-
-};
+            }, function(data) {
+                 nsp.emit('api', {crc32: data});
+            })
+        } else {
+             nsp.emit('api', {crc32: null});
+        }
+                // res.send(buffered.toString('hex'));
+            })
+        
+}
 
 exports.readHex = readHex;
 exports.checkHex = checkHex;

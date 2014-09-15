@@ -63,8 +63,6 @@ module.exports = React.createClass({
 
         var listNodes = this.state.gamesList.map(function (game, i) {
             var gameTitle = removeBrackets(game.title);
-
-            console.log(game);
             
             if (gameTitle) {
                 if (skipped == true) {

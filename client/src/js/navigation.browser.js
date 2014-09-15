@@ -86,14 +86,10 @@ var browserNavigation = function(k) {
 
 var browserNavigationEvents = function(g) {
 
-
-    console.log(g);
-
-    var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters");
-
-    var game = removeBrackets(g.getAttribute("data-title")),
-        game = game.replace(/\.[^/.]+$/, "");
-
+    var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
+        game = removeBrackets(g.getAttribute("data-title")),
+        game = game.replace(/\.[^/.]+$/, ""),
+        filepath = g.getAttribute("data-path");
 
     database.filterByAttribute("games", {
         "query": {
@@ -107,7 +103,7 @@ var browserNavigationEvents = function(g) {
             query: shortname.trim()
         },
     },function(result){
-            events.updateGame(result);
+            events.updateGame(result, filepath);
         }
     );
 
