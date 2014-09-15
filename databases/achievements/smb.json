@@ -10,8 +10,9 @@
         "ea343f4e445a9050d4b4fbac2c77d0693b1d0922"
     ],
     "strict": false,
-    "Achievements": {
-        "Hello World": {
+    "Achievements": [
+            {
+            "title": "Hello World",
             "description": "Get a Mushroom",
             "address": "0x754",
             "operator": "==",
@@ -20,7 +21,8 @@
             "count": true,
             "single": true
         },
-        "Goodbye World": {
+        {
+            "title": "Goodbye World",
             "description": "Die once (test)",
             "address": "0x000E",
             "operator": "==",
@@ -29,7 +31,8 @@
             "count": true,
             "single": true
         },
-        "Crouching": {
+        {   
+            "title": "Crouching Tiger",
             "description": "Crouch (test)",
             "address": "0x06D5 ",
             "operator": "==",
@@ -38,5 +41,5 @@
             "count": true,
             "single": true
         }
-    }
+    ]
 }

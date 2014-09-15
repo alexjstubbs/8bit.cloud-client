@@ -25,7 +25,7 @@ module.exports = React.createClass({
               "id": "",
               "developer": "",
               "image": "",
-              "crc32": ""
+              "crc32": null
         };
     },
 
@@ -43,8 +43,6 @@ module.exports = React.createClass({
 
     
     render: function() {
-
-        console.log(this.state.crc32);
         
         var cx = React.addons.classSet;
         var classes = cx({

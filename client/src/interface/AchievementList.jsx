@@ -21,8 +21,8 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
             return {
-               "title": "Hello World!",
-               "description": "Collect your first mushroom",
+               "title": "",
+               "description": "",
             }
     },
     

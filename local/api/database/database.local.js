@@ -14,6 +14,14 @@ function initDatabases(callback) {
         filename: './databases/achievements.db',
         autoload: true
     });
+
+    // TODO: Store all in the directory
+    var testStore = require('../../../databases/achievements/smb.json');
+
+    database.storeAchievement(testStore, function(gameAchievements) {
+        gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
+        gameAchievements = gameAchievements[0];
+    });
 }
 
 /* Get Databases 
@@ -30,7 +38,6 @@ function storeGet(nsp, database) {
 /* Store Achievement Document
 -------------------------------------------------- */
 function storeAchievement(document, callback) {
-    // console.log(document.CRC32);
     
     // Does it Exist?
     db.achievements.find({
@@ -65,10 +72,8 @@ function findAchievements(criteria, callback) {
     db.achievements.find(criteria, function(err, docs) {
         console.log(err)
         if (docs[0]) {
-            console.log(docs);
             callback(docs)
         } else {
-            console.log("NOTHING")
             callback(null);
         }
     });

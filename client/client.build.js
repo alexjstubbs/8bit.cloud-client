@@ -1927,8 +1927,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
             return {
-               "title": "Hello World!",
-               "description": "Collect your first mushroom",
+               "title": "",
+               "description": "",
             }
     },
     
@@ -2909,11 +2909,7 @@ module.exports = React.createClass({displayName: 'exports',
             "savestates": [
                 {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
             ],
-            "CRC32": 123,
-            "achievements": [
-                {"title": "Hello World", "Description": "Collect Your First Mushroom!"},
-                {"title": "Hello World", "Description": "Collect Your Second Mushroom!"}
-            ]
+            "crc32": null
         };
     },
 
@@ -2924,18 +2920,24 @@ module.exports = React.createClass({displayName: 'exports',
             component.setState(e.detail)
         });
         
+        api.on('api', this.setState.bind(this));
+
      },
 
     
     render: function() {
 
+
         var saveNodes = this.state.savestates.map(function (state, i) {
             return SaveStates({filename: state.filename, image: state.image, slot: state.slot, navStack: i+1})
         });
 
-        var achievementNodes = this.state.savestates.map(function (achievement, i) {
-            return AchievementList({title: achievement.title, description: achievement.description, navStack: i+1})
-        });
+        if (this.state.crc32) {
+
+            var achievementNodes = this.state.crc32[0].Achievements.map(function (achievement, i) {
+                return AchievementList({title: achievement.title, description: achievement.description, navStack: i+1})
+            });
+        }
 
         return (
 
@@ -3588,7 +3590,7 @@ module.exports = React.createClass({displayName: 'exports',
               "id": "",
               "developer": "",
               "image": "",
-              "crc32": ""
+              "crc32": null
         };
     },
 
@@ -3606,8 +3608,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     
     render: function() {
-
-        console.log(this.state.crc32);
         
         var cx = React.addons.classSet;
         var classes = cx({
