@@ -6,8 +6,7 @@ var blink;
 
 var navigationInit = function() {
 
-    var navables = document.querySelectorAll('.navable');
- 
+    var navables = document.querySelectorAll('.navable, .subNavable');
 
      _(navables).forEach(function(el, i) { 
         el.removeAttribute("data-nav");

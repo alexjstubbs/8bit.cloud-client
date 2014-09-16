@@ -118,13 +118,10 @@ module.exports = React.createClass({
                     </table>   
 
 
-              </div> 
-
-                 
+                  </div> 
+                                   
                 </div> 
 
-             <div className="hidden" id="gameList"></div>
-             <div className="hidden" id="shortnames">["nes","snes"]</div>
              <div className="hidden" id="working_params">{this.props.params}</div>
              
 

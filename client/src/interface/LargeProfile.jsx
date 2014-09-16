@@ -60,7 +60,7 @@ module.exports = React.createClass({
         <div className="container-fluid">
          
          <header>
-            <div className="navable col-md-2 boxed pull-left">
+            <div className="col-md-2 boxed pull-left">
                <i className="icon ion-ios7-arrow-thin-left"></i> &nbsp; Game Listing
             </div>
          
@@ -74,7 +74,13 @@ module.exports = React.createClass({
          <br /><br />
 
          <div className="col-md-2" id="profile-boxart">  
+            <div id="no-boxart">
+            <i className='icon ion-image'></i>
             <img src={this.state.boxart} className="img-responsive" />
+            </div>
+
+            
+
             <ul id="profile-sub-buttons" className="hidden">
                <li><button className='btn btn-purple'><i className='fa fa-video-camera '></i> &nbsp; Live Stream</button></li>
             </ul>

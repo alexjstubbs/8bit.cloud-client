@@ -2211,13 +2211,10 @@ module.exports = React.createClass({displayName: 'exports',
                     )
 
 
-              )
-
-                 
+                  )
+                                   
                 ), 
 
-             React.DOM.div({className: "hidden", id: "gameList"}), 
-             React.DOM.div({className: "hidden", id: "shortnames"}, "[\"nes\",\"snes\"]"), 
              React.DOM.div({className: "hidden", id: "working_params"}, this.props.params)
              
 
@@ -2957,7 +2954,7 @@ module.exports = React.createClass({displayName: 'exports',
         React.DOM.div({className: "container-fluid"}, 
          
          React.DOM.header(null, 
-            React.DOM.div({className: "navable col-md-2 boxed pull-left"}, 
+            React.DOM.div({className: "col-md-2 boxed pull-left"}, 
                React.DOM.i({className: "icon ion-ios7-arrow-thin-left"}), "   Game Listing"
             ), 
          
@@ -2971,7 +2968,13 @@ module.exports = React.createClass({displayName: 'exports',
          React.DOM.br(null), React.DOM.br(null), 
 
          React.DOM.div({className: "col-md-2", id: "profile-boxart"}, 
-            React.DOM.img({src: this.state.boxart, className: "img-responsive"}), 
+            React.DOM.div({id: "no-boxart"}, 
+            React.DOM.i({className: "icon ion-image"}), 
+            React.DOM.img({src: this.state.boxart, className: "img-responsive"})
+            ), 
+
+            
+
             React.DOM.ul({id: "profile-sub-buttons", className: "hidden"}, 
                React.DOM.li(null, React.DOM.button({className: "btn btn-purple"}, React.DOM.i({className: "fa fa-video-camera "}), "   Live Stream"))
             )
@@ -3481,25 +3484,25 @@ module.exports = React.createClass({displayName: 'exports',
       
         return (
 
-             React.DOM.div({className: "col-md-5  pull-left", id: "profile-saves"}, 
+             React.DOM.div({className: "col-md-5 pull-left", id: "profile-saves"}, 
                React.DOM.div({className: "row"}, 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.img({src: "http://www.mobygames.com/images/shots/l/223581-super-mario-bros-nes-screenshot-some-worlds-are-underground.png", className: "img-responsive save-slot navable"})
+                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios7-download"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 1"), 
                      "06/27/2014 @ 5:58pm"
                   ), 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.img({src: "http://img.gamefaqs.net/screens/e/d/b/gfs_18739_2_4.jpg", className: "img-responsive save-slot navable"})
+                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios7-download"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 2"), 
                      "01/21/2013 @ 2:01pm"
                   ), 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.img({src: "http://www.consoleclassix.com/info_img/Super_Mario_Brothers_NES_ScreenShot2.jpg", className: "img-responsive save-slot navable"})
+                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios7-download"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 3"), 
                      "06/27/2014 @ 5:58pm"
@@ -4783,8 +4786,7 @@ var blink;
 
 var navigationInit = function() {
 
-    var navables = document.querySelectorAll('.navable');
- 
+    var navables = document.querySelectorAll('.navable, .subNavable');
 
      _(navables).forEach(function(el, i) { 
         el.removeAttribute("data-nav");
