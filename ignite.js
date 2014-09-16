@@ -41,16 +41,9 @@ api(nsp);
 common.render.ignite
 
 
-// var pub = redis.createClient();
-// var sub = redis.createClient();
-// var client = redis.createClient();
+var getCommunity = common.serverAPI;
 
-// io.set('store', new RedisStore({
-//     redisPub: pub,
-//     redisSub: sub,
-//     redisClient : client
-// }));
-
+getCommunity.getCommunity();
 
 //  Server Configuration
 app.configure(function() {
