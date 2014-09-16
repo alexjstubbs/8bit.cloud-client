@@ -40,8 +40,6 @@ module.exports = React.createClass({
 
      },
 
-
-    
     render: function() {
         
         var cx = React.addons.classSet;

@@ -4,7 +4,7 @@ var io = require('socket.io-client');
 var api = io.connect(window.location.hostname);
 // ('/api');
 
-console.log("window.location.hostname");
+// console.log("window.location.hostname");
 
 /* Module Definitions
 -------------------------------------------------- */

@@ -1929,10 +1929,21 @@ module.exports = React.createClass({displayName: 'exports',
             return {
                "title": "",
                "description": "",
+               "achievedClass": "fa-stack sub fa-lg "
             }
     },
     
     render: function() {
+
+        var cx = React.addons.classSet;
+        var classes = cx({
+            'achieved': this.state.achieved,
+            'icon': true,
+            'base': true,
+            'fa': true,
+            'fa-trophy': true
+        });
+
       
         return (
 
@@ -1942,9 +1953,10 @@ module.exports = React.createClass({displayName: 'exports',
                   
                   React.DOM.span({className: "trophy"}, 
 
-                     React.DOM.i({className: "icon base achieved fa fa-trophy"}), 
+                     React.DOM.i({className: classes}), 
 
-                  React.DOM.span({className: "fa-stack sub fa-lg"}, 
+
+                  React.DOM.span({className: this.state.achieved ? this.props.achievedClass : "hidden"}, 
                      React.DOM.i({className: "fa fa-circle fa-stack-2x"}), 
                      React.DOM.i({className: "fa fa-check fa-stack-1x fa-inverse green"})
                   )
@@ -2903,7 +2915,7 @@ module.exports = React.createClass({displayName: 'exports',
   getInitialState: function() {
           return {
             "title": "Unknown Title",            
-            "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
+            "boxart": "",
             "genre": "Action > Adventure",
             "playtime": "1:12:02",
             "savestates": [
@@ -2927,7 +2939,6 @@ module.exports = React.createClass({displayName: 'exports',
     
     render: function() {
 
-
         var saveNodes = this.state.savestates.map(function (state, i) {
             return SaveStates({filename: state.filename, image: state.image, slot: state.slot, navStack: i+1})
         });
@@ -2946,7 +2957,7 @@ module.exports = React.createClass({displayName: 'exports',
         React.DOM.div({className: "container-fluid"}, 
          
          React.DOM.header(null, 
-            React.DOM.div({className: "navable col-md-2 boxed pull-left", 'data-nav': "1"}, 
+            React.DOM.div({className: "navable col-md-2 boxed pull-left"}, 
                React.DOM.i({className: "icon ion-ios7-arrow-thin-left"}), "   Game Listing"
             ), 
          
@@ -2972,15 +2983,15 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.br(null), 
             React.DOM.div({className: "timer"}, "Time Played: ", this.state.playtime), 
             React.DOM.br(null), 
-            React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable selectedNav", 'data-nav': "2", 'data-function': "launchGame", 'data-parameters': ""}, "Play Game"), 
+            React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable", 'data-function': "launchGame", 'data-parameters': ""}, "Play Game"), 
             " ",  
-            React.DOM.a({className: "btn-alt btn-lg navable", 'data-nav': "3"}, "Multiplayer")
+            React.DOM.a({className: "btn-alt btn-lg navable"}, "Multiplayer")
          ), 
         
             saveNodes, 
 
         React.DOM.div({className: "col-md-9 profile-section"}, 
-        React.DOM.h1(null, "Achievements ", React.DOM.span({className: "achievement-stats"}, "1 out of 10 Accomplished.")), 
+        React.DOM.h1(null, "Achievements ", React.DOM.span({className: "achievement-stats"}, "0 out of 0 Accomplished.")), 
         React.DOM.ul({id: "achievements"}, 
 
              achievementNodes
@@ -3474,21 +3485,21 @@ module.exports = React.createClass({displayName: 'exports',
                React.DOM.div({className: "row"}, 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.img({src: "http://www.mobygames.com/images/shots/l/223581-super-mario-bros-nes-screenshot-some-worlds-are-underground.png", className: "img-responsive save-slot navable", 'data-nav': "4"})
+                     React.DOM.img({src: "http://www.mobygames.com/images/shots/l/223581-super-mario-bros-nes-screenshot-some-worlds-are-underground.png", className: "img-responsive save-slot navable"})
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 1"), 
                      "06/27/2014 @ 5:58pm"
                   ), 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.img({src: "http://img.gamefaqs.net/screens/e/d/b/gfs_18739_2_4.jpg", className: "img-responsive save-slot navable", 'data-nav': "5"})
+                     React.DOM.img({src: "http://img.gamefaqs.net/screens/e/d/b/gfs_18739_2_4.jpg", className: "img-responsive save-slot navable"})
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 2"), 
                      "01/21/2013 @ 2:01pm"
                   ), 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.img({src: "http://www.consoleclassix.com/info_img/Super_Mario_Brothers_NES_ScreenShot2.jpg", className: "img-responsive save-slot navable", 'data-nav': "5"})
+                     React.DOM.img({src: "http://www.consoleclassix.com/info_img/Super_Mario_Brothers_NES_ScreenShot2.jpg", className: "img-responsive save-slot navable"})
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 3"), 
                      "06/27/2014 @ 5:58pm"
@@ -3605,8 +3616,6 @@ module.exports = React.createClass({displayName: 'exports',
 
      },
 
-
-    
     render: function() {
         
         var cx = React.addons.classSet;
@@ -3772,7 +3781,7 @@ var io = require('socket.io-client');
 var api = io.connect(window.location.hostname);
 // ('/api');
 
-console.log("window.location.hostname");
+// console.log("window.location.hostname");
 
 /* Module Definitions
 -------------------------------------------------- */
@@ -3885,7 +3894,7 @@ var filterByAttribute = function(database, query, callback) {
             if (database == "games") {
                 var title = query.query.query;
                 api.emit('request', { request: 'lookupGame', param: title });
-                console.log("here");
+                
                 var obj = [{ 
                     title: title,
                     description: title+" the videogame"
@@ -4776,13 +4785,14 @@ var navigationInit = function() {
 
     var navables = document.querySelectorAll('.navable');
  
+
      _(navables).forEach(function(el, i) { 
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
     });
 
     var parent = _.first(document.querySelectorAll(".parent"));
-    var navables = parent.querySelectorAll('.navable');
+    navables = parent.querySelectorAll('.navable');
 
     _(navables).forEach(function(el, i) { 
         el.setAttribute("data-nav", i)
@@ -4864,8 +4874,6 @@ module.exports = function(k) {
         var us = document.querySelectorAll(".unselected");
 
         var screen = document.getElementById("main").getAttribute("data-screen");
-
-        console.log(screen);
 
         function currentSelection() {
             var currentSelection = document.querySelectorAll(".selectedNav");
@@ -5261,8 +5269,6 @@ module.exports = function(event, p) {
         }
         // Large Profile Page
         if (event == 'largeProfile') {
-
-            console.log(p);
 
             document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
             document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");

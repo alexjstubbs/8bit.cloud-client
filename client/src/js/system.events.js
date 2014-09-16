@@ -100,8 +100,6 @@ module.exports = function(event, p) {
         // Large Profile Page
         if (event == 'largeProfile') {
 
-            console.log(p);
-
             document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
             document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");
             document.getElementsByClassName("Browser")[0].classList.add("hidden");

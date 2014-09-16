@@ -23,10 +23,21 @@ module.exports = React.createClass({
             return {
                "title": "",
                "description": "",
+               "achievedClass": "fa-stack sub fa-lg "
             }
     },
     
     render: function() {
+
+        var cx = React.addons.classSet;
+        var classes = cx({
+            'achieved': this.state.achieved,
+            'icon': true,
+            'base': true,
+            'fa': true,
+            'fa-trophy': true
+        });
+
       
         return (
 
@@ -36,9 +47,10 @@ module.exports = React.createClass({
                   
                   <span className='trophy'>
 
-                     <i className='icon base achieved fa fa-trophy'></i>
+                     <i className={classes}></i>
 
-                  <span className="fa-stack sub fa-lg">
+
+                  <span className={this.state.achieved ? this.props.achievedClass : "hidden"}>
                      <i className="fa fa-circle fa-stack-2x"></i>
                      <i className="fa fa-check fa-stack-1x fa-inverse green"></i>
                   </span>

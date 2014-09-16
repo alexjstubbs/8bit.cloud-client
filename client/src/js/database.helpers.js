@@ -70,7 +70,7 @@ var filterByAttribute = function(database, query, callback) {
             if (database == "games") {
                 var title = query.query.query;
                 api.emit('request', { request: 'lookupGame', param: title });
-                console.log("here");
+                
                 var obj = [{ 
                     title: title,
                     description: title+" the videogame"

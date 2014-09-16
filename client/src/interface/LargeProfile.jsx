@@ -18,7 +18,7 @@ module.exports = React.createClass({
   getInitialState: function() {
           return {
             "title": "Unknown Title",            
-            "boxart": "https://s3.amazonaws.com/data.archive.vg/images/games/5379/wk866gfk32dkbw0f6x27_original.png",
+            "boxart": "",
             "genre": "Action > Adventure",
             "playtime": "1:12:02",
             "savestates": [
@@ -42,7 +42,6 @@ module.exports = React.createClass({
     
     render: function() {
 
-
         var saveNodes = this.state.savestates.map(function (state, i) {
             return <SaveStates filename={state.filename} image={state.image} slot={state.slot} navStack={i+1} />
         });
@@ -61,7 +60,7 @@ module.exports = React.createClass({
         <div className="container-fluid">
          
          <header>
-            <div className="navable col-md-2 boxed pull-left" data-nav='1'>
+            <div className="navable col-md-2 boxed pull-left">
                <i className="icon ion-ios7-arrow-thin-left"></i> &nbsp; Game Listing
             </div>
          
@@ -87,15 +86,15 @@ module.exports = React.createClass({
             <br />
             <div className="timer">Time Played: {this.state.playtime}</div>
             <br />
-            <a id="play-game" className='btn-alt btn-lg navable selectedNav' data-nav='2' data-function="launchGame" data-parameters="">Play Game</a>
+            <a id="play-game" className='btn-alt btn-lg navable' data-function="launchGame" data-parameters="">Play Game</a>
             &nbsp; 
-            <a className='btn-alt btn-lg navable' data-nav='3'>Multiplayer</a>
+            <a className='btn-alt btn-lg navable'>Multiplayer</a>
          </div>
         
             {saveNodes}  
 
         <div className="col-md-9 profile-section">
-        <h1>Achievements <span className="achievement-stats">1 out of 10 Accomplished.</span></h1>
+        <h1>Achievements <span className="achievement-stats">0 out of 0 Accomplished.</span></h1>
         <ul id="achievements">
 
              {achievementNodes}
