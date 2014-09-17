@@ -2233,19 +2233,28 @@ module.exports = React.createClass({displayName: 'exports',
 'use strict';
 
 var React = require('react/addons'),
-    helpers = require('../js/helpers');
+    helpers = require('../js/helpers'),
+    api = require('socket.io-client')('/api');
 
 module.exports = React.createClass({displayName: 'exports',
+
+       getInitialState: function() {
+            return {
+                 community: [{
+                    title: null, 
+                    Image: null, 
+                    URL: null, 
+                    rss: null, 
+                    Styles: null
+                }]
+        }
+    },
 
     getDefaultProps: function() {
     return {
             navable: true,
             navStack: 4,
             icon: "ion-ios7-people-outline ",
-            myMessages: [],
-            newMessages: false,
-            messageCount: 0,
-            shortcutKey: "F9",
             functionCall: "community",
             classString: "slide col-md-4",
             title: "Community",
@@ -2254,17 +2263,25 @@ module.exports = React.createClass({displayName: 'exports',
             hidden: "hidden"
         }
     },
+
+    componentDidMount: function() {
+
+        api.emit('request', { request: 'community'});
+        api.on('api', this.setState.bind(this));
+
+    },
+
     render: function() {
 
-        var imageStyles = this.props.imageStyles;
+        var imageStyles = this.state.community[0].Styles;
 
         var component = this;
-        helpers.preloadImage(this.props.image, function() {
+        helpers.preloadImage(this.state.community[0].Image, function() {
             document.getElementById("community_image").classList.remove("hidden");
-
         });
 
         return (
+
          React.DOM.div({className: this.props.classString}, 
 
          React.DOM.table({className: "table table-striped navable", 'data-function': this.props.functionCall, id: this.props.id}, 
@@ -2275,20 +2292,20 @@ module.exports = React.createClass({displayName: 'exports',
                     ), 
 
                     React.DOM.th({colSpan: "2"}, 
-                        React.DOM.h4({className: "text-right"}, this.props.title)
+                        React.DOM.h4({className: "text-right"}, this.state.community[0].title)
                     )
              ), 
                 
             React.DOM.tr(null, 
                 React.DOM.td({colSpan: "2", className: "rss_image"}, React.DOM.br(null), 
-                  React.DOM.span({className: "rImg"}, React.DOM.img({id: "community_image", src: this.props.image, className: "img-responsive hidden", style: JSON.parse(imageStyles)}))
+                  React.DOM.span({className: "rImg"}, React.DOM.img({id: "community_image", src: this.state.community[0].Image, className: "img-responsive hidden", style: imageStyles}))
                 )
             ), 
 
             React.DOM.tr(null, 
                 React.DOM.td({colSpan: "2", id: "rss_info"}, 
                     React.DOM.br(null), 
-                    React.DOM.h4({className: "rss_title pull-left"}, React.DOM.i({className: "ion-speakerphone"}), " ", this.props.subtitle), 
+                    React.DOM.h4({className: "rss_title pull-left"}, React.DOM.i({className: "ion-speakerphone"}), " ", this.state.community[0].subtitle), 
                     React.DOM.span({className: "rss_author pull-right"})
                 )
             )
@@ -2302,7 +2319,7 @@ module.exports = React.createClass({displayName: 'exports',
 });
 
 // 
-},{"../js/helpers":43,"react/addons":61}],11:[function(require,module,exports){
+},{"../js/helpers":43,"react/addons":61,"socket.io-client":220}],11:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2356,9 +2373,9 @@ var favorites = [
 
 ];
 
-var communityEvent = [
-    {'title': "Together Retro", "image": "http://www.racketboy.com/images/tr-lost-vikings.png", "url": "http://www.racketboy.com", "rss": "http://www.rackerboy.com?rss2", "imageStyles": '{"width": "90%", "height": "90%", "position": "relative", "left": "20px"}'}
-];
+// var communityEvent = [
+//     {'title': "Together Retro", "image": "http://www.racketboy.com/images/tr-lost-vikings.png", "url": "http://www.racketboy.com", "rss": "http://www.rackerboy.com?rss2", "imageStyles": '{"width": "90%", "height": "90%", "position": "relative", "left": "20px"}'}
+// ];
 
 var ignitionEvents = [
     {'type': 'release', 'copy': 'Ignition 1.0 released!', 'username': ''},
@@ -2432,7 +2449,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             RecentActivity({activities: activities, actionSet: actionSet}), 
             Favorites({favorites: favorites}), 
-            Community({communityEvent: communityEvent, subtitle: communityEvent[0].title, image: communityEvent[0].image, url: communityEvent[0].url, rss: communityEvent[0].rss, imageStyles: communityEvent[0].imageStyles})
+            Community(null)
 
             )
             ), 

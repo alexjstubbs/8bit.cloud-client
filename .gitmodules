@@ -1,0 +1,6 @@
+[submodule "databases/achievements/achievements"]
+	path = databases/achievements/achievements
+	url = https://github.com/alexjstubbs/ignition-achievements.git
+[submodule "databases/ignition-achievements"]
+	path = databases/ignition-achievements
+	url = https://github.com/alexjstubbs/ignition-achievements.git

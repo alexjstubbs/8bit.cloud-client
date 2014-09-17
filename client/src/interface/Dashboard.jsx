@@ -51,9 +51,9 @@ var favorites = [
 
 ];
 
-var communityEvent = [
-    {'title': "Together Retro", "image": "http://www.racketboy.com/images/tr-lost-vikings.png", "url": "http://www.racketboy.com", "rss": "http://www.rackerboy.com?rss2", "imageStyles": '{"width": "90%", "height": "90%", "position": "relative", "left": "20px"}'}
-];
+// var communityEvent = [
+//     {'title': "Together Retro", "image": "http://www.racketboy.com/images/tr-lost-vikings.png", "url": "http://www.racketboy.com", "rss": "http://www.rackerboy.com?rss2", "imageStyles": '{"width": "90%", "height": "90%", "position": "relative", "left": "20px"}'}
+// ];
 
 var ignitionEvents = [
     {'type': 'release', 'copy': 'Ignition 1.0 released!', 'username': ''},
@@ -127,7 +127,7 @@ module.exports = React.createClass({
 
             <RecentActivity activities={activities} actionSet={actionSet} />
             <Favorites favorites={favorites} />
-            <Community communityEvent={communityEvent} subtitle={communityEvent[0].title} image={communityEvent[0].image} url={communityEvent[0].url} rss={communityEvent[0].rss} imageStyles={communityEvent[0].imageStyles} />
+            <Community />
 
             </div>
             </div>

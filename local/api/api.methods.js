@@ -37,6 +37,10 @@ var api = {
     
     crc32: function(nsp, path) {
         common.hash.getCRC32(nsp, path);
+    },
+
+    community: function(nsp) {
+        common.serverAPI.getCommunity(nsp);
     }
 
 }

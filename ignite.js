@@ -40,14 +40,8 @@ api(nsp);
 
 common.render.ignite
 
-
-var getCommunity = common.serverAPI;
-
-getCommunity.getCommunity();
-
 //  Server Configuration
 app.configure(function() {
-
 
     app.set('views', './local/render/');
 

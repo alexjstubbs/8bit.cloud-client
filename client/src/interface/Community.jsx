@@ -5,19 +5,28 @@
 'use strict';
 
 var React = require('react/addons'),
-    helpers = require('../js/helpers');
+    helpers = require('../js/helpers'),
+    api = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
+
+       getInitialState: function() {
+            return {
+                 community: [{
+                    title: null, 
+                    Image: null, 
+                    URL: null, 
+                    rss: null, 
+                    Styles: null
+                }]
+        }
+    },
 
     getDefaultProps: function() {
     return {
             navable: true,
             navStack: 4,
             icon: "ion-ios7-people-outline ",
-            myMessages: [],
-            newMessages: false,
-            messageCount: 0,
-            shortcutKey: "F9",
             functionCall: "community",
             classString: "slide col-md-4",
             title: "Community",
@@ -26,17 +35,25 @@ module.exports = React.createClass({
             hidden: "hidden"
         }
     },
+
+    componentDidMount: function() {
+
+        api.emit('request', { request: 'community'});
+        api.on('api', this.setState.bind(this));
+
+    },
+
     render: function() {
 
-        var imageStyles = this.props.imageStyles;
+        var imageStyles = this.state.community[0].Styles;
 
         var component = this;
-        helpers.preloadImage(this.props.image, function() {
+        helpers.preloadImage(this.state.community[0].Image, function() {
             document.getElementById("community_image").classList.remove("hidden");
-
         });
 
         return (
+
          <div className={this.props.classString}>
 
          <table className="table table-striped navable" data-function={this.props.functionCall} id={this.props.id}>
@@ -47,20 +64,20 @@ module.exports = React.createClass({
                     </th>
 
                     <th colSpan='2'>
-                        <h4 className="text-right">{this.props.title}</h4>
+                        <h4 className="text-right">{this.state.community[0].title}</h4>
                     </th>
              </thead>
                 
             <tr>
                 <td colSpan='2' className="rss_image"><br />                        
-                  <span className="rImg"><img id="community_image" src={this.props.image} className='img-responsive hidden' style={JSON.parse(imageStyles)} /></span>
+                  <span className="rImg"><img id="community_image" src={this.state.community[0].Image} className='img-responsive hidden' style={imageStyles} /></span>
                 </td>
             </tr>
 
             <tr>
                 <td colSpan='2' id="rss_info">
                     <br />
-                    <h4 className="rss_title pull-left"><i className='ion-speakerphone'></i> {this.props.subtitle}</h4>
+                    <h4 className="rss_title pull-left"><i className='ion-speakerphone'></i> {this.state.community[0].subtitle}</h4>
                     <span className="rss_author pull-right"></span>
                 </td>
             </tr>
