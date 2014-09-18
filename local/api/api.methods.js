@@ -41,6 +41,11 @@ var api = {
 
     community: function(nsp) {
         common.serverAPI.getCommunity(nsp);
+    },
+
+    events: function(nsp) {
+        console.log("EVENTS?");
+        common.serverAPI.getEvents(nsp);
     }
 
 }

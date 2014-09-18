@@ -31,6 +31,7 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
+
         var component = this;
         window.addEventListener('screenTransition', function eventHandler(e) {
               component.screenTransition(e);
@@ -60,6 +61,7 @@ module.exports = React.createClass({
         });
 
         return (
+
 
              <div className={classes}> 
 

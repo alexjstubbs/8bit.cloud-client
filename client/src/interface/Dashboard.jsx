@@ -56,15 +56,15 @@ var favorites = [
 // ];
 
 var ignitionEvents = [
-    {'type': 'release', 'copy': 'Ignition 1.0 released!', 'username': ''},
-    {'type': 'message', 'copy': 'Hey Whats Up?', 'username': "Roman"},
-    {'type': 'file', 'copy': 'Sent you a save file', 'username': "Andie"},
+    {'Type': 'Update', 'copy': 'Ignition 1.0 released!', 'username': ''},
+    {'Type': 'message', 'copy': 'Hey Whats Up?', 'username': "Roman"},
+    {'Type': 'file', 'copy': 'Sent you a save file', 'username': "Andie"},
 ];
 
 var eventSet = [
-    {"type": "release", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
-    {"type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios7-chatboxes", "shortcut": "F6"},
-    {"type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
+    {"Type": "Update", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
+    {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios7-chatboxes", "shortcut": "F6"},
+    {"Type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
 ];
 /* Components
 -------------------------------------------------- */
@@ -134,7 +134,7 @@ module.exports = React.createClass({
 
             
 
-            <IgnitionEvents events={ignitionEvents} eventSet={eventSet} />
+            <IgnitionEvents eventSet={eventSet} />
 
             <div class="clearfix"></div>
             <br />

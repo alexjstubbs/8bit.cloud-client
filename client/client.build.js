@@ -2124,6 +2124,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
+
         var component = this;
         window.addEventListener('screenTransition', function eventHandler(e) {
               component.screenTransition(e);
@@ -2153,6 +2154,7 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
         return (
+
 
              React.DOM.div({className: classes}, 
 
@@ -2378,15 +2380,15 @@ var favorites = [
 // ];
 
 var ignitionEvents = [
-    {'type': 'release', 'copy': 'Ignition 1.0 released!', 'username': ''},
-    {'type': 'message', 'copy': 'Hey Whats Up?', 'username': "Roman"},
-    {'type': 'file', 'copy': 'Sent you a save file', 'username': "Andie"},
+    {'Type': 'Update', 'copy': 'Ignition 1.0 released!', 'username': ''},
+    {'Type': 'message', 'copy': 'Hey Whats Up?', 'username': "Roman"},
+    {'Type': 'file', 'copy': 'Sent you a save file', 'username': "Andie"},
 ];
 
 var eventSet = [
-    {"type": "release", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
-    {"type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios7-chatboxes", "shortcut": "F6"},
-    {"type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
+    {"Type": "Update", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
+    {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios7-chatboxes", "shortcut": "F6"},
+    {"Type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
 ];
 /* Components
 -------------------------------------------------- */
@@ -2456,7 +2458,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             
 
-            IgnitionEvents({events: ignitionEvents, eventSet: eventSet}), 
+            IgnitionEvents({eventSet: eventSet}), 
 
             React.DOM.div({class: "clearfix"}), 
             React.DOM.br(null), 
@@ -2479,36 +2481,36 @@ var React = require('react/addons'),
     actionString;
 
 
-
 module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
     return {
             navable: false,
             subNavable: true,
             navStack: 1,
-            icon: "ion-game-controller-a ",
-            functionCall: "viewMessages",
-            username: "Unkown",
-            action: "gameplay",
-            game: null,
             eventSet: [],
-            eventType: "",
+            eventType: "message",
             timestamp: null,
             classString: "icon large-icon-bg "
         }
     },
     render: function() {
 
-        var eventString = _.filter(this.props.eventSet, {"type": this.props.eventType});
+        if (this.props.eventType) {
+            var eventString = _.filter(this.props.eventSet, {"Type": this.props.eventType});
+        }
+
+        else {
+            var eventString = this.props.eventSet;
+        }
 
 
         return (
 
-// {'type': 'release', 'copy': 'Ignition 1.0 released!', 'shortcut': 'F5', 'username': ''},
+        // {'type': 'release', 'copy': 'Ignition 1.0 released!', 'shortcut': 'F5', 'username': ''},
 
-        React.DOM.div({className: "col-md-3"}, 
-            React.DOM.span(null, React.DOM.i({className: this.props.classString + eventString[0].icon}), React.DOM.span({className: "large-notification"}, this.props.username, " ", eventString[0].string)), 
-            React.DOM.span({className: "muted left-adjust"}, eventString[0].shortcut, " to update")
+        React.DOM.div({className: "col-md-4"}, 
+            React.DOM.span(null, React.DOM.i({className: this.props.classString + eventString ? eventString[0].icon : " "}), React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
+            React.DOM.span({className: "muted left-adjust"}, eventString ? eventString[0].shortcut : " ", " to update")
         )
         
         // <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack}>
@@ -2824,6 +2826,26 @@ var React = require('react/addons'),
 
 module.exports = React.createClass({displayName: 'exports',
 
+  getInitialState: function() {
+            return {
+                 events: [{
+                    Type: null,
+                    Append: null,
+                    Git: null,
+                    Hash: null
+                }]
+        }
+    },
+    componentDidMount: function() {
+
+        api.emit('request', { request: 'events'});
+        api.on('api', this.setState.bind(this));
+        api.on('api', function(e){
+            console.log(e)
+        });
+
+    },
+
     getDefaultProps: function() {
     return {
             navable: false,
@@ -2832,16 +2854,17 @@ module.exports = React.createClass({displayName: 'exports',
             eventSet: [],
             id: "events",
             eventType: "",
-            events: [],
         }
     },
     render: function() {
 
         var eventSet = this.props.eventSet;
 
-        var eventNodes = this.props.events.map(function (event, i) {
-          return Event({eventSet: eventSet, eventType: event.type, key: i.id, username: event.username, action: event.activity, game: event.game})
+        var eventNodes = this.state.events.map(function (event, i) {
+            console.log(event);
+          return Event({key: i.id, eventSet: eventSet, eventType: event.Type, eventAppend: event.Append, eventGit: event.Git, eventHash: event.Hash})
         });
+
 
 
         return (

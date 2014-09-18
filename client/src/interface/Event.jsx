@@ -9,36 +9,36 @@ var React = require('react/addons'),
     actionString;
 
 
-
 module.exports = React.createClass({
     getDefaultProps: function() {
     return {
             navable: false,
             subNavable: true,
             navStack: 1,
-            icon: "ion-game-controller-a ",
-            functionCall: "viewMessages",
-            username: "Unkown",
-            action: "gameplay",
-            game: null,
             eventSet: [],
-            eventType: "",
+            eventType: "message",
             timestamp: null,
             classString: "icon large-icon-bg "
         }
     },
     render: function() {
 
-        var eventString = _.filter(this.props.eventSet, {"type": this.props.eventType});
+        if (this.props.eventType) {
+            var eventString = _.filter(this.props.eventSet, {"Type": this.props.eventType});
+        }
+
+        else {
+            var eventString = this.props.eventSet;
+        }
 
 
         return (
 
-// {'type': 'release', 'copy': 'Ignition 1.0 released!', 'shortcut': 'F5', 'username': ''},
+        // {'type': 'release', 'copy': 'Ignition 1.0 released!', 'shortcut': 'F5', 'username': ''},
 
-        <div className="col-md-3">
-            <span><i className={this.props.classString + eventString[0].icon}></i><span className="large-notification">{this.props.username} {eventString[0].string}</span></span>
-            <span className="muted left-adjust">{eventString[0].shortcut} to update</span>
+        <div className="col-md-4">
+            <span><i className={this.props.classString + eventString ? eventString[0].icon : " "}></i><span className="large-notification">{this.props.eventAppend}</span></span>
+            <span className="muted left-adjust">{eventString ? eventString[0].shortcut : " "} to update</span>
         </div>
         
         // <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack}>

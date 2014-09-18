@@ -16,7 +16,7 @@ function initDatabases(callback) {
     });
 
     // TODO: Store all in the directory
-    var testStore = require('../../../databases/achievements/smb.json');
+    var testStore = require('../../../databases/ignition-achievements/Official/smb.json');
 
     database.storeAchievement(testStore, function(gameAchievements) {
         gameAchievements = JSON.parse(JSON.stringify(gameAchievements))

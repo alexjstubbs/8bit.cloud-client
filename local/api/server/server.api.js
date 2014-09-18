@@ -33,7 +33,25 @@ var getCommunity = function(nsp) {
 
 }
 
+/* Events Endpoint
+-------------------------------------------------- */
+
+var getEvents = function(nsp) {
+
+    var app = "Events";
+    _path = "http://" + path.join(server, "api", v, app);
+
+   request.get({
+        uri: _path
+    }, function (error, response, body) {
+            console.log(body);
+            nsp.emit('api', {events: JSON.parse(body)}) // Emit this to update the community events
+    });
+
+}
+
 exports.getCommunity = getCommunity;
+exports.getEvents = getEvents;
 
  // $or: [
  //                {name: '~Another'},

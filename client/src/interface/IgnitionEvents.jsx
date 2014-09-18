@@ -10,6 +10,26 @@ var React = require('react/addons'),
 
 module.exports = React.createClass({
 
+  getInitialState: function() {
+            return {
+                 events: [{
+                    Type: null,
+                    Append: null,
+                    Git: null,
+                    Hash: null
+                }]
+        }
+    },
+    componentDidMount: function() {
+
+        api.emit('request', { request: 'events'});
+        api.on('api', this.setState.bind(this));
+        api.on('api', function(e){
+            console.log(e)
+        });
+
+    },
+
     getDefaultProps: function() {
     return {
             navable: false,
@@ -18,16 +38,17 @@ module.exports = React.createClass({
             eventSet: [],
             id: "events",
             eventType: "",
-            events: [],
         }
     },
     render: function() {
 
         var eventSet = this.props.eventSet;
 
-        var eventNodes = this.props.events.map(function (event, i) {
-          return <Event eventSet={eventSet} eventType={event.type} key={i.id} username={event.username} action={event.activity} game={event.game} />
+        var eventNodes = this.state.events.map(function (event, i) {
+            console.log(event);
+          return <Event key={i.id} eventSet={eventSet} eventType={event.Type} eventAppend={event.Append} eventGit={event.Git} eventHash={event.Hash} />
         });
+
 
 
         return (

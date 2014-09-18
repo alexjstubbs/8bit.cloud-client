@@ -1,0 +1,3 @@
+{"type": "release", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
+{"type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios7-chatboxes", "shortcut": "F6"},
+{"type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
