@@ -17,17 +17,23 @@ module.exports = React.createClass({
                     Append: null,
                     Git: null,
                     Hash: null
+                }],
+
+                eventSet: [{
+
                 }]
         }
     },
     componentDidMount: function() {
 
+        api.emit('request', { request: 'getSet', param: 'events'});
         api.emit('request', { request: 'events'});
         api.on('api', this.setState.bind(this));
-        api.on('api', function(e){
-            console.log(e)
-        });
 
+        api.on('api', function(e) {
+            console.log(e);
+        });
+  
     },
 
     getDefaultProps: function() {
@@ -42,10 +48,9 @@ module.exports = React.createClass({
     },
     render: function() {
 
-        var eventSet = this.props.eventSet;
+        var eventSet = this.state.eventSet;
 
         var eventNodes = this.state.events.map(function (event, i) {
-            console.log(event);
           return <Event key={i.id} eventSet={eventSet} eventType={event.Type} eventAppend={event.Append} eventGit={event.Git} eventHash={event.Hash} />
         });
 

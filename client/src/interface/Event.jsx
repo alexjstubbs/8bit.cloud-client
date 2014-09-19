@@ -31,13 +31,10 @@ module.exports = React.createClass({
             var eventString = this.props.eventSet;
         }
 
-
         return (
 
-        // {'type': 'release', 'copy': 'Ignition 1.0 released!', 'shortcut': 'F5', 'username': ''},
-
         <div className="col-md-4">
-            <span><i className={this.props.classString + eventString ? eventString[0].icon : " "}></i><span className="large-notification">{this.props.eventAppend}</span></span>
+            <span><i className={eventString ? this.props.classString + eventString[0].icon : this.props.classString}></i><span className="large-notification">{this.props.eventAppend}</span></span>
             <span className="muted left-adjust">{eventString ? eventString[0].shortcut : " "} to update</span>
         </div>
         

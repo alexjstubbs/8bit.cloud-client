@@ -10,6 +10,7 @@ function initDatabases(callback) {
         filename: './databases/games.db',
         autoload: true
     });
+
     db.achievements = new Datastore({
         filename: './databases/achievements.db',
         autoload: true
@@ -28,7 +29,7 @@ function initDatabases(callback) {
 -------------------------------------------------- */
 function storeGet(nsp, database) {
      
-    db.games.find({}, function (err, docs) {
+    db[database].find({}, function (err, docs) {
         nsp.emit('api', {database: docs});
     });
 

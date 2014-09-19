@@ -21,7 +21,8 @@ common = {
     location: require('../local/api/network/network.location'),
     db: require('../local/api/game/game.image'),
     exec: require('../local/system/system.exec'),
-    serverAPI: require('../local/api/server/server.api')
+    serverAPI: require('../local/api/server/server.api'),
+    getSet: require('../local/api/api.sets')
 };
 
 module.exports = common;

@@ -44,8 +44,11 @@ var api = {
     },
 
     events: function(nsp) {
-        console.log("EVENTS?");
         common.serverAPI.getEvents(nsp);
+    },
+
+    getSet: function(nsp, set) {
+        common.getSet.getSet(nsp, set);
     }
 
 }

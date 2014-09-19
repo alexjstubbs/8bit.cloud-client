@@ -1,0 +1,5 @@
+[ {"Type": "Update", "icon": "ion-fork-repo", "shortcut": "F12"},
+{"Type": "Message", "icon": "ion-ios7-chatboxes", "shortcut": "F1"},
+{"Type": "File", "icon": "ion-paper-airplane", "shortcut": "F1"},
+{"Type": "Achievements", "icon": "ion-ribbon-b", "shortcut": "F11"},
+{"Type": "Announcement", "icon": "ion-speakerphone", "shortcut": "F10"} ]

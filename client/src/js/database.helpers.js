@@ -28,8 +28,8 @@ var initLocalDatabase = function(database, callback) {
             if (database == "games") {
                     data = _.flatten(data.database, 'games'),
                     data = _.flatten(data, 'game');
+                    collection[database] = new PourOver.PourOver.Collection(data);
             }
-            collection[database] = new PourOver.PourOver.Collection(data);
         }
     });
     return;

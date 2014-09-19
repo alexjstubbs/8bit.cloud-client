@@ -2503,13 +2503,10 @@ module.exports = React.createClass({displayName: 'exports',
             var eventString = this.props.eventSet;
         }
 
-
         return (
 
-        // {'type': 'release', 'copy': 'Ignition 1.0 released!', 'shortcut': 'F5', 'username': ''},
-
         React.DOM.div({className: "col-md-4"}, 
-            React.DOM.span(null, React.DOM.i({className: this.props.classString + eventString ? eventString[0].icon : " "}), React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
+            React.DOM.span(null, React.DOM.i({className: eventString ? this.props.classString + eventString[0].icon : this.props.classString}), React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
             React.DOM.span({className: "muted left-adjust"}, eventString ? eventString[0].shortcut : " ", " to update")
         )
         
@@ -2833,17 +2830,23 @@ module.exports = React.createClass({displayName: 'exports',
                     Append: null,
                     Git: null,
                     Hash: null
+                }],
+
+                eventSet: [{
+
                 }]
         }
     },
     componentDidMount: function() {
 
+        api.emit('request', { request: 'getSet', param: 'events'});
         api.emit('request', { request: 'events'});
         api.on('api', this.setState.bind(this));
-        api.on('api', function(e){
-            console.log(e)
-        });
 
+        api.on('api', function(e) {
+            console.log(e);
+        });
+  
     },
 
     getDefaultProps: function() {
@@ -2858,10 +2861,9 @@ module.exports = React.createClass({displayName: 'exports',
     },
     render: function() {
 
-        var eventSet = this.props.eventSet;
+        var eventSet = this.state.eventSet;
 
         var eventNodes = this.state.events.map(function (event, i) {
-            console.log(event);
           return Event({key: i.id, eventSet: eventSet, eventType: event.Type, eventAppend: event.Append, eventGit: event.Git, eventHash: event.Hash})
         });
 
@@ -3895,8 +3897,8 @@ var initLocalDatabase = function(database, callback) {
             if (database == "games") {
                     data = _.flatten(data.database, 'games'),
                     data = _.flatten(data, 'game');
+                    collection[database] = new PourOver.PourOver.Collection(data);
             }
-            collection[database] = new PourOver.PourOver.Collection(data);
         }
     });
     return;
