@@ -20,7 +20,7 @@ var api = {
     },
 
     messages: function(nsp) {
-        // console.log("send messages...");
+        common.serverAPI.getMessages(nsp);
     },
 
     isOnline: function(nsp, username) {

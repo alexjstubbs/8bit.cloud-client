@@ -19,16 +19,10 @@ var getCommunity = function(nsp) {
     var app = "Communities";
     _path = "http://" + path.join(server, "api", v, app);
 
-    // var query = { $or: [
-    //     {URL: 'http://www.racketboy.com'}] 
-    // };
-
    request.get({
         uri: _path
-        // qs: { query: JSON.stringify(query) }
     }, function (error, response, body) {
-            console.log(body);
-            nsp.emit('api', {community: JSON.parse(body)}) // Emit this to update the community events
+            nsp.emit('api', {community: JSON.parse(body)}) 
     });
 
 }
@@ -44,14 +38,38 @@ var getEvents = function(nsp) {
    request.get({
         uri: _path
     }, function (error, response, body) {
-            console.log(body);
-            nsp.emit('api', {events: JSON.parse(body)}) // Emit this to update the community events
+            nsp.emit('api', {events: JSON.parse(body)}) 
     });
 
 }
 
+/* Message Endpoint
+-------------------------------------------------- */
+var getMessages = function(nsp) {
+
+    var app = "Messages";
+    _path = "http://" + path.join(server, "api", v, app);
+
+    var query = { 
+        To: 'Alex'
+    };
+
+   request.get({
+        uri: _path,
+        qs: { query: JSON.stringify(query) }
+    }, function (error, response, body) {
+        // console.log(body);
+            nsp.emit('api', {messages: JSON.parse(body)})
+    });
+
+}
+
+/* Exports
+-------------------------------------------------- */
+
 exports.getCommunity = getCommunity;
 exports.getEvents = getEvents;
+exports.getMessages = getMessages;
 
  // $or: [
  //                {name: '~Another'},

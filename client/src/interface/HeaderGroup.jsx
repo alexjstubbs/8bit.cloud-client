@@ -19,6 +19,9 @@ module.exports = React.createClass({
         }
     },
     render: function() {
+
+        console.log(this.props.myMessages);
+
         return (
             <div className={this.props.classString}> 
                 <Inbox myMessages={this.props.myMessages} />

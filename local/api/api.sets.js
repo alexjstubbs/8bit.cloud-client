@@ -1,11 +1,19 @@
 /* List Roms by System
 -------------------------------------------------- */
 
-var eventSet = require('../../config/event.set.json');
+var fs = require('fs-extra')
+,   path = require('path');
 
 function getSet(nsp, set) {
 
-        nsp.emit('api', {eventSet: eventSet});
+    var _path = path.join('./config',set + ".set.json")
+
+    fs.readJson(_path, function(err, eventPackage) {
+
+        nsp.emit('api', {eventSet: eventPackage});
+          
+    });
+
 
 }
 

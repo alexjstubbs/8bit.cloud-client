@@ -2398,8 +2398,9 @@ module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
-            hidden: false,
-            parent: true
+            // hidden: false,
+            // parent: true
+            messages: [{}]
         };
     },
 
@@ -2424,6 +2425,14 @@ module.exports = React.createClass({displayName: 'exports',
               component.screenTransition(e);
         });
 
+        api.emit('request', { request: 'messages'});
+        api.on('api', this.setState.bind(this));
+
+
+        // api.on('api', function(e){
+        //     console.log(e);
+        // });
+
     },
 
     render: function() {
@@ -2441,7 +2450,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({id: "home", className: classes}, 
             
             UserProfile({username: myProfile[0].username, isOnline: myProfile[0].username}), 
-            HeaderGroup({myMessages: myMessages}), 
+            HeaderGroup({myMessages: this.state.messages}), 
             
             React.DOM.div({className: "clearfix"}), 
             React.DOM.br(null), 
@@ -2800,6 +2809,9 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
     render: function() {
+
+        console.log(this.props.myMessages);
+
         return (
             React.DOM.div({className: this.props.classString}, 
                 Inbox({myMessages: this.props.myMessages}), 
@@ -2839,13 +2851,9 @@ module.exports = React.createClass({displayName: 'exports',
     },
     componentDidMount: function() {
 
-        api.emit('request', { request: 'getSet', param: 'events'});
+        api.emit('request', { request: 'getSet', param: 'event'});
         api.emit('request', { request: 'events'});
         api.on('api', this.setState.bind(this));
-
-        api.on('api', function(e) {
-            console.log(e);
-        });
   
     },
 
@@ -3160,8 +3168,8 @@ module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
             messages: [
-                { "type": "text", "sender": "Alexander Stubbs", "attachment": null, "timestamp": 2013121210230 },
-                { "type": "text", "sender": "Romanania Stubbs", "attachment": null, "timestamp": 2012121210230 }
+                { "From": "text", "To": "Alexander Stubbs", "Attachment": null, "timestamp": 2013121210230 },
+                { "From": "text", "To": "Romanania Stubbs", "Attachment": null, "timestamp": 2012121210230 }
             ]
         };
     },
@@ -3182,7 +3190,7 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         var messageNodes = this.state.messages.map(function (message, i) {
-          return MessagePreview({key: i.id, navStack: i+1, sender: message.sender, attachments: message.attachments, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
+          return MessagePreview({key: i.id, navStack: i+1, sender: message.from, attachments: message.attachment, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
         });
 
         return (

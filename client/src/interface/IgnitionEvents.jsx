@@ -26,13 +26,9 @@ module.exports = React.createClass({
     },
     componentDidMount: function() {
 
-        api.emit('request', { request: 'getSet', param: 'events'});
+        api.emit('request', { request: 'getSet', param: 'event'});
         api.emit('request', { request: 'events'});
         api.on('api', this.setState.bind(this));
-
-        api.on('api', function(e) {
-            console.log(e);
-        });
   
     },
 

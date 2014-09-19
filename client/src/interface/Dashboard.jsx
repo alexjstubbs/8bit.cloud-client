@@ -74,8 +74,9 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            hidden: false,
-            parent: true
+            // hidden: false,
+            // parent: true
+            messages: [{}]
         };
     },
 
@@ -100,6 +101,14 @@ module.exports = React.createClass({
               component.screenTransition(e);
         });
 
+        api.emit('request', { request: 'messages'});
+        api.on('api', this.setState.bind(this));
+
+
+        // api.on('api', function(e){
+        //     console.log(e);
+        // });
+
     },
 
     render: function() {
@@ -117,7 +126,7 @@ module.exports = React.createClass({
             <div id="home" className={classes}>
             
             <UserProfile username={myProfile[0].username} isOnline={myProfile[0].username} />
-            <HeaderGroup myMessages={myMessages} />
+            <HeaderGroup myMessages={this.state.messages} />
             
             <div className="clearfix"></div> 
             <br />

@@ -48,7 +48,7 @@ app.configure(function() {
     app.engine('mustache', common.mu2express.engine);
     app.set('view engine', 'mustache');
 
-    app.use(common.express.logger('dev'));
+    // app.use(common.express.logger('dev'));
     app.use(common.express.bodyParser());
     app.use(common.express.methodOverride());
 
