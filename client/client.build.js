@@ -2398,9 +2398,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
-            // hidden: false,
-            // parent: true
-            messages: [{}]
+            messages: []
         };
     },
 
@@ -2427,11 +2425,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
-
-
-        // api.on('api', function(e){
-        //     console.log(e);
-        // });
 
     },
 
@@ -2810,8 +2803,6 @@ module.exports = React.createClass({displayName: 'exports',
     },
     render: function() {
 
-        console.log(this.props.myMessages);
-
         return (
             React.DOM.div({className: this.props.classString}, 
                 Inbox({myMessages: this.props.myMessages}), 
@@ -2896,6 +2887,7 @@ module.exports = React.createClass({displayName: 'exports',
 'use strict';
 
 var React = require('react/addons'),
+    _ = require('lodash'),
     newMessages;
 
 module.exports = React.createClass({displayName: 'exports',
@@ -2916,20 +2908,25 @@ module.exports = React.createClass({displayName: 'exports',
     },
     render: function() {
 
-        this.props.myMessages.length > 0 ? newMessages = true : newMessages = false;
+        newMessages = this.props.newMessages;
+
+        if (this.props.myMessages.length > 0) { 
+            newMessages = true 
+        }
 
         var cx = React.addons.classSet;
         var classes = cx({
             'gray': true,
-            'red': this.props.newMessages
+            'red': newMessages
         });
+
         return (
         React.DOM.div({id: this.props.id, className: "col-md-6 pull-left"}, 
             React.DOM.div({className: this.props.navable ? 'navable '+this.props.classString : this.props.classString, 'data-function': this.props.functionCall, 'data-parameters': this.props.myMessages}, 
                 React.DOM.i({className: this.props.icon + classes})
             ), 
             React.DOM.div({className: "hello col-md-7 pad_h_5"}, 
-                React.DOM.h4({className: "nopadding"}, this.props.newMessages ? "New messages" : "Messages"), 
+                React.DOM.h4({className: "nopadding"}, this.props.myMessages.length, " ", newMessages ? "New messages" : "Messages"), 
                 React.DOM.span({className: "muted"}, "Press ", this.props.shortcutKey, " to read")
             )
         )
@@ -2941,7 +2938,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"react/addons":61}],20:[function(require,module,exports){
+},{"lodash":58,"react/addons":61}],20:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */

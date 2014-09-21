@@ -22,6 +22,7 @@ var getCommunity = function(nsp) {
    request.get({
         uri: _path
     }, function (error, response, body) {
+
             nsp.emit('api', {community: JSON.parse(body)}) 
     });
 
@@ -58,7 +59,6 @@ var getMessages = function(nsp) {
         uri: _path,
         qs: { query: JSON.stringify(query) }
     }, function (error, response, body) {
-        // console.log(body);
             nsp.emit('api', {messages: JSON.parse(body)})
     });
 

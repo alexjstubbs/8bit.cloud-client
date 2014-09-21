@@ -74,9 +74,7 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            // hidden: false,
-            // parent: true
-            messages: [{}]
+            messages: []
         };
     },
 
@@ -103,11 +101,6 @@ module.exports = React.createClass({
 
         api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
-
-
-        // api.on('api', function(e){
-        //     console.log(e);
-        // });
 
     },
 
