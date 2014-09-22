@@ -11,6 +11,16 @@ var server = "localhost:3000"
 ,   v = "v1"
 ,   api = path.join(server, "api", v);
 
+
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
+}
+
 /* Community Endpoint
 -------------------------------------------------- */
 
@@ -22,8 +32,10 @@ var getCommunity = function(nsp) {
    request.get({
         uri: _path
     }, function (error, response, body) {
-
-            nsp.emit('api', {community: JSON.parse(body)}) 
+            if (isJson(body)) {
+                nsp.emit('api', {community: JSON.parse(body)}) 
+            }
+            
     });
 
 }
@@ -39,7 +51,9 @@ var getEvents = function(nsp) {
    request.get({
         uri: _path
     }, function (error, response, body) {
+        if (isJson(body)) {
             nsp.emit('api', {events: JSON.parse(body)}) 
+        }
     });
 
 }
@@ -55,12 +69,38 @@ var getMessages = function(nsp) {
         To: 'Alex'
     };
 
-   request.get({
+   request.post({
         uri: _path,
         qs: { query: JSON.stringify(query) }
     }, function (error, response, body) {
+        if (isJson(body)) {
             nsp.emit('api', {messages: JSON.parse(body)})
+        }
     });
+
+}
+
+/* Login 
+-------------------------------------------------- */
+
+var getSession = function(nsp) {
+
+    var app = "login";
+        _path = "http://" + path.join(server, app);
+
+        var query = { 
+            Username: 'Alex',
+            Password: 'Pass'
+        };
+
+       request.post({
+            uri: _path,
+            form: { Username: "Alex", Password: "469df27ea91ab84345e0051c81868535" }
+        }, function (error, response, body) {
+            if (isJson(body)) {
+                nsp.emit('api', {messages: JSON.parse(body)})
+            }
+        });
 
 }
 
@@ -69,7 +109,9 @@ var getMessages = function(nsp) {
 
 exports.getCommunity = getCommunity;
 exports.getEvents = getEvents;
-exports.getMessages = getMessages;
+exports.getMessages = getSession;
+// exports.getMessages = getMessages;
+exports.getSession = getSession;
 
  // $or: [
  //                {name: '~Another'},

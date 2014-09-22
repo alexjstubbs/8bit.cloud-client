@@ -26,11 +26,13 @@ module.exports = React.createClass({
     },
     render: function() {
 
-        newMessages = this.props.newMessages;
+        newMessages = this.props.myMessages;
 
-        if (this.props.myMessages.length > 0) { 
+        if (this.props.myMessages.length > 0) {
             newMessages = true 
         }
+
+        console.log(this.props.myMessages);
 
         var cx = React.addons.classSet;
         var classes = cx({
