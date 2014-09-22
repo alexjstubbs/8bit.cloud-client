@@ -69,10 +69,13 @@ var getMessages = function(nsp) {
         To: 'Alex'
     };
 
-   request.post({
+   request.get({
         uri: _path,
         qs: { query: JSON.stringify(query) }
     }, function (error, response, body) {
+        if (body === '109') {
+            console.log("Unauthed")
+        }
         if (isJson(body)) {
             nsp.emit('api', {messages: JSON.parse(body)})
         }
@@ -109,8 +112,8 @@ var getSession = function(nsp) {
 
 exports.getCommunity = getCommunity;
 exports.getEvents = getEvents;
-exports.getMessages = getSession;
-// exports.getMessages = getMessages;
+// exports.getMessages = getSession;
+exports.getMessages = getMessages;
 exports.getSession = getSession;
 
  // $or: [
