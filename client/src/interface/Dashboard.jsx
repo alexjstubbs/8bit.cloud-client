@@ -30,16 +30,16 @@ var myMessages = [
     {"username": "Andie", "attachment": true, "body": "Yo"}
 ]
 
-var activities = [
-    { 'username': 'Sergeant Stubbs', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Castlevania"},
-    { 'username': 'Ascetic0990',   'activity': "achievement", "timestamp": "2014081210323", "game": "Resident Evil"},
-    { 'username': 'Alex', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Super Mario"},
-    { 'username': 'Andie',   'activity': "achievement", "timestamp": "2012081210323", "game": "Resident Evil"}
-];
+// var activities = [
+//     { 'username': 'Sergeant Stubbs', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Castlevania"},
+//     { 'username': 'Ascetic0990',   'activity': "achievement", "timestamp": "2014081210323", "game": "Resident Evil"},
+//     { 'username': 'Alex', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Super Mario"},
+//     { 'username': 'Andie',   'activity': "achievement", "timestamp": "2012081210323", "game": "Resident Evil"}
+// ];
 
 var actionSet = [
-    {"type": "achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
-    {"type": "gameplay", "string": "recently played", "icon": "ion-game-controller-b", "color": "red-bg"}
+    {"type": "Achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
+    {"type": "Gameplay", "string": "recently played", "icon": "ion-game-controller-b", "color": "red-bg"}
 ];
 
 
@@ -127,14 +127,12 @@ module.exports = React.createClass({
             <div className="container-fluid" id="area"> 
             <div data-screen='home' className="screen">
 
-            <RecentActivity activities={activities} actionSet={actionSet} />
+            <RecentActivity actionSet={actionSet} />
             <Favorites favorites={favorites} />
             <Community />
 
             </div>
             </div>
-
-            
 
             <IgnitionEvents eventSet={eventSet} />
 

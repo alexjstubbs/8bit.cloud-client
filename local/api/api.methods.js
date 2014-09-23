@@ -49,6 +49,10 @@ var api = {
 
     getSet: function(nsp, set) {
         common.getSet.getSet(nsp, set);
+    },
+    
+    getActivities: function(nsp, set) {
+        common.serverAPI.getActivities(nsp);
     }
 
 }

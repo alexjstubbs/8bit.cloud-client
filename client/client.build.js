@@ -2354,16 +2354,16 @@ var myMessages = [
     {"username": "Andie", "attachment": true, "body": "Yo"}
 ]
 
-var activities = [
-    { 'username': 'Sergeant Stubbs', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Castlevania"},
-    { 'username': 'Ascetic0990',   'activity': "achievement", "timestamp": "2014081210323", "game": "Resident Evil"},
-    { 'username': 'Alex', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Super Mario"},
-    { 'username': 'Andie',   'activity': "achievement", "timestamp": "2012081210323", "game": "Resident Evil"}
-];
+// var activities = [
+//     { 'username': 'Sergeant Stubbs', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Castlevania"},
+//     { 'username': 'Ascetic0990',   'activity': "achievement", "timestamp": "2014081210323", "game": "Resident Evil"},
+//     { 'username': 'Alex', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Super Mario"},
+//     { 'username': 'Andie',   'activity': "achievement", "timestamp": "2012081210323", "game": "Resident Evil"}
+// ];
 
 var actionSet = [
-    {"type": "achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
-    {"type": "gameplay", "string": "recently played", "icon": "ion-game-controller-b", "color": "red-bg"}
+    {"type": "Achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
+    {"type": "Gameplay", "string": "recently played", "icon": "ion-game-controller-b", "color": "red-bg"}
 ];
 
 
@@ -2451,14 +2451,12 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "container-fluid", id: "area"}, 
             React.DOM.div({'data-screen': "home", className: "screen"}, 
 
-            RecentActivity({activities: activities, actionSet: actionSet}), 
+            RecentActivity({actionSet: actionSet}), 
             Favorites({favorites: favorites}), 
             Community(null)
 
             )
             ), 
-
-            
 
             IgnitionEvents({eventSet: eventSet}), 
 
@@ -3451,6 +3449,15 @@ var React = require('react/addons'),
 
 module.exports = React.createClass({displayName: 'exports',
 
+    getInitialState: function() {
+        return {
+            activity: [
+                {"activity": "Achievement", "game": "super mario","username":"Alex"},
+                {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"}
+            ]
+        };
+    },
+
     getDefaultProps: function() {
 
     return {
@@ -3469,11 +3476,16 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
 
+    componentDidMount: function() {
+        api.emit('request', { request: 'getActivities'});
+        api.on('api', this.setState.bind(this));
+    },
+
     render: function() {
 
         var actionSet = this.props.actionSet;
 
-        var activityNodes = this.props.activities.map(function (activity, i) {
+        var activityNodes = this.state.activity.map(function (activity, i) {
           return Activity({actionSet: actionSet, key: i.id, navStack: i+1, username: activity.username, action: activity.activity, game: activity.game, timestamp:  moment(activity.timestamp, "YYYYMMDDhhmms").fromNow() })
         });
 

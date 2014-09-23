@@ -73,11 +73,15 @@ var getMessages = function(nsp) {
         uri: _path,
         qs: { query: JSON.stringify(query) }
     }, function (error, response, body) {
-        if (body === '109') {
-            console.log("Unauthed")
+        if (body === 'Unauthorized') {
+            getSession();
         }
         if (isJson(body)) {
+            console.log(JSON.parse(body));
             nsp.emit('api', {messages: JSON.parse(body)})
+        }
+        else {
+            console.log("not JSON")
         }
     });
 
@@ -107,14 +111,77 @@ var getSession = function(nsp) {
 
 }
 
+/* Friends Endpoint
+-------------------------------------------------- */
+var getFriend = function(nsp) {
+
+    var app = "Users";
+    _path = "http://" + path.join(server, "api", v, app);
+
+    var query = { 
+        Username: 'Alex'
+    };
+
+   request.get({
+        uri: _path,
+        qs: { query: JSON.stringify(query) }
+    }, function (error, response, body) {
+        if (body === 'Unauthorized') {
+            getSession();
+        }
+        if (isJson(body)) {
+            nsp.emit('api', {friends: JSON.parse(body)})
+        }
+        else {
+            console.log("not JSON")
+        }
+    });
+
+}
+
+/* Activities Endpoint
+-------------------------------------------------- */
+var getActivities = function(nsp) {
+
+// Todo: Store body appended in DB, emit DB, sort by time
+
+    var app = "Users";
+    _path = "http://" + path.join(server, "api", v, app);
+
+    var query = { 
+        Username: 'Alex'
+    };
+
+   request.get({
+        uri: _path,
+        qs: { query: JSON.stringify(query) }
+    }, function (error, response, body) {
+        if (body === 'Unauthorized') {
+            getSession();
+        }
+        if (isJson(body)) {
+            console.log(JSON.parse(body)[0].Activities);
+            nsp.emit('api', {activity: JSON.parse(body)[0].Activities})
+        }
+        else {
+            console.log("not JSON")
+        }
+    });
+
+}
+
+
+
 /* Exports
 -------------------------------------------------- */
 
 exports.getCommunity = getCommunity;
 exports.getEvents = getEvents;
-// exports.getMessages = getSession;
-exports.getMessages = getMessages;
+exports.getMessages = getActivities;
+// exports.getMessages = getMessages;
 exports.getSession = getSession;
+exports.getFriend = getFriend;
+exports.getActivities = getActivities;
 
  // $or: [
  //                {name: '~Another'},

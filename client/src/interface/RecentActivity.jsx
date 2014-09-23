@@ -10,6 +10,15 @@ var React = require('react/addons'),
 
 module.exports = React.createClass({
 
+    getInitialState: function() {
+        return {
+            activity: [
+                {"activity": "Achievement", "game": "super mario","username":"Alex"},
+                {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"}
+            ]
+        };
+    },
+
     getDefaultProps: function() {
 
     return {
@@ -28,11 +37,16 @@ module.exports = React.createClass({
         }
     },
 
+    componentDidMount: function() {
+        api.emit('request', { request: 'getActivities'});
+        api.on('api', this.setState.bind(this));
+    },
+
     render: function() {
 
         var actionSet = this.props.actionSet;
 
-        var activityNodes = this.props.activities.map(function (activity, i) {
+        var activityNodes = this.state.activity.map(function (activity, i) {
           return <Activity actionSet={actionSet} key={i.id} navStack={i+1} username={activity.username} action={activity.activity} game={activity.game} timestamp={ moment(activity.timestamp, "YYYYMMDDhhmms").fromNow() } />
         });
 
