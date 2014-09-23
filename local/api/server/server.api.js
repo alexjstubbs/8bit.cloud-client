@@ -35,7 +35,6 @@ var getCommunity = function(nsp) {
             if (isJson(body)) {
                 nsp.emit('api', {community: JSON.parse(body)}) 
             }
-            
     });
 
 }
@@ -58,6 +57,30 @@ var getEvents = function(nsp) {
 
 }
 
+/* Get Token
+-------------------------------------------------- */
+var getToken = function(nsp) {
+
+    var app = "token";
+    _path = "http://" + path.join(server, app);
+
+   request.get({
+        uri: _path,
+    }, function (error, response, body) {
+        var token = body;
+
+        request.post({
+            uri: "http://localhost:3000/token_auth",
+            json: {
+                "id": "123456",
+                "token": token
+            }
+        })
+    });
+
+}
+
+
 /* Message Endpoint
 -------------------------------------------------- */
 var getMessages = function(nsp) {
@@ -73,6 +96,7 @@ var getMessages = function(nsp) {
         uri: _path,
         qs: { query: JSON.stringify(query) }
     }, function (error, response, body) {
+
         if (body === 'Unauthorized') {
             getSession();
         }
@@ -105,7 +129,36 @@ var getSession = function(nsp) {
             form: { Username: "Alex", Password: "469df27ea91ab84345e0051c81868535" }
         }, function (error, response, body) {
             if (isJson(body)) {
-                nsp.emit('api', {messages: JSON.parse(body)})
+
+                console.log(body)
+
+                // nsp.emit('api', {messages: JSON.parse(body)})
+            }
+        });
+
+}
+
+
+/* Logout 
+-------------------------------------------------- */
+
+var leaveSession = function(nsp) {
+
+    var app = "logout";
+        _path = "http://" + path.join(server, app);
+
+        var query = { 
+            Username: 'Alex',
+            Password: 'Pass'
+        };
+
+       request.post({
+            uri: _path,
+            form: { Username: "Alex", Password: "469df27ea91ab84345e0051c81868535" }
+        }, function (error, response, body) {
+            if (isJson(body)) {
+                
+                // nsp.emit('api', {messages: JSON.parse(body)})
             }
         });
 
@@ -160,7 +213,7 @@ var getActivities = function(nsp) {
             getSession();
         }
         if (isJson(body)) {
-            console.log(JSON.parse(body)[0].Activities);
+            // console.log(JSON.parse(body)[0].Activities);
             nsp.emit('api', {activity: JSON.parse(body)[0].Activities})
         }
         else {
@@ -178,10 +231,13 @@ var getActivities = function(nsp) {
 exports.getCommunity = getCommunity;
 exports.getEvents = getEvents;
 exports.getMessages = getActivities;
+exports.getMessages = getToken;
 // exports.getMessages = getMessages;
 exports.getSession = getSession;
+exports.leaveSession = leaveSession;
 exports.getFriend = getFriend;
 exports.getActivities = getActivities;
+exports.getToken = getToken;
 
  // $or: [
  //                {name: '~Another'},
