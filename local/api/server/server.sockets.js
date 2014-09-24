@@ -1,18 +1,32 @@
 /* Server socket API 
 -------------------------------------------------- */
-var io = require('socket.io-client'),
-socket = io.connect('localhost', {
-    port: 6052
-});
-
-network = io('/network');
 
 var networkConnection = function(token) {
+
+var io = require('socket.io-client'),
+    nsp = io('http://localhost:6052/network');
+
+
+    // console.log(token);
+
+    // var socket = io.connect('http://localhost:6052', {
+    //     query: 'token=' + "token"
+    //   });
+
+    console.log(token)
+
+      nsp.on('connect', function () {
+        console.log('Connected to /Network');
+      }).on('disconnect', function () {
+        console.log('disconnected from /Network');
+      });
     
-    network.on('connect', function () {
-        network.emit('hello server!');
+
+    nsp.on("error", function(error) {
+      console.log(error)
     });
 
 }
+
   
 exports.networkConnection = networkConnection;

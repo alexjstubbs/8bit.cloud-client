@@ -60,13 +60,14 @@ var getEvents = function(nsp) {
 
 /* Get Token
 -------------------------------------------------- */
+
 var getToken = function(nsp) {
 
     var app = "token";
     _path = "http://" + path.join(server, app);
 
    request.get({
-        uri: _path,
+        uri: _path
     }, function (error, response, body) {
         var token = body;
 
@@ -84,6 +85,7 @@ var getToken = function(nsp) {
 
 /* Message Endpoint
 -------------------------------------------------- */
+
 var getMessages = function(nsp) {
 
     var app = "Messages";
@@ -159,7 +161,7 @@ var getSockets = function(nsp, token) {
             uri: _path,
             form: {token: token.token }
         }, function (error, response, body) {
-            sockets.networkConnection();
+            sockets.networkConnection(token.token);
             console.log(body)
         });
 

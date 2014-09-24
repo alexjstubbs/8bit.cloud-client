@@ -33,7 +33,7 @@ var express = require('express')
 ,   fs = require('fs')
 ,   api = require('./local/api/api')
 ,   Insight = require('insight')
-    pkg = require('./package.json'),
+,   pkg = require('./package.json')
     redis = require('redis');
 
 api(nsp);
