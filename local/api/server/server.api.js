@@ -2,7 +2,8 @@
 -------------------------------------------------- */
 var fs = require('fs-extra')
 ,   path = require('path')
-,   request = require('request');
+,   request = require('request')
+,   sockets = require('./server.sockets');
 
 /* Set up (use config file)
 -------------------------------------------------- */
@@ -121,23 +122,48 @@ var getSession = function(nsp) {
 
         var query = { 
             Username: 'Alex',
-            Password: 'Pass'
+            Password: '469df27ea91ab84345e0051c81868535'
         };
 
        request.post({
             uri: _path,
             form: { Username: "Alex", Password: "469df27ea91ab84345e0051c81868535" }
         }, function (error, response, body) {
+
             if (isJson(body)) {
+                // Got new token
+                getSockets(nsp, JSON.parse(body))
+            }
 
-                console.log(body)
-
-                // nsp.emit('api', {messages: JSON.parse(body)})
+            else {
+                // Wrong Login Info (notify user)
+                console.log("Could not authenticate user");
             }
         });
 
 }
 
+/* Socket Connection
+-------------------------------------------------- */
+
+var getSockets = function(nsp, token) {
+
+    var app = "sockets"
+        _path = "http://" + path.join(server, app)
+
+        var query = { 
+            Token: token
+        };
+
+       request.post({
+            uri: _path,
+            form: {token: token.token }
+        }, function (error, response, body) {
+            sockets.networkConnection();
+            console.log(body)
+        });
+
+}
 
 /* Logout 
 -------------------------------------------------- */
@@ -231,7 +257,7 @@ var getActivities = function(nsp) {
 exports.getCommunity = getCommunity;
 exports.getEvents = getEvents;
 exports.getMessages = getActivities;
-exports.getMessages = getToken;
+exports.getMessages = getSession;
 // exports.getMessages = getMessages;
 exports.getSession = getSession;
 exports.leaveSession = leaveSession;
