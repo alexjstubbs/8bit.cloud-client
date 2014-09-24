@@ -4,8 +4,9 @@
 var networkConnection = function(token) {
 
 var io = require('socket.io-client'),
-    nsp = io('http://localhost:6052/network');
-
+    nsp = io('http://localhost:6052/network', {
+        'query': 'token=' + token
+    });
 
     // console.log(token);
 
