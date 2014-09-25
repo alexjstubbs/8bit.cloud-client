@@ -6,6 +6,7 @@ var Datastore = require('nedb');
 -------------------------------------------------- */
 function initDatabases(callback) {
     db = {};
+
     db.games = new Datastore({
         filename: './databases/games.db',
         autoload: true
@@ -13,6 +14,16 @@ function initDatabases(callback) {
 
     db.achievements = new Datastore({
         filename: './databases/achievements.db',
+        autoload: true
+    });
+
+    db.activities = new Datastore({
+        filename: './databases/activities.db',
+        autoload: true
+    });    
+
+    db.network = new Datastore({
+        filename: './databases/network.db',
         autoload: true
     });
 
@@ -33,6 +44,43 @@ function storeGet(nsp, database) {
         nsp.emit('api', {database: docs});
     });
 
+}
+
+/* Store General data
+-------------------------------------------------- */
+function storeData(database, doc, callback) {
+
+    db[database].insert(doc, function(err, doc){
+
+        if (err) {
+            console.log("[!] Error storing data: "+err)
+            callback(err, null);
+        }
+
+        else {
+            callback(null, doc);
+        }
+
+    });
+}
+
+
+
+/* Store activity for /Network relay
+-------------------------------------------------- */
+function storeActivity(nsp, activity) {
+
+    db.activities.insert(doc, function(err, doc){
+
+        if (err) {
+            console.log("[!] Error storing activity: "+err)
+        }
+
+        else {
+            nsp.emit('network', {activity: doc});
+        }
+
+    });
 }
 
 
@@ -118,3 +166,4 @@ exports.storeAchievement = storeAchievement;
 exports.findAchievements = findAchievements;
 exports.initDatabases = initDatabases;
 exports.storeGet = storeGet;
+exports.storeData = storeData;

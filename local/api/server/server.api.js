@@ -3,10 +3,12 @@
 var fs = require('fs-extra')
 ,   path = require('path')
 ,   request = require('request')
-,   sockets = require('./server.sockets');
+,   sockets = require('./server.sockets')
+,   database = require('../../api/database/database.local');
 
 /* Set up (use config file)
 -------------------------------------------------- */
+
 var server = "localhost:3000"
 ,   port = 3000
 ,   v = "v1"
@@ -104,7 +106,7 @@ var getMessages = function(nsp) {
             getSession();
         }
         if (isJson(body)) {
-            console.log(JSON.parse(body));
+            // console.log(JSON.parse(body));
             nsp.emit('api', {messages: JSON.parse(body)})
         }
         else {
@@ -133,8 +135,17 @@ var getSession = function(nsp) {
         }, function (error, response, body) {
 
             if (isJson(body)) {
+                
                 // Got new token
-                getSockets(nsp, JSON.parse(body))
+                
+                var _token = JSON.parse(body);
+
+                database.storeData("network", _token, function(err, doc) {
+                    if (!err) {
+                        console.log("[i] Stored New Token: "+doc);
+                    }
+                })
+                getSockets(nsp, _token);
             }
 
             else {
