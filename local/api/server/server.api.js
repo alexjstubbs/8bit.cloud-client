@@ -90,29 +90,31 @@ var getToken = function(nsp) {
 
 var getMessages = function(nsp) {
 
-    var app = "Messages";
-    _path = "http://" + path.join(server, "api", v, app);
+    sockets.networkInterface({ getMessages: 'Alex' });
 
-    var query = { 
-        To: 'Alex'
-    };
+   //  var app = "Messages";
+   //  _path = "http://" + path.join(server, "api", v, app);
 
-   request.get({
-        uri: _path,
-        qs: { query: JSON.stringify(query) }
-    }, function (error, response, body) {
+   //  var query = { 
+   //      To: 'Alex'
+   //  };
 
-        if (body === 'Unauthorized') {
-            getSession();
-        }
-        if (isJson(body)) {
-            // console.log(JSON.parse(body));
-            nsp.emit('api', {messages: JSON.parse(body)})
-        }
-        else {
-            console.log("not JSON")
-        }
-    });
+   // request.get({
+   //      uri: _path,
+   //      qs: { query: JSON.stringify(query) }
+   //  }, function (error, response, body) {
+
+   //      if (body === 'Unauthorized') {
+   //          getSession();
+   //      }
+   //      if (isJson(body)) {
+   //          // console.log(JSON.parse(body));
+   //          nsp.emit('api', {messages: JSON.parse(body)})
+   //      }
+   //      else {
+   //          console.log("not JSON")
+   //      }
+   //  });
 
 }
 
@@ -270,8 +272,8 @@ var getActivities = function(nsp) {
 exports.getCommunity = getCommunity;
 exports.getEvents = getEvents;
 exports.getMessages = getActivities;
-exports.getMessages = getSession;
-// exports.getMessages = getMessages;
+// exports.getMessages = getSession;
+exports.getMessages = getMessages;
 exports.getSession = getSession;
 exports.leaveSession = leaveSession;
 exports.getFriend = getFriend;

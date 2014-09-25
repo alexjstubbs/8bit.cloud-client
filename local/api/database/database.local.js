@@ -36,12 +36,30 @@ function initDatabases(callback) {
     });
 }
 
+/* Compact Database
+-------------------------------------------------- */
+function compactDatabase(database, callback) {
+    db[database].persistence.compactDatafile();
+    callback();
+}
+
 /* Get Databases 
 -------------------------------------------------- */
-function storeGet(nsp, database) {
+function storeGet(nsp, database, callback) {
      
     db[database].find({}, function (err, docs) {
-        nsp.emit('api', {database: docs});
+
+        if (!err && nsp) {
+            nsp.emit('api', {database: docs});
+        }
+
+        if (!err && !nsp) {
+            callback(docs);
+        }
+
+        if (err) {
+            console.log(err);
+        }
     });
 
 }
@@ -63,7 +81,6 @@ function storeData(database, doc, callback) {
 
     });
 }
-
 
 
 /* Store activity for /Network relay
@@ -167,3 +184,4 @@ exports.findAchievements = findAchievements;
 exports.initDatabases = initDatabases;
 exports.storeGet = storeGet;
 exports.storeData = storeData;
+exports.compactDatabase = compactDatabase;
