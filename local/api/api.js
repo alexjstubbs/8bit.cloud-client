@@ -2,15 +2,14 @@
 -------------------------------------------------- */
 var methods = require('./api.methods.js');
 
-
 /* Sockets.io
 -------------------------------------------------- */
 var api = function(nsp) {
-
+    
     nsp.on('connection', function(nsp){
 
       console.log('[i] client connected to API');
-      
+
       nsp.on('request', function(request) {
 
         var method = request.request;
@@ -18,10 +17,9 @@ var api = function(nsp) {
 
         methods.apiMethod[method](nsp, param);
 
-        nsp.emit('api', request);
+        // nsp.emit('api', request);
         
         });
-
 
     });
 

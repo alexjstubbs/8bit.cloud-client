@@ -90,7 +90,7 @@ var getToken = function(nsp) {
 
 var getMessages = function(nsp) {
 
-    sockets.networkInterface({ cmd: 'getMessages' });
+    sockets.networkInterface(nsp, { cmd: 'getMessages' });
 
    //  var app = "Messages";
    //  _path = "http://" + path.join(server, "api", v, app);
@@ -163,6 +163,7 @@ var getSession = function(nsp) {
 
 var getSockets = function(nsp, token) {
 
+
     var app = "sockets"
         _path = "http://" + path.join(server, app)
 
@@ -174,7 +175,7 @@ var getSockets = function(nsp, token) {
             uri: _path,
             form: {token: token.token }
         }, function (error, response, body) {
-            sockets.networkConnection(token.token);
+            sockets.networkConnection(token.token, nsp);
             console.log(body)
         });
 
@@ -240,7 +241,7 @@ var getActivities = function(nsp) {
 // Todo: Store body appended in DB, emit DB, sort by time
 
 
-    sockets.networkInterface({ cmd: 'getActivities' });
+    sockets.networkInterface(nsp, { cmd: 'getActivities' });
 
 
    //  var app = "Users";

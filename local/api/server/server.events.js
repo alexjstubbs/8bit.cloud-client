@@ -1,5 +1,6 @@
 /* Server Events
 -------------------------------------------------- */
+var api = require('../api');
 
 var serverEvents = function(nsp) {
 

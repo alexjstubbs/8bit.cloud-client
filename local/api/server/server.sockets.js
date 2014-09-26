@@ -2,6 +2,7 @@
 -------------------------------------------------- */
 var fs = require('fs-extra')
 ,   database = require('../../api/database/database.local')
+// ,   serverEvents = require("./server.events")
 ,   network
 ,   issuedToken;
 
@@ -19,7 +20,7 @@ var issueToken = function(callback) {
 
 /* Initialize Network Connection
 -------------------------------------------------- */
-var networkConnection = function(token, callback) {
+var networkConnection = function(token, ansp, callback) {
 
     var io = require('socket.io-client'),
     
@@ -30,6 +31,14 @@ var networkConnection = function(token, callback) {
 
     // Successfully Connected and Auth'd
     nsp.on('connect', function (socket, sock) {
+
+         nsp.on('network', function(data) {
+        
+            ansp.emit('networking', {activities: data});
+
+            console.log("DAT: " +JSON.stringify(data));
+        
+        })
 
         console.log('Connected to /network');
 
@@ -44,12 +53,6 @@ var networkConnection = function(token, callback) {
         console.log('disconnected from /network');
 
     });
-
-
-    nsp.on('network', function(data) {
-        console.log(data);
-        // Send Here to bind to React
-    })
 
     // Could not connect or could not authenticate
     nsp.on("error", function(error) {
@@ -67,32 +70,34 @@ var networkConnection = function(token, callback) {
 
 /* Network Interfacing
 -------------------------------------------------- */
-var networkInterface = function(json) {
+var networkInterface = function(ansp, json) {
 
     if (!issuedToken) {
-        issueToken(function(token){
+        issueToken(function(token) {
             issuedToken = token;
             json.token = token;
-            networkCommand(json)
+            networkCommand(ansp, json);
         });
     }
 
     else {
         json.token = issuedToken;
-        networkCommand(json)
+        networkCommand(ansp, json);
     }
 
 }
 
-var networkCommand = function(json) {
+var networkCommand = function(ansp, json) {
 
     if (!json.token) {
-        console.log("[!] No Token Supplied")
+        console.log("[!] No Token Supplied");
     }
     
     if (!network) {
-            console.log(json);
-            networkConnection(issuedToken, function(err, network) {
+
+            console.log("Attempting Connect to send command");
+
+            networkConnection(issuedToken, ansp, function(err, network) {
                     
                 if (err) {
                    // ||Client Box||: You are not connected to the server interface
@@ -109,6 +114,7 @@ var networkCommand = function(json) {
 
         // Send Network Commands
         else {
+            console.log("sending command: "+json)
             network.emit('cmd', json);
         }
 }

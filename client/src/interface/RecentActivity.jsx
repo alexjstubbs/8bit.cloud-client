@@ -5,14 +5,15 @@
 var React = require('react/addons'),
     Activity = require('./Activity.jsx'),
     _ = require('lodash'),
-    moment = require('moment');
+    moment = require('moment')
+    api = require('socket.io-client')('/api');
 
 
 module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            activity: [
+            activities: [
                 {"activity": "Achievement", "game": "super mario","username":"Alex"},
                 {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"}
             ]
@@ -38,15 +39,22 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
+
+
         api.emit('request', { request: 'getActivities'});
         api.on('api', this.setState.bind(this));
+        
+        api.on('api', function(data) {
+            console.log("DT: "+JSON.stringify(data));
+        });
+        
     },
 
     render: function() {
 
         var actionSet = this.props.actionSet;
 
-        var activityNodes = this.state.activity.map(function (activity, i) {
+        var activityNodes = this.state.activities.map(function (activity, i) {
           return <Activity actionSet={actionSet} key={i.id} navStack={i+1} username={activity.username} action={activity.activity} game={activity.game} timestamp={ moment(activity.timestamp, "YYYYMMDDhhmms").fromNow() } />
         });
 
