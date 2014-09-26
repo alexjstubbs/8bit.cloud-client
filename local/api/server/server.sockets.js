@@ -2,26 +2,38 @@
 -------------------------------------------------- */
 var fs = require('fs-extra')
 ,   database = require('../../api/database/database.local')
-,   network;
+,   network
+,   issuedToken;
 
+
+/* Get issued Token (if available)
+-------------------------------------------------- */
+var issueToken = function(callback) {
+    database.compactDatabase("network", function() {
+        database.storeGet(null, "network", function(docs) {
+            var issuedToken = docs[0].token;
+            callback(issuedToken);
+        });
+    });
+}
+
+/* Initialize Network Connection
+-------------------------------------------------- */
 var networkConnection = function(token, callback) {
 
     var io = require('socket.io-client'),
     
-    // Connect to /Network, pass credidentials.
+    // Connect to /network, pass credidentials.
     nsp = io.connect('http://localhost:6052/network', {
-
         'query': 'token=' + token
-
     });
 
     // Successfully Connected and Auth'd
     nsp.on('connect', function (socket, sock) {
 
-        console.log('Connected to /Network');
-        network = nsp;
+        console.log('Connected to /network');
 
-        console.log(sock);
+        network = nsp;
 
         if (callback) {
             callback(null, network);
@@ -29,13 +41,14 @@ var networkConnection = function(token, callback) {
 
     }).on('disconnect', function () {
 
-        console.log('disconnected from /Network');
+        console.log('disconnected from /network');
 
     });
 
 
-    nsp.on('server', function(data) {
+    nsp.on('network', function(data) {
         console.log(data);
+        // Send Here to bind to React
     })
 
     // Could not connect or could not authenticate
@@ -47,42 +60,60 @@ var networkConnection = function(token, callback) {
       if (callback) {
           callback(error, null);
       }
+
     });
 
 }
 
-
+/* Network Interfacing
+-------------------------------------------------- */
 var networkInterface = function(json) {
 
-    if (!network) {
-
-        database.compactDatabase("network", function() {
-            database.storeGet(null, "network", function(docs) {
-                var token = docs[0].token;
-                networkConnection(token, function(err, network) {
-                    
-                    if (err) {
-                        console.log("[!] "+err);
-                    }
-
-                    else {
-                        network.emit('cmd', json);
-                    }
-
-                })
-            });
+    if (!issuedToken) {
+        issueToken(function(token){
+            issuedToken = token;
+            json.token = token;
+            networkCommand(json)
         });
-
-        // ||Client Box||: You are not connected to the server interface
-        console.log("[!] Tried to send network command but we are un-authorized. Attempting Login.");
     }
 
-    // Send Network Commands
     else {
-        network.emit('cmd', json);
+        json.token = issuedToken;
+        networkCommand(json)
     }
 
 }
 
-exports.networkConnection = networkConnection;
-exports.networkInterface = networkInterface;
+var networkCommand = function(json) {
+
+    if (!json.token) {
+        console.log("[!] No Token Supplied")
+    }
+    
+    if (!network) {
+            console.log(json);
+            networkConnection(issuedToken, function(err, network) {
+                    
+                if (err) {
+                   // ||Client Box||: You are not connected to the server interface
+                    console.log("[!] Network Authentication Error: "+err);
+                }
+
+                else {
+                    network.emit('cmd', json);
+                }
+
+            });
+
+        }
+
+        // Send Network Commands
+        else {
+            network.emit('cmd', json);
+        }
+}
+
+
+exports.networkConnection   = networkConnection;
+exports.networkInterface    = networkInterface;
+exports.networkCommand      = networkCommand;

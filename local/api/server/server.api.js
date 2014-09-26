@@ -14,7 +14,6 @@ var server = "localhost:3000"
 ,   v = "v1"
 ,   api = path.join(server, "api", v);
 
-
 function isJson(str) {
     try {
         JSON.parse(str);
@@ -23,6 +22,7 @@ function isJson(str) {
     }
     return true;
 }
+
 
 /* Community Endpoint
 -------------------------------------------------- */
@@ -90,7 +90,7 @@ var getToken = function(nsp) {
 
 var getMessages = function(nsp) {
 
-    sockets.networkInterface({ getMessages: 'Alex' });
+    sockets.networkInterface({ cmd: 'getMessages' });
 
    //  var app = "Messages";
    //  _path = "http://" + path.join(server, "api", v, app);
@@ -239,28 +239,32 @@ var getActivities = function(nsp) {
 
 // Todo: Store body appended in DB, emit DB, sort by time
 
-    var app = "Users";
-    _path = "http://" + path.join(server, "api", v, app);
 
-    var query = { 
-        Username: 'Alex'
-    };
+    sockets.networkInterface({ cmd: 'getActivities' });
 
-   request.get({
-        uri: _path,
-        qs: { query: JSON.stringify(query) }
-    }, function (error, response, body) {
-        if (body === 'Unauthorized') {
-            getSession();
-        }
-        if (isJson(body)) {
-            // console.log(JSON.parse(body)[0].Activities);
-            nsp.emit('api', {activity: JSON.parse(body)[0].Activities})
-        }
-        else {
-            console.log("not JSON")
-        }
-    });
+
+   //  var app = "Users";
+   //  _path = "http://" + path.join(server, "api", v, app);
+
+   //  var query = { 
+   //      Username: 'Alex'
+   //  };
+
+   // request.get({
+   //      uri: _path,
+   //      qs: { query: JSON.stringify(query) }
+   //  }, function (error, response, body) {
+   //      if (body === 'Unauthorized') {
+   //          getSession();
+   //      }
+   //      if (isJson(body)) {
+   //          // console.log(JSON.parse(body)[0].Activities);
+   //          nsp.emit('api', {activity: JSON.parse(body)[0].Activities})
+   //      }
+   //      else {
+   //          console.log("not JSON")
+   //      }
+   //  });
 
 }
 
