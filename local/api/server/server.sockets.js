@@ -34,7 +34,7 @@ var networkConnection = function(token, ansp, callback) {
 
          nsp.on('network', function(data) {
         
-            ansp.emit('networking', {activities: data});
+            ansp.emit('network-api', data);
 
             console.log("DAT: " +JSON.stringify(data));
         
