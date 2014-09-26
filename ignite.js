@@ -28,15 +28,15 @@ var common = require('./local/common');
 var express = require('express')
 ,   app = express()
 ,   http = require('http').createServer(app)
-,   io = require('socket.io').listen(http)
-,   nsp = io.of('/api')
 ,   fs = require('fs')
 ,   api = require('./local/api/api')
 ,   Insight = require('insight')
-,   pkg = require('./package.json')
-    redis = require('redis');
+,   pkg = require('./package.json');
 
-api(nsp);
+global.__io = require('socket.io').listen(http)
+global.__api = _io.of('/api')
+
+api(__api);
 
 common.render.ignite
 

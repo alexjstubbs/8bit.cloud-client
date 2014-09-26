@@ -6,7 +6,6 @@ var fs = require('fs-extra')
 ,   network
 ,   issuedToken;
 
-
 /* Get issued Token (if available)
 -------------------------------------------------- */
 var issueToken = function(callback) {
@@ -22,8 +21,9 @@ var issueToken = function(callback) {
 -------------------------------------------------- */
 var networkConnection = function(token, ansp, callback) {
 
-    var io = require('socket.io-client'),
-    
+    var io = require('socket.io-client');
+
+
     // Connect to /network, pass credidentials.
     nsp = io.connect('http://localhost:6052/network', {
         'query': 'token=' + token
@@ -33,11 +33,7 @@ var networkConnection = function(token, ansp, callback) {
     nsp.on('connect', function (socket, sock) {
 
          nsp.on('network', function(data) {
-        
-            ansp.emit('network-api', data);
-
-            console.log("DAT: " +JSON.stringify(data));
-        
+            __api.emit('network-api', data);
         })
 
         console.log('Connected to /network');

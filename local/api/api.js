@@ -5,6 +5,7 @@ var methods = require('./api.methods.js');
 /* Sockets.io
 -------------------------------------------------- */
 var api = function(nsp) {
+
     
     nsp.on('connection', function(nsp){
 
