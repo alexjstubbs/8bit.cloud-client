@@ -33,8 +33,8 @@ var express = require('express')
 ,   Insight = require('insight')
 ,   pkg = require('./package.json');
 
-global.__io = require('socket.io').listen(http)
-global.__api = _io.of('/api')
+global.__io = require('socket.io').listen(http);
+global.__api = __io.of('/api');
 
 api(__api);
 

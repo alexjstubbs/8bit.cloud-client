@@ -3455,6 +3455,8 @@ module.exports = React.createClass({displayName: 'exports',
     
             activities: [
                 {"activity": "Achievement", "game": "super mario","username":"Alex"},
+                {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"},
+                {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"},
                 {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"}
             ]
     
@@ -3488,11 +3490,6 @@ module.exports = React.createClass({displayName: 'exports',
         // api.on('api', this.setState.bind(this));
 
         api.on('network-api', this.setState.bind(this));
-        
-        api.on('network-api', function(data) {
-
-            console.log("Data: "+JSON.stringify(data));
-        });
         
     },
 
