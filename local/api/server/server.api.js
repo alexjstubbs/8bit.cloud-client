@@ -60,48 +60,29 @@ var getEvents = function(nsp) {
 
 }
 
-/* Get Token
--------------------------------------------------- */
-
-var getToken = function(nsp) {
-
-    var app = "token";
-    _path = "http://" + path.join(server, app);
-
-   request.get({
-        uri: _path
-    }, function (error, response, body) {
-        var token = body;
-
-        request.post({
-            uri: "http://localhost:3000/token_auth",
-            json: {
-                "id": "123456",
-                "token": token
-            }
-        })
-    });
-
-}
-
-
 /* Login 
 -------------------------------------------------- */
 
-var getSession = function(nsp) {
+var getSession = function() {
 
     var app = "login";
         _path = "http://" + path.join(server, app);
 
-        var query = { 
-            Username: 'Alex',
-            validPassword: '469df27ea91ab84345e0051c81868535'
-        };
+        fs.readJson(appDir+'/config/profiles/Samson.json', function(err, userProfile) {
+          
+            console.log(err);
 
-       request.post({
-            uri: _path,
-            form: { Username: "Alex", validPassword: "469df27ea91ab84345e0051c81868535" }
-        }, function (error, response, body) {
+            var creds = { 
+                Username: userProfile.Username,
+                validPassword: userProfile.validPassword
+            };
+
+            console.log(creds);
+
+            request.post({
+                uri: _path,
+                form: creds
+            }, function (error, response, body) {
 
             if (isJson(body)) {
                 
@@ -119,8 +100,12 @@ var getSession = function(nsp) {
 
             else {
                 // Wrong Login Info (notify user)
+                console.log(body);
                 console.log("Could not authenticate user");
             }
+
+            });
+
         });
 
 }
@@ -159,7 +144,10 @@ var signUp = function(nsp) {
                     if (err) {
                         console.log(err);
                     }
-                  
+
+                    else {
+                        getSession();
+                    }
 
                 })
 
@@ -265,5 +253,4 @@ exports.getSession      = getSession;
 exports.leaveSession    = leaveSession;
 exports.getFriend       = getFriend;
 exports.getActivities   = getActivities;
-exports.getToken        = getToken;
 exports.signUp          = signUp;
