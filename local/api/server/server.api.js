@@ -95,12 +95,12 @@ var getSession = function(nsp) {
 
         var query = { 
             Username: 'Alex',
-            Password: '469df27ea91ab84345e0051c81868535'
+            validPassword: '469df27ea91ab84345e0051c81868535'
         };
 
        request.post({
             uri: _path,
-            form: { Username: "Alex", Password: "469df27ea91ab84345e0051c81868535" }
+            form: { Username: "Alex", validPassword: "469df27ea91ab84345e0051c81868535" }
         }, function (error, response, body) {
 
             if (isJson(body)) {
@@ -124,6 +124,61 @@ var getSession = function(nsp) {
         });
 
 }
+
+/* Signup 
+-------------------------------------------------- */
+
+var signUp = function(nsp) {
+
+    var app = "signup";
+
+    _path = "http://" + path.join(server, app);
+
+    var query = { 
+        Username: 'Samson',
+        Email: 'alexander@alexstubbs.com',
+        validPassword: '469df27ea91ab84345e0051c81868535',
+        Avatar: null
+    };
+
+    request.post({
+        uri: _path,
+        form: query
+    }, function (error, response, body) {
+
+        if (isJson(body)) {
+            
+            var status = JSON.parse(body);
+
+            if (status.Username) {
+
+                var file = appDir+'/config/profiles/' + status.Username + '.json';
+
+                fs.outputJson(file, status, function(err) {
+
+                    if (err) {
+                        console.log(err);
+                    }
+                  
+
+                })
+
+            }
+        }
+
+        else {
+            // ||Client Box||: Could not sign up?
+            console.log(body);
+        }
+
+        if (error) {
+            console.log(error, "Server unreachable?")
+        }
+
+    });
+
+}
+
 
 /* Socket Connection
 -------------------------------------------------- */
@@ -204,9 +259,11 @@ var getMessages = function(nsp) {
 exports.getCommunity    = getCommunity;
 exports.getEvents       = getEvents;
 exports.getMessages     = getActivities;
-exports.getMessages     = getMessages;
+exports.getMessages     = signUp;
+// exports.getMessages     = getMessages;
 exports.getSession      = getSession;
 exports.leaveSession    = leaveSession;
 exports.getFriend       = getFriend;
 exports.getActivities   = getActivities;
 exports.getToken        = getToken;
+exports.signUp          = signUp;
