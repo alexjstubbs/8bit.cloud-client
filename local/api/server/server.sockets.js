@@ -2,7 +2,6 @@
 -------------------------------------------------- */
 var fs = require('fs-extra')
 ,   database = require('../../api/database/database.local')
-// ,   serverEvents = require("./server.events")
 ,   network
 ,   issuedToken;
 
