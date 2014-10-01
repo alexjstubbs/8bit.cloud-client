@@ -63,45 +63,63 @@ var getEvents = function(nsp) {
 /* Login 
 -------------------------------------------------- */
 
-var getSession = function() {
+var getSession = function(nsp) {
 
     var app = "login";
         _path = "http://" + path.join(server, app);
 
-        fs.readJson(appDir+'/config/profiles/Samson.json', function(err, userProfile) {
+        fs.readJson(__sessionFile, function(err, userProfile) {
           
-            console.log(err);
+            if (err) {
+                console.log({error: err});
+            }
 
             var creds = { 
                 Username: userProfile.Username,
                 validPassword: userProfile.validPassword
             };
 
-            console.log(creds);
-
             request.post({
                 uri: _path,
                 form: creds
             }, function (error, response, body) {
 
-            if (isJson(body)) {
-                
-                // Got new token
-                
-                var _token = JSON.parse(body);
 
-                database.storeData("network", _token, function(err, doc) {
-                    if (!err) {
-                        console.log("[i] Stored New Token: "+doc);
-                    }
+                if (isJson(body)) {
+                    
+                    // Got new token
+                    
+                    var _token = JSON.parse(body);
+
+                    userProfile.token = _token.token;
+
+                    fs.outputJson(__sessionFile, userProfile, function(err) {
+
+                        if (err) {
+                            console.log(err);
+                        }
+
+                        else {
+
+                           fs.copy(__sessionFile, appDir + '/config/profiles/' + userProfile.Username + '.json', function(err){
+                              
+                                if (err) console.log({error: err});
+                                
+                                else {
+                                    console.log({message: 'Authenticated the session'});
+                                }
+                           })
+                        }
+
                 })
-                getSockets(nsp, _token);
+
+                    getSockets(nsp, _token);
             }
 
             else {
                 // Wrong Login Info (notify user)
                 console.log(body);
-                console.log("Could not authenticate user");
+                console.log({error: 'Could not authenticate user'});
             }
 
             });
@@ -121,7 +139,7 @@ var signUp = function(nsp) {
 
     var query = { 
         Username: 'Samson',
-        Email: 'alexander@alexstubbs.com',
+        Email: 'alex@alexstubbs.com',
         validPassword: '469df27ea91ab84345e0051c81868535',
         Avatar: null
     };
@@ -146,10 +164,14 @@ var signUp = function(nsp) {
                     }
 
                     else {
-                        getSession();
+                        fs.copy(file, __sessionFile, function(err){
+                          if (err) return console.error(err);
+                            getSession();
+                        }); 
+
                     }
 
-                })
+                });
 
             }
         }
@@ -200,12 +222,12 @@ var leaveSession = function(nsp) {
 
         var query = { 
             Username: 'Alex',
-            Password: 'Pass'
+            validPassword: 'Pass'
         };
 
        request.post({
             uri: _path,
-            form: { Username: "Alex", Password: "469df27ea91ab84345e0051c81868535" }
+            form: { Username: "Alex", validPassword: "469df27ea91ab84345e0051c81868535" }
         }, function (error, response, body) {
             if (isJson(body)) {
                 
@@ -215,29 +237,28 @@ var leaveSession = function(nsp) {
 
 }
 
+/* Add a Friend Endpoint
+-------------------------------------------------- */
+var addFriend = function(nsp) {
+    sockets.networkInterface(nsp, {cmd: 'addFriend', parameters: 'Samson'})
+}
+
 /* Friends Endpoint
 -------------------------------------------------- */
 var getFriend = function(nsp) {
-
     sockets.networkInterface(nsp, { cmd: 'getFriends' });
-
 }
 
 /* Activities Endpoint
 -------------------------------------------------- */
 var getActivities = function(nsp) {
-
     sockets.networkInterface(nsp, { cmd: 'getActivities' });
-
 }
 
 /* Message Endpoint
 -------------------------------------------------- */
-
 var getMessages = function(nsp) {
-
     sockets.networkInterface(nsp, { cmd: 'getMessages' });
-
 }
 
 
@@ -246,7 +267,6 @@ var getMessages = function(nsp) {
 
 exports.getCommunity    = getCommunity;
 exports.getEvents       = getEvents;
-exports.getMessages     = getActivities;
 exports.getMessages     = signUp;
 // exports.getMessages     = getMessages;
 exports.getSession      = getSession;

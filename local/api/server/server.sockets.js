@@ -8,13 +8,32 @@ var fs = require('fs-extra')
 /* Get issued Token (if available)
 -------------------------------------------------- */
 var issueToken = function(callback) {
-    database.compactDatabase("network", function() {
-        database.storeGet(null, "network", function(docs) {
-            var issuedToken = docs[0].token;
-            callback(issuedToken);
-        });
-    });
-}
+
+      fs.readJson(__sessionFile, function(err, userProfile) {
+
+            if (err) {
+                console.log({error: err});
+            }
+
+            if (userProfile) {
+
+                if (userProfile.token) {
+                    var issuedToken = userProfile.token;
+                    callback(null, issuedToken);
+                }
+
+                else {
+                    callback("No token in session", null);
+                }
+
+            }
+        
+            else {
+                callback({error: "No token aquired"});
+            }
+        
+      })
+};
 
 /* Initialize Network Connection
 -------------------------------------------------- */
@@ -68,10 +87,16 @@ var networkConnection = function(token, ansp, callback) {
 var networkInterface = function(ansp, json) {
 
     if (!issuedToken) {
-        issueToken(function(token) {
-            issuedToken = token;
-            json.token = token;
-            networkCommand(ansp, json);
+        issueToken(function(err, token) {
+            if (!err) {
+                issuedToken = token;
+                json.token = token;
+                networkCommand(ansp, json);
+            }
+
+            else {
+                return;
+            }
         });
     }
 

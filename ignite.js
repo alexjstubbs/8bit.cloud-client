@@ -35,6 +35,7 @@ var express = require('express')
 
 global.__io = require('socket.io').listen(http);
 global.__api = __io.of('/api');
+global.__sessionFile = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
