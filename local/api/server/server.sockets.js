@@ -64,13 +64,15 @@ var networkConnection = function(token, ansp, callback) {
 
     });
 
-     nsp.on('network', function(data) {
+    nsp.on('network', function(data) {
 
+        if (data.run) {
+            networkMethods[data['cmd']](nsp, data);
+        }
+
+        else {
             __api.emit('network-api', data);
-
-            if (data.run) {
-                networkMethods[data['cmd']](nsp, data);
-            };
+        }
 
     })
 

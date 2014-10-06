@@ -18,7 +18,7 @@ var server = "localhost:3000"
 /* Add a Friend Endpoint
 -------------------------------------------------- */
 var addFriend = function(nsp) {
-    sockets.networkInterface(nsp, {cmd: 'addFriend', parameters: 'Samson'});
+    sockets.networkInterface(nsp, {cmd: 'addFriend', parameters: 'Alexander'});
 }
 
 /* Friends Endpoint
@@ -38,7 +38,6 @@ var getActivities = function(nsp) {
 var getMessages = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getMessages' });
 }
-
 
 /* Community Endpoint
 -------------------------------------------------- */
@@ -154,8 +153,8 @@ var signUp = function(nsp) {
     _path = "http://" + path.join(server, app);
 
     var query = { 
-        Username: 'Alexander',
-        Email: 'alex2@alexstubbs.com',
+        Username: 'James',
+        Email: 'alex3@alexstubbs.com',
         validPassword: '469df27ea91ab84345e0051c81868535',
         Avatar: null
     };
