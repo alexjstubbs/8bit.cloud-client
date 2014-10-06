@@ -3,9 +3,10 @@
 _ = require('lodash');
 
 var subFriends = _.once(function(socket, data) {
-    // console.log(data.friends);
-
-     __api.emit('network-api', data);
+    
+    _(data.friends).forEach(function(friend) { 
+        // console.log(friend); 
+    });
 
 });
 
