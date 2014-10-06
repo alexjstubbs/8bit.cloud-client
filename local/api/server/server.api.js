@@ -4,7 +4,8 @@ var fs = require('fs-extra')
 ,   path = require('path')
 ,   request = require('request')
 ,   sockets = require('./server.sockets')
-,   database = require('../../api/database/database.local');
+,   database = require('../../api/database/database.local')
+,   helpers = require('../../system/helpers');
 
 /* Set up (use config file)
 -------------------------------------------------- */
@@ -14,13 +15,28 @@ var server = "localhost:3000"
 ,   v = "v1"
 ,   api = path.join(server, "api", v);
 
-function isJson(str) {
-    try {
-        JSON.parse(str);
-    } catch (e) {
-        return false;
-    }
-    return true;
+/* Add a Friend Endpoint
+-------------------------------------------------- */
+var addFriend = function(nsp) {
+    sockets.networkInterface(nsp, {cmd: 'addFriend', parameters: 'Samson'});
+}
+
+/* Friends Endpoint
+-------------------------------------------------- */
+var getFriend = function(nsp) {
+    sockets.networkInterface(nsp, { cmd: 'getFriends' });
+}
+
+/* Activities Endpoint
+-------------------------------------------------- */
+var getActivities = function(nsp) {
+    sockets.networkInterface(nsp, { cmd: 'getActivities' });
+}
+
+/* Message Endpoint
+-------------------------------------------------- */
+var getMessages = function(nsp) {
+    sockets.networkInterface(nsp, { cmd: 'getMessages' });
 }
 
 
@@ -35,7 +51,7 @@ var getCommunity = function(nsp) {
    request.get({
         uri: _path
     }, function (error, response, body) {
-            if (isJson(body)) {
+            if (helpers.isJson(body)) {
                 nsp.emit('api', {community: JSON.parse(body)}) 
             }
     });
@@ -53,7 +69,7 @@ var getEvents = function(nsp) {
    request.get({
         uri: _path
     }, function (error, response, body) {
-        if (isJson(body)) {
+        if (helpers.isJson(body)) {
             nsp.emit('api', {events: JSON.parse(body)}) 
         }
     });
@@ -85,7 +101,7 @@ var getSession = function(nsp) {
             }, function (error, response, body) {
 
 
-                if (isJson(body)) {
+                if (helpers.isJson(body)) {
                     
                     // Got new token
                     
@@ -138,8 +154,8 @@ var signUp = function(nsp) {
     _path = "http://" + path.join(server, app);
 
     var query = { 
-        Username: 'Samson',
-        Email: 'alex@alexstubbs.com',
+        Username: 'Alexander',
+        Email: 'alex2@alexstubbs.com',
         validPassword: '469df27ea91ab84345e0051c81868535',
         Avatar: null
     };
@@ -149,7 +165,7 @@ var signUp = function(nsp) {
         form: query
     }, function (error, response, body) {
 
-        if (isJson(body)) {
+        if (helpers.isJson(body)) {
             
             var status = JSON.parse(body);
 
@@ -182,7 +198,7 @@ var signUp = function(nsp) {
         }
 
         if (error) {
-            console.log(error, "Server unreachable?")
+            console.log(error, "Server unreachable?");
         }
 
     });
@@ -229,7 +245,7 @@ var leaveSession = function(nsp) {
             uri: _path,
             form: { Username: "Alex", validPassword: "469df27ea91ab84345e0051c81868535" }
         }, function (error, response, body) {
-            if (isJson(body)) {
+            if (helpers.isJson(body)) {
                 
                 // nsp.emit('api', {messages: JSON.parse(body)})
             }
@@ -237,37 +253,12 @@ var leaveSession = function(nsp) {
 
 }
 
-/* Add a Friend Endpoint
--------------------------------------------------- */
-var addFriend = function(nsp) {
-    sockets.networkInterface(nsp, {cmd: 'addFriend', parameters: 'Samson'})
-}
-
-/* Friends Endpoint
--------------------------------------------------- */
-var getFriend = function(nsp) {
-    sockets.networkInterface(nsp, { cmd: 'getFriends' });
-}
-
-/* Activities Endpoint
--------------------------------------------------- */
-var getActivities = function(nsp) {
-    sockets.networkInterface(nsp, { cmd: 'getActivities' });
-}
-
-/* Message Endpoint
--------------------------------------------------- */
-var getMessages = function(nsp) {
-    sockets.networkInterface(nsp, { cmd: 'getMessages' });
-}
-
-
 /* Exports
 -------------------------------------------------- */
 
 exports.getCommunity    = getCommunity;
 exports.getEvents       = getEvents;
-exports.getMessages     = signUp;
+exports.getMessages     = getFriend;
 // exports.getMessages     = getMessages;
 exports.getSession      = getSession;
 exports.leaveSession    = leaveSession;

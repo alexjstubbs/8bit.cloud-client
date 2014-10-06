@@ -2,6 +2,7 @@
 -------------------------------------------------- */
 var fs = require('fs-extra')
 ,   database = require('../../api/database/database.local')
+,   networkMethods = require('../../api/network/network.methods')
 ,   network
 ,   issuedToken;
 
@@ -29,7 +30,7 @@ var issueToken = function(callback) {
             }
         
             else {
-                callback({error: "No token aquired"});
+                callback({error: "No token supplied"});
             }
         
       })
@@ -47,14 +48,9 @@ var networkConnection = function(token, ansp, callback) {
         'query': 'token=' + token
     });
 
+
     // Successfully Connected and Auth'd
     nsp.on('connect', function (socket, sock) {
-
-         nsp.on('network', function(data) {
-            __api.emit('network-api', data);
-        })
-
-        console.log('Connected to /network');
 
         network = nsp;
 
@@ -67,6 +63,16 @@ var networkConnection = function(token, ansp, callback) {
         console.log('disconnected from /network');
 
     });
+
+     nsp.on('network', function(data) {
+
+            __api.emit('network-api', data);
+
+            if (data.run) {
+                networkMethods[data['cmd']](nsp, data);
+            };
+
+    })
 
     // Could not connect or could not authenticate
     nsp.on("error", function(error) {
@@ -115,7 +121,7 @@ var networkCommand = function(ansp, json) {
     
     if (!network) {
 
-            console.log("Attempting Connect to send command");
+            console.log("Attempting Connect to send command: " + json.cmd);
 
             networkConnection(issuedToken, ansp, function(err, network) {
                     

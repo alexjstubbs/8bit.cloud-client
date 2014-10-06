@@ -6,7 +6,6 @@ var methods = require('./api.methods.js');
 -------------------------------------------------- */
 var api = function(nsp) {
 
-
     nsp.on('connection', function(nsp){
 
       console.log('[i] client connected to API');
@@ -24,5 +23,6 @@ var api = function(nsp) {
     });
 
 }
+
 
 module.exports = api;
