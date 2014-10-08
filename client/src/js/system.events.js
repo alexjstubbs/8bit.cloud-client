@@ -10,7 +10,8 @@ var systemNotify = require('./notification.init.js'),
     Modal = require('../interface/Modal.jsx'),
     Messages = require('../interface/Messages.jsx'),
     _ = require('lodash'),
-    navigationInit = require("./navigation.init.js");
+    navigationInit = require("./navigation.init.js"),
+    dialog = require("./dialogs");
 
     // browser = require("./browser.js");
 
@@ -188,7 +189,8 @@ module.exports = function(event, p) {
 
 
         if (event == 'viewMessages') {
-            React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
+            dialog.show();
+            // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
         }
 
         if (event == 'launchGame') {

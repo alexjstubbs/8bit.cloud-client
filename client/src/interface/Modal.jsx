@@ -6,10 +6,10 @@
 
 var React = require('react/addons'),
     _ = require('lodash'),
-    Backdrop = require('./Backdrop.jsx'),
-    cssplugin = require('../components/greensock/plugins/CSSPlugin.min.js'),
-    EasePack = require('../components/greensock/easing/EasePack.min.js'),
-    TweenLite = require('../components/greensock/TweenLite.js');
+    Backdrop = require('./Backdrop.jsx');
+    // cssplugin = require('../components/greensock/plugins/CSSPlugin.min.js'),
+    // EasePack = require('../components/greensock/easing/EasePack.min.js'),
+    // TweenLite = require('../components/greensock/TweenLite.js');
 
 
 module.exports = React.createClass({
@@ -17,15 +17,16 @@ module.exports = React.createClass({
     return {
             navable: false,
             backdrop: true,
-            classList: "ignition-modal systemNotificationContent animated bounceInDown",
+            classList: "ignition-modal systemNotificationContent",
             children: [],
             id: "ignition-modal"
         }
     },
     
     componentDidMount: function() {
+
         var modal = document.getElementById("ignition-modal");
-        var animate = TweenLite.to(modal, .6, {top:"10%"});
+        // var animate = TweenLite.to(modal, .6, {top:"10%"});
 
     },
 

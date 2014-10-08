@@ -66,8 +66,6 @@ var networkConnection = function(token, ansp, callback) {
 
     nsp.on('network', function(data, sock) {
 
-        console.log(data);
-
         if (data.run) {
             networkMethods[data['cmd']](nsp, data);
         }

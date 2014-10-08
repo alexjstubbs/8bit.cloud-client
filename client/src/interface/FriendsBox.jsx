@@ -8,6 +8,12 @@ var React = require('react/addons');
 
 module.exports = React.createClass({
 
+    getInitialState: function() {
+        return {
+            onlineFriends: 0
+        }
+    },
+
     getDefaultProps: function() {
     return {
             navable: true,
@@ -20,6 +26,14 @@ module.exports = React.createClass({
             id: "friendsBox"
         }
     },
+
+    componentDidMount: function() {
+        api.on('network-api', this.setState.bind(this));
+        api.on('network-api', function(e) {
+            console.log(e)
+        });
+    },
+
     render: function() {
 
         var cx = React.addons.classSet;
@@ -37,7 +51,7 @@ module.exports = React.createClass({
             </div>
             
             <div className="hello col-md-7 pad_h_5">
-                <h4 className="nopadding">{this.props.friendsOnline ? this.props.friendsOnline : "No"} Friends Online</h4>
+                <h4 className="nopadding">{this.state.onlineFriends ? this.state.onlineFriends : "No"} Friends Online</h4>
                 <span className="muted">Press {this.props.shortcutKey} to view</span>
             </div>
 

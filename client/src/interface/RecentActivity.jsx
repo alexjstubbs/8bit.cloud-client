@@ -47,8 +47,6 @@ module.exports = React.createClass({
 
         api.emit('request', { request: 'getActivities'});
         // api.on('api', this.setState.bind(this));
-    
-        // api.on('api', this.setState.bind(this));
 
         api.on('network-api', this.setState.bind(this));
         
