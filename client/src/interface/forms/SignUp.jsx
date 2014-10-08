@@ -2,9 +2,9 @@
  * @jsx React.DOM
  */
 
-var React = require('react/addons'), 
-    api = require('socket.io-client')('/api');
-
+var React = require('react/addons')
+,   api = require('socket.io-client')('/api')
+,   navigationInit = require('../../js/navigation.init.js');
 
 module.exports = React.createClass({
 
@@ -16,12 +16,23 @@ module.exports = React.createClass({
         }
     },
 
+    componentDidMount: function() {
+
+        console.log("mounted?")
+
+        navigationInit.modalNavigation(function() {
+            navigationInit.navigationInit();
+        });
+        
+    },
+
     render: function() {
+
 
         return (
 
             <div>
-                <div className="container-fluid">
+                <div className="container-fluid parent">
                     <div className="row-fluid">
                         <div className="col-xs-12">
                                     
@@ -37,15 +48,15 @@ module.exports = React.createClass({
                                 
                                 <div className="form-group">
                                 
-                                    <input className="form-control" placeholder="Choose Username" name="username" type="text" />
-                                    <input className="form-control" placeholder="E-mail Address" name="email" type="text" />
+                                    <input className="form-control navable" placeholder="Choose Username" name="username" type="text" />
+                                    <input className="form-control navable" placeholder="E-mail Address" name="email" type="text" />
                                 
                                 </div>
                                 
                                 <div className="form-group">
                                     
-                                    <input className="form-control" placeholder="Password" name="password" type="password" />
-                                    <input className="form-control" placeholder="Password" name="password2" type="password"  />
+                                    <input className="form-control navable" placeholder="Password" name="password" type="password" />
+                                    <input className="form-control navable" placeholder="Password" name="password2" type="password"  />
                                
                                 </div>
                            

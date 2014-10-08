@@ -4,6 +4,12 @@
 var _ = require('lodash');
 var blink;
 
+var modalNavigation = function(callback) {
+    var parent = document.querySelectorAll('.parent')[0];
+    parent.classList.remove("parent");
+    callback();
+}
+
 var navigationInit = function() {
 
     var navables = document.querySelectorAll('.navable, .subNavable');
@@ -20,6 +26,8 @@ var navigationInit = function() {
         el.setAttribute("data-nav", i)
     });
 
+    console.log(navables);
+
     _.first(navables).classList.add("selectedNav", "selected");
 
     highlight();
@@ -31,5 +39,7 @@ var highlight = function() {
             document.querySelector('.selectedNav').classList.toggle('selectedActive');
     }, 200);
 }
+
 exports.highlight = highlight;
 exports.navigationInit = navigationInit;
+exports.modalNavigation = modalNavigation;

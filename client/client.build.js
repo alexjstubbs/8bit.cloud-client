@@ -3741,9 +3741,9 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React = require('react/addons'), 
-    api = require('socket.io-client')('/api');
-
+var React = require('react/addons')
+,   api = require('socket.io-client')('/api')
+,   navigationInit = require('../../js/navigation.init.js');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3755,12 +3755,23 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
 
+    componentDidMount: function() {
+
+        console.log("mounted?")
+
+        navigationInit.modalNavigation(function() {
+            navigationInit.navigationInit();
+        });
+        
+    },
+
     render: function() {
+
 
         return (
 
             React.DOM.div(null, 
-                React.DOM.div({className: "container-fluid"}, 
+                React.DOM.div({className: "container-fluid parent"}, 
                     React.DOM.div({className: "row-fluid"}, 
                         React.DOM.div({className: "col-xs-12"}, 
                                     
@@ -3776,15 +3787,15 @@ module.exports = React.createClass({displayName: 'exports',
                                 
                                 React.DOM.div({className: "form-group"}, 
                                 
-                                    React.DOM.input({className: "form-control", placeholder: "Choose Username", name: "username", type: "text"}), 
-                                    React.DOM.input({className: "form-control", placeholder: "E-mail Address", name: "email", type: "text"})
+                                    React.DOM.input({className: "form-control navable", placeholder: "Choose Username", name: "username", type: "text"}), 
+                                    React.DOM.input({className: "form-control navable", placeholder: "E-mail Address", name: "email", type: "text"})
                                 
                                 ), 
                                 
                                 React.DOM.div({className: "form-group"}, 
                                     
-                                    React.DOM.input({className: "form-control", placeholder: "Password", name: "password", type: "password"}), 
-                                    React.DOM.input({className: "form-control", placeholder: "Password", name: "password2", type: "password"})
+                                    React.DOM.input({className: "form-control navable", placeholder: "Password", name: "password", type: "password"}), 
+                                    React.DOM.input({className: "form-control navable", placeholder: "Password", name: "password2", type: "password"})
                                
                                 ), 
                            
@@ -3804,7 +3815,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"react/addons":60,"socket.io-client":219}],33:[function(require,module,exports){
+},{"../../js/navigation.init.js":50,"react/addons":60,"socket.io-client":219}],33:[function(require,module,exports){
 'use strict';
 
 var KEYS = {
@@ -4921,6 +4932,12 @@ module.exports = function() {
 var _ = require('lodash');
 var blink;
 
+var modalNavigation = function(callback) {
+    var parent = document.querySelectorAll('.parent')[0];
+    parent.classList.remove("parent");
+    callback();
+}
+
 var navigationInit = function() {
 
     var navables = document.querySelectorAll('.navable, .subNavable');
@@ -4937,6 +4954,8 @@ var navigationInit = function() {
         el.setAttribute("data-nav", i)
     });
 
+    console.log(navables);
+
     _.first(navables).classList.add("selectedNav", "selected");
 
     highlight();
@@ -4948,8 +4967,10 @@ var highlight = function() {
             document.querySelector('.selectedNav').classList.toggle('selectedActive');
     }, 200);
 }
+
 exports.highlight = highlight;
 exports.navigationInit = navigationInit;
+exports.modalNavigation = modalNavigation;
 
 },{"lodash":57}],51:[function(require,module,exports){
 /* Translates Gamepad button events into keyboard events
