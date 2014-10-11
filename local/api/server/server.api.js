@@ -146,7 +146,7 @@ var getSession = function(nsp) {
 /* Signup 
 -------------------------------------------------- */
 
-var signUp = function(nsp) {
+var signUp = function(nsp, profile) {
 
     var app = "signup";
 

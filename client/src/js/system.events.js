@@ -19,6 +19,10 @@ module.exports = function(event, p) {
 
         // Message 
 
+        if (event == 'runme') {
+            console.log(JSON.stringify(p));
+        }
+
         if (event == 'viewFriends') {
             var title = "Uh Oh!"
             var message = "4";

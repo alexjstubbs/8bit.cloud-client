@@ -53,7 +53,12 @@ var api = {
     
     getActivities: function(nsp, set) {
         common.serverAPI.getActivities(nsp);
+    },
+
+    newProfile: function(nsp, profile) {
+        common.serverAPI.signUp(nsp, profile);
     }
+
 
 }
 

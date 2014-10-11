@@ -3743,7 +3743,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React = require('react/addons')
 ,   api = require('socket.io-client')('/api')
-,   navigationInit = require('../../js/navigation.init.js');
+,   navigationInit = require('../../js/navigation.init.js')
+,   clientEvents = require('../../js/system.events');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3757,12 +3758,14 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-        console.log("mounted?")
-
         navigationInit.modalNavigation(function() {
             navigationInit.navigationInit();
         });
         
+    },
+
+    handleSubmit: function(event) {
+        console.log(event);
     },
 
     render: function() {
@@ -3787,19 +3790,19 @@ module.exports = React.createClass({displayName: 'exports',
                                 
                                 React.DOM.div({className: "form-group"}, 
                                 
-                                    React.DOM.input({className: "form-control navable", placeholder: "Choose Username", name: "username", type: "text"}), 
-                                    React.DOM.input({className: "form-control navable", placeholder: "E-mail Address", name: "email", type: "text"})
+                                    React.DOM.input({className: "form-control navable", 'data-function': "runme", 'data-parameters': this, placeholder: "Choose Username", name: "username", type: "text"}), 
+                                    React.DOM.input({className: "form-control navable", 'data-function': "runme", 'data-parameters': this, placeholder: "E-mail Address", name: "email", type: "text"})
                                 
                                 ), 
                                 
                                 React.DOM.div({className: "form-group"}, 
                                     
-                                    React.DOM.input({className: "form-control navable", placeholder: "Password", name: "password", type: "password"}), 
-                                    React.DOM.input({className: "form-control navable", placeholder: "Password", name: "password2", type: "password"})
+                                    React.DOM.input({className: "form-control navable", 'data-function': "runme", 'data-parameters': this, placeholder: "Password", name: "password", type: "password"}), 
+                                    React.DOM.input({className: "form-control navable", 'data-function': "runme", 'data-parameters': this, placeholder: "Password", name: "password2", type: "password"})
                                
                                 ), 
                            
-                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "submit", value: "Create new Profile"})
+                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", onClick: this.handleSubmit(this), value: "Create new Profile"})
                             )
                             )
                               
@@ -3815,7 +3818,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"../../js/navigation.init.js":50,"react/addons":60,"socket.io-client":219}],33:[function(require,module,exports){
+},{"../../js/navigation.init.js":50,"../../js/system.events":54,"react/addons":60,"socket.io-client":219}],33:[function(require,module,exports){
 'use strict';
 
 var KEYS = {
@@ -5104,6 +5107,7 @@ module.exports = function(k) {
 
             var lastNodeNav = document.querySelectorAll(".parent .navable")[i];
 
+
             // Outside Panel
             if (lastNodeNav) {
                document.querySelectorAll(".parent .navable")[i].classList.add("selectedNav");
@@ -5117,6 +5121,9 @@ module.exports = function(k) {
                     document.querySelectorAll(".parent .navable")[0].classList.add("selectedNav");
                 }
             }
+
+            // This will focus. Should make it happen on action button press
+            // document.querySelectorAll(".selectedNav")[0].focus();
 
 
         }
@@ -5348,6 +5355,10 @@ var systemNotify = require('./notification.init.js'),
 module.exports = function(event, p) {
 
         // Message 
+
+        if (event == 'runme') {
+            console.log(JSON.stringify(p));
+        }
 
         if (event == 'viewFriends') {
             var title = "Uh Oh!"

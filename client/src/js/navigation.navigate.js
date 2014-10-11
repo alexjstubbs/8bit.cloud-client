@@ -86,6 +86,7 @@ module.exports = function(k) {
 
             var lastNodeNav = document.querySelectorAll(".parent .navable")[i];
 
+
             // Outside Panel
             if (lastNodeNav) {
                document.querySelectorAll(".parent .navable")[i].classList.add("selectedNav");
@@ -99,6 +100,9 @@ module.exports = function(k) {
                     document.querySelectorAll(".parent .navable")[0].classList.add("selectedNav");
                 }
             }
+
+            // This will focus. Should make it happen on action button press
+            // document.querySelectorAll(".selectedNav")[0].focus();
 
 
         }
