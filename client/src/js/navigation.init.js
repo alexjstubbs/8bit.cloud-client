@@ -1,15 +1,20 @@
 /* Navigation set up
 -------------------------------------------------- */
 
-var _ = require('lodash');
-var blink;
+var _   = require('lodash'),
+    blink;
 
+/* Init Modal Navigation Panels
+-------------------------------------------------- */
 var modalNavigation = function(callback) {
     var parent = document.querySelectorAll('.parent')[0];
     parent.classList.remove("parent");
     callback();
 }
 
+
+/* General Navigation Assigns/Init
+-------------------------------------------------- */
 var navigationInit = function() {
 
     var navables = document.querySelectorAll('.navable, .subNavable');
@@ -40,6 +45,8 @@ var highlight = function() {
     }, 200);
 }
 
+/* Exports
+-------------------------------------------------- */
 exports.highlight = highlight;
 exports.navigationInit = navigationInit;
 exports.modalNavigation = modalNavigation;

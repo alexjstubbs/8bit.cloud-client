@@ -16,9 +16,9 @@
  * @author mwichary@google.com (Marcin Wichary)
  */
 
-var navigationKeyEvent = require("./navigation.keyEvent.js"),
-    sounds = require("./system.sounds.js"),
-    mousetrap = require("./mousetrap.min.js");
+var navigationKeyEvent      = require("./navigation.keyEvent.js")
+,   sounds                  = require("./system.sounds.js")
+,   mousetrap               = require("./mousetrap.min.js");
 
 var gamepadSupport = {
 

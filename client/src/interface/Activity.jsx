@@ -4,9 +4,9 @@
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    actionString;
+var React   = require('react/addons')
+,    _       = require('lodash')
+,   actionString;
 
 module.exports = React.createClass({
     getDefaultProps: function() {

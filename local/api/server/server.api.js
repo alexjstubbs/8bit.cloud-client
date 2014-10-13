@@ -10,7 +10,7 @@ var fs = require('fs-extra')
 /* Set up (use config file)
 -------------------------------------------------- */
 
-var server = "localhost:3000"
+var server = "162.243.206.41:3000"
 ,   port = 3000
 ,   v = "v1"
 ,   api = path.join(server, "api", v);

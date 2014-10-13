@@ -4,12 +4,12 @@
 
 'use strict';
 
-var React = require('react/addons')
-,   _ = require('lodash')
-,   PlatformList = require('./PlatformList.jsx')
-,   GamesList = require('./GamesList.jsx')
-,   SmallProfile = require('./SmallProfile.jsx')
-,   browserNavigation = require('../js/navigation.browser.js').browserNavigation;
+var React               = require('react/addons')
+,   _                   = require('lodash')
+,   PlatformList        = require('./PlatformList.jsx')
+,   GamesList           = require('./GamesList.jsx')
+,   SmallProfile        = require('./SmallProfile.jsx')
+,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
 
 /* Components
 -------------------------------------------------- */

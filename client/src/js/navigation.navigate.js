@@ -1,9 +1,9 @@
-/* Navigation Functions
+/* General Navigation Functions
 -------------------------------------------------- */
 
-var systemEvents = require('./system.events.js'),
-    navigationHelpers = require('./navigation.helpers.js'),
-    navigationBrowse = require('./navigation.browser.js').browserNavigationEvents;
+var systemEvents        = require('./system.events.js')
+,   navigationHelpers   = require('./navigation.helpers.js')
+,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents;
 
 module.exports = function(k) {
 

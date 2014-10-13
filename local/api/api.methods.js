@@ -59,7 +59,8 @@ var api = {
         common.serverAPI.signUp(nsp, profile);
     }
 
-
 }
 
+/* Exports
+-------------------------------------------------- */
 exports.apiMethod = api;

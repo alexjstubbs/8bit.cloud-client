@@ -1,6 +1,7 @@
 /* Custom Events
 -------------------------------------------------- */
-var api = require('socket.io-client')('/api');
+var api     = require('socket.io-client')('/api');
+
 
 var screenTransition = function(screen, hidden, parent) {
    
@@ -41,5 +42,7 @@ var updateGame = function(results, filepath, callback) {
 
 }
 
+/* Exports
+-------------------------------------------------- */
 exports.screenTransition = screenTransition;
 exports.updateGame = updateGame;

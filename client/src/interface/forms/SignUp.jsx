@@ -2,10 +2,10 @@
  * @jsx React.DOM
  */
 
-var React = require('react/addons')
-,   api = require('socket.io-client')('/api')
-,   navigationInit = require('../../js/navigation.init.js')
-,   clientEvents = require('../../js/system.events');
+var React           = require('react/addons')
+,   api             = require('socket.io-client')('/api')
+,   navigationInit  = require('../../js/navigation.init.js')
+,   clientEvents    = require('../../js/system.events');
 
 module.exports = React.createClass({
 
@@ -31,7 +31,6 @@ module.exports = React.createClass({
 
     render: function() {
 
-        console.log({this});
         return (
 
             <div>
@@ -51,19 +50,19 @@ module.exports = React.createClass({
                                 
                                 <div className="form-group">
                                 
-                                    <input className="form-control navable" data-function='runme' data-parameters={this} placeholder="Choose Username" name="username" type="text" />
-                                    <input className="form-control navable" data-function='runme' data-parameters={this} placeholder="E-mail Address" name="email" type="text" />
+                                    <input className="form-control navable" data-function='input_focus' placeholder="Choose Username" name="username" type="text" />
+                                    <input className="form-control navable" data-function='input_focus' placeholder="E-mail Address" name="email" type="text" />
                                 
                                 </div>
                                 
                                 <div className="form-group">
                                     
-                                    <input className="form-control navable" data-function='runme' data-parameters={this} placeholder="Password" name="password" type="password" />
-                                    <input className="form-control navable" data-function='runme' data-parameters={this} placeholder="Password" name="password2" type="password"  />
+                                    <input className="form-control navable" data-function='input_focus' placeholder="Password" name="password" type="password" />
+                                    <input className="form-control navable" data-function='input_focus' placeholder="Password" name="password2" type="password"  />
                                
                                 </div>
                            
-                                <input className="btn btn-lg btn-success btn-block navable" type="button" onClick={this.handleSubmit} value="Create new Profile" />
+                                <input className="btn btn-lg btn-success btn-block navable" type="button" data-function='form_submit' value="Create new Profile" />
                             </fieldset>
                             </form>
                               

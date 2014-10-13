@@ -4,9 +4,9 @@
 
 'use strict';
 
-var React = require('react/addons'),
-    helpers = require('../js/helpers'),
-    api = require('socket.io-client')('/api');
+var React       = require('react/addons')
+,   helpers     = require('../js/helpers')
+,   api         = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
 

@@ -4,8 +4,8 @@
 
 'use strict';
 
-var React = require('react/addons');
-var NetworkStatus = require('./NetworkStatus.jsx');
+var React           = require('react/addons')
+,   NetworkStatus   = require('./NetworkStatus.jsx');
 
 module.exports = React.createClass({
     render: function() {

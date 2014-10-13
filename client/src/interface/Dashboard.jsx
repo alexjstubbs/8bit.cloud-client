@@ -4,17 +4,17 @@
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    UserProfile = require('./UserProfile.jsx'),
-    HeaderGroup = require('./HeaderGroup.jsx'),
-    FriendsBox = require('./FriendsBox.jsx'),
-    RecentActivity = require('./RecentActivity.jsx'),
-    Favorites = require('./Favorites.jsx'),
-    Community = require('./Community.jsx'),
-    IgnitionEvents = require('./IgnitionEvents.jsx'),
-    ShortcutBar = require('./ShortcutBar.jsx'),
-    init = require('../js/init.js');
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   UserProfile     = require('./UserProfile.jsx')
+,   HeaderGroup     = require('./HeaderGroup.jsx')
+,   FriendsBox      = require('./FriendsBox.jsx')
+,   RecentActivity  = require('./RecentActivity.jsx')
+,   Favorites       = require('./Favorites.jsx')
+,   Community       = require('./Community.jsx')
+,   IgnitionEvents  = require('./IgnitionEvents.jsx')
+,   ShortcutBar     = require('./ShortcutBar.jsx')
+,   init            = require('../js/init.js');
 
     init();
 

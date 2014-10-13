@@ -1,7 +1,8 @@
 /* Sockets.io api
 -------------------------------------------------- */
-var io = require('socket.io-client');
-var api = io.connect(window.location.hostname);
+var io      = require('socket.io-client')
+,   api     = io.connect(window.location.hostname);
+
 // ('/api');
 
 // console.log("window.location.hostname");

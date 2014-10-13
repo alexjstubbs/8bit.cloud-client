@@ -1,15 +1,19 @@
 /* Clientside Database Helpers
 -------------------------------------------------- */
 
-var nsp = require('socket.io-client')('/api')
-,   PourOver = require('../components/pourover')
-,   _ = require("lodash")
-,   nedb = require("../../../node_modules/nedb/browser-version/out/nedb.min")
-,   api = require('socket.io-client')('/api');
+var nsp         = require('socket.io-client')('/api')
+,   PourOver    = require('../components/pourover')
+,   _           = require("lodash")
+,   nedb        = require("../../../node_modules/nedb/browser-version/out/nedb.min")
+,   api         = require('socket.io-client')('/api');
 
+/* Scoped Module Globals
+-------------------------------------------------- */
 var collection = {},
     filters = {};
 
+/* Hash code prototype (move to module)
+-------------------------------------------------- */
 String.prototype.hashCode = function() {
     var hash = 0, i, chr, len;
     if (this.length == 0) return hash;
@@ -21,6 +25,8 @@ String.prototype.hashCode = function() {
     return hash;
 };
 
+/* Initialize the local Database
+-------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
     nsp.emit('request', { request: 'storeGet', param: database });   
     nsp.on('api', function(data){   
@@ -35,6 +41,8 @@ var initLocalDatabase = function(database, callback) {
     return;
 }
 
+/* Filter Collection by Attribute
+-------------------------------------------------- */
 var filterByAttribute = function(database, query, callback) {
 
     if (collection[database]) {
@@ -90,5 +98,7 @@ var filterByAttribute = function(database, query, callback) {
 
 }
 
+/* Exports
+-------------------------------------------------- */
 exports.filterByAttribute = filterByAttribute;
 exports.initLocalDatabase = initLocalDatabase;

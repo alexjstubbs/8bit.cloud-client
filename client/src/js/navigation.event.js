@@ -7,12 +7,12 @@
 /* Section
 -------------------------------------------------- */
 
-var account = require("./account.js")
-,   community = require("./community.js")
-,   helpers = require("./helpers.js")
-,   _ = require("lodash")
-,   navigationInit = require("./navigation.init.js")
-,   events = require("./events.js");
+var account         = require("./account.js")
+,   community       = require("./community.js")
+,   helpers         = require("./helpers.js")
+,   _               = require("lodash")
+,   navigationInit  = require("./navigation.init.js")
+,   events          = require("./events.js");
 
 
 // TODO: Dynamically select screens

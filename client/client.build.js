@@ -1867,9 +1867,9 @@ exports.PourOver = PourOver;
 
 'use strict';
 
-var React = require('react/addons'),
-    api = require('socket.io-client')('/api'),
-    _ = require('lodash');
+var React   = require('react/addons')
+,   api     = require('socket.io-client')('/api')
+,   _       = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1938,9 +1938,9 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    actionString;
+var React   = require('react/addons')
+,    _       = require('lodash')
+,   actionString;
 
 module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
@@ -1989,8 +1989,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons');
-var NetworkStatus = require('./NetworkStatus.jsx');
+var React           = require('react/addons')
+,   NetworkStatus   = require('./NetworkStatus.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
     render: function() {
@@ -2018,8 +2018,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash');
+var React   = require('react/addons')
+,   _       = require('lodash');
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -2051,12 +2051,12 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons')
-,   _ = require('lodash')
-,   PlatformList = require('./PlatformList.jsx')
-,   GamesList = require('./GamesList.jsx')
-,   SmallProfile = require('./SmallProfile.jsx')
-,   browserNavigation = require('../js/navigation.browser.js').browserNavigation;
+var React               = require('react/addons')
+,   _                   = require('lodash')
+,   PlatformList        = require('./PlatformList.jsx')
+,   GamesList           = require('./GamesList.jsx')
+,   SmallProfile        = require('./SmallProfile.jsx')
+,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
 
 /* Components
 -------------------------------------------------- */
@@ -2188,9 +2188,9 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    helpers = require('../js/helpers'),
-    api = require('socket.io-client')('/api');
+var React       = require('react/addons')
+,   helpers     = require('../js/helpers')
+,   api         = require('socket.io-client')('/api');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2282,17 +2282,17 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    UserProfile = require('./UserProfile.jsx'),
-    HeaderGroup = require('./HeaderGroup.jsx'),
-    FriendsBox = require('./FriendsBox.jsx'),
-    RecentActivity = require('./RecentActivity.jsx'),
-    Favorites = require('./Favorites.jsx'),
-    Community = require('./Community.jsx'),
-    IgnitionEvents = require('./IgnitionEvents.jsx'),
-    ShortcutBar = require('./ShortcutBar.jsx'),
-    init = require('../js/init.js');
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   UserProfile     = require('./UserProfile.jsx')
+,   HeaderGroup     = require('./HeaderGroup.jsx')
+,   FriendsBox      = require('./FriendsBox.jsx')
+,   RecentActivity  = require('./RecentActivity.jsx')
+,   Favorites       = require('./Favorites.jsx')
+,   Community       = require('./Community.jsx')
+,   IgnitionEvents  = require('./IgnitionEvents.jsx')
+,   ShortcutBar     = require('./ShortcutBar.jsx')
+,   init            = require('../js/init.js');
 
     init();
 
@@ -3741,10 +3741,10 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React = require('react/addons')
-,   api = require('socket.io-client')('/api')
-,   navigationInit = require('../../js/navigation.init.js')
-,   clientEvents = require('../../js/system.events');
+var React           = require('react/addons')
+,   api             = require('socket.io-client')('/api')
+,   navigationInit  = require('../../js/navigation.init.js')
+,   clientEvents    = require('../../js/system.events');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3770,7 +3770,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-
         return (
 
             React.DOM.div(null, 
@@ -3790,19 +3789,19 @@ module.exports = React.createClass({displayName: 'exports',
                                 
                                 React.DOM.div({className: "form-group"}, 
                                 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "runme", 'data-parameters': this, placeholder: "Choose Username", name: "username", type: "text"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "runme", 'data-parameters': this, placeholder: "E-mail Address", name: "email", type: "text"})
+                                    React.DOM.input({className: "form-control navable", 'data-function': "input_focus", placeholder: "Choose Username", name: "username", type: "text"}), 
+                                    React.DOM.input({className: "form-control navable", 'data-function': "input_focus", placeholder: "E-mail Address", name: "email", type: "text"})
                                 
                                 ), 
                                 
                                 React.DOM.div({className: "form-group"}, 
                                     
-                                    React.DOM.input({className: "form-control navable", 'data-function': "runme", 'data-parameters': this, placeholder: "Password", name: "password", type: "password"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "runme", 'data-parameters': this, placeholder: "Password", name: "password2", type: "password"})
+                                    React.DOM.input({className: "form-control navable", 'data-function': "input_focus", placeholder: "Password", name: "password", type: "password"}), 
+                                    React.DOM.input({className: "form-control navable", 'data-function': "input_focus", placeholder: "Password", name: "password2", type: "password"})
                                
                                 ), 
                            
-                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", onClick: this.handleSubmit(this), value: "Create new Profile"})
+                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", 'data-function': "form_submit", value: "Create new Profile"})
                             )
                             )
                               
@@ -3902,8 +3901,9 @@ module.exports = function() {
 },{}],35:[function(require,module,exports){
 /* Sockets.io api
 -------------------------------------------------- */
-var io = require('socket.io-client');
-var api = io.connect(window.location.hostname);
+var io      = require('socket.io-client')
+,   api     = io.connect(window.location.hostname);
+
 // ('/api');
 
 // console.log("window.location.hostname");
@@ -3950,15 +3950,19 @@ module.exports = function() {
 /* Clientside Database Helpers
 -------------------------------------------------- */
 
-var nsp = require('socket.io-client')('/api')
-,   PourOver = require('../components/pourover')
-,   _ = require("lodash")
-,   nedb = require("../../../node_modules/nedb/browser-version/out/nedb.min")
-,   api = require('socket.io-client')('/api');
+var nsp         = require('socket.io-client')('/api')
+,   PourOver    = require('../components/pourover')
+,   _           = require("lodash")
+,   nedb        = require("../../../node_modules/nedb/browser-version/out/nedb.min")
+,   api         = require('socket.io-client')('/api');
 
+/* Scoped Module Globals
+-------------------------------------------------- */
 var collection = {},
     filters = {};
 
+/* Hash code prototype (move to module)
+-------------------------------------------------- */
 String.prototype.hashCode = function() {
     var hash = 0, i, chr, len;
     if (this.length == 0) return hash;
@@ -3970,6 +3974,8 @@ String.prototype.hashCode = function() {
     return hash;
 };
 
+/* Initialize the local Database
+-------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
     nsp.emit('request', { request: 'storeGet', param: database });   
     nsp.on('api', function(data){   
@@ -3984,6 +3990,8 @@ var initLocalDatabase = function(database, callback) {
     return;
 }
 
+/* Filter Collection by Attribute
+-------------------------------------------------- */
 var filterByAttribute = function(database, query, callback) {
 
     if (collection[database]) {
@@ -4039,45 +4047,44 @@ var filterByAttribute = function(database, query, callback) {
 
 }
 
+/* Exports
+-------------------------------------------------- */
 exports.filterByAttribute = filterByAttribute;
 exports.initLocalDatabase = initLocalDatabase;
 },{"../../../node_modules/nedb/browser-version/out/nedb.min":59,"../components/pourover":1,"lodash":57,"socket.io-client":219}],38:[function(require,module,exports){
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var systemNotify = require('./notification.init.js')
-,   api = require('socket.io-client')('/api')
-,   React = require('react/addons')
-,   Modal = require('../interface/Modal.jsx')
-,   Messages = require('../interface/Messages.jsx')
-,   SignUp = require('../interface/forms/SignUp.jsx')
-,   _ = require('lodash')
-,   navigationInit = require("./navigation.init.js");
+var systemNotify    = require('./notification.init.js')
+,   api             = require('socket.io-client')('/api')
+,   React           = require('react/addons')
+,   Modal           = require('../interface/Modal.jsx')
+,   Messages        = require('../interface/Messages.jsx')
+,   SignUp          = require('../interface/forms/SignUp.jsx')
+,   _               = require('lodash')
+,   navigationInit  = require("./navigation.init.js");
 
 
 /* Show Modal
 -------------------------------------------------- */
-
 var show = function(title, content) {
-
     React.renderComponent(Modal({children: SignUp(null)}), document.getElementById("appendices"));
-    
 }
 
 /* Exports
 -------------------------------------------------- */
-
 exports.show = show;
 
 
 },{"../interface/Messages.jsx":21,"../interface/Modal.jsx":22,"../interface/forms/SignUp.jsx":32,"./navigation.init.js":50,"./notification.init.js":53,"lodash":57,"react/addons":60,"socket.io-client":219}],39:[function(require,module,exports){
 /* API Event Listeners
 -------------------------------------------------- */
-var api = require('socket.io-client')('/api'),
-    events = require('./events'),
-    _ = require('lodash');
+var api     = require('socket.io-client')('/api')
+,   events  = require('./events')
+,   _       = require('lodash');
 
-
+/* Possibly Unused. Run unit tests
+-------------------------------------------------- */
 api.on('api', function(_event){
     if (_event.updateGame) {
         events.updateGame(_event.updateGame.games.game);
@@ -4086,7 +4093,8 @@ api.on('api', function(_event){
 },{"./events":40,"lodash":57,"socket.io-client":219}],40:[function(require,module,exports){
 /* Custom Events
 -------------------------------------------------- */
-var api = require('socket.io-client')('/api');
+var api     = require('socket.io-client')('/api');
+
 
 var screenTransition = function(screen, hidden, parent) {
    
@@ -4127,6 +4135,8 @@ var updateGame = function(results, filepath, callback) {
 
 }
 
+/* Exports
+-------------------------------------------------- */
 exports.screenTransition = screenTransition;
 exports.updateGame = updateGame;
 
@@ -4149,9 +4159,9 @@ exports.updateGame = updateGame;
  * @author mwichary@google.com (Marcin Wichary)
  */
 
-var navigationKeyEvent = require("./navigation.keyEvent.js"),
-    sounds = require("./system.sounds.js"),
-    mousetrap = require("./mousetrap.min.js");
+var navigationKeyEvent      = require("./navigation.keyEvent.js")
+,   sounds                  = require("./system.sounds.js")
+,   mousetrap               = require("./mousetrap.min.js");
 
 var gamepadSupport = {
 
@@ -4532,10 +4542,8 @@ exports.gamepadSupport = gamepadSupport;
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
-
-/* Module Definitions
+/* Get first child of element (minus textnodetype)
 -------------------------------------------------- */
-
 var getFirstChild = function(el) {
     if (el) {
         var firstChild = el.firstChild;
@@ -4550,7 +4558,8 @@ var getFirstChild = function(el) {
     }
 }
 
-
+/* Remove general brackets and characters from filenames
+-------------------------------------------------- */
 var removeBrackets = function(input) {
     var re = /(?:\.([^.]+))?$/;
     return input.replace(/\[.*?\]\s?/g, "") // [*]
@@ -4561,6 +4570,8 @@ var removeBrackets = function(input) {
     .replace(re, '');
 }
 
+/* Preload images
+-------------------------------------------------- */
 var preloadImage = function(url, callback) {
     var img=new Image();
     img.src=url;
@@ -4571,7 +4582,6 @@ var preloadImage = function(url, callback) {
 
 /* Exports
 -------------------------------------------------- */
-
 exports.getFirstChild = getFirstChild;
 exports.removeBrackets = removeBrackets;
 exports.preloadImage = preloadImage;
@@ -4579,15 +4589,16 @@ exports.preloadImage = preloadImage;
 /* Init Modules - Entry point to clientside controllers
  -------------------------------------------------- */ 
 
- var  community = require("./community.js"),
-      gamepad = require("./gamepad.js"),
-      navigationBindings = require("./navigation.bindings.js"),
-      navigationEvent = require("./navigation.event.js"),
-      api = require("./api/connection.js"),
-      browserNavigation = require('../js/navigation.browser.js').browserNavigation,
-      database = require('./database.helpers');
+var community = require("./community.js")
+,   gamepad = require("./gamepad.js")
+,   navigationBindings = require("./navigation.bindings.js")
+,   navigationEvent = require("./navigation.event.js")
+,   api = require("./api/connection.js")
+,   browserNavigation = require('../js/navigation.browser.js').browserNavigation
+,   database = require('./database.helpers');
 
 module.exports = function() {
+
     api.connect();
     community();
     navigationBindings();
@@ -4595,7 +4606,7 @@ module.exports = function() {
     document.onkeydown = navigationEvent;
     
     database.initLocalDatabase("games");
-         
+
 }
 },{"../js/navigation.browser.js":47,"./api/connection.js":35,"./community.js":36,"./database.helpers":37,"./gamepad.js":41,"./navigation.bindings.js":46,"./navigation.event.js":48}],44:[function(require,module,exports){
 /* Mixins
@@ -4630,10 +4641,14 @@ b[c[e].seq]=1,x(c[e].callback,d,c[e].combo,c[e].seq)):g||x(c[e].callback,d,c[e].
 /* Navigation Key Bindings
 -------------------------------------------------- */
 
-var mousetrap = require("./mousetrap.min.js"),
-    navigate = require("./navigation.navigate.js");
+var mousetrap   = require("./mousetrap.min.js")
+,   navigate    = require("./navigation.navigate.js");
 
 module.exports = function() {
+
+        Mousetrap.bind('tab', function() {
+            navigate("right");
+        });
 
         Mousetrap.bind('right', function() {
             navigate("right");
@@ -4662,13 +4677,13 @@ module.exports = function() {
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
-var getFirstChild = require('./helpers.js').getFirstChild;
-    removeBrackets = require('./helpers.js').removeBrackets,
-    api = require('socket.io-client')('/api'),
-    browserNavigation = require('../js/navigation.browser.js').browserNavigation,
-    database = require('./database.helpers'),
-    events = require('./events'),
-    _ = require('lodash');
+var getFirstChild       = require('./helpers.js').getFirstChild
+,   removeBrackets      = require('./helpers.js').removeBrackets
+,   api                 = require('socket.io-client')('/api')
+,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation
+,   database            = require('./database.helpers')
+,   events              = require('./events')
+,   _                   = require('lodash');
 
 /* Module Definitions
 -------------------------------------------------- */
@@ -4795,12 +4810,12 @@ exports.browserNavigationEvents = browserNavigationEvents;
 /* Section
 -------------------------------------------------- */
 
-var account = require("./account.js")
-,   community = require("./community.js")
-,   helpers = require("./helpers.js")
-,   _ = require("lodash")
-,   navigationInit = require("./navigation.init.js")
-,   events = require("./events.js");
+var account         = require("./account.js")
+,   community       = require("./community.js")
+,   helpers         = require("./helpers.js")
+,   _               = require("lodash")
+,   navigationInit  = require("./navigation.init.js")
+,   events          = require("./events.js");
 
 
 // TODO: Dynamically select screens
@@ -4932,15 +4947,20 @@ module.exports = function() {
 /* Navigation set up
 -------------------------------------------------- */
 
-var _ = require('lodash');
-var blink;
+var _   = require('lodash'),
+    blink;
 
+/* Init Modal Navigation Panels
+-------------------------------------------------- */
 var modalNavigation = function(callback) {
     var parent = document.querySelectorAll('.parent')[0];
     parent.classList.remove("parent");
     callback();
 }
 
+
+/* General Navigation Assigns/Init
+-------------------------------------------------- */
 var navigationInit = function() {
 
     var navables = document.querySelectorAll('.navable, .subNavable');
@@ -4971,60 +4991,60 @@ var highlight = function() {
     }, 200);
 }
 
+/* Exports
+-------------------------------------------------- */
 exports.highlight = highlight;
 exports.navigationInit = navigationInit;
 exports.modalNavigation = modalNavigation;
 
 },{"lodash":57}],51:[function(require,module,exports){
-/* Translates Gamepad button events into keyboard events
+/* Translates Gamepad button events into keyboard events (webkit renderer workaround)
 -------------------------------------------------- */
 
 module.exports = function(k) {
 
-    
-            // Chromium Workaround for KeyboardEvent bug
-            Podium = {};
+    Podium = {};
 
-            Podium.keydown = function(k) {
-                var oEvent = document.createEvent('KeyboardEvent');
+    Podium.keydown = function(k) {
+        var oEvent = document.createEvent('KeyboardEvent');
 
-                // Chromium Hack
-                Object.defineProperty(oEvent, 'keyCode', {
-                            get : function() {
-                                return this.keyCodeVal;
-                            }
-                });     
-                Object.defineProperty(oEvent, 'which', {
-                            get : function() {
-                                return this.keyCodeVal;
-                            }
-                });     
+        // Chromium Hack
+        Object.defineProperty(oEvent, 'keyCode', {
+                    get : function() {
+                        return this.keyCodeVal;
+                    }
+        });     
+        Object.defineProperty(oEvent, 'which', {
+                    get : function() {
+                        return this.keyCodeVal;
+                    }
+        });     
 
-                if (oEvent.initKeyboardEvent) {
-                    oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, false, false, false, false, k, k);
-                } else {
-                    oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
-                }
+        if (oEvent.initKeyboardEvent) {
+            oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, false, false, false, false, k, k);
+        } else {
+            oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
+        }
 
-                oEvent.keyCodeVal = k;
+        oEvent.keyCodeVal = k;
 
-                if (oEvent.keyCode !== k) {
-                    alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
-                }
+        if (oEvent.keyCode !== k) {
+            alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
+        }
 
-                document.dispatchEvent(oEvent);
+        document.dispatchEvent(oEvent);
 
-            }
-                    Podium.keydown(k);
+    }
+        Podium.keydown(k);
         
 };
 },{}],52:[function(require,module,exports){
-/* Navigation Functions
+/* General Navigation Functions
 -------------------------------------------------- */
 
-var systemEvents = require('./system.events.js'),
-    navigationHelpers = require('./navigation.helpers.js'),
-    navigationBrowse = require('./navigation.browser.js').browserNavigationEvents;
+var systemEvents        = require('./system.events.js')
+,   navigationHelpers   = require('./navigation.helpers.js')
+,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents;
 
 module.exports = function(k) {
 
@@ -5338,266 +5358,319 @@ module.exports = function(path, height, width, left, top) {
 /* Requested system events via client
 -------------------------------------------------- */
 
-// TODO: Split into files/modules
+var systemNotify    = require('./notification.init.js')
+,   Mousetrap       = require('./mousetrap.min.js')
+,   api             = require('socket.io-client')('/api')
+,   React           = require('react/addons')
+,   Modal           = require('../interface/Modal.jsx')
+,   Messages        = require('../interface/Messages.jsx')
+,   _               = require('lodash')
+,   navigationInit  = require("./navigation.init.js")
+,   dialog          = require("./dialogs");
 
-var systemNotify = require('./notification.init.js'),
-    mousetrap = require('./mousetrap.min.js'),
-    api = require('socket.io-client')('/api'),
-    React = require('react/addons'),
-    Modal = require('../interface/Modal.jsx'),
-    Messages = require('../interface/Messages.jsx'),
-    _ = require('lodash'),
-    navigationInit = require("./navigation.init.js"),
-    dialog = require("./dialogs");
+// browser = require("./browser.js");
 
-    // browser = require("./browser.js");
+var events = {
+ 
+    /* Focus form inputs on Action button/keypress
+    -------------------------------------------------- */
+    inputFocus: function(parameters){
+        var input = document.getElementsByClassName("selectedNav")[0];
+        input.focus();
+    },
 
-module.exports = function(event, p) {
+    /* Switch Emulator on Action button/keypress
+    -------------------------------------------------- */
+    switchEmulator: function(parameters) {
+        var longname,
+            list = document.querySelectorAll(".platform");
 
-        // Message 
+        _(list).forEach(function(item) { 
+            item.classList.remove("selected");
+            if (item.getAttribute("data-parameters") == parameters) {
+                item.classList.add("selected");
+                longname = item.textContent;
+            }; 
+        });
 
-        if (event == 'runme') {
-            console.log(JSON.stringify(p));
-        }
+        api.emit('request', { request: 'gamesList', param: longname });
+    },
 
-        if (event == 'viewFriends') {
-            var title = "Uh Oh!"
-            var message = "4";
-            var height = 60;
-            var width = 70;
-            var left = 15;
-            systemNotify('/systemNotification/' + title + '/' + message, height, width, left);
-        }
-
-        if (event == 'demoMsg') {
-
-            var title = "Uh Oh!"
-            var message = "2";
-            var height = 62;
-            systemNotify('/systemNotification/' + title + '/' + message, height);
-
-            if (p) {
-
-                var allBacks = document.querySelectorAll(".systemNotificationContentBackdrop");
-                var allConts = document.querySelectorAll(".systemNotificationContent");
-
-                document.body.removeChild(allConts[0]);
-                document.body.removeChild(allBacks[0]);
-                // document.body.removeChild(content);
-
-            }
-        }
-
-        if (event == 'community') {
-            var title = "Uh Oh!";
-            var message = "5";
-            var height = 85;
-            var width = 45;
-            var left = 25;
-            var top = 5;
-            systemNotify('/systemNotification/' + title + '/' + message, height, width, left, top);
-        }
-
-
-        if (event == 'demoGame') {
-            var title = "Uh Oh!"
-            var message = "3";
-            var height = 65;
-            var width = 65;
-            var left = 17;
-            systemNotify('/systemNotification/' + title + '/' + message, height, width, left);
-        }
-
-        // Close Lightboxes
-        if (event == 'closeLightbox') {
-
-            var backdrop = document.getElementById('backdrop');
-            var content = document.getElementById('lightbox');
-
-            content.className = "systemNotificationContent animated bounceOutDown";
-            backdrop.className = "systemNotificationContentBackdrop animated fadeOut";
-
-
-            setTimeout(function(e) {
-                document.body.removeChild(content);
-                document.body.removeChild(backdrop);
-            }, 2000);
-
-            var currentSelection = document.querySelectorAll(".navable");
-
-            currentSelection[0].classList.add("selectedNav");
-            // navigationBrowse(currentSelection[0]);
-
-            if (p) {
-                var allBacks = document.querySelectorAll(".systemNotificationContentBackdrop");
-                var allConts = document.querySelectorAll(".systemNotificationContent");
-
-                document.body.removeChild(allConts[0]);
-                document.body.removeChild(allBacks[0]);
-                // document.body.removeChild(content);
-
-            }
-
-        }
-        // Large Profile Page
-        if (event == 'largeProfile') {
-
-            document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
-            document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");
-            document.getElementsByClassName("Browser")[0].classList.add("hidden");
-            document.getElementsByClassName("Browser")[0].children[0].classList.remove("parent");
-            document.getElementsByClassName("browser_header")[0].classList.add("hidden");
-
-            document.getElementsByClassName("Profile")[0].classList.remove("hidden");
-            document.getElementsByClassName("Profile")[0].children[0].classList.add("parent");
-            document.getElementById("Profile").classList.remove("hidden");
-
-            document.getElementById("main").setAttribute("data-screen", "Profile");
-
-            navigationInit.navigationInit();
-
-
-            // var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
-
-            // var httpRequest = new XMLHttpRequest();
-            // httpRequest.open("GET", "../includes/screens.json", false);
-            // httpRequest.send()
-
-            // document.getElementById('content_load').style.display = 'none'
-
-            // var url = "http://localhost:1210/game/profile/large/" + p;
-
-            // var httpRequest = new XMLHttpRequest();
-            // httpRequest.onreadystatechange = function(data) {
-
-            //     {
-            //         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
-
-            //             var fragment = document.createDocumentFragment();
-
-            //             var s = fragment.appendChild(document.createElement('div'));
-            //             s.setAttribute("data-package", workingPack);
-            //             s.innerHTML = httpRequest.responseText;
-            //             fragment.appendChild(s);
-
-            //             var recentObj = document.getElementById("working_params").innerHTML;
-
-            //             var objParsed = JSON.stringify(recentObj);
-            //             objParsed = JSON.parse(objParsed);
-
-            //             document.body.innerHTML = "";
-            //             document.getElementsByTagName('body').item(0).appendChild(fragment);
-
-            //             document.getElementById('profile-gametitle').innerHTML = removeBrackets(p).replace(/\.[^/.]+$/, "");
-            //             document.getElementById('play-game').setAttribute("data-parameters", workingPack);
-
-
-            //         }
-            //     }
-
-            // }
-
-            // httpRequest.open('GET', url);
-            // httpRequest.send();
-
-
-            // document.getElementById('content_load').style.display = ''
-
-
-
-        }
-
-        if (event == 'switchEmulator') {
-
-            var longname,
-                list = document.querySelectorAll(".platform");
-
-            _(list).forEach(function(item) { 
-                item.classList.remove("selected");
-                if (item.getAttribute("data-parameters") == p) {
-                    item.classList.add("selected");
-                    longname = item.textContent;
-                }; 
-            });
-
-            api.emit('request', { request: 'gamesList', param: longname });
-
-        }
-
-        if (event == 'highlightPanel') {
+    /* Drop navigation on sub-panels on Action button/keypress
+    -------------------------------------------------- */
+    highlightPanel: function(parameters) {
             Mousetrap.trigger('down');
-        }
+    },
+
+    /* View Messages event
+    -------------------------------------------------- */
+    viewMessages: function(parameters) {
+        dialog.show();
+        // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
+    },
+
+    /* Launch selected game
+    -------------------------------------------------- */
+    launchGame: function(parameters) {
+        // Do via sockets
+    },
+
+}
 
 
-        if (event == 'viewMessages') {
-            dialog.show();
-            // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
-        }
-
-        if (event == 'launchGame') {
-            p = JSON.parse(p);
-
-            console.dir(p);
-            var path = p.pack[p.system].emulators[p.emulator].path;
-
-            var payload = p.base + " " + p.paramaters + " " + path + " \"/home/pi/roms/" + p.pack[p.system].short + "/" + p.rom + "\"";
-
-            // REST API
-
-            var handleResponse = function(status, response) {
-                console.log(response)
-            }
-
-            var handleStateChange = function() {
-                switch (xmlhttpl.readyState) {
-                    case 0: // UNINITIALIZED
-                    case 1: // LOADING
-                    case 2: // LOADED
-                    case 3: // INTERACTIVE
-                        break;
-                    case 4: // COMPLETED
-                        handleResponse(xmlhttpl.status, xmlhttpl.responseText);
-                        break;
-                    default:
-                        console.log("error")
-                }
-            }
-
-            urllaunch = "http://localhost:1210/game/launch/";
-            var xmlhttpl = new XMLHttpRequest();
-            xmlhttpl.onreadystatechange = handleStateChange;
-            xmlhttpl.open("POST", urllaunch, true);
-            xmlhttpl.send(payload);
+/* Exports
+-------------------------------------------------- */
+exports.events = events;
 
 
 
-            // // $(".launch").click(function(e) {
-            // //         e.preventDefault();
-            //         var e = "retroarch -L /home/pi/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so /home/pi/RetroPie/roms/nes/Contra.nes";
-            //         $.ajax({
-            //                     async: false,
-            //                     type: "POST",
-            //                     url: 'http://localhost:1210/game/launch',
-            //                     data: {launch: e},
-            //                     timeout: 5000,
-            //                     success: function (msg, status, jqXHR) { 
-            //                           // Do something on launch of game? Notify Server? Emit message?
-            //                                                             }
-            //                     });
+// module.exports = function(event, p) {
 
-            //     // });
+//         // Message 
 
-            // need:
-            // Emulator Core
-            // Paramaters for RetroArch
-            // 
+//         if (event == 'input_focus') {
+//             var input = document.getElementsByClassName("selectedNav")[0];
+//             input.focus();
+//         }
 
-            // Pass JSON node of selected emu and add game path?
+//         if (event == 'viewFriends') {
+//             var title = "Uh Oh!"
+//             var message = "4";
+//             var height = 60;
+//             var width = 70;
+//             var left = 15;
+//             systemNotify('/systemNotification/' + title + '/' + message, height, width, left);
+//         }
 
-        }
+//         if (event == 'demoMsg') {
+
+//             var title = "Uh Oh!"
+//             var message = "2";
+//             var height = 62;
+//             systemNotify('/systemNotification/' + title + '/' + message, height);
+
+//             if (p) {
+
+//                 var allBacks = document.querySelectorAll(".systemNotificationContentBackdrop");
+//                 var allConts = document.querySelectorAll(".systemNotificationContent");
+
+//                 document.body.removeChild(allConts[0]);
+//                 document.body.removeChild(allBacks[0]);
+//                 // document.body.removeChild(content);
+
+//             }
+//         }
+
+//         if (event == 'community') {
+//             var title = "Uh Oh!";
+//             var message = "5";
+//             var height = 85;
+//             var width = 45;
+//             var left = 25;
+//             var top = 5;
+//             systemNotify('/systemNotification/' + title + '/' + message, height, width, left, top);
+//         }
 
 
-};
+//         if (event == 'demoGame') {
+//             var title = "Uh Oh!"
+//             var message = "3";
+//             var height = 65;
+//             var width = 65;
+//             var left = 17;
+//             systemNotify('/systemNotification/' + title + '/' + message, height, width, left);
+//         }
+
+//         // Close Lightboxes
+//         if (event == 'closeLightbox') {
+
+//             var backdrop = document.getElementById('backdrop');
+//             var content = document.getElementById('lightbox');
+
+//             content.className = "systemNotificationContent animated bounceOutDown";
+//             backdrop.className = "systemNotificationContentBackdrop animated fadeOut";
+
+
+//             setTimeout(function(e) {
+//                 document.body.removeChild(content);
+//                 document.body.removeChild(backdrop);
+//             }, 2000);
+
+//             var currentSelection = document.querySelectorAll(".navable");
+
+//             currentSelection[0].classList.add("selectedNav");
+//             // navigationBrowse(currentSelection[0]);
+
+//             if (p) {
+//                 var allBacks = document.querySelectorAll(".systemNotificationContentBackdrop");
+//                 var allConts = document.querySelectorAll(".systemNotificationContent");
+
+//                 document.body.removeChild(allConts[0]);
+//                 document.body.removeChild(allBacks[0]);
+//                 // document.body.removeChild(content);
+
+//             }
+
+//         }
+//         // Large Profile Page
+//         if (event == 'largeProfile') {
+
+//             document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
+//             document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");
+//             document.getElementsByClassName("Browser")[0].classList.add("hidden");
+//             document.getElementsByClassName("Browser")[0].children[0].classList.remove("parent");
+//             document.getElementsByClassName("browser_header")[0].classList.add("hidden");
+
+//             document.getElementsByClassName("Profile")[0].classList.remove("hidden");
+//             document.getElementsByClassName("Profile")[0].children[0].classList.add("parent");
+//             document.getElementById("Profile").classList.remove("hidden");
+
+//             document.getElementById("main").setAttribute("data-screen", "Profile");
+
+//             navigationInit.navigationInit();
+
+
+//             // var workingPack = document.querySelector('#alpha_list').getAttribute('data-parameters');
+
+//             // var httpRequest = new XMLHttpRequest();
+//             // httpRequest.open("GET", "../includes/screens.json", false);
+//             // httpRequest.send()
+
+//             // document.getElementById('content_load').style.display = 'none'
+
+//             // var url = "http://localhost:1210/game/profile/large/" + p;
+
+//             // var httpRequest = new XMLHttpRequest();
+//             // httpRequest.onreadystatechange = function(data) {
+
+//             //     {
+//             //         if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+
+//             //             var fragment = document.createDocumentFragment();
+
+//             //             var s = fragment.appendChild(document.createElement('div'));
+//             //             s.setAttribute("data-package", workingPack);
+//             //             s.innerHTML = httpRequest.responseText;
+//             //             fragment.appendChild(s);
+
+//             //             var recentObj = document.getElementById("working_params").innerHTML;
+
+//             //             var objParsed = JSON.stringify(recentObj);
+//             //             objParsed = JSON.parse(objParsed);
+
+//             //             document.body.innerHTML = "";
+//             //             document.getElementsByTagName('body').item(0).appendChild(fragment);
+
+//             //             document.getElementById('profile-gametitle').innerHTML = removeBrackets(p).replace(/\.[^/.]+$/, "");
+//             //             document.getElementById('play-game').setAttribute("data-parameters", workingPack);
+
+
+//             //         }
+//             //     }
+
+//             // }
+
+//             // httpRequest.open('GET', url);
+//             // httpRequest.send();
+
+
+//             // document.getElementById('content_load').style.display = ''
+
+
+
+//         }
+
+//         if (event == 'switchEmulator') {
+
+//             var longname,
+//                 list = document.querySelectorAll(".platform");
+
+//             _(list).forEach(function(item) { 
+//                 item.classList.remove("selected");
+//                 if (item.getAttribute("data-parameters") == p) {
+//                     item.classList.add("selected");
+//                     longname = item.textContent;
+//                 }; 
+//             });
+
+//             api.emit('request', { request: 'gamesList', param: longname });
+
+//         }
+
+//         if (event == 'highlightPanel') {
+//             Mousetrap.trigger('down');
+//         }
+
+
+//         if (event == 'viewMessages') {
+//             dialog.show();
+//             // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
+//         }
+
+//         if (event == 'launchGame') {
+//             p = JSON.parse(p);
+
+//             console.dir(p);
+//             var path = p.pack[p.system].emulators[p.emulator].path;
+
+//             var payload = p.base + " " + p.paramaters + " " + path + " \"/home/pi/roms/" + p.pack[p.system].short + "/" + p.rom + "\"";
+
+//             // REST API
+
+//             var handleResponse = function(status, response) {
+//                 console.log(response)
+//             }
+
+//             var handleStateChange = function() {
+//                 switch (xmlhttpl.readyState) {
+//                     case 0: // UNINITIALIZED
+//                     case 1: // LOADING
+//                     case 2: // LOADED
+//                     case 3: // INTERACTIVE
+//                         break;
+//                     case 4: // COMPLETED
+//                         handleResponse(xmlhttpl.status, xmlhttpl.responseText);
+//                         break;
+//                     default:
+//                         console.log("error")
+//                 }
+//             }
+
+//             urllaunch = "http://localhost:1210/game/launch/";
+//             var xmlhttpl = new XMLHttpRequest();
+//             xmlhttpl.onreadystatechange = handleStateChange;
+//             xmlhttpl.open("POST", urllaunch, true);
+//             xmlhttpl.send(payload);
+
+
+
+//             // // $(".launch").click(function(e) {
+//             // //         e.preventDefault();
+//             //         var e = "retroarch -L /home/pi/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so /home/pi/RetroPie/roms/nes/Contra.nes";
+//             //         $.ajax({
+//             //                     async: false,
+//             //                     type: "POST",
+//             //                     url: 'http://localhost:1210/game/launch',
+//             //                     data: {launch: e},
+//             //                     timeout: 5000,
+//             //                     success: function (msg, status, jqXHR) { 
+//             //                           // Do something on launch of game? Notify Server? Emit message?
+//             //                                                             }
+//             //                     });
+
+//             //     // });
+
+//             // need:
+//             // Emulator Core
+//             // Paramaters for RetroArch
+//             // 
+
+//             // Pass JSON node of selected emu and add game path?
+
+//         }
+
+
+// };
 },{"../interface/Messages.jsx":21,"../interface/Modal.jsx":22,"./dialogs":38,"./mousetrap.min.js":45,"./navigation.init.js":50,"./notification.init.js":53,"lodash":57,"react/addons":60,"socket.io-client":219}],55:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */

@@ -1,10 +1,14 @@
 /* Navigation Key Bindings
 -------------------------------------------------- */
 
-var mousetrap = require("./mousetrap.min.js"),
-    navigate = require("./navigation.navigate.js");
+var mousetrap   = require("./mousetrap.min.js")
+,   navigate    = require("./navigation.navigate.js");
 
 module.exports = function() {
+
+        Mousetrap.bind('tab', function() {
+            navigate("right");
+        });
 
         Mousetrap.bind('right', function() {
             navigate("right");
