@@ -25,19 +25,21 @@ var events = {
     /* Submit form on Action button/keypress
     -------------------------------------------------- */
     submitForm: function(parameters) {
+
         var form = document.forms[parameters].elements;
        
-        console.log(form);
-
         var obj = new Object;
 
-        var mapped = _.each(form, function(input) { 
+        _.each(form, function(input) { 
             if (input.name && input.value) {
                obj[input.name] = input.value;
             }
         });
 
-        console.log(obj);
+        obj.formTitle = parameters;
+
+        api.emit('request', { request: 'submitForm', param: obj });
+
     },
 
     /* Switch Emulator on Action button/keypress

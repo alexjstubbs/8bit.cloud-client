@@ -1,19 +1,19 @@
 /* Ignition Server API
 -------------------------------------------------- */
-var fs = require('fs-extra')
-,   path = require('path')
-,   request = require('request')
-,   sockets = require('./server.sockets')
-,   database = require('../../api/database/database.local')
-,   helpers = require('../../system/helpers');
+var fs          = require('fs-extra')
+,   path        = require('path')
+,   request     = require('request')
+,   sockets     = require('./server.sockets')
+,   database    = require('../../api/database/database.local')
+,   helpers     = require('../../system/helpers');
 
 /* Set up (use config file)
 -------------------------------------------------- */
 
-var server = "162.243.206.41:3000"
-,   port = 3000
-,   v = "v1"
-,   api = path.join(server, "api", v);
+var server      = "ignition.io:3000"
+,   port        = 3000
+,   v           = "v1"
+,   api         = path.join(server, "api", v);
 
 /* Add a Friend Endpoint
 -------------------------------------------------- */
@@ -38,6 +38,14 @@ var getActivities = function(nsp) {
 var getMessages = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getMessages' });
 }
+
+/* Submit Dynamic Form
+-------------------------------------------------- */
+var submitForm = function(nsp, data) {
+    console.log({cmd: data.formTitle, data: data});
+    // sockets.networkInterface(nsp, {cmd: data.formTitle, data: data});
+}
+
 
 /* Community Endpoint
 -------------------------------------------------- */
@@ -264,3 +272,4 @@ exports.leaveSession    = leaveSession;
 exports.getFriend       = getFriend;
 exports.getActivities   = getActivities;
 exports.signUp          = signUp;
+exports.submitForm      = submitForm;

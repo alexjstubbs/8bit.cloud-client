@@ -57,6 +57,10 @@ var api = {
 
     newProfile: function(nsp, profile) {
         common.serverAPI.signUp(nsp, profile);
+    },
+
+    submitForm: function(nsp, form, data) {
+        common.serverAPI.submitForm(nsp, form, data);
     }
 
 }
