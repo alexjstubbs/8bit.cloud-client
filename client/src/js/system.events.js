@@ -22,6 +22,24 @@ var events = {
         input.focus();
     },
 
+    /* Submit form on Action button/keypress
+    -------------------------------------------------- */
+    submitForm: function(parameters) {
+        var form = document.forms[parameters].elements;
+       
+        console.log(form);
+
+        var obj = new Object;
+
+        var mapped = _.each(form, function(input) { 
+            if (input.name && input.value) {
+               obj[input.name] = input.value;
+            }
+        });
+
+        console.log(obj);
+    },
+
     /* Switch Emulator on Action button/keypress
     -------------------------------------------------- */
     switchEmulator: function(parameters) {
@@ -42,7 +60,7 @@ var events = {
     /* Drop navigation on sub-panels on Action button/keypress
     -------------------------------------------------- */
     highlightPanel: function(parameters) {
-            Mousetrap.trigger('down');
+        Mousetrap.trigger('down');
     },
 
     /* View Messages event

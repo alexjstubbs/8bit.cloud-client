@@ -197,10 +197,11 @@ module.exports = function(k) {
         }
 
         var run = document.getElementsByClassName("selectedNav")[0].getAttribute("data-function");
-        var p = document.getElementsByClassName("selectedNav")[0].getAttribute("data-parameters");
+        var parameters = document.getElementsByClassName("selectedNav")[0].getAttribute("data-parameters");
 
         if (k == 'enter') {
-            systemEvents(run, p);
+            console.log(systemEvents);
+            systemEvents.events[run](parameters);
         }
 
 };

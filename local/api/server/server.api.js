@@ -18,7 +18,7 @@ var server = "162.243.206.41:3000"
 /* Add a Friend Endpoint
 -------------------------------------------------- */
 var addFriend = function(nsp) {
-    sockets.networkInterface(nsp, {cmd: 'addFriend', parameters: 'Alexander'});
+    sockets.networkInterface(nsp, { cmd: 'addFriend', parameters: 'Alexander'});
 }
 
 /* Friends Endpoint
@@ -257,8 +257,8 @@ var leaveSession = function(nsp) {
 
 exports.getCommunity    = getCommunity;
 exports.getEvents       = getEvents;
-exports.getMessages     = getFriend;
-// exports.getMessages     = getMessages;
+// exports.getMessages     = signUp;
+exports.getMessages     = getMessages;
 exports.getSession      = getSession;
 exports.leaveSession    = leaveSession;
 exports.getFriend       = getFriend;

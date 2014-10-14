@@ -3752,7 +3752,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     return {
             navable: true,
-            navStack: 2
+            navStack: 2,
+            form: 'userSignupForm'
         }
     },
 
@@ -3768,6 +3769,7 @@ module.exports = React.createClass({displayName: 'exports',
         console.log(event);
     },
 
+
     render: function() {
 
         return (
@@ -3782,26 +3784,25 @@ module.exports = React.createClass({displayName: 'exports',
                             React.DOM.div({className: "clearfix"}), 
                             
                             React.DOM.hr(null), 
-                            
 
-                            React.DOM.form({'accept-charset': "UTF-8", role: "form"}, 
+                            React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
                             React.DOM.fieldset(null, 
                                 
                                 React.DOM.div({className: "form-group"}, 
                                 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "input_focus", placeholder: "Choose Username", name: "username", type: "text"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "input_focus", placeholder: "E-mail Address", name: "email", type: "text"})
+                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Choose Username", name: "username", type: "text"}), 
+                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "E-mail Address", name: "email", type: "text"})
                                 
                                 ), 
                                 
                                 React.DOM.div({className: "form-group"}, 
                                     
-                                    React.DOM.input({className: "form-control navable", 'data-function': "input_focus", placeholder: "Password", name: "password", type: "password"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "input_focus", placeholder: "Password", name: "password2", type: "password"})
+                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Password", name: "password", type: "password"}), 
+                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Password", name: "password2", type: "password"})
                                
                                 ), 
                            
-                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", 'data-function': "form_submit", value: "Create new Profile"})
+                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", 'data-function': "submitForm", 'data-parameters': this.props.form, value: "Create new Profile"})
                             )
                             )
                               
@@ -5238,10 +5239,11 @@ module.exports = function(k) {
         }
 
         var run = document.getElementsByClassName("selectedNav")[0].getAttribute("data-function");
-        var p = document.getElementsByClassName("selectedNav")[0].getAttribute("data-parameters");
+        var parameters = document.getElementsByClassName("selectedNav")[0].getAttribute("data-parameters");
 
         if (k == 'enter') {
-            systemEvents(run, p);
+            console.log(systemEvents);
+            systemEvents.events[run](parameters);
         }
 
 };
@@ -5379,6 +5381,24 @@ var events = {
         input.focus();
     },
 
+    /* Submit form on Action button/keypress
+    -------------------------------------------------- */
+    submitForm: function(parameters) {
+        var form = document.forms[parameters].elements;
+       
+        console.log(form);
+
+        var obj = new Object;
+
+        var mapped = _.each(form, function(input) { 
+            if (input.name && input.value) {
+               obj[input.name] = input.value;
+            }
+        });
+
+        console.log(obj);
+    },
+
     /* Switch Emulator on Action button/keypress
     -------------------------------------------------- */
     switchEmulator: function(parameters) {
@@ -5399,7 +5419,7 @@ var events = {
     /* Drop navigation on sub-panels on Action button/keypress
     -------------------------------------------------- */
     highlightPanel: function(parameters) {
-            Mousetrap.trigger('down');
+        Mousetrap.trigger('down');
     },
 
     /* View Messages event
