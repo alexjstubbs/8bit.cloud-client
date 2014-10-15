@@ -14,7 +14,9 @@ module.exports = React.createClass({
     return {
             navable: true,
             navStack: 2,
-            form: 'userSignupForm'
+            form: 'userSignupForm',
+            server: false,
+            filename: '/config.json'
         }
     },
 
@@ -25,11 +27,6 @@ module.exports = React.createClass({
         });
         
     },
-
-    handleSubmit: function(event) {
-        console.log(event);
-    },
-
 
     render: function() {
 
@@ -59,11 +56,15 @@ module.exports = React.createClass({
                                 <div className="form-group">
                                     
                                     <input className="form-control navable" data-function='inputFocus' placeholder="Password" name="password" type="password" />
-                                    <input className="form-control navable" data-function='inputFocus' placeholder="Password" name="password2" type="password"  />
+                                    <input className="form-control navable" data-function='inputFocus' placeholder="Verify Password" name="password2" type="password"  />
                                
                                 </div>
                            
                                 <input className="btn btn-lg btn-success btn-block navable" type="button" data-function='submitForm' data-parameters={this.props.form} value="Create new Profile" />
+
+                                <input type="hidden" name="server" value={this.props.server} />
+                                <input type="hidden" name="filename" value={this.props.filename} />
+
                             </fieldset>
                             </form>
                               

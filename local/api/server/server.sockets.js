@@ -44,7 +44,7 @@ var networkConnection = function(token, ansp, callback) {
 
 
     // Connect to /network, pass credidentials.
-    nsp = io.connect('http://162.243.206.41:6052/network', {
+    nsp = io.connect('http://ignition.io:6052/network', {
         'query': 'token=' + token
     });
 

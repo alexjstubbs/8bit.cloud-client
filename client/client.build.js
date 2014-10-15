@@ -3753,7 +3753,9 @@ module.exports = React.createClass({displayName: 'exports',
     return {
             navable: true,
             navStack: 2,
-            form: 'userSignupForm'
+            form: 'userSignupForm',
+            server: false,
+            filename: '/config.json'
         }
     },
 
@@ -3764,11 +3766,6 @@ module.exports = React.createClass({displayName: 'exports',
         });
         
     },
-
-    handleSubmit: function(event) {
-        console.log(event);
-    },
-
 
     render: function() {
 
@@ -3798,11 +3795,15 @@ module.exports = React.createClass({displayName: 'exports',
                                 React.DOM.div({className: "form-group"}, 
                                     
                                     React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Password", name: "password", type: "password"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Password", name: "password2", type: "password"})
+                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Verify Password", name: "password2", type: "password"})
                                
                                 ), 
                            
-                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", 'data-function': "submitForm", 'data-parameters': this.props.form, value: "Create new Profile"})
+                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", 'data-function': "submitForm", 'data-parameters': this.props.form, value: "Create new Profile"}), 
+
+                                React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
+                                React.DOM.input({type: "hidden", name: "filename", value: this.props.filename})
+
                             )
                             )
                               
@@ -5397,7 +5398,15 @@ var events = {
 
         obj.formTitle = parameters;
 
-        api.emit('request', { request: 'submitForm', param: obj });
+        if (obj.server == true) {
+            console.log("server...")
+            api.emit('request', { request: 'submitForm', param: obj });
+        }
+
+        else {
+            console.log("write...")
+            api.emit('request', { request: 'writeJSONSync', param: obj });
+        }
 
     },
 

@@ -61,6 +61,10 @@ var api = {
 
     submitForm: function(nsp, form, data) {
         common.serverAPI.submitForm(nsp, form, data);
+    },
+
+    writeJSONSync: function(nsp, data) {
+        common.systemWrite.writeJSONSync(nsp, data);
     }
 
 }

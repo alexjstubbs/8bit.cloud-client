@@ -38,7 +38,15 @@ var events = {
 
         obj.formTitle = parameters;
 
-        api.emit('request', { request: 'submitForm', param: obj });
+        if (obj.server == true) {
+            console.log("server...")
+            api.emit('request', { request: 'submitForm', param: obj });
+        }
+
+        else {
+            console.log("write...")
+            api.emit('request', { request: 'writeJSONSync', param: obj });
+        }
 
     },
 
