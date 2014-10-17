@@ -26,11 +26,21 @@ var events = {
     /* Press Key on OnScreen Keyboard
     -------------------------------------------------- */
     depressKey: function(parameters) {
-        
-        var activeInput = document.getElementById("placehold_input"),
+
+         var activeInput = document.getElementById("placehold_input"),
             _value = activeInput.value;
 
-            activeInput.value = _value+parameters;
+        switch(parameters){
+            case 'delete':
+                activeInput.value = _value.slice(0,-1);
+                return;
+            case 'shift':
+                //Shift case
+            default:
+                activeInput.value = _value+parameters;
+        }
+        
+       
 
         console.log("PRESSED: "+parameters);
     },
