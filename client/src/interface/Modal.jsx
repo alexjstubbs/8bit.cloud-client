@@ -19,6 +19,7 @@ module.exports = React.createClass({
             backdrop: true,
             classList: "ignition-modal systemNotificationContent",
             children: [],
+            input: null,
             id: "ignition-modal"
         }
     },

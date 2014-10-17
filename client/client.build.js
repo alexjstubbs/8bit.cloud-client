@@ -3193,6 +3193,7 @@ module.exports = React.createClass({displayName: 'exports',
             backdrop: true,
             classList: "ignition-modal systemNotificationContent",
             children: [],
+            input: null,
             id: "ignition-modal"
         }
     },
@@ -3307,6 +3308,7 @@ module.exports = React.createClass({displayName: 'exports',
     return {
             navable: true,
             navStack: 2,
+            input: null,
             form: 'onScreenKeyboard',
         }
     },
@@ -3327,6 +3329,8 @@ module.exports = React.createClass({displayName: 'exports',
             navigationInit.navigationInit();
         });
 
+        console.log(this.props.input);
+
     },
 
     render: function() {
@@ -3338,14 +3342,13 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.div({className: "row-fluid"}, 
                         React.DOM.div({className: "col-xs-12"}, 
                                     
-                         
                             React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
                             React.DOM.fieldset(null, 
                                 
                                 React.DOM.div({className: "form-group"}, 
                 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Enter Text...", name: "textual", type: "text"})
+                                    React.DOM.input({className: "form-control", 'data-function': "inputFocus", placeholder: "Enter Text...", name: "textual", type: "text"})
                                 ), 
                                 
                               React.DOM.div({id: "KB"})
@@ -4149,14 +4152,14 @@ var systemNotify    = require('./notification.init.js')
 
 /* Show Modal
 -------------------------------------------------- */
-var show = function(title, content) {
+var show = function(title, content, callback) {
     React.renderComponent(Modal({children: SignUp(null)}), document.getElementById("appendices"));
 }
 
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
-    React.renderComponent(Modal({children: Keyboard(null)}), document.getElementById("appendices"));
+    React.renderComponent(Modal({children: Keyboard(null), input: input}), document.getElementById("appendices"));
 }
 
 /* Exports
@@ -5165,7 +5168,9 @@ var Keyboard = function(elem) {
 
   Keyboard.prototype.createKey = function(key) {
     var button = document.createElement("div");
-    button.classList.add("navable", "_key");
+    button.classList.add("navable", "btn");
+    button.setAttribute("data-function", "depressKey");
+    button.setAttribute("data-parameters", key);
     button.innerHTML = key;
     button.addEventListener("click", this.onKeypress.bind(this, key));
     return button;
@@ -5528,10 +5533,16 @@ var events = {
  
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
-    inputFocus: function(parameters){
+    inputFocus: function(parameters) {
         var input = document.getElementsByClassName("selectedNav")[0];
         // input.focus();
         dialog.keyboard(input);
+    },
+
+    /* Press Key on OnScreen Keyboard
+    -------------------------------------------------- */
+    depressKey: function(parameters) {
+        console.log("PRESSSSSSED: "+parameters);
     },
 
     /* Submit form on Action button/keypress

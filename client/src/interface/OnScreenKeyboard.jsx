@@ -15,6 +15,7 @@ module.exports = React.createClass({
     return {
             navable: true,
             navStack: 2,
+            input: null,
             form: 'onScreenKeyboard',
         }
     },
@@ -35,6 +36,8 @@ module.exports = React.createClass({
             navigationInit.navigationInit();
         });
 
+        console.log(this.props.input);
+
     },
 
     render: function() {
@@ -46,14 +49,13 @@ module.exports = React.createClass({
                     <div className="row-fluid">
                         <div className="col-xs-12">
                                     
-                         
                             <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
 
                             <fieldset>
                                 
                                 <div className="form-group">
                 
-                                    <input className="form-control navable" data-function='inputFocus' placeholder="Enter Text..." name="textual" type="text" />
+                                    <input className="form-control" data-function='inputFocus' placeholder="Enter Text..." name="textual" type="text" />
                                 </div>
                                 
                               <div id="KB"></div> 

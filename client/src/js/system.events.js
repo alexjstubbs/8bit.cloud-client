@@ -17,10 +17,16 @@ var events = {
  
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
-    inputFocus: function(parameters){
+    inputFocus: function(parameters) {
         var input = document.getElementsByClassName("selectedNav")[0];
         // input.focus();
         dialog.keyboard(input);
+    },
+
+    /* Press Key on OnScreen Keyboard
+    -------------------------------------------------- */
+    depressKey: function(parameters) {
+        console.log("PRESSSSSSED: "+parameters);
     },
 
     /* Submit form on Action button/keypress

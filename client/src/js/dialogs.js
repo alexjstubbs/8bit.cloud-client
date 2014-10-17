@@ -14,14 +14,14 @@ var systemNotify    = require('./notification.init.js')
 
 /* Show Modal
 -------------------------------------------------- */
-var show = function(title, content) {
+var show = function(title, content, callback) {
     React.renderComponent(Modal({children: SignUp(null)}), document.getElementById("appendices"));
 }
 
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
-    React.renderComponent(Modal({children: Keyboard(null)}), document.getElementById("appendices"));
+    React.renderComponent(Modal({children: Keyboard(null), input: input}), document.getElementById("appendices"));
 }
 
 /* Exports
