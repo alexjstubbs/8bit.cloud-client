@@ -1,11 +1,11 @@
 /**
- * Ignition Client (delilah).
+ * Ignition Client.
  * License: Q Public License 1.0 (QPL-1.0)
  * Copyright (c) Alexander Stubbs. All Rights Reserved.
  * BETA v0.91
  */
 
-/* Enviorment
+/* Dev. run enviorment
 -------------------------------------------------- */
 
 if (process.platform == 'darwin') {
@@ -23,19 +23,18 @@ global.appDir = path.dirname(require.main.filename);
 
 /* Module dependencies
 -------------------------------------------------- */
-var common = require('./local/common');
+var common              = require('./local/common')
+,   express             = require('express')
+,   app                 = express()
+,   http                = require('http').createServer(app)
+,   fs                  = require('fs')
+,   api                 = require('./local/api/api')
+,   Insight             = require('insight')
+,   pkg                 = require('./package.json');
 
-var express = require('express')
-,   app = express()
-,   http = require('http').createServer(app)
-,   fs = require('fs')
-,   api = require('./local/api/api')
-,   Insight = require('insight')
-,   pkg = require('./package.json');
-
-global.__io = require('socket.io').listen(http);
-global.__api = __io.of('/api');
-global.__sessionFile = appDir+"/config/profiles/Session.json";
+global.__io             = require('socket.io').listen(http);
+global.__api            = __io.of('/api');
+global.__sessionFile    = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
@@ -110,7 +109,7 @@ app.get('/games/:platform/:name', common.db.gameImage);
 // app.listen(app.get('port'), "localhost");
 http.listen(1210, "127.0.0.1");
 
-console.log("Ignition Client listening on port 1210");
+console.log("[i] Ignition Client Launched.");
 
 common.databases.initDatabases();
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');

@@ -4,7 +4,7 @@
 
 var React           = require('react/addons')
 ,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../../js/navigation.init.js')
+,   navigationInit  = require('../../js/navigation.init')
 ,   clientEvents    = require('../../js/system.events');
 
 module.exports = React.createClass({
@@ -25,7 +25,7 @@ module.exports = React.createClass({
         navigationInit.modalNavigation(function() {
             navigationInit.navigationInit();
         });
-        
+
     },
 
     render: function() {
@@ -44,6 +44,7 @@ module.exports = React.createClass({
                             <hr />
 
                             <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
+
                             <fieldset>
                                 
                                 <div className="form-group">
@@ -68,6 +69,7 @@ module.exports = React.createClass({
                             </fieldset>
                             </form>
                               
+
                         </div>
                     </div>
                 </div>

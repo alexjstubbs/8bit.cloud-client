@@ -18,6 +18,9 @@ var writeJSONSync = function(nsp, data, callback) {
         if (!err) {
             
             var merged = _.merge(object, data);
+            
+            delete merged.formTitle;
+            delete merged.filename;
 
             fs.writeJson(file, merged, function(err) {
 
@@ -32,7 +35,9 @@ var writeJSONSync = function(nsp, data, callback) {
         }
         
         else {
+
             console.log("[!] Error writing and/or reading JSON file input: " + err);
+       
         }
 
     });

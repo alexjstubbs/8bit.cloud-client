@@ -8,7 +8,11 @@ var _   = require('lodash'),
 -------------------------------------------------- */
 var modalNavigation = function(callback) {
     var parent = document.querySelectorAll('.parent')[0];
-    parent.classList.remove("parent");
+    
+    if (document.querySelectorAll('.parent').length >= 2) {
+        parent.classList.remove("parent");
+    }
+    
     callback();
 }
 

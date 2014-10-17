@@ -19,7 +19,8 @@ var events = {
     -------------------------------------------------- */
     inputFocus: function(parameters){
         var input = document.getElementsByClassName("selectedNav")[0];
-        input.focus();
+        // input.focus();
+        dialog.keyboard(input);
     },
 
     /* Submit form on Action button/keypress
