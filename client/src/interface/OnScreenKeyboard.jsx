@@ -36,8 +36,6 @@ module.exports = React.createClass({
             navigationInit.navigationInit();
         });
 
-        console.log(this.props.input);
-
     },
 
     render: function() {
@@ -55,7 +53,7 @@ module.exports = React.createClass({
                                 
                                 <div className="form-group">
                 
-                                    <input className="form-control" data-function='inputFocus' placeholder="Enter Text..." name="textual" type="text" />
+                                    <input className="form-control" id="placehold_input" placeholder="Enter Text..." name="textual" type="text" />
                                 </div>
                                 
                               <div id="KB"></div> 

@@ -3329,8 +3329,6 @@ module.exports = React.createClass({displayName: 'exports',
             navigationInit.navigationInit();
         });
 
-        console.log(this.props.input);
-
     },
 
     render: function() {
@@ -3348,7 +3346,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 
                                 React.DOM.div({className: "form-group"}, 
                 
-                                    React.DOM.input({className: "form-control", 'data-function': "inputFocus", placeholder: "Enter Text...", name: "textual", type: "text"})
+                                    React.DOM.input({className: "form-control", id: "placehold_input", placeholder: "Enter Text...", name: "textual", type: "text"})
                                 ), 
                                 
                               React.DOM.div({id: "KB"})
@@ -4159,7 +4157,11 @@ var show = function(title, content, callback) {
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
-    React.renderComponent(Modal({children: Keyboard(null), input: input}), document.getElementById("appendices"));
+    React.renderComponent(Modal({children: Keyboard(null)}), document.getElementById("appendices"));
+    
+    var activeInputs = document.querySelectorAll(".activeInput")[0];
+    activeInputs.classList.remove("activeInput");
+    input.classList.add("activeInput");
 }
 
 /* Exports
@@ -5542,7 +5544,13 @@ var events = {
     /* Press Key on OnScreen Keyboard
     -------------------------------------------------- */
     depressKey: function(parameters) {
-        console.log("PRESSSSSSED: "+parameters);
+        
+        var activeInput = document.getElementById("placehold_input"),
+            _value = activeInput.value;
+
+            activeInput.value = _value+parameters;
+
+        console.log("PRESSED: "+parameters);
     },
 
     /* Submit form on Action button/keypress

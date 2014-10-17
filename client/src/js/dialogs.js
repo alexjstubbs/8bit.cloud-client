@@ -21,7 +21,11 @@ var show = function(title, content, callback) {
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
-    React.renderComponent(Modal({children: Keyboard(null), input: input}), document.getElementById("appendices"));
+    React.renderComponent(Modal({children: Keyboard(null)}), document.getElementById("appendices"));
+    
+    var activeInputs = document.querySelectorAll(".activeInput")[0];
+    activeInputs.classList.remove("activeInput");
+    input.classList.add("activeInput");
 }
 
 /* Exports

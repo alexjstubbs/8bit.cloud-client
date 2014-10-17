@@ -26,7 +26,13 @@ var events = {
     /* Press Key on OnScreen Keyboard
     -------------------------------------------------- */
     depressKey: function(parameters) {
-        console.log("PRESSSSSSED: "+parameters);
+        
+        var activeInput = document.getElementById("placehold_input"),
+            _value = activeInput.value;
+
+            activeInput.value = _value+parameters;
+
+        console.log("PRESSED: "+parameters);
     },
 
     /* Submit form on Action button/keypress
