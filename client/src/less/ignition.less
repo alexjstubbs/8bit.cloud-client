@@ -82,14 +82,52 @@
 }
 
 
-/* Keyboard
+
+/* Windowing
 -------------------------------------------------- */
-._key {
-    height:30px;
-    font-size:1em;
-    text-align:center;
+
+.ignition-modal {
+    position:fixed;
+    top:20%;
+    left:10%;
+    width:80%;
+    height:auto;
+    min-height:250px;
+    z-index:1982;
     padding:15px;
 }
+
+.ignition-popup {
+    position:fixed;
+    top:20%;
+    left:10%;
+    width:auto;
+    height:auto;
+    padding:15px;
+    min-height:50px;
+    min-wifth:50px;
+}
+
+
+/* Keyboard
+-------------------------------------------------- */
+#KB {
+    text-align:center;
+    margin:0 auto;
+}
+
+._key {
+    font-size:1.1em;
+    text-align:center;
+    padding:10 15 15 15px;
+    height:50px;
+    min-width:55px;
+    width:auto;
+    margin:10px;
+
+    background:#3b3c38;
+}
+
 
 /* Community Block
 -------------------------------------------------- */
@@ -179,16 +217,6 @@ ul#screens > li {
     top:0;
 }
 
-.ignition-modal {
-    position:fixed;
-    top:20%;
-    left:10%;
-    width:80%;
-    height:auto;
-    min-height:250px;
-    z-index:1982;
-    padding:15px;
-}
 
 .yellow {
     color:@yellow;

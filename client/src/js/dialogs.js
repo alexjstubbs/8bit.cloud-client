@@ -6,22 +6,44 @@ var systemNotify    = require('./notification.init.js')
 ,   React           = require('react/addons')
 ,   Modal           = require('../interface/Modal.jsx')
 ,   Messages        = require('../interface/Messages.jsx')
+,   Popup           = require('../interface/Popup.jsx')
 ,   SignUp          = require('../interface/forms/SignUp.jsx')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx");
 
 
+/* General Message Dialog
+-------------------------------------------------- */
+var popup = function(obj, callback) {
+
+    var div = document.createElement("div");
+    div.classList.add("ignition-modal", "ignition-popup");
+    document.body.appendChild(div);
+
+    React.renderComponent(Modal({children: SignUp(null)}), div);
+}
+
 /* Show Modal
 -------------------------------------------------- */
 var show = function(title, content, callback) {
-    React.renderComponent(Modal({children: SignUp(null)}), document.getElementById("appendices"));
+
+    var div = document.createElement("div");
+    div.classList.add("ignition-modal");
+    document.body.appendChild(div);
+
+    React.renderComponent(Modal({children: SignUp(null)}), div);
 }
 
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
-    React.renderComponent(Modal({children: Keyboard(null)}), document.getElementById("appendices"));
+
+    var div = document.createElement("div");
+    div.classList.add("ignition-modal", "ignition-keyboard");
+    document.body.appendChild(div);
+
+    React.renderComponent(Modal({children: Keyboard(null)}), div);
     
     var activeInputs = document.querySelectorAll(".activeInput")[0];
     activeInputs.classList.remove("activeInput");
@@ -32,4 +54,5 @@ var keyboard = function(input, callback) {
 -------------------------------------------------- */
 exports.show = show;
 exports.keyboard = keyboard;
+exports.popup = popup;
 

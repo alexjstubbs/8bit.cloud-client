@@ -31,7 +31,7 @@ var Keyboard = function(elem) {
 
   Keyboard.prototype.createKey = function(key) {
     var button = document.createElement("div");
-    button.classList.add("navable", "btn");
+    button.classList.add("navable", "btn", "_key");
     button.setAttribute("data-function", "depressKey");
     button.setAttribute("data-parameters", key);
     button.innerHTML = key;

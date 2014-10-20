@@ -76,6 +76,7 @@ var events = {
     /* Switch Emulator on Action button/keypress
     -------------------------------------------------- */
     switchEmulator: function(parameters) {
+
         var longname,
             list = document.querySelectorAll(".platform");
 
