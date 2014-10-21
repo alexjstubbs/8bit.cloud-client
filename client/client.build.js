@@ -5251,7 +5251,7 @@ var Keyboard = function(elem) {
     [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
     [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
     [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-    [ ".", ",", "________________", "<i class='ion-at'></i>", "<i class='ion-more'></i>", "<i class='ion-arrow-left-b'></i>", "<i class='ion-arrow-right-b'></i>", "<i class='ion-arrow-left-a'></i>" ],
+    [ ".", ",", "<i class='ion-at'></i>", "________________", "<i class='ion-more opacity-20'></i>", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>" ],
   ];
 
 
@@ -5717,6 +5717,16 @@ var events = {
         // Switch for keypress 
         switch (parameters) {
         
+        // Space
+        case "________________":
+            activeInput.value = _value + " ";
+            return;
+
+        // @
+        case "<i class='ion-at'></i>": 
+            activeInput.value = _value + "@";
+            return;
+
         // Delete
         case "<i class='ion-arrow-left-a'></i>":
             activeInput.value = _value.slice(0,-1);

@@ -51,6 +51,16 @@ var events = {
         // Switch for keypress 
         switch (parameters) {
         
+        // Space
+        case "________________":
+            activeInput.value = _value + " ";
+            return;
+
+        // @
+        case "<i class='ion-at'></i>": 
+            activeInput.value = _value + "@";
+            return;
+
         // Delete
         case "<i class='ion-arrow-left-a'></i>":
             activeInput.value = _value.slice(0,-1);
