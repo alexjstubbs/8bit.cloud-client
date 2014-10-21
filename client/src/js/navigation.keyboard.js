@@ -7,20 +7,26 @@ var Keyboard = function(elem) {
     this.elem = elem;
     this.elem.className = "keyboard";
 
-    Keyboard.rows.map(function(row) {
-      this.elem.appendChild(this.createRow(row));
+    Keyboard.rows.map(function(row, i) {
+      
+      this.elem.appendChild(this.createRow(row, i));
+
     }.bind(this));
   };
 
   Keyboard.rows = [
-    ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "delete"],
-    ["tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"],
-    ["caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "return"],
-    ["shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "shift"],
+    [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+    [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "'"],
+    [ "z", "x", "c", "v", "b", "n", "m", ",", ".", "?"],
+    [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "________________", "<i class='ion-at'></i>", "<i class='ion-more'></i>", "<i class='ion-arrow-left-b'></i>", "<i class='ion-arrow-right-b'></i>", "<i class='ion-arrow-left-a'></i>" ],
   ];
 
-  Keyboard.prototype.createRow = function(row) {
+ // parentNode -> nextSibling -> Child equal child number in row 
+
+  Keyboard.prototype.createRow = function(row, i) {
     var div = document.createElement("div");
+        div.setAttribute("data-row", i);
 
     row.map(function(key) {
       div.appendChild(this.createKey(key));
@@ -31,7 +37,7 @@ var Keyboard = function(elem) {
 
   Keyboard.prototype.createKey = function(key) {
     var button = document.createElement("div");
-    button.classList.add("navable", "btn", "_key");
+    button.classList.add("navable", "btn", "_key", "rowParent");
     button.setAttribute("data-function", "depressKey");
     button.setAttribute("data-parameters", key);
     button.innerHTML = key;
@@ -45,15 +51,6 @@ var Keyboard = function(elem) {
     this.elem.dispatchEvent(keypressEvent);
     event.preventDefault();
   };
-
-  // var div = document.getElementsByTagName("div")[0];
-  // new Keyboard(div);
-
-  // div.addEventListener("keypress", function(event) {
-  //   console.log(event.key + " was pressed", event);
-  // });
-
-
 
 /* Exports
 -------------------------------------------------- */

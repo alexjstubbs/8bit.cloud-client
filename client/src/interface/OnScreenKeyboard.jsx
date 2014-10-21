@@ -52,8 +52,7 @@ module.exports = React.createClass({
                             <fieldset>
                                 
                                 <div className="form-group">
-                
-                                    <input className="form-control" id="placehold_input" placeholder="Enter Text..." name="textual" type="text" />
+                                    <input className="form-control input-lg" id="placehold_input" placeholder="Enter Text..." name="textual" type="text" />
                                 </div>
                                 
                               <div id="KB"></div> 

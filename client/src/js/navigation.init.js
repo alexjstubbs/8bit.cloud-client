@@ -35,8 +35,6 @@ var navigationInit = function() {
         el.setAttribute("data-nav", i)
     });
 
-    console.log(navables);
-
     _.first(navables).classList.add("selectedNav", "selected");
 
     highlight();

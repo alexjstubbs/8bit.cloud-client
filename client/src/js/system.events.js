@@ -28,21 +28,22 @@ var events = {
     depressKey: function(parameters) {
 
          var activeInput = document.getElementById("placehold_input"),
-            _value = activeInput.value;
+             _value = activeInput.value;
 
         switch(parameters){
-            case 'delete':
+            case "<i class='ion-arrow-left-a'></i>":
                 activeInput.value = _value.slice(0,-1);
                 return;
-            case 'shift':
-                //Shift case
+            case "<i class='ion-toggle-filled'></i>":
+                var keys = document.getElementsByClassName("_key");
+                
+                _(keys).forEach(function(key, i) { 
+                    key.classList.toggle("uppercase");
+                });
+
             default:
                 activeInput.value = _value+parameters;
         }
-        
-       
-
-        console.log("PRESSED: "+parameters);
     },
 
     /* Submit form on Action button/keypress

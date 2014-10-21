@@ -3194,7 +3194,8 @@ module.exports = React.createClass({displayName: 'exports',
             classList: "ignition-modal systemNotificationContent",
             children: [],
             input: null,
-            id: "ignition-modal"
+            id: "ignition-modal",
+            columns: "col-xs-12"
         }
     },
     
@@ -3215,7 +3216,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-            React.DOM.div(null, 
+            React.DOM.div({className: this.props.columns}, 
 
                 backdrop, 
 
@@ -3345,8 +3346,7 @@ module.exports = React.createClass({displayName: 'exports',
                             React.DOM.fieldset(null, 
                                 
                                 React.DOM.div({className: "form-group"}, 
-                
-                                    React.DOM.input({className: "form-control", id: "placehold_input", placeholder: "Enter Text...", name: "textual", type: "text"})
+                                    React.DOM.input({className: "form-control input-lg", id: "placehold_input", placeholder: "Enter Text...", name: "textual", type: "text"})
                                 ), 
                                 
                               React.DOM.div({id: "KB"})
@@ -3905,7 +3905,8 @@ module.exports = React.createClass({displayName: 'exports',
             navStack: 2,
             form: 'userSignupForm',
             server: false,
-            filename: '/config.json'
+            filename: '/config.json',
+            classList: 'col-xs-12'
         }
     },
 
@@ -3921,7 +3922,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-            React.DOM.div(null, 
+            React.DOM.div({className: this.props.classList}, 
                 React.DOM.div({className: "container-fluid parent"}, 
                     React.DOM.div({className: "row-fluid"}, 
                         React.DOM.div({className: "col-xs-12"}, 
@@ -5170,8 +5171,6 @@ var navigationInit = function() {
         el.setAttribute("data-nav", i)
     });
 
-    console.log(navables);
-
     _.first(navables).classList.add("selectedNav", "selected");
 
     highlight();
@@ -5241,20 +5240,26 @@ var Keyboard = function(elem) {
     this.elem = elem;
     this.elem.className = "keyboard";
 
-    Keyboard.rows.map(function(row) {
-      this.elem.appendChild(this.createRow(row));
+    Keyboard.rows.map(function(row, i) {
+      
+      this.elem.appendChild(this.createRow(row, i));
+
     }.bind(this));
   };
 
   Keyboard.rows = [
-    ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=", "delete"],
-    ["tab", "q", "w", "e", "r", "t", "y", "u", "i", "o", "p", "[", "]", "\\"],
-    ["caps", "a", "s", "d", "f", "g", "h", "j", "k", "l", ";", "'", "return"],
-    ["shift", "z", "x", "c", "v", "b", "n", "m", ",", ".", "/", "shift"],
+    [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+    [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+    [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "'"],
+    [ "z", "x", "c", "v", "b", "n", "m", ",", ".", "?"],
+    [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "________________", "<i class='ion-at'></i>", "<i class='ion-more'></i>", "<i class='ion-arrow-left-b'></i>", "<i class='ion-arrow-right-b'></i>", "<i class='ion-arrow-left-a'></i>" ],
   ];
 
-  Keyboard.prototype.createRow = function(row) {
+ // parentNode -> nextSibling -> Child equal child number in row 
+
+  Keyboard.prototype.createRow = function(row, i) {
     var div = document.createElement("div");
+        div.setAttribute("data-row", i);
 
     row.map(function(key) {
       div.appendChild(this.createKey(key));
@@ -5265,7 +5270,7 @@ var Keyboard = function(elem) {
 
   Keyboard.prototype.createKey = function(key) {
     var button = document.createElement("div");
-    button.classList.add("navable", "btn", "_key");
+    button.classList.add("navable", "btn", "_key", "rowParent");
     button.setAttribute("data-function", "depressKey");
     button.setAttribute("data-parameters", key);
     button.innerHTML = key;
@@ -5279,15 +5284,6 @@ var Keyboard = function(elem) {
     this.elem.dispatchEvent(keypressEvent);
     event.preventDefault();
   };
-
-  // var div = document.getElementsByTagName("div")[0];
-  // new Keyboard(div);
-
-  // div.addEventListener("keypress", function(event) {
-  //   console.log(event.key + " was pressed", event);
-  // });
-
-
 
 /* Exports
 -------------------------------------------------- */
@@ -5411,6 +5407,33 @@ module.exports = function(k) {
 
             // Down
             if (k == 'down') {
+
+                // Inside onScreen Keyboard
+                if (sel[0].classList.contains("rowParent")) {
+
+
+                    var allRows = document.querySelectorAll("[data-row]").length;
+                    var curRow = sel[0].parentNode.getAttribute("data-row");
+
+                    var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
+
+                    if (curRow > allRows) {
+                        console.log("NO MORE");
+                    }
+
+                    else {
+                    
+                    curRow++;
+
+                    sel[0].classList.remove("selectedNav");
+
+                    var nextRow = document.querySelectorAll("[data-row]")[curRow];
+
+                    nextRow.childNodes[elIndex].classList.add("selectedNav");;
+
+                    }
+                    
+                }
 
                 // Inside Sub Navigation
                 if (sel[0].classList.contains("subNavable")) {
@@ -5641,21 +5664,22 @@ var events = {
     depressKey: function(parameters) {
 
          var activeInput = document.getElementById("placehold_input"),
-            _value = activeInput.value;
+             _value = activeInput.value;
 
         switch(parameters){
-            case 'delete':
+            case "<i class='ion-arrow-left-a'></i>":
                 activeInput.value = _value.slice(0,-1);
                 return;
-            case 'shift':
-                //Shift case
+            case "<i class='ion-toggle-filled'></i>":
+                var keys = document.getElementsByClassName("_key");
+                
+                _(keys).forEach(function(key, i) { 
+                    key.classList.toggle("uppercase");
+                });
+
             default:
                 activeInput.value = _value+parameters;
         }
-        
-       
-
-        console.log("PRESSED: "+parameters);
     },
 
     /* Submit form on Action button/keypress

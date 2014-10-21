@@ -90,7 +90,7 @@
     position:fixed;
     top:20%;
     left:10%;
-    width:80%;
+    width:auto;
     height:auto;
     min-height:250px;
     z-index:1982;
@@ -105,7 +105,7 @@
     height:auto;
     padding:15px;
     min-height:50px;
-    min-wifth:50px;
+    min-width:50px;
 }
 
 
@@ -123,9 +123,9 @@
     height:50px;
     min-width:55px;
     width:auto;
-    margin:10px;
+    margin:5px;
 
-    background:#3b3c38;
+    background:#292a27;
 }
 
 
@@ -213,8 +213,9 @@ ul#screens > li {
     height:100%;
     z-index:1980;
     background:@black;
-    opacity:0.8;
+    opacity:0.7;
     top:0;
+    left:0;
 }
 
 
@@ -238,15 +239,23 @@ ul#screens > li {
     text-align:right;
 }
 
+.uppercase {
+    text-transform: uppercase;
+}
+
+.lowercase {
+    text-transform: lowercase;
+}
+
 #main {
     padding-top:20px;
-
 }
 
 i.button_go {
     color:@primary;
     font-size:2em !important;
 }
+
 .square {
     font-size:3em;
     max-width:70px;

@@ -116,6 +116,33 @@ module.exports = function(k) {
             // Down
             if (k == 'down') {
 
+                // Inside onScreen Keyboard
+                if (sel[0].classList.contains("rowParent")) {
+
+
+                    var allRows = document.querySelectorAll("[data-row]").length;
+                    var curRow = sel[0].parentNode.getAttribute("data-row");
+
+                    var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
+
+                    if (curRow > allRows) {
+                        console.log("NO MORE");
+                    }
+
+                    else {
+                    
+                    curRow++;
+
+                    sel[0].classList.remove("selectedNav");
+
+                    var nextRow = document.querySelectorAll("[data-row]")[curRow];
+
+                    nextRow.childNodes[elIndex].classList.add("selectedNav");;
+
+                    }
+                    
+                }
+
                 // Inside Sub Navigation
                 if (sel[0].classList.contains("subNavable")) {
 

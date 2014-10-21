@@ -16,7 +16,8 @@ module.exports = React.createClass({
             navStack: 2,
             form: 'userSignupForm',
             server: false,
-            filename: '/config.json'
+            filename: '/config.json',
+            classList: 'col-xs-12'
         }
     },
 
@@ -32,7 +33,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div>
+            <div className={this.props.classList}>
                 <div className="container-fluid parent">
                     <div className="row-fluid">
                         <div className="col-xs-12">

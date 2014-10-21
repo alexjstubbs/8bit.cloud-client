@@ -20,7 +20,8 @@ module.exports = React.createClass({
             classList: "ignition-modal systemNotificationContent",
             children: [],
             input: null,
-            id: "ignition-modal"
+            id: "ignition-modal",
+            columns: "col-xs-12"
         }
     },
     
@@ -41,7 +42,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div>
+            <div className={this.props.columns}>
 
                 {backdrop}
 
