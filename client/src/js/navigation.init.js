@@ -16,7 +16,6 @@ var modalNavigation = function(callback) {
     callback();
 }
 
-
 /* General Navigation Assigns/Init
 -------------------------------------------------- */
 var navigationInit = function() {

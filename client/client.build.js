@@ -5152,7 +5152,6 @@ var modalNavigation = function(callback) {
     callback();
 }
 
-
 /* General Navigation Assigns/Init
 -------------------------------------------------- */
 var navigationInit = function() {
@@ -5250,14 +5249,14 @@ var Keyboard = function(elem) {
   Keyboard.rows = [
     [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
     [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-    [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "'"],
-    [ "z", "x", "c", "v", "b", "n", "m", ",", ".", "?"],
-    [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "________________", "<i class='ion-at'></i>", "<i class='ion-more'></i>", "<i class='ion-arrow-left-b'></i>", "<i class='ion-arrow-right-b'></i>", "<i class='ion-arrow-left-a'></i>" ],
+    [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
+    [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
+    [ ".", ",", "________________", "<i class='ion-at'></i>", "<i class='ion-more'></i>", "<i class='ion-arrow-left-b'></i>", "<i class='ion-arrow-right-b'></i>", "<i class='ion-arrow-left-a'></i>" ],
   ];
 
- // parentNode -> nextSibling -> Child equal child number in row 
 
   Keyboard.prototype.createRow = function(row, i) {
+
     var div = document.createElement("div");
         div.setAttribute("data-row", i);
 
@@ -5273,6 +5272,11 @@ var Keyboard = function(elem) {
     button.classList.add("navable", "btn", "_key", "rowParent");
     button.setAttribute("data-function", "depressKey");
     button.setAttribute("data-parameters", key);
+
+    if (!key.match(/^[0-9a-z]+$/)) {
+           button.classList.add("key-dark");
+    };
+
     button.innerHTML = key;
     button.addEventListener("click", this.onKeypress.bind(this, key));
     return button;
@@ -5411,19 +5415,19 @@ module.exports = function(k) {
                 // Inside onScreen Keyboard
                 if (sel[0].classList.contains("rowParent")) {
 
-
                     var allRows = document.querySelectorAll("[data-row]").length;
                     var curRow = sel[0].parentNode.getAttribute("data-row");
 
                     var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
 
-                    if (curRow > allRows) {
+                    curRow++;
+
+                    if (curRow == allRows) {
                         console.log("NO MORE");
                     }
 
                     else {
                     
-                    curRow++;
 
                     sel[0].classList.remove("selectedNav");
 
@@ -5471,6 +5475,32 @@ module.exports = function(k) {
 
             // Up
             if (k == 'up') {
+
+                // Inside onScreen Keyboard
+                if (sel[0].classList.contains("rowParent")) {
+
+                    var allRows = document.querySelectorAll("[data-row]").length;
+                    var curRow = sel[0].parentNode.getAttribute("data-row");
+
+                    var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
+
+                    if (curRow == 0) {
+                        console.log("NO MORE");
+                    }
+
+                    else {
+                    
+                    curRow--;
+
+                    sel[0].classList.remove("selectedNav");
+
+                    var nextRow = document.querySelectorAll("[data-row]")[curRow];
+
+                    nextRow.childNodes[elIndex].classList.add("selectedNav");;
+
+                    }
+                    
+                }
 
                 // Inside Sub Navigation
                 if (sel[0].classList.contains("subNavable")) {
@@ -5663,23 +5693,67 @@ var events = {
     -------------------------------------------------- */
     depressKey: function(parameters) {
 
-         var activeInput = document.getElementById("placehold_input"),
+        var upper, 
+            keys = document.getElementsByClassName("_key"),
+            activeInput = document.getElementById("placehold_input"),
              _value = activeInput.value;
-
-        switch(parameters){
-            case "<i class='ion-arrow-left-a'></i>":
-                activeInput.value = _value.slice(0,-1);
-                return;
-            case "<i class='ion-toggle-filled'></i>":
-                var keys = document.getElementsByClassName("_key");
-                
-                _(keys).forEach(function(key, i) { 
-                    key.classList.toggle("uppercase");
-                });
-
-            default:
-                activeInput.value = _value+parameters;
+        
+        // Key is Uppercase
+        if (document.getElementsByClassName("uppercase")[0]) {
+            upper = true;
         }
+
+        // Shift is active: unactivate
+        if (document.getElementsByClassName("temp-uppercase")[0]) {
+
+            _(keys).forEach(function(key, i) {
+                key.classList.toggle("uppercase");
+                key.classList.toggle("temp-uppercase");
+            });
+        }
+
+   
+
+        // Switch for keypress 
+        switch (parameters) {
+        
+        // Delete
+        case "<i class='ion-arrow-left-a'></i>":
+            activeInput.value = _value.slice(0,-1);
+            return;
+
+        // Caps 
+        case "<i class='ion-arrow-up-a'></i>":
+            
+            _(keys).forEach(function(key, i) { 
+                key.classList.toggle("uppercase");
+            });
+
+            return;
+
+        // Shift (Temp Caps)
+        case "<i class='ion-ios7-arrow-thin-up'></i>": {
+            
+            _(keys).forEach(function(key, i) { 
+                key.classList.toggle("uppercase");
+                key.classList.toggle("temp-uppercase");
+            });
+
+            return;
+        }
+
+        // Letter / Alpha
+        default:
+            
+            if (upper) { 
+                parameters = parameters.toUpperCase(); 
+                upper = false;
+            }
+            
+            activeInput.value = _value+parameters;
+
+        }
+
     },
 
     /* Submit form on Action button/keypress

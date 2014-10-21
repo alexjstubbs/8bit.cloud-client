@@ -17,14 +17,14 @@ var Keyboard = function(elem) {
   Keyboard.rows = [
     [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
     [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-    [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "'"],
-    [ "z", "x", "c", "v", "b", "n", "m", ",", ".", "?"],
-    [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "________________", "<i class='ion-at'></i>", "<i class='ion-more'></i>", "<i class='ion-arrow-left-b'></i>", "<i class='ion-arrow-right-b'></i>", "<i class='ion-arrow-left-a'></i>" ],
+    [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
+    [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
+    [ ".", ",", "________________", "<i class='ion-at'></i>", "<i class='ion-more'></i>", "<i class='ion-arrow-left-b'></i>", "<i class='ion-arrow-right-b'></i>", "<i class='ion-arrow-left-a'></i>" ],
   ];
 
- // parentNode -> nextSibling -> Child equal child number in row 
 
   Keyboard.prototype.createRow = function(row, i) {
+
     var div = document.createElement("div");
         div.setAttribute("data-row", i);
 
@@ -40,6 +40,11 @@ var Keyboard = function(elem) {
     button.classList.add("navable", "btn", "_key", "rowParent");
     button.setAttribute("data-function", "depressKey");
     button.setAttribute("data-parameters", key);
+
+    if (!key.match(/^[0-9a-z]+$/)) {
+           button.classList.add("key-dark");
+    };
+
     button.innerHTML = key;
     button.addEventListener("click", this.onKeypress.bind(this, key));
     return button;

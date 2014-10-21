@@ -27,23 +27,67 @@ var events = {
     -------------------------------------------------- */
     depressKey: function(parameters) {
 
-         var activeInput = document.getElementById("placehold_input"),
+        var upper, 
+            keys = document.getElementsByClassName("_key"),
+            activeInput = document.getElementById("placehold_input"),
              _value = activeInput.value;
-
-        switch(parameters){
-            case "<i class='ion-arrow-left-a'></i>":
-                activeInput.value = _value.slice(0,-1);
-                return;
-            case "<i class='ion-toggle-filled'></i>":
-                var keys = document.getElementsByClassName("_key");
-                
-                _(keys).forEach(function(key, i) { 
-                    key.classList.toggle("uppercase");
-                });
-
-            default:
-                activeInput.value = _value+parameters;
+        
+        // Key is Uppercase
+        if (document.getElementsByClassName("uppercase")[0]) {
+            upper = true;
         }
+
+        // Shift is active: unactivate
+        if (document.getElementsByClassName("temp-uppercase")[0]) {
+
+            _(keys).forEach(function(key, i) {
+                key.classList.toggle("uppercase");
+                key.classList.toggle("temp-uppercase");
+            });
+        }
+
+   
+
+        // Switch for keypress 
+        switch (parameters) {
+        
+        // Delete
+        case "<i class='ion-arrow-left-a'></i>":
+            activeInput.value = _value.slice(0,-1);
+            return;
+
+        // Caps 
+        case "<i class='ion-arrow-up-a'></i>":
+            
+            _(keys).forEach(function(key, i) { 
+                key.classList.toggle("uppercase");
+            });
+
+            return;
+
+        // Shift (Temp Caps)
+        case "<i class='ion-ios7-arrow-thin-up'></i>": {
+            
+            _(keys).forEach(function(key, i) { 
+                key.classList.toggle("uppercase");
+                key.classList.toggle("temp-uppercase");
+            });
+
+            return;
+        }
+
+        // Letter / Alpha
+        default:
+            
+            if (upper) { 
+                parameters = parameters.toUpperCase(); 
+                upper = false;
+            }
+            
+            activeInput.value = _value+parameters;
+
+        }
+
     },
 
     /* Submit form on Action button/keypress
