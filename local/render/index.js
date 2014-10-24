@@ -1,6 +1,11 @@
-var fs = require('fs');
+/* Screen Renders
+-------------------------------------------------- */
 
-exports.ignite = function(req, res, next) {
+var fs = require('fs-extra');
+
+/* Main App (DASHBOARD)
+-------------------------------------------------- */
+var ignite = function(req, res, next) {
       res.render('ignite', {
         'locals': [
               { 
@@ -9,3 +14,19 @@ exports.ignite = function(req, res, next) {
       ]
     });
 };
+
+/* Welcome (SIGN UP, SETTINGS)
+-------------------------------------------------- */
+var welcome = function(req, res, next) {
+      res.render('welcome', {
+        'locals': [
+              { 
+                url: '../../',
+          }
+      ]
+    });
+};
+
+/* Exports
+-------------------------------------------------- */
+exports.ignite = ignite;

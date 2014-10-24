@@ -35,6 +35,30 @@ var show = function(title, content, callback) {
     React.renderComponent(Modal({children: SignUp(null)}), div);
 }
 
+/* Close Modal
+-------------------------------------------------- */
+var close = function(modal, callback) {
+
+    if (!modal) {
+        var modal = document.querySelectorAll(".ignition-modal");
+        console.log(modal);
+
+
+        console.log(modal.length);
+        modal = modal[2];
+        
+    }
+
+
+    document.body.removeChild(modal);
+    
+    navigationInit.navigationInit();
+
+    callback();
+
+}
+
+
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
@@ -53,6 +77,7 @@ var keyboard = function(input, callback) {
 /* Exports
 -------------------------------------------------- */
 exports.show = show;
+exports.close = close;
 exports.keyboard = keyboard;
 exports.popup = popup;
 

@@ -10,6 +10,7 @@ var modalNavigation = function(callback) {
     var parent = document.querySelectorAll('.parent')[0];
     
     if (document.querySelectorAll('.parent').length >= 2) {
+        parent.classList.add("_parent");
         parent.classList.remove("parent");
     }
     

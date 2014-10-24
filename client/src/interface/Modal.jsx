@@ -17,7 +17,7 @@ module.exports = React.createClass({
     return {
             navable: false,
             backdrop: true,
-            classList: "ignition-modal systemNotificationContent",
+            classList: "container ignition-modal systemNotificationContent col-xs-1",
             children: [],
             input: null,
             id: "ignition-modal",
@@ -26,9 +26,6 @@ module.exports = React.createClass({
     },
     
     componentDidMount: function() {
-
-        var modal = document.getElementById("ignition-modal");
-        // var animate = TweenLite.to(modal, .6, {top:"10%"});
 
     },
 
@@ -42,7 +39,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div className={this.props.columns}>
+            <div>
 
                 {backdrop}
 

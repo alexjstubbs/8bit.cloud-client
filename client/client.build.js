@@ -3191,7 +3191,7 @@ module.exports = React.createClass({displayName: 'exports',
     return {
             navable: false,
             backdrop: true,
-            classList: "ignition-modal systemNotificationContent",
+            classList: "container ignition-modal systemNotificationContent col-xs-1",
             children: [],
             input: null,
             id: "ignition-modal",
@@ -3200,9 +3200,6 @@ module.exports = React.createClass({displayName: 'exports',
     },
     
     componentDidMount: function() {
-
-        var modal = document.getElementById("ignition-modal");
-        // var animate = TweenLite.to(modal, .6, {top:"10%"});
 
     },
 
@@ -3216,7 +3213,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-            React.DOM.div({className: this.props.columns}, 
+            React.DOM.div(null, 
 
                 backdrop, 
 
@@ -4244,6 +4241,30 @@ var show = function(title, content, callback) {
     React.renderComponent(Modal({children: SignUp(null)}), div);
 }
 
+/* Close Modal
+-------------------------------------------------- */
+var close = function(modal, callback) {
+
+    if (!modal) {
+        var modal = document.querySelectorAll(".ignition-modal");
+        console.log(modal);
+
+
+        console.log(modal.length);
+        modal = modal[2];
+        
+    }
+
+
+    document.body.removeChild(modal);
+    
+    navigationInit.navigationInit();
+
+    callback();
+
+}
+
+
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
@@ -4262,6 +4283,7 @@ var keyboard = function(input, callback) {
 /* Exports
 -------------------------------------------------- */
 exports.show = show;
+exports.close = close;
 exports.keyboard = keyboard;
 exports.popup = popup;
 
@@ -5146,6 +5168,7 @@ var modalNavigation = function(callback) {
     var parent = document.querySelectorAll('.parent')[0];
     
     if (document.querySelectorAll('.parent').length >= 2) {
+        parent.classList.add("_parent");
         parent.classList.remove("parent");
     }
     
@@ -5251,7 +5274,7 @@ var Keyboard = function(elem) {
     [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
     [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
     [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-    [ ".", ",", "<i class='ion-at'></i>", "________________", "<i class='ion-more opacity-20'></i>", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>" ],
+    [ ".", ",", "<i class='ion-at'></i>", "________________", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
   ];
 
 
@@ -5274,8 +5297,12 @@ var Keyboard = function(elem) {
     button.setAttribute("data-parameters", key);
 
     if (!key.match(/^[0-9a-z]+$/)) {
-           button.classList.add("key-dark");
+        button.classList.add("key-dark");
     };
+
+    if (key == "<i class='ion-checkmark'></i>") {
+        button.classList.add("key-blue")
+    }
 
     button.innerHTML = key;
     button.addEventListener("click", this.onKeypress.bind(this, key));
@@ -5680,7 +5707,7 @@ var systemNotify    = require('./notification.init.js')
 // browser = require("./browser.js");
 
 var events = {
- 
+
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
     inputFocus: function(parameters) {
@@ -5717,6 +5744,13 @@ var events = {
         // Switch for keypress 
         switch (parameters) {
         
+        // Accept
+        case "<i class='ion-checkmark'></i>":
+            dialog.close();
+            // send activeInput.value to input.selected
+        return;
+
+
         // Space
         case "________________":
             activeInput.value = _value + " ";

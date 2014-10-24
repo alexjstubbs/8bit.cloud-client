@@ -83,6 +83,9 @@ insight.track('ignition', 'beta');
 
 /* Client Routes
 -------------------------------------------------- */
+// Sign Up (initial)
+app.get('/welcome', common.render.welcome);
+
 // Dashboard
 app.get('/home', common.render.ignite);
 app.get('/home/:username', common.render.ignite);

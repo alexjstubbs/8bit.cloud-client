@@ -14,7 +14,7 @@ var systemNotify    = require('./notification.init.js')
 // browser = require("./browser.js");
 
 var events = {
- 
+
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
     inputFocus: function(parameters) {
@@ -51,6 +51,13 @@ var events = {
         // Switch for keypress 
         switch (parameters) {
         
+        // Accept
+        case "<i class='ion-checkmark'></i>":
+            dialog.close();
+            // send activeInput.value to input.selected
+        return;
+
+
         // Space
         case "________________":
             activeInput.value = _value + " ";
