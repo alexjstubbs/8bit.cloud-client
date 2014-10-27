@@ -3190,7 +3190,7 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
     return {
             navable: false,
-            backdrop: true,
+            backdrop: false,
             classList: "container ignition-modal systemNotificationContent col-xs-1",
             children: [],
             input: null,
