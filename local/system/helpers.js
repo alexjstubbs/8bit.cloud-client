@@ -1,7 +1,7 @@
 /* Misc. Helpers
 -------------------------------------------------- */
 
-// Valid JSON check
+// Simple valid JSON check
 var isJson = function isJson(str) {
     try {
         JSON.parse(str);

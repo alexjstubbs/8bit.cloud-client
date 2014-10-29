@@ -23,7 +23,7 @@ common = {
     exec: require('../local/system/system.exec'),
     serverAPI: require('../local/api/server/server.api'),
     getSet: require('../local/api/api.sets'),
-    systemWrite: require('../local/system/system.write'),
+    systemWrite: require('../local/system/system.write')
 };
 
 module.exports = common;

@@ -16,7 +16,7 @@ module.exports = React.createClass({
             navStack: 2,
             form: 'userSignupForm',
             server: false,
-            filename: '/config.json',
+            filename: '/SignUp-TEMP.json',
             classList: 'col-xs-12'
         }
     },

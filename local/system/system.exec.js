@@ -1,3 +1,5 @@
+/* System execute helper
+-------------------------------------------------- */
 var exec = require('child_process').exec;
 
 function execute(command, callback) {

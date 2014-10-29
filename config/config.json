@@ -1,8 +1,4 @@
 {
-  "email4": "_w",
-  "email": "wewe",
-  "password": "wewe",
-  "password2": "ewe",
-  "server": "false",
-  "username": "wewe"
+  "server": "localhost",
+  "roms": "/roms/"
 }
