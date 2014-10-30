@@ -5347,7 +5347,9 @@ module.exports = function(k) {
 
         s.classList.remove('selectedActive');
 
-        var q = document.querySelectorAll(".parent .navable");
+        var _parent = _.last(document.querySelectorAll(".parent"));
+
+        var q = _parent.querySelectorAll(".navable");
         var us = document.querySelectorAll(".unselected");
 
         var screen = document.getElementById("main").getAttribute("data-screen");
@@ -5420,7 +5422,6 @@ module.exports = function(k) {
 
             s.classList.remove("selectedNav");
 
-            var _parent = _.last(document.querySelectorAll(".parent"));
 
             var lastNodeNav = _parent.querySelectorAll(".navable")[i];
 
