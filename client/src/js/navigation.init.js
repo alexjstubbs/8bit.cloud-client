@@ -9,30 +9,42 @@ var _   = require('lodash'),
 var modalNavigation = function(callback) {
     var parent = document.querySelectorAll('.parent')[0];
     
-    if (document.querySelectorAll('.parent').length >= 2) {
-        parent.classList.add("_parent");
-        parent.classList.remove("parent");
-    }
+    // if (document.querySelectorAll('.parent').length >= 2) {
+    //     parent.classList.add("_parent");
+    //     parent.classList.remove("parent");
+    // }
     
     callback();
 }
 
 /* General Navigation Assigns/Init
 -------------------------------------------------- */
-var navigationInit = function() {
+var navigationInit = function(element, callback) {
 
-    var navables = document.querySelectorAll('.navable, .subNavable');
+    var navables = document.querySelectorAll('.navable, .subNavable'),
+        parent;
 
      _(navables).forEach(function(el, i) { 
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
     });
 
-    var parent = _.first(document.querySelectorAll(".parent"));
+    if (!element) {
+        parent = _.last(document.querySelectorAll(".parent"));
+    }
+
+    else {
+        parent = element;
+    }
+
+    console.log(parent);
+
     navables = parent.querySelectorAll('.navable');
 
+    console.log(navables);
+
     _(navables).forEach(function(el, i) { 
-        el.setAttribute("data-nav", i)
+        el.setAttribute("data-nav", i);
     });
 
     _.first(navables).classList.add("selectedNav", "selected");

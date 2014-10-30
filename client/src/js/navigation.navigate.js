@@ -3,7 +3,8 @@
 
 var systemEvents        = require('./system.events.js')
 ,   navigationHelpers   = require('./navigation.helpers.js')
-,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents;
+,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents
+,   _                   = require('lodash');
 
 module.exports = function(k) {
 
@@ -82,14 +83,16 @@ module.exports = function(k) {
             }
 
 
+
             s.classList.remove("selectedNav");
 
-            var lastNodeNav = document.querySelectorAll(".parent .navable")[i];
+            var _parent = _.last(document.querySelectorAll(".parent"));
 
+            var lastNodeNav = _parent.querySelectorAll(".navable")[i];
 
             // Outside Panel
             if (lastNodeNav) {
-               document.querySelectorAll(".parent .navable")[i].classList.add("selectedNav");
+               _parent.querySelectorAll(".navable")[i].classList.add("selectedNav");
             }
 
             // Inside Panel

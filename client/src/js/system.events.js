@@ -47,7 +47,6 @@ var events = {
         }
 
    
-
         // Switch for keypress 
         switch (parameters) {
         

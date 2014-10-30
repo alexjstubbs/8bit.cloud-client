@@ -41,20 +41,19 @@ var close = function(modal, callback) {
 
     if (!modal) {
         var modal = document.querySelectorAll(".ignition-modal");
-        console.log(modal);
-
 
         console.log(modal.length);
         modal = modal[2];
         
     }
 
-
     document.body.removeChild(modal);
     
     navigationInit.navigationInit();
 
-    callback();
+    if (callback) {
+        callback();
+    }
 
 }
 

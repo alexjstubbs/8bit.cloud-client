@@ -4247,20 +4247,19 @@ var close = function(modal, callback) {
 
     if (!modal) {
         var modal = document.querySelectorAll(".ignition-modal");
-        console.log(modal);
-
 
         console.log(modal.length);
         modal = modal[2];
         
     }
 
-
     document.body.removeChild(modal);
     
     navigationInit.navigationInit();
 
-    callback();
+    if (callback) {
+        callback();
+    }
 
 }
 
@@ -5167,30 +5166,42 @@ var _   = require('lodash'),
 var modalNavigation = function(callback) {
     var parent = document.querySelectorAll('.parent')[0];
     
-    if (document.querySelectorAll('.parent').length >= 2) {
-        parent.classList.add("_parent");
-        parent.classList.remove("parent");
-    }
+    // if (document.querySelectorAll('.parent').length >= 2) {
+    //     parent.classList.add("_parent");
+    //     parent.classList.remove("parent");
+    // }
     
     callback();
 }
 
 /* General Navigation Assigns/Init
 -------------------------------------------------- */
-var navigationInit = function() {
+var navigationInit = function(element, callback) {
 
-    var navables = document.querySelectorAll('.navable, .subNavable');
+    var navables = document.querySelectorAll('.navable, .subNavable'),
+        parent;
 
      _(navables).forEach(function(el, i) { 
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
     });
 
-    var parent = _.first(document.querySelectorAll(".parent"));
+    if (!element) {
+        parent = _.last(document.querySelectorAll(".parent"));
+    }
+
+    else {
+        parent = element;
+    }
+
+    console.log(parent);
+
     navables = parent.querySelectorAll('.navable');
 
+    console.log(navables);
+
     _(navables).forEach(function(el, i) { 
-        el.setAttribute("data-nav", i)
+        el.setAttribute("data-nav", i);
     });
 
     _.first(navables).classList.add("selectedNav", "selected");
@@ -5326,7 +5337,8 @@ exports.Keyboard = Keyboard;
 
 var systemEvents        = require('./system.events.js')
 ,   navigationHelpers   = require('./navigation.helpers.js')
-,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents;
+,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents
+,   _                   = require('lodash');
 
 module.exports = function(k) {
 
@@ -5405,14 +5417,16 @@ module.exports = function(k) {
             }
 
 
+
             s.classList.remove("selectedNav");
 
-            var lastNodeNav = document.querySelectorAll(".parent .navable")[i];
+            var _parent = _.last(document.querySelectorAll(".parent"));
 
+            var lastNodeNav = _parent.querySelectorAll(".navable")[i];
 
             // Outside Panel
             if (lastNodeNav) {
-               document.querySelectorAll(".parent .navable")[i].classList.add("selectedNav");
+               _parent.querySelectorAll(".navable")[i].classList.add("selectedNav");
             }
 
             // Inside Panel
@@ -5581,7 +5595,7 @@ module.exports = function(k) {
         }
 
 };
-},{"./navigation.browser.js":49,"./navigation.helpers.js":51,"./system.events.js":57}],56:[function(require,module,exports){
+},{"./navigation.browser.js":49,"./navigation.helpers.js":51,"./system.events.js":57,"lodash":60}],56:[function(require,module,exports){
 module.exports = function(path, height, width, left, top) {
 
 
@@ -5740,7 +5754,6 @@ var events = {
         }
 
    
-
         // Switch for keypress 
         switch (parameters) {
         
