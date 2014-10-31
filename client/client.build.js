@@ -2880,8 +2880,6 @@ module.exports = React.createClass({displayName: 'exports',
             newMessages = true 
         }
 
-        console.log(this.props.myMessages);
-
         var cx = React.addons.classSet;
         var classes = cx({
             'gray': true,
@@ -4246,11 +4244,12 @@ var show = function(title, content, callback) {
 var close = function(modal, callback) {
 
     if (!modal) {
+    
         var modal = document.querySelectorAll(".ignition-modal");
 
         console.log(modal.length);
         modal = modal[2];
-        
+    
     }
 
     document.body.removeChild(modal);
@@ -4268,6 +4267,8 @@ var close = function(modal, callback) {
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
 
+    console.log(input);
+
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-keyboard");
     document.body.appendChild(div);
@@ -4275,8 +4276,13 @@ var keyboard = function(input, callback) {
     React.renderComponent(Modal({children: Keyboard(null)}), div);
     
     var activeInputs = document.querySelectorAll(".activeInput")[0];
-    activeInputs.classList.remove("activeInput");
+    
+    if (activeInputs) {
+        activeInputs.classList.remove("activeInput");
+    }
+
     input.classList.add("activeInput");
+
 }
 
 /* Exports
@@ -5194,11 +5200,7 @@ var navigationInit = function(element, callback) {
         parent = element;
     }
 
-    console.log(parent);
-
     navables = parent.querySelectorAll('.navable');
-
-    console.log(navables);
 
     _(navables).forEach(function(el, i) { 
         el.setAttribute("data-nav", i);
@@ -5285,7 +5287,7 @@ var Keyboard = function(elem) {
     [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
     [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
     [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-    [ ".", ",", "<i class='ion-at'></i>", "________________", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
+    [ ".", ",", "<i class='ion-at'></i>", "&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; SPACE &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; ", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
   ];
 
 
@@ -5312,7 +5314,7 @@ var Keyboard = function(elem) {
     };
 
     if (key == "<i class='ion-checkmark'></i>") {
-        button.classList.add("key-blue")
+        button.classList.add("key-blue");
     }
 
     button.innerHTML = key;
@@ -5464,19 +5466,21 @@ module.exports = function(k) {
 
                     curRow++;
 
-                    if (curRow == allRows) {
-                        console.log("NO MORE");
-                    }
-
-                    else {
-                    
-
+                    if (curRow != allRows) {
+               
                     sel[0].classList.remove("selectedNav");
 
                     var nextRow = document.querySelectorAll("[data-row]")[curRow];
 
-                    nextRow.childNodes[elIndex].classList.add("selectedNav");;
+                    if (nextRow.childNodes[elIndex]) {
 
+                        nextRow.childNodes[elIndex].classList.add("selectedNav");;
+                    }
+
+                    else {
+                        
+                    }
+                    
                     }
                     
                 }
@@ -5526,12 +5530,8 @@ module.exports = function(k) {
 
                     var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
 
-                    if (curRow == 0) {
-                        console.log("NO MORE");
-                    }
-
-                    else {
-                    
+                    if (curRow != 0) {
+                                 
                     curRow--;
 
                     sel[0].classList.remove("selectedNav");
@@ -5738,6 +5738,7 @@ var events = {
         var upper, 
             keys = document.getElementsByClassName("_key"),
             activeInput = document.getElementById("placehold_input"),
+            recentInput = document.getElementsByClassName("activeInput")[0],
              _value = activeInput.value;
         
         // Key is Uppercase
@@ -5808,7 +5809,10 @@ var events = {
                 upper = false;
             }
             
+            console.log(activeInput);
+
             activeInput.value = _value+parameters;
+            recentInput.value = _value+parameters;
 
         }
 

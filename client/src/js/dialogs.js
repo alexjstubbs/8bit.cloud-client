@@ -40,11 +40,12 @@ var show = function(title, content, callback) {
 var close = function(modal, callback) {
 
     if (!modal) {
+    
         var modal = document.querySelectorAll(".ignition-modal");
 
         console.log(modal.length);
         modal = modal[2];
-        
+    
     }
 
     document.body.removeChild(modal);
@@ -62,6 +63,8 @@ var close = function(modal, callback) {
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
 
+    console.log(input);
+
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-keyboard");
     document.body.appendChild(div);
@@ -69,8 +72,13 @@ var keyboard = function(input, callback) {
     React.renderComponent(Modal({children: Keyboard(null)}), div);
     
     var activeInputs = document.querySelectorAll(".activeInput")[0];
-    activeInputs.classList.remove("activeInput");
+    
+    if (activeInputs) {
+        activeInputs.classList.remove("activeInput");
+    }
+
     input.classList.add("activeInput");
+
 }
 
 /* Exports

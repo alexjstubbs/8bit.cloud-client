@@ -130,19 +130,21 @@ module.exports = function(k) {
 
                     curRow++;
 
-                    if (curRow == allRows) {
-                        console.log("NO MORE");
-                    }
-
-                    else {
-                    
-
+                    if (curRow != allRows) {
+               
                     sel[0].classList.remove("selectedNav");
 
                     var nextRow = document.querySelectorAll("[data-row]")[curRow];
 
-                    nextRow.childNodes[elIndex].classList.add("selectedNav");;
+                    if (nextRow.childNodes[elIndex]) {
 
+                        nextRow.childNodes[elIndex].classList.add("selectedNav");;
+                    }
+
+                    else {
+                        
+                    }
+                    
                     }
                     
                 }
@@ -192,12 +194,8 @@ module.exports = function(k) {
 
                     var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
 
-                    if (curRow == 0) {
-                        console.log("NO MORE");
-                    }
-
-                    else {
-                    
+                    if (curRow != 0) {
+                                 
                     curRow--;
 
                     sel[0].classList.remove("selectedNav");

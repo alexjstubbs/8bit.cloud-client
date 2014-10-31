@@ -19,7 +19,7 @@ var Keyboard = function(elem) {
     [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
     [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
     [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-    [ ".", ",", "<i class='ion-at'></i>", "________________", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
+    [ ".", ",", "<i class='ion-at'></i>", "&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; SPACE &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; ", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
   ];
 
 
@@ -46,7 +46,7 @@ var Keyboard = function(elem) {
     };
 
     if (key == "<i class='ion-checkmark'></i>") {
-        button.classList.add("key-blue")
+        button.classList.add("key-blue");
     }
 
     button.innerHTML = key;

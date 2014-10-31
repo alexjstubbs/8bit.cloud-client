@@ -32,8 +32,6 @@ module.exports = React.createClass({
             newMessages = true 
         }
 
-        console.log(this.props.myMessages);
-
         var cx = React.addons.classSet;
         var classes = cx({
             'gray': true,

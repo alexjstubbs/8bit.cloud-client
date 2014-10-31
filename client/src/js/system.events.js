@@ -30,6 +30,7 @@ var events = {
         var upper, 
             keys = document.getElementsByClassName("_key"),
             activeInput = document.getElementById("placehold_input"),
+            recentInput = document.getElementsByClassName("activeInput")[0],
              _value = activeInput.value;
         
         // Key is Uppercase
@@ -100,7 +101,10 @@ var events = {
                 upper = false;
             }
             
+            console.log(activeInput);
+
             activeInput.value = _value+parameters;
+            recentInput.value = _value+parameters;
 
         }
 

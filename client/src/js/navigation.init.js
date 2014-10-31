@@ -37,11 +37,7 @@ var navigationInit = function(element, callback) {
         parent = element;
     }
 
-    console.log(parent);
-
     navables = parent.querySelectorAll('.navable');
-
-    console.log(navables);
 
     _(navables).forEach(function(el, i) { 
         el.setAttribute("data-nav", i);
