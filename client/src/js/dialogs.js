@@ -28,7 +28,7 @@ var popup = function(obj, callback) {
 -------------------------------------------------- */
 var show = function(title, content, callback) {
 
-    var div = document.createElement("div");
+    var div = document.createElement("div"); // Garbage Collection isn't optimized on Webkit. Please fix me. Slow on Pi
     div.classList.add("ignition-modal");
     document.body.appendChild(div);
 

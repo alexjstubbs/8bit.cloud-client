@@ -3177,8 +3177,8 @@ module.exports = React.createClass({displayName: 'exports',
 'use strict';
 
 var React = require('react/addons'),
-    _ = require('lodash'),
-    Backdrop = require('./Backdrop.jsx');
+    _ = require('lodash');
+    // Backdrop = require('./Backdrop.jsx');
     // cssplugin = require('../components/greensock/plugins/CSSPlugin.min.js'),
     // EasePack = require('../components/greensock/easing/EasePack.min.js'),
     // TweenLite = require('../components/greensock/TweenLite.js');
@@ -3196,24 +3196,18 @@ module.exports = React.createClass({displayName: 'exports',
             columns: "col-xs-12"
         }
     },
-    
-    componentDidMount: function() {
-
-    },
 
     render: function() {
 
-        var backdrop;
+        // var backdrop;
 
-        if (this.props.backdrop) {
-            backdrop = Backdrop(null) 
-        }
+        // if (this.props.backdrop) {
+        //     backdrop = <Backdrop /> 
+        // }
 
         return (
 
             React.DOM.div(null, 
-
-                backdrop, 
 
                 React.DOM.div({className: this.props.classList, id: this.props.id}, 
                     this.props.children
@@ -3227,7 +3221,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"./Backdrop.jsx":5,"lodash":60,"react/addons":63}],23:[function(require,module,exports){
+},{"lodash":60,"react/addons":63}],23:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4232,7 +4226,7 @@ var popup = function(obj, callback) {
 -------------------------------------------------- */
 var show = function(title, content, callback) {
 
-    var div = document.createElement("div");
+    var div = document.createElement("div"); // Garbage Collection isn't optimized on Webkit. Please fix me. Slow on Pi
     div.classList.add("ignition-modal");
     document.body.appendChild(div);
 

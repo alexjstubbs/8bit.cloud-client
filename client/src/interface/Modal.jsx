@@ -5,8 +5,8 @@
 'use strict';
 
 var React = require('react/addons'),
-    _ = require('lodash'),
-    Backdrop = require('./Backdrop.jsx');
+    _ = require('lodash');
+    // Backdrop = require('./Backdrop.jsx');
     // cssplugin = require('../components/greensock/plugins/CSSPlugin.min.js'),
     // EasePack = require('../components/greensock/easing/EasePack.min.js'),
     // TweenLite = require('../components/greensock/TweenLite.js');
@@ -24,24 +24,18 @@ module.exports = React.createClass({
             columns: "col-xs-12"
         }
     },
-    
-    componentDidMount: function() {
-
-    },
 
     render: function() {
 
-        var backdrop;
+        // var backdrop;
 
-        if (this.props.backdrop) {
-            backdrop = <Backdrop /> 
-        }
+        // if (this.props.backdrop) {
+        //     backdrop = <Backdrop /> 
+        // }
 
         return (
 
             <div>
-
-                {backdrop}
 
                 <div className={this.props.classList} id={this.props.id}>
                     {this.props.children}
