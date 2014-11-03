@@ -12,6 +12,7 @@ var systemNotify    = require('./notification.init.js')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx");
 
+var _div;
 
 /* General Message Dialog
 -------------------------------------------------- */
@@ -26,13 +27,13 @@ var popup = function(obj, callback) {
 
 /* Show Modal
 -------------------------------------------------- */
-var show = function(title, content, callback) {
+var show = function(title, content) {
 
-    var div = document.createElement("div"); // Garbage Collection isn't optimized on Webkit. Please fix me. Slow on Pi
-    div.classList.add("ignition-modal");
-    document.body.appendChild(div);
+    _div = document.createElement("div"); // Garbage Collection isn't optimized on Webkit. Please fix me. Slow on Pi
+    _div.classList.add("ignition-modal");
+    document.body.appendChild(_div);
 
-    React.renderComponent(Modal({children: SignUp(null)}), div);
+    React.renderComponent(Modal({children: SignUp(null)}), _div);
 }
 
 /* Close Modal

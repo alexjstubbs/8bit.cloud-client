@@ -46,11 +46,12 @@ var navigationInit = function(element, callback) {
     _.first(navables).classList.add("selectedNav", "selected");
 
     highlight();
+  
 }
 
 var highlight = function() {
       clearInterval(blink);
-      blink = window.setInterval(function() {
+      blink = setInterval(function() {
             document.querySelector('.selectedNav').classList.toggle('selectedActive');
     }, 200);
 }
