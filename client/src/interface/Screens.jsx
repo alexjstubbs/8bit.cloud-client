@@ -4,21 +4,21 @@
 
 'use strict';
 
-var React = require('react/addons')
-,   Dashboard = require('./Dashboard.jsx')
-,   Browser = require('./Browser.jsx')
-,   LargeProfile = require('./LargeProfile.jsx')
-,   init = require('../js/init.js')
-,   _ = require('lodash')
-,   navigationInit = require('../js/navigation.init.js');
+var React 			= require('react/addons')
+,   Dashboard 		= require('./Dashboard.jsx')
+,   Browser 		= require('./Browser.jsx')
+,   LargeProfile 	= require('./LargeProfile.jsx')
+,   init 			= require('../js/init.js')
+,   _ 				= require('lodash')
+,   navigationInit  = require('../js/navigation.init.js');
 
 init();
-
 
 /* Set up Screens
 -------------------------------------------------- */
 
 var _screens = ["Dashboard", "Browser", "Profile"];
+
 var screens = [<Dashboard />, <Browser />, <LargeProfile />];
 
 var container = document.getElementById("screens");

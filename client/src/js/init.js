@@ -1,22 +1,31 @@
 /* Init Modules - Entry point to clientside controllers
  -------------------------------------------------- */ 
 
-var community = require("./community.js")
-,   gamepad = require("./gamepad.js")
-,   navigationBindings = require("./navigation.bindings.js")
-,   navigationEvent = require("./navigation.event.js")
-,   api = require("./api/connection.js")
-,   browserNavigation = require('../js/navigation.browser.js').browserNavigation
-,   database = require('./database.helpers');
+var gamepad 			= require("./gamepad.js")
+,   navigationBindings  = require("./navigation.bindings.js")
+,   navigationEvent 	= require("./navigation.event.js")
+,   api 				= require("./api/connection.js")
+,   browserNavigation	= require('../js/navigation.browser.js').browserNavigation
+,   database 			= require('./database.helpers');
 
 module.exports = function() {
 
+	/* Client and Backend Connection init
+	-------------------------------------------------- */
     api.connect();
-    community();
+
+    /* Bind Navigation
+    -------------------------------------------------- */
     navigationBindings();
+
+    /* Bind Gamepad to Navigation
+    -------------------------------------------------- */
     gamepad.gamepadSupport.init();
     document.onkeydown = navigationEvent;
     
+
+    /* Get Games Database for ROM Browser
+    -------------------------------------------------- */
     database.initLocalDatabase("games");
 
 }

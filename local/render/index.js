@@ -30,3 +30,4 @@ var welcome = function(req, res, next) {
 /* Exports
 -------------------------------------------------- */
 exports.ignite = ignite;
+exports.welcome = welcome;

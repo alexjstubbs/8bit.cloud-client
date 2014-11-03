@@ -28,7 +28,7 @@ module.exports = React.createClass({
 
         kb.addEventListener("keypress", function(event) {
 
-            console.log(event.key + " was pressed", event);
+            // console.log(event.key + " was pressed", event);
 
         });
 

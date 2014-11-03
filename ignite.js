@@ -5,6 +5,16 @@
  * BETA v0.91
  */
 
+
+
+/* Initial Setup
+-------------------------------------------------- */
+var firstrun = true;
+
+if (firstrun) {
+    // Launch Renderer to Welcome / iNet check
+}
+
 /* Dev. run enviorment
 -------------------------------------------------- */
 
@@ -65,26 +75,26 @@ app.configure('development', function() {
 /* Anonymous Analytics OPT-IN
 -------------------------------------------------- */
 
-var insight = new Insight({
-    // Google Analytics tracking code
-    trackingCode: 'UA-54752042-1',
-    packageName: pkg.name,
-    packageVersion: pkg.version
-});
+// var insight = new Insight({
+//     // Google Analytics tracking code
+//     trackingCode: 'UA-54752042-1',
+//     packageName: pkg.name,
+//     packageVersion: pkg.version
+// });
 
-// ask for permission the first time
-// if (insight.optOut === undefined) {
-//     return insight.askPermission();
-// }
+// // ask for permission the first time
+// // if (insight.optOut === undefined) {
+// //     return insight.askPermission();
+// // }
 
-insight.optOut = false;
+// insight.optOut = false;
 
-insight.track('ignition', 'beta');
+// insight.track('ignition', 'beta');
 
 /* Client Routes
 -------------------------------------------------- */
 // Sign Up (initial)
-// app.get('/welcome', common.render.welcome);
+app.get('/welcome', common.render.welcome);
 
 // Dashboard
 app.get('/home', common.render.ignite);
@@ -109,6 +119,7 @@ app.get('/games/:platform/:name', common.db.gameImage);
 
 /* Server Initialization
 -------------------------------------------------- */
+
 // app.listen(app.get('port'), "localhost");
 http.listen(1210, "127.0.0.1");
 
