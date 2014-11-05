@@ -8,7 +8,6 @@
 -------------------------------------------------- */
 
 var account         = require("./account.js")
-,   community       = require("./community.js")
 ,   helpers         = require("./helpers.js")
 ,   _               = require("lodash")
 ,   navigationInit  = require("./navigation.init.js")

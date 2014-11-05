@@ -90,6 +90,7 @@ module.exports = function(k) {
 
 
             var lastNodeNav = _parent.querySelectorAll(".navable")[i];
+           
 
             // Outside Panel
             if (lastNodeNav) {
@@ -117,8 +118,16 @@ module.exports = function(k) {
             var sel = document.querySelectorAll(".selectedNav");
             var sub = sel[0].querySelectorAll(".subNavable");
 
+
             // Down
             if (k == 'down') {
+
+                // Textarea Scrolling
+
+
+                if (sel[0].nodeName == "TEXTAREA") {
+                    sel[0].scrollTop = sel[0].scrollTop + 20;
+                };
 
                 // Inside onScreen Keyboard
                 if (sel[0].classList.contains("rowParent")) {
@@ -185,6 +194,11 @@ module.exports = function(k) {
 
             // Up
             if (k == 'up') {
+
+
+                if (sel[0].nodeName == "TEXTAREA") {
+                    sel[0].scrollTop = sel[0].scrollTop - 20;
+                };
 
                 // Inside onScreen Keyboard
                 if (sel[0].classList.contains("rowParent")) {

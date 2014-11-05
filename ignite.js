@@ -75,26 +75,28 @@ app.configure('development', function() {
 /* Anonymous Analytics OPT-IN
 -------------------------------------------------- */
 
-// var insight = new Insight({
-//     // Google Analytics tracking code
-//     trackingCode: 'UA-54752042-1',
-//     packageName: pkg.name,
-//     packageVersion: pkg.version
-// });
+var insight = new Insight({
+    // Google Analytics tracking code
+    trackingCode: 'UA-54752042-1',
+    packageName: pkg.name,
+    packageVersion: pkg.version
+});
 
 // // ask for permission the first time
-// // if (insight.optOut === undefined) {
-// //     return insight.askPermission();
-// // }
+// if (insight.optOut === undefined) {
+//     return insight.askPermission();
+// }
 
-// insight.optOut = false;
+insight.optOut = false;
 
-// insight.track('ignition', 'beta');
+insight.track('ignition', 'beta');
 
 /* Client Routes
 -------------------------------------------------- */
 // Sign Up (initial)
-app.get('/welcome', common.render.welcome);
+app.get('/welcome', common.render.ignite);
+app.get('/agreement', common.render.ignite);
+app.get('/EULA', common.render.EULA);
 
 // Dashboard
 app.get('/home', common.render.ignite);

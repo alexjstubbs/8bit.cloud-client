@@ -2746,7 +2746,7 @@ module.exports = React.createClass({displayName: 'exports',
             );
     }
 });
-},{"../js/helpers":45,"./ListedGame.jsx":18,"./mixins/KeyboardShortcutsMixin":36,"lodash":61,"react/addons":64,"socket.io-client":223}],14:[function(require,module,exports){
+},{"../js/helpers":45,"./ListedGame.jsx":18,"./mixins/KeyboardShortcutsMixin":37,"lodash":61,"react/addons":64,"socket.io-client":223}],14:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3311,7 +3311,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         kb.addEventListener("keypress", function(event) {
 
-            console.log(event.key + " was pressed", event);
+            // console.log(event.key + " was pressed", event);
 
         });
 
@@ -3699,37 +3699,58 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons')
-,   Dashboard = require('./Dashboard.jsx')
-,   Browser = require('./Browser.jsx')
-,   LargeProfile = require('./LargeProfile.jsx')
-,   init = require('../js/init.js')
-,   _ = require('lodash')
-,   navigationInit = require('../js/navigation.init.js');
+var React 				= require('react/addons')
+,   _ 					= require('lodash')
+,   Dashboard 			= require('./Dashboard.jsx')
+, 	NewSignup 			= require('./forms/NewSignup.jsx')
+, 	UserAgreement 		= require('./forms/UserAgreement.jsx')
+,   Browser 			= require('./Browser.jsx')
+,   LargeProfile 		= require('./LargeProfile.jsx')
+,   init 				= require('../js/init.js')
+,   navigationInit  	= require('../js/navigation.init.js');
 
 init();
+
+
+var pathname = window.location.pathname;
+
 
 
 /* Set up Screens
 -------------------------------------------------- */
 
-var _screens = ["Dashboard", "Browser", "Profile"];
-var screens = [Dashboard(null), Browser(null), LargeProfile(null)];
 
-var container = document.getElementById("screens");
+	var container = document.getElementById("screens");
 
-_(screens).forEach(function(el, i) { 
+	if (pathname != "/welcome") {
+		var _screens = ["Dashboard", "Browser", "Profile"];	
+		var screens = [Dashboard(null), Browser(null), LargeProfile(null)];
+	}
+	
+	else {
 
-    var li = document.createElement("li");
-    container.appendChild(li).classList.add(_screens[i]);
+		var _screens = ["UserAgreement"];	
+		var screens = [UserAgreement(null)];
+	}
 
-    React.renderComponent(screens[i], li);
 
-});
+	_(screens).forEach(function(el, i) { 
 
+		var li = document.createElement("li");
+
+	    container.appendChild(li).classList.add(_screens[i]);
+
+	    React.renderComponent(screens[i], li);
+
+	});
+
+
+
+/* Init Navigation Controls
+-------------------------------------------------- */
 navigationInit.navigationInit();
 
-},{"../js/init.js":46,"../js/navigation.init.js":53,"./Browser.jsx":6,"./Dashboard.jsx":8,"./LargeProfile.jsx":17,"lodash":61,"react/addons":64}],31:[function(require,module,exports){
+},{"../js/init.js":46,"../js/navigation.init.js":53,"./Browser.jsx":6,"./Dashboard.jsx":8,"./LargeProfile.jsx":17,"./forms/NewSignup.jsx":34,"./forms/UserAgreement.jsx":36,"lodash":61,"react/addons":64}],31:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3964,6 +3985,113 @@ module.exports = React.createClass({displayName: 'exports',
 },{"../../js/navigation.init":53,"../../js/system.events":58,"react/addons":64,"socket.io-client":223}],35:[function(require,module,exports){
 module.exports=require(34)
 },{"../../js/navigation.init":53,"../../js/system.events":58,"react/addons":64,"socket.io-client":223}],36:[function(require,module,exports){
+/**
+ * @jsx React.DOM
+ */
+
+var React           = require('react/addons')
+,   api             = require('socket.io-client')('/api')
+,   navigationInit  = require('../../js/navigation.init')
+,   clientEvents    = require('../../js/system.events');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getDefaultProps: function() {
+
+    return {
+            navable: true,
+            navStack: 2,
+            form: 'userSignupForm',
+            server: false,
+            filename: '/SignUp-TEMP.json',
+            classList: 'col-xs-12'
+        }
+    },
+
+    componentDidMount: function() {
+
+        navigationInit.modalNavigation(function() {
+            navigationInit.navigationInit();
+        });
+
+        var textarea = document.getElementById("EULA");
+
+        /* EULA Ajax Call
+        -------------------------------------------------- */
+        
+        request = new XMLHttpRequest();
+        request.open('GET', 'http://localhost:1210/EULA', true);
+
+        request.onload = function() {
+          if (request.status >= 200 && request.status < 400){
+            // Success!
+            var EULA = request.responseText;
+            textarea.value = EULA;
+
+
+          } else {
+            // We reached our target server, but it returned an error
+
+          }
+        };
+
+        request.onerror = function() {
+          // There was a connection error of some sort
+        };
+
+        request.send();
+
+    },
+
+    render: function() {
+
+        return (
+
+            React.DOM.div({className: this.props.classList}, 
+                React.DOM.div({className: "container-fluid parent"}, 
+                    React.DOM.div({className: "row-fluid"}, 
+                        React.DOM.div({className: "col-xs-12"}, 
+                                    
+                            React.DOM.h2(null, React.DOM.span({className: "col-xs-11"}, "End User Agreement")), 
+                            
+                            React.DOM.div({className: "clearfix"}), 
+                            
+                            React.DOM.hr(null), 
+
+                            React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
+
+                            React.DOM.fieldset(null, 
+                            
+                                
+                                React.DOM.div({className: "form-group"}, 
+                                    
+                                      React.DOM.textarea({id: "EULA", className: "form-control navable", 'data-function': "inputFocus"}
+                                      )
+                               
+                                ), 
+                           
+                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", 'data-function': "submitForm", 'data-parameters': this.props.form, value: "I Agree"}), 
+
+                                React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
+                                React.DOM.input({type: "hidden", name: "filename", value: this.props.filename})
+
+                            )
+                            )
+                              
+
+                        )
+                    )
+                )
+            )              
+         
+        );
+    }
+});
+
+
+
+
+},{"../../js/navigation.init":53,"../../js/system.events":58,"react/addons":64,"socket.io-client":223}],37:[function(require,module,exports){
 'use strict';
 
 var KEYS = {
@@ -4029,7 +4157,7 @@ var KeyboardShortcutsMixin = {
 
 module.exports = KeyboardShortcutsMixin;
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /* Account Definitions
 -------------------------------------------------- */
 
@@ -4044,7 +4172,7 @@ module.exports = function() {
     }
 };
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /* Sockets.io api
 -------------------------------------------------- */
 var io      = require('socket.io-client')
@@ -4078,21 +4206,7 @@ var connect = function() {
 -------------------------------------------------- */
 exports.connect = connect;
 exports.api = api;
-},{"socket.io-client":223}],39:[function(require,module,exports){
-/* Main Screen Functions and Definitions
--------------------------------------------------- */
-
-module.exports = function() {
-
-        // Display Info From DB
-        return function() {
-            return 0
-        }
-
-};
-
-
-},{}],40:[function(require,module,exports){
+},{"socket.io-client":223}],40:[function(require,module,exports){
 /* Clientside Database Helpers
 -------------------------------------------------- */
 
@@ -4803,8 +4917,7 @@ exports.preloadImage = preloadImage;
 /* Init Modules - Entry point to clientside controllers
  -------------------------------------------------- */ 
 
-var Community 			= require("./community.js")
-,   gamepad 			= require("./gamepad.js")
+var gamepad 			= require("./gamepad.js")
 ,   navigationBindings  = require("./navigation.bindings.js")
 ,   navigationEvent 	= require("./navigation.event.js")
 ,   api 				= require("./api/connection.js")
@@ -4816,10 +4929,6 @@ module.exports = function() {
 	/* Client and Backend Connection init
 	-------------------------------------------------- */
     api.connect();
-
-    /* Get Server and Community Network Bindings
-    -------------------------------------------------- */
-    community();
 
     /* Bind Navigation
     -------------------------------------------------- */
@@ -4836,7 +4945,7 @@ module.exports = function() {
     database.initLocalDatabase("games");
 
 }
-},{"../js/navigation.browser.js":50,"./api/connection.js":38,"./community.js":39,"./database.helpers":40,"./gamepad.js":44,"./navigation.bindings.js":49,"./navigation.event.js":51}],47:[function(require,module,exports){
+},{"../js/navigation.browser.js":50,"./api/connection.js":39,"./database.helpers":40,"./gamepad.js":44,"./navigation.bindings.js":49,"./navigation.event.js":51}],47:[function(require,module,exports){
 /* Mixins
 -------------------------------------------------- */
 
@@ -5039,7 +5148,6 @@ exports.browserNavigationEvents = browserNavigationEvents;
 -------------------------------------------------- */
 
 var account         = require("./account.js")
-,   community       = require("./community.js")
 ,   helpers         = require("./helpers.js")
 ,   _               = require("lodash")
 ,   navigationInit  = require("./navigation.init.js")
@@ -5125,7 +5233,7 @@ module.exports = function(e) {
  * Make screen switching dynamic by src release 
  *
 -------------------------------------------------- */
-},{"./account.js":37,"./community.js":39,"./events.js":43,"./helpers.js":45,"./navigation.init.js":53,"lodash":61}],52:[function(require,module,exports){
+},{"./account.js":38,"./events.js":43,"./helpers.js":45,"./navigation.init.js":53,"lodash":61}],52:[function(require,module,exports){
 /* UI Helper Functions
 -------------------------------------------------- */
 
@@ -5438,6 +5546,7 @@ module.exports = function(k) {
 
 
             var lastNodeNav = _parent.querySelectorAll(".navable")[i];
+           
 
             // Outside Panel
             if (lastNodeNav) {
@@ -5465,8 +5574,16 @@ module.exports = function(k) {
             var sel = document.querySelectorAll(".selectedNav");
             var sub = sel[0].querySelectorAll(".subNavable");
 
+
             // Down
             if (k == 'down') {
+
+                // Textarea Scrolling
+
+
+                if (sel[0].nodeName == "TEXTAREA") {
+                    sel[0].scrollTop = sel[0].scrollTop + 20;
+                };
 
                 // Inside onScreen Keyboard
                 if (sel[0].classList.contains("rowParent")) {
@@ -5533,6 +5650,11 @@ module.exports = function(k) {
 
             // Up
             if (k == 'up') {
+
+
+                if (sel[0].nodeName == "TEXTAREA") {
+                    sel[0].scrollTop = sel[0].scrollTop - 20;
+                };
 
                 // Inside onScreen Keyboard
                 if (sel[0].classList.contains("rowParent")) {
@@ -43678,4 +43800,4 @@ function toArray(list, index) {
 
 }).call(this);
 
-},{}]},{},[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]);
+},{}]},{},[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]);

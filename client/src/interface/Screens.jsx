@@ -4,32 +4,53 @@
 
 'use strict';
 
-var React 			= require('react/addons')
-,   Dashboard 		= require('./Dashboard.jsx')
-,   Browser 		= require('./Browser.jsx')
-,   LargeProfile 	= require('./LargeProfile.jsx')
-,   init 			= require('../js/init.js')
-,   _ 				= require('lodash')
-,   navigationInit  = require('../js/navigation.init.js');
+var React 				= require('react/addons')
+,   _ 					= require('lodash')
+,   Dashboard 			= require('./Dashboard.jsx')
+, 	NewSignup 			= require('./forms/NewSignup.jsx')
+, 	UserAgreement 		= require('./forms/UserAgreement.jsx')
+,   Browser 			= require('./Browser.jsx')
+,   LargeProfile 		= require('./LargeProfile.jsx')
+,   init 				= require('../js/init.js')
+,   navigationInit  	= require('../js/navigation.init.js');
 
 init();
+
+
+var pathname = window.location.pathname;
+
+
 
 /* Set up Screens
 -------------------------------------------------- */
 
-var _screens = ["Dashboard", "Browser", "Profile"];
 
-var screens = [<Dashboard />, <Browser />, <LargeProfile />];
+	var container = document.getElementById("screens");
 
-var container = document.getElementById("screens");
+	if (pathname != "/welcome") {
+		var _screens = ["Dashboard", "Browser", "Profile"];	
+		var screens = [<Dashboard />, <Browser />, <LargeProfile />];
+	}
+	
+	else {
 
-_(screens).forEach(function(el, i) { 
+		var _screens = ["UserAgreement"];	
+		var screens = [<UserAgreement />];
+	}
 
-    var li = document.createElement("li");
-    container.appendChild(li).classList.add(_screens[i]);
 
-    React.renderComponent(screens[i], li);
+	_(screens).forEach(function(el, i) { 
 
-});
+		var li = document.createElement("li");
 
+	    container.appendChild(li).classList.add(_screens[i]);
+
+	    React.renderComponent(screens[i], li);
+
+	});
+
+
+
+/* Init Navigation Controls
+-------------------------------------------------- */
 navigationInit.navigationInit();

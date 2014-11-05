@@ -1,7 +1,7 @@
 /* Screen Renders
 -------------------------------------------------- */
 
-var fs = require('fs-extra');
+var fs          = require('fs-extra');
 
 /* Main App (DASHBOARD)
 -------------------------------------------------- */
@@ -15,19 +15,24 @@ var ignite = function(req, res, next) {
     });
 };
 
-/* Welcome (SIGN UP, SETTINGS)
+/* EULA
 -------------------------------------------------- */
-var welcome = function(req, res, next) {
-      res.render('welcome', {
-        'locals': [
-              { 
-                url: '../../',
-          }
-      ]
-    });
-};
+var EULA = function(req, res, next) {
+    var path = appDir+'/.EULA';
+
+    if (fs.existsSync(path)) {
+        _eula = fs.readFileSync(path);
+    }
+
+    else {
+        _eula = "FAILURE TO LOAD EULA";
+    }
+
+    res.writeHead(200, {'Content-Type': 'text/plain' });
+    res.end(_eula, 'text/plain');
+}
 
 /* Exports
 -------------------------------------------------- */
 exports.ignite = ignite;
-exports.welcome = welcome;
+exports.EULA = EULA;
