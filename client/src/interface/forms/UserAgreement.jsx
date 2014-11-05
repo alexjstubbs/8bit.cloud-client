@@ -38,8 +38,9 @@ module.exports = React.createClass({
         request.onload = function() {
           if (request.status >= 200 && request.status < 400){
             // Success!
+            var online = navigator.onLine;
             var EULA = request.responseText;
-            textarea.value = EULA;
+            textarea.value = online;
 
 
           } else {
@@ -83,7 +84,7 @@ module.exports = React.createClass({
                                
                                 </div>
                            
-                                <input className="btn btn-lg btn-success btn-block navable" type="button" data-function='submitForm' data-parameters={this.props.form} value="I Agree" />
+                                <input className="btn btn-lg btn-alt btn-block navable" type="button" data-function='submitForm' data-parameters={this.props.form} value="I Agree" />
 
                                 <input type="hidden" name="server" value={this.props.server} />
                                 <input type="hidden" name="filename" value={this.props.filename} />
