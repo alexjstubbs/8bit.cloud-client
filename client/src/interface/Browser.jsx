@@ -17,7 +17,7 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            hidden: true,
+            hidden: false,
             parent: false
         };
     },
@@ -54,7 +54,6 @@ module.exports = React.createClass({
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
-            'hidden': this.props.hidden,
             'navable': true,
             'browser_header': true,
             'parent': this.props.parent

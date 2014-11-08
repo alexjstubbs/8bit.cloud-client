@@ -2064,7 +2064,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
-            hidden: true,
+            hidden: false,
             parent: false
         };
     },
@@ -2101,7 +2101,6 @@ module.exports = React.createClass({displayName: 'exports',
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
-            'hidden': this.props.hidden,
             'navable': true,
             'browser_header': true,
             'parent': this.props.parent
@@ -2387,7 +2386,6 @@ module.exports = React.createClass({displayName: 'exports',
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
-            'hidden': this.props.hidden,
             'parent': this.props.parent
         });
 
@@ -2962,7 +2960,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-        React.DOM.div({id: "Profile", className: "hidden"}, 
+        React.DOM.div({id: "Profile"}, 
     
         React.DOM.div({className: "container-fluid"}, 
          
@@ -3716,7 +3714,6 @@ init();
 var pathname = window.location.pathname;
 
 
-
 /* Set up Screens
 -------------------------------------------------- */
 
@@ -3729,9 +3726,8 @@ var pathname = window.location.pathname;
 	}
 	
 	else {
-
-		var _screens = ["ControlLayout"];	
-		var screens = [ControlLayout(null)];
+		var _screens = ["UserAgreement", "NewSignup"];	
+		var screens = [UserAgreement(null), NewSignup(null)];
 	}
 
 
@@ -3744,6 +3740,8 @@ var pathname = window.location.pathname;
 	    React.renderComponent(screens[i], li);
 
 	});
+
+	_.first(container.children).id = "screen-active";
 
 
 
@@ -5051,6 +5049,7 @@ module.exports = function() {
             navigate("enter");
         }); // Run Action
 
+
 };
 },{"./mousetrap.min.js":49,"./navigation.navigate.js":57}],51:[function(require,module,exports){
 /* Misc. Helper Functions
@@ -5180,7 +5179,7 @@ var browserNavigationEvents = function(g) {
 exports.browserNavigation = browserNavigation;
 exports.browserNavigationEvents = browserNavigationEvents;
 },{"../js/navigation.browser.js":51,"./database.helpers":41,"./events":44,"./helpers.js":46,"lodash":62,"socket.io-client":224}],52:[function(require,module,exports){
-/**
+ /*
  * @jsx React.DOM
  */
 
@@ -5200,81 +5199,65 @@ var account         = require("./account.js")
 
 module.exports = function(e) {
 
-    var k = e.keyCode
-    var s = document.getElementById("main").getAttribute("data-screen");
-    var screens = document.getElementById("screens").childNodes;
+  var k = e.keyCode
+  ,   s = document.getElementById("main").getAttribute("data-screen")
+  ,   screens = document.getElementById("screens").childNodes;
 
-    // |-- Right Arrow (D-RIGHT)
-    if (k == 221) {
+  console.log(screens);
 
-        _(screens).forEach(function(el, i) { 
+  
+  var currentScreen = document.getElementById("screen-active")
+  ,   currentScreenId = _.indexOf(screens, currentScreen);
+      
+  // |-- Right Arrow (D-RIGHT)
+  if (k == 221) {
 
-            var _el = helpers.getFirstChild(el);
-            
-            if (_el) { 
-                 if (_.contains(_el.classList, 'parent')) {
+      if (currentScreenId != screens.length-1) {
 
-                  document.getElementsByClassName("Dashboard")[0].classList.add("hidden");
-                  document.getElementsByClassName("Dashboard")[0].children[0].classList.remove("parent");
-                  document.getElementsByClassName("Browser")[0].classList.remove("hidden");
-                  document.getElementsByClassName("Browser")[0].children[0].classList.add("parent");
-                  document.getElementsByClassName("browser_header")[0].classList.remove("hidden");
-                  // events.screenTransition('Dashboard', true, false);
-                  // events.screenTransition('Browser', false, true);
+        screens[currentScreenId].classList.remove("parent");
+        screens[currentScreenId].classList.add("hidden");
 
-                  document.getElementById("main").setAttribute("data-screen", "Browser");
+        currentScreenId++;
+        currentScreen.id = null;
 
-                  navigationInit.navigationInit();
-
-                  return;
-
-                 }
-            }
-
-        });
-
-     } 
-    // |-- Left Arrow (D-LEFT)
-
-    if (k == 219) {
-
-    _(screens).forEach(function(el, i) { 
-
-            var _el = helpers.getFirstChild(el);
-            
-            if (_el) { 
-                 if (_.contains(_el.classList, 'parent')) {
-
-                    document.getElementsByClassName("Dashboard")[0].classList.remove("hidden");
-                    document.getElementsByClassName("Dashboard")[0].children[0].classList.add("parent");
-                    document.getElementsByClassName("Browser")[0].classList.add("hidden");
-                    document.getElementsByClassName("Browser")[0].children[0].classList.remove("parent");
-                    document.getElementsByClassName("browser_header")[0].classList.add("hidden");
-                    // events.screenTransition('Dashboard', true, false);
-                    // events.screenTransition('Browser', false, true);
-
-                    navigationInit.navigationInit();
+        screens[currentScreenId].id = "screen-active";
+        screens[currentScreenId].classList.add("parent");
+        screens[currentScreenId].classList.remove("hidden");
 
 
-                  document.getElementById("main").setAttribute("data-screen", "Dashboard");
+        navigationInit.navigationInit();
+      
+      }
 
-                    return;
+   } 
 
-                 }
-            }
 
-        });
+  // |-- Left Arrow (D-LEFT)
+  if (k == 219) {
 
-        
-    } else {
-        return
-    }
+
+      if (currentScreenId != 0) {
+
+        screens[currentScreenId].classList.remove("parent");
+        screens[currentScreenId].classList.add("hidden");
+
+        currentScreenId--;
+        currentScreen.id = null;
+
+        screens[currentScreenId].id = "screen-active";
+        screens[currentScreenId].classList.add("parent");
+        screens[currentScreenId].classList.remove("hidden");
+
+
+        navigationInit.navigationInit();
+
+      }
+      
+
+  } else {
+      return
+  }
 };
-
-/* Notes:
- * Make screen switching dynamic by src release 
- *
--------------------------------------------------- */
 },{"./account.js":39,"./events.js":44,"./helpers.js":46,"./navigation.init.js":54,"lodash":62}],53:[function(require,module,exports){
 /* UI Helper Functions
 -------------------------------------------------- */

@@ -21,7 +21,6 @@ init();
 var pathname = window.location.pathname;
 
 
-
 /* Set up Screens
 -------------------------------------------------- */
 
@@ -34,9 +33,8 @@ var pathname = window.location.pathname;
 	}
 	
 	else {
-
-		var _screens = ["ControlLayout"];	
-		var screens = [<ControlLayout />];
+		var _screens = ["UserAgreement", "NewSignup"];	
+		var screens = [<UserAgreement />, <NewSignup />];
 	}
 
 
@@ -49,6 +47,8 @@ var pathname = window.location.pathname;
 	    React.renderComponent(screens[i], li);
 
 	});
+
+	_.first(container.children).id = "screen-active";
 
 
 
