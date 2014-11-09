@@ -13,7 +13,7 @@ module.exports = function(k) {
 
         s.classList.remove('selectedActive');
 
-        var _parent = _.last(document.querySelectorAll(".parent"));
+        var _parent = _.first(document.querySelectorAll(".parent"));
 
         var q = _parent.querySelectorAll(".navable");
         var us = document.querySelectorAll(".unselected");

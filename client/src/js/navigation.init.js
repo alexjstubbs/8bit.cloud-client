@@ -30,7 +30,7 @@ var navigationInit = function(element, callback) {
     });
 
     if (!element) {
-        parent = _.last(document.querySelectorAll(".parent"));
+        parent = _.first(document.querySelectorAll(".parent"));
     }
 
     else {
@@ -39,9 +39,11 @@ var navigationInit = function(element, callback) {
 
     navables = parent.querySelectorAll('.navable');
 
+
     _(navables).forEach(function(el, i) { 
         el.setAttribute("data-nav", i);
     });
+    
 
     _.first(navables).classList.add("selectedNav", "selected");
 

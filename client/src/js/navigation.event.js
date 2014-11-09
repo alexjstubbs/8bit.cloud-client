@@ -7,28 +7,25 @@
 /* Section
 -------------------------------------------------- */
 
-var account         = require("./account.js")
+var _               = require("lodash")
+,   account         = require("./account.js")
 ,   helpers         = require("./helpers.js")
-,   _               = require("lodash")
 ,   navigationInit  = require("./navigation.init.js")
 ,   events          = require("./events.js");
 
-
-// TODO: Dynamically select screens
-
+/* Main Export
+-------------------------------------------------- */
 module.exports = function(e) {
 
-  var k = e.keyCode
-  ,   s = document.getElementById("main").getAttribute("data-screen")
-  ,   screens = document.getElementById("screens").childNodes;
-
-  console.log(screens);
-
-  
-  var currentScreen = document.getElementById("screen-active")
-  ,   currentScreenId = _.indexOf(screens, currentScreen);
+  var k                 = e.keyCode
+  ,   s                 = document.getElementById("main").getAttribute("data-screen")
+  ,   screens           = document.getElementById("screens").childNodes
+  ,   currentScreen     = document.getElementById("screen-active")
+  ,   currentScreenId   = _.indexOf(screens, currentScreen);
       
-  // |-- Right Arrow (D-RIGHT)
+  /* Right Arrow ( ] )
+  -------------------------------------------------- */
+
   if (k == 221) {
 
       if (currentScreenId != screens.length-1) {
@@ -45,13 +42,15 @@ module.exports = function(e) {
 
 
         navigationInit.navigationInit();
-      
+
       }
 
    } 
 
 
-  // |-- Left Arrow (D-LEFT)
+  /* Left Arrow ( [ )
+  -------------------------------------------------- */
+
   if (k == 219) {
 
 

@@ -22,6 +22,7 @@ var popup = function(obj, callback) {
     div.classList.add("ignition-modal", "ignition-popup");
     document.body.appendChild(div);
 
+    
     React.renderComponent(Modal({children: SignUp(null)}), div);
 }
 
@@ -29,13 +30,23 @@ var popup = function(obj, callback) {
 -------------------------------------------------- */
 var show = function(title, content) {
 
+    var _index = document.querySelectorAll(".ignition-modal");
+
     var fragment = document.createDocumentFragment();
 
     _div = document.createElement("div"); 
     _div.classList.add("ignition-modal");
+
+    console.log(_index.length);
+
+    _div.style.zIndex = _index.length+150;
+
     fragment.appendChild(_div);
 
-    document.body.appendChild(fragment);
+
+    document.body.insertBefore(fragment,  document.body.firstChild);
+
+    // document.body.appendChild(fragment);
     
     React.renderComponent(Modal({children: SignUp(null)}), _div);
 }
@@ -48,8 +59,12 @@ var close = function(modal, callback) {
     
         var modal = document.querySelectorAll(".ignition-modal");
 
-        console.log(modal.length);
-        modal = modal[2];
+        console.log(modal);
+
+        // console.log(modal.length);
+        modal = modal[0];
+
+        console.log(modal)
     
     }
 
@@ -68,11 +83,18 @@ var close = function(modal, callback) {
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
 
-    console.log(input);
+
+    var _index = document.querySelectorAll(".ignition-modal");
+    console.log(_index);
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-keyboard");
-    document.body.appendChild(div);
+    div.style.zIndex = _index.length+150;
+
+
+    console.log(_index.length);
+
+    document.body.insertBefore(div,  document.body.firstChild);
 
     React.renderComponent(Modal({children: Keyboard(null)}), div);
     

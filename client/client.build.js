@@ -4372,6 +4372,7 @@ var popup = function(obj, callback) {
     div.classList.add("ignition-modal", "ignition-popup");
     document.body.appendChild(div);
 
+    
     React.renderComponent(Modal({children: SignUp(null)}), div);
 }
 
@@ -4379,13 +4380,23 @@ var popup = function(obj, callback) {
 -------------------------------------------------- */
 var show = function(title, content) {
 
+    var _index = document.querySelectorAll(".ignition-modal");
+
     var fragment = document.createDocumentFragment();
 
     _div = document.createElement("div"); 
     _div.classList.add("ignition-modal");
+
+    console.log(_index.length);
+
+    _div.style.zIndex = _index.length+150;
+
     fragment.appendChild(_div);
 
-    document.body.appendChild(fragment);
+
+    document.body.insertBefore(fragment,  document.body.firstChild);
+
+    // document.body.appendChild(fragment);
     
     React.renderComponent(Modal({children: SignUp(null)}), _div);
 }
@@ -4398,8 +4409,12 @@ var close = function(modal, callback) {
     
         var modal = document.querySelectorAll(".ignition-modal");
 
-        console.log(modal.length);
-        modal = modal[2];
+        console.log(modal);
+
+        // console.log(modal.length);
+        modal = modal[0];
+
+        console.log(modal)
     
     }
 
@@ -4418,11 +4433,18 @@ var close = function(modal, callback) {
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
 
-    console.log(input);
+
+    var _index = document.querySelectorAll(".ignition-modal");
+    console.log(_index);
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-keyboard");
-    document.body.appendChild(div);
+    div.style.zIndex = _index.length+150;
+
+
+    console.log(_index.length);
+
+    document.body.insertBefore(div,  document.body.firstChild);
 
     React.renderComponent(Modal({children: Keyboard(null)}), div);
     
@@ -5188,28 +5210,25 @@ exports.browserNavigationEvents = browserNavigationEvents;
 /* Section
 -------------------------------------------------- */
 
-var account         = require("./account.js")
+var _               = require("lodash")
+,   account         = require("./account.js")
 ,   helpers         = require("./helpers.js")
-,   _               = require("lodash")
 ,   navigationInit  = require("./navigation.init.js")
 ,   events          = require("./events.js");
 
-
-// TODO: Dynamically select screens
-
+/* Main Export
+-------------------------------------------------- */
 module.exports = function(e) {
 
-  var k = e.keyCode
-  ,   s = document.getElementById("main").getAttribute("data-screen")
-  ,   screens = document.getElementById("screens").childNodes;
-
-  console.log(screens);
-
-  
-  var currentScreen = document.getElementById("screen-active")
-  ,   currentScreenId = _.indexOf(screens, currentScreen);
+  var k                 = e.keyCode
+  ,   s                 = document.getElementById("main").getAttribute("data-screen")
+  ,   screens           = document.getElementById("screens").childNodes
+  ,   currentScreen     = document.getElementById("screen-active")
+  ,   currentScreenId   = _.indexOf(screens, currentScreen);
       
-  // |-- Right Arrow (D-RIGHT)
+  /* Right Arrow ( ] )
+  -------------------------------------------------- */
+
   if (k == 221) {
 
       if (currentScreenId != screens.length-1) {
@@ -5226,13 +5245,15 @@ module.exports = function(e) {
 
 
         navigationInit.navigationInit();
-      
+
       }
 
    } 
 
 
-  // |-- Left Arrow (D-LEFT)
+  /* Left Arrow ( [ )
+  -------------------------------------------------- */
+
   if (k == 219) {
 
 
@@ -5337,7 +5358,7 @@ var navigationInit = function(element, callback) {
     });
 
     if (!element) {
-        parent = _.last(document.querySelectorAll(".parent"));
+        parent = _.first(document.querySelectorAll(".parent"));
     }
 
     else {
@@ -5346,9 +5367,11 @@ var navigationInit = function(element, callback) {
 
     navables = parent.querySelectorAll('.navable');
 
+
     _(navables).forEach(function(el, i) { 
         el.setAttribute("data-nav", i);
     });
+    
 
     _.first(navables).classList.add("selectedNav", "selected");
 
@@ -5494,7 +5517,7 @@ module.exports = function(k) {
 
         s.classList.remove('selectedActive');
 
-        var _parent = _.last(document.querySelectorAll(".parent"));
+        var _parent = _.first(document.querySelectorAll(".parent"));
 
         var q = _parent.querySelectorAll(".navable");
         var us = document.querySelectorAll(".unselected");
