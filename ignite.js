@@ -19,17 +19,17 @@ if (firstrun) {
 -------------------------------------------------- */
 
 if (process.platform == 'darwin') {
-    process.env.NODE_ENV = 'osx';
+    process.env.NODE_ENV    = 'osx';
 }
 
 else {
-    process.env.NODE_ENV = 'pi';
+    process.env.NODE_ENV    = 'pi';
 }
 
-global.config = require('konfig')();
+global.config               = require('konfig')();
 
-var path = require('path');
-global.appDir = path.dirname(require.main.filename);
+var path                    = require('path');
+global.appDir               = path.dirname(require.main.filename);
 
 /* Module dependencies
 -------------------------------------------------- */
@@ -64,7 +64,6 @@ app.use(methodOverride());
 app.use(app.router);
 app.use(common.express.compress());
 app.use(common.express.static(__dirname + '/client'));
-
 
 app.use(common.express.errorHandler());
 
