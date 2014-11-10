@@ -35,6 +35,8 @@ global.appDir = path.dirname(require.main.filename);
 -------------------------------------------------- */
 var common              = require('./local/common')
 ,   express             = require('express')
+,   busboy              = require('busboy')
+,   methodOverride      = require('method-override')
 ,   app                 = express()
 ,   http                = require('http').createServer(app)
 ,   fs                  = require('fs')
@@ -48,29 +50,23 @@ global.__sessionFile    = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
-common.render.ignite
-
 //  Server Configuration
-app.configure(function() {
 
-    app.set('views', './local/render/');
+app.set('views', './local/render/');
 
-    app.engine('mustache', common.mu2express.engine);
-    app.set('view engine', 'mustache');
+app.engine('mustache', common.mu2express.engine);
+app.set('view engine', 'mustache');
 
-    // app.use(common.express.logger('dev'));
-    app.use(common.express.bodyParser());
-    app.use(common.express.methodOverride());
+// app.use(common.express.logger('dev'));
+// app.use(busboy());
+app.use(methodOverride());
 
-    app.use(app.router);
-    app.use(common.express.compress());
-    app.use(common.express.static(__dirname + '/client'));
- 
-});
+app.use(app.router);
+app.use(common.express.compress());
+app.use(common.express.static(__dirname + '/client'));
 
-app.configure('development', function() {
-    app.use(common.express.errorHandler());
-});
+
+app.use(common.express.errorHandler());
 
 /* Anonymous Analytics OPT-IN
 -------------------------------------------------- */
