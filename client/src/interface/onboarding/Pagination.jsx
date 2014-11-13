@@ -14,7 +14,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
         return {
             steps: 5,
-            active: 2
+            active: 0
         };
     },
 
@@ -26,7 +26,6 @@ module.exports = React.createClass({
 
             if (i == this.props.active) {
                 active = true;
-                console.log("OK");
             }
 
             else {

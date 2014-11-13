@@ -17,6 +17,21 @@ var modalNavigation = function(callback) {
     callback();
 }
 
+/* Section
+-------------------------------------------------- */
+
+function isElementInViewport(el) {
+
+    var rect = el.getBoundingClientRect();
+
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
+    );
+}
+
 /* General Navigation Assigns/Init
 -------------------------------------------------- */
 var navigationInit = function(element, callback) {
@@ -37,14 +52,17 @@ var navigationInit = function(element, callback) {
         parent = element;
     }
 
-    navables = parent.querySelectorAll('.navable');
+    // _(document.querySelectorAll(".parent")).forEach(function(el, i) {
+    //     console.log(el);
+    //     console.log(isElementInViewport(el));
+    // })
 
+    navables = parent.querySelectorAll('.navable');
 
     _(navables).forEach(function(el, i) { 
         el.setAttribute("data-nav", i);
     });
     
-
     _.first(navables).classList.add("selectedNav", "selected");
 
     highlight();

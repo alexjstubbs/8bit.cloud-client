@@ -22,7 +22,7 @@ module.exports = function(e) {
   ,   screens           = document.getElementById("screens").childNodes
   ,   currentScreen     = document.getElementById("screen-active")
   ,   currentScreenId   = _.indexOf(screens, currentScreen);
-      
+
   /* Right Arrow ( ] )
   -------------------------------------------------- */
 
@@ -36,12 +36,28 @@ module.exports = function(e) {
         currentScreenId++;
         currentScreen.id = null;
 
+
         screens[currentScreenId].id = "screen-active";
         screens[currentScreenId].classList.add("parent");
         screens[currentScreenId].classList.remove("hidden");
 
+        _(screens).forEach(function(_screen, i) {
+          console.log(_screen.classList);
+          console.log(_.contains(_screen.classList, "hidden"));
+          if (_.contains(_screen.classList, "hidden")) {
+            
+          }
+          else {
+            navigationInit.navigationInit(_screen);
+          }
+        })
 
-        navigationInit.navigationInit();
+
+        // console.dir(screens);
+// FIGURE THIS OUT. WTF
+        // console.log(_.without(screens, /hidden/g));
+
+
 
       }
 
@@ -56,14 +72,14 @@ module.exports = function(e) {
 
       if (currentScreenId != 0) {
 
-        screens[currentScreenId].classList.remove("parent");
+        // screens[currentScreenId].classList.remove("parent");
         screens[currentScreenId].classList.add("hidden");
 
         currentScreenId--;
         currentScreen.id = null;
 
         screens[currentScreenId].id = "screen-active";
-        screens[currentScreenId].classList.add("parent");
+        // screens[currentScreenId].classList.add("parent");
         screens[currentScreenId].classList.remove("hidden");
 
 

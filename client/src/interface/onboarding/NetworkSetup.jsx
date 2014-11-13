@@ -18,11 +18,12 @@ module.exports = React.createClass({
 
         return (
       
-            <div className="container parent" id="welcome">
+            <div className="container parent" id="network-settings">
 
-                <WizardHeader title="Welcome" icon="ion-game-controller-a" subtitle="Controlling the Inteface" active="0" steps="4" />
+                <WizardHeader title="Welcome" icon="ion-wifi" subtitle="Network Setup" active="1" steps="4" />
 
-                <button className="navable btn btn-block btn-lg btn-alt">CONTINUE</button>
+
+                <button className="navable btn btn-block btn-lg btn-alt">CONTINUE AGAIN</button>
 
             </div>
 
