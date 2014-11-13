@@ -9,6 +9,7 @@ var React 				= require('react/addons')
 ,   Dashboard 			= require('./Dashboard.jsx')
 , 	NewSignup 			= require('./forms/NewSignup.jsx')
 , 	UserAgreement 		= require('./forms/UserAgreement.jsx')
+, 	Welcome 			= require('./onboarding/Welcome.jsx')
 , 	ControlLayout 		= require('./onboarding/ControlLayout.jsx')
 ,   Browser 			= require('./Browser.jsx')
 ,   LargeProfile 		= require('./LargeProfile.jsx')
@@ -33,8 +34,8 @@ var pathname = window.location.pathname;
 	}
 	
 	else {
-		var _screens = ["UserAgreement", "NewSignup"];	
-		var screens = [<UserAgreement />, <NewSignup />];
+		var _screens = ["Welcome", "NewSignup"];	
+		var screens = [<Welcome />, <NewSignup />];
 	}
 
 

@@ -15,6 +15,10 @@ if (firstrun) {
     // Launch Renderer to Welcome / iNet check
 }
 
+else {
+    // Launch Renderer To Dashboard
+}
+
 /* Dev. run enviorment
 -------------------------------------------------- */
 
@@ -33,20 +37,20 @@ global.appDir               = path.dirname(require.main.filename);
 
 /* Module dependencies
 -------------------------------------------------- */
-var common              = require('./local/common')
-,   express             = require('express')
-,   busboy              = require('busboy')
-,   methodOverride      = require('method-override')
-,   app                 = express()
-,   http                = require('http').createServer(app)
-,   fs                  = require('fs')
-,   api                 = require('./local/api/api')
-,   Insight             = require('insight')
-,   pkg                 = require('./package.json');
+var common                  = require('./local/common')
+,   express                 = require('express')
+,   busboy                  = require('busboy')
+,   methodOverride          = require('method-override')
+,   app                     = express()
+,   http                    = require('http').createServer(app)
+,   fs                      = require('fs')
+,   api                     = require('./local/api/api')
+,   Insight                 = require('insight')
+,   pkg                     = require('./package.json');
 
-global.__io             = require('socket.io').listen(http);
-global.__api            = __io.of('/api');
-global.__sessionFile    = appDir+"/config/profiles/Session.json";
+global.__io                 = require('socket.io').listen(http);
+global.__api                = __io.of('/api');
+global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
