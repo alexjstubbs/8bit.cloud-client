@@ -7,10 +7,10 @@
 var React 				= require('react/addons')
 ,   _ 					= require('lodash')
 ,   Dashboard 			= require('./Dashboard.jsx')
-, 	NewSignup 			= require('./forms/NewSignup.jsx')
 , 	UserAgreement 		= require('./forms/UserAgreement.jsx')
 , 	Welcome 			= require('./onboarding/Welcome.jsx')
 , 	NetworkSetup 		= require('./onboarding/NetworkSetup.jsx')
+, 	NewProfile	 		= require('./onboarding/NewProfile.jsx')
 ,   Browser 			= require('./Browser.jsx')
 ,   LargeProfile 		= require('./LargeProfile.jsx')
 ,   init 				= require('../js/init.js')
@@ -34,8 +34,8 @@ var pathname = window.location.pathname;
 	}
 	
 	else {
-		var _screens = ["Welcome", "NetworkSetup"];	
-		var screens = [<Welcome />, <NetworkSetup />];
+		var _screens = ["Welcome", "NetworkSetup", "NewProfile"];	
+		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />];
 	}
 
 

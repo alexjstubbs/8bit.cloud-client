@@ -82,14 +82,10 @@ var keyboard = function(input, callback) {
 
 
     var _index = document.querySelectorAll(".ignition-modal");
-    console.log(_index);
-
+ 
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-keyboard");
     div.style.zIndex = _index.length+150;
-
-
-    console.log(_index.length);
 
     document.body.insertBefore(div,  document.body.firstChild);
 

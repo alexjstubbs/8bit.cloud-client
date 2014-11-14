@@ -3,8 +3,6 @@
  */
 
 var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   clientEvents    = require('../js/system.events')
 ,   navigationInit  = require('../js/navigation.init')
 ,   keyboard        = require('../js/navigation.keyboard');
 
@@ -16,7 +14,7 @@ module.exports = React.createClass({
             navable: true,
             navStack: 2,
             input: null,
-            form: 'onScreenKeyboard',
+            form: 'onScreenKeyboard'
         }
     },
 
@@ -25,12 +23,6 @@ module.exports = React.createClass({
         var kb = document.getElementById("KB");
 
         var Keyboard = new keyboard.Keyboard(kb);
-
-        kb.addEventListener("keypress", function(event) {
-
-            // console.log(event.key + " was pressed", event);
-
-        });
 
         navigationInit.modalNavigation(function() {
             navigationInit.navigationInit();

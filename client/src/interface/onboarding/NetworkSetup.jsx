@@ -32,12 +32,13 @@ module.exports = React.createClass({
 
     screenMount: function() {
         api.emit('request', { request: 'sysIsOnline'});
-        api.emit('request', { request: 'sysGetNetwork'});
+        // api.emit('request', { request: 'sysGetNetwork'});
     },
 
     getDefaultProps: function() {
         return {
             screen: "NetworkSetup",
+            functionCall: "inputFocus",
             internetConnected: null,
             ssid: null,
             networkInfo: []
@@ -68,19 +69,23 @@ module.exports = React.createClass({
 
     render: function() {
 
+       var _this = this;
+
         var states = {
             0: function() {
-                return {icon: "ion-looping purple", text: "Checking Ineternet Connection", button: null};
+                return {icon: "ion-looping purple", text: "Checking Internet Connection...", button: null};
             },
 
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create Your Profile"};
+                _this.setProps.dataFunction = "viewMessages";
+                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create Your New Profile"};
             },
 
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                return {icon: "on-close-circled red", text: "Cannot establish connection...", button: "Network Settings..."};
+                _this.setProps.dataFunction = "networkSettings";
+                return {icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings..."};
             },
         }
 
@@ -93,6 +98,7 @@ module.exports = React.createClass({
                 <WizardHeader title="Welcome" icon="ion-wifi" subtitle="Network Setup" active="1" steps="4" />
 
                 <div className="welcome-internet">
+
                     <p>
                        <i className={status.icon}></i> {status.text}
                     </p>
@@ -101,7 +107,7 @@ module.exports = React.createClass({
             
                 <br />
 
-                <button id="network-next" className="hidden navable btn btn-block btn-lg btn-alt">{status.button}</button>
+                <button id="network-next" data-function={this.props.functionCall} className="hidden navable btn btn-block btn-lg btn-alt">{status.button}</button>
 
             </div>
 

@@ -3,9 +3,7 @@
  */
 
 var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../../js/navigation.init')
-,   clientEvents    = require('../../js/system.events');
+,   navigationInit  = require('../../js/navigation.init');
 
 module.exports = React.createClass({
 
@@ -33,17 +31,9 @@ module.exports = React.createClass({
 
         return (
 
-            <div className={this.props.classList}>
-                <div className="container-fluid parent">
                     <div className="row-fluid">
                         <div className="col-xs-12">
                                     
-                            <h2><span className='col-xs-11'>Create a new profile</span><span className='col-xs-1'><i className='ion-person-add'></i> </span></h2>
-                            
-                            <div className='clearfix'></div>
-                            
-                            <hr />
-
                             <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
 
                             <fieldset>
@@ -73,8 +63,8 @@ module.exports = React.createClass({
 
                         </div>
                     </div>
-                </div>
-            </div>              
+           
+                  
          
         );
     }

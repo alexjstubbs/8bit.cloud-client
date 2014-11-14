@@ -3,9 +3,7 @@
 var fs 		= require('fs-extra')
 ,   _ 		= require('lodash')
 ,	os 		= require('os')
-,	request = require('request')
-, 	async = require('asyncawait/async')
-, 	await = require('asyncawait/await');
+,	request = require('request');
 
 
 /* Connected to the Internet

@@ -3,9 +3,7 @@
  */
 
 var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../../js/navigation.init')
-,   clientEvents    = require('../../js/system.events');
+,   navigationInit  = require('../../js/navigation.init');
 
 module.exports = React.createClass({
 

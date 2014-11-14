@@ -19,7 +19,6 @@ var events = {
     -------------------------------------------------- */
     inputFocus: function(parameters) {
         var input = document.getElementsByClassName("selectedNav")[0];
-        // input.focus();
         dialog.keyboard(input);
     },
 
