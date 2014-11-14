@@ -36,28 +36,20 @@ module.exports = function(e) {
         currentScreenId++;
         currentScreen.id = null;
 
-
         screens[currentScreenId].id = "screen-active";
         screens[currentScreenId].classList.add("parent");
         screens[currentScreenId].classList.remove("hidden");
 
         _(screens).forEach(function(_screen, i) {
-          console.log(_screen.classList);
-          console.log(_.contains(_screen.classList, "hidden"));
           if (_.contains(_screen.classList, "hidden")) {
             
           }
           else {
             navigationInit.navigationInit(_screen);
+            var event = new CustomEvent("view", {"detail":{"screen":_screen.classList[0]}});
+            window.dispatchEvent(event);
           }
         })
-
-
-        // console.dir(screens);
-// FIGURE THIS OUT. WTF
-        // console.log(_.without(screens, /hidden/g));
-
-
 
       }
 
@@ -82,6 +74,8 @@ module.exports = function(e) {
         // screens[currentScreenId].classList.add("parent");
         screens[currentScreenId].classList.remove("hidden");
 
+        var event = new CustomEvent("view", {"detail":{"screen":screens[currentScreenId].classList[0]}});
+        window.dispatchEvent(event);
 
         navigationInit.navigationInit();
 

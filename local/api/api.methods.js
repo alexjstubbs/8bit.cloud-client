@@ -73,6 +73,10 @@ var api = {
 
     listWifiNetworks: function(nsp) {
         common.wireless.listWifiNetworks(nsp);
+    },
+
+    sysGetNetwork: function(nsp) {
+        common.network.sysGetNetwork(nsp);
     }
 
 }

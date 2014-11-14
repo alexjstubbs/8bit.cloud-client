@@ -2362,19 +2362,7 @@ module.exports = React.createClass({displayName: 'exports',
         }   
     },
 
-    screenTransition: function(e) {
-        if (e.detail.screen === "Dashboard") {
-            this.setProps(e.detail);
-            document.getElementById("main").setAttribute("data-screen", "dashboard");
-        }
-    },
-
     componentDidMount: function() {
-
-        var component = this;
-        window.addEventListener('screenTransition', function eventHandler(e) {
-              component.screenTransition(e);
-        });
 
         api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
@@ -4204,21 +4192,80 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({displayName: 'exports',
 
+    getInitialState: function() {
+        return {
+            status: 0,
+            button: "Create Your Profile"
+        }
+    },
+
     componentDidMount: function() {
-        
-     
+        api.on('api', this.setProps.bind(this));
+
+        var _this = this;
+        window.addEventListener("view", function(e) { 
+            if (e.detail.screen == _this.props.screen) {
+                _this.screenMount();
+            };
+        })
+
+    },
+
+    screenMount: function() {
         api.emit('request', { request: 'sysIsOnline'});
-        // api.on('api', this.setState.bind(this));
+        api.emit('request', { request: 'sysGetNetwork'});
     },
 
     getDefaultProps: function() {
         return {
-            internet: false,
-            ssid: null
+            screen: "NetworkSetup",
+            internetConnected: null,
+            ssid: null,
+            networkInfo: []
+
+            // {
+            //   "ip": "162.204.117.255",
+            //   "hostname": "No Hostname",
+            //   "city": "Alpharetta",
+            //   "region": "Georgia",
+            //   "country": "US",
+            //   "loc": "34.0204,-84.2445",
+            //   "org": "AS7018 AT&T Services, Inc.",
+            //   "postal": "30022"
+            // }
+
+        }
+    },
+
+    componentWillReceiveProps: function(props) {
+        if (props.internetConnected == 'connected') {
+            this.state.status = 1;
+        }
+
+        if (props.internetConnected == 'disconnected') {
+            this.state.status = 2;
         }
     },
 
     render: function() {
+
+        var states = {
+            0: function() {
+                return {icon: "ion-looping purple", text: "Checking Ineternet Connection", button: null};
+            },
+
+            1: function() {
+                document.getElementById("network-next").classList.remove("hidden");
+                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create Your Profile"};
+            },
+
+            2: function() {
+                document.getElementById("network-next").classList.remove("hidden");
+                return {icon: "on-close-circled red", text: "Cannot establish connection...", button: "Network Settings..."};
+            },
+        }
+
+        var status = states[this.state.status]();
 
         return (
       
@@ -4226,9 +4273,16 @@ module.exports = React.createClass({displayName: 'exports',
 
                 WizardHeader({title: "Welcome", icon: "ion-wifi", subtitle: "Network Setup", active: "1", steps: "4"}), 
 
+                React.DOM.div({className: "welcome-internet"}, 
+                    React.DOM.p(null, 
+                       React.DOM.i({className: status.icon}), " ", status.text
+                    )
 
+                ), 
+            
+                React.DOM.br(null), 
 
-                React.DOM.button({className: "navable btn btn-block btn-lg btn-alt"}, "CONTINUE AGAIN")
+                React.DOM.button({id: "network-next", className: "hidden navable btn btn-block btn-lg btn-alt"}, status.button)
 
             )
 
@@ -4643,14 +4697,11 @@ var show = function(title, content) {
     _div = document.createElement("div"); 
     _div.classList.add("ignition-modal");
 
-    console.log(_index.length);
-
     _div.style.zIndex = _index.length+150;
 
     fragment.appendChild(_div);
 
-
-    document.body.insertBefore(fragment,  document.body.firstChild);
+    document.body.insertBefore(fragment, document.body.firstChild);
 
     // document.body.appendChild(fragment);
     
@@ -5495,28 +5546,20 @@ module.exports = function(e) {
         currentScreenId++;
         currentScreen.id = null;
 
-
         screens[currentScreenId].id = "screen-active";
         screens[currentScreenId].classList.add("parent");
         screens[currentScreenId].classList.remove("hidden");
 
         _(screens).forEach(function(_screen, i) {
-          console.log(_screen.classList);
-          console.log(_.contains(_screen.classList, "hidden"));
           if (_.contains(_screen.classList, "hidden")) {
             
           }
           else {
             navigationInit.navigationInit(_screen);
+            var event = new CustomEvent("view", {"detail":{"screen":_screen.classList[0]}});
+            window.dispatchEvent(event);
           }
         })
-
-
-        // console.dir(screens);
-// FIGURE THIS OUT. WTF
-        // console.log(_.without(screens, /hidden/g));
-
-
 
       }
 
@@ -5541,6 +5584,8 @@ module.exports = function(e) {
         // screens[currentScreenId].classList.add("parent");
         screens[currentScreenId].classList.remove("hidden");
 
+        var event = new CustomEvent("view", {"detail":{"screen":screens[currentScreenId].classList[0]}});
+        window.dispatchEvent(event);
 
         navigationInit.navigationInit();
 

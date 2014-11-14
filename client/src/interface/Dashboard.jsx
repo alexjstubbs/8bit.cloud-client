@@ -85,19 +85,7 @@ module.exports = React.createClass({
         }   
     },
 
-    screenTransition: function(e) {
-        if (e.detail.screen === "Dashboard") {
-            this.setProps(e.detail);
-            document.getElementById("main").setAttribute("data-screen", "dashboard");
-        }
-    },
-
     componentDidMount: function() {
-
-        var component = this;
-        window.addEventListener('screenTransition', function eventHandler(e) {
-              component.screenTransition(e);
-        });
 
         api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));

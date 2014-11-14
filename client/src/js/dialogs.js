@@ -37,14 +37,11 @@ var show = function(title, content) {
     _div = document.createElement("div"); 
     _div.classList.add("ignition-modal");
 
-    console.log(_index.length);
-
     _div.style.zIndex = _index.length+150;
 
     fragment.appendChild(_div);
 
-
-    document.body.insertBefore(fragment,  document.body.firstChild);
+    document.body.insertBefore(fragment, document.body.firstChild);
 
     // document.body.appendChild(fragment);
     
