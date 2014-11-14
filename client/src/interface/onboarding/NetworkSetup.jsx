@@ -6,12 +6,23 @@
 
 var React           = require('react/addons')
 ,   _               = require('lodash')
-,   WizardHeader    = require('./WizardHeader.jsx');
+,   WizardHeader    = require('./WizardHeader.jsx')
+,   api             = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
 
-    getDefaultProps: function() {
+    componentDidMount: function() {
+        
+     
+        api.emit('request', { request: 'sysIsOnline'});
+        // api.on('api', this.setState.bind(this));
+    },
 
+    getDefaultProps: function() {
+        return {
+            internet: false,
+            ssid: null
+        }
     },
 
     render: function() {
@@ -21,6 +32,7 @@ module.exports = React.createClass({
             <div className="container parent" id="network-settings">
 
                 <WizardHeader title="Welcome" icon="ion-wifi" subtitle="Network Setup" active="1" steps="4" />
+
 
 
                 <button className="navable btn btn-block btn-lg btn-alt">CONTINUE AGAIN</button>

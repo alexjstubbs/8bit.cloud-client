@@ -65,6 +65,14 @@ var api = {
 
     writeJSONSync: function(nsp, data) {
         common.systemWrite.writeJSONSync(nsp, data);
+    },
+
+    sysIsOnline: function(nsp) {
+        common.network.sysIsOnline(nsp);
+    },
+
+    listWifiNetworks: function(nsp) {
+        common.wireless.listWifiNetworks(nsp);
     }
 
 }

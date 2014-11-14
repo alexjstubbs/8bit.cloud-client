@@ -35,7 +35,8 @@
     "request": "^2.42.0",
     "socket.io": "^1.0.6",
     "socket.io-client": "^1.0.6",
-    "stringify": "^3.0.0"
+    "stringify": "^3.0.0",
+    "wireless": "^0.3.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
