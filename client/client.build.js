@@ -3293,9 +3293,8 @@ module.exports = React.createClass({displayName: 'exports',
 
         var Keyboard = new keyboard.Keyboard(kb);
 
-        navigationInit.modalNavigation(function() {
-            navigationInit.navigationInit();
-        });
+        navigationInit.navigationInit();
+       
 
     },
 
@@ -3900,9 +3899,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-        navigationInit.modalNavigation(function() {
-            navigationInit.navigationInit();
-        });
+        navigationInit.navigationInit();
+     
 
     },
 
@@ -3984,9 +3982,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-        navigationInit.modalNavigation(function() {
-            navigationInit.navigationInit();
-        });
+        navigationInit.navigationInit();
+      
 
     },
 
@@ -4273,7 +4270,7 @@ module.exports = React.createClass({displayName: 'exports',
             if (e.detail.screen == _this.props.screen) {
                 _this.screenMount();
             };
-        })
+        });
 
     },
 
@@ -5640,26 +5637,42 @@ module.exports = function(e) {
   ,   currentScreen     = document.getElementById("screen-active")
   ,   currentScreenId   = _.indexOf(screens, currentScreen);
 
-  /* Right Arrow ( ] )
+
+  /* Set Up Screen
   -------------------------------------------------- */
+  function setScreen() {
 
-  if (k == 221) {
+        var parents = document.querySelectorAll(".parent");
+        var otherParents = _.without(parents, screens[currentScreenId].querySelectorAll(".parent")[0]);
+        var otherScreens = _.without(screens, screens[currentScreenId]);
 
-      if (currentScreenId != screens.length-1) {
+        // Remove other Parent Classes Globally
+        _(otherParents).forEach(function(parent, i) {
+          parent.classList.remove("parent");
+          parent.classList.add("_parent");
+        });
 
-        screens[currentScreenId].classList.remove("parent");
-        screens[currentScreenId].classList.add("hidden");
+        // Toggle Renamed Parent Class
+        var oldScreen = screens[currentScreenId].querySelectorAll("._parent")[0];
+        
+        if (oldScreen) {
+          oldScreen.classList.add("parent");
+          oldScreen.classList.remove("_parent");
+        }
 
-        currentScreenId++;
-        currentScreen.id = null;
+        // Hide Other Screens
+        _(otherScreens).forEach(function(screen, i) {
+          screen.classList.add("hidden");
+        });
 
+        // Set up New Screen and Show
         screens[currentScreenId].id = "screen-active";
-        screens[currentScreenId].classList.add("parent");
         screens[currentScreenId].classList.remove("hidden");
 
+        // Set up Navigation 
         _(screens).forEach(function(_screen, i) {
           if (_.contains(_screen.classList, "hidden")) {
-            
+          
           }
           else {
             navigationInit.navigationInit(_screen);
@@ -5670,7 +5683,21 @@ module.exports = function(e) {
 
       }
 
-   } 
+
+
+  /* Right Arrow ( ] )
+  -------------------------------------------------- */
+
+  if (k == 221) {
+
+      if (currentScreenId != screens.length-1) {
+
+        currentScreenId++;
+        currentScreen.id = null;
+
+        setScreen();
+     } 
+   }
 
 
   /* Left Arrow ( [ )
@@ -5678,32 +5705,22 @@ module.exports = function(e) {
 
   if (k == 219) {
 
-
       if (currentScreenId != 0) {
-
-        // screens[currentScreenId].classList.remove("parent");
-        screens[currentScreenId].classList.add("hidden");
 
         currentScreenId--;
         currentScreen.id = null;
 
-        screens[currentScreenId].id = "screen-active";
-        // screens[currentScreenId].classList.add("parent");
-        screens[currentScreenId].classList.remove("hidden");
-
-        var event = new CustomEvent("view", {"detail":{"screen":screens[currentScreenId].classList[0]}});
-        window.dispatchEvent(event);
-
-        navigationInit.navigationInit();
+        setScreen();
 
       }
-      
 
   } 
 
   else {
       return
   }
+
+
 
 };
 },{"./account.js":46,"./events.js":51,"./helpers.js":53,"./navigation.init.js":61,"lodash":69}],60:[function(require,module,exports){

@@ -26,7 +26,7 @@ module.exports = React.createClass({
             if (e.detail.screen == _this.props.screen) {
                 _this.screenMount();
             };
-        })
+        });
 
     },
 

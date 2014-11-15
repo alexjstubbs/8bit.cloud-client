@@ -24,9 +24,8 @@ module.exports = React.createClass({
 
         var Keyboard = new keyboard.Keyboard(kb);
 
-        navigationInit.modalNavigation(function() {
-            navigationInit.navigationInit();
-        });
+        navigationInit.navigationInit();
+       
 
     },
 

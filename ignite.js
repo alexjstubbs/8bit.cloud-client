@@ -7,18 +7,6 @@
 
 
 
-/* Initial Setup
--------------------------------------------------- */
-var firstrun = true;
-
-if (firstrun) {
-    // Launch Renderer to Welcome / iNet check
-}
-
-else {
-    // Launch Renderer To Dashboard
-}
-
 /* Dev. run enviorment
 -------------------------------------------------- */
 
@@ -54,7 +42,20 @@ global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
-//  Server Configuration
+/* Initial Setup
+-------------------------------------------------- */
+var firstrun = true;
+
+if (firstrun) {
+    // Launch Renderer to Welcome / iNet check
+}
+
+else {
+    // Launch Renderer To Dashboard
+}
+
+/* Server Configurtation
+-------------------------------------------------- */
 
 app.set('views', './local/render/');
 

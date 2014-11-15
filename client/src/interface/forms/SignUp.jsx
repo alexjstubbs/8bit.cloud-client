@@ -21,9 +21,8 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        navigationInit.modalNavigation(function() {
-            navigationInit.navigationInit();
-        });
+        navigationInit.navigationInit();
+      
 
     },
 
