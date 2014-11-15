@@ -2011,7 +2011,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
-},{"./NetworkStatus.jsx":23,"react/addons":72}],5:[function(require,module,exports){
+},{"./NetworkStatus.jsx":24,"react/addons":72}],5:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2181,7 +2181,7 @@ module.exports = React.createClass({displayName: 'exports',
         )
     }
 });
-},{"../js/navigation.browser.js":58,"./GamesList.jsx":13,"./PlatformList.jsx":26,"./SmallProfile.jsx":32,"lodash":69,"react/addons":72}],7:[function(require,module,exports){
+},{"../js/navigation.browser.js":58,"./GamesList.jsx":13,"./PlatformList.jsx":27,"./SmallProfile.jsx":33,"lodash":69,"react/addons":72}],7:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2410,7 +2410,7 @@ module.exports = React.createClass({displayName: 'exports',
         )
     }
 });
-},{"../js/init.js":54,"./Community.jsx":7,"./Favorites.jsx":11,"./FriendsBox.jsx":12,"./HeaderGroup.jsx":14,"./IgnitionEvents.jsx":15,"./RecentActivity.jsx":28,"./ShortcutBar.jsx":31,"./UserProfile.jsx":33,"lodash":69,"react/addons":72}],9:[function(require,module,exports){
+},{"../js/init.js":54,"./Community.jsx":7,"./Favorites.jsx":11,"./FriendsBox.jsx":12,"./HeaderGroup.jsx":14,"./IgnitionEvents.jsx":15,"./RecentActivity.jsx":29,"./ShortcutBar.jsx":32,"./UserProfile.jsx":34,"lodash":69,"react/addons":72}],9:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2733,7 +2733,7 @@ module.exports = React.createClass({displayName: 'exports',
             );
     }
 });
-},{"../js/helpers":53,"./ListedGame.jsx":18,"./mixins/KeyboardShortcutsMixin":38,"lodash":69,"react/addons":72,"socket.io-client":231}],14:[function(require,module,exports){
+},{"../js/helpers":53,"./ListedGame.jsx":19,"./mixins/KeyboardShortcutsMixin":38,"lodash":69,"react/addons":72,"socket.io-client":231}],14:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2896,6 +2896,55 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
+var React           = require('react/addons')
+,   navigationInit  = require('../js/navigation.init')
+,   miniKeyboard    = require('../js/navigation.keyboard');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getDefaultProps: function() {
+
+    return {
+            navable: true,
+            navStack: 2,
+            input: null,
+            form: 'onScreenKeyboard'
+        }
+    },
+
+    componentDidMount: function() {
+
+        var kb = document.getElementById("KB");
+
+        kb.classList.add("parent");
+
+        var Keyboard = new miniKeyboard.miniKeyboard(kb);
+
+        navigationInit.navigationInit();
+       
+
+    },
+
+    render: function() {
+
+        return (
+
+            React.DOM.div(null
+          
+            )              
+         
+        );
+    }
+});
+
+
+
+
+},{"../js/navigation.init":61,"../js/navigation.keyboard":63,"react/addons":72}],18:[function(require,module,exports){
+/**
+ * @jsx React.DOM
+ */
+
 /* TODO: Get event listener to update state correctly on newly stored games.
 -------------------------------------------------- */
 
@@ -2949,9 +2998,9 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-        React.DOM.div({id: "Profile parent"}, 
+        React.DOM.div({id: "Profile"}, 
     
-        React.DOM.div({className: "container-fluid"}, 
+        React.DOM.div({className: "container-fluid parent"}, 
          
          React.DOM.header(null, 
             React.DOM.div({className: "col-md-2 boxed pull-left"}, 
@@ -3024,7 +3073,7 @@ module.exports = React.createClass({displayName: 'exports',
         )
     }
 });
-},{"./AchievementList.jsx":2,"./SaveStates.jsx":29,"lodash":69,"react/addons":72,"socket.io-client":231}],18:[function(require,module,exports){
+},{"./AchievementList.jsx":2,"./SaveStates.jsx":30,"lodash":69,"react/addons":72,"socket.io-client":231}],19:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3061,9 +3110,9 @@ module.exports = React.createClass({displayName: 'exports',
         )
     } 
 });
-},{"lodash":69,"react/addons":72}],19:[function(require,module,exports){
+},{"lodash":69,"react/addons":72}],20:[function(require,module,exports){
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3101,7 +3150,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"./NetworkStatus.jsx":23,"lodash":69,"react/addons":72}],21:[function(require,module,exports){
+},{"./NetworkStatus.jsx":24,"lodash":69,"react/addons":72}],22:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3156,7 +3205,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"./MessagePreview.jsx":20,"lodash":69,"moment":70,"react/addons":72,"socket.io-client":231}],22:[function(require,module,exports){
+},{"./MessagePreview.jsx":21,"lodash":69,"moment":70,"react/addons":72,"socket.io-client":231}],23:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3208,7 +3257,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"lodash":69,"react/addons":72}],23:[function(require,module,exports){
+},{"lodash":69,"react/addons":72}],24:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3267,7 +3316,7 @@ module.exports = React.createClass({displayName: 'exports',
             )
     }
 });
-},{"react/addons":72,"socket.io-client":231}],24:[function(require,module,exports){
+},{"react/addons":72,"socket.io-client":231}],25:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3334,7 +3383,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"../js/navigation.init":61,"../js/navigation.keyboard":63,"react/addons":72}],25:[function(require,module,exports){
+},{"../js/navigation.init":61,"../js/navigation.keyboard":63,"react/addons":72}],26:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3365,7 +3414,7 @@ module.exports = React.createClass({displayName: 'exports',
 });
 
 
-},{"lodash":69,"react/addons":72}],26:[function(require,module,exports){
+},{"lodash":69,"react/addons":72}],27:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3450,7 +3499,7 @@ module.exports = React.createClass({displayName: 'exports',
         
     }
 });
-},{"../js/helpers.js":53,"./Platform.jsx":25,"lodash":69,"react/addons":72,"socket.io-client":231}],27:[function(require,module,exports){
+},{"../js/helpers.js":53,"./Platform.jsx":26,"lodash":69,"react/addons":72,"socket.io-client":231}],28:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3522,7 +3571,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"./Backdrop.jsx":5,"lodash":69,"react/addons":72}],28:[function(require,module,exports){
+},{"./Backdrop.jsx":5,"lodash":69,"react/addons":72}],29:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3611,7 +3660,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"./Activity.jsx":3,"lodash":69,"moment":70,"react/addons":72,"socket.io-client":231}],29:[function(require,module,exports){
+},{"./Activity.jsx":3,"lodash":69,"moment":70,"react/addons":72,"socket.io-client":231}],30:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3670,7 +3719,7 @@ module.exports = React.createClass({displayName: 'exports',
         )
     }
 });
-},{"lodash":69,"react/addons":72,"socket.io-client":231}],30:[function(require,module,exports){
+},{"lodash":69,"react/addons":72,"socket.io-client":231}],31:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3730,7 +3779,7 @@ var pathname = window.location.pathname;
 -------------------------------------------------- */
 navigationInit.navigationInit();
 
-},{"../js/init.js":54,"../js/navigation.init.js":61,"./Browser.jsx":6,"./Dashboard.jsx":8,"./LargeProfile.jsx":17,"./forms/UserAgreement.jsx":37,"./onboarding/NetworkSetup.jsx":40,"./onboarding/NewProfile.jsx":41,"./onboarding/Welcome.jsx":44,"lodash":69,"react/addons":72}],31:[function(require,module,exports){
+},{"../js/init.js":54,"../js/navigation.init.js":61,"./Browser.jsx":6,"./Dashboard.jsx":8,"./LargeProfile.jsx":18,"./forms/UserAgreement.jsx":37,"./onboarding/NetworkSetup.jsx":40,"./onboarding/NewProfile.jsx":41,"./onboarding/Welcome.jsx":44,"lodash":69,"react/addons":72}],32:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3756,7 +3805,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
-},{"react/addons":72}],32:[function(require,module,exports){
+},{"react/addons":72}],33:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3846,7 +3895,7 @@ module.exports = React.createClass({displayName: 'exports',
         )
     }
 });
-},{"lodash":69,"react/addons":72,"socket.io-client":231}],33:[function(require,module,exports){
+},{"lodash":69,"react/addons":72,"socket.io-client":231}],34:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3876,90 +3925,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
-},{"./Avatar.jsx":4,"./NetworkStatus.jsx":23,"react/addons":72}],34:[function(require,module,exports){
-/**
- * @jsx React.DOM
- */
-
-var React           = require('react/addons')
-,   navigationInit  = require('../../js/navigation.init');
-
-module.exports = React.createClass({displayName: 'exports',
-
-    getDefaultProps: function() {
-
-    return {
-            navable: true,
-            navStack: 2,
-            form: 'userSignupForm',
-            server: false,
-            filename: '/SignUp-TEMP.json',
-            classList: 'col-xs-12'
-        }
-    },
-
-    componentDidMount: function() {
-
-        navigationInit.navigationInit();
-     
-
-    },
-
-    render: function() {
-
-        return (
-
-            React.DOM.div({className: this.props.classList}, 
-                React.DOM.div({className: "container-fluid parent"}, 
-                    React.DOM.div({className: "row-fluid"}, 
-                        React.DOM.div({className: "col-xs-12"}, 
-                                    
-                            React.DOM.h2(null, React.DOM.span({className: "col-xs-11"}, "Create a new profile"), React.DOM.span({className: "col-xs-1"}, React.DOM.i({className: "ion-person-add"}), " ")), 
-                            
-                            React.DOM.div({className: "clearfix"}), 
-                            
-                            React.DOM.hr(null), 
-
-                            React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
-
-                            React.DOM.fieldset(null, 
-                                
-                                React.DOM.div({className: "form-group"}, 
-                                
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Choose Username", name: "username", type: "text"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "E-mail Address", name: "email", type: "text"})
-                                
-                                ), 
-                                
-                                React.DOM.div({className: "form-group"}, 
-                                    
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Password", name: "password", type: "password"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Verify Password", name: "password2", type: "password"})
-                               
-                                ), 
-                           
-                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", 'data-function': "submitForm", 'data-parameters': this.props.form, value: "Create new Profile"}), 
-
-                                React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
-                                React.DOM.input({type: "hidden", name: "filename", value: this.props.filename})
-
-                            )
-                            )
-                              
-
-                        )
-                    )
-                )
-            )              
-         
-        );
-    }
-});
-
-
-
-
-},{"../../js/navigation.init":61,"react/addons":72}],35:[function(require,module,exports){
+},{"./Avatar.jsx":4,"./NetworkStatus.jsx":24,"react/addons":72}],35:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3992,28 +3958,39 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-                    React.DOM.div({className: "row-fluid"}, 
+                    React.DOM.div({className: "row-fluid "}, 
                         React.DOM.div({className: "col-xs-12"}, 
                                     
                             React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
-                            React.DOM.fieldset(null, 
-                                
-                                React.DOM.div({className: "form-group"}, 
-                                
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Choose Username", name: "username", type: "text"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "E-mail Address", name: "email", type: "text"})
-                                
-                                ), 
-                                
-                                React.DOM.div({className: "form-group"}, 
+
+                                React.DOM.fieldset(null, 
                                     
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Password", name: "password", type: "password"}), 
-                                    React.DOM.input({className: "form-control navable", 'data-function': "inputFocus", placeholder: "Verify Password", name: "password2", type: "password"})
+                                    React.DOM.div({className: "form-group"}, 
+                                    
+                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Choose Username", name: "username", type: "text"}), 
+
+                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "E-mail Address", name: "email", type: "text"})
+                                    
+                                    ), 
+                                    
+                                    React.DOM.br(null), 
+
+                                    React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Avatar URL", name: "avatar", type: "text"}), 
+                                    
+                                    React.DOM.br(null), 
+
+                                    React.DOM.div({className: "form-group"}, 
+                                        
+                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Password", name: "password", type: "password"}), 
+                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Verify Password", name: "password2", type: "password"})
+                                   
+                                    ), 
                                
-                                ), 
-                           
-                                React.DOM.input({className: "btn btn-lg btn-success btn-block navable", type: "button", 'data-function': "submitForm", 'data-parameters': this.props.form, value: "Create new Profile"}), 
+                                
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add green pull-right"}), "   Create new Profile"), 
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable"}, React.DOM.i({className: "ion-close-circled red pull-right"}), "   Continue Offline"), 
+               
 
                                 React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
                                 React.DOM.input({type: "hidden", name: "filename", value: this.props.filename})
@@ -4324,7 +4301,7 @@ module.exports = React.createClass({displayName: 'exports',
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
                 _this.setProps.dataFunction = "viewMessages";
-                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create Your New Profile"};
+                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
             },
 
             2: function() {
@@ -4352,7 +4329,7 @@ module.exports = React.createClass({displayName: 'exports',
             
                 React.DOM.br(null), 
 
-                React.DOM.button({id: "network-next", 'data-function': this.props.functionCall, className: "hidden navable btn btn-block btn-lg btn-alt"}, status.button)
+                React.DOM.button({id: "network-next", 'data-function': this.props.functionCall, className: "hidden navable btn pull-right btn-lg btn-alt"}, status.button, "   ", React.DOM.i({className: "ion-arrow-right-c"}))
 
             )
 
@@ -4388,12 +4365,18 @@ module.exports = React.createClass({displayName: 'exports',
 
                 WizardHeader({title: "Welcome", icon: "ion-person-add", subtitle: "Your Profile", active: "2", steps: "4"}), 
 
-                React.DOM.div({className: "welcome-newprofile"}, 
+                    React.DOM.div({className: "welcome-newprofile col-sm-6"}, 
 
-                  Signup(null)
+                        Signup(null)
 
-                )
+                    ), 
 
+                    React.DOM.div({className: "col-sm-6"}, 
+                      React.DOM.div({id: "KB"})
+                    )
+
+
+              
           )
         );
     }
@@ -4546,8 +4529,13 @@ module.exports = React.createClass({displayName: 'exports',
                 ), 
 
                 React.DOM.br(null), React.DOM.br(null), 
+               
+
+                React.DOM.button({className: "navable btn btn-lg btn-alt pull-right"}, "Continue   ", React.DOM.i({className: "ion-arrow-right-c"}))
+
                 
-                React.DOM.button({className: "navable btn btn-block btn-lg btn-alt"}, "CONTINUE")
+
+
 
             )
 
@@ -4779,7 +4767,8 @@ var systemNotify    = require('./notification.init.js')
 ,   SignUp          = require('../interface/forms/SignUp.jsx')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
-,   Keyboard        = require("../interface/OnScreenKeyboard.jsx");
+,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
+,   InlineKeyboard  = require("../interface/InlineKeyboard.jsx");
 
 var _div;
 
@@ -4862,15 +4851,24 @@ var keyboard = function(input, callback) {
 
 }
 
+/* Inline Keyboard (Non Modal)
+-------------------------------------------------- */
+var inlineKeyboard = function(input) {
+
+    var div = document.getElementById("KB");
+    React.renderComponent(InlineKeyboard(null), div);
+
+}
+
 /* Exports
 -------------------------------------------------- */
-exports.show = show;
-exports.close = close;
-exports.keyboard = keyboard;
-exports.popup = popup;
+exports.show                = show;
+exports.close               = close;
+exports.keyboard            = keyboard;
+exports.popup               = popup;
+exports.inlineKeyboard      = inlineKeyboard;
 
-
-},{"../interface/Messages.jsx":21,"../interface/Modal.jsx":22,"../interface/OnScreenKeyboard.jsx":24,"../interface/Popup.jsx":27,"../interface/forms/SignUp.jsx":35,"./navigation.init.js":61,"./notification.init.js":65,"lodash":69,"react/addons":72,"socket.io-client":231}],50:[function(require,module,exports){
+},{"../interface/InlineKeyboard.jsx":17,"../interface/Messages.jsx":22,"../interface/Modal.jsx":23,"../interface/OnScreenKeyboard.jsx":25,"../interface/Popup.jsx":28,"../interface/forms/SignUp.jsx":35,"./navigation.init.js":61,"./notification.init.js":65,"lodash":69,"react/addons":72,"socket.io-client":231}],50:[function(require,module,exports){
 /* API Event Listeners
 -------------------------------------------------- */
 var api     = require('socket.io-client')('/api')
@@ -5877,6 +5875,24 @@ module.exports = function(k) {
 -------------------------------------------------- */
 var navigationInit  = require('./navigation.init.js')
 
+/* Mini Keyboard
+-------------------------------------------------- */
+var miniKeyboard = function(elem) {
+  
+    console.log("WED");
+
+    this.elem = elem;
+    this.elem.className = "keyboard";
+
+    miniKeyboard.rows.map(function(row, i) {
+      
+      this.elem.appendChild(this.createRow(row, i));
+
+    }.bind(this));
+};
+
+/* Modal Keyboard
+-------------------------------------------------- */
 var Keyboard = function(elem) {
 
     this.elem = elem;
@@ -5887,58 +5903,111 @@ var Keyboard = function(elem) {
       this.elem.appendChild(this.createRow(row, i));
 
     }.bind(this));
+};
+
+Keyboard.rows = [
+  [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+  [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
+  [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
+  [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
+  [ ".", ",", "<i class='ion-at'></i>", "&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; SPACE &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; ", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
+];
+
+miniKeyboard.rows = [
+  [ "q", "w", "e", "r", "t", "y", "u", "i"],
+  [ "o", "p", "a", "s", "d", "f", "g", "h"],
+  [ "j", "k", "l", "z"],
+  [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
+  [ ".", ",", "<i class='ion-at'></i>", "&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; SPACE &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; ", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
+];
+
+
+/* Mini Keyboard ALPHA
+
+-------------------------------------------------- */
+miniKeyboard.prototype.createRow = function(row, i) {
+
+  var div = document.createElement("div");
+      div.setAttribute("data-row", i);
+
+  row.map(function(key) {
+    div.appendChild(this.createKey(key));
+  }.bind(this));
+
+  return div;
+};
+
+miniKeyboard.prototype.createKey = function(key) {
+  var button = document.createElement("div");
+  button.classList.add("navable", "btn", "_key", "rowParent");
+  button.setAttribute("data-function", "depressKey");
+  button.setAttribute("data-parameters", key);
+
+  if (!key.match(/^[0-9a-z]+$/)) {
+      button.classList.add("key-dark");
   };
 
-  Keyboard.rows = [
-    [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
-    [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
-    [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
-    [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-    [ ".", ",", "<i class='ion-at'></i>", "&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; SPACE &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; ", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
-  ];
+  if (key == "<i class='ion-checkmark'></i>") {
+      button.classList.add("key-blue");
+  }
 
+  button.innerHTML = key;
+  button.addEventListener("click", this.onKeypress.bind(this, key));
+  return button;
+};
 
-  Keyboard.prototype.createRow = function(row, i) {
+miniKeyboard.prototype.onKeypress = function(key, event) {
+  var keypressEvent = new Event("keypress");
+  keypressEvent.key = key;
+  this.elem.dispatchEvent(keypressEvent);
+  event.preventDefault();
+};
 
-    var div = document.createElement("div");
-        div.setAttribute("data-row", i);
+/* Full Keyboard
+-------------------------------------------------- */
 
-    row.map(function(key) {
-      div.appendChild(this.createKey(key));
-    }.bind(this));
+Keyboard.prototype.createRow = function(row, i) {
 
-    return div;
+  var div = document.createElement("div");
+      div.setAttribute("data-row", i);
+
+  row.map(function(key) {
+    div.appendChild(this.createKey(key));
+  }.bind(this));
+
+  return div;
+};
+
+Keyboard.prototype.createKey = function(key) {
+  var button = document.createElement("div");
+  button.classList.add("navable", "btn", "_key", "rowParent");
+  button.setAttribute("data-function", "depressKey");
+  button.setAttribute("data-parameters", key);
+
+  if (!key.match(/^[0-9a-z]+$/)) {
+      button.classList.add("key-dark");
   };
 
-  Keyboard.prototype.createKey = function(key) {
-    var button = document.createElement("div");
-    button.classList.add("navable", "btn", "_key", "rowParent");
-    button.setAttribute("data-function", "depressKey");
-    button.setAttribute("data-parameters", key);
+  if (key == "<i class='ion-checkmark'></i>") {
+      button.classList.add("key-blue");
+  }
 
-    if (!key.match(/^[0-9a-z]+$/)) {
-        button.classList.add("key-dark");
-    };
+  button.innerHTML = key;
+  button.addEventListener("click", this.onKeypress.bind(this, key));
+  return button;
+};
 
-    if (key == "<i class='ion-checkmark'></i>") {
-        button.classList.add("key-blue");
-    }
-
-    button.innerHTML = key;
-    button.addEventListener("click", this.onKeypress.bind(this, key));
-    return button;
-  };
-
-  Keyboard.prototype.onKeypress = function(key, event) {
-    var keypressEvent = new Event("keypress");
-    keypressEvent.key = key;
-    this.elem.dispatchEvent(keypressEvent);
-    event.preventDefault();
-  };
+Keyboard.prototype.onKeypress = function(key, event) {
+  var keypressEvent = new Event("keypress");
+  keypressEvent.key = key;
+  this.elem.dispatchEvent(keypressEvent);
+  event.preventDefault();
+};
 
 /* Exports
 -------------------------------------------------- */
-exports.Keyboard = Keyboard;
+exports.Keyboard      = Keyboard;
+exports.miniKeyboard  = miniKeyboard;
 
 },{"./navigation.init.js":61}],64:[function(require,module,exports){
 /* General Navigation Functions
@@ -5949,6 +6018,9 @@ var systemEvents        = require('./system.events.js')
 ,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents
 ,   _                   = require('lodash');
 
+
+/* Exported Navigation Module (blackbox)
+-------------------------------------------------- */
 module.exports = function(k) {
 
         var s = document.getElementsByClassName("selectedNav")[0];
@@ -6347,7 +6419,7 @@ var events = {
     -------------------------------------------------- */
     inputFocus: function(parameters) {
         var input = document.getElementsByClassName("selectedNav")[0];
-        dialog.keyboard(input);
+        dialog.inlineKeyboard(input);
     },
 
     /* Press Key on OnScreen Keyboard
@@ -6757,7 +6829,7 @@ exports.events = events;
 
 
 // };
-},{"../interface/Messages.jsx":21,"../interface/Modal.jsx":22,"./dialogs":49,"./mousetrap.min.js":56,"./navigation.init.js":61,"./notification.init.js":65,"lodash":69,"react/addons":72,"socket.io-client":231}],67:[function(require,module,exports){
+},{"../interface/Messages.jsx":22,"../interface/Modal.jsx":23,"./dialogs":49,"./mousetrap.min.js":56,"./navigation.init.js":61,"./notification.init.js":65,"lodash":69,"react/addons":72,"socket.io-client":231}],67:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

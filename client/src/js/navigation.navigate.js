@@ -6,6 +6,9 @@ var systemEvents        = require('./system.events.js')
 ,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents
 ,   _                   = require('lodash');
 
+
+/* Exported Navigation Module (blackbox)
+-------------------------------------------------- */
 module.exports = function(k) {
 
         var s = document.getElementsByClassName("selectedNav")[0];

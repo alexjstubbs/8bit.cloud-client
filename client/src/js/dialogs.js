@@ -10,7 +10,8 @@ var systemNotify    = require('./notification.init.js')
 ,   SignUp          = require('../interface/forms/SignUp.jsx')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
-,   Keyboard        = require("../interface/OnScreenKeyboard.jsx");
+,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
+,   InlineKeyboard  = require("../interface/InlineKeyboard.jsx");
 
 var _div;
 
@@ -93,10 +94,19 @@ var keyboard = function(input, callback) {
 
 }
 
+/* Inline Keyboard (Non Modal)
+-------------------------------------------------- */
+var inlineKeyboard = function(input) {
+
+    var div = document.getElementById("KB");
+    React.renderComponent(InlineKeyboard(null), div);
+
+}
+
 /* Exports
 -------------------------------------------------- */
-exports.show = show;
-exports.close = close;
-exports.keyboard = keyboard;
-exports.popup = popup;
-
+exports.show                = show;
+exports.close               = close;
+exports.keyboard            = keyboard;
+exports.popup               = popup;
+exports.inlineKeyboard      = inlineKeyboard;

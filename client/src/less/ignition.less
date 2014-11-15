@@ -271,6 +271,17 @@ ul#screens > li {
     display:none;
 }
 
+.top-50 {
+	position:relative;
+	top:100px;
+}
+
+.veritcal-align {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
 .text-right {
     text-align:right;
 }
@@ -435,6 +446,10 @@ i.start {
 
 #welcome nav i.active {
 	color:@blue;
+}
+
+.welcome-subtitle {
+	padding:10px 0 0 0;
 }
 
 #welcome .welcome-subtitle i {
@@ -677,6 +692,7 @@ footer .progress {
     background:lighten(@gray-darker, 5%);
     padding:10px 20px;
     font-size:1.5em;
+    margin:0 5px;
 }
 
 

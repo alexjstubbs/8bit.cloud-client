@@ -19,7 +19,7 @@ var events = {
     -------------------------------------------------- */
     inputFocus: function(parameters) {
         var input = document.getElementsByClassName("selectedNav")[0];
-        dialog.keyboard(input);
+        dialog.inlineKeyboard(input);
     },
 
     /* Press Key on OnScreen Keyboard

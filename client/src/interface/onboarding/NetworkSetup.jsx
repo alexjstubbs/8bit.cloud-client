@@ -79,7 +79,7 @@ module.exports = React.createClass({
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
                 _this.setProps.dataFunction = "viewMessages";
-                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create Your New Profile"};
+                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
             },
 
             2: function() {
@@ -107,7 +107,7 @@ module.exports = React.createClass({
             
                 <br />
 
-                <button id="network-next" data-function={this.props.functionCall} className="hidden navable btn btn-block btn-lg btn-alt">{status.button}</button>
+                <button id="network-next" data-function={this.props.functionCall} className="hidden navable btn pull-right btn-lg btn-alt">{status.button} &nbsp; <i className="ion-arrow-right-c"></i></button>
 
             </div>
 

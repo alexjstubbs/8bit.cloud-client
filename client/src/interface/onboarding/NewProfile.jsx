@@ -26,12 +26,18 @@ module.exports = React.createClass({
 
                 <WizardHeader title="Welcome" icon="ion-person-add" subtitle="Your Profile" active="2" steps="4" />
 
-                <div className="welcome-newprofile">
+                    <div className="welcome-newprofile col-sm-6">
 
-                  <Signup />
+                        <Signup />
 
-                </div>
+                    </div>
 
+                    <div className="col-sm-6">
+                      <div id="KB"></div> 
+                    </div>
+
+
+              
           </div>
         );
     }

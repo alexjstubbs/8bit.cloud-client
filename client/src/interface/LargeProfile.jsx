@@ -55,9 +55,9 @@ module.exports = React.createClass({
 
         return (
 
-        <div id="Profile parent">
+        <div id="Profile">
     
-        <div className="container-fluid">
+        <div className="container-fluid parent">
          
          <header>
             <div className="col-md-2 boxed pull-left">

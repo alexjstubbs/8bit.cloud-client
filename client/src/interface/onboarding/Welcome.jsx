@@ -43,8 +43,13 @@ module.exports = React.createClass({
                 </div>
 
                 <br /><br />
+               
+
+                <button className="navable btn btn-lg btn-alt pull-right">Continue &nbsp; <i className="ion-arrow-right-c"></i></button>
+
                 
-                <button className="navable btn btn-block btn-lg btn-alt">CONTINUE</button>
+
+
 
             </div>
 
