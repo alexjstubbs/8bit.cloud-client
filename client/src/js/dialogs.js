@@ -52,17 +52,10 @@ var show = function(title, content) {
 -------------------------------------------------- */
 var close = function(modal, callback) {
 
-    if (!modal) {
-    
-        var modal = document.querySelectorAll(".ignition-modal");
+    if (!modal) {    
 
-        console.log(modal);
+        var modal = document.querySelectorAll(".ignition-modal")[0];
 
-        // console.log(modal.length);
-        modal = modal[0];
-
-        console.log(modal)
-    
     }
 
     document.body.removeChild(modal);
@@ -79,7 +72,6 @@ var close = function(modal, callback) {
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
-
 
     var _index = document.querySelectorAll(".ignition-modal");
  

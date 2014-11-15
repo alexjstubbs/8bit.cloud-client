@@ -4820,17 +4820,10 @@ var show = function(title, content) {
 -------------------------------------------------- */
 var close = function(modal, callback) {
 
-    if (!modal) {
-    
-        var modal = document.querySelectorAll(".ignition-modal");
+    if (!modal) {    
 
-        console.log(modal);
+        var modal = document.querySelectorAll(".ignition-modal")[0];
 
-        // console.log(modal.length);
-        modal = modal[0];
-
-        console.log(modal)
-    
     }
 
     document.body.removeChild(modal);
@@ -4847,7 +4840,6 @@ var close = function(modal, callback) {
 /* Show Keyboard
 -------------------------------------------------- */
 var keyboard = function(input, callback) {
-
 
     var _index = document.querySelectorAll(".ignition-modal");
  
@@ -5835,8 +5827,17 @@ var navigationInit = function(element, callback) {
         el.setAttribute("data-nav", i);
     });
     
-    _.first(navables).classList.add("selectedNav", "selected");
+    // Should i re-select an input on a form?
+    if (parent.querySelectorAll(".activeInput")[0]) {
+        parent.querySelectorAll(".activeInput")[0].classList.add("selectedNav", "selected");
+    }
+    
+    // Choose first child
+    else {
+         _.first(navables).classList.add("selectedNav", "selected");
+    }
 
+   
     highlight();
   
 }
@@ -6452,7 +6453,6 @@ var events = {
                 upper = false;
             }
             
-            console.log(activeInput);
 
             activeInput.value = _value+parameters;
             recentInput.value = _value+parameters;

@@ -100,7 +100,6 @@ var events = {
                 upper = false;
             }
             
-            console.log(activeInput);
 
             activeInput.value = _value+parameters;
             recentInput.value = _value+parameters;

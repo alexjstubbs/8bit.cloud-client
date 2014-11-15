@@ -63,8 +63,17 @@ var navigationInit = function(element, callback) {
         el.setAttribute("data-nav", i);
     });
     
-    _.first(navables).classList.add("selectedNav", "selected");
+    // Should i re-select an input on a form?
+    if (parent.querySelectorAll(".activeInput")[0]) {
+        parent.querySelectorAll(".activeInput")[0].classList.add("selectedNav", "selected");
+    }
+    
+    // Choose first child
+    else {
+         _.first(navables).classList.add("selectedNav", "selected");
+    }
 
+   
     highlight();
   
 }
