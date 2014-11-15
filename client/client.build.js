@@ -2101,13 +2101,14 @@ module.exports = React.createClass({displayName: 'exports',
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
-            'navable': true,
+            'navable': false,
             'browser_header': true,
-            'parent': this.props.parent
+          
         });
 
         return (
 
+             React.DOM.div({className: "parent"}, 
 
              React.DOM.div({className: classes}, 
 
@@ -2175,7 +2176,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             )
 
-            )))
+            ))))
 
         )
     }
@@ -2374,7 +2375,7 @@ module.exports = React.createClass({displayName: 'exports',
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
-            'parent': this.props.parent
+            'parent': true
         });
 
 
@@ -2948,7 +2949,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-        React.DOM.div({id: "Profile"}, 
+        React.DOM.div({id: "Profile parent"}, 
     
         React.DOM.div({className: "container-fluid"}, 
          
@@ -5762,52 +5763,27 @@ module.exports = function() {
 
 };
 },{}],61:[function(require,module,exports){
-/* Navigation set up
+/* Navigation indexing and set up
 -------------------------------------------------- */
-
 var _   = require('lodash'),
     blink;
-
-/* Init Modal Navigation Panels
--------------------------------------------------- */
-var modalNavigation = function(callback) {
-    var parent = document.querySelectorAll('.parent')[0];
-    
-    // if (document.querySelectorAll('.parent').length >= 2) {
-    //     parent.classList.add("_parent");
-    //     parent.classList.remove("parent");
-    // }
-    
-    callback();
-}
-
-/* Section
--------------------------------------------------- */
-
-function isElementInViewport(el) {
-
-    var rect = el.getBoundingClientRect();
-
-    return (
-        rect.top >= 0 &&
-        rect.left >= 0 &&
-        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /*or $(window).height() */
-        rect.right <= (window.innerWidth || document.documentElement.clientWidth) /*or $(window).width() */
-    );
-}
 
 /* General Navigation Assigns/Init
 -------------------------------------------------- */
 var navigationInit = function(element, callback) {
 
+    // Get all global navable elements.
     var navables = document.querySelectorAll('.navable, .subNavable'),
         parent;
 
+    // Remove all indexing and selections
      _(navables).forEach(function(el, i) { 
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
+        el.classList.remove("selectedActive");
     });
 
+    // (Default) if no element is specified, find the parent
     if (!element) {
         parent = _.first(document.querySelectorAll(".parent"));
     }
@@ -5816,31 +5792,33 @@ var navigationInit = function(element, callback) {
         parent = element;
     }
 
-    // _(document.querySelectorAll(".parent")).forEach(function(el, i) {
-    //     console.log(el);
-    //     console.log(isElementInViewport(el));
-    // })
-
+    // Get all Local (screen, dialog) navable elements
     navables = parent.querySelectorAll('.navable');
 
+    // Add navigation index based on position
     _(navables).forEach(function(el, i) { 
         el.setAttribute("data-nav", i);
     });
     
     // Should i re-select an input on a form?
-    if (parent.querySelectorAll(".activeInput")[0]) {
-        parent.querySelectorAll(".activeInput")[0].classList.add("selectedNav", "selected");
+    var activeInput = parent.querySelectorAll(".activeInput")[0];
+    if (activeInput) {
+        activeInput.classList.add("selectedNav", "selected");
+        activeInput.classList.remove("activeInput");
     }
-    
+
     // Choose first child
     else {
          _.first(navables).classList.add("selectedNav", "selected");
     }
 
-   
+   // Add blinking selection outline
     highlight();
   
 }
+
+/* Highlight Selection
+-------------------------------------------------- */
 
 var highlight = function() {
       clearInterval(blink);
@@ -5853,8 +5831,6 @@ var highlight = function() {
 -------------------------------------------------- */
 exports.highlight = highlight;
 exports.navigationInit = navigationInit;
-exports.modalNavigation = modalNavigation;
-
 },{"lodash":69}],62:[function(require,module,exports){
 /* Translates Gamepad button events into keyboard events (webkit renderer workaround)
 -------------------------------------------------- */
@@ -5985,7 +5961,7 @@ module.exports = function(k) {
         var q = _parent.querySelectorAll(".navable");
         var us = document.querySelectorAll(".unselected");
 
-        var screen = document.getElementById("main").getAttribute("data-screen");
+        var screen = document.getElementById("screen-active").classList[0];
 
         function currentSelection() {
             var currentSelection = document.querySelectorAll(".selectedNav");
@@ -6090,8 +6066,6 @@ module.exports = function(k) {
             if (k == 'down') {
 
                 // Textarea Scrolling
-
-
                 if (sel[0].nodeName == "TEXTAREA") {
                     sel[0].scrollTop = sel[0].scrollTop + 20;
                 };
@@ -6146,7 +6120,9 @@ module.exports = function(k) {
                     currentSelection();
 
                 } else {
+
                     if (screen == 'Browser') {
+
                         if (!sub[0]) {
                             // If on System Selection, but not on game selection, down goes to game selection.
                             sel[0].classList.remove("selectedNav");
@@ -6236,7 +6212,6 @@ module.exports = function(k) {
         var parameters = document.getElementsByClassName("selectedNav")[0].getAttribute("data-parameters");
 
         if (k == 'enter') {
-            console.log(systemEvents);
             systemEvents.events[run](parameters);
         }
 

@@ -18,7 +18,7 @@ module.exports = function(k) {
         var q = _parent.querySelectorAll(".navable");
         var us = document.querySelectorAll(".unselected");
 
-        var screen = document.getElementById("main").getAttribute("data-screen");
+        var screen = document.getElementById("screen-active").classList[0];
 
         function currentSelection() {
             var currentSelection = document.querySelectorAll(".selectedNav");
@@ -123,8 +123,6 @@ module.exports = function(k) {
             if (k == 'down') {
 
                 // Textarea Scrolling
-
-
                 if (sel[0].nodeName == "TEXTAREA") {
                     sel[0].scrollTop = sel[0].scrollTop + 20;
                 };
@@ -179,7 +177,9 @@ module.exports = function(k) {
                     currentSelection();
 
                 } else {
+
                     if (screen == 'Browser') {
+
                         if (!sub[0]) {
                             // If on System Selection, but not on game selection, down goes to game selection.
                             sel[0].classList.remove("selectedNav");
@@ -269,7 +269,6 @@ module.exports = function(k) {
         var parameters = document.getElementsByClassName("selectedNav")[0].getAttribute("data-parameters");
 
         if (k == 'enter') {
-            console.log(systemEvents);
             systemEvents.events[run](parameters);
         }
 

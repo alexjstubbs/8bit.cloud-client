@@ -97,7 +97,7 @@ module.exports = React.createClass({
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
-            'parent': this.props.parent
+            'parent': true
         });
 
 

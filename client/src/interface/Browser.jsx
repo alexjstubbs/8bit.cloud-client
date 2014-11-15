@@ -54,13 +54,14 @@ module.exports = React.createClass({
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
-            'navable': true,
+            'navable': false,
             'browser_header': true,
-            'parent': this.props.parent
+          
         });
 
         return (
 
+             <div className="parent">
 
              <div className={classes}> 
 
@@ -128,7 +129,7 @@ module.exports = React.createClass({
 
             </div>
 
-            </div></div></div>
+            </div></div></div></div>
 
         )
     }
