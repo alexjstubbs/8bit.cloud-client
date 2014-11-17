@@ -11,25 +11,25 @@
 -------------------------------------------------- */
 @font-face {
   font-family: 'Open Sans';
-  font-style: normal;
-  font-weight: 300;
+  font-style: light;
+  font-weight: 100;
   src: local('Open Sans Light'), local('OpenSans-Light'), url('../fonts/OSlite.woff') format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   src: local('Open Sans'), local('OpenSans'), url('../fonts/OS.woff') format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
-  font-style: normal;
+  font-style: bold;
   font-weight: 700;
   src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../fonts/OSBold.woff') format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
-  font-style: normal;
+  font-style: extrabold;
   font-weight: 800;
   src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url('../fonts/OSExtended.woff') format('woff');
 }
@@ -129,6 +129,7 @@
 }
 
 ._key {
+	font-weight:100;
     font-size:1.1em;
     text-align:center;
     padding:10 15 15 15px;
@@ -137,11 +138,11 @@
     width:auto;
     margin:5px;
     color:darken(@white, 50%);
-    background:#292a27;
+    background:@black;
 }
 
 .key-dark {
-    background:@purple;
+    background:@black;
     color:@white;
 }
 

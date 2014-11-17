@@ -55,7 +55,9 @@ var close = function(modal, callback) {
 
     if (!modal) {    
 
-        var modal = document.querySelectorAll(".ignition-modal")[0];
+        var modal = document.querySelectorAll(".ignition-modal");
+
+        modal = _.last(modal);;
 
     }
 

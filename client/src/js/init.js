@@ -14,16 +14,15 @@ module.exports = function() {
 	-------------------------------------------------- */
     api.connect();
 
-    /* Bind Navigation
+    /* Bind local Navigation
     -------------------------------------------------- */
     navigationBindings();
 
-    /* Bind Gamepad to Navigation
+    /* Bind Gamepad controls to Navigation
     -------------------------------------------------- */
     gamepad.gamepadSupport.init();
     document.onkeydown = navigationEvent;
     
-
     /* Get Games Database for ROM Browser
     -------------------------------------------------- */
     database.initLocalDatabase("games");

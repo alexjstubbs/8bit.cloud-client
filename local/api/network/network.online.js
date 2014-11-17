@@ -44,10 +44,12 @@ function sysIsOnline(nsp) {
 
 	require('dns').resolve('www.google.com', function(err) {
 	  if (err) {
-	  	nsp.emit('api', {internetConnected: "disconnected"});  
+	  	nsp.emit('api', {internetConnected: "disconnected"});
+	  	return true;
 	  }
 	  else {
 	  	nsp.emit('api', {internetConnected: "connected"});  
+	  	return false;
 	  }
 	});
 

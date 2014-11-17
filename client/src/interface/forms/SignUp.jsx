@@ -28,6 +28,8 @@ module.exports = React.createClass({
 
     render: function() {
 
+        var type = {type: 1};
+
         return (
 
                     <div className="row-fluid ">
@@ -61,7 +63,7 @@ module.exports = React.createClass({
                                
                                 
                                 <button className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add green pull-right"></i> &nbsp; Create new Profile</button>
-                                <button className="btn btn-lg btn-alt btn-block navable"><i className="ion-close-circled red pull-right"></i> &nbsp; Continue Offline</button>
+                                <button className="btn btn-lg btn-alt btn-block navable" data-function='openDialog' data-parameters={type}><i className="ion-close-circled red pull-right"></i> &nbsp; Continue Offline</button>
                
 
                                 <input type="hidden" name="server" value={this.props.server} />

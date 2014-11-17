@@ -3,11 +3,9 @@
 
 var getFirstChild       = require('./helpers.js').getFirstChild
 ,   removeBrackets      = require('./helpers.js').removeBrackets
-,   api                 = require('socket.io-client')('/api')
 ,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation
 ,   database            = require('./database.helpers')
-,   events              = require('./events')
-,   _                   = require('lodash');
+,   events              = require('./events');
 
 /* Module Definitions
 -------------------------------------------------- */

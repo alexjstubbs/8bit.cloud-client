@@ -5,7 +5,8 @@ var fs          = require('fs-extra')
 ,   request     = require('request')
 ,   sockets     = require('./server.sockets')
 ,   database    = require('../../api/database/database.local')
-,   helpers     = require('../../system/helpers');
+,   helpers     = require('../../system/helpers')
+,   network     = require('../../api/network/network.online');
 
 /* Set up (use config file)
 -------------------------------------------------- */
@@ -43,9 +44,20 @@ var getMessages = function(nsp) {
 -------------------------------------------------- */
 var submitForm = function(nsp, data) {
     console.log({cmd: data.formTitle, data: data});
+
+
+    if (network.sysIsOnline) {
+
+        console.log("OKOKOKOKOK");
+
+    }
+
     // sockets.networkInterface(nsp, {cmd: data.formTitle, data: data});
 }
 
+var saveForm = function(nsp, data) {
+    console.log({cmd: data.formTitle, data: data});
+}
 
 /* Community Endpoint
 -------------------------------------------------- */

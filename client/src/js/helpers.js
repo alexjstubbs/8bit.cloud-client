@@ -32,8 +32,8 @@ var removeBrackets = function(input) {
 /* Preload images
 -------------------------------------------------- */
 var preloadImage = function(url, callback) {
-    var img=new Image();
-    img.src=url;
+    var img = new Image();
+    img.src = url;
     img.onload = function () {
         callback(true)        
     };

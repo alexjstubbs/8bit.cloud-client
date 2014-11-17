@@ -9,7 +9,8 @@ var systemNotify    = require('./notification.init.js')
 ,   Messages        = require('../interface/Messages.jsx')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
-,   dialog          = require("./dialogs");
+,   dialog          = require("./dialogs")
+, 	GeneralDialog 	= require("../interface/GeneralDialog.jsx");
 
 // browser = require("./browser.js");
 
@@ -19,8 +20,25 @@ var events = {
     -------------------------------------------------- */
     inputFocus: function(parameters) {
         var input = document.getElementsByClassName("selectedNav")[0];
-        dialog.inlineKeyboard(input);
+        dialog.keyboard(input);
     },
+
+
+    /* Close current Dialog
+    -------------------------------------------------- */
+    closeDialog: function(input) {
+	
+	    dialog.keyboard(input);
+
+	},
+
+	/* General Dialog
+	-------------------------------------------------- */
+	openDialog: function(input) {
+
+		 React.renderComponent(Modal({children: GeneralDialog({type: 1})}),  document.getElementById("appendices"));
+
+	},
 
     /* Press Key on OnScreen Keyboard
     -------------------------------------------------- */
@@ -125,12 +143,12 @@ var events = {
         obj.formTitle = parameters;
 
         if (obj.server == true) {
-            console.log("server...")
+            console.log("server...");
             api.emit('request', { request: 'submitForm', param: obj });
         }
 
         else {
-            console.log("write...")
+            console.log("write...");
             api.emit('request', { request: 'writeJSONSync', param: obj });
         }
 
