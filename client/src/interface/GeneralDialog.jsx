@@ -14,7 +14,8 @@ module.exports = React.createClass({
             navable: true,
             type: 0,
             dataFunction: "closeDialog",
-            classList: 'col-xs-12'
+            classList: 'col-xs-12',
+            body: "General Error (001)"
         }
     },
 
@@ -42,18 +43,21 @@ module.exports = React.createClass({
             2: function() {
                 _this.setProps.dataFunction = "closeDialog";
                 return {icon: "ion-alert", text: "Warning!", button: "Ok, Got it!"};
-            },
+            }
         }
 
         var type = type[this.props.type]();
 
         return (
 
-            <div>
+            <div className="parent">
 
                 <h1><i className={type.icon}></i> {type.text}</h1>
 
-                <button id="network-next" data-function={this.props.functionCall} className="hidden navable btn pull-right btn-lg btn-alt">{status.button} &nbsp; <i className="ion-arrow-right-c"></i></button>
+                <p>{this.props.body}</p>
+
+                <button data-function={this.props.dataFunction} className="navable btn btn-block btn-lg btn-alt">{type.button}</button>
+
 
             </div>
 

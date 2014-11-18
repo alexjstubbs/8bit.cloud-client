@@ -23,12 +23,11 @@ module.exports = React.createClass({
 
         navigationInit.navigationInit();
       
-
     },
 
     render: function() {
 
-        var type = {type: 1};
+        var type = 1;
 
         return (
 

@@ -11,7 +11,8 @@ var systemNotify    = require('./notification.init.js')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
-,   InlineKeyboard  = require("../interface/InlineKeyboard.jsx");
+,   InlineKeyboard  = require("../interface/InlineKeyboard.jsx")
+,   GeneralDialog   = require("../interface/GeneralDialog.jsx");
 
 var _div;
 
@@ -27,7 +28,30 @@ var popup = function(obj, callback) {
     React.renderComponent(Modal({children: SignUp(null)}), div);
 }
 
-/* Show Modal
+/* Show General/Error Modal
+-------------------------------------------------- */
+var general = function(input, _type) {
+
+    if (!_type) { _type = 1 }
+
+    var _index = document.querySelectorAll(".ignition-modal");
+
+    var fragment = document.createDocumentFragment();
+
+    _div = document.createElement("div"); 
+    _div.classList.add("ignition-modal");
+
+    _div.style.zIndex = _index.length+150;
+
+    fragment.appendChild(_div);
+
+    document.body.insertBefore(fragment, document.body.firstChild);
+
+    React.renderComponent(Modal({children: GeneralDialog({type: _type})}), _div);
+
+}
+
+/* Show Content Modal
 -------------------------------------------------- */
 var show = function(title, content) {
 
@@ -57,9 +81,11 @@ var close = function(modal, callback) {
 
         var modal = document.querySelectorAll(".ignition-modal");
 
-        modal = _.last(modal);;
+        modal = _.last(modal);
 
     }
+
+    console.log(modal);
 
     document.body.removeChild(modal);
     
@@ -112,3 +138,4 @@ exports.close               = close;
 exports.keyboard            = keyboard;
 exports.popup               = popup;
 exports.inlineKeyboard      = inlineKeyboard;
+exports.general             = general;

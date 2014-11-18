@@ -9,8 +9,7 @@ var systemNotify    = require('./notification.init.js')
 ,   Messages        = require('../interface/Messages.jsx')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
-,   dialog          = require("./dialogs")
-, 	GeneralDialog 	= require("../interface/GeneralDialog.jsx");
+,   dialog          = require("./dialogs");
 
 // browser = require("./browser.js");
 
@@ -26,18 +25,18 @@ var events = {
 
     /* Close current Dialog
     -------------------------------------------------- */
-    closeDialog: function(input) {
+    closeDialog: function(el) {
 	
-	    dialog.keyboard(input);
+	    dialog.close();
 
 	},
 
 	/* General Dialog
 	-------------------------------------------------- */
-	openDialog: function(input) {
+	openDialog: function(_type) {
 
-		 React.renderComponent(Modal({children: GeneralDialog({type: 1})}),  document.getElementById("appendices"));
-
+		dialog.general(null, _type);
+	
 	},
 
     /* Press Key on OnScreen Keyboard

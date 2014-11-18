@@ -4,7 +4,6 @@
 var nsp         = require('socket.io-client')('/api')
 ,   PourOver    = require('../components/pourover')
 ,   _           = require("lodash")
-,   nedb        = require("../../../node_modules/nedb/browser-version/out/nedb.min")
 ,   api         = require('socket.io-client')('/api');
 
 /* Scoped Module Globals
