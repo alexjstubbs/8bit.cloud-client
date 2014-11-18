@@ -2751,7 +2751,7 @@ module.exports = React.createClass({displayName: 'exports',
             type: 0,
             dataFunction: "closeDialog",
             classList: 'col-xs-12',
-            body: "General Error (001)"
+            body: "(001): A General Unspecified Error Occured. Refer to log file for more information."
         }
     },
 
@@ -2788,9 +2788,11 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "parent"}, 
 
-                React.DOM.h1(null, React.DOM.i({className: type.icon}), " ", type.text), 
+                React.DOM.h2(null, React.DOM.i({className: type.icon}), "   ", type.text), 
 
-                React.DOM.p(null, this.props.body), 
+                React.DOM.hr(null), 
+
+                React.DOM.p({className: "well"}, this.props.body), 
 
                 React.DOM.button({'data-function': this.props.dataFunction, className: "navable btn btn-block btn-lg btn-alt"}, type.button)
 
@@ -3279,12 +3281,9 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash');
-    // Backdrop = require('./Backdrop.jsx');
-    // cssplugin = require('../components/greensock/plugins/CSSPlugin.min.js'),
-    // EasePack = require('../components/greensock/easing/EasePack.min.js'),
-    // TweenLite = require('../components/greensock/TweenLite.js');
+var React = require('react/addons')
+,   _ = require('lodash')
+,   Backdrop = require('./Backdrop.jsx');
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -3302,15 +3301,19 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        // var backdrop;
+        var backdrop;
 
-        // if (this.props.backdrop) {
-        //     backdrop = <Backdrop /> 
-        // }
+        if (this.props.backdrop) {
+            backdrop = Backdrop(null) 
+        }
 
         return (
+            
 
             React.DOM.div(null, 
+
+
+            backdrop, 
 
                 React.DOM.div({className: this.props.classList, id: this.props.id}, 
                     this.props.children
@@ -3324,7 +3327,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"lodash":70,"react/addons":72}],25:[function(require,module,exports){
+},{"./Backdrop.jsx":5,"lodash":70,"react/addons":72}],25:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4854,7 +4857,7 @@ var popup = function(obj, callback) {
 
 /* Show General/Error Modal
 -------------------------------------------------- */
-var general = function(input, _type) {
+var general = function(input, _type, body) {
 
     if (!_type) { _type = 1 }
 
@@ -4871,7 +4874,7 @@ var general = function(input, _type) {
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-    React.renderComponent(Modal({children: GeneralDialog({type: _type})}), _div);
+    React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body})}), _div);
 
 }
 
@@ -4905,17 +4908,16 @@ var close = function(modal, callback) {
 
         var modal = document.querySelectorAll(".ignition-modal");
 
-        modal = _.last(modal);
+        modal = _.first(modal);
 
     }
 
-    console.log(modal);
 
-    document.body.removeChild(modal);
+    modal.parentNode.removeChild(modal);
     
     navigationInit.navigationInit();
 
-    if (callback) {
+    if (callback || typeof callback === "function") {
         callback();
     }
 
@@ -4934,7 +4936,7 @@ var keyboard = function(input, callback) {
 
     document.body.insertBefore(div,  document.body.firstChild);
 
-    React.renderComponent(Modal({children: Keyboard(null)}), div);
+    React.renderComponent(Modal({backdrop: true, children: Keyboard(null)}), div);
     
     var activeInputs = document.querySelectorAll(".activeInput")[0];
     

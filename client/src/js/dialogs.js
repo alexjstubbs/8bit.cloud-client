@@ -30,7 +30,7 @@ var popup = function(obj, callback) {
 
 /* Show General/Error Modal
 -------------------------------------------------- */
-var general = function(input, _type) {
+var general = function(input, _type, body) {
 
     if (!_type) { _type = 1 }
 
@@ -47,7 +47,7 @@ var general = function(input, _type) {
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-    React.renderComponent(Modal({children: GeneralDialog({type: _type})}), _div);
+    React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body})}), _div);
 
 }
 
@@ -81,17 +81,16 @@ var close = function(modal, callback) {
 
         var modal = document.querySelectorAll(".ignition-modal");
 
-        modal = _.last(modal);
+        modal = _.first(modal);
 
     }
 
-    console.log(modal);
 
-    document.body.removeChild(modal);
+    modal.parentNode.removeChild(modal);
     
     navigationInit.navigationInit();
 
-    if (callback) {
+    if (callback || typeof callback === "function") {
         callback();
     }
 
@@ -110,7 +109,7 @@ var keyboard = function(input, callback) {
 
     document.body.insertBefore(div,  document.body.firstChild);
 
-    React.renderComponent(Modal({children: Keyboard(null)}), div);
+    React.renderComponent(Modal({backdrop: true, children: Keyboard(null)}), div);
     
     var activeInputs = document.querySelectorAll(".activeInput")[0];
     

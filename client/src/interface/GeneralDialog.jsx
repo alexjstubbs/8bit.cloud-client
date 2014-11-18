@@ -15,7 +15,7 @@ module.exports = React.createClass({
             type: 0,
             dataFunction: "closeDialog",
             classList: 'col-xs-12',
-            body: "General Error (001)"
+            body: "(001): A General Unspecified Error Occured. Refer to log file for more information."
         }
     },
 
@@ -52,9 +52,11 @@ module.exports = React.createClass({
 
             <div className="parent">
 
-                <h1><i className={type.icon}></i> {type.text}</h1>
+                <h2><i className={type.icon}></i> &nbsp; {type.text}</h2>
 
-                <p>{this.props.body}</p>
+                <hr />
+
+                <p className="well">{this.props.body}</p>
 
                 <button data-function={this.props.dataFunction} className="navable btn btn-block btn-lg btn-alt">{type.button}</button>
 
