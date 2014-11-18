@@ -6,7 +6,8 @@ var fs          = require('fs-extra')
 ,   sockets     = require('./server.sockets')
 ,   database    = require('../../api/database/database.local')
 ,   helpers     = require('../../system/helpers')
-,   network     = require('../../api/network/network.online');
+,   network     = require('../../api/network/network.online')
+,   forms       = require('../../api/api.forms');
 
 /* Set up (use config file)
 -------------------------------------------------- */
@@ -43,14 +44,20 @@ var getMessages = function(nsp) {
 /* Submit Dynamic Form
 -------------------------------------------------- */
 var submitForm = function(nsp, data) {
-    console.log({cmd: data.formTitle, data: data});
 
+    // Validate form then run network command based on form name. Done!
+    forms.validate(data, function(validation) {
+        
+        if (validation == undefined) {
+            console.log("TRUE");
+        }
 
-    if (network.sysIsOnline) {
+        else {
+            console.log(validation);
+        }
+        
+    });
 
-        console.log("OKOKOKOKOK");
-
-    }
 
     // sockets.networkInterface(nsp, {cmd: data.formTitle, data: data});
 }

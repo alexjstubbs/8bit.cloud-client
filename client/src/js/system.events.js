@@ -141,7 +141,9 @@ var events = {
 
         obj.formTitle = parameters;
 
-        if (obj.server == true) {
+        console.log(obj.server);
+
+        if (obj.server == "true") {
             console.log("server...");
             api.emit('request', { request: 'submitForm', param: obj });
         }

@@ -23,7 +23,6 @@ var popup = function(obj, callback) {
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-popup");
     document.body.appendChild(div);
-
     
     React.renderComponent(Modal({children: SignUp(null)}), div);
 }

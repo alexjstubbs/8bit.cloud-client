@@ -4011,8 +4011,8 @@ module.exports = React.createClass({displayName: 'exports',
             navable: true,
             navStack: 2,
             form: 'userSignupForm',
-            server: false,
-            filename: '/SignUp-TEMP.json',
+            server: true,
+            // filename: '/SignUp-TEMP.json',
             classList: 'col-xs-12'
         }
     },
@@ -4850,7 +4850,6 @@ var popup = function(obj, callback) {
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-popup");
     document.body.appendChild(div);
-
     
     React.renderComponent(Modal({children: SignUp(null)}), div);
 }
@@ -6636,7 +6635,9 @@ var events = {
 
         obj.formTitle = parameters;
 
-        if (obj.server == true) {
+        console.log(obj.server);
+
+        if (obj.server == "true") {
             console.log("server...");
             api.emit('request', { request: 'submitForm', param: obj });
         }

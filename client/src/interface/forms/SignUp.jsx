@@ -13,8 +13,8 @@ module.exports = React.createClass({
             navable: true,
             navStack: 2,
             form: 'userSignupForm',
-            server: false,
-            filename: '/SignUp-TEMP.json',
+            server: true,
+            // filename: '/SignUp-TEMP.json',
             classList: 'col-xs-12'
         }
     },

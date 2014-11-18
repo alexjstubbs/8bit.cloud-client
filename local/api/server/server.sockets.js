@@ -100,10 +100,27 @@ var networkConnection = function(token, ansp, callback) {
 
 }
 
+/* Check i.io Connection
+-------------------------------------------------- */
+var networkCheckConnection = function(callback) {
+	console.log("1");
+
+	if (callback || typeof callback == "function") {
+		console.log("2");
+	
+		networkConnection(null, null, function(result) {
+			console.log("3");
+	
+			console.log(result);
+			callback(network);
+		});
+		
+	}
+}
+
 /* Network Interfacing (!!)
 -------------------------------------------------- */
 var networkInterface = function(ansp, json) {
-
 
 	/* Check if Issued Token Exists
 	-------------------------------------------------- */
@@ -139,6 +156,7 @@ var networkCommand = function(ansp, json) {
 	-------------------------------------------------- */
     if (!json.token) {
         console.log("[!] No Token Supplied");
+        // issueToken here as well...
     }
     
     /* Network Connection doesn't Exist. Attempt to connect and proceed.
@@ -172,6 +190,7 @@ var networkCommand = function(ansp, json) {
 
 /* Exports
 -------------------------------------------------- */
-exports.networkConnection   = networkConnection;
-exports.networkInterface    = networkInterface;
-exports.networkCommand      = networkCommand;
+exports.networkConnection   	= networkConnection;
+exports.networkInterface    	= networkInterface;
+exports.networkCommand      	= networkCommand;
+exports.networkCheckConnection  = networkCheckConnection;

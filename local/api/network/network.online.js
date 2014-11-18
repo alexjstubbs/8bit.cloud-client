@@ -3,12 +3,15 @@
 var fs 		= require('fs-extra')
 ,   _ 		= require('lodash')
 ,	os 		= require('os')
-,	request = require('request');
+,	request = require('request')
+, 	o = require('socket.io-client');
 
 
 /* Connected to the Internet
 -------------------------------------------------- */
-function sysGetNetwork(nsp) {
+function sysGetNetwork(nsp, callback) {
+
+
 	// var ifaces = os.networkInterfaces();
 
 
@@ -43,14 +46,19 @@ function sysGetNetwork(nsp) {
 function sysIsOnline(nsp) {
 
 	require('dns').resolve('www.google.com', function(err) {
+	
 	  if (err) {
+	
 	  	nsp.emit('api', {internetConnected: "disconnected"});
-	  	return true;
+	
 	  }
+	
 	  else {
+	
 	  	nsp.emit('api', {internetConnected: "connected"});  
-	  	return false;
+	
 	  }
+	
 	});
 
 }
