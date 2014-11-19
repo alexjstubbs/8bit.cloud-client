@@ -14,8 +14,7 @@ var fs          = require('fs-extra')
 
 var server      = "ignition.io:3000"
 ,   port        = 3000
-,   v           = "v1"
-,   api         = path.join(server, "api", v);
+,   v           = "v1";
 
 /* Add a Friend Endpoint
 -------------------------------------------------- */
@@ -43,21 +42,25 @@ var getMessages = function(nsp) {
 
 /* Submit Dynamic Form
 -------------------------------------------------- */
-var submitForm = function(nsp, data) {
+var submitForm = function(nsp, data, callback) {
 
     // Validate form then run network command based on form name. Done!
     forms.validate(data, function(validation) {
-        
+
         if (validation == undefined) {
-            console.log("TRUE");
+
+            if (callback || typeof callback == "function") {
+                callback(true);
+            }
         }
 
         else {
-            console.log(validation);
-        }
-        
-    });
+           
+            nsp.emit('messaging', {type: 0, body: validation });
 
+        }
+
+    });
 
     // sockets.networkInterface(nsp, {cmd: data.formTitle, data: data});
 }

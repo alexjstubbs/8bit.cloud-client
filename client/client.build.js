@@ -2786,7 +2786,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-            React.DOM.div({className: "parent"}, 
+            React.DOM.div({className: "parent", id: "general-dialog"}, 
 
                 React.DOM.h2(null, React.DOM.i({className: type.icon}), "   ", type.text), 
 
@@ -4442,8 +4442,14 @@ module.exports = React.createClass({displayName: 'exports',
 
                     ), 
 
-                    React.DOM.div({className: "col-sm-6"}, 
-                      React.DOM.div({id: "KB"})
+                    React.DOM.div({className: "col-sm-1"}), 
+
+                    React.DOM.div({className: "col-sm-5"}, 
+                    
+                        React.DOM.br(null), 
+
+                      React.DOM.img({id: "controller-ui", src: "/src/img/add-profile.png", alt: "Add Profile", className: "img-responsive img-center"})
+               
                     )
 
 
@@ -4690,29 +4696,30 @@ module.exports = function() {
 /* Sockets.io api
 -------------------------------------------------- */
 var io      = require('socket.io-client')
-,   api     = io.connect(window.location.hostname);
-
-// ('/api');
-
-// console.log("window.location.hostname");
+,   api     = io.connect(window.location.hostname+"/api")
+, 	dialog  = require('../dialogs');
 
 /* Module Definitions
 -------------------------------------------------- */
 
-// Remove dependancy on this file 
-
 var connect = function() {
 
-
     api.on('connect', function(){
-
-
+		
+   	// Offset List roms? or list roms on switch tab
     //  setTimeout(function() {
     //     api.emit('request', { request: 'listRoms', param: "Nintendo" });
     // }, 2000);
 
   });
     
+	api.on('messaging', function(data, sock) {
+			
+		dialog.general(null, data.type, data.body);
+
+	});
+
+
 
 };
 
@@ -4720,7 +4727,7 @@ var connect = function() {
 -------------------------------------------------- */
 exports.connect = connect;
 exports.api = api;
-},{"socket.io-client":231}],49:[function(require,module,exports){
+},{"../dialogs":50,"socket.io-client":231}],49:[function(require,module,exports){
 /* Clientside Database Helpers
 -------------------------------------------------- */
 
@@ -6634,8 +6641,6 @@ var events = {
         });
 
         obj.formTitle = parameters;
-
-        console.log(obj.server);
 
         if (obj.server == "true") {
             console.log("server...");

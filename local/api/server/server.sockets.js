@@ -100,18 +100,14 @@ var networkConnection = function(token, ansp, callback) {
 
 }
 
-/* Check i.io Connection
+/* Check i.io Connection (needs work)
 -------------------------------------------------- */
 var networkCheckConnection = function(callback) {
-	console.log("1");
 
 	if (callback || typeof callback == "function") {
-		console.log("2");
-	
+		
 		networkConnection(null, null, function(result) {
-			console.log("3");
 	
-			console.log(result);
 			callback(network);
 		});
 		

@@ -24,5 +24,7 @@ var api = function(nsp) {
 
 }
 
+/* Exports
+-------------------------------------------------- */
 
 module.exports = api;

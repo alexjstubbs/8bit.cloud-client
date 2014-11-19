@@ -50,7 +50,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div className="parent">
+            <div className="parent" id="general-dialog">
 
                 <h2><i className={type.icon}></i> &nbsp; {type.text}</h2>
 

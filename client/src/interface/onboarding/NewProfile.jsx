@@ -32,8 +32,14 @@ module.exports = React.createClass({
 
                     </div>
 
-                    <div className="col-sm-6">
-                      <div id="KB"></div> 
+                    <div className="col-sm-1"></div>
+
+                    <div className="col-sm-5">
+                    
+                        <br />
+
+                      <img id="controller-ui" src="/src/img/add-profile.png" alt="Add Profile" className="img-responsive img-center" />
+               
                     </div>
 
 
