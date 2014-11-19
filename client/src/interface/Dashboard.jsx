@@ -13,10 +13,7 @@ var React           = require('react/addons')
 ,   Favorites       = require('./Favorites.jsx')
 ,   Community       = require('./Community.jsx')
 ,   IgnitionEvents  = require('./IgnitionEvents.jsx')
-,   ShortcutBar     = require('./ShortcutBar.jsx')
-,   init            = require('../js/init.js');
-
-    init();
+,   ShortcutBar     = require('./ShortcutBar.jsx');
 
 /* Sample Data for Development
 -------------------------------------------------- */

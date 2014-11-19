@@ -2291,10 +2291,7 @@ var React           = require('react/addons')
 ,   Favorites       = require('./Favorites.jsx')
 ,   Community       = require('./Community.jsx')
 ,   IgnitionEvents  = require('./IgnitionEvents.jsx')
-,   ShortcutBar     = require('./ShortcutBar.jsx')
-,   init            = require('../js/init.js');
-
-    init();
+,   ShortcutBar     = require('./ShortcutBar.jsx');
 
 /* Sample Data for Development
 -------------------------------------------------- */
@@ -2410,7 +2407,7 @@ module.exports = React.createClass({displayName: 'exports',
         )
     }
 });
-},{"../js/init.js":55,"./Community.jsx":7,"./Favorites.jsx":11,"./FriendsBox.jsx":12,"./HeaderGroup.jsx":15,"./IgnitionEvents.jsx":16,"./RecentActivity.jsx":30,"./ShortcutBar.jsx":33,"./UserProfile.jsx":35,"lodash":70,"react/addons":72}],9:[function(require,module,exports){
+},{"./Community.jsx":7,"./Favorites.jsx":11,"./FriendsBox.jsx":12,"./HeaderGroup.jsx":15,"./IgnitionEvents.jsx":16,"./RecentActivity.jsx":30,"./ShortcutBar.jsx":33,"./UserProfile.jsx":35,"lodash":70,"react/addons":72}],9:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4446,9 +4443,9 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.div({className: "col-sm-5"}, 
                     
-                        React.DOM.br(null), 
+                        React.DOM.br(null), React.DOM.br(null), 
 
-                      React.DOM.img({id: "controller-ui", src: "/src/img/add-profile.png", alt: "Add Profile", className: "img-responsive img-center"})
+                        React.DOM.img({id: "controller-ui", src: "/src/img/add-profile.png", alt: "Add Profile", className: "img-responsive img-center"})
                
                     )
 
@@ -5493,6 +5490,7 @@ var gamepad 			= require("./gamepad.js")
 ,   database 			= require('./database.helpers');
 
 module.exports = function() {
+
 
 	/* Client and Backend Connection init
 	-------------------------------------------------- */
