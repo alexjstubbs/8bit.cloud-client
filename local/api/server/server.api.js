@@ -48,6 +48,17 @@ var submitForm = function(nsp, data, callback) {
     forms.validate(data, function(validation) {
 
         if (validation == undefined) {
+            
+            var forms = {
+                    signUp: function() {
+                        console.log("EEE");
+                        signUp(nsp, data);
+                    }
+                }
+
+            var form = forms[data.formTitle];
+
+            form();
 
             if (callback || typeof callback == "function") {
                 callback(true);

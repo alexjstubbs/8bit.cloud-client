@@ -7,7 +7,7 @@
 var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   WizardHeader    = require('./WizardHeader.jsx')
-,   Signup          = require('../forms/Signup.jsx');
+,   WifiSetup       = require('../forms/WifiSetup.jsx');
 
 module.exports = React.createClass({
 
@@ -17,11 +17,11 @@ module.exports = React.createClass({
 
          <div className="container parent" id="new-profile">
 
-                <WizardHeader title="Welcome" icon="ion-person-add" subtitle="Your Profile" active="2" steps="4" />
+                <WizardHeader title="Welcome" icon="ion-wrench" subtitle="Wifi Setup" active="1" steps="4" />
 
                     <div className="welcome-newprofile col-sm-6">
 
-                        <Signup />
+                        <WifiSetup />
 
                     </div>
 
@@ -29,9 +29,7 @@ module.exports = React.createClass({
 
                     <div className="col-sm-5">
                     
-                        <br /><br />
-
-                        <img id="add-profile-img" src="/src/img/add-profile.png" alt="Add Profile" className="img-responsive img-center" />
+                        <img id="wifi-config-img" src="/src/img/wifi-config.png" alt="Wifi Configuration" className="img-responsive img-center" />
                
                     </div>
 

@@ -11,6 +11,8 @@ var React 				= require('react/addons')
 , 	Welcome 			= require('./onboarding/Welcome.jsx')
 , 	NetworkSetup 		= require('./onboarding/NetworkSetup.jsx')
 , 	NewProfile	 		= require('./onboarding/NewProfile.jsx')
+, 	WifiConfiguration 	= require('./onboarding/WifiConfiguration.jsx')
+, 	WifiAdvanced	 	= require('./onboarding/WifiAdvanced.jsx')
 ,   Browser 			= require('./Browser.jsx')
 ,   LargeProfile 		= require('./LargeProfile.jsx')
 ,   init 				= require('../js/init.js')
@@ -34,8 +36,8 @@ var pathname = window.location.pathname;
 	}
 	
 	else {
-		var _screens = ["Welcome", "NetworkSetup", "NewProfile"];	
-		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />];
+		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "WifiConfiguration", "WifiAdvanced"];	
+		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />, <WifiConfiguration />, <WifiAdvanced />];
 	}
 
 

@@ -24,7 +24,7 @@ var constraints = {
 	presence: true,
 	    length: {
 		      minimum: 6,
-		      message: "must be at least 6 characters <br"
+		      message: "must be at least 6 characters"
     }
   },
   avatar: {
