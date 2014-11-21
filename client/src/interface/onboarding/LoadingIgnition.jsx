@@ -32,6 +32,7 @@ module.exports = React.createClass({
 
                       <div className='loading-container'>
                         <i className='fa-rocket'></i>
+
                           <div className='ignition-circle'></div>
                           <div className='ignition-circle'></div>
                           <div className='ignition-circle'></div>

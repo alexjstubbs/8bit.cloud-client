@@ -156,21 +156,32 @@
     margin:5px;
     color:darken(@white, 50%);
     background:@black;
+    border-radius:0 !important;
 }
 
 .key-dark {
-    background:@black;
+    background:lighten(@black, 5%);
     color:@white;
 }
 
 .key-blue {
-    background:@red;
-    color:@white;
+    background:#27ffe7;
+    color:@black;
 }
 
 ._key.selectedNav {
     color:@white;
 }
+
+/* Web Browser
+-------------------------------------------------- */
+iframe.browser-frame {
+	width:100vw;
+	height:100vh;
+	border:none;
+}
+
+
 
 /* Community Block
 -------------------------------------------------- */
@@ -477,10 +488,21 @@ h1.blink {
 	animation: outlineAnimation 0.6s infinite;
 }
 
-// @-webkit-keyframes outlineAnimation {
-//   0%   { outline:@blue ridge 1px; }
-//   100% { outline:@purple ridge 1px; }
-// }
+@keyframes outlineAnimation {
+  0%   { opacity:1; outline:@blue ridge 1px; }
+  25%  { opacity:0.9; outline:@blue ridge 1px;}
+  50%  { opacity:0.8; outline:@purple ridge 1px;}
+  75%  { opacity:0.9; outline:@blue ridge 1px;}
+  100% { opacity:1; outline:@blue ridge 1px;  }
+}
+
+@-webkit-keyframes outlineAnimation {
+  0%   { opacity:1; outline:@blue ridge 1px; }
+  25%  { opacity:0.9; outline:@blue ridge 1px;}
+  50%  { opacity:0.8; outline:@purple ridge 1px;}
+  75%  { opacity:0.9; outline:@blue ridge 1px;}
+  100% { opacity:1; outline:@blue ridge 1px;  }
+}
 
 @-moz-keyframes outlineAnimation {
   0%   { opacity:1; outline:@blue ridge 1px; }
@@ -490,18 +512,19 @@ h1.blink {
   100% { opacity:1; outline:@blue ridge 1px;  }
 }
 
-
-
-
-// .selectedActive {
-//      outline:@purple ridge 1px;
-// }
-
-
-i.fa-rocket {
+.loading-container i.fa-rocket {
   z-index:10;
   position:absolute;
   left:0px;
+}
+
+
+.loading-container i.fa-rocket.offset {
+  color:@black;
+  top:4px;
+  opacity:0.2;
+  left:-3px;
+  z-index:9;
 }
 
 .ignition-circle {
@@ -513,7 +536,7 @@ i.fa-rocket {
   border-radius:50%;
   z-index:0;
   opacity:1;
-  top:90px;
+  top:100px;
   left:20px;
   -moz-animation: flickerAnimation 0.2s infinite;
   -webkit-animation: flickerAnimation 0.2s infinite;
@@ -523,9 +546,9 @@ i.fa-rocket {
 
 .ignition-circle:nth-child(2) {
   z-index:0;
-  top:100px;
+  top:115px;
   background-color:#0083eb;
-  left:-7px;
+  left:-5px;
   -moz-animation: flickerAnimation 0.4s infinite;
   -webkit-animation: flickerAnimation 0.4s infinite;
   animation: flickerAnimation 0.4s infinite;
@@ -533,8 +556,8 @@ i.fa-rocket {
 
 .ignition-circle:nth-child(3) {
   z-index:0;
-  top:120px;
-  left:9px;
+  top:125px;
+  left:7px;
   background-color:#a200ff;
   -moz-animation: flickerAnimation 0.3s infinite;
   -webkit-animation: flickerAnimation 0.3s infinite;

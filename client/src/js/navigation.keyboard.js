@@ -37,7 +37,7 @@ Keyboard.rows = [
   [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
   [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-  [ ".", ",", "<i class='ion-at'></i>", "&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; SPACE &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; ", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "-", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 miniKeyboard.rows = [
