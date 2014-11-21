@@ -56,10 +56,10 @@ var navigationInit = function(element, callback) {
 -------------------------------------------------- */
 
 var highlight = function() {
-      clearInterval(blink);
-      blink = setInterval(function() {
-            document.querySelector('.selectedNav').classList.toggle('selectedActive');
-    }, 200);
+    //   clearInterval(blink);
+    //   blink = setInterval(function() {
+    //         document.querySelector('.selectedNav').classList.toggle('selectedActive');
+    // }, 200);
 }
 
 /* Exports

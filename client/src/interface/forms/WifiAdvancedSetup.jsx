@@ -30,24 +30,23 @@ module.exports = React.createClass({
         -------------------------------------------------- */
         
         request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:1210/EULA', true);
+        request.open('GET', 'http://localhost:1210/WifiConfig', true);
 
         request.onload = function() {
           if (request.status >= 200 && request.status < 400){
             // Success!
-            var online = navigator.onLine;
-            var EULA = request.responseText;
-            textarea.value = online;
+            var file = request.responseText;
+            textarea.value = file;
 
 
           } else {
-            // We reached our target server, but it returned an error
+            textarea.value = "Unkown Error";
 
           }
         };
 
-        request.onerror = function() {
-          // There was a connection error of some sort
+        request.onerror = function(err) {
+          textarea.value = err;
         };
 
         request.send();

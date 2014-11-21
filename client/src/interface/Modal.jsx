@@ -5,8 +5,8 @@
 'use strict';
 
 var React = require('react/addons')
-,   _ = require('lodash')
-,   Backdrop = require('./Backdrop.jsx');
+,   Backdrop = require('./Backdrop.jsx')
+,   OnScreenKeyboard = require('./OnScreenKeyboard.jsx');
 
 
 module.exports = React.createClass({
@@ -17,26 +17,29 @@ module.exports = React.createClass({
             classList: "container ignition-modal systemNotificationContent col-xs-1",
             children: [],
             input: null,
-            id: "ignition-modal",
             columns: "col-xs-12"
         }
     },
 
-    render: function() {
-
-        var backdrop;
+    componentDidMount: function() {
 
         if (this.props.backdrop) {
-            backdrop = <Backdrop /> 
+            var main = document.getElementById("main");
+            console.log(main)
+            main.classList.add("opacity-50");
         }
+
+    },
+
+    render: function() {
+
+        // var backdrop;
+
 
         return (
             
 
             <div>
-
-
-            {backdrop}
 
                 <div className={this.props.classList} id={this.props.id}>
                     {this.props.children}

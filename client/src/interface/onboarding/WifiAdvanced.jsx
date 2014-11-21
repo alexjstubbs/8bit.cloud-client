@@ -17,7 +17,7 @@ module.exports = React.createClass({
 
          <div className="container parent" id="new-profile">
 
-                <WizardHeader title="Welcome" icon="ion-wrench" subtitle="Wifi Setup" active="1" steps="4" />
+                <WizardHeader title="Welcome" icon="ion-wrench" subtitle="Wifi Configuration" active="1" steps="4" />
 
                     <div className="welcome-newprofile col-sm-12">
 

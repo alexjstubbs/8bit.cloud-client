@@ -13,15 +13,17 @@ var React 				= require('react/addons')
 , 	NewProfile	 		= require('./onboarding/NewProfile.jsx')
 , 	WifiConfiguration 	= require('./onboarding/WifiConfiguration.jsx')
 , 	WifiAdvanced	 	= require('./onboarding/WifiAdvanced.jsx')
+, 	LoadingIgnition	 	= require('./onboarding/LoadingIgnition.jsx')
 ,   Browser 			= require('./Browser.jsx')
 ,   LargeProfile 		= require('./LargeProfile.jsx')
 ,   init 				= require('../js/init.js')
-,   navigationInit  	= require('../js/navigation.init.js');
+,   navigationInit  	= require('../js/navigation.init.js')
+, 	pathname 			= window.location.pathname;
 
+
+/* Init Clientside
+-------------------------------------------------- */
 init();
-
-
-var pathname = window.location.pathname;
 
 
 /* Set up Screens
@@ -36,8 +38,8 @@ var pathname = window.location.pathname;
 	}
 	
 	else {
-		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "WifiConfiguration", "WifiAdvanced"];	
-		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />, <WifiConfiguration />, <WifiAdvanced />];
+		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "WifiConfiguration", "WifiAdvanced", "LoadingIgnition"];	
+		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />, <WifiConfiguration />, <WifiAdvanced />, <LoadingIgnition />];
 	}
 
 

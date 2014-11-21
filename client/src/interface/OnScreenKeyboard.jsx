@@ -34,6 +34,7 @@ module.exports = React.createClass({
         return (
 
             <div>
+            <i className='ion-loading-c'></i>
                 <div className="container-fluid parent">
                     <div className="row-fluid">
                         <div className="col-xs-12">

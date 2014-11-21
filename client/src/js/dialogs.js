@@ -69,12 +69,15 @@ var show = function(title, content) {
 
     // document.body.appendChild(fragment);
     
-    React.renderComponent(Modal({children: SignUp(null)}), _div);
+    React.renderComponent(Modal({}, SignUp({})), _div);
 }
 
 /* Close Modal
 -------------------------------------------------- */
 var close = function(modal, callback) {
+
+     var main = document.getElementById("main");
+     main.classList.remove("opacity-50");
 
     if (!modal) {    
 
@@ -108,7 +111,7 @@ var keyboard = function(input, callback) {
 
     document.body.insertBefore(div,  document.body.firstChild);
 
-    React.renderComponent(Modal({backdrop: true, children: Keyboard(null)}), div);
+    React.renderComponent(Modal({backdrop: true}, Keyboard({})), div);
     
     var activeInputs = document.querySelectorAll(".activeInput")[0];
     

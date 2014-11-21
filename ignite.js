@@ -99,6 +99,7 @@ insight.track('ignition', 'beta');
 app.get('/welcome', common.render.ignite);
 app.get('/agreement', common.render.ignite);
 app.get('/EULA', common.render.EULA);
+app.get('/WifiConfig', common.render.WifiConfig);
 
 // Dashboard
 app.get('/home', common.render.ignite);
