@@ -23,7 +23,6 @@ module.exports = function(e) {
   ,   currentScreen     = document.getElementById("screen-active")
   ,   currentScreenId   = _.indexOf(screens, currentScreen);
 
-
   /* Set Up Screen
   -------------------------------------------------- */
   function setScreen() {

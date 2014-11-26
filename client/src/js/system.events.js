@@ -2,7 +2,7 @@
 -------------------------------------------------- */
 
 var systemNotify    = require('./notification.init.js')
-,   Mousetrap       = require('./mousetrap.min.js')
+,   KeyEvent        = require('./navigation.keyEvent')
 ,   api             = require('socket.io-client')('/api')
 ,   React           = require('react/addons')
 ,   Modal           = require('../interface/Modal.jsx')
@@ -14,6 +14,26 @@ var systemNotify    = require('./notification.init.js')
 // browser = require("./browser.js");
 
 var events = {
+
+	/* Trigger Next Screen 
+	-------------------------------------------------- */
+	nextScreen: function(parameters) {
+		
+		sessionStorage.setItem("navigationState", "");
+
+		if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
+			KeyEvent(221);
+		};
+	},	
+
+	/* Trigger Previous Screen 
+	-------------------------------------------------- */
+	previousScreen: function(parameters) {
+		
+		if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
+			KeyEvent(219);
+		};
+	},
 
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
@@ -174,7 +194,7 @@ var events = {
     /* Drop navigation on sub-panels on Action button/keypress
     -------------------------------------------------- */
     highlightPanel: function(parameters) {
-        Mousetrap.trigger('down');
+		KeyEvent(40);
     },
 
     /* View Messages event

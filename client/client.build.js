@@ -4866,7 +4866,7 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.br(null), React.DOM.br(null), 
                
 
-                React.DOM.button({className: "navable btn btn-lg btn-alt pull-right"}, "Continue   ", React.DOM.i({className: "ion-arrow-right-c"}))
+                React.DOM.button({'data-function': "nextScreen", className: "navable btn btn-lg btn-alt pull-right"}, "Continue   ", React.DOM.i({className: "ion-arrow-right-c"}))
 
                 
 
@@ -5890,7 +5890,7 @@ var mousetrap   = require('./mousetrap.min')
 
 module.exports = function() {
 
-    // pauseNavigation    = Pause Next/Prev navigation
+    // pause              = Pause Next/Prev navigation
     // pauseRight         = Pause only Next but allow Prev
     // pauseLeft          = Pause only Left but allow Next
     // pauseDown          = Pause only Down 
@@ -5898,22 +5898,22 @@ module.exports = function() {
     // pauseEnter         = Pause only Enter/Action
     // pauseComma         = Pause only Back/Cancel
 
-    var pauseNavigation = sesionStorage.getItem("navigationState");
+    var pauseNavigation = sessionStorage.getItem("navigationState");
 
     Mousetrap.bind('tab', function(e) {
-        if (pauseNavigation != "pauseRight" || pauseNavigation != "pause") {
+        if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
             navigate("right");
         }
     });
 
     Mousetrap.bind('right', function(e) {
-        if (pauseNavigation != "pauseRight" || pauseNavigation != "pause") {
+        if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
             navigate("right");
         }
     }); 
 
     Mousetrap.bind('left', function(e) {
-        if (pauseNavigation != "pauseLeft" || pauseNavigation != "pause") {
+        if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
             navigate("left");
         }
     }); 
@@ -6099,7 +6099,6 @@ module.exports = function(e) {
   ,   screens           = document.getElementById("screens").childNodes
   ,   currentScreen     = document.getElementById("screen-active")
   ,   currentScreenId   = _.indexOf(screens, currentScreen);
-
 
   /* Set Up Screen
   -------------------------------------------------- */
@@ -6874,7 +6873,7 @@ module.exports = function(path, height, width, left, top) {
 -------------------------------------------------- */
 
 var systemNotify    = require('./notification.init.js')
-,   Mousetrap       = require('./mousetrap.min.js')
+,   KeyEvent        = require('./navigation.keyEvent')
 ,   api             = require('socket.io-client')('/api')
 ,   React           = require('react/addons')
 ,   Modal           = require('../interface/Modal.jsx')
@@ -6886,6 +6885,26 @@ var systemNotify    = require('./notification.init.js')
 // browser = require("./browser.js");
 
 var events = {
+
+	/* Trigger Next Screen 
+	-------------------------------------------------- */
+	nextScreen: function(parameters) {
+		
+		sessionStorage.setItem("navigationState", "");
+
+		if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
+			KeyEvent(221);
+		};
+	},	
+
+	/* Trigger Previous Screen 
+	-------------------------------------------------- */
+	previousScreen: function(parameters) {
+		
+		if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
+			KeyEvent(219);
+		};
+	},
 
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
@@ -7046,7 +7065,7 @@ var events = {
     /* Drop navigation on sub-panels on Action button/keypress
     -------------------------------------------------- */
     highlightPanel: function(parameters) {
-        Mousetrap.trigger('down');
+		KeyEvent(40);
     },
 
     /* View Messages event
@@ -7318,7 +7337,7 @@ exports.events = events;
 
 
 // };
-},{"../interface/Messages.jsx":23,"../interface/Modal.jsx":24,"./dialogs":56,"./mousetrap.min.js":63,"./navigation.init.js":68,"./notification.init.js":72,"lodash":76,"react/addons":78,"socket.io-client":237}],74:[function(require,module,exports){
+},{"../interface/Messages.jsx":23,"../interface/Modal.jsx":24,"./dialogs":56,"./navigation.init.js":68,"./navigation.keyEvent":69,"./notification.init.js":72,"lodash":76,"react/addons":78,"socket.io-client":237}],74:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

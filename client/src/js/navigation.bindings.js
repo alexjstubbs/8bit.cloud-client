@@ -6,7 +6,7 @@ var mousetrap   = require('./mousetrap.min')
 
 module.exports = function() {
 
-    // pauseNavigation    = Pause Next/Prev navigation
+    // pause              = Pause Next/Prev navigation
     // pauseRight         = Pause only Next but allow Prev
     // pauseLeft          = Pause only Left but allow Next
     // pauseDown          = Pause only Down 
@@ -14,22 +14,22 @@ module.exports = function() {
     // pauseEnter         = Pause only Enter/Action
     // pauseComma         = Pause only Back/Cancel
 
-    var pauseNavigation = sesionStorage.getItem("navigationState");
+    var pauseNavigation = sessionStorage.getItem("navigationState");
 
     Mousetrap.bind('tab', function(e) {
-        if (pauseNavigation != "pauseRight" || pauseNavigation != "pause") {
+        if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
             navigate("right");
         }
     });
 
     Mousetrap.bind('right', function(e) {
-        if (pauseNavigation != "pauseRight" || pauseNavigation != "pause") {
+        if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
             navigate("right");
         }
     }); 
 
     Mousetrap.bind('left', function(e) {
-        if (pauseNavigation != "pauseLeft" || pauseNavigation != "pause") {
+        if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
             navigate("left");
         }
     }); 
