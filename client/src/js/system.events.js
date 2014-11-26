@@ -82,24 +82,25 @@ var events = {
         
         // Accept
         case "<i class='ion-checkmark'></i>":
-        	// recentInput.value = activeInput.innerHTML + '\n' + 'ee';
-			
-			activeInput.innerHTML +="<br />";
-
-            recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
-
-
-            // dialog.close();
+            dialog.close();
         return;
 
         // Space
-        case "________________":
-            activeInput.value = _value + " ";
+        case "__":
+            activeInput.innerHTML += " ";
             return;
 
         // @
         case "<i class='ion-at'></i>": 
-            activeInput.value = _value + "@";
+            activeInput.innerHTML +="@";
+            return; 
+
+        // Return
+        case "<i class='ion-arrow-return-left'></i>": 
+			activeInput.innerHTML +="<br />";
+			recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
+
+			cursor[0].scrollIntoView(true);
             return;
 
         // Delete
