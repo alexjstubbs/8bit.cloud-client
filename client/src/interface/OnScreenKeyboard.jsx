@@ -2,9 +2,9 @@
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   navigationInit  = require('../js/navigation.init')
-,   keyboard        = require('../js/navigation.keyboard');
+var React               = require('react/addons')
+,   navigationInit      = require('../js/navigation.init')
+,   keyboard            = require('../js/navigation.keyboard');
 
 module.exports = React.createClass({
 
@@ -14,11 +14,16 @@ module.exports = React.createClass({
             navable: true,
             navStack: 2,
             input: null,
-            form: 'onScreenKeyboard'
+            form: 'onScreenKeyboard',
+            input: "text"
         }
     },
 
     componentDidMount: function() {
+
+        var cursor = document.querySelectorAll(".cursor")[0];
+
+        cursor.scrollIntoView(true);
 
         var kb = document.getElementById("KB");
 
@@ -43,7 +48,12 @@ module.exports = React.createClass({
                             <fieldset>
                                 
                                 <div className="form-group">
-                                    <input className="form-control input-lg" id="placehold_input" placeholder="Enter Text..." name="textual" type="text" />
+
+                                    <div className="form-control large-textarea"  contentEditable="true" id="placehold_input" name="textual" rows="10">
+                                        <span id="keyboard-input-area">{this.props.value}</span> 
+                                        <i className="cursor">_</i>
+                                    </div> 
+
                                 </div>
                                 
                               <div id="KB"></div> 

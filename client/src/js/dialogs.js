@@ -123,7 +123,7 @@ var keyboard = function(input, callback) {
 
     document.body.insertBefore(div,  document.body.firstChild);
 
-    React.renderComponent(Modal({backdrop: true}, Keyboard({})), div);
+    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'textarea', value:input.value})), div);
     
     var activeInputs = document.querySelectorAll(".activeInput")[0];
     

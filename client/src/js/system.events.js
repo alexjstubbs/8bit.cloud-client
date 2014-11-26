@@ -57,9 +57,10 @@ var events = {
 
         var upper, 
             keys = document.getElementsByClassName("_key"),
-            activeInput = document.getElementById("placehold_input"),
+            activeInput = document.getElementById("keyboard-input-area"),
             recentInput = document.getElementsByClassName("activeInput")[0],
-             _value = activeInput.value;
+            _value = activeInput.value,
+            cursor = document.querySelectorAll(".cursor");
         
         // Key is Uppercase
         if (document.getElementsByClassName("uppercase")[0]) {
@@ -81,10 +82,15 @@ var events = {
         
         // Accept
         case "<i class='ion-checkmark'></i>":
-            dialog.close();
-            // send activeInput.value to input.selected
-        return;
+        	// recentInput.value = activeInput.innerHTML + '\n' + 'ee';
+			
+			activeInput.innerHTML +="<br />";
 
+            recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
+
+
+            // dialog.close();
+        return;
 
         // Space
         case "________________":
@@ -98,7 +104,8 @@ var events = {
 
         // Delete
         case "<i class='ion-arrow-left-a'></i>":
-            activeInput.value = _value.slice(0,-1);
+            activeInput.innerHTML = activeInput.innerHTML.slice(0,-1);
+            recentInput.value = activeInput.innerHTML;
             return;
 
         // Caps 
@@ -130,8 +137,10 @@ var events = {
             }
             
 
-            activeInput.value = _value+parameters;
-            recentInput.value = _value+parameters;
+            activeInput.innerHTML +=parameters;
+            recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
+
+            cursor[0].scrollIntoView(true);
 
         }
 
