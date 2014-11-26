@@ -38,7 +38,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
         return {
             screen: "NetworkSetup",
-            functionCall: "inputFocus",
+            functionCall: "nextScreen",
             internetConnected: null,
             ssid: null,
             networkInfo: []
@@ -60,10 +60,12 @@ module.exports = React.createClass({
     componentWillReceiveProps: function(props) {
         if (props.internetConnected == 'connected') {
             this.state.status = 1;
+            sessionStorage.setItem("navigationState", "pauseLeft");
         }
 
         if (props.internetConnected == 'disconnected') {
             this.state.status = 2;
+            sessionStorage.setItem("navigationState", "pause");
         }
     },
 

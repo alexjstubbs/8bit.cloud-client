@@ -3,8 +3,10 @@
 
 var systemEvents        = require('./system.events.js')
 ,   navigationHelpers   = require('./navigation.helpers.js')
+,   KeyEvent            = require('./navigation.keyEvent.js')
 ,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents
-,   _                   = require('lodash');
+,   _                   = require('lodash')
+,   formInputs          = ['text', 'input', 'submit', 'password'];
 
 
 /* Exported Navigation Module (blackbox)
@@ -120,11 +122,14 @@ module.exports = function(k) {
 
             var sel = document.querySelectorAll(".selectedNav");
             var sub = sel[0].querySelectorAll(".subNavable");
-
-
+ 
             // Down
             if (k == 'down') {
 
+                if(_.contains(formInputs, sel[0].type)) {
+                    KeyEvent(39);
+                };
+                
                 // Textarea Scrolling
                 if (sel[0].nodeName == "TEXTAREA") {
                     sel[0].scrollTop = sel[0].scrollTop + 20;
@@ -198,6 +203,10 @@ module.exports = function(k) {
             // Up
             if (k == 'up') {
 
+                // is an Input
+                if(_.contains(formInputs, sel[0].type)) {
+                    KeyEvent(37);
+                };
 
                 if (sel[0].nodeName == "TEXTAREA") {
                     sel[0].scrollTop = sel[0].scrollTop - 20;

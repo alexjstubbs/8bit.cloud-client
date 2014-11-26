@@ -21,8 +21,12 @@ module.exports = function(e) {
   ,   s                 = document.getElementById("main").getAttribute("data-screen")
   ,   screens           = document.getElementById("screens").childNodes
   ,   currentScreen     = document.getElementById("screen-active")
-  ,   currentScreenId   = _.indexOf(screens, currentScreen);
+  ,   currentScreenId   = _.indexOf(screens, currentScreen)
+  ,   pauseNavigation   = sessionStorage.getItem("navigationState");
 
+
+  // console.log(k);
+  
   /* Set Up Screen
   -------------------------------------------------- */
   function setScreen() {
@@ -75,13 +79,17 @@ module.exports = function(e) {
 
   if (k == 221) {
 
-      if (currentScreenId != screens.length-1) {
+    if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
 
-        currentScreenId++;
-        currentScreen.id = null;
+          if (currentScreenId != screens.length-1) {
 
-        setScreen();
-     } 
+            currentScreenId++;
+            currentScreen.id = null;
+
+            setScreen();
+         } 
+      }
+
    }
 
 
@@ -90,15 +98,17 @@ module.exports = function(e) {
 
   if (k == 219) {
 
-      if (currentScreenId != 0) {
+      if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
 
-        currentScreenId--;
-        currentScreen.id = null;
+          if (currentScreenId != 0) {
 
-        setScreen();
+            currentScreenId--;
+            currentScreen.id = null;
 
+            setScreen();
+
+          }
       }
-
   } 
 
   else {

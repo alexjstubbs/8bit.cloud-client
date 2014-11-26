@@ -17,33 +17,23 @@ module.exports = function() {
     var pauseNavigation = sessionStorage.getItem("navigationState");
 
     Mousetrap.bind('tab', function(e) {
-        if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
-            navigate("right");
-        }
+        navigate("right");
     });
 
     Mousetrap.bind('right', function(e) {
-        if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
-            navigate("right");
-        }
+        navigate("right");
     }); 
 
     Mousetrap.bind('left', function(e) {
-        if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
-            navigate("left");
-        }
+        navigate("left");
     }); 
 
     Mousetrap.bind('down', function(e) {
-        if (pauseNavigation != "pauseDown") {
-            navigate("down");
-        }
+        navigate("down");
     }); 
 
     Mousetrap.bind('up', function(e) {
-        if (pauseNavigation != "pauseUp") {
-            navigate("up");
-        }
+        navigate("up");
     }); 
 
     Mousetrap.bind('enter', function(e) {
@@ -51,7 +41,6 @@ module.exports = function() {
             navigate("enter");
         }
     }); 
-
 
     Mousetrap.bind(',', function(e) {
         if (pauseNavigation != "pauseComma") {

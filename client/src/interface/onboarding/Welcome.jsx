@@ -15,11 +15,7 @@ module.exports = React.createClass({
        var controllerImg    = document.getElementById("controller-ui")
        ,   keyboardImg      = document.getElementById("keyboard-ui");
 
-
-       // setInterval(function(){
-       //          controllerImg.classList.toggle("hidden");
-       //          keyboardImg.classList.toggle("hidden");
-       //      }, 2500);
+      sessionStorage.setItem("navigationState", "");
 
     },
 

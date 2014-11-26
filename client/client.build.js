@@ -4596,7 +4596,7 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
         return {
             screen: "NetworkSetup",
-            functionCall: "inputFocus",
+            functionCall: "nextScreen",
             internetConnected: null,
             ssid: null,
             networkInfo: []
@@ -4618,10 +4618,12 @@ module.exports = React.createClass({displayName: 'exports',
     componentWillReceiveProps: function(props) {
         if (props.internetConnected == 'connected') {
             this.state.status = 1;
+            sessionStorage.setItem("navigationState", "pauseLeft");
         }
 
         if (props.internetConnected == 'disconnected') {
             this.state.status = 2;
+            sessionStorage.setItem("navigationState", "pause");
         }
     },
 
@@ -4836,11 +4838,7 @@ module.exports = React.createClass({displayName: 'exports',
        var controllerImg    = document.getElementById("controller-ui")
        ,   keyboardImg      = document.getElementById("keyboard-ui");
 
-
-       // setInterval(function(){
-       //          controllerImg.classList.toggle("hidden");
-       //          keyboardImg.classList.toggle("hidden");
-       //      }, 2500);
+      sessionStorage.setItem("navigationState", "");
 
     },
 
@@ -5901,33 +5899,23 @@ module.exports = function() {
     var pauseNavigation = sessionStorage.getItem("navigationState");
 
     Mousetrap.bind('tab', function(e) {
-        if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
-            navigate("right");
-        }
+        navigate("right");
     });
 
     Mousetrap.bind('right', function(e) {
-        if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
-            navigate("right");
-        }
+        navigate("right");
     }); 
 
     Mousetrap.bind('left', function(e) {
-        if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
-            navigate("left");
-        }
+        navigate("left");
     }); 
 
     Mousetrap.bind('down', function(e) {
-        if (pauseNavigation != "pauseDown") {
-            navigate("down");
-        }
+        navigate("down");
     }); 
 
     Mousetrap.bind('up', function(e) {
-        if (pauseNavigation != "pauseUp") {
-            navigate("up");
-        }
+        navigate("up");
     }); 
 
     Mousetrap.bind('enter', function(e) {
@@ -5935,7 +5923,6 @@ module.exports = function() {
             navigate("enter");
         }
     }); 
-
 
     Mousetrap.bind(',', function(e) {
         if (pauseNavigation != "pauseComma") {
@@ -6098,8 +6085,12 @@ module.exports = function(e) {
   ,   s                 = document.getElementById("main").getAttribute("data-screen")
   ,   screens           = document.getElementById("screens").childNodes
   ,   currentScreen     = document.getElementById("screen-active")
-  ,   currentScreenId   = _.indexOf(screens, currentScreen);
+  ,   currentScreenId   = _.indexOf(screens, currentScreen)
+  ,   pauseNavigation   = sessionStorage.getItem("navigationState");
 
+
+  // console.log(k);
+  
   /* Set Up Screen
   -------------------------------------------------- */
   function setScreen() {
@@ -6152,13 +6143,17 @@ module.exports = function(e) {
 
   if (k == 221) {
 
-      if (currentScreenId != screens.length-1) {
+    if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
 
-        currentScreenId++;
-        currentScreen.id = null;
+          if (currentScreenId != screens.length-1) {
 
-        setScreen();
-     } 
+            currentScreenId++;
+            currentScreen.id = null;
+
+            setScreen();
+         } 
+      }
+
    }
 
 
@@ -6167,15 +6162,17 @@ module.exports = function(e) {
 
   if (k == 219) {
 
-      if (currentScreenId != 0) {
+      if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
 
-        currentScreenId--;
-        currentScreen.id = null;
+          if (currentScreenId != 0) {
 
-        setScreen();
+            currentScreenId--;
+            currentScreen.id = null;
 
+            setScreen();
+
+          }
       }
-
   } 
 
   else {
@@ -6486,8 +6483,10 @@ exports.miniKeyboard  = miniKeyboard;
 
 var systemEvents        = require('./system.events.js')
 ,   navigationHelpers   = require('./navigation.helpers.js')
+,   KeyEvent            = require('./navigation.keyEvent.js')
 ,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents
-,   _                   = require('lodash');
+,   _                   = require('lodash')
+,   formInputs          = ['text', 'input', 'submit', 'password'];
 
 
 /* Exported Navigation Module (blackbox)
@@ -6603,11 +6602,14 @@ module.exports = function(k) {
 
             var sel = document.querySelectorAll(".selectedNav");
             var sub = sel[0].querySelectorAll(".subNavable");
-
-
+ 
             // Down
             if (k == 'down') {
 
+                if(_.contains(formInputs, sel[0].type)) {
+                    KeyEvent(39);
+                };
+                
                 // Textarea Scrolling
                 if (sel[0].nodeName == "TEXTAREA") {
                     sel[0].scrollTop = sel[0].scrollTop + 20;
@@ -6681,6 +6683,10 @@ module.exports = function(k) {
             // Up
             if (k == 'up') {
 
+                // is an Input
+                if(_.contains(formInputs, sel[0].type)) {
+                    KeyEvent(37);
+                };
 
                 if (sel[0].nodeName == "TEXTAREA") {
                     sel[0].scrollTop = sel[0].scrollTop - 20;
@@ -6759,7 +6765,7 @@ module.exports = function(k) {
         }
 
 };
-},{"./navigation.browser.js":65,"./navigation.helpers.js":67,"./system.events.js":73,"lodash":76}],72:[function(require,module,exports){
+},{"./navigation.browser.js":65,"./navigation.helpers.js":67,"./navigation.keyEvent.js":69,"./system.events.js":73,"lodash":76}],72:[function(require,module,exports){
 module.exports = function(path, height, width, left, top) {
 
 
@@ -6889,21 +6895,13 @@ var events = {
 	/* Trigger Next Screen 
 	-------------------------------------------------- */
 	nextScreen: function(parameters) {
-		
-		sessionStorage.setItem("navigationState", "");
-
-		if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
-			KeyEvent(221);
-		};
+		KeyEvent(221);
 	},	
 
 	/* Trigger Previous Screen 
 	-------------------------------------------------- */
 	previousScreen: function(parameters) {
-		
-		if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
-			KeyEvent(219);
-		};
+		KeyEvent(219);
 	},
 
     /* Focus form inputs on Action button/keypress

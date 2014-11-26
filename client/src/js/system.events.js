@@ -18,21 +18,13 @@ var events = {
 	/* Trigger Next Screen 
 	-------------------------------------------------- */
 	nextScreen: function(parameters) {
-		
-		sessionStorage.setItem("navigationState", "");
-
-		if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
-			KeyEvent(221);
-		};
+		KeyEvent(221);
 	},	
 
 	/* Trigger Previous Screen 
 	-------------------------------------------------- */
 	previousScreen: function(parameters) {
-		
-		if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
-			KeyEvent(219);
-		};
+		KeyEvent(219);
 	},
 
     /* Focus form inputs on Action button/keypress
