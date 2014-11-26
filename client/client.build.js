@@ -6095,9 +6095,6 @@ module.exports = function(e) {
   ,   currentScreenId   = _.indexOf(screens, currentScreen)
   ,   pauseNavigation   = sessionStorage.getItem("navigationState");
 
-
-  // console.log(k);
-  
   /* Set Up Screen
   -------------------------------------------------- */
   function setScreen() {
