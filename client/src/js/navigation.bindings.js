@@ -1,36 +1,67 @@
 /* Navigation Key Bindings
 -------------------------------------------------- */
 
-var mousetrap   = require("./mousetrap.min.js")
-,   navigate    = require("./navigation.navigate.js");
+var mousetrap   = require('./mousetrap.min')
+,   navigate    = require('./navigation.navigate');
 
 module.exports = function() {
 
-        Mousetrap.bind('tab', function() {
-            navigate("right");
-        });
+    // pauseNavigation    = Pause Next/Prev navigation
+    // pauseRight         = Pause only Next but allow Prev
+    // pauseLeft          = Pause only Left but allow Next
+    // pauseDown          = Pause only Down 
+    // pauseUp            = Pause only Up
+    // pauseEnter         = Pause only Enter/Action
+    // pauseComma         = Pause only Back/Cancel
 
-        Mousetrap.bind('right', function() {
+    var pauseNavigation = sesionStorage.getItem("navigationState");
+
+    Mousetrap.bind('tab', function(e) {
+        if (pauseNavigation != "pauseRight" || pauseNavigation != "pause") {
             navigate("right");
-        }); // Navigate Next
-        Mousetrap.bind('left', function() {
+        }
+    });
+
+    Mousetrap.bind('right', function(e) {
+        if (pauseNavigation != "pauseRight" || pauseNavigation != "pause") {
+            navigate("right");
+        }
+    }); 
+
+    Mousetrap.bind('left', function(e) {
+        if (pauseNavigation != "pauseLeft" || pauseNavigation != "pause") {
             navigate("left");
-        }); // Navigate Prev
+        }
+    }); 
 
-        Mousetrap.bind('down', function(e) {
+    Mousetrap.bind('down', function(e) {
+        if (pauseNavigation != "pauseDown") {
             navigate("down");
-        }); // Navigate up
+        }
+    }); 
 
-        Mousetrap.bind('up', function(e) {
-            // if (e.preventDefault) {
-            //     e.preventDefault();
-            // }
+    Mousetrap.bind('up', function(e) {
+        if (pauseNavigation != "pauseUp") {
             navigate("up");
-        }); // Navigate down
+        }
+    }); 
 
-        Mousetrap.bind('enter', function() {
+    Mousetrap.bind('enter', function(e) {
+        if (pauseNavigation != "pauseEnter") {
             navigate("enter");
-        }); // Run Action
+        }
+    }); 
+
+
+    Mousetrap.bind(',', function(e) {
+        if (pauseNavigation != "pauseComma") {
+            navigate("cancel");
+        }
+    }); 
+
+    // if (e.preventDefault) {
+    //     e.preventDefault();
+    // }
 
 
 };

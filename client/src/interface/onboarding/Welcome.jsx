@@ -16,10 +16,10 @@ module.exports = React.createClass({
        ,   keyboardImg      = document.getElementById("keyboard-ui");
 
 
-       setInterval(function(){
-                controllerImg.classList.toggle("hidden");
-                keyboardImg.classList.toggle("hidden");
-            }, 2500);
+       // setInterval(function(){
+       //          controllerImg.classList.toggle("hidden");
+       //          keyboardImg.classList.toggle("hidden");
+       //      }, 2500);
 
     },
 
@@ -35,10 +35,10 @@ module.exports = React.createClass({
 
                 <WizardHeader title="Welcome" icon="ion-game-controller-a" subtitle="Controlling the UI" active="0" steps="4" />
 
-                <div className='viewport-60'>
+                <div id="crossfade" className='viewport-60'>
 
-                <img id="controller-ui" src="/src/img/controller-ui.png" alt="Controller Layout" className="img-responsive img-center" />
-                <img id="keyboard-ui" src="/src/img/keyboard-ui.png" alt="Controller Layout" className="img-responsive hidden img-center" />
+                <img id="controller-ui" src="/src/img/controller-ui.png" alt="Controller Layout" className="top img-responsive img-center" />
+                <img id="keyboard-ui" src="/src/img/keyboard-ui.png" alt="Controller Layout" className="bottom img-responsive img-center" />
                 
                 </div>
 

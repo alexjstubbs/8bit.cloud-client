@@ -31,7 +31,7 @@ var common                  = require('./local/common')
 ,   methodOverride          = require('method-override')
 ,   app                     = express()
 ,   http                    = require('http').createServer(app)
-,   fs                      = require('fs')
+,   fs                      = require('fs-extra')
 ,   api                     = require('./local/api/api')
 ,   Insight                 = require('insight')
 ,   pkg                     = require('./package.json');
@@ -41,6 +41,7 @@ global.__api                = __io.of('/api');
 global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
 api(__api);
+
 
 /* Initial Setup
 -------------------------------------------------- */
@@ -68,8 +69,6 @@ app.set('views', './local/render/');
 app.engine('mustache', common.mu2express.engine);
 app.set('view engine', 'mustache');
 
-// app.use(common.express.logger('dev'));
-// app.use(busboy());
 app.use(methodOverride());
 
 app.use(app.router);
@@ -80,14 +79,12 @@ app.use(common.express.errorHandler());
 
 /* Anonymous Analytics OPT-IN
 -------------------------------------------------- */
-
 var insight = new Insight({
     // Google Analytics tracking code
     trackingCode: 'UA-54752042-1',
     packageName: pkg.name,
     packageVersion: pkg.version
 });
-
 
 insight.optOut = false;
 
@@ -111,7 +108,6 @@ app.get('/games/:platform/:name', common.db.gameImage);
 /* Server Initialization
 -------------------------------------------------- */
 
-// app.listen(app.get('port'), "localhost");
 http.listen(1210, "127.0.0.1");
 
 console.log("[i] Ignition Client Launched.");

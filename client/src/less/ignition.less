@@ -137,6 +137,84 @@
 	display:inline !important;
 }
 
+/* Welcome Animation
+-------------------------------------------------- */
+@-webkit-keyframes welcomeFade {
+	0%   { opacity:1; }
+	45%  { opacity:1; }
+	55%  { opacity:0; }
+	100% { opacity:0; }
+}
+
+@-webkit-keyframes welcomeFadeAlt {
+	0%   { opacity:0; }
+	45%  { opacity:0; }
+	55%  { opacity:1; }
+	100% { opacity:1; }
+}
+
+@keyframes welcomeFade {
+	0%   { opacity:1; }
+	45%  { opacity:1; }
+	55%  { opacity:0; }
+	100% { opacity:0; }
+}
+
+@keyframes welcomeFadeAlt {
+	0%   { opacity:0; }
+	45%  { opacity:0; }
+	55%  { opacity:1; }
+	100% { opacity:1; }
+}
+
+
+#crossfade {
+  position:relative;
+  margin:0 auto;
+  text-align:center;
+
+}
+
+#crossfade img.top {
+	position:absolute;
+	top:0;
+	z-index:2;
+
+	animation-name: welcomeFade;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-duration: 3s;
+	animation-direction: alternate;	
+
+	-webkit-animation-name: welcomeFade;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-duration: 3s;
+	-webkit-animation-direction: alternate;
+}
+
+#crossfade img.bottom {
+	position:absolute;
+	top:2vh;
+	left:15vw;
+
+	z-index:1;
+	
+	-webkit-animation-name: welcomeFadeAlt;
+	-webkit-animation-timing-function: ease-in-out;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-duration: 3s;
+	-webkit-animation-direction: alternate;	
+
+	animation-name: welcomeFadeAlt;
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+	animation-duration: 3s;
+	animation-direction: alternate;
+}
+
+
+
 /* Keyboard
 -------------------------------------------------- */
 

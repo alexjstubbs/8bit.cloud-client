@@ -25,8 +25,6 @@ module.exports = React.createClass({
       
             <div className="container parent viewport-container" id="welcome">
 
-                <WizardHeader title="Welcome" active="3" steps="4" />
-
                 <div className='viewport-60'>
 
 

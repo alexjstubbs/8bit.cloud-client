@@ -3824,7 +3824,6 @@ init();
 /* Set up Screens
 -------------------------------------------------- */
 
-
 	var container = document.getElementById("screens");
 
 	if (pathname != "/welcome") {
@@ -4531,8 +4530,6 @@ module.exports = React.createClass({displayName: 'exports',
       
             React.DOM.div({className: "container parent viewport-container", id: "welcome"}, 
 
-                WizardHeader({title: "Welcome", active: "3", steps: "4"}), 
-
                 React.DOM.div({className: "viewport-60"}, 
 
 
@@ -4840,10 +4837,10 @@ module.exports = React.createClass({displayName: 'exports',
        ,   keyboardImg      = document.getElementById("keyboard-ui");
 
 
-       setInterval(function(){
-                controllerImg.classList.toggle("hidden");
-                keyboardImg.classList.toggle("hidden");
-            }, 2500);
+       // setInterval(function(){
+       //          controllerImg.classList.toggle("hidden");
+       //          keyboardImg.classList.toggle("hidden");
+       //      }, 2500);
 
     },
 
@@ -4859,10 +4856,10 @@ module.exports = React.createClass({displayName: 'exports',
 
                 WizardHeader({title: "Welcome", icon: "ion-game-controller-a", subtitle: "Controlling the UI", active: "0", steps: "4"}), 
 
-                React.DOM.div({className: "viewport-60"}, 
+                React.DOM.div({id: "crossfade", className: "viewport-60"}, 
 
-                React.DOM.img({id: "controller-ui", src: "/src/img/controller-ui.png", alt: "Controller Layout", className: "img-responsive img-center"}), 
-                React.DOM.img({id: "keyboard-ui", src: "/src/img/keyboard-ui.png", alt: "Controller Layout", className: "img-responsive hidden img-center"})
+                React.DOM.img({id: "controller-ui", src: "/src/img/controller-ui.png", alt: "Controller Layout", className: "top img-responsive img-center"}), 
+                React.DOM.img({id: "keyboard-ui", src: "/src/img/keyboard-ui.png", alt: "Controller Layout", className: "bottom img-responsive img-center"})
                 
                 ), 
 
@@ -4980,6 +4977,7 @@ module.exports = React.createClass({displayName: 'exports',
             icon: null
         }
     },
+
 
     render: function() {
 
@@ -5887,40 +5885,71 @@ b[c[e].seq]=1,x(c[e].callback,d,c[e].combo,c[e].seq)):g||x(c[e].callback,d,c[e].
 /* Navigation Key Bindings
 -------------------------------------------------- */
 
-var mousetrap   = require("./mousetrap.min.js")
-,   navigate    = require("./navigation.navigate.js");
+var mousetrap   = require('./mousetrap.min')
+,   navigate    = require('./navigation.navigate');
 
 module.exports = function() {
 
-        Mousetrap.bind('tab', function() {
-            navigate("right");
-        });
+    // pauseNavigation    = Pause Next/Prev navigation
+    // pauseRight         = Pause only Next but allow Prev
+    // pauseLeft          = Pause only Left but allow Next
+    // pauseDown          = Pause only Down 
+    // pauseUp            = Pause only Up
+    // pauseEnter         = Pause only Enter/Action
+    // pauseComma         = Pause only Back/Cancel
 
-        Mousetrap.bind('right', function() {
+    var pauseNavigation = sesionStorage.getItem("navigationState");
+
+    Mousetrap.bind('tab', function(e) {
+        if (pauseNavigation != "pauseRight" || pauseNavigation != "pause") {
             navigate("right");
-        }); // Navigate Next
-        Mousetrap.bind('left', function() {
+        }
+    });
+
+    Mousetrap.bind('right', function(e) {
+        if (pauseNavigation != "pauseRight" || pauseNavigation != "pause") {
+            navigate("right");
+        }
+    }); 
+
+    Mousetrap.bind('left', function(e) {
+        if (pauseNavigation != "pauseLeft" || pauseNavigation != "pause") {
             navigate("left");
-        }); // Navigate Prev
+        }
+    }); 
 
-        Mousetrap.bind('down', function(e) {
+    Mousetrap.bind('down', function(e) {
+        if (pauseNavigation != "pauseDown") {
             navigate("down");
-        }); // Navigate up
+        }
+    }); 
 
-        Mousetrap.bind('up', function(e) {
-            // if (e.preventDefault) {
-            //     e.preventDefault();
-            // }
+    Mousetrap.bind('up', function(e) {
+        if (pauseNavigation != "pauseUp") {
             navigate("up");
-        }); // Navigate down
+        }
+    }); 
 
-        Mousetrap.bind('enter', function() {
+    Mousetrap.bind('enter', function(e) {
+        if (pauseNavigation != "pauseEnter") {
             navigate("enter");
-        }); // Run Action
+        }
+    }); 
+
+
+    Mousetrap.bind(',', function(e) {
+        if (pauseNavigation != "pauseComma") {
+            navigate("cancel");
+        }
+    }); 
+
+    // if (e.preventDefault) {
+    //     e.preventDefault();
+    // }
 
 
 };
-},{"./mousetrap.min.js":63,"./navigation.navigate.js":71}],65:[function(require,module,exports){
+},{"./mousetrap.min":63,"./navigation.navigate":71}],65:[function(require,module,exports){
 /* Misc. Helper Functions
 -------------------------------------------------- */
 

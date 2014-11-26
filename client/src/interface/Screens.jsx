@@ -29,7 +29,6 @@ init();
 /* Set up Screens
 -------------------------------------------------- */
 
-
 	var container = document.getElementById("screens");
 
 	if (pathname != "/welcome") {
