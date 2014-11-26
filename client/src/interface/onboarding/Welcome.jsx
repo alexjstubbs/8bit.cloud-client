@@ -40,12 +40,7 @@ module.exports = React.createClass({
 
                 <br /><br />
                
-
                 <button data-function='nextScreen' className="navable btn btn-lg btn-alt pull-right">Continue &nbsp; <i className="ion-arrow-right-c"></i></button>
-
-                
-
-
 
             </div>
 
