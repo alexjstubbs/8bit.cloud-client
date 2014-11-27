@@ -11,7 +11,6 @@ var systemNotify    = require('./notification.init.js')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
-,   InlineKeyboard  = require("../interface/InlineKeyboard.jsx")
 ,   GeneralDialog   = require("../interface/GeneralDialog.jsx");
 
 var _div;
@@ -131,19 +130,8 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
-    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'text', value:input.value})), div);
+    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'text', value:input.value, type:"alpha"})), div);
     
- 
-
-}
-
-/* Inline Keyboard (Non Modal)
--------------------------------------------------- */
-var inlineKeyboard = function(input) {
-
-    var div = document.getElementById("KB");
-    React.renderComponent(InlineKeyboard(null), div);
-
 }
 
 /* Exports
@@ -152,5 +140,4 @@ exports.show                = show;
 exports.close               = close;
 exports.keyboard            = keyboard;
 exports.popup               = popup;
-exports.inlineKeyboard      = inlineKeyboard;
 exports.general             = general;

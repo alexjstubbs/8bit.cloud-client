@@ -11,15 +11,20 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
     return {
-            navable: true,
-            navStack: 2,
-            input: null,
-            form: 'onScreenKeyboard',
-            input: "text"
+            navable:    true,
+            navStack:   2,
+            input:      null,
+            form:       'onScreenKeyboard',
+            input:      "text",
+            type:       "alpha"
+
         }
     },
 
     componentDidMount: function() {
+
+        var _this = this;
+
 
         var recentInput = document.getElementsByClassName("activeInput")[0];
         recentInput.scrollTop = recentInput.scrollHeight;
@@ -30,7 +35,21 @@ module.exports = React.createClass({
 
         var kb = document.getElementById("KB");
 
-        var Keyboard = new keyboard.Keyboard(kb);
+        if (this.props.type == "symbols") {
+            var Keyboard = new keyboard.symbolsKeyboard(kb);
+        }
+
+        else {
+            var Keyboard = new keyboard.Keyboard(kb);
+        }
+
+         window.addEventListener("updateKeyboard", function(e) {
+            _this.setProps.type = e.detail;
+            kb.innerHTML = "";
+            var Keyboard = new keyboard.symbolsKeyboard(kb);
+            navigationInit.navigationInit();
+        });
+
 
         navigationInit.navigationInit();
        

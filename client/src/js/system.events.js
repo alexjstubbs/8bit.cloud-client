@@ -63,8 +63,6 @@ var events = {
             type 			= document.querySelectorAll("[data-inputtype]")[0].getAttribute("data-inputtype"),
             cursor 			= document.querySelectorAll(".cursor");
 
-
-            console.log(type);
         
         // Key is Uppercase
         if (document.getElementsByClassName("uppercase")[0]) {
@@ -84,6 +82,19 @@ var events = {
         // Switch for keypress 
         switch (parameters) {
 
+    	// Symbols
+    	case "<i class='ion-code-working'></i>":
+
+			var event = new CustomEvent('updateKeyboard', { 
+			    'detail': {
+			        type: "symbol",
+			    }
+			});
+
+			window.dispatchEvent(event);
+
+			return;
+
         // Cursor Left
         case "<i class='ion-arrow-left-b opacity-20'></i>":
 
@@ -98,10 +109,10 @@ var events = {
 	        // cursor[0].style.left = cursor[0].offsetLeft;
 
 
-			if (cursor[0].offsetLeft != 28) {
+			// if (cursor[0].offsetLeft != 28) {
 
-					cursor[0].style.left = 7 + "px";
-			}
+			// 		cursor[0].style.left = 7 + "px";
+			// }
 
 	        return;
 

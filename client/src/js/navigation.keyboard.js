@@ -2,16 +2,16 @@
 -------------------------------------------------- */
 var navigationInit  = require('./navigation.init.js')
 
-/* Mini Keyboard
+/* Symbols Keyboard
 -------------------------------------------------- */
-var miniKeyboard = function(elem) {
+var symbolsKeyboard = function(elem) {
   
     console.log("WED");
 
     this.elem = elem;
     this.elem.className = "keyboard";
 
-    miniKeyboard.rows.map(function(row, i) {
+    symbolsKeyboard.rows.map(function(row, i) {
       
       this.elem.appendChild(this.createRow(row, i));
 
@@ -40,19 +40,19 @@ Keyboard.rows = [
   [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
-miniKeyboard.rows = [
-  [ "q", "w", "e", "r", "t", "y", "u", "i"],
-  [ "o", "p", "a", "s", "d", "f", "g", "h"],
-  [ "j", "k", "l", "z"],
+symbolsKeyboard.rows = [
+  [ "~", "!", "#", "$", "%", "^", "&", "*", "(", ")"],
+  [ "{", "}", "\\", "|", "/", "\"", ":", ";", "o", "p"],
+  [ "[", "]", "d", "f", "g", "h", "j", "k", "l", "z"],
   [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-  [ ".", ",", "<i class='ion-at'></i>", "&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; SPACE &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; ", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 
-/* Mini Keyboard ALPHA
+/* Symbols Keyboard ALPHA
 
 -------------------------------------------------- */
-miniKeyboard.prototype.createRow = function(row, i) {
+symbolsKeyboard.prototype.createRow = function(row, i) {
 
   var div = document.createElement("div");
       div.setAttribute("data-row", i);
@@ -64,7 +64,7 @@ miniKeyboard.prototype.createRow = function(row, i) {
   return div;
 };
 
-miniKeyboard.prototype.createKey = function(key) {
+symbolsKeyboard.prototype.createKey = function(key) {
   var button = document.createElement("div");
   button.classList.add("navable", "btn", "_key", "rowParent");
   button.setAttribute("data-function", "depressKey");
@@ -75,7 +75,7 @@ miniKeyboard.prototype.createKey = function(key) {
   };
 
   if (key == "<i class='ion-checkmark'></i>") {
-      button.classList.add("key-blue");
+      button.classList.add("key-dark");
   }
 
   button.innerHTML = key;
@@ -83,7 +83,7 @@ miniKeyboard.prototype.createKey = function(key) {
   return button;
 };
 
-miniKeyboard.prototype.onKeypress = function(key, event) {
+symbolsKeyboard.prototype.onKeypress = function(key, event) {
   var keypressEvent = new Event("keypress");
   keypressEvent.key = key;
   this.elem.dispatchEvent(keypressEvent);
@@ -133,5 +133,5 @@ Keyboard.prototype.onKeypress = function(key, event) {
 
 /* Exports
 -------------------------------------------------- */
-exports.Keyboard      = Keyboard;
-exports.miniKeyboard  = miniKeyboard;
+exports.Keyboard         = Keyboard;
+exports.symbolsKeyboard  = symbolsKeyboard;

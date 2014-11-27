@@ -3403,15 +3403,20 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
     return {
-            navable: true,
-            navStack: 2,
-            input: null,
-            form: 'onScreenKeyboard',
-            input: "text"
+            navable:    true,
+            navStack:   2,
+            input:      null,
+            form:       'onScreenKeyboard',
+            input:      "text",
+            type:       "alpha"
+
         }
     },
 
     componentDidMount: function() {
+
+        var _this = this;
+
 
         var recentInput = document.getElementsByClassName("activeInput")[0];
         recentInput.scrollTop = recentInput.scrollHeight;
@@ -3422,7 +3427,21 @@ module.exports = React.createClass({displayName: 'exports',
 
         var kb = document.getElementById("KB");
 
-        var Keyboard = new keyboard.Keyboard(kb);
+        if (this.props.type == "symbols") {
+            var Keyboard = new keyboard.symbolsKeyboard(kb);
+        }
+
+        else {
+            var Keyboard = new keyboard.Keyboard(kb);
+        }
+
+         window.addEventListener("updateKeyboard", function(e) {
+            _this.setProps.type = e.detail;
+            kb.innerHTML = "";
+            var Keyboard = new keyboard.symbolsKeyboard(kb);
+            navigationInit.navigationInit();
+        });
+
 
         navigationInit.navigationInit();
        
@@ -5188,7 +5207,6 @@ var systemNotify    = require('./notification.init.js')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
-,   InlineKeyboard  = require("../interface/InlineKeyboard.jsx")
 ,   GeneralDialog   = require("../interface/GeneralDialog.jsx");
 
 var _div;
@@ -5308,19 +5326,8 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
-    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'text', value:input.value})), div);
+    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'text', value:input.value, type:"alpha"})), div);
     
- 
-
-}
-
-/* Inline Keyboard (Non Modal)
--------------------------------------------------- */
-var inlineKeyboard = function(input) {
-
-    var div = document.getElementById("KB");
-    React.renderComponent(InlineKeyboard(null), div);
-
 }
 
 /* Exports
@@ -5329,10 +5336,9 @@ exports.show                = show;
 exports.close               = close;
 exports.keyboard            = keyboard;
 exports.popup               = popup;
-exports.inlineKeyboard      = inlineKeyboard;
 exports.general             = general;
 
-},{"../interface/GeneralDialog.jsx":14,"../interface/InlineKeyboard.jsx":18,"../interface/Messages.jsx":23,"../interface/Modal.jsx":24,"../interface/OnScreenKeyboard.jsx":26,"../interface/Popup.jsx":29,"../interface/forms/SignUp.jsx":37,"./navigation.init.js":68,"./notification.init.js":72,"lodash":76,"react/addons":78,"socket.io-client":237}],57:[function(require,module,exports){
+},{"../interface/GeneralDialog.jsx":14,"../interface/Messages.jsx":23,"../interface/Modal.jsx":24,"../interface/OnScreenKeyboard.jsx":26,"../interface/Popup.jsx":29,"../interface/forms/SignUp.jsx":37,"./navigation.init.js":68,"./notification.init.js":72,"lodash":76,"react/addons":78,"socket.io-client":237}],57:[function(require,module,exports){
 /* API Event Listeners
 -------------------------------------------------- */
 var api     = require('socket.io-client')('/api')
@@ -6363,16 +6369,16 @@ module.exports = function(k) {
 -------------------------------------------------- */
 var navigationInit  = require('./navigation.init.js')
 
-/* Mini Keyboard
+/* Symbols Keyboard
 -------------------------------------------------- */
-var miniKeyboard = function(elem) {
+var symbolsKeyboard = function(elem) {
   
     console.log("WED");
 
     this.elem = elem;
     this.elem.className = "keyboard";
 
-    miniKeyboard.rows.map(function(row, i) {
+    symbolsKeyboard.rows.map(function(row, i) {
       
       this.elem.appendChild(this.createRow(row, i));
 
@@ -6401,19 +6407,19 @@ Keyboard.rows = [
   [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
-miniKeyboard.rows = [
-  [ "q", "w", "e", "r", "t", "y", "u", "i"],
-  [ "o", "p", "a", "s", "d", "f", "g", "h"],
-  [ "j", "k", "l", "z"],
+symbolsKeyboard.rows = [
+  [ "~", "!", "#", "$", "%", "^", "&", "*", "(", ")"],
+  [ "{", "}", "\\", "|", "/", "\"", ":", ";", "o", "p"],
+  [ "[", "]", "d", "f", "g", "h", "j", "k", "l", "z"],
   [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-  [ ".", ",", "<i class='ion-at'></i>", "&nbsp;&nbsp;&nbsp; &nbsp; &nbsp; SPACE &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; ", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 
-/* Mini Keyboard ALPHA
+/* Symbols Keyboard ALPHA
 
 -------------------------------------------------- */
-miniKeyboard.prototype.createRow = function(row, i) {
+symbolsKeyboard.prototype.createRow = function(row, i) {
 
   var div = document.createElement("div");
       div.setAttribute("data-row", i);
@@ -6425,7 +6431,7 @@ miniKeyboard.prototype.createRow = function(row, i) {
   return div;
 };
 
-miniKeyboard.prototype.createKey = function(key) {
+symbolsKeyboard.prototype.createKey = function(key) {
   var button = document.createElement("div");
   button.classList.add("navable", "btn", "_key", "rowParent");
   button.setAttribute("data-function", "depressKey");
@@ -6436,7 +6442,7 @@ miniKeyboard.prototype.createKey = function(key) {
   };
 
   if (key == "<i class='ion-checkmark'></i>") {
-      button.classList.add("key-blue");
+      button.classList.add("key-dark");
   }
 
   button.innerHTML = key;
@@ -6444,7 +6450,7 @@ miniKeyboard.prototype.createKey = function(key) {
   return button;
 };
 
-miniKeyboard.prototype.onKeypress = function(key, event) {
+symbolsKeyboard.prototype.onKeypress = function(key, event) {
   var keypressEvent = new Event("keypress");
   keypressEvent.key = key;
   this.elem.dispatchEvent(keypressEvent);
@@ -6494,8 +6500,8 @@ Keyboard.prototype.onKeypress = function(key, event) {
 
 /* Exports
 -------------------------------------------------- */
-exports.Keyboard      = Keyboard;
-exports.miniKeyboard  = miniKeyboard;
+exports.Keyboard         = Keyboard;
+exports.symbolsKeyboard  = symbolsKeyboard;
 
 },{"./navigation.init.js":68}],71:[function(require,module,exports){
 /* General Navigation Functions
@@ -6960,8 +6966,6 @@ var events = {
             type 			= document.querySelectorAll("[data-inputtype]")[0].getAttribute("data-inputtype"),
             cursor 			= document.querySelectorAll(".cursor");
 
-
-            console.log(type);
         
         // Key is Uppercase
         if (document.getElementsByClassName("uppercase")[0]) {
@@ -6981,6 +6985,19 @@ var events = {
         // Switch for keypress 
         switch (parameters) {
 
+    	// Symbols
+    	case "<i class='ion-code-working'></i>":
+
+			var event = new CustomEvent('updateKeyboard', { 
+			    'detail': {
+			        type: "symbol",
+			    }
+			});
+
+			window.dispatchEvent(event);
+
+			return;
+
         // Cursor Left
         case "<i class='ion-arrow-left-b opacity-20'></i>":
 
@@ -6995,10 +7012,10 @@ var events = {
 	        // cursor[0].style.left = cursor[0].offsetLeft;
 
 
-			if (cursor[0].offsetLeft != 28) {
+			// if (cursor[0].offsetLeft != 28) {
 
-					cursor[0].style.left = 7 + "px";
-			}
+			// 		cursor[0].style.left = 7 + "px";
+			// }
 
 	        return;
 
