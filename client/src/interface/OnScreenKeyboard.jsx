@@ -20,6 +20,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
+
         var recentInput = document.getElementsByClassName("activeInput")[0];
         recentInput.scrollTop = recentInput.scrollHeight;
 

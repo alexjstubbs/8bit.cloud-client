@@ -3412,6 +3412,7 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
+
         var recentInput = document.getElementsByClassName("activeInput")[0];
         recentInput.scrollTop = recentInput.scrollHeight;
 
@@ -6974,6 +6975,34 @@ var events = {
    
         // Switch for keypress 
         switch (parameters) {
+
+        // Cursor Left
+        case "<i class='ion-arrow-left-b opacity-20'></i>":
+
+	        
+        	// = 8 or 9. ???
+	        console.log(cursor[0].offsetLeft);
+	         activeInput.innerHTML = activeInput.innerHTML.slice(0,-1);
+	        console.log(cursor[0].offsetLeft);
+
+
+
+	     //    if (cursor[0].offsetLeft != 28) {
+		    //     cursor[0].style.right = cursor[0].offsetLeft - 8 + "px";
+		    // }
+
+	        return;
+
+        // Cursor Right
+        case "<i class='ion-arrow-right-b opacity-20'></i>":
+
+	        console.log(cursor[0].offsetLeft);
+	        
+	        if (cursor[0].offsetRight != 0) {
+		        cursor[0].style.left = cursor[0].offsetLeft - 7 + "px";
+	        }
+
+	        return;
         
         // Accept
         case "<i class='ion-checkmark'></i>":
@@ -6983,11 +7012,18 @@ var events = {
         // Space
         case "__":
             activeInput.innerHTML += " ";
+
+            cursor[0].scrollIntoView(true);
+            recentInput.scrollTop = cursor[0].offsetTop;
+
             return;
 
         // @
         case "<i class='ion-at'></i>": 
-            activeInput.innerHTML +="@";
+            activeInput.innerHTML += "@";
+
+            cursor[0].scrollIntoView(true);
+            recentInput.scrollTop = cursor[0].offsetTop;
             return; 
 
         // Return
@@ -6995,13 +7031,16 @@ var events = {
 			activeInput.innerHTML +="<br />";
 			recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
 
-			cursor[0].scrollIntoView(true);
+            cursor[0].scrollIntoView(true);
+            recentInput.scrollTop = cursor[0].offsetTop;
+
             return;
 
         // Delete
         case "<i class='ion-arrow-left-a'></i>":
             activeInput.innerHTML = activeInput.innerHTML.slice(0,-1);
             recentInput.value = activeInput.innerHTML;
+
             return;
 
         // Caps 
@@ -7032,12 +7071,11 @@ var events = {
                 upper = false;
             }
             
-
             activeInput.innerHTML +=parameters;
             recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
 
             cursor[0].scrollIntoView(true);
-
+            recentInput.scrollTop = cursor[0].offsetTop;
         }
 
     },
