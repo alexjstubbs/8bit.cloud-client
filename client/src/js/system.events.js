@@ -61,6 +61,7 @@ var events = {
             recentInput 	= document.getElementsByClassName("activeInput")[0],
             _value 			= activeInput.value,
             type 			= document.querySelectorAll("[data-inputtype]")[0].getAttribute("data-inputtype"),
+            kbType 			= document.querySelectorAll("[data-keyboardtype]")[0].getAttribute("data-keyboardtype"),
             cursor 			= document.querySelectorAll(".cursor");
 
         
@@ -85,11 +86,23 @@ var events = {
     	// Symbols
     	case "<i class='ion-code-working'></i>":
 
-			var event = new CustomEvent('updateKeyboard', { 
-			    'detail': {
-			        type: "symbol",
-			    }
-			});
+    	console.log(kbType);
+
+    		if (kbType == 'alpha') {
+				var event = new CustomEvent('updateKeyboard', { 
+				    'detail': {
+				        type: "symbols",
+				    }
+				});
+			}
+
+			else {
+				var event = new CustomEvent('updateKeyboard', { 
+				    'detail': {
+				        type: "alpha",
+				    }
+				});
+			}
 
 			window.dispatchEvent(event);
 

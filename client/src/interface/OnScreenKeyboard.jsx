@@ -44,9 +44,19 @@ module.exports = React.createClass({
         }
 
          window.addEventListener("updateKeyboard", function(e) {
-            _this.setProps.type = e.detail;
+
+            _this.setProps.type = e.detail.type;
+            
             kb.innerHTML = "";
-            var Keyboard = new keyboard.symbolsKeyboard(kb);
+
+            if (e.detail.type == "symbols") {
+                var Keyboard = new keyboard.symbolsKeyboard(kb);
+            }
+
+            else {
+                var Keyboard = new keyboard.Keyboard(kb);
+            }
+            
             navigationInit.navigationInit();
         });
 
@@ -72,7 +82,7 @@ module.exports = React.createClass({
                                 
                                 <div className="form-group">
 
-                                    <div className="form-control" data-inputtype={this.props.input}  contentEditable="true" id="placehold_input" name="textual" rows="10">
+                                    <div className="form-control" data-keyboardtype={this.props.type} data-inputtype={this.props.input}  contentEditable="true" id="placehold_input" name="textual" rows="10">
                                         <span id="keyboard-input-area">{this.props.value}</span> 
                                         <i className="cursor">_</i>
                                     </div> 

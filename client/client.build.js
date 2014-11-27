@@ -3436,9 +3436,19 @@ module.exports = React.createClass({displayName: 'exports',
         }
 
          window.addEventListener("updateKeyboard", function(e) {
-            _this.setProps.type = e.detail;
+
+            _this.setProps.type = e.detail.type;
+            
             kb.innerHTML = "";
-            var Keyboard = new keyboard.symbolsKeyboard(kb);
+
+            if (e.detail.type == "symbols") {
+                var Keyboard = new keyboard.symbolsKeyboard(kb);
+            }
+
+            else {
+                var Keyboard = new keyboard.Keyboard(kb);
+            }
+            
             navigationInit.navigationInit();
         });
 
@@ -3464,7 +3474,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 
                                 React.DOM.div({className: "form-group"}, 
 
-                                    React.DOM.div({className: "form-control", 'data-inputtype': this.props.input, contentEditable: "true", id: "placehold_input", name: "textual", rows: "10"}, 
+                                    React.DOM.div({className: "form-control", 'data-keyboardtype': this.props.type, 'data-inputtype': this.props.input, contentEditable: "true", id: "placehold_input", name: "textual", rows: "10"}, 
                                         React.DOM.span({id: "keyboard-input-area"}, this.props.value), 
                                         React.DOM.i({className: "cursor"}, "_")
                                     )
@@ -6964,6 +6974,7 @@ var events = {
             recentInput 	= document.getElementsByClassName("activeInput")[0],
             _value 			= activeInput.value,
             type 			= document.querySelectorAll("[data-inputtype]")[0].getAttribute("data-inputtype"),
+            kbType 			= document.querySelectorAll("[data-keyboardtype]")[0].getAttribute("data-keyboardtype"),
             cursor 			= document.querySelectorAll(".cursor");
 
         
@@ -6988,11 +6999,23 @@ var events = {
     	// Symbols
     	case "<i class='ion-code-working'></i>":
 
-			var event = new CustomEvent('updateKeyboard', { 
-			    'detail': {
-			        type: "symbol",
-			    }
-			});
+    	console.log(kbType);
+
+    		if (kbType == 'alpha') {
+				var event = new CustomEvent('updateKeyboard', { 
+				    'detail': {
+				        type: "symbols",
+				    }
+				});
+			}
+
+			else {
+				var event = new CustomEvent('updateKeyboard', { 
+				    'detail': {
+				        type: "alpha",
+				    }
+				});
+			}
 
 			window.dispatchEvent(event);
 
