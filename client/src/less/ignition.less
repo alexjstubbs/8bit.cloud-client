@@ -105,14 +105,24 @@ textarea.form-control {
 	color:@white;
 }
 
-.large-textarea {
+#placehold_input[data-inputtype='textarea'] {
 	height:30vh;
+	overflow:auto;
+}
+
+#placehold_input[data-inputtype='text'] {
+	height:auto;
 	overflow:auto;
 }
 
 #keyboard-input-area {
 	white-space: pre-wrap;
 }
+
+.input-keyboard[data-proptype="text"] i.ion-arrow-return-left {
+	opacity:0.1;
+}
+
 
 .cursor {
 	color:@purple;

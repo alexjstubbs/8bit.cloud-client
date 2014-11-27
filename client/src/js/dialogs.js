@@ -131,7 +131,7 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
-    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'textarea', value:input.value})), div);
+    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'text', value:input.value})), div);
     
  
 

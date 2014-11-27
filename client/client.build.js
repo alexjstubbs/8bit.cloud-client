@@ -3431,9 +3431,10 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+
         return (
 
-            React.DOM.div(null, 
+            React.DOM.div({className: "input-keyboard", 'data-proptype': this.props.input}, 
                 React.DOM.div({className: "container-fluid parent"}, 
                     React.DOM.div({className: "row-fluid"}, 
                         React.DOM.div({className: "col-xs-12"}, 
@@ -3444,7 +3445,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 
                                 React.DOM.div({className: "form-group"}, 
 
-                                    React.DOM.div({className: "form-control large-textarea", contentEditable: "true", id: "placehold_input", name: "textual", rows: "10"}, 
+                                    React.DOM.div({className: "form-control", 'data-inputtype': this.props.input, contentEditable: "true", id: "placehold_input", name: "textual", rows: "10"}, 
                                         React.DOM.span({id: "keyboard-input-area"}, this.props.value), 
                                         React.DOM.i({className: "cursor"}, "_")
                                     )
@@ -5307,7 +5308,7 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
-    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'textarea', value:input.value})), div);
+    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'text', value:input.value})), div);
     
  
 
@@ -6952,11 +6953,15 @@ var events = {
     depressKey: function(parameters) {
 
         var upper, 
-            keys = document.getElementsByClassName("_key"),
-            activeInput = document.getElementById("keyboard-input-area"),
-            recentInput = document.getElementsByClassName("activeInput")[0],
-            _value = activeInput.value,
-            cursor = document.querySelectorAll(".cursor");
+            keys 			= document.getElementsByClassName("_key"),
+            activeInput 	= document.getElementById("keyboard-input-area"),
+            recentInput 	= document.getElementsByClassName("activeInput")[0],
+            _value 			= activeInput.value,
+            type 			= document.querySelectorAll("[data-inputtype]")[0].getAttribute("data-inputtype"),
+            cursor 			= document.querySelectorAll(".cursor");
+
+
+            console.log(type);
         
         // Key is Uppercase
         if (document.getElementsByClassName("uppercase")[0]) {
@@ -6980,16 +6985,20 @@ var events = {
         case "<i class='ion-arrow-left-b opacity-20'></i>":
 
 	        
-        	// = 8 or 9. ???
-	        console.log(cursor[0].offsetLeft);
-	         activeInput.innerHTML = activeInput.innerHTML.slice(0,-1);
-	        console.log(cursor[0].offsetLeft);
+        	// = 8 or 9 ???
+	        // console.log(cursor[0].offsetLeft);
+	        // console.log(cursor[0].style.left);
+	        
+	        // activeInput.innerHTML = activeInput.innerHTML.slice(0,-1);
+
+	        // console.log(cursor[0].offsetLeft);
+	        // cursor[0].style.left = cursor[0].offsetLeft;
 
 
+			if (cursor[0].offsetLeft != 28) {
 
-	     //    if (cursor[0].offsetLeft != 28) {
-		    //     cursor[0].style.right = cursor[0].offsetLeft - 8 + "px";
-		    // }
+					cursor[0].style.left = 7 + "px";
+			}
 
 	        return;
 
@@ -7027,12 +7036,15 @@ var events = {
             return; 
 
         // Return
-        case "<i class='ion-arrow-return-left'></i>": 
-			activeInput.innerHTML +="<br />";
-			recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
+        case "<i class='ion-arrow-return-left'></i>":
 
-            cursor[0].scrollIntoView(true);
-            recentInput.scrollTop = cursor[0].offsetTop;
+        	if (type != 'text') { 
+				activeInput.innerHTML +="<br />";
+				recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
+
+	            cursor[0].scrollIntoView(true);
+	            recentInput.scrollTop = cursor[0].offsetTop;
+	        }
 
             return;
 
