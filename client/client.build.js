@@ -5321,7 +5321,7 @@ var close = function(modal, callback) {
 
 /* Show Keyboard
 -------------------------------------------------- */
-var keyboard = function(input, callback) {
+var keyboard = function(input, type, callback) {
 
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
@@ -5342,7 +5342,7 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
-    React.renderComponent(Modal({backdrop: true}, Keyboard({input: 'text', value:input.value, type:"alpha"})), div);
+    React.renderComponent(Modal({backdrop: true}, Keyboard({input: input.type, value:input.value, type:"alpha"})), div);
     
 }
 

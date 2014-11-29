@@ -88,7 +88,7 @@ module.exports = React.createClass({
                                 
                                 <div className="form-group">
 
-                                    <div className="form-control" data-keyboardtype={this.state.type} data-inputtype={this.props.input}  contentEditable="true" id="placehold_input" name="textual" rows="10">
+                                    <div className="form-control" data-keyboardtype={this.state.type} data-inputtype={this.props.input} contentEditable="true" id="placehold_input" name="textual" rows="10">
                                         <span id="keyboard-input-area">{this.props.value}</span> 
                                         <i className="cursor">_</i>
                                     </div> 
