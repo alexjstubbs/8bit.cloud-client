@@ -8,17 +8,22 @@ var React               = require('react/addons')
 
 module.exports = React.createClass({
 
+    getInitialState: function() {
+        return {
+            type:       "alpha"
+        }
+    },
+
     getDefaultProps: function() {
 
-    return {
-            navable:    true,
-            navStack:   2,
-            input:      null,
-            form:       'onScreenKeyboard',
-            input:      "text",
-            type:       "alpha"
+        return {
+                navable:    true,
+                navStack:   2,
+                input:      null,
+                form:       'onScreenKeyboard',
+                input:      "text"
 
-        }
+            }
     },
 
     componentDidMount: function() {
@@ -35,7 +40,7 @@ module.exports = React.createClass({
 
         var kb = document.getElementById("KB");
 
-        if (this.props.type == "symbols") {
+        if (this.state.type == "symbols") {
             var Keyboard = new keyboard.symbolsKeyboard(kb);
         }
 
@@ -45,8 +50,9 @@ module.exports = React.createClass({
 
          window.addEventListener("updateKeyboard", function(e) {
 
-            _this.setProps.type = e.detail.type;
-            
+
+            _this.setState({type: e.detail.type});
+
             kb.innerHTML = "";
 
             if (e.detail.type == "symbols") {
@@ -82,7 +88,7 @@ module.exports = React.createClass({
                                 
                                 <div className="form-group">
 
-                                    <div className="form-control" data-keyboardtype={this.props.type} data-inputtype={this.props.input}  contentEditable="true" id="placehold_input" name="textual" rows="10">
+                                    <div className="form-control" data-keyboardtype={this.state.type} data-inputtype={this.props.input}  contentEditable="true" id="placehold_input" name="textual" rows="10">
                                         <span id="keyboard-input-area">{this.props.value}</span> 
                                         <i className="cursor">_</i>
                                     </div> 

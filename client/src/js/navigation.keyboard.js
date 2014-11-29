@@ -42,10 +42,10 @@ Keyboard.rows = [
 
 symbolsKeyboard.rows = [
   [ "~", "!", "#", "$", "%", "^", "&", "*", "(", ")"],
-  [ "{", "}", "\\", "|", "/", "\"", ":", ";", "o", "p"],
-  [ "[", "]", "d", "f", "g", "h", "j", "k", "l", "z"],
-  [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-  [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "{", "}", "\\", "|", "/", "\"", ":", ";", "<", ">"],
+  [ "[", "]", "=", "+", "@", "_", "-", "`", ",", "."],
+  [ "W3", "://", " ", " ", " ", " ", " ", ".Co", ".Ne", ".Or"],
+  [ "<i class='ion-code-working'></i>"," ", " ", " ", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 

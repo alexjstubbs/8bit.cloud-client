@@ -3400,17 +3400,22 @@ var React               = require('react/addons')
 
 module.exports = React.createClass({displayName: 'exports',
 
+    getInitialState: function() {
+        return {
+            type:       "alpha"
+        }
+    },
+
     getDefaultProps: function() {
 
-    return {
-            navable:    true,
-            navStack:   2,
-            input:      null,
-            form:       'onScreenKeyboard',
-            input:      "text",
-            type:       "alpha"
+        return {
+                navable:    true,
+                navStack:   2,
+                input:      null,
+                form:       'onScreenKeyboard',
+                input:      "text"
 
-        }
+            }
     },
 
     componentDidMount: function() {
@@ -3427,7 +3432,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         var kb = document.getElementById("KB");
 
-        if (this.props.type == "symbols") {
+        if (this.state.type == "symbols") {
             var Keyboard = new keyboard.symbolsKeyboard(kb);
         }
 
@@ -3437,8 +3442,9 @@ module.exports = React.createClass({displayName: 'exports',
 
          window.addEventListener("updateKeyboard", function(e) {
 
-            _this.setProps.type = e.detail.type;
-            
+
+            _this.setState({type: e.detail.type});
+
             kb.innerHTML = "";
 
             if (e.detail.type == "symbols") {
@@ -3474,7 +3480,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 
                                 React.DOM.div({className: "form-group"}, 
 
-                                    React.DOM.div({className: "form-control", 'data-keyboardtype': this.props.type, 'data-inputtype': this.props.input, contentEditable: "true", id: "placehold_input", name: "textual", rows: "10"}, 
+                                    React.DOM.div({className: "form-control", 'data-keyboardtype': this.state.type, 'data-inputtype': this.props.input, contentEditable: "true", id: "placehold_input", name: "textual", rows: "10"}, 
                                         React.DOM.span({id: "keyboard-input-area"}, this.props.value), 
                                         React.DOM.i({className: "cursor"}, "_")
                                     )
@@ -6419,10 +6425,10 @@ Keyboard.rows = [
 
 symbolsKeyboard.rows = [
   [ "~", "!", "#", "$", "%", "^", "&", "*", "(", ")"],
-  [ "{", "}", "\\", "|", "/", "\"", ":", ";", "o", "p"],
-  [ "[", "]", "d", "f", "g", "h", "j", "k", "l", "z"],
-  [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-  [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "{", "}", "\\", "|", "/", "\"", ":", ";", "<", ">"],
+  [ "[", "]", "=", "+", "@", "_", "-", "`", ",", "."],
+  [ "W3", "://", " ", " ", " ", " ", " ", ".Co", ".Ne", ".Or"],
+  [ "<i class='ion-code-working'></i>"," ", " ", " ", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 
@@ -6998,8 +7004,6 @@ var events = {
 
     	// Symbols
     	case "<i class='ion-code-working'></i>":
-
-    	console.log(kbType);
 
     		if (kbType == 'alpha') {
 				var event = new CustomEvent('updateKeyboard', { 

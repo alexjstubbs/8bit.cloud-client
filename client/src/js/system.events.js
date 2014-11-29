@@ -86,8 +86,6 @@ var events = {
     	// Symbols
     	case "<i class='ion-code-working'></i>":
 
-    	console.log(kbType);
-
     		if (kbType == 'alpha') {
 				var event = new CustomEvent('updateKeyboard', { 
 				    'detail': {
