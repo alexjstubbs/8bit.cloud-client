@@ -52,9 +52,6 @@ module.exports = React.createClass({
 
             <div className="parent" id="general-dialog">
 
-
-            <i className='ion-loading-c'></i>
-
                 <h2><i className={type.icon}></i> &nbsp; {type.text}</h2>
 
                 <hr />

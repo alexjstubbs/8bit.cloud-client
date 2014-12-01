@@ -7,7 +7,8 @@ var fs          = require('fs-extra')
 ,   database    = require('../../api/database/database.local')
 ,   helpers     = require('../../system/helpers')
 ,   network     = require('../../api/network/network.online')
-,   forms       = require('../../api/api.forms');
+,   forms       = require('../../api/api.forms')
+,   bcrypt      = require('bcrypt');
 
 /* Set up (use config file)
 -------------------------------------------------- */
@@ -15,6 +16,27 @@ var fs          = require('fs-extra')
 var server      = "ignition.io:3000"
 ,   port        = 3000
 ,   v           = "v1";
+
+/* Password Hash
+-------------------------------------------------- */
+var passHash = function(input, callback) {
+    var rand  = _.random(0, 1024);
+
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash("SEGA", salt, function(err, hash) {
+            
+            if (err) {
+                console.log(err);
+            }
+
+            else {
+                callback(hash);
+            }
+
+        });
+    });
+
+}
 
 /* Add a Friend Endpoint
 -------------------------------------------------- */
@@ -193,55 +215,60 @@ var signUp = function(nsp, profile) {
 
     _path = "http://" + path.join(server, app);
 
-    var query = { 
-        Username: 'James',
-        Email: 'alex3@alexstubbs.com',
-        validPassword: '469df27ea91ab84345e0051c81868535',
-        Avatar: null
-    };
 
-    request.post({
-        uri: _path,
-        form: query
-    }, function (error, response, body) {
+    var password = passHash(profile.username, function(hashed) {
+   
+        var query = { 
+            Username: profile.username,
+            Email: profile.email,
+            validPassword: hashed,
+            Avatar: profile.avatar
+        };
 
-        if (helpers.isJson(body)) {
-            
-            var status = JSON.parse(body);
+        request.post({
+            uri: _path,
+            form: query
+        }, function (error, response, body) {
 
-            if (status.Username) {
+            if (helpers.isJson(body)) {
+                
+                var status = JSON.parse(body);
 
-                var file = appDir+'/config/profiles/' + status.Username + '.json';
+                if (status.Username) {
 
-                fs.outputJson(file, status, function(err) {
+                    var file = appDir+'/config/profiles/' + status.Username + '.json';
 
-                    if (err) {
-                        console.log(err);
-                    }
+                    fs.outputJson(file, status, function(err) {
 
-                    else {
-                        fs.copy(file, __sessionFile, function(err){
-                          if (err) return console.error(err);
-                            getSession();
-                        }); 
+                        if (err) {
+                            console.log(err);
+                        }
 
-                    }
+                        else {
+                            fs.copy(file, __sessionFile, function(err){
+                              if (err) return console.error(err);
+                                getSession();
+                            }); 
 
-                });
+                        }
 
+                    });
+
+                }
             }
-        }
 
-        else {
-            // ||Client Box||: Could not sign up?
-            console.log(body);
-        }
+            else {
+                // ||Client Box||: Could not sign up?
+                console.log(body);
+            }
 
-        if (error) {
-            console.log(error, "Server unreachable?");
-        }
+            if (error) {
+                console.log(error, "Server unreachable?");
+            }
 
-    });
+        });
+
+     });
 
 }
 

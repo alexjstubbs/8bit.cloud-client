@@ -2785,9 +2785,6 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "parent", id: "general-dialog"}, 
 
-
-            React.DOM.i({className: "ion-loading-c"}), 
-
                 React.DOM.h2(null, React.DOM.i({className: type.icon}), "   ", type.text), 
 
                 React.DOM.hr(null), 
@@ -5321,7 +5318,7 @@ var close = function(modal, callback) {
 
 /* Show Keyboard
 -------------------------------------------------- */
-var keyboard = function(input, type, callback) {
+var keyboard = function(input, callback) {
 
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
