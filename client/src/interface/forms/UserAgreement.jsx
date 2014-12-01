@@ -33,7 +33,7 @@ module.exports = React.createClass({
         -------------------------------------------------- */
         
         request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:1210/EULA', true);
+        request.open('GET', 'http://127.0.0.1:1210/EULA', true);
 
         request.onload = function() {
           if (request.status >= 200 && request.status < 400){

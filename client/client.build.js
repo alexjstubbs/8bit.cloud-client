@@ -4196,7 +4196,7 @@ module.exports = React.createClass({displayName: 'exports',
         -------------------------------------------------- */
         
         request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:1210/EULA', true);
+        request.open('GET', 'http://127.0.0.1:1210/EULA', true);
 
         request.onload = function() {
           if (request.status >= 200 && request.status < 400){
@@ -4301,7 +4301,7 @@ module.exports = React.createClass({displayName: 'exports',
         -------------------------------------------------- */
         
         request = new XMLHttpRequest();
-        request.open('GET', 'http://localhost:1210/WifiConfig', true);
+        request.open('GET', 'http://127.0.0.1:1210/WifiConfig', true);
 
         request.onload = function() {
           if (request.status >= 200 && request.status < 400){
@@ -5400,7 +5400,7 @@ var updateGame = function(results, filepath, callback) {
                 genre: results[0].genre,
                 id: results[0].id,
                 developer: results[0].developer,
-                image: "http://localhost:1210/games/"+results[0].system+"/"+results[0].title,
+                image: "http://127.0.0.1:1210/games/"+results[0].system+"/"+results[0].title,
                 filepath: filepath
             }
         });
@@ -5709,7 +5709,7 @@ var gamepadSupport = {
 
                         // notify.log("<i class='icon ion-game-controller-a'></i> Gamepad Detected");
 
-                        urllaunch = "http://localhost:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
+                        urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
                         var xmlhttpl = new XMLHttpRequest();
                         xmlhttpl.open("POST", urllaunch, true);
                         xmlhttpl.send("");
@@ -5726,7 +5726,7 @@ var gamepadSupport = {
                         if (gamepadSupport.STATE_CHANGE == 1) {
 
 
-                            urllaunch = "http://localhost:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
+                            urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
                             var xmlhttpl = new XMLHttpRequest();
                             xmlhttpl.open("POST", urllaunch, true);
                             xmlhttpl.send("");

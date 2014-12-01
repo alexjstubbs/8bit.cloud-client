@@ -291,7 +291,7 @@ var gamepadSupport = {
 
                         // notify.log("<i class='icon ion-game-controller-a'></i> Gamepad Detected");
 
-                        urllaunch = "http://localhost:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
+                        urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
                         var xmlhttpl = new XMLHttpRequest();
                         xmlhttpl.open("POST", urllaunch, true);
                         xmlhttpl.send("");
@@ -308,7 +308,7 @@ var gamepadSupport = {
                         if (gamepadSupport.STATE_CHANGE == 1) {
 
 
-                            urllaunch = "http://localhost:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
+                            urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
                             var xmlhttpl = new XMLHttpRequest();
                             xmlhttpl.open("POST", urllaunch, true);
                             xmlhttpl.send("");

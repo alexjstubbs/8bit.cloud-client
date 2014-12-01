@@ -110,7 +110,7 @@ function achievementCheck(gameAchievements, callback) {
 
                     // Achievement Unlocked!
                     if (result) {
-                        // command = 'echo "ACHIEVEMENT_UNLOCKED" | nc -u localhost 55355 | pkill nc';
+                        // command = 'echo "ACHIEVEMENT_UNLOCKED" | nc -u 127.0.0.1 55355 | pkill nc';
                         command = '/home/pi/fbtest_/openvg/client/test2/openvg/client/hellovg';
                         console.log("achievements unlocked");
                         // Remove Achievement
