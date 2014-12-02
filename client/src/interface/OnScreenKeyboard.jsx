@@ -4,7 +4,8 @@
 
 var React               = require('react/addons')
 ,   navigationInit      = require('../js/navigation.init')
-,   keyboard            = require('../js/navigation.keyboard');
+,   keyboard            = require('../js/navigation.keyboard')
+,   keyboardKeyEvents   = require('../js/navigation.keyboardKeyEvents');
 
 module.exports = React.createClass({
 
@@ -46,6 +47,7 @@ module.exports = React.createClass({
 
         else {
             var Keyboard = new keyboard.Keyboard(kb);
+
         }
 
          window.addEventListener("updateKeyboard", function(e) {
@@ -66,9 +68,15 @@ module.exports = React.createClass({
             navigationInit.navigationInit();
         });
 
-
+    
         navigationInit.navigationInit();
        
+        document.querySelectorAll(".input-keyboard")[0].focus();
+        document.querySelectorAll(".input-keyboard")[0].addEventListener("keypress", function(e) {
+             if (e.charCode) {
+                keyboardKeyEvents.keypress(e.key);
+            }
+        });
 
     },
 
@@ -77,7 +85,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div className="input-keyboard" data-proptype={this.props.input}>
+            <div className="input-keyboard" tabIndex="0" data-proptype={this.props.input}>
                 <div className="container-fluid parent">
                     <div className="row-fluid">
                         <div className="col-xs-12">
