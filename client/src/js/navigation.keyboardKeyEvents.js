@@ -1,5 +1,6 @@
 /* On Screen Keyboard translations
 -------------------------------------------------- */
+var events = require("./events");
 
 var keypress = function(parameters) {
 
@@ -88,7 +89,8 @@ var keypress = function(parameters) {
     
     // Accept
     case "<i class='ion-checkmark'></i>":
-        dialog.close();
+        // dialog.close();
+        events.dialog(null, "close");
     return;
 
     // Space

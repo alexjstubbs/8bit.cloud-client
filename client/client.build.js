@@ -3393,7 +3393,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React               = require('react/addons')
 ,   navigationInit      = require('../js/navigation.init')
-,   keyboard            = require('../js/navigation.keyboard')
+,   _keyboard            = require('../js/navigation.keyboard')
 ,   keyboardKeyEvents   = require('../js/navigation.keyboardKeyEvents');
 
 module.exports = React.createClass({displayName: 'exports',
@@ -3431,11 +3431,11 @@ module.exports = React.createClass({displayName: 'exports',
         var kb = document.getElementById("KB");
 
         if (this.state.type == "symbols") {
-            var Keyboard = new keyboard.symbolsKeyboard(kb);
+            var Keyboard = new _keyboard.symbolsKeyboard(kb);
         }
 
         else {
-            var Keyboard = new keyboard.Keyboard(kb);
+            var Keyboard = new _keyboard.Keyboard(kb);
 
         }
 
@@ -3447,11 +3447,11 @@ module.exports = React.createClass({displayName: 'exports',
             kb.innerHTML = "";
 
             if (e.detail.type == "symbols") {
-                var Keyboard = new keyboard.symbolsKeyboard(kb);
+                var Keyboard = new _keyboard.symbolsKeyboard(kb);
             }
 
             else {
-                var Keyboard = new keyboard.Keyboard(kb);
+                var Keyboard = new _keyboard.Keyboard(kb);
             }
             
             navigationInit.navigationInit();
@@ -5364,7 +5364,8 @@ exports.general             = general;
 -------------------------------------------------- */
 var api     = require('socket.io-client')('/api')
 ,   events  = require('./events')
-,   _       = require('lodash');
+,   _       = require('lodash')
+, 	dialog  = require('./dialogs');
 
 /* Possibly Unused. Run unit tests
 -------------------------------------------------- */
@@ -5373,12 +5374,31 @@ api.on('api', function(_event){
         events.updateGame(_event.updateGame.games.game);
     }
 });
-},{"./events":58,"lodash":77,"socket.io-client":238}],58:[function(require,module,exports){
+
+
+/* Dialog (react circular sidestep)
+-------------------------------------------------- */
+
+window.addEventListener("dialog", function(e) {
+	
+
+  switch (e.detail.action) {
+  	
+  	case "close":
+	  	dialog.close(e.detail.input);
+	  	return;
+  
+  }
+
+
+}, false);
+},{"./dialogs":56,"./events":58,"lodash":77,"socket.io-client":238}],58:[function(require,module,exports){
 /* Custom Events
 -------------------------------------------------- */
 var api     = require('socket.io-client')('/api');
 
-
+/* Legacy Screen Transition
+-------------------------------------------------- */
 var screenTransition = function(screen, hidden, parent) {
    
     var event = new CustomEvent('screenTransition', { 
@@ -5393,6 +5413,24 @@ var screenTransition = function(screen, hidden, parent) {
 
 };
 
+/* Dialogs (circular hack)
+-------------------------------------------------- */
+var dialog = function(input, action) {
+   
+    var event = new CustomEvent('dialog', { 
+        'detail': {
+            input: input,
+            action: action
+        }
+    });
+
+    window.dispatchEvent(event);
+
+};
+
+
+/* Update Game
+-------------------------------------------------- */
 var updateGame = function(results, filepath, callback) {
     if (results[0]) {
 
@@ -5421,7 +5459,8 @@ var updateGame = function(results, filepath, callback) {
 /* Exports
 -------------------------------------------------- */
 exports.screenTransition = screenTransition;
-exports.updateGame = updateGame;
+exports.dialog 			 = dialog;
+exports.updateGame 		 = updateGame;
 
 },{"socket.io-client":238}],59:[function(require,module,exports){
 /**
@@ -6527,6 +6566,7 @@ exports.symbolsKeyboard  = symbolsKeyboard;
 },{"./navigation.init.js":68}],71:[function(require,module,exports){
 /* On Screen Keyboard translations
 -------------------------------------------------- */
+var events = require("./events");
 
 var keypress = function(parameters) {
 
@@ -6615,7 +6655,8 @@ var keypress = function(parameters) {
     
     // Accept
     case "<i class='ion-checkmark'></i>":
-        dialog.close();
+        // dialog.close();
+        events.dialog(null, "close");
     return;
 
     // Space
@@ -6695,7 +6736,7 @@ var keypress = function(parameters) {
 -------------------------------------------------- */
 
 exports.keypress = keypress;
-},{}],72:[function(require,module,exports){
+},{"./events":58}],72:[function(require,module,exports){
 /* General Navigation Functions
 -------------------------------------------------- */
 

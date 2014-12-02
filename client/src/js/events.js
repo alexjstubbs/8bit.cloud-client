@@ -2,7 +2,8 @@
 -------------------------------------------------- */
 var api     = require('socket.io-client')('/api');
 
-
+/* Legacy Screen Transition
+-------------------------------------------------- */
 var screenTransition = function(screen, hidden, parent) {
    
     var event = new CustomEvent('screenTransition', { 
@@ -17,6 +18,24 @@ var screenTransition = function(screen, hidden, parent) {
 
 };
 
+/* Dialogs (circular hack)
+-------------------------------------------------- */
+var dialog = function(input, action) {
+   
+    var event = new CustomEvent('dialog', { 
+        'detail': {
+            input: input,
+            action: action
+        }
+    });
+
+    window.dispatchEvent(event);
+
+};
+
+
+/* Update Game
+-------------------------------------------------- */
 var updateGame = function(results, filepath, callback) {
     if (results[0]) {
 
@@ -45,4 +64,5 @@ var updateGame = function(results, filepath, callback) {
 /* Exports
 -------------------------------------------------- */
 exports.screenTransition = screenTransition;
-exports.updateGame = updateGame;
+exports.dialog 			 = dialog;
+exports.updateGame 		 = updateGame;

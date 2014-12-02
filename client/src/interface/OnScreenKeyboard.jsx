@@ -4,7 +4,7 @@
 
 var React               = require('react/addons')
 ,   navigationInit      = require('../js/navigation.init')
-,   keyboard            = require('../js/navigation.keyboard')
+,   _keyboard            = require('../js/navigation.keyboard')
 ,   keyboardKeyEvents   = require('../js/navigation.keyboardKeyEvents');
 
 module.exports = React.createClass({
@@ -42,11 +42,11 @@ module.exports = React.createClass({
         var kb = document.getElementById("KB");
 
         if (this.state.type == "symbols") {
-            var Keyboard = new keyboard.symbolsKeyboard(kb);
+            var Keyboard = new _keyboard.symbolsKeyboard(kb);
         }
 
         else {
-            var Keyboard = new keyboard.Keyboard(kb);
+            var Keyboard = new _keyboard.Keyboard(kb);
 
         }
 
@@ -58,11 +58,11 @@ module.exports = React.createClass({
             kb.innerHTML = "";
 
             if (e.detail.type == "symbols") {
-                var Keyboard = new keyboard.symbolsKeyboard(kb);
+                var Keyboard = new _keyboard.symbolsKeyboard(kb);
             }
 
             else {
-                var Keyboard = new keyboard.Keyboard(kb);
+                var Keyboard = new _keyboard.Keyboard(kb);
             }
             
             navigationInit.navigationInit();
