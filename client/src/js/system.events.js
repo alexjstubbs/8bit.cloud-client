@@ -9,7 +9,8 @@ var systemNotify    	= require('./notification.init.js')
 ,   Messages        	= require('../interface/Messages.jsx')
 ,   _               	= require('lodash')
 ,   navigationInit  	= require("./navigation.init.js")
-,   dialog          	= require("./dialogs")
+,   dialog          	= require('./dialogs')
+, 	eventDispatcher 	= require('./events')
 , 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents');
 
 // browser = require("./browser.js");
@@ -26,6 +27,12 @@ var events = {
 	-------------------------------------------------- */
 	previousScreen: function(parameters) {
 		KeyEvent(219);
+	},
+
+	/* Render Certain Child of Screen 
+	-------------------------------------------------- */
+	changeView: function(parameters) {
+		eventDispatcher.changeView(parameters);
 	},
 
     /* Focus form inputs on Action button/keypress

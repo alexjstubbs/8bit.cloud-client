@@ -18,6 +18,20 @@ var screenTransition = function(screen, hidden, parent) {
 
 };
 
+/* Change view of screen (render child)
+-------------------------------------------------- */
+var changeView = function(view) {
+
+	var event = new CustomEvent('changeView', { 
+	    'detail': {
+	        view: view
+	    }
+	});
+
+	window.dispatchEvent(event);
+
+}
+ 
 /* Dialogs (circular hack)
 -------------------------------------------------- */
 var dialog = function(input, action) {
@@ -66,3 +80,4 @@ var updateGame = function(results, filepath, callback) {
 exports.screenTransition = screenTransition;
 exports.dialog 			 = dialog;
 exports.updateGame 		 = updateGame;
+exports.changeView 		 = changeView;

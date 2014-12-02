@@ -4,7 +4,8 @@
 
 'use strict';
 
-var React           = require('react/addons');
+var React           = require('react/addons')
+,   WizardHeader    = require('./WizardHeader.jsx');
 
 module.exports = React.createClass({
 
@@ -19,7 +20,6 @@ module.exports = React.createClass({
     getDefaultProps: function() {
         return {
 			child: true,
-			functionCall: "nextScreen",
 			internetConnected: null,
 			ssid: null,
 			networkInfo: [],
@@ -39,16 +39,15 @@ module.exports = React.createClass({
 
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                _this.setProps.dataFunction = "viewMessages";
-                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
             },
 
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                _this.setProps.dataFunction = "networkSettings";
-                return {icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings..."};
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings..."};
             }
         }
+
 
         var status = states[this.props.status]();
 
@@ -56,6 +55,9 @@ module.exports = React.createClass({
 	    
 
 	        <div>
+
+                <WizardHeader title="Welcome" icon="ion-wifi" subtitle="Network Setup" active="1" steps="4" />
+
 	        	<div className="welcome-internet">
 
 					<p>
@@ -66,7 +68,7 @@ module.exports = React.createClass({
 
 				<br />
 
-				<button id="network-next" data-function={this.props.functionCall} className="hidden navable btn pull-right btn-lg btn-alt">{status.button} &nbsp; <i className="ion-arrow-right-c"></i></button>
+				<button id="network-next" data-function={status.functionCall} data-parameters={status.functionParameters} className="hidden navable btn pull-right btn-lg btn-alt">{status.button} &nbsp; <i className="ion-arrow-right-c"></i></button>
 
 			</div>
 				

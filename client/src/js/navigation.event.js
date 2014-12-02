@@ -62,7 +62,7 @@ module.exports = function(e) {
           }
           else {
             navigationInit.navigationInit(_screen);
-            var event = new CustomEvent("view", {"detail":{"screen":_screen.classList[0]}});
+            var event = new CustomEvent("mountView", {"detail":{"screen":_screen.classList[0]}});
             window.dispatchEvent(event);
           }
         })

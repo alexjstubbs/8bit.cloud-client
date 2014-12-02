@@ -42,6 +42,7 @@ module.exports = React.createClass({
 
                           <h1 className="text-center blink">Loading Dashboard...</h1>
 
+                          <span className="hidden navable"></span>
                
                 </div>
 

@@ -3860,8 +3860,6 @@ var React 				= require('react/addons')
 , 	Welcome 			= require('./onboarding/Welcome.jsx')
 , 	NetworkSetup 		= require('./onboarding/NetworkSetup.jsx')
 , 	NewProfile	 		= require('./onboarding/NewProfile.jsx')
-, 	WifiConfiguration 	= require('./onboarding/WifiConfiguration.jsx')
-, 	WifiAdvanced	 	= require('./onboarding/WifiAdvanced.jsx')
 , 	LoadingIgnition	 	= require('./onboarding/LoadingIgnition.jsx')
 ,   Browser 			= require('./Browser.jsx')
 ,   LargeProfile 		= require('./LargeProfile.jsx')
@@ -3886,8 +3884,8 @@ init();
 	}
 	
 	else {
-		var _screens = ["Welcome", "NetworkSetup", "NewProfile",  "WifiAdvanced", "LoadingIgnition"];	
-		var screens = [Welcome(null), NetworkSetup(null), NewProfile(null), WifiAdvanced(null), LoadingIgnition(null)];
+		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "LoadingIgnition"];	
+		var screens = [Welcome(null), NetworkSetup(null), NewProfile(null), LoadingIgnition(null)];
 	}
 
 
@@ -3909,7 +3907,7 @@ init();
 -------------------------------------------------- */
 navigationInit.navigationInit();
 
-},{"../js/init.js":62,"../js/navigation.init.js":69,"./Browser.jsx":6,"./Dashboard.jsx":8,"./LargeProfile.jsx":19,"./forms/UserAgreement.jsx":39,"./onboarding/LoadingIgnition.jsx":44,"./onboarding/NetworkSetup.jsx":45,"./onboarding/NewProfile.jsx":47,"./onboarding/Welcome.jsx":50,"./onboarding/WifiAdvanced.jsx":51,"./onboarding/WifiConfiguration.jsx":52,"lodash":78,"react/addons":80}],33:[function(require,module,exports){
+},{"../js/init.js":62,"../js/navigation.init.js":69,"./Browser.jsx":6,"./Dashboard.jsx":8,"./LargeProfile.jsx":19,"./forms/UserAgreement.jsx":39,"./onboarding/LoadingIgnition.jsx":44,"./onboarding/NetworkSetup.jsx":45,"./onboarding/NewProfile.jsx":47,"./onboarding/Welcome.jsx":50,"lodash":78,"react/addons":80}],33:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4599,8 +4597,9 @@ module.exports = React.createClass({displayName: 'exports',
                         ), 
                         
 
-                          React.DOM.h1({className: "text-center blink"}, "Loading Dashboard...")
+                          React.DOM.h1({className: "text-center blink"}, "Loading Dashboard..."), 
 
+                          React.DOM.span({className: "hidden navable"})
                
                 )
 
@@ -4618,10 +4617,10 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React               = require('react/addons')
 ,   _                   = require('lodash')
-,   WizardHeader        = require('./WizardHeader.jsx')
 ,   api                 = require('socket.io-client')('/api')
 ,   NetworkStatus       = require('./NetworkStatus.jsx')
-,   WifiConfiguration   = require('./WifiConfiguration.jsx');
+,   WifiConfiguration   = require('./WifiConfiguration.jsx')
+,   WifiAdvanced        = require('./WifiAdvanced.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -4631,7 +4630,7 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
 
-  componentWillReceiveProps: function(props) {
+    componentWillReceiveProps: function(props) {
         if (props.internetConnected == 'connected') {
             this.state.status = 1;
             sessionStorage.setItem("navigationState", "pauseLeft");
@@ -4648,14 +4647,24 @@ module.exports = React.createClass({displayName: 'exports',
         // api.emit('request', { request: 'sysGetNetwork'});
     },
 
+    changeView: function(view) {
+         this.setState({view: view});
+    },
+
     componentDidMount: function() {
+
         api.on('api', this.setProps.bind(this));
 
         var _this = this;
-        window.addEventListener("view", function(e) { 
+
+        window.addEventListener("mountView", function(e) { 
             if (e.detail.screen == _this.props.screen) {
                 _this.screenMount();
             };
+        });
+
+        window.addEventListener("changeView", function(e) { 
+                _this.changeView(e.detail.view);
         });
 
     },
@@ -4663,7 +4672,6 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
         return {
             screen: "NetworkSetup",
-            functionCall: "nextScreen",
             internetConnected: null,
             ssid: null,
             networkInfo: []
@@ -4684,41 +4692,49 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        var NetworkView;
+        var ChildNode;
+
 
         switch (this.state.view) {
          
             case "NetworkStatus":
-                NetworkView = NetworkStatus({status: this.state.status})
-             
+                ChildNode = NetworkStatus({status: this.state.status})
+                break;
+            
+            case "WifiConfiguration":
+                ChildNode = WifiConfiguration(null)
+                break; 
+
+            case "WifiAdvanced":
+                ChildNode = WifiAdvanced(null)
+                break;
 
             default:
-                NetworkView = NetworkStatus({status: this.state.status})
+                ChildNode = NetworkStatus({status: this.state.status})
+                break;
                 
-        
         }
 
         return (
       
             React.DOM.div({className: "container parent", id: "network-settings"}, 
 
-                WizardHeader({title: "Welcome", icon: "ion-wifi", subtitle: "Network Setup", active: "1", steps: "4"}), 
-
-                NetworkView
+                ChildNode
 
             )
 
         );
     }
 });
-},{"./NetworkStatus.jsx":46,"./WifiConfiguration.jsx":52,"./WizardHeader.jsx":53,"lodash":78,"react/addons":80,"socket.io-client":239}],46:[function(require,module,exports){
+},{"./NetworkStatus.jsx":46,"./WifiAdvanced.jsx":51,"./WifiConfiguration.jsx":52,"lodash":78,"react/addons":80,"socket.io-client":239}],46:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
 
 'use strict';
 
-var React           = require('react/addons');
+var React           = require('react/addons')
+,   WizardHeader    = require('./WizardHeader.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -4733,7 +4749,6 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
         return {
 			child: true,
-			functionCall: "nextScreen",
 			internetConnected: null,
 			ssid: null,
 			networkInfo: [],
@@ -4753,16 +4768,15 @@ module.exports = React.createClass({displayName: 'exports',
 
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                _this.setProps.dataFunction = "viewMessages";
-                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
             },
 
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                _this.setProps.dataFunction = "networkSettings";
-                return {icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings..."};
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings..."};
             }
         }
+
 
         var status = states[this.props.status]();
 
@@ -4770,6 +4784,9 @@ module.exports = React.createClass({displayName: 'exports',
 	    
 
 	        React.DOM.div(null, 
+
+                WizardHeader({title: "Welcome", icon: "ion-wifi", subtitle: "Network Setup", active: "1", steps: "4"}), 
+
 	        	React.DOM.div({className: "welcome-internet"}, 
 
 					React.DOM.p(null, 
@@ -4780,14 +4797,14 @@ module.exports = React.createClass({displayName: 'exports',
 
 				React.DOM.br(null), 
 
-				React.DOM.button({id: "network-next", 'data-function': this.props.functionCall, className: "hidden navable btn pull-right btn-lg btn-alt"}, status.button, "   ", React.DOM.i({className: "ion-arrow-right-c"}))
+				React.DOM.button({id: "network-next", 'data-function': status.functionCall, 'data-parameters': status.functionParameters, className: "hidden navable btn pull-right btn-lg btn-alt"}, status.button, "   ", React.DOM.i({className: "ion-arrow-right-c"}))
 
 			)
 				
         );
     }
 });
-},{"react/addons":80}],47:[function(require,module,exports){
+},{"./WizardHeader.jsx":53,"react/addons":80}],47:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -5482,6 +5499,20 @@ var screenTransition = function(screen, hidden, parent) {
 
 };
 
+/* Change view of screen (render child)
+-------------------------------------------------- */
+var changeView = function(view) {
+
+	var event = new CustomEvent('changeView', { 
+	    'detail': {
+	        view: view
+	    }
+	});
+
+	window.dispatchEvent(event);
+
+}
+ 
 /* Dialogs (circular hack)
 -------------------------------------------------- */
 var dialog = function(input, action) {
@@ -5530,6 +5561,7 @@ var updateGame = function(results, filepath, callback) {
 exports.screenTransition = screenTransition;
 exports.dialog 			 = dialog;
 exports.updateGame 		 = updateGame;
+exports.changeView 		 = changeView;
 
 },{"socket.io-client":239}],60:[function(require,module,exports){
 /**
@@ -6284,7 +6316,7 @@ module.exports = function(e) {
           }
           else {
             navigationInit.navigationInit(_screen);
-            var event = new CustomEvent("view", {"detail":{"screen":_screen.classList[0]}});
+            var event = new CustomEvent("mountView", {"detail":{"screen":_screen.classList[0]}});
             window.dispatchEvent(event);
           }
         })
@@ -7214,7 +7246,8 @@ var systemNotify    	= require('./notification.init.js')
 ,   Messages        	= require('../interface/Messages.jsx')
 ,   _               	= require('lodash')
 ,   navigationInit  	= require("./navigation.init.js")
-,   dialog          	= require("./dialogs")
+,   dialog          	= require('./dialogs')
+, 	eventDispatcher 	= require('./events')
 , 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents');
 
 // browser = require("./browser.js");
@@ -7231,6 +7264,12 @@ var events = {
 	-------------------------------------------------- */
 	previousScreen: function(parameters) {
 		KeyEvent(219);
+	},
+
+	/* Render Certain Child of Screen 
+	-------------------------------------------------- */
+	changeView: function(parameters) {
+		eventDispatcher.changeView(parameters);
 	},
 
     /* Focus form inputs on Action button/keypress
@@ -7586,7 +7625,7 @@ exports.events = events;
 
 
 // };
-},{"../interface/Messages.jsx":23,"../interface/Modal.jsx":24,"./dialogs":57,"./navigation.init.js":69,"./navigation.keyEvent":70,"./navigation.keyboardKeyEvents":72,"./notification.init.js":74,"lodash":78,"react/addons":80,"socket.io-client":239}],76:[function(require,module,exports){
+},{"../interface/Messages.jsx":23,"../interface/Modal.jsx":24,"./dialogs":57,"./events":59,"./navigation.init.js":69,"./navigation.keyEvent":70,"./navigation.keyboardKeyEvents":72,"./notification.init.js":74,"lodash":78,"react/addons":80,"socket.io-client":239}],76:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

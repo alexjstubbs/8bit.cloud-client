@@ -6,10 +6,10 @@
 
 var React               = require('react/addons')
 ,   _                   = require('lodash')
-,   WizardHeader        = require('./WizardHeader.jsx')
 ,   api                 = require('socket.io-client')('/api')
 ,   NetworkStatus       = require('./NetworkStatus.jsx')
-,   WifiConfiguration   = require('./WifiConfiguration.jsx');
+,   WifiConfiguration   = require('./WifiConfiguration.jsx')
+,   WifiAdvanced        = require('./WifiAdvanced.jsx');
 
 module.exports = React.createClass({
 
@@ -19,7 +19,7 @@ module.exports = React.createClass({
         }
     },
 
-  componentWillReceiveProps: function(props) {
+    componentWillReceiveProps: function(props) {
         if (props.internetConnected == 'connected') {
             this.state.status = 1;
             sessionStorage.setItem("navigationState", "pauseLeft");
@@ -36,14 +36,24 @@ module.exports = React.createClass({
         // api.emit('request', { request: 'sysGetNetwork'});
     },
 
+    changeView: function(view) {
+         this.setState({view: view});
+    },
+
     componentDidMount: function() {
+
         api.on('api', this.setProps.bind(this));
 
         var _this = this;
-        window.addEventListener("view", function(e) { 
+
+        window.addEventListener("mountView", function(e) { 
             if (e.detail.screen == _this.props.screen) {
                 _this.screenMount();
             };
+        });
+
+        window.addEventListener("changeView", function(e) { 
+                _this.changeView(e.detail.view);
         });
 
     },
@@ -51,7 +61,6 @@ module.exports = React.createClass({
     getDefaultProps: function() {
         return {
             screen: "NetworkSetup",
-            functionCall: "nextScreen",
             internetConnected: null,
             ssid: null,
             networkInfo: []
@@ -72,27 +81,34 @@ module.exports = React.createClass({
 
     render: function() {
 
-        var NetworkView;
+        var ChildNode;
+
 
         switch (this.state.view) {
          
             case "NetworkStatus":
-                NetworkView = <NetworkStatus status={this.state.status} />
-             
+                ChildNode = <NetworkStatus status={this.state.status} />
+                break;
+            
+            case "WifiConfiguration":
+                ChildNode = <WifiConfiguration />
+                break; 
+
+            case "WifiAdvanced":
+                ChildNode = <WifiAdvanced />
+                break;
 
             default:
-                NetworkView = <NetworkStatus status={this.state.status} />
+                ChildNode = <NetworkStatus status={this.state.status} />
+                break;
                 
-        
         }
 
         return (
       
             <div className="container parent" id="network-settings">
 
-                <WizardHeader title="Welcome" icon="ion-wifi" subtitle="Network Setup" active="1" steps="4" />
-
-                {NetworkView}
+                {ChildNode}
 
             </div>
 
