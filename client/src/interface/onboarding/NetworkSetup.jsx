@@ -100,8 +100,6 @@ module.exports = React.createClass({
 
             default:
                 ChildNode = <NetworkStatus status={this.state.status} />
-                break;
-                
         }
 
         return (

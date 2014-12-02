@@ -87,6 +87,10 @@ module.exports = function(e) {
          } 
       }
 
+      else {
+        events.uiActionNotification('blocked');
+      }
+
    }
 
 
@@ -105,6 +109,10 @@ module.exports = function(e) {
             setScreen();
 
           }
+      }
+
+      else {
+        events.uiActionNotification('blocked');
       }
   } 
 

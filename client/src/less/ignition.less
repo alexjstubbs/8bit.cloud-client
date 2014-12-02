@@ -216,6 +216,35 @@ textarea.form-control {
 	100% { opacity:1; }
 }
 
+.ui-alert {
+	color:@red;
+	opacity:0;
+	position:absolute;
+	bottom:20px;
+	right:20px;
+	-moz-animation:fadeInOut 1.5s;
+	-webkit-animation:fadeInOut 1.5s;
+	animation:fadeInOut 1.5s;
+	font-size:4em;
+}
+
+@keyframes fadeInOut {
+	0% { opacity:0; }
+	50% {
+	opacity:1;
+	transform: scale(1.2)
+	}
+	100% { opacity:0; }
+}
+
+@-webkit-keyframes fadeInOut {
+	0% { opacity:0; }
+	50% {
+	opacity:1;
+	transform: scale(1.2)
+	}
+	100% { opacity:0; }
+}
 
 #crossfade {
   position:relative;

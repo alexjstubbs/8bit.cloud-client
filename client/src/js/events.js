@@ -47,6 +47,20 @@ var dialog = function(input, action) {
 
 };
 
+/* UI Action Notification
+-------------------------------------------------- */
+var uiActionNotification = function(action) {
+   
+    var event = new CustomEvent('uiActionNotification', { 
+        'detail': {
+            action: action
+        }
+    });
+
+    window.dispatchEvent(event);
+
+};
+
 
 /* Update Game
 -------------------------------------------------- */
@@ -77,7 +91,8 @@ var updateGame = function(results, filepath, callback) {
 
 /* Exports
 -------------------------------------------------- */
-exports.screenTransition = screenTransition;
-exports.dialog 			 = dialog;
-exports.updateGame 		 = updateGame;
-exports.changeView 		 = changeView;
+exports.screenTransition 		= screenTransition;
+exports.dialog 			 		= dialog;
+exports.updateGame 		 		= updateGame;
+exports.changeView 		 		= changeView;
+exports.uiActionNotification 	= uiActionNotification;
