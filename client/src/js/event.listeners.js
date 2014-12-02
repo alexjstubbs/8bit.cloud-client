@@ -14,12 +14,10 @@ api.on('api', function(_event){
 });
 
 
-/* Dialog (react circular sidestep)
+/* Dialog (react bug workaround)
 -------------------------------------------------- */
-
 window.addEventListener("dialog", function(e) {
 	
-
   switch (e.detail.action) {
   	
   	case "close":

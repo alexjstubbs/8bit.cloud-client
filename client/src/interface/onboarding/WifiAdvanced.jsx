@@ -11,11 +11,26 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({
 
+    getDefaultProps: function() {
+        return {
+            child: true,
+            parent: "NetworkSetup"
+        }
+    },
+
     render: function() {
+
+        var cx = React.addons.classSet;
+
+        var classes = cx({
+            'child': this.props.child,
+            'container': true,
+            'parent': true
+        });
 
         return (
 
-         <div className="container parent" id="new-profile">
+         <div className={classes} id="new-profile" data-parent={this.props.parent}>
 
                 <WizardHeader title="Welcome" icon="ion-wrench" subtitle="Wifi Configuration" active="1" steps="4" />
 
@@ -25,9 +40,6 @@ module.exports = React.createClass({
 
                     </div>
 
-                  
-
-              
           </div>
         );
     }

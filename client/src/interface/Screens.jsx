@@ -37,8 +37,8 @@ init();
 	}
 	
 	else {
-		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "WifiConfiguration", "WifiAdvanced", "LoadingIgnition"];	
-		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />, <WifiConfiguration />, <WifiAdvanced />, <LoadingIgnition />];
+		var _screens = ["Welcome", "NetworkSetup", "NewProfile",  "WifiAdvanced", "LoadingIgnition"];	
+		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />, <WifiAdvanced />, <LoadingIgnition />];
 	}
 
 

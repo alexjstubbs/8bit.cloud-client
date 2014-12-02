@@ -4,7 +4,7 @@
 
 var React               = require('react/addons')
 ,   navigationInit      = require('../js/navigation.init')
-,   _keyboard            = require('../js/navigation.keyboard')
+,   _keyboard           = require('../js/navigation.keyboard')
 ,   keyboardKeyEvents   = require('../js/navigation.keyboardKeyEvents');
 
 module.exports = React.createClass({

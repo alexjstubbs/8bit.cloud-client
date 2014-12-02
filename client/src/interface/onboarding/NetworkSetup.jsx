@@ -4,18 +4,36 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   WizardHeader    = require('./WizardHeader.jsx')
-,   api             = require('socket.io-client')('/api');
+var React               = require('react/addons')
+,   _                   = require('lodash')
+,   WizardHeader        = require('./WizardHeader.jsx')
+,   api                 = require('socket.io-client')('/api')
+,   NetworkStatus       = require('./NetworkStatus.jsx')
+,   WifiConfiguration   = require('./WifiConfiguration.jsx');
 
 module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            status: 0,
-            button: "Create Your Profile"
+            view: "NetworkStatus"
         }
+    },
+
+  componentWillReceiveProps: function(props) {
+        if (props.internetConnected == 'connected') {
+            this.state.status = 1;
+            sessionStorage.setItem("navigationState", "pauseLeft");
+        }
+
+        if (props.internetConnected == 'disconnected') {
+            this.state.status = 2;
+            sessionStorage.setItem("navigationState", "pause");
+        }
+    },
+
+    screenMount: function() {
+        api.emit('request', { request: 'sysIsOnline'});
+        // api.emit('request', { request: 'sysGetNetwork'});
     },
 
     componentDidMount: function() {
@@ -28,11 +46,6 @@ module.exports = React.createClass({
             };
         });
 
-    },
-
-    screenMount: function() {
-        api.emit('request', { request: 'sysIsOnline'});
-        // api.emit('request', { request: 'sysGetNetwork'});
     },
 
     getDefaultProps: function() {
@@ -57,41 +70,21 @@ module.exports = React.createClass({
         }
     },
 
-    componentWillReceiveProps: function(props) {
-        if (props.internetConnected == 'connected') {
-            this.state.status = 1;
-            sessionStorage.setItem("navigationState", "pauseLeft");
-        }
-
-        if (props.internetConnected == 'disconnected') {
-            this.state.status = 2;
-            sessionStorage.setItem("navigationState", "pause");
-        }
-    },
-
     render: function() {
 
-       var _this = this;
+        var NetworkView;
 
-        var states = {
-            0: function() {
-                return {icon: "ion-looping purple", text: "Checking Internet Connection...", button: null};
-            },
+        switch (this.state.view) {
+         
+            case "NetworkStatus":
+                NetworkView = <NetworkStatus status={this.state.status} />
+             
 
-            1: function() {
-                document.getElementById("network-next").classList.remove("hidden");
-                _this.setProps.dataFunction = "viewMessages";
-                return {icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
-            },
-
-            2: function() {
-                document.getElementById("network-next").classList.remove("hidden");
-                _this.setProps.dataFunction = "networkSettings";
-                return {icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings..."};
-            },
+            default:
+                NetworkView = <NetworkStatus status={this.state.status} />
+                
+        
         }
-
-        var status = states[this.state.status]();
 
         return (
       
@@ -99,17 +92,7 @@ module.exports = React.createClass({
 
                 <WizardHeader title="Welcome" icon="ion-wifi" subtitle="Network Setup" active="1" steps="4" />
 
-                <div className="welcome-internet">
-
-                    <p>
-                       <i className={status.icon}></i> {status.text}
-                    </p>
-
-                </div>
-            
-                <br />
-
-                <button id="network-next" data-function={this.props.functionCall} className="hidden navable btn pull-right btn-lg btn-alt">{status.button} &nbsp; <i className="ion-arrow-right-c"></i></button>
+                {NetworkView}
 
             </div>
 
