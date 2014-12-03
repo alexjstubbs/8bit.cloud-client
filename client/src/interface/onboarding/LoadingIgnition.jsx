@@ -4,19 +4,39 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   WizardHeader    = require('./WizardHeader.jsx');
+var React     = require('react/addons')
+,   events    = require('../../js/system.events').events;     
 
 module.exports = React.createClass({
 
-    componentDidMount: function() {
-       
+    getDefaultProps: function() {
 
+        return {
+            layout: 'controller-ui.png',
+            screen: "LoadingIgnition"
+          }
     },
 
-    getDefaultProps: function() {
-        layout: 'controller-ui.png'
+    screenMount: function() {
+      // Load Dashboard
+      events.preloadDashboard();
+    },
+
+    componentDidMount: function() {
+
+        var _this = this;
+
+        window.addEventListener("mountView", function(e) { 
+
+          if (e.detail.screen == _this.props.screen) {
+              _this.screenMount();
+          };
+        });
+
+        window.addEventListener("changeView", function(e) { 
+              _this.changeView(e.detail.view);
+        });
+
     },
 
     render: function() {
@@ -25,8 +45,7 @@ module.exports = React.createClass({
       
             <div className="container parent viewport-container" id="welcome">
 
-                <div className='viewport-60'>
-
+               <div className='viewport-60'>
 
                <div className="loading-dashboard"></div>
 

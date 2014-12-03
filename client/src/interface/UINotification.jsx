@@ -14,10 +14,6 @@ module.exports = React.createClass({
         }
     },
 
-    componentDidMount: function() {
-        console.log("CALLED");
-    },
-
     render: function() {
 
         return (

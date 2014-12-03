@@ -15,30 +15,26 @@ var React 				= require('react/addons')
 ,   Browser 			= require('./Browser.jsx')
 ,   LargeProfile 		= require('./LargeProfile.jsx')
 ,   init 				= require('../js/init.js')
-,   navigationInit  	= require('../js/navigation.init.js')
-, 	pathname 			= window.location.pathname;
-
-
+,   navigationInit  	= require('../js/navigation.init.js');
 /* Init Clientside
 -------------------------------------------------- */
 init();
 
-
 /* Set up Screens
 -------------------------------------------------- */
+var setupScreens = function(route) {
 
 	var container = document.getElementById("screens");
 
-	if (pathname != "/welcome") {
+	if (route != "/welcome" || route == "Dashboard") {
 		var _screens = ["Dashboard", "Browser", "Profile"];	
 		var screens = [<Dashboard />, <Browser />, <LargeProfile />];
 	}
 	
-	else {
+	if (route == "/welcome" || route == "Welcome") {
 		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "LoadingIgnition"];	
 		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />, <LoadingIgnition />];
 	}
-
 
 	_(screens).forEach(function(el, i) { 
 
@@ -52,8 +48,15 @@ init();
 
 	_.first(container.children).id = "screen-active";
 
+	/* Init Navigation Controls
+	-------------------------------------------------- */
+	navigationInit.navigationInit();
+
+}
+
+setupScreens(window.location.pathname);
 
 
-/* Init Navigation Controls
+/* Exports
 -------------------------------------------------- */
-navigationInit.navigationInit();
+exports.setupScreens = setupScreens;

@@ -11,7 +11,8 @@ var systemNotify    	= require('./notification.init.js')
 ,   navigationInit  	= require("./navigation.init.js")
 ,   dialog          	= require('./dialogs')
 , 	eventDispatcher 	= require('./events')
-, 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents');
+, 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents')
+, 	Screens 			= require('../interface/Screens.jsx');
 
 // browser = require("./browser.js");
 
@@ -94,6 +95,28 @@ var events = {
         }
 
     },
+
+    /* Load Dashboard
+    -------------------------------------------------- */
+    preloadDashboard: function(parameters) {
+
+    	window.location = "http://127.0.0.1:1210/home/alex";
+
+  //   	var childNodes = document.getElementById('screens').childNodes;
+
+  //   	_(childNodes).forEach(function(el, i) { 
+
+		// 	React.unmountComponentAtNode(el);
+
+
+		// });
+
+		// document.getElementById('screens').innerHTML = "";
+
+  //   	Screens.setupScreens("Dashboard");
+
+    },
+
 
     /* Switch Emulator on Action button/keypress
     -------------------------------------------------- */

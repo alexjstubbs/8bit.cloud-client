@@ -3864,30 +3864,26 @@ var React 				= require('react/addons')
 ,   Browser 			= require('./Browser.jsx')
 ,   LargeProfile 		= require('./LargeProfile.jsx')
 ,   init 				= require('../js/init.js')
-,   navigationInit  	= require('../js/navigation.init.js')
-, 	pathname 			= window.location.pathname;
-
-
+,   navigationInit  	= require('../js/navigation.init.js');
 /* Init Clientside
 -------------------------------------------------- */
 init();
 
-
 /* Set up Screens
 -------------------------------------------------- */
+var setupScreens = function(route) {
 
 	var container = document.getElementById("screens");
 
-	if (pathname != "/welcome") {
+	if (route != "/welcome" || route == "Dashboard") {
 		var _screens = ["Dashboard", "Browser", "Profile"];	
 		var screens = [Dashboard(null), Browser(null), LargeProfile(null)];
 	}
 	
-	else {
+	if (route == "/welcome" || route == "Welcome") {
 		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "LoadingIgnition"];	
 		var screens = [Welcome(null), NetworkSetup(null), NewProfile(null), LoadingIgnition(null)];
 	}
-
 
 	_(screens).forEach(function(el, i) { 
 
@@ -3901,12 +3897,18 @@ init();
 
 	_.first(container.children).id = "screen-active";
 
+	/* Init Navigation Controls
+	-------------------------------------------------- */
+	navigationInit.navigationInit();
+
+}
+
+setupScreens(window.location.pathname);
 
 
-/* Init Navigation Controls
+/* Exports
 -------------------------------------------------- */
-navigationInit.navigationInit();
-
+exports.setupScreens = setupScreens;
 },{"../js/init.js":63,"../js/navigation.init.js":70,"./Browser.jsx":6,"./Dashboard.jsx":8,"./LargeProfile.jsx":19,"./forms/UserAgreement.jsx":40,"./onboarding/LoadingIgnition.jsx":45,"./onboarding/NetworkSetup.jsx":46,"./onboarding/NewProfile.jsx":48,"./onboarding/Welcome.jsx":51,"lodash":80,"react/addons":82}],33:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -4038,10 +4040,6 @@ module.exports = React.createClass({displayName: 'exports',
         return {
             icon: "ion-close-circled"
         }
-    },
-
-    componentDidMount: function() {
-        console.log("CALLED");
     },
 
     render: function() {
@@ -4593,19 +4591,39 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   WizardHeader    = require('./WizardHeader.jsx');
+var React     = require('react/addons')
+,   events    = require('../../js/system.events').events;     
 
 module.exports = React.createClass({displayName: 'exports',
 
-    componentDidMount: function() {
-       
+    getDefaultProps: function() {
 
+        return {
+            layout: 'controller-ui.png',
+            screen: "LoadingIgnition"
+          }
     },
 
-    getDefaultProps: function() {
-        layout: 'controller-ui.png'
+    screenMount: function() {
+      // Load Dashboard
+      events.preloadDashboard();
+    },
+
+    componentDidMount: function() {
+
+        var _this = this;
+
+        window.addEventListener("mountView", function(e) { 
+
+          if (e.detail.screen == _this.props.screen) {
+              _this.screenMount();
+          };
+        });
+
+        window.addEventListener("changeView", function(e) { 
+              _this.changeView(e.detail.view);
+        });
+
     },
 
     render: function() {
@@ -4614,8 +4632,7 @@ module.exports = React.createClass({displayName: 'exports',
       
             React.DOM.div({className: "container parent viewport-container", id: "welcome"}, 
 
-                React.DOM.div({className: "viewport-60"}, 
-
+               React.DOM.div({className: "viewport-60"}, 
 
                React.DOM.div({className: "loading-dashboard"}), 
 
@@ -4628,7 +4645,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
-},{"./WizardHeader.jsx":54,"lodash":80,"react/addons":82}],46:[function(require,module,exports){
+},{"../../js/system.events":76,"react/addons":82}],46:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -7306,7 +7323,8 @@ var systemNotify    	= require('./notification.init.js')
 ,   navigationInit  	= require("./navigation.init.js")
 ,   dialog          	= require('./dialogs')
 , 	eventDispatcher 	= require('./events')
-, 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents');
+, 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents')
+, 	Screens 			= require('../interface/Screens.jsx');
 
 // browser = require("./browser.js");
 
@@ -7389,6 +7407,28 @@ var events = {
         }
 
     },
+
+    /* Load Dashboard
+    -------------------------------------------------- */
+    preloadDashboard: function(parameters) {
+
+    	window.location = "http://127.0.0.1:1210/home/alex";
+
+  //   	var childNodes = document.getElementById('screens').childNodes;
+
+  //   	_(childNodes).forEach(function(el, i) { 
+
+		// 	React.unmountComponentAtNode(el);
+
+
+		// });
+
+		// document.getElementById('screens').innerHTML = "";
+
+  //   	Screens.setupScreens("Dashboard");
+
+    },
+
 
     /* Switch Emulator on Action button/keypress
     -------------------------------------------------- */
@@ -7683,7 +7723,7 @@ exports.events = events;
 
 
 // };
-},{"../interface/Messages.jsx":23,"../interface/Modal.jsx":24,"./dialogs":58,"./events":60,"./navigation.init.js":70,"./navigation.keyEvent":71,"./navigation.keyboardKeyEvents":73,"./notification.init.js":75,"lodash":80,"react/addons":82,"socket.io-client":241}],77:[function(require,module,exports){
+},{"../interface/Messages.jsx":23,"../interface/Modal.jsx":24,"../interface/Screens.jsx":32,"./dialogs":58,"./events":60,"./navigation.init.js":70,"./navigation.keyEvent":71,"./navigation.keyboardKeyEvents":73,"./notification.init.js":75,"lodash":80,"react/addons":82,"socket.io-client":241}],77:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 
