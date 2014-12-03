@@ -28,21 +28,9 @@ module.exports = React.createClass({
                 <div className='viewport-60'>
 
 
-                      <div className='loading-container'>
-                        <i className='fa-rocket'></i>
+               <div className="loading-dashboard"></div>
 
-                          <div className='ignition-circle'></div>
-                          <div className='ignition-circle'></div>
-                          <div className='ignition-circle'></div>
-
-                
-
-                        </div>
-                        
-
-                          <h1 className="text-center blink">Loading Dashboard...</h1>
-
-                          <span className="hidden navable"></span>
+                  <span className="hidden navable"></span>
                
                 </div>
 

@@ -1,6 +1,6 @@
 /* Encrypt / Decrypt Helpers
 -------------------------------------------------- */
-var bcrypt 	=  require('bcrypt');
+// var bcrypt 	=  require('bcrypt');
 
 /* Hash Passwords
 -------------------------------------------------- */

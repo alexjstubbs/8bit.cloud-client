@@ -8,7 +8,7 @@ var fs          = require('fs-extra')
 ,   helpers     = require('../../system/helpers')
 ,   network     = require('../../api/network/network.online')
 ,   forms       = require('../../api/api.forms')
-,   bcrypt      = require('bcrypt');
+// ,   bcrypt      = require('bcrypt');
 
 /* Set up (use config file)
 -------------------------------------------------- */
@@ -22,19 +22,19 @@ var server      = "ignition.io:3000"
 var passHash = function(input, callback) {
     var rand  = _.random(0, 1024);
 
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash("SEGA", salt, function(err, hash) {
+    // bcrypt.genSalt(10, function(err, salt) {
+    //     bcrypt.hash("SEGA", salt, function(err, hash) {
             
-            if (err) {
-                console.log(err);
-            }
+    //         if (err) {
+    //             console.log(err);
+    //         }
 
-            else {
-                callback(hash);
-            }
+    //         else {
+    //             callback(hash);
+    //         }
 
-        });
-    });
+    //     });
+    // });
 
 }
 

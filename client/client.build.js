@@ -4617,21 +4617,9 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.div({className: "viewport-60"}, 
 
 
-                      React.DOM.div({className: "loading-container"}, 
-                        React.DOM.i({className: "fa-rocket"}), 
+               React.DOM.div({className: "loading-dashboard"}), 
 
-                          React.DOM.div({className: "ignition-circle"}), 
-                          React.DOM.div({className: "ignition-circle"}), 
-                          React.DOM.div({className: "ignition-circle"})
-
-                
-
-                        ), 
-                        
-
-                          React.DOM.h1({className: "text-center blink"}, "Loading Dashboard..."), 
-
-                          React.DOM.span({className: "hidden navable"})
+                  React.DOM.span({className: "hidden navable"})
                
                 )
 
