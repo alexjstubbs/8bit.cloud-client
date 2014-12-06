@@ -14,6 +14,7 @@ var React 				= require('react/addons')
 , 	LoadingIgnition	 	= require('./onboarding/LoadingIgnition.jsx')
 ,   Browser 			= require('./Browser.jsx')
 ,   LargeProfile 		= require('./LargeProfile.jsx')
+,   Profiles 			= require('./Profiles.jsx')
 ,   init 				= require('../js/init.js')
 ,   navigationInit  	= require('../js/navigation.init.js');
 /* Init Clientside
@@ -24,9 +25,11 @@ init();
 -------------------------------------------------- */
 var setupScreens = function(route) {
 
+	console.log(route);
+
 	var container = document.getElementById("screens");
 
-	if (route != "/welcome" || route == "Dashboard") {
+	if (route == "/dashboard" || route == "Dashboard") {
 		var _screens = ["Dashboard", "Browser", "Profile"];	
 		var screens = [<Dashboard />, <Browser />, <LargeProfile />];
 	}
@@ -34,6 +37,11 @@ var setupScreens = function(route) {
 	if (route == "/welcome" || route == "Welcome") {
 		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "LoadingIgnition"];	
 		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />, <LoadingIgnition />];
+	}
+
+	if (route == "/profiles" || route == "Profiles") {
+		var _screens = ["Profiles", "LoadingIgnition"];	
+		var screens = [<Profiles />, <LoadingIgnition />];
 	}
 
 	_(screens).forEach(function(el, i) { 

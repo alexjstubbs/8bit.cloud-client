@@ -15,6 +15,7 @@ var ignite = function(req, res, next) {
     });
 };
 
+
 /* EULA
 -------------------------------------------------- */
 var EULA = function(req, res, next) {

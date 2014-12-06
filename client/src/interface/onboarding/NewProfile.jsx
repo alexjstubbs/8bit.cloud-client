@@ -18,10 +18,6 @@ module.exports = React.createClass({
             if (e.serverEvent) {
                 clientEvents.nextScreen();
             }
-
-            else {
-                console.log("Nope");
-            }
         });
     },
 

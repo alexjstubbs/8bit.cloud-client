@@ -96,6 +96,9 @@ app.get('/agreement', common.render.ignite);
 app.get('/EULA', common.render.EULA);
 app.get('/WifiConfig', common.render.WifiConfig);
 
+// Profiles
+app.get('/profiles', common.render.ignite);
+
 // Dashboard
 app.get('/home', common.render.ignite);
 app.get('/home/:username', common.render.ignite);
