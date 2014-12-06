@@ -5,7 +5,6 @@
 'use strict';
 
 var React           = require('react/addons')
-,   _               = require('lodash')
 ,   Pagination      = require('./Pagination.jsx');
 
 module.exports = React.createClass({
@@ -20,7 +19,6 @@ module.exports = React.createClass({
             icon: null
         }
     },
-
 
     render: function() {
 

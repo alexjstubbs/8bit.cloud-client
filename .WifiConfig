@@ -1,3 +1,9 @@
+network={
+	ssid="simple"
+	psk="very secret passphrase"
+	priority=5
+}
+
 ## Example advanced configurations. Remove the hash (#) to enable line by line 
 
 ## Simple case: WPA-PSK, PSK as an ASCII passphrase, allow all valid ciphers

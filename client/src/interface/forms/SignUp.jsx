@@ -65,7 +65,6 @@ module.exports = React.createClass({
                
 
                                 <input type="hidden" name="server" value={this.props.server} />
-                                <input type="hidden" name="filename" value={this.props.filename} />
 
                             </fieldset>
                             </form>

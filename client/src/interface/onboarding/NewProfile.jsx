@@ -6,10 +6,24 @@
 
 var React           = require('react/addons')
 ,   _               = require('lodash')
+,   clientEvents    = require('../../js/system.events').events
 ,   WizardHeader    = require('./WizardHeader.jsx')
 ,   Signup          = require('../forms/Signup.jsx');
 
 module.exports = React.createClass({
+
+    componentDidMount: function() {
+        //serverEvent
+        api.on('api', function(e) {
+            if (e.serverEvent) {
+                clientEvents.nextScreen();
+            }
+
+            else {
+                console.log("Nope");
+            }
+        });
+    },
 
     render: function() {
 

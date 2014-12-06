@@ -35,7 +35,7 @@
 }
 
 
-/* Helpers
+/* Helpers / animations
 -------------------------------------------------- */
 :focus {
 	outline: 0;
@@ -83,6 +83,22 @@
 .no-margin {
     margin:0 !important;
 }
+
+.viewport-80 {
+	height:80vh;
+	position:relative;
+	text-align:center;
+	overflow:hidden;
+}
+
+
+.viewport-80 img {
+	height:50vh;
+	position:relative;
+	margin:0 auto;
+	text-align:center;
+}
+
 
 .viewport-60 {
 	height:60vh;
@@ -144,6 +160,7 @@ textarea.form-control {
 	-webkit-animation-direction: alternate;
 
 }
+
 /* Windowing
 -------------------------------------------------- */
 
@@ -340,6 +357,8 @@ textarea.form-control {
 }
 
 .loading-dashboard {
+  -webkit-animation: clockwise 1.5s linear infinite;
+  -moz-animation: clockwise 1.5s linear infinite;
   animation: clockwise 1.5s linear infinite;
   display: block;
   height: 10em;
@@ -364,6 +383,8 @@ textarea.form-control {
 }
 
 .loading-dashboard:before {
+  -webkit-animation: anticlockwise .9s linear infinite;
+  -moz-animation: anticlockwise .9s linear infinite;
   animation: anticlockwise .9s linear infinite;
   top: -.6em;
   right: -.6em;
@@ -372,6 +393,8 @@ textarea.form-control {
 }
 
 .loading-dashboard:after {
+  -webkit-animation: anticlockwise .66s linear infinite;
+  -moz-animation: anticlockwise .66s linear infinite;
   animation: anticlockwise .66s linear infinite;
   top: .3em;
   right: .3em;
@@ -380,13 +403,23 @@ textarea.form-control {
 }
 
 @keyframes clockwise {
-  0%  { transform: rotate(0deg) }
-  100%{ transform: rotate(360deg) }
+  0%  { transform: rotate(0deg); }
+  100%{ transform: rotate(360deg); }
 }
 
 @keyframes anticlockwise {
-  0%  { transform: rotate(360deg) }
-  100%{ transform: rotate(0deg) }
+  0%  { transform: rotate(360deg); }
+  100%{ transform: rotate(0deg); }
+}
+
+@-webkit-keyframes clockwise {
+  0%  { transform: rotate(0deg); }
+  100%{ transform: rotate(360deg); }
+}
+
+@-webkit-keyframes anticlockwise {
+  0%  { transform: rotate(360deg); }
+  100%{ transform: rotate(0deg); }
 }
 
 
@@ -436,7 +469,14 @@ textarea.form-control {
 	animation-direction: alternate;
 }
 
-
+/* Misc.
+-------------------------------------------------- */
+.status-info {
+	background:lighten(@black, 5%);
+	padding:10px 15px;
+	position:relative;
+	top:40vh;
+}
 
 /* Keyboard
 -------------------------------------------------- */
@@ -776,7 +816,7 @@ i.start {
   left:-70px;
 }
 
-h1.blink {
+.blink {
 	-moz-animation: flickerAnimation 1s infinite;
 	-webkit-animation: flickerAnimation 1s infinite;
 	animation: flickerAnimation 1s infinite;

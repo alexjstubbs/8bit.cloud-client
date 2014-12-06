@@ -63,6 +63,7 @@ var networkConnection = function(token, ansp, callback) {
    -------------------------------------------------- */
     }).on('disconnect', function () {
 
+    	// Disable internet views
         console.log('disconnected from /network');
 
     });

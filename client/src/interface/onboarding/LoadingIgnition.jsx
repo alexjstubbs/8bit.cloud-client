@@ -9,20 +9,42 @@ var React     = require('react/addons')
 
 module.exports = React.createClass({
 
+    getInitialState: function() {
+        return {
+            status: "Connecting to ignition server"
+        }
+    },
+
     getDefaultProps: function() {
 
         return {
             layout: 'controller-ui.png',
-            screen: "LoadingIgnition"
+            screen: "LoadingIgnition",
           }
     },
 
     screenMount: function() {
       // Load Dashboard
-      events.preloadDashboard();
+      // events.preloadDashboard();
+
+        var _this = this;
+       
+       setTimeout(function() {
+          _this.setState({status: "Sending Profile Information"});
+       }, 3000);
+      
+      setTimeout(function() {
+          _this.setState({status: "Loading Dashboard"});
+       }, 5000);
+      
+      setTimeout(function() {
+           events.preloadDashboard();
+       }, 6000);
     },
 
     componentDidMount: function() {
+
+     
 
         var _this = this;
 
@@ -45,9 +67,13 @@ module.exports = React.createClass({
       
             <div className="container parent viewport-container" id="welcome">
 
-               <div className='viewport-60'>
+               <div className='viewport-80'>
 
                <div className="loading-dashboard"></div>
+
+                 <span className="status-info blink">
+                     {this.state.status}
+                 </span>
 
                   <span className="hidden navable"></span>
                

@@ -65,6 +65,10 @@ var api = {
 
     writeJSONSync: function(nsp, data) {
         common.systemWrite.writeJSONSync(nsp, data);
+    },    
+
+    writeTextSync: function(nsp, data) {
+        common.systemWrite.writeJSONSync(nsp, data);
     },
 
     sysIsOnline: function(nsp) {

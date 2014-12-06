@@ -47,6 +47,12 @@ module.exports = function() {
             navigate("cancel");
         }
     }); 
+    
+    Mousetrap.bind('delete', function(e) {
+      if (e.preventDefault) {
+            e.preventDefault();
+        }
+    }); 
 
     // if (e.preventDefault) {
     //     e.preventDefault();

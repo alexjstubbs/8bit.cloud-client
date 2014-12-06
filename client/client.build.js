@@ -4175,8 +4175,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "openDialog", 'data-parameters': type}, React.DOM.i({className: "ion-close-circled red pull-right"}), "   Continue Offline"), 
                
 
-                                React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
-                                React.DOM.input({type: "hidden", name: "filename", value: this.props.filename})
+                                React.DOM.input({type: "hidden", name: "server", value: this.props.server})
 
                             )
                             )
@@ -4416,6 +4415,7 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             navStack: 2,
             form: 'Wifi.json',
+            // /etc/wpa_supplicant/wpa_supplicant.conf
             server: true,
             classList: 'col-xs-12'
         }
@@ -4445,15 +4445,13 @@ module.exports = React.createClass({displayName: 'exports',
                                     
                                         React.DOM.input({id: "wifi-adapter", className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "wlan0", name: "wifi-adapter", type: "text"})
                                      
-                                           
-
-                                     
+                                        
                                     ), 
 
                                     React.DOM.div({className: "form-group"}, 
                                         
-                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "SSID", name: "password", type: "password"}), 
-                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Password/Passphrase", name: "password2", type: "password"})
+                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "SSID", name: "ssid", type: "ssid"}), 
+                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Password/Passphrase", name: "passphrase", type: "passphrase"})
                                    
                                     ), 
                                
@@ -4464,7 +4462,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 React.DOM.br(null), 
                                 React.DOM.br(null), 
 
-                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-settings red pull-right"}), "   Advanced Set Up"), 
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "saveWifi", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-settings red pull-right"}), "   Advanced Set Up"), 
                
 
                                 React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
@@ -4596,20 +4594,42 @@ var React     = require('react/addons')
 
 module.exports = React.createClass({displayName: 'exports',
 
+    getInitialState: function() {
+        return {
+            status: "Connecting to ignition server"
+        }
+    },
+
     getDefaultProps: function() {
 
         return {
             layout: 'controller-ui.png',
-            screen: "LoadingIgnition"
+            screen: "LoadingIgnition",
           }
     },
 
     screenMount: function() {
       // Load Dashboard
-      events.preloadDashboard();
+      // events.preloadDashboard();
+
+        var _this = this;
+       
+       setTimeout(function() {
+          _this.setState({status: "Sending Profile Information"});
+       }, 3000);
+      
+      setTimeout(function() {
+          _this.setState({status: "Loading Dashboard"});
+       }, 5000);
+      
+      setTimeout(function() {
+           events.preloadDashboard();
+       }, 6000);
     },
 
     componentDidMount: function() {
+
+     
 
         var _this = this;
 
@@ -4632,9 +4652,13 @@ module.exports = React.createClass({displayName: 'exports',
       
             React.DOM.div({className: "container parent viewport-container", id: "welcome"}, 
 
-               React.DOM.div({className: "viewport-60"}, 
+               React.DOM.div({className: "viewport-80"}, 
 
                React.DOM.div({className: "loading-dashboard"}), 
+
+                 React.DOM.span({className: "status-info blink"}, 
+                     this.state.status
+                 ), 
 
                   React.DOM.span({className: "hidden navable"})
                
@@ -4681,6 +4705,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     screenMount: function() {
         api.emit('request', { request: 'sysIsOnline'});
+
         // api.emit('request', { request: 'sysGetNetwork'});
     },
 
@@ -4689,6 +4714,7 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
+ 
 
         api.on('api', this.setProps.bind(this));
 
@@ -4848,10 +4874,24 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React           = require('react/addons')
 ,   _               = require('lodash')
+,   clientEvents    = require('../../js/system.events').events
 ,   WizardHeader    = require('./WizardHeader.jsx')
 ,   Signup          = require('../forms/Signup.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
+
+    componentDidMount: function() {
+        //serverEvent
+        api.on('api', function(e) {
+            if (e.serverEvent) {
+                clientEvents.nextScreen();
+            }
+
+            else {
+                console.log("Nope");
+            }
+        });
+    },
 
     render: function() {
 
@@ -4883,7 +4923,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
-},{"../forms/Signup.jsx":39,"./WizardHeader.jsx":54,"lodash":80,"react/addons":82}],49:[function(require,module,exports){
+},{"../../js/system.events":76,"../forms/Signup.jsx":39,"./WizardHeader.jsx":54,"lodash":80,"react/addons":82}],49:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -5028,7 +5068,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.br(null), React.DOM.br(null), 
                
-                React.DOM.button({'data-function': "nextScreen", className: "navable btn btn-lg btn-alt pull-right"}, "Continue   ", React.DOM.i({className: "ion-arrow-right-c"}))
+                React.DOM.button({'data-function': "nextScreen", 'data-parameters': "", className: "navable btn btn-lg btn-alt pull-right"}, "Continue   ", React.DOM.i({className: "ion-arrow-right-c"}))
 
             )
 
@@ -5136,7 +5176,6 @@ module.exports = React.createClass({displayName: 'exports',
 'use strict';
 
 var React           = require('react/addons')
-,   _               = require('lodash')
 ,   Pagination      = require('./Pagination.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
@@ -5151,7 +5190,6 @@ module.exports = React.createClass({displayName: 'exports',
             icon: null
         }
     },
-
 
     render: function() {
 
@@ -5187,7 +5225,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
-},{"./Pagination.jsx":49,"lodash":80,"react/addons":82}],55:[function(require,module,exports){
+},{"./Pagination.jsx":49,"react/addons":82}],55:[function(require,module,exports){
 /* Account Definitions
 -------------------------------------------------- */
 
@@ -5594,6 +5632,18 @@ var uiActionNotification = function(action) {
 
 };
 
+/* Server Response
+-------------------------------------------------- */
+var serverResponse = function(response) {
+
+	var event = new CustomEvent('serverResponse', { 
+        'detail': {
+            response: response
+        }
+    });
+
+    window.dispatchEvent(event);
+} 
 
 /* Update Game
 -------------------------------------------------- */
@@ -6184,6 +6234,12 @@ module.exports = function() {
     Mousetrap.bind(',', function(e) {
         if (pauseNavigation != "pauseComma") {
             navigate("cancel");
+        }
+    }); 
+    
+    Mousetrap.bind('delete', function(e) {
+      if (e.preventDefault) {
+            e.preventDefault();
         }
     }); 
 
@@ -7380,6 +7436,27 @@ var events = {
 
     },
 
+    /* Save Wifi Config
+    -------------------------------------------------- */
+  
+  	saveWifiConfig: function(parameters) {
+
+        var form = document.forms[parameters].elements;
+       
+        var obj = new Object;
+
+        _.each(form, function(input) { 
+            if (input.name && input.value) {
+               obj[input.name] = input.value;
+            }
+        });
+
+        obj.formTitle = parameters;
+
+  		api.emit('request', { request: 'writeTextSync', param: obj });
+
+    },
+
     /* Submit form on Action button/keypress
     -------------------------------------------------- */
     submitForm: function(parameters) {
@@ -7397,12 +7474,10 @@ var events = {
         obj.formTitle = parameters;
 
         if (obj.server == "true") {
-            console.log("server...");
             api.emit('request', { request: 'submitForm', param: obj });
         }
 
         else {
-            console.log("write...");
             api.emit('request', { request: 'writeJSONSync', param: obj });
         }
 
@@ -7412,20 +7487,7 @@ var events = {
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {
 
-    	window.location = "http://127.0.0.1:1210/home/alex";
-
-  //   	var childNodes = document.getElementById('screens').childNodes;
-
-  //   	_(childNodes).forEach(function(el, i) { 
-
-		// 	React.unmountComponentAtNode(el);
-
-
-		// });
-
-		// document.getElementById('screens').innerHTML = "";
-
-  //   	Screens.setupScreens("Dashboard");
+    	window.location = "http://127.0.0.1:1210/home/";
 
     },
 

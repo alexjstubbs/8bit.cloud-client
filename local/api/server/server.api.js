@@ -8,12 +8,13 @@ var fs          = require('fs-extra')
 ,   helpers     = require('../../system/helpers')
 ,   network     = require('../../api/network/network.online')
 ,   forms       = require('../../api/api.forms')
-// ,   bcrypt      = require('bcrypt');
+,   bcrypt      = require('bcrypt');
 
 /* Set up (use config file)
 -------------------------------------------------- */
 
-var server      = "ignition.io:3000"
+// var server      = "ignition.io:3000"
+var server      = "127.0.0.1:3000"
 ,   port        = 3000
 ,   v           = "v1";
 
@@ -22,19 +23,19 @@ var server      = "ignition.io:3000"
 var passHash = function(input, callback) {
     var rand  = _.random(0, 1024);
 
-    // bcrypt.genSalt(10, function(err, salt) {
-    //     bcrypt.hash("SEGA", salt, function(err, hash) {
+    bcrypt.genSalt(10, function(err, salt) {
+        bcrypt.hash("SEGA", salt, function(err, hash) {
             
-    //         if (err) {
-    //             console.log(err);
-    //         }
+            if (err) {
+                console.log(err);
+            }
 
-    //         else {
-    //             callback(hash);
-    //         }
+            else {
+                callback(hash);
+            }
 
-    //     });
-    // });
+        });
+    });
 
 }
 
@@ -73,7 +74,6 @@ var submitForm = function(nsp, data, callback) {
             
             var forms = {
                     signUp: function() {
-                        console.log("EEE");
                         signUp(nsp, data);
                     }
                 }
@@ -241,25 +241,33 @@ var signUp = function(nsp, profile) {
                     fs.outputJson(file, status, function(err) {
 
                         if (err) {
-                            console.log(err);
+                            nsp.emit('messaging', {type: 0, body: err });
                         }
 
                         else {
                             fs.copy(file, __sessionFile, function(err){
                               if (err) return console.error(err);
                                 getSession();
-                            }); 
+                            });
+
+                            nsp.emit('api',  {serverEvent: "signup"}); 
 
                         }
 
                     });
 
                 }
+
+                // Signup Error
+                else {
+                    nsp.emit('messaging', {type: 0, body: status.message  });
+                }
             }
 
+            // Currupt or undefined return
             else {
-                // ||Client Box||: Could not sign up?
-                console.log(body);
+                nsp.emit('messaging', {type: 0, body: "Server returned an error." });
+
             }
 
             if (error) {

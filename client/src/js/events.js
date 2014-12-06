@@ -61,6 +61,18 @@ var uiActionNotification = function(action) {
 
 };
 
+/* Server Response
+-------------------------------------------------- */
+var serverResponse = function(response) {
+
+	var event = new CustomEvent('serverResponse', { 
+        'detail': {
+            response: response
+        }
+    });
+
+    window.dispatchEvent(event);
+} 
 
 /* Update Game
 -------------------------------------------------- */

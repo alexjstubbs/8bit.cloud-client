@@ -44,7 +44,13 @@ var writeJSONSync = function(nsp, data, callback) {
 
 }
 
+/* Write Text file
+-------------------------------------------------- */
+var writeTextSync = function(nsp, data, callback) {
+    
+}
 
 /* Exports
 -------------------------------------------------- */
 exports.writeJSONSync = writeJSONSync;
+exports.writeTextync = writeTextSync;

@@ -13,6 +13,7 @@ module.exports = React.createClass({
             navable: false,
             navStack: 2,
             form: 'Wifi.json',
+            // /etc/wpa_supplicant/wpa_supplicant.conf
             server: true,
             classList: 'col-xs-12'
         }
@@ -42,15 +43,13 @@ module.exports = React.createClass({
                                     
                                         <input id="wifi-adapter" className="form-control input-lg navable" data-function='inputFocus' placeholder="wlan0" name="wifi-adapter" type="text" />
                                      
-                                           
-
-                                     
+                                        
                                     </div>
 
                                     <div className="form-group">
                                         
-                                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="SSID" name="password" type="password" />
-                                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Password/Passphrase" name="password2" type="password"  />
+                                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="SSID" name="ssid" type="ssid" />
+                                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Password/Passphrase" name="passphrase" type="passphrase"  />
                                    
                                     </div>
                                
@@ -61,7 +60,7 @@ module.exports = React.createClass({
                                 <br />
                                 <br />
 
-                                <button className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-settings red pull-right"></i> &nbsp; Advanced Set Up</button>
+                                <button className="btn btn-lg btn-alt btn-block navable" data-function='saveWifi' data-parameters={this.props.form}><i className="ion-settings red pull-right"></i> &nbsp; Advanced Set Up</button>
                
 
                                 <input type="hidden" name="server" value={this.props.server} />

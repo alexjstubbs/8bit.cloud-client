@@ -68,6 +68,27 @@ var events = {
 
     },
 
+    /* Save Wifi Config
+    -------------------------------------------------- */
+  
+  	saveWifiConfig: function(parameters) {
+
+        var form = document.forms[parameters].elements;
+       
+        var obj = new Object;
+
+        _.each(form, function(input) { 
+            if (input.name && input.value) {
+               obj[input.name] = input.value;
+            }
+        });
+
+        obj.formTitle = parameters;
+
+  		api.emit('request', { request: 'writeTextSync', param: obj });
+
+    },
+
     /* Submit form on Action button/keypress
     -------------------------------------------------- */
     submitForm: function(parameters) {
@@ -85,12 +106,10 @@ var events = {
         obj.formTitle = parameters;
 
         if (obj.server == "true") {
-            console.log("server...");
             api.emit('request', { request: 'submitForm', param: obj });
         }
 
         else {
-            console.log("write...");
             api.emit('request', { request: 'writeJSONSync', param: obj });
         }
 
@@ -100,20 +119,7 @@ var events = {
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {
 
-    	window.location = "http://127.0.0.1:1210/home/alex";
-
-  //   	var childNodes = document.getElementById('screens').childNodes;
-
-  //   	_(childNodes).forEach(function(el, i) { 
-
-		// 	React.unmountComponentAtNode(el);
-
-
-		// });
-
-		// document.getElementById('screens').innerHTML = "";
-
-  //   	Screens.setupScreens("Dashboard");
+    	window.location = "http://127.0.0.1:1210/home/";
 
     },
 

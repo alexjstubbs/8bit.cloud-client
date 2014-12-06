@@ -33,6 +33,7 @@ module.exports = React.createClass({
 
     screenMount: function() {
         api.emit('request', { request: 'sysIsOnline'});
+
         // api.emit('request', { request: 'sysGetNetwork'});
     },
 
@@ -41,6 +42,7 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
+ 
 
         api.on('api', this.setProps.bind(this));
 
