@@ -105,14 +105,21 @@ var events = {
 
         obj.formTitle = parameters;
 
-        if (obj.server == "true") {
-            api.emit('request', { request: 'submitForm', param: obj });
-        }
+        switch(obj.server) {
 
-        else {
-            api.emit('request', { request: 'writeJSONSync', param: obj });
-        }
+			case "true": {
+			    api.emit('request', { request: 'submitForm', param: obj });
+			}
 
+			case "false": {
+			    api.emit('request', { request: 'writeJSONSync', param: obj });
+			}
+
+			case "cache": {
+			 	api.emit('request', { request: "cacheForm", param: obj });
+			}
+
+	    }
     },
 
     /* Load Dashboard
@@ -151,8 +158,7 @@ var events = {
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function(parameters) {
-        dialog.show();
-        // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
+        dialog.show();        // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
     },
 
     /* Launch selected game

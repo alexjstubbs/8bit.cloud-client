@@ -2,6 +2,7 @@
 -------------------------------------------------- */
 var io      = require('socket.io-client')
 ,   api     = io.connect(window.location.hostname+"/api")
+,   events  = require('../system.events').events
 , 	dialog  = require('../dialogs');
 
 /* Module Definitions
@@ -17,14 +18,24 @@ var connect = function() {
     // }, 2000);
 
   });
-    
-	api.on('messaging', function(data, sock) {
+
+
+  /* Server to Client Notification
+  -------------------------------------------------- */    
+  api.on('messaging', function(data, sock) {
 			
 		dialog.general(null, data.type, data.body);
 
 	});
 
 
+  /* Server to Client Communication
+  -------------------------------------------------- */
+  api.on('systemEvent', function(data, sock) {
+    
+    events[data.command]();
+
+  });
 
 };
 

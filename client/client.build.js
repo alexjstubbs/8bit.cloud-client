@@ -3729,8 +3729,6 @@ module.exports = React.createClass({displayName: 'exports',
         )
     }
 });
-
-
 },{"lodash":82,"react/addons":84}],31:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -4212,19 +4210,13 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({displayName: 'exports',
 
-    getInitialState: function() {
-        return {
-            tabIndex: 1999
-        }
-    },
-
     getDefaultProps: function() {
 
     return {
             navable: true,
             navStack: 2,
             form: 'signUp',
-            server: true,
+            server: "cache",
             classList: 'col-xs-12'
         }
     },
@@ -4233,20 +4225,8 @@ module.exports = React.createClass({displayName: 'exports',
 
         var _this = this;
         navigationInit.navigationInit();
-
-        // console.log(document.getElementById(this.props.form));
-
-
-        // document.getElementById("signUp").focus();
-        // document.getElementById("signUp").addEventListener("keydown", function(e) {
-        //    _this.alertTest();
-        // });
-
+;
       
-    },
-
-    alertTest: function() {
-        alert("submit..");
     },
 
     render: function() {
@@ -4258,7 +4238,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "row-fluid"}, 
                 React.DOM.div({className: "col-xs-12"}, 
                             
-                    React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form, tabIndex: this.state.tabIndex}, 
+                    React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
 
                         React.DOM.fieldset(null, 
@@ -4285,7 +4265,7 @@ module.exports = React.createClass({displayName: 'exports',
                             ), 
                        
                         
-                        React.DOM.button({onClick: this.alertTest, className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add green pull-right"}), "   Create new Profile"), 
+                        React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add green pull-right"}), "   Create new Profile"), 
                        
                         React.DOM.input({type: "hidden", name: "server", value: this.props.server})
 
@@ -4719,22 +4699,27 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     screenMount: function() {
-      // Load Dashboard
-      // events.preloadDashboard();
+      
+      var _this = this;
+      
+      api.emit('request', { request: 'newProfileSignin', param: null});
+      api.on('api', this.setState.bind(this));
 
-        var _this = this;
-       
-       setTimeout(function() {
-          _this.setState({status: "Sending Profile Information"});
-       }, 3000);
       
-      setTimeout(function() {
-          _this.setState({status: "Loading Dashboard"});
-       }, 5000);
+
+      // This loads the dashboard/connects to server demo
+
+      //  setTimeout(function() {
+      //     _this.setState({status: "Sending Profile Information"});
+      //  }, 3000);
       
-      setTimeout(function() {
-           events.preloadDashboard();
-       }, 6000);
+      // setTimeout(function() {
+      //     _this.setState({status: "Loading Dashboard"});
+      //  }, 5000);
+      
+      // setTimeout(function() {
+      //      events.preloadDashboard();
+      //  }, 6000);
     },
 
     componentDidMount: function() {
@@ -5349,6 +5334,7 @@ module.exports = function() {
 -------------------------------------------------- */
 var io      = require('socket.io-client')
 ,   api     = io.connect(window.location.hostname+"/api")
+,   events  = require('../system.events').events
 , 	dialog  = require('../dialogs');
 
 /* Module Definitions
@@ -5364,14 +5350,24 @@ var connect = function() {
     // }, 2000);
 
   });
-    
-	api.on('messaging', function(data, sock) {
+
+
+  /* Server to Client Notification
+  -------------------------------------------------- */    
+  api.on('messaging', function(data, sock) {
 			
 		dialog.general(null, data.type, data.body);
 
 	});
 
 
+  /* Server to Client Communication
+  -------------------------------------------------- */
+  api.on('systemEvent', function(data, sock) {
+    
+    events[data.command]();
+
+  });
 
 };
 
@@ -5379,7 +5375,7 @@ var connect = function() {
 -------------------------------------------------- */
 exports.connect = connect;
 exports.api = api;
-},{"../dialogs":60,"socket.io-client":243}],59:[function(require,module,exports){
+},{"../dialogs":60,"../system.events":78,"socket.io-client":243}],59:[function(require,module,exports){
 /* Clientside Database Helpers
 -------------------------------------------------- */
 
@@ -7576,14 +7572,21 @@ var events = {
 
         obj.formTitle = parameters;
 
-        if (obj.server == "true") {
-            api.emit('request', { request: 'submitForm', param: obj });
-        }
+        switch(obj.server) {
 
-        else {
-            api.emit('request', { request: 'writeJSONSync', param: obj });
-        }
+			case "true": {
+			    api.emit('request', { request: 'submitForm', param: obj });
+			}
 
+			case "false": {
+			    api.emit('request', { request: 'writeJSONSync', param: obj });
+			}
+
+			case "cache": {
+			 	api.emit('request', { request: "cacheForm", param: obj });
+			}
+
+	    }
     },
 
     /* Load Dashboard
@@ -7622,8 +7625,7 @@ var events = {
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function(parameters) {
-        dialog.show();
-        // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
+        dialog.show();        // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
     },
 
     /* Launch selected game

@@ -24,22 +24,27 @@ module.exports = React.createClass({
     },
 
     screenMount: function() {
-      // Load Dashboard
-      // events.preloadDashboard();
+      
+      var _this = this;
+      
+      api.emit('request', { request: 'newProfileSignin', param: null});
+      api.on('api', this.setState.bind(this));
 
-        var _this = this;
-       
-       setTimeout(function() {
-          _this.setState({status: "Sending Profile Information"});
-       }, 3000);
       
-      setTimeout(function() {
-          _this.setState({status: "Loading Dashboard"});
-       }, 5000);
+
+      // This loads the dashboard/connects to server demo
+
+      //  setTimeout(function() {
+      //     _this.setState({status: "Sending Profile Information"});
+      //  }, 3000);
       
-      setTimeout(function() {
-           events.preloadDashboard();
-       }, 6000);
+      // setTimeout(function() {
+      //     _this.setState({status: "Loading Dashboard"});
+      //  }, 5000);
+      
+      // setTimeout(function() {
+      //      events.preloadDashboard();
+      //  }, 6000);
     },
 
     componentDidMount: function() {

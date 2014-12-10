@@ -63,6 +63,10 @@ var api = {
         common.serverAPI.submitForm(nsp, form, data);
     },
 
+    cacheForm: function(nsp, form) {
+        common.serverAPI.submitCache(nsp, form);
+    },
+
     writeJSONSync: function(nsp, data) {
         common.systemWrite.writeJSONSync(nsp, data);
     },    
@@ -85,8 +89,11 @@ var api = {
 
     profileList: function(nsp) {
          common.listProfiles.listProfiles(nsp);
-    }
+    },
 
+    newProfileSignin: function(nsp, params) {
+        common.listProfiles.latestProfile(nsp);
+    }
 }
 
 /* Exports

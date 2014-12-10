@@ -7,19 +7,13 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({
 
-    getInitialState: function() {
-        return {
-            tabIndex: 1999
-        }
-    },
-
     getDefaultProps: function() {
 
     return {
             navable: true,
             navStack: 2,
             form: 'signUp',
-            server: true,
+            server: "cache",
             classList: 'col-xs-12'
         }
     },
@@ -28,20 +22,8 @@ module.exports = React.createClass({
 
         var _this = this;
         navigationInit.navigationInit();
-
-        // console.log(document.getElementById(this.props.form));
-
-
-        // document.getElementById("signUp").focus();
-        // document.getElementById("signUp").addEventListener("keydown", function(e) {
-        //    _this.alertTest();
-        // });
-
+;
       
-    },
-
-    alertTest: function() {
-        alert("submit..");
     },
 
     render: function() {
@@ -53,7 +35,7 @@ module.exports = React.createClass({
             <div className="row-fluid">
                 <div className="col-xs-12">
                             
-                    <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}  tabIndex={this.state.tabIndex}>
+                    <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
 
 
                         <fieldset>
@@ -80,7 +62,7 @@ module.exports = React.createClass({
                             </div>
                        
                         
-                        <button onClick={this.alertTest} className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add green pull-right"></i> &nbsp; Create new Profile</button>
+                        <button className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add green pull-right"></i> &nbsp; Create new Profile</button>
                        
                         <input type="hidden" name="server" value={this.props.server} />
 

@@ -24,7 +24,7 @@ var passHash = function(input, callback) {
     var rand  = _.random(0, 1024);
 
     bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash("SEGA", salt, function(err, hash) {
+        bcrypt.hash("SEEEEGGGGAAAA", salt, function(err, hash) {
             
             if (err) {
                 console.log(err);
@@ -62,6 +62,19 @@ var getActivities = function(nsp) {
 var getMessages = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getMessages' });
 }
+
+/* Submit Cache Form (offline/online store)
+-------------------------------------------------- */
+var submitCache = function(nsp, data, callback) {
+
+    switch(data.formTitle) {
+        case "signUp": {
+            nsp.emit('systemEvent', {command: "nextScreen", params: null });
+        }
+    }
+
+}
+
 
 /* Submit Dynamic Form
 -------------------------------------------------- */
@@ -340,3 +353,4 @@ exports.getFriend       = getFriend;
 exports.getActivities   = getActivities;
 exports.signUp          = signUp;
 exports.submitForm      = submitForm;
+exports.submitCache     = submitCache;
