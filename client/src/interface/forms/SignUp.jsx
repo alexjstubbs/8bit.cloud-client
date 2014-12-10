@@ -7,6 +7,12 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({
 
+    getInitialState: function() {
+        return {
+            tabIndex: 1999
+        }
+    },
+
     getDefaultProps: function() {
 
     return {
@@ -20,8 +26,22 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
+        var _this = this;
         navigationInit.navigationInit();
+
+        // console.log(document.getElementById(this.props.form));
+
+
+        // document.getElementById("signUp").focus();
+        // document.getElementById("signUp").addEventListener("keydown", function(e) {
+        //    _this.alertTest();
+        // });
+
       
+    },
+
+    alertTest: function() {
+        alert("submit..");
     },
 
     render: function() {
@@ -30,51 +50,47 @@ module.exports = React.createClass({
 
         return (
 
-                    <div className="row-fluid ">
-                        <div className="col-xs-12">
-                                    
-                            <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
+            <div className="row-fluid">
+                <div className="col-xs-12">
+                            
+                    <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}  tabIndex={this.state.tabIndex}>
 
 
-                                <fieldset>
-                                    
-                                    <div className="form-group">
-                                    
-                                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Choose Username" name="username" type="text" />
+                        <fieldset>
+                            
+                            <div className="form-group">
+                            
+                                <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Choose Username" name="username" type="text" />
 
-                                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="E-mail Address" name="email" type="text" />
-                                    
-                                    </div>
-                                    
-                                    <br />
+                                <input className="form-control input-lg navable" data-function='inputFocus' placeholder="E-mail Address" name="email" type="text" />
+                            
+                            </div>
+                            
+                            <br />
 
-                                    <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Avatar URL" name="avatar" type="text" />
-                                    
-                                    <br />
+                            <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Avatar URL" name="avatar" type="text" />
+                            
+                            <br />
 
-                                    <div className="form-group">
-                                        
-                                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Password" name="password" type="password" />
-                                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Verify Password" name="password2" type="password"  />
-                                   
-                                    </div>
-                               
+                            <div className="form-group">
                                 
-                                <button className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add green pull-right"></i> &nbsp; Create new Profile</button>
-                                <button className="btn btn-lg btn-alt btn-block navable" data-function='openDialog' data-parameters={type}><i className="ion-close-circled red pull-right"></i> &nbsp; Continue Offline</button>
-               
+                                <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Password" name="password" type="password" />
+                                <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Verify Password" name="password2" type="password"  />
+                           
+                            </div>
+                       
+                        
+                        <button onClick={this.alertTest} className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add green pull-right"></i> &nbsp; Create new Profile</button>
+                       
+                        <input type="hidden" name="server" value={this.props.server} />
 
-                                <input type="hidden" name="server" value={this.props.server} />
+                    </fieldset>
+                    </form>
+                      
 
-                            </fieldset>
-                            </form>
-                              
-
-                        </div>
-                    </div>
+                </div>
+            </div>
            
-                  
-         
         );
     }
 });

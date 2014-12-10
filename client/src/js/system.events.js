@@ -1,4 +1,4 @@
-/* Requested system events via client
+/* Requested system events via client (usually button presses)
 -------------------------------------------------- */
 
 var systemNotify    	= require('./notification.init.js')

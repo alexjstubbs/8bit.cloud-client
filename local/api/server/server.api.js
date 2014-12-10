@@ -215,7 +215,6 @@ var signUp = function(nsp, profile) {
 
     _path = "http://" + path.join(server, app);
 
-
     var password = passHash(profile.username, function(hashed) {
    
         var query = { 

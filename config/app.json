@@ -8,5 +8,13 @@
 
     "pi": {
         "port": 1210
+    },
+
+    "banana": {
+        "port": 1210
+    },
+
+    "hummingboard": {
+        "port": 1210
     }
 }

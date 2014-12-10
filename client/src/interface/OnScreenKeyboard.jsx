@@ -11,7 +11,8 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            type:       "alpha"
+            type:       "alpha",
+            tabIndex:   1999
         }
     },
 
@@ -23,14 +24,12 @@ module.exports = React.createClass({
                 input:      null,
                 form:       'onScreenKeyboard',
                 input:      "text"
-
             }
     },
 
     componentDidMount: function() {
 
         var _this = this;
-
 
         var recentInput = document.getElementsByClassName("activeInput")[0];
         recentInput.scrollTop = recentInput.scrollHeight;
@@ -85,7 +84,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div className="input-keyboard" tabIndex="0" data-proptype={this.props.input}>
+            <div className="input-keyboard" tabIndex={this.state.tabIndex} data-proptype={this.props.input}>
                 <div className="container-fluid parent">
                     <div className="row-fluid">
                         <div className="col-xs-12">

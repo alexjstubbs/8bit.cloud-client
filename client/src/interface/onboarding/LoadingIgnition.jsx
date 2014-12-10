@@ -44,8 +44,6 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-     
-
         var _this = this;
 
         window.addEventListener("mountView", function(e) { 

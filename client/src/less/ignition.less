@@ -482,20 +482,43 @@ textarea.form-control {
 /* Profiles (login)
 -------------------------------------------------- */
 
+
+ul#profile-list {
+    overflow-y:hidden;
+    overflow-x:visible;
+    white-space:nowrap;
+    list-style-type: none !important;
+    margin:10vw 0 0 20vw;
+    padding:10px 25px;
+}
+
+
 ul#profile-list li {
-	list-style-type: inline;
-	float:left;
+    display:inline-block;
+    margin:0 30px 0 30px;
+    color:@gray-dark;
+}
+
+ul#profile-list li.selected {
+    color:@white;
+}
+
+ul#profile-list li span.emulator {
+    font-size:0.7em;
 }
 
 .user-profile-card {
-	background:@black;
+	background:@blue;
 	color:@white;
 	width:300px;
 	height:300px;
 	text-align: center;
-	padding:50px;
+	padding:10px;
 }
 
+.user-profile-card i:first-child {
+	font-size:10em;
+}
 
 
 /* Keyboard

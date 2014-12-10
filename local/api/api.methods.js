@@ -81,6 +81,10 @@ var api = {
 
     sysGetNetwork: function(nsp) {
         common.network.sysGetNetwork(nsp);
+    },
+
+    profileList: function(nsp) {
+         common.listProfiles.listProfiles(nsp);
     }
 
 }
