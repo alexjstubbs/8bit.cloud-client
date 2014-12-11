@@ -11,7 +11,7 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-            status: "Connecting to ignition server"
+            loadingStatus: "Connecting to ignition server"
         }
     },
 
@@ -24,14 +24,9 @@ module.exports = React.createClass({
     },
 
     screenMount: function() {
-      
-      var _this = this;
-      
-      api.emit('request', { request: 'newProfileSignin', param: null});
+
       api.on('api', this.setState.bind(this));
-
       
-
       // This loads the dashboard/connects to server demo
 
       //  setTimeout(function() {
@@ -75,7 +70,7 @@ module.exports = React.createClass({
                <div className="loading-dashboard"></div>
 
                  <span className="status-info blink">
-                     {this.state.status}
+                     {this.state.loadingStatus}
                  </span>
 
                   <span className="hidden navable"></span>

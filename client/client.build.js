@@ -4686,7 +4686,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
-            status: "Connecting to ignition server"
+            loadingStatus: "Connecting to ignition server"
         }
     },
 
@@ -4699,14 +4699,9 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     screenMount: function() {
-      
-      var _this = this;
-      
-      api.emit('request', { request: 'newProfileSignin', param: null});
+
       api.on('api', this.setState.bind(this));
-
       
-
       // This loads the dashboard/connects to server demo
 
       //  setTimeout(function() {
@@ -4750,7 +4745,7 @@ module.exports = React.createClass({displayName: 'exports',
                React.DOM.div({className: "loading-dashboard"}), 
 
                  React.DOM.span({className: "status-info blink"}, 
-                     this.state.status
+                     this.state.loadingStatus
                  ), 
 
                   React.DOM.span({className: "hidden navable"})
@@ -5363,7 +5358,7 @@ var connect = function() {
 
   /* Server to Client Communication
   -------------------------------------------------- */
-  api.on('systemEvent', function(data, sock) {
+  api.on('clientEvent', function(data, sock) {
     
     events[data.command]();
 

@@ -8,7 +8,8 @@ var fs          = require('fs-extra')
 ,   helpers     = require('../../system/helpers')
 ,   network     = require('../../api/network/network.online')
 ,   forms       = require('../../api/api.forms')
-,   bcrypt      = require('bcrypt');
+,   bcrypt      = require('bcrypt')
+,   profiles    = require('../../api/api.profiles');
 
 /* Set up (use config file)
 -------------------------------------------------- */
@@ -24,7 +25,7 @@ var passHash = function(input, callback) {
     var rand  = _.random(0, 1024);
 
     bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash("SEEEEGGGGAAAA", salt, function(err, hash) {
+        bcrypt.hash("SEGA", salt, function(err, hash) {
             
             if (err) {
                 console.log(err);
@@ -68,13 +69,40 @@ var getMessages = function(nsp) {
 var submitCache = function(nsp, data, callback) {
 
     switch(data.formTitle) {
+
+        // new Sign Up Form
         case "signUp": {
-            nsp.emit('systemEvent', {command: "nextScreen", params: null });
+            profiles.newProfile(nsp, data);
         }
+        
     }
 
 }
 
+
+/* Submit Dynamic Form
+-------------------------------------------------- */
+var validateForm = function(nsp, data, callback) {
+
+    // Validate form then run network command based on form name. Done!
+    forms.validate(data, function(validation) {
+
+        if (validation == undefined) {
+
+            if (callback || typeof callback == "function") {
+                callback(null, null);
+            }
+        }
+
+        else {
+           
+            nsp.emit('messaging', {type: 0, body: validation });
+
+        }
+
+    });
+
+}
 
 /* Submit Dynamic Form
 -------------------------------------------------- */
@@ -87,7 +115,7 @@ var submitForm = function(nsp, data, callback) {
             
             var forms = {
                     signUp: function() {
-                        signUp(nsp, data);
+                        signUp(nsp, data, callback);
                     }
                 }
 
@@ -95,9 +123,9 @@ var submitForm = function(nsp, data, callback) {
 
             form();
 
-            if (callback || typeof callback == "function") {
-                callback(true);
-            }
+            // if (callback || typeof callback == "function") {
+            //     callback(true);
+            // }
         }
 
         else {
@@ -154,75 +182,100 @@ var getEvents = function(nsp) {
 /* Login 
 -------------------------------------------------- */
 
-var getSession = function(nsp) {
+var getSession = function(nsp, callback) {
+
+    // Callback Sync
+    function fnLog(err, msg) {
+        if (callback || typeof callback == "function") {
+            callback(err, msg);
+        }
+    }
+
 
     var app = "login";
-        _path = "http://" + path.join(server, app);
+    _path = "http://" + path.join(server, app);
 
-        fs.readJson(__sessionFile, function(err, userProfile) {
-          
-            if (err) {
-                console.log({error: err});
-            }
+    fs.readJson(__sessionFile, function(err, userProfile) {
+      
+        if (err) {
 
-            var creds = { 
-                Username: userProfile.Username,
-                validPassword: userProfile.validPassword
-            };
+            console.log({error: err});
+        }
 
-            request.post({
-                uri: _path,
-                form: creds
-            }, function (error, response, body) {
+        var creds = { 
+            Username: userProfile.Username,
+            validPassword: userProfile.validPassword
+        };
+
+        request.post({
+            uri: _path,
+            form: creds
+        }, function (error, response, body) {
 
 
-                if (helpers.isJson(body)) {
-                    
-                    // Got new token
-                    
-                    var _token = JSON.parse(body);
+            if (helpers.isJson(body)) {
+                
+                // Got new token
 
-                    userProfile.token = _token.token;
+                var _token = JSON.parse(body);
 
-                    fs.outputJson(__sessionFile, userProfile, function(err) {
+                userProfile.token = _token.token;
 
-                        if (err) {
-                            console.log(err);
-                        }
+                fs.outputJson(__sessionFile, userProfile, function(err) {
 
-                        else {
+                    if (err) {
+                        console.log(err);
+                    }
 
-                           fs.copy(__sessionFile, appDir + '/config/profiles/' + userProfile.Username + '.json', function(err){
-                              
-                                if (err) console.log({error: err});
+                    else {
+
+                       fs.copy(__sessionFile, appDir + '/config/profiles/' + userProfile.Username + '.json', function(err){
+                          
+                            if (err) console.log({error: err});
+                            
+                            else {
                                 
-                                else {
-                                    console.log({message: 'Authenticated the session'});
-                                }
-                           })
-                        }
+                                fnLog(null, "Logged In!");
+                
+                                console.log({message: 'Authenticated the session'});
+                            }
+                       })
+                    }
 
-                })
+            })
 
-                    getSockets(nsp, _token);
-            }
 
-            else {
-                // Wrong Login Info (notify user)
-                console.log(body);
-                console.log({error: 'Could not authenticate user'});
-            }
+                fnLog(null, "Attemping Socket Connection...");
+                getSockets(nsp, _token);
+        }
 
-            });
+        else {
+            // Wrong Login Info (notify user)
+            console.log(body);
+            console.log({error: 'Could not authenticate user'});
+        }
 
         });
+
+    });
 
 }
 
 /* Signup 
 -------------------------------------------------- */
 
-var signUp = function(nsp, profile) {
+var signUp = function(nsp, profile, callback) {
+
+    // Callback Sync
+    function fnLog(err, msg) {
+        if (callback || typeof callback == "function") {
+            callback(err, msg);
+            return;
+        }
+
+     }
+
+    fnLog(null, "Contacting Server...");
 
     var app = "signup";
 
@@ -242,11 +295,16 @@ var signUp = function(nsp, profile) {
             form: query
         }, function (error, response, body) {
 
+                console.log("E");
+                
             if (helpers.isJson(body)) {
                 
+
                 var status = JSON.parse(body);
 
                 if (status.Username) {
+
+                    fnLog(null, "Success! Saving New Profile...");
 
                     var file = appDir+'/config/profiles/' + status.Username + '.json';
 
@@ -259,7 +317,21 @@ var signUp = function(nsp, profile) {
                         else {
                             fs.copy(file, __sessionFile, function(err){
                               if (err) return console.error(err);
-                                getSession();
+
+                                fnLog(null, "Logging into Ignition Server...");
+
+                                getSession(nsp, function(err){
+
+                                    if (!err) {
+                                        fnLog(null, "Logged In!");
+                                    }
+
+                                    else {
+                                         nsp.emit('messaging', {type: 0, body: err  });
+                                    }
+
+                                });
+                            
                             });
 
                             nsp.emit('api',  {serverEvent: "signup"}); 
@@ -283,6 +355,7 @@ var signUp = function(nsp, profile) {
             }
 
             if (error) {
+
                 console.log(error, "Server unreachable?");
             }
 
@@ -354,3 +427,4 @@ exports.getActivities   = getActivities;
 exports.signUp          = signUp;
 exports.submitForm      = submitForm;
 exports.submitCache     = submitCache;
+exports.validateForm    = validateForm;

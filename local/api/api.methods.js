@@ -88,12 +88,9 @@ var api = {
     },
 
     profileList: function(nsp) {
-         common.listProfiles.listProfiles(nsp);
-    },
-
-    newProfileSignin: function(nsp, params) {
-        common.listProfiles.latestProfile(nsp);
+         common.profiles.listProfiles(nsp);
     }
+    
 }
 
 /* Exports

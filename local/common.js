@@ -16,7 +16,7 @@ common = {
 ,      listroms:                   require('../local/api/game/game.platform.roms')
 ,      databases:                  require('../local/api/database/database.local')
 ,      listPlatforms:              require('../local/api/api.platforms')
-,      listProfiles:               require('../local/api/api.profiles')
+,      profiles: 	               require('../local/api/api.profiles')
 ,      network:                    require('../local/api/network/network.online')
 ,      location:                   require('../local/api/network/network.location')
 ,      db:                         require('../local/api/game/game.image')

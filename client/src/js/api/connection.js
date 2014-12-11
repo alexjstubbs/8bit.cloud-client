@@ -31,7 +31,7 @@ var connect = function() {
 
   /* Server to Client Communication
   -------------------------------------------------- */
-  api.on('systemEvent', function(data, sock) {
+  api.on('clientEvent', function(data, sock) {
     
     events[data.command]();
 

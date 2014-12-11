@@ -3,7 +3,9 @@
 
 var fs      = require('fs-extra')
 ,   path    = require('path')
-,   _       = require('lodash');
+,   _       = require('lodash')
+,   server  = require('./server/server.api')
+,   async   = require('async');
 
 
 /* List All Profiles
@@ -19,12 +21,14 @@ function listProfiles(nsp) {
         if (err) { console.log(err) }
 
         else {
+            
             _(dir).forEach(function(profile) { 
                 listObj.push(
                     {"username": path.basename(profile, '.json')}
 
                 )
             });
+
             nsp.emit('api', {profiles: listObj});
         }
 
@@ -32,29 +36,58 @@ function listProfiles(nsp) {
 
 }
 
-/* List Latest Profile (for SignUp)
+/* New Profile
 -------------------------------------------------- */
-function latestProfile(nsp) {
+function newProfile(nsp, data) {
 
-    var dir = appDir+"/config/profiles";
-    var files = fs.readdirSync(dir);
+    async.series([
+        // Validate Form, Show Next Screen,
+        function(callback){
+            server.validateForm(nsp, data, function(err) {
 
-    var maxxed = _.max(files, function (f) {
-        var fullpath = path.join(dir, f);
+                if (err) {
+                     callback(err, null);
+                }
 
-        // ctime = creation time is used
-        // replace with mtime for modification time
-        return fs.statSync(fullpath).ctime;
+                else {
+
+                    // Validated Form
+                    nsp.emit('clientEvent', {command: "nextScreen", params: null });
+                    callback(null, "validated");
+                
+                }
+               
+            })
+            
+        },
+        function(callback){
+
+            server.signUp(nsp, data, function(err, msg) {
+                console.log(msg);
+
+                nsp.emit('api', { loadingStatus:msg });
+            
+            });
+
+            // callback(null, 'two');
+        }
+    ],
+    // optional callback
+    function(err, results){
+
+        if (err) {
+           nsp.emit('messaging', {type: 0, body: err });
+        }
+
+        else {
+            // Load Ignition Dashboard HERE
+        }
     });
 
-    var _status = "Reading: " + maxxed;
-
-    nsp.emit('api', { status: _status });
-    // console.log(maxxed);
 }
 
 
 /* Exports
 -------------------------------------------------- */
 exports.listProfiles     = listProfiles;
-exports.latestProfile    = latestProfile;
+exports.newProfile       = newProfile;
