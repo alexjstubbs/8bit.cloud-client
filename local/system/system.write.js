@@ -8,6 +8,9 @@ var fs   = require('fs-extra')
 -------------------------------------------------- */
 var copyFile = function(nsp, src, dest, callback) {
 
+    console.log(src);
+    console.log(dest);
+
     fs.copy(src, dest, function(err) {
 
         if (err) {

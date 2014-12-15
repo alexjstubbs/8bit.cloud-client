@@ -206,7 +206,6 @@ var getSession = function(nsp, callback) {
         }
     }
 
-
     var app = "login";
 
     _path = "https://" + path.join(server, app);
@@ -270,10 +269,25 @@ var getSession = function(nsp, callback) {
 
         else {
 
-            console.log("Nope");
+            switch(error.code) {
+                
+                case "ECONNREFUSED": {
+                    
+                    // nsp.emit('messaging', {type: 0, body: "The ignition server seems to be temporarily down. Logging in Offline." });
 
-            // Could not authenticate
-            nsp.emit('messaging', {type: 0, body: "Could Not Authenticate User. Make sure you have entered a valid password." });
+                    // TODO: Findout if user is offline or server is offline. Notify if user is online but server is not, do not notify the other way around (offline mode).
+
+                     nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
+
+                }
+
+                default: {
+
+                    nsp.emit('messaging', {type: 0, body: "Could Not Authenticate User. Make sure you have entered a valid password." });
+
+                }
+
+            }
 
         }
 

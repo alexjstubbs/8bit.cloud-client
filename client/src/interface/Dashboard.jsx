@@ -84,10 +84,12 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        api.emit('request', { request: 'messages'});
+        api.emit('request', { request: 'getSession'} );
+        // api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
 
         sessionStorage.setItem("navigationState", "");
+
 
     },
 

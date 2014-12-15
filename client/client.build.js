@@ -2362,10 +2362,12 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-        api.emit('request', { request: 'messages'});
+        api.emit('request', { request: 'getSession'} );
+        // api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
 
         sessionStorage.setItem("navigationState", "");
+
 
     },
 
@@ -4169,6 +4171,14 @@ var NetworkStatus = require('./NetworkStatus.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
+    getInitialState: function() {
+        return {
+            session: {
+                Username: "Guest"
+            }
+        }
+    },
+
     getDefaultProps: function() {
 
     return {
@@ -4178,10 +4188,19 @@ module.exports = React.createClass({displayName: 'exports',
             id: "avatar"
         }
     },
+
+    componentDidMount: function() {
+
+        api.emit('request', { request: 'getSession'} );
+        api.on('api', this.setState.bind(this));
+    
+    },
+
+
     render: function() {
         return (
             React.DOM.div({id: this.props.id}, 
-            UserAvatar({avatar: this.props.avatar, username: this.props.username, isOnline: this.props.isOnline})
+            UserAvatar({avatar: this.props.avatar, username: this.state.session.Username, isOnline: this.props.isOnline})
             )
         );
     }
@@ -7492,7 +7511,6 @@ var systemNotify    	= require('./notification.init.js')
 
 var events = {
 
-
 	/* Set Navigation State
 	-------------------------------------------------- */
 	navigationState: function(parameters) {
@@ -7565,17 +7583,25 @@ var events = {
     -------------------------------------------------- */
     logIn: function(parameters) {
 
-    	var src  = "config/profiles/" + parameters + ".json";
-    	var dest = "config/profiles/session.json";
+    	if (parameters) {
 
-    	var copyObject = {};
+	    	var src  = "config/profiles/" + parameters + ".json";
+	    	var dest = "config/profiles/Session.json";
 
-    	copyObject.src = src;
-    	copyObject.dest = dest;
+	    	var copyObject = {};
 
-		api.emit('request', { request: 'copyFile', param: copyObject});
+	    	copyObject.src = src;
+	    	copyObject.dest = dest;
 
-		window.location = "http://127.0.0.1:1210/home/";		
+			api.emit('request', { request: 'createSession', param: copyObject});
+
+		}
+
+		else {
+
+
+
+		}
 
     },
 
@@ -7642,6 +7668,7 @@ var events = {
     	// if (document.readyState === "complete") { init(); }
 
     	window.location = "http://127.0.0.1:1210/home/";
+
 
     },
 

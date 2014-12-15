@@ -18,7 +18,6 @@ var systemNotify    	= require('./notification.init.js')
 
 var events = {
 
-
 	/* Set Navigation State
 	-------------------------------------------------- */
 	navigationState: function(parameters) {
@@ -91,17 +90,25 @@ var events = {
     -------------------------------------------------- */
     logIn: function(parameters) {
 
-    	var src  = "config/profiles/" + parameters + ".json";
-    	var dest = "config/profiles/session.json";
+    	if (parameters) {
 
-    	var copyObject = {};
+	    	var src  = "config/profiles/" + parameters + ".json";
+	    	var dest = "config/profiles/Session.json";
 
-    	copyObject.src = src;
-    	copyObject.dest = dest;
+	    	var copyObject = {};
 
-		api.emit('request', { request: 'copyFile', param: copyObject});
+	    	copyObject.src = src;
+	    	copyObject.dest = dest;
 
-		window.location = "http://127.0.0.1:1210/home/";		
+			api.emit('request', { request: 'createSession', param: copyObject});
+
+		}
+
+		else {
+
+
+
+		}
 
     },
 
@@ -168,6 +175,7 @@ var events = {
     	// if (document.readyState === "complete") { init(); }
 
     	window.location = "http://127.0.0.1:1210/home/";
+
 
     },
 

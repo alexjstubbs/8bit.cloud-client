@@ -68,12 +68,15 @@ var api = {
     },
 
     copyFile: function(nsp, copyObject) {
-
         common.systemWrite.copyFile(nsp, copyObject.src, copyObject.dest);
     },        
 
     writeJSONSync: function(nsp, data) {
         common.systemWrite.writeJSONSync(nsp, data);
+    },    
+
+    readJSONFile: function(nsp, file) {
+        common.systemRead.readJSONFile(nsp, file);
     },    
 
     writeTextSync: function(nsp, data) {
@@ -94,7 +97,19 @@ var api = {
 
     profileList: function(nsp) {
          common.profiles.listProfiles(nsp);
-    }
+    },
+    
+    profileLogin: function(nsp) {
+         common.profiles.profileLogin(nsp);
+    },
+
+    getSession: function(nsp) {
+         common.profiles.getSession(nsp);
+    },    
+
+    createSession: function(nsp, obj) {
+         common.profiles.createSession(nsp, obj);
+    },
     
 }
 

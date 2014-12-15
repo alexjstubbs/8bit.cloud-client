@@ -505,9 +505,6 @@ ul#profile-list li {
     color:@gray-dark;
 }
 
-ul#profile-list li.selected {
-    color:@white;
-}
 
 ul#profile-list li span.emulator {
     font-size:0.7em;
@@ -525,12 +522,17 @@ ul#profile-list li span.emulator {
 
 .user-profile-card i:first-child {
 	font-size:10em;
+	color:darken(@blue, 15%);
 }
 
 .user-profile-card.selectedNav {
-	// background:@purple;
 	opacity:1.0;
+	color:@white;
+	-ms-transform: scale(1.2); /* IE 9 */
+    -webkit-transform: scale(1.2); /* Chrome, Safari, Opera */
+    transform: scale(1.2);
 }
+
 
 /* Keyboard
 -------------------------------------------------- */

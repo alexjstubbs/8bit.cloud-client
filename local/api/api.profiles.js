@@ -1,10 +1,58 @@
 /* List Profiles
 -------------------------------------------------- */
 
-var fs      = require('fs-extra')
-,   path    = require('path')
-,   _       = require('lodash')
-,   server  = require('./server/server.api');
+var fs       = require('fs-extra')
+,   path     = require('path')
+,   _        = require('lodash')
+,   server   = require('./server/server.api')
+,   sysRead  = require('../system/system.read')
+,   sysWrite = require('../system/system.write');
+
+
+/* Create Session 
+-------------------------------------------------- */
+function createSession(nsp, copyObject) {
+
+// (nsp, src, dest, callback) {
+
+    sysWrite.copyFile(nsp, copyObject.src, copyObject.dest, function(err) {
+
+        if (err) {
+             nsp.emit('messaging', {type: 0, body: err });
+        }
+
+        else {
+            profileLogin(nsp);
+        }
+
+    });
+
+}
+
+
+/* Get Session
+-------------------------------------------------- */
+function getSession(nsp) {
+
+    sysRead.readJSONFile(null, "config/profiles/Session.json", function(err, sessionObject) {
+
+        if (err) {
+
+        }
+
+        else {
+
+            var sessionObject = { 
+                session: sessionObject
+            }
+
+            nsp.emit('api', sessionObject)
+        }
+
+    });
+
+    // nsp.emit('api', {mySession: sessionObject });
+}
 
 /* List All Profiles
 -------------------------------------------------- */
@@ -21,10 +69,9 @@ function listProfiles(nsp) {
         else {
             
             _(dir).forEach(function(profile) { 
-                listObj.push(
-                    {"username": path.basename(profile, '.json')}
 
-                )
+                listObj.push({"username": path.basename(profile, '.json')})
+
             });
 
             nsp.emit('api', {profiles: listObj});
@@ -34,10 +81,54 @@ function listProfiles(nsp) {
 
 }
 
+/* Profile Login to server
+-------------------------------------------------- */
+function profileLogin(nsp) {
+
+    // Error Handeling
+     function profileError(err) {
+
+        switch(err.id) {
+            
+            case "wrong_password": 
+                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Reset Password" });
+                break;
+
+            default: 
+                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "preloadDashboard", dataParameters: null, button: "Continue Offline" });
+                break;
+        }
+    }
+
+        // Server Signup
+        server.getSession(nsp, function(err, msg) { 
+
+            if (err) {
+
+                nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
+
+                profileError(err);
+            }
+
+            // Success! Load Dashboard
+            else {
+
+                console.log("Success");
+                
+                nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
+
+            }
+
+        });                
+
+}
+
+
 /* New Profile
 -------------------------------------------------- */
 function newProfile(nsp, data) {
 
+    // Error Handeling
     function profileError(err) {
 
         switch(err.id) {
@@ -57,6 +148,7 @@ function newProfile(nsp, data) {
             default: 
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "preloadDashboard", dataParameters: null, button: "Load Dashboard Anyway" });
                 break;
+
         }
     };
 
@@ -64,7 +156,9 @@ function newProfile(nsp, data) {
     server.validateForm(nsp, data, function(err) {
 
         if (err) {
+
             profileError(err);
+        
         }
 
         // Travel to next screen.
@@ -74,14 +168,17 @@ function newProfile(nsp, data) {
             server.signUp(nsp, data, function(err, msg) { 
 
                 if (err) {
+
                     profileError(err);
+                
                 }
 
                 // Success! Load Dashboard
                 else {
-                   nsp.emit('clientEvent', {command: "nextScreen", params: null });   
-                   nsp.emit('clientEvent', {command: "preloadDashboard", params: null })
-                    ;
+              
+                   // nsp.emit('clientEvent', {command: "nextScreen", params: null });   
+                   nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
+              
                 }
 
             });
@@ -90,12 +187,13 @@ function newProfile(nsp, data) {
 
     });
 
-
-
 }
 
 
 /* Exports
 -------------------------------------------------- */
+exports.createSession    = createSession;
+exports.getSession       = getSession;
 exports.listProfiles     = listProfiles;
 exports.newProfile       = newProfile;
+exports.profileLogin     = profileLogin;

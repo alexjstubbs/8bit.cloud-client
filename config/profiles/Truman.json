@@ -2,6 +2,5 @@
   "Username": "Truman",
   "Email": "opkok@pokok.com",
   "validPassword": "$2a$10$MfIq4G84SgSjzPHj0jjuYOw3hdBSdHURXKONqXxSf6c8YZj15hvoS",
-  "filename": "/Users/alexstubbs/Projects/Ignition/release/config/profiles/Session.json",
-  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU0OGU2ZGE5YjNhNGFkMzY5YmU2ZGQ3YSIsImlhdCI6MTQxODYyMDMyOX0.NlPP53CrTsYJ3YMUjbzMV3xi-8A5piluOOYzRWvXVuI"
+  "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjU0OGU2ZGE5YjNhNGFkMzY5YmU2ZGQ3YSIsImlhdCI6MTQxODY4MjYwOX0.1D6Du29xdRSoIYrKN47MBh0K8_jRXekfHk7onaK2Gck"
 }

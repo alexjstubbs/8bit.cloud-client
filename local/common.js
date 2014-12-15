@@ -24,6 +24,7 @@ common = {
 ,      serverAPI:                  require('../local/api/server/server.api')
 ,      getSet:                     require('../local/api/api.sets')
 ,      systemWrite:                require('../local/system/system.write')
+,      systemRead:                 require('../local/system/system.read')
 ,      wireless:                   require('../local/api/network/network.wireless')
 
 };
