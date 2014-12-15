@@ -30,7 +30,7 @@ module.exports = React.createClass({
             activities: [],
             navable: true,
             navStack: 2,
-            icon: "ion-ios7-people ",
+            icon: "ion-ios-people ",
             functionCall: "highlightPanel",
             functionParams: "panel_activity",
             classString: "slide col-md-4",

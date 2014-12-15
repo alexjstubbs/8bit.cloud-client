@@ -16,7 +16,7 @@ module.exports = React.createClass({
             favorites: [],
             navable: true,
             navStack: 3,
-            icon: "ion-ios7-heart-outline ",
+            icon: "ion-ios-heart-outline ",
             functionCall: "highlightPanel",
             functionParams: "panel_favorites",
             classString: "slide col-md-4",

@@ -26,7 +26,7 @@ module.exports = React.createClass({
     return {
             navable: true,
             navStack: 4,
-            icon: "ion-ios7-people-outline ",
+            icon: "ion-ios-people ",
             functionCall: "community",
             classString: "slide col-md-4",
             title: "Community",

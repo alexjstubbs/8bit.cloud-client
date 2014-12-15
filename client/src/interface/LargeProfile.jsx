@@ -61,7 +61,7 @@ module.exports = React.createClass({
          
          <header>
             <div className="col-md-2 boxed pull-left">
-               <i className="icon ion-ios7-arrow-thin-left"></i> &nbsp; Game Listing
+               <i className="icon ion-ios-arrow-thin-left"></i> &nbsp; Game Listing
             </div>
          
             <span className='pull-right col-md-2'>

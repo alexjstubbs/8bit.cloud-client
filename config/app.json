@@ -2,6 +2,7 @@
     "default": {
         "port": 1210
     },
+    
     "osx": {
         "cache_assets": false
     },

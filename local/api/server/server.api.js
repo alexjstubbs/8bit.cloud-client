@@ -152,13 +152,16 @@ var saveForm = function(nsp, data) {
 var getCommunity = function(nsp) {
 
     var app = "Communities";
-    _path = "http://" + path.join(server, "api", v, app);
+    _path = "https://" + path.join(server, "api", v, app);
 
    request.get({
-        uri: _path
+        uri: _path,
+        rejectUnauthorized: false
     }, function (error, response, body) {
+        
             if (helpers.isJson(body)) {
                 nsp.emit('api', {community: JSON.parse(body)}) 
+
             }
     });
 
@@ -170,10 +173,11 @@ var getCommunity = function(nsp) {
 var getEvents = function(nsp) {
 
     var app = "Events";
-    _path = "http://" + path.join(server, "api", v, app);
+    _path = "https://" + path.join(server, "api", v, app);
 
    request.get({
-        uri: _path
+        uri: _path,
+        rejectUnauthorized: false
     }, function (error, response, body) {
         if (helpers.isJson(body)) {
             nsp.emit('api', {events: JSON.parse(body)}) 
@@ -197,7 +201,7 @@ var getSession = function(nsp, callback) {
 
     var app = "login";
 
-    _path = "http://" + path.join(server, app);
+    _path = "https://" + path.join(server, app);
 
     fs.readJson(__sessionFile, function(err, userProfile) {
       
@@ -214,7 +218,8 @@ var getSession = function(nsp, callback) {
 
         request.post({
             uri: _path,
-            form: creds
+            form: creds,
+            rejectUnauthorized: false
         }, function (error, response, body) {
 
             if (helpers.isJson(body)) {
@@ -287,7 +292,7 @@ var signUp = function(nsp, profile, callback) {
 
     var app = "signup";
 
-    _path = "http://" + path.join(server, app);
+    _path = "https://" + path.join(server, app);
 
     var password = passHash(profile.username, function(hashed) {
    
@@ -300,7 +305,8 @@ var signUp = function(nsp, profile, callback) {
 
         request.post({
             uri: _path,
-            form: query
+            form: query,
+            rejectUnauthorized: false
         }, function (error, response, body) {
 
             if (helpers.isJson(body)) {
@@ -407,7 +413,7 @@ var signUp = function(nsp, profile, callback) {
 var getSockets = function(nsp, token) {
 
     var app = "sockets"
-        _path = "http://" + path.join(server, app)
+        _path = "https://" + path.join(server, app)
 
         var query = { 
             Token: token
@@ -415,6 +421,7 @@ var getSockets = function(nsp, token) {
 
        request.post({
             uri: _path,
+            rejectUnauthorized: false,
             form: {token: token.token }
         }, function (error, response, body) {
             sockets.networkConnection(token.token, nsp);
@@ -429,7 +436,7 @@ var getSockets = function(nsp, token) {
 var leaveSession = function(nsp) {
 
     var app = "logout";
-        _path = "http://" + path.join(server, app);
+        _path = "https://" + path.join(server, app);
 
         var query = { 
             Username: 'Alex',
@@ -438,6 +445,7 @@ var leaveSession = function(nsp) {
 
        request.post({
             uri: _path,
+            rejectUnauthorized: false,
             form: { Username: "Alex", validPassword: "469df27ea91ab84345e0051c81868535" }
         }, function (error, response, body) {
             if (helpers.isJson(body)) {

@@ -2,11 +2,11 @@
  * @jsx React.DOM
  */
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    moment = require('moment'),
-    MessagePreview = require('./MessagePreview.jsx'),
-    api = require('socket.io-client')('/api');
+var React               = require('react/addons')
+,   _                   = require('lodash')
+,   moment              = require('moment')
+,   MessagePreview      = require('./MessagePreview.jsx')
+,   api                 = require('socket.io-client')('/api');
 
 
 module.exports = React.createClass({

@@ -2,9 +2,9 @@
  * @jsx React.DOM
  */
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    NetworkStatus = require('./NetworkStatus.jsx');
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   NetworkStatus   = require('./NetworkStatus.jsx');
 
 // { "type": "text", "sender": "Alex Stubbs", "attachment": null, "timestamp": 2013121210230 }
 

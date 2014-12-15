@@ -44,8 +44,9 @@ var networkConnection = function(token, ansp, callback) {
 
    /* Connect to /Network (i.io) namespace/network
    -------------------------------------------------- */
-    nsp = io.connect('http://ignition.io:6052/network', {
-        'query': 'token=' + token
+    nsp = io.connect('https://ignition.io:6052/network', {
+        'query': 'token=' + token,
+        secure: true
     });
 
 

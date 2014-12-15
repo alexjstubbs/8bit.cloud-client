@@ -14,7 +14,7 @@ module.exports = React.createClass({
     return {
             navable: true,
             navStack: 0,
-            icon: "ion-ios7-email-outline ",
+            icon: "ion-ios-email-outline ",
             myMessages: [],
             newMessages: false,
             messageCount: 0,

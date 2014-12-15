@@ -60,7 +60,7 @@ var ignitionEvents = [
 
 var eventSet = [
     {"Type": "Update", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
-    {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios7-chatboxes", "shortcut": "F6"},
+    {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios-chatboxes", "shortcut": "F6"},
     {"Type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
 ];
 /* Components

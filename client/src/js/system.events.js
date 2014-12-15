@@ -148,7 +148,7 @@ var events = {
     	// Load new QTBrowser window and use on complete to close this instance? 
     	// if (document.readyState === "complete") { init(); }
 
-    	window.location = "http://127.0.0.1:1210/home/";
+    	window.location = "https://127.0.0.1:1210/home/";
 
     },
 

@@ -1948,7 +1948,7 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             subNavable: true,
             navStack: 1,
-            icon: "ion-game-controller-a ",
+            icon: "ion-ios-game-controller-a-outline ",
             functionCall: "viewMessages",
             username: "Unkown",
             action: "gameplay",
@@ -2210,7 +2210,7 @@ module.exports = React.createClass({displayName: 'exports',
     return {
             navable: true,
             navStack: 4,
-            icon: "ion-ios7-people-outline ",
+            icon: "ion-ios-people ",
             functionCall: "community",
             classString: "slide col-md-4",
             title: "Community",
@@ -2338,7 +2338,7 @@ var ignitionEvents = [
 
 var eventSet = [
     {"Type": "Update", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
-    {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios7-chatboxes", "shortcut": "F6"},
+    {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios-chatboxes", "shortcut": "F6"},
     {"Type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
 ];
 /* Components
@@ -2526,7 +2526,7 @@ module.exports = React.createClass({displayName: 'exports',
             favorites: [],
             navable: true,
             navStack: 3,
-            icon: "ion-ios7-heart-outline ",
+            icon: "ion-ios-heart-outline ",
             functionCall: "highlightPanel",
             functionParams: "panel_favorites",
             classString: "slide col-md-4",
@@ -2918,7 +2918,7 @@ module.exports = React.createClass({displayName: 'exports',
     return {
             navable: true,
             navStack: 0,
-            icon: "ion-ios7-email-outline ",
+            icon: "ion-ios-email-outline ",
             myMessages: [],
             newMessages: false,
             messageCount: 0,
@@ -3073,7 +3073,7 @@ module.exports = React.createClass({displayName: 'exports',
          
          React.DOM.header(null, 
             React.DOM.div({className: "col-md-2 boxed pull-left"}, 
-               React.DOM.i({className: "icon ion-ios7-arrow-thin-left"}), "   Game Listing"
+               React.DOM.i({className: "icon ion-ios-arrow-thin-left"}), "   Game Listing"
             ), 
          
             React.DOM.span({className: "pull-right col-md-2"}, 
@@ -3186,9 +3186,9 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    NetworkStatus = require('./NetworkStatus.jsx');
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   NetworkStatus   = require('./NetworkStatus.jsx');
 
 // { "type": "text", "sender": "Alex Stubbs", "attachment": null, "timestamp": 2013121210230 }
 
@@ -3224,11 +3224,11 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    moment = require('moment'),
-    MessagePreview = require('./MessagePreview.jsx'),
-    api = require('socket.io-client')('/api');
+var React               = require('react/addons')
+,   _                   = require('lodash')
+,   moment              = require('moment')
+,   MessagePreview      = require('./MessagePreview.jsx')
+,   api                 = require('socket.io-client')('/api');
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -3377,7 +3377,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         var cx = React.addons.classSet;
         var classes = cx({
-            'ion-ios7-circle-outline': true,
+            'ion-ios-circle-outline': true,
             'purple': true,
             'green': this.state.isOnline
         });
@@ -3816,7 +3816,7 @@ module.exports = React.createClass({displayName: 'exports',
             activities: [],
             navable: true,
             navStack: 2,
-            icon: "ion-ios7-people ",
+            icon: "ion-ios-people ",
             functionCall: "highlightPanel",
             functionParams: "panel_activity",
             classString: "slide col-md-4",
@@ -3906,21 +3906,21 @@ module.exports = React.createClass({displayName: 'exports',
                React.DOM.div({className: "row"}, 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios7-download"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios-download"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 1"), 
                      "06/27/2014 @ 5:58pm"
                   ), 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios7-download"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios-download"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 2"), 
                      "01/21/2013 @ 2:01pm"
                   ), 
                   React.DOM.div({className: "col-md-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios7-download"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios-download"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 3"), 
                      "06/27/2014 @ 5:58pm"
@@ -4084,8 +4084,8 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "col-md-8 game_info col-md-offset-1 pull-right", id: "small_profile"}, 
                      
                 React.DOM.div({className: "game_info_header", id: "profile_header"}, 
-                    React.DOM.div({className: this.state.crc32 ? classes : classes + " hidden", 'data-achievements': this.props.crc32, id: "achievement_display"}, React.DOM.i({className: "icon ion-ios7-star yellow"}), "  Achievements Available"), 
-                    React.DOM.div({className: "pull-right"}, React.DOM.strong(null, "Game Profile  ", React.DOM.i({className: "ion-ios7-arrow-thin-right"})))
+                    React.DOM.div({className: this.state.crc32 ? classes : classes + " hidden", 'data-achievements': this.props.crc32, id: "achievement_display"}, React.DOM.i({className: "icon ion-ios-star yellow"}), "  Achievements Available"), 
+                    React.DOM.div({className: "pull-right"}, React.DOM.strong(null, "Game Profile  ", React.DOM.i({className: "ion-ios-arrow-thin-right"})))
                 ), 
 
                 React.DOM.div({className: "clearfix"}), 
@@ -7613,7 +7613,7 @@ var events = {
     	// Load new QTBrowser window and use on complete to close this instance? 
     	// if (document.readyState === "complete") { init(); }
 
-    	window.location = "http://127.0.0.1:1210/home/";
+    	window.location = "https://127.0.0.1:1210/home/";
 
     },
 

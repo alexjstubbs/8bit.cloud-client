@@ -31,21 +31,21 @@ module.exports = React.createClass({
                <div className="row">
                   <div className="col-md-4">
                      <a href="#">
-                     <div className="no-screenshot save-slot navable" data-nav='5'><i className='icon ion-ios7-download'></i></div>
+                     <div className="no-screenshot save-slot navable" data-nav='5'><i className='icon ion-ios-download'></i></div>
                      </a>
                      <div className='slot-number'>Slot 1</div>
                      06/27/2014 @ 5:58pm
                   </div>
                   <div className="col-md-4">
                      <a href="#">
-                     <div className="no-screenshot save-slot navable" data-nav='5'><i className='icon ion-ios7-download'></i></div>
+                     <div className="no-screenshot save-slot navable" data-nav='5'><i className='icon ion-ios-download'></i></div>
                      </a>
                      <div className='slot-number'>Slot 2</div>
                      01/21/2013 @ 2:01pm
                   </div>
                   <div className="col-md-4">
                      <a href="#">
-                     <div className="no-screenshot save-slot navable" data-nav='5'><i className='icon ion-ios7-download'></i></div>
+                     <div className="no-screenshot save-slot navable" data-nav='5'><i className='icon ion-ios-download'></i></div>
                      </a>
                      <div className='slot-number'>Slot 3</div>
                      06/27/2014 @ 5:58pm
