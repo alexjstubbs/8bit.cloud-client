@@ -50,8 +50,6 @@ var writeJSONSync = function(nsp, data, callback) {
    
     }
 
-    console.log(file);
-
     fs.readJson(file, function(err, object) {
 
         if (err) {

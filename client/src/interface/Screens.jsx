@@ -34,13 +34,13 @@ var setupScreens = function(route) {
 	}
 	
 	if (route == "/welcome" || route == "Welcome") {
-		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "LoadingIgnition"];	
-		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />, <LoadingIgnition />];
+		var _screens = ["Welcome", "NetworkSetup", "NewProfile"];	
+		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />];
 	}
 
 	if (route == "/profiles" || route == "Profiles") {
-		var _screens = ["Profiles", "LoadingIgnition"];	
-		var screens = [<Profiles />, <LoadingIgnition />];
+		var _screens = ["Profiles"];	
+		var screens = [<Profiles />];
 	}
 
 	_(screens).forEach(function(el, i) { 
@@ -55,6 +55,7 @@ var setupScreens = function(route) {
 
 	console.log(container);
 	console.log(container.children);
+
 	_.first(container.children).id = "screen-active";
 
 	/* Init Navigation Controls

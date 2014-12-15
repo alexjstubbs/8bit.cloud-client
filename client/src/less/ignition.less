@@ -494,7 +494,7 @@ ul#profile-list {
     overflow-x:visible;
     white-space:nowrap;
     list-style-type: none !important;
-    margin:10vw 0 0 20vw;
+    margin:10vw 0 0 0vw;
     padding:10px 25px;
 }
 
@@ -520,12 +520,17 @@ ul#profile-list li span.emulator {
 	height:300px;
 	text-align: center;
 	padding:10px;
+	opacity:0.2;
 }
 
 .user-profile-card i:first-child {
 	font-size:10em;
 }
 
+.user-profile-card.selectedNav {
+	// background:@purple;
+	opacity:1.0;
+}
 
 /* Keyboard
 -------------------------------------------------- */

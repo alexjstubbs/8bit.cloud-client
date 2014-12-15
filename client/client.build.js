@@ -2314,7 +2314,7 @@ var myMessages = [
 
 var actionSet = [
     {"type": "Achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
-    {"type": "Gameplay", "string": "recently played", "icon": "ion-game-controller-b", "color": "red-bg"}
+    {"type": "Gameplay", "string": "recently played", "icon": "ion-ios-game-controller-a", "color": "red-bg"}
 ];
 
 
@@ -2479,7 +2479,7 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             subNavable: true,
             navStack: 1,
-            icon: "ion-game-controller-a ",
+            icon: "ion-ios-heart-outline ",
             functionCall: "demoGame",
             username: "Unkown",
             action: "gameplay",
@@ -3707,9 +3707,9 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash');
-
+var React   = require('react/addons')
+,   _       = require('lodash')
+,   navigationInit = require('../js/navigation.init');
 
 module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
@@ -3720,17 +3720,21 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
 
+    componentDidMount: function() {
+         navigationInit.navigationInit();
+    },
+
     render: function() {
         return (
                  
-            React.DOM.li({className: "navable user-profile-card"}, 
+            React.DOM.li({className: "navable user-profile-card", 'data-function': "logIn", 'data-parameters': this.props.username}, 
                 React.DOM.i({className: "ion-person"}), 
                 React.DOM.h1(null, this.props.username)
             )
         )
     }
 });
-},{"lodash":82,"react/addons":84}],31:[function(require,module,exports){
+},{"../js/navigation.init":72,"lodash":82,"react/addons":84}],31:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3754,17 +3758,21 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
+
         api.emit('request', { request: 'profileList'});
+
         api.on('api', this.setProps.bind(this));
 
     },
 
+
     render: function() {
+
+        var num = this.props.profiles.length;
 
         var profileNodes = this.props.profiles.map(function (profile, i) {
             return Profile({username: profile.username})
         });
-
 
         return (
       
@@ -3968,13 +3976,13 @@ var setupScreens = function(route) {
 	}
 	
 	if (route == "/welcome" || route == "Welcome") {
-		var _screens = ["Welcome", "NetworkSetup", "NewProfile", "LoadingIgnition"];	
-		var screens = [Welcome(null), NetworkSetup(null), NewProfile(null), LoadingIgnition(null)];
+		var _screens = ["Welcome", "NetworkSetup", "NewProfile"];	
+		var screens = [Welcome(null), NetworkSetup(null), NewProfile(null)];
 	}
 
 	if (route == "/profiles" || route == "Profiles") {
-		var _screens = ["Profiles", "LoadingIgnition"];	
-		var screens = [Profiles(null), LoadingIgnition(null)];
+		var _screens = ["Profiles"];	
+		var screens = [Profiles(null)];
 	}
 
 	_(screens).forEach(function(el, i) { 
@@ -3989,6 +3997,7 @@ var setupScreens = function(route) {
 
 	console.log(container);
 	console.log(container.children);
+
 	_.first(container.children).id = "screen-active";
 
 	/* Init Navigation Controls
@@ -5144,7 +5153,7 @@ module.exports = React.createClass({displayName: 'exports',
       
             React.DOM.div({className: "container parent viewport-container", id: "welcome"}, 
 
-                WizardHeader({title: "Welcome", icon: "ion-game-controller-a", subtitle: "Controlling the UI", active: "0", steps: "4"}), 
+                WizardHeader({title: "Welcome", icon: "ion-ios-game-controller-b", subtitle: "Controlling the UI", active: "0", steps: "4"}), 
 
                 React.DOM.div({id: "crossfade", className: "viewport-60"}, 
 
@@ -7552,6 +7561,25 @@ var events = {
 
     },
 
+    /* Log User In
+    -------------------------------------------------- */
+    logIn: function(parameters) {
+
+    	var src  = "config/profiles/" + parameters + ".json";
+    	var dest = "config/profiles/session.json";
+
+    	var copyObject = {};
+
+    	copyObject.src = src;
+    	copyObject.dest = dest;
+
+		api.emit('request', { request: 'copyFile', param: copyObject});
+
+		window.location = "http://127.0.0.1:1210/home/";		
+
+    },
+
+
     /* Save Wifi Config
     -------------------------------------------------- */
   
@@ -7613,7 +7641,7 @@ var events = {
     	// Load new QTBrowser window and use on complete to close this instance? 
     	// if (document.readyState === "complete") { init(); }
 
-    	window.location = "https://127.0.0.1:1210/home/";
+    	window.location = "http://127.0.0.1:1210/home/";
 
     },
 

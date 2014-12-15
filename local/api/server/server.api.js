@@ -158,7 +158,7 @@ var getCommunity = function(nsp) {
         uri: _path,
         rejectUnauthorized: false
     }, function (error, response, body) {
-        
+
             if (helpers.isJson(body)) {
                 nsp.emit('api', {community: JSON.parse(body)}) 
 
@@ -173,15 +173,23 @@ var getCommunity = function(nsp) {
 var getEvents = function(nsp) {
 
     var app = "Events";
+   
     _path = "https://" + path.join(server, "api", v, app);
 
    request.get({
+   
         uri: _path,
+   
         rejectUnauthorized: false
+   
     }, function (error, response, body) {
+
         if (helpers.isJson(body)) {
+       
             nsp.emit('api', {events: JSON.parse(body)}) 
+       
         }
+
     });
 
 }

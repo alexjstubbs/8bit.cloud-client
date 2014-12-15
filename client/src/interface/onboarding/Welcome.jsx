@@ -29,7 +29,7 @@ module.exports = React.createClass({
       
             <div className="container parent viewport-container" id="welcome">
 
-                <WizardHeader title="Welcome" icon="ion-game-controller-a" subtitle="Controlling the UI" active="0" steps="4" />
+                <WizardHeader title="Welcome" icon="ion-ios-game-controller-b" subtitle="Controlling the UI" active="0" steps="4" />
 
                 <div id="crossfade" className='viewport-60'>
 

@@ -21,17 +21,21 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
+
         api.emit('request', { request: 'profileList'});
+
         api.on('api', this.setProps.bind(this));
 
     },
 
+
     render: function() {
+
+        var num = this.props.profiles.length;
 
         var profileNodes = this.props.profiles.map(function (profile, i) {
             return <Profile username={profile.username} />
         });
-
 
         return (
       

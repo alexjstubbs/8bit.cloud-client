@@ -36,7 +36,7 @@ var myMessages = [
 
 var actionSet = [
     {"type": "Achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
-    {"type": "Gameplay", "string": "recently played", "icon": "ion-game-controller-b", "color": "red-bg"}
+    {"type": "Gameplay", "string": "recently played", "icon": "ion-ios-game-controller-a", "color": "red-bg"}
 ];
 
 

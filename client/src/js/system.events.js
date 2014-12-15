@@ -87,6 +87,25 @@ var events = {
 
     },
 
+    /* Log User In
+    -------------------------------------------------- */
+    logIn: function(parameters) {
+
+    	var src  = "config/profiles/" + parameters + ".json";
+    	var dest = "config/profiles/session.json";
+
+    	var copyObject = {};
+
+    	copyObject.src = src;
+    	copyObject.dest = dest;
+
+		api.emit('request', { request: 'copyFile', param: copyObject});
+
+		window.location = "http://127.0.0.1:1210/home/";		
+
+    },
+
+
     /* Save Wifi Config
     -------------------------------------------------- */
   
@@ -148,7 +167,7 @@ var events = {
     	// Load new QTBrowser window and use on complete to close this instance? 
     	// if (document.readyState === "complete") { init(); }
 
-    	window.location = "https://127.0.0.1:1210/home/";
+    	window.location = "http://127.0.0.1:1210/home/";
 
     },
 

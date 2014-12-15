@@ -15,7 +15,7 @@ module.exports = React.createClass({
             navable: false,
             subNavable: true,
             navStack: 1,
-            icon: "ion-game-controller-a ",
+            icon: "ion-ios-heart-outline ",
             functionCall: "demoGame",
             username: "Unkown",
             action: "gameplay",
