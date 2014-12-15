@@ -18,6 +18,25 @@ var systemNotify    	= require('./notification.init.js')
 
 var events = {
 
+
+	/* Set Navigation State
+	-------------------------------------------------- */
+	navigationState: function(parameters) {
+		sessionStorage.setItem("navigationState", parameters);
+	},
+
+	/* Remove Navigation State
+	-------------------------------------------------- */
+	removeNavigationState: function() {
+		sessionStorage.removeItem("navigationState");
+	},
+
+	/* Trigger New Screen Set
+	-------------------------------------------------- */
+	screenSet: function(parameters) {
+		Screens.setupScreens(parameters);
+	},
+
 	/* Trigger Next Screen 
 	-------------------------------------------------- */
 	nextScreen: function(parameters) {
@@ -125,6 +144,9 @@ var events = {
     /* Load Dashboard
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {
+
+    	// Load new QTBrowser window and use on complete to close this instance? 
+    	// if (document.readyState === "complete") { init(); }
 
     	window.location = "http://127.0.0.1:1210/home/";
 

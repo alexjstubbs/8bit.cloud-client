@@ -9,7 +9,8 @@ var fs          = require('fs-extra')
 ,   network     = require('../../api/network/network.online')
 ,   forms       = require('../../api/api.forms')
 ,   bcrypt      = require('bcrypt')
-,   profiles    = require('../../api/api.profiles');
+,   profiles    = require('../../api/api.profiles')
+,   fileFunc    = require('../../system/system.write');
 
 /* Set up (use config file)
 -------------------------------------------------- */
@@ -72,7 +73,9 @@ var submitCache = function(nsp, data, callback) {
 
         // new Sign Up Form
         case "signUp": {
+            
             profiles.newProfile(nsp, data);
+
         }
         
     }
@@ -95,7 +98,7 @@ var validateForm = function(nsp, data, callback) {
         }
 
         else {
-           
+
             nsp.emit('messaging', {type: 0, body: validation });
 
         }
@@ -193,13 +196,15 @@ var getSession = function(nsp, callback) {
 
 
     var app = "login";
+
     _path = "http://" + path.join(server, app);
 
     fs.readJson(__sessionFile, function(err, userProfile) {
       
         if (err) {
 
-            console.log({error: err});
+            nsp.emit('messaging', {type: 0, body: err });
+
         }
 
         var creds = { 
@@ -212,7 +217,6 @@ var getSession = function(nsp, callback) {
             form: creds
         }, function (error, response, body) {
 
-
             if (helpers.isJson(body)) {
                 
                 // Got new token
@@ -221,40 +225,46 @@ var getSession = function(nsp, callback) {
 
                 userProfile.token = _token.token;
 
-                fs.outputJson(__sessionFile, userProfile, function(err) {
+                userProfile.filename = __sessionFile;
 
-                    if (err) {
-                        console.log(err);
-                    }
+                // Write it
+                fileFunc.writeJSON(nsp, userProfile, function(err) {
 
-                    else {
+                    if (!err) {
 
-                       fs.copy(__sessionFile, appDir + '/config/profiles/' + userProfile.Username + '.json', function(err){
+                        // Copy succeeded session file to profile file 
+                       fileFunc.copyFile(nsp, __sessionFile, appDir + '/config/profiles/' + userProfile.Username + '.json', function(err) {
                           
-                            if (err) console.log({error: err});
+                            if (err) console.log({erroree: err});
                             
                             else {
+
+                                console.log(userProfile.Username);
                                 
                                 fnLog(null, "Logged In!");
-                
-                                console.log({message: 'Authenticated the session'});
-                            }
-                       })
-                    }
 
+
+                                getSockets(nsp, _token);
+
+                            }
+                       });
+
+                    }
             })
 
-
-                fnLog(null, "Attemping Socket Connection...");
-                getSockets(nsp, _token);
         }
+
 
         else {
-            // Wrong Login Info (notify user)
-            console.log(body);
-            console.log({error: 'Could not authenticate user'});
+
+            console.log("Nope");
+
+            // Could not authenticate
+            nsp.emit('messaging', {type: 0, body: "Could Not Authenticate User. Make sure you have entered a valid password." });
+
         }
 
+      
         });
 
     });
@@ -275,8 +285,6 @@ var signUp = function(nsp, profile, callback) {
 
      }
 
-    fnLog(null, "Contacting Server...");
-
     var app = "signup";
 
     _path = "http://" + path.join(server, app);
@@ -295,68 +303,97 @@ var signUp = function(nsp, profile, callback) {
             form: query
         }, function (error, response, body) {
 
-                console.log("E");
-                
+            console.log("body:" + body);
+
             if (helpers.isJson(body)) {
-                
+
 
                 var status = JSON.parse(body);
 
-                if (status.Username) {
 
-                    fnLog(null, "Success! Saving New Profile...");
+                if (status.error) {
+                     fnLog(status.error, null);
+                }
 
-                    var file = appDir+'/config/profiles/' + status.Username + '.json';
+                else {
 
-                    fs.outputJson(file, status, function(err) {
 
-                        if (err) {
-                            nsp.emit('messaging', {type: 0, body: err });
-                        }
+                    var file = appDir+'/config/profiles/' + status.profile.Username + '.json';
 
-                        else {
-                            fs.copy(file, __sessionFile, function(err){
-                              if (err) return console.error(err);
+                    if (status.profile.Username) {
 
-                                fnLog(null, "Logging into Ignition Server...");
+                        status.profile.validPassword = hashed;
+                        status.profile.filename = file;
 
-                                getSession(nsp, function(err){
+                        fileFunc.writeJSON(nsp, status.profile, function(err) {
 
-                                    if (!err) {
-                                        fnLog(null, "Logged In!");
-                                    }
-
-                                    else {
-                                         nsp.emit('messaging', {type: 0, body: err  });
-                                    }
-
-                                });
+                            if (err) {
+                
+                                console.log(err)
                             
+                            }
+
+                            else {
+
+
+                                fileFunc.copyFile(nsp, file, __sessionFile, function(err) {
+                          
+                                  if (err) {
+                                      console.error(err);
+                                  } 
+
+                                  else {
+                                   
+                                    getSession(nsp, function(err){
+
+                                        if (!err) {
+                                            fnLog(null, "Logged In!");
+                                        }
+
+                                        else {
+                                             nsp.emit('messaging', {type: 0, body: err  });
+                                        }
+
+                                    });
+
+                                }
+                                
                             });
 
-                            nsp.emit('api',  {serverEvent: "signup"}); 
+                                nsp.emit('api',  {serverEvent: "signup"}); 
 
-                        }
+                            }
 
-                    });
+                        });
+
+                    }
+
+                    else {
+
+                        fnLog(status, null);
+
+                    // nsp.emit('messaging', {type: 0, body: status.message  });
+                    }
 
                 }
+
 
                 // Signup Error
-                else {
-                    nsp.emit('messaging', {type: 0, body: status.message  });
-                }
+               
             }
 
             // Currupt or undefined return
             else {
-                nsp.emit('messaging', {type: 0, body: "Server returned an error." });
+                // nsp.emit('messaging', {type: 0, body: "Server returned an error." });
+                 fnLog("Server Returned an Error", null);
 
             }
 
             if (error) {
-
+                
+                fnLog(status.message, null);
                 console.log(error, "Server unreachable?");
+
             }
 
         });

@@ -13,8 +13,9 @@ module.exports = React.createClass({
             navable: false,
             navStack: 2,
             form: 'Wifi.json',
+            path: '/config',
             // /etc/wpa_supplicant/wpa_supplicant.conf
-            server: true,
+            server: false,
             classList: 'col-xs-12'
         }
     },

@@ -28,7 +28,7 @@ var popup = function(obj, callback) {
 
 /* Show General/Error Modal
 -------------------------------------------------- */
-var general = function(input, _type, body) {
+var general = function(input, _type, body, dataFunction, dataParameters, button) {
 
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
@@ -48,7 +48,7 @@ var general = function(input, _type, body) {
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-    React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body})}), _div);
+    React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body, dataFunction: dataFunction, dataParameters: dataParameters, button: button })}), _div);
 
 }
 

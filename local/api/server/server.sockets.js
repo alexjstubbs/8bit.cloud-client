@@ -13,7 +13,7 @@ var issueToken = function(callback) {
       fs.readJson(__sessionFile, function(err, userProfile) {
 
             if (err) {
-                console.log({error: err});
+                console.log("Token Error: " + err);
             }
 
             if (userProfile) {

@@ -16,6 +16,12 @@ var urlPattern = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\
 var constraints = {
   formTitle: {
   	presence: true
+  },  
+  email: {
+  	presence: true,
+  		email: {
+      	message: "doesn't look like a valid email"
+    	}
   },
   username: {
   	presence: true

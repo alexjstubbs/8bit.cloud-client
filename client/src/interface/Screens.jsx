@@ -17,6 +17,7 @@ var React 				= require('react/addons')
 ,   Profiles 			= require('./Profiles.jsx')
 ,   init 				= require('../js/init.js')
 ,   navigationInit  	= require('../js/navigation.init.js');
+
 /* Init Clientside
 -------------------------------------------------- */
 init();
@@ -25,11 +26,9 @@ init();
 -------------------------------------------------- */
 var setupScreens = function(route) {
 
-	console.log(route);
-
 	var container = document.getElementById("screens");
 
-	if (route == "/dashboard" || route == "Dashboard") {
+	if (route == "/home" || route == "/home/" || route == "Dashboard") {
 		var _screens = ["Dashboard", "Browser", "Profile"];	
 		var screens = [<Dashboard />, <Browser />, <LargeProfile />];
 	}
@@ -54,6 +53,8 @@ var setupScreens = function(route) {
 
 	});
 
+	console.log(container);
+	console.log(container.children);
 	_.first(container.children).id = "screen-active";
 
 	/* Init Navigation Controls

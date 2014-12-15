@@ -4,45 +4,142 @@
 var fs   = require('fs-extra')
 ,   _    = require('lodash');
 
+/* Copy a file
+-------------------------------------------------- */
+var copyFile = function(nsp, src, dest, callback) {
+
+    fs.copy(src, dest, function(err) {
+
+        if (err) {
+            
+            nsp.emit('messaging', {type: 0, body: err });
+
+            if (callback || typeof callback == "function") {
+                callback(err, null);
+            }
+
+        }
+
+        else {
+
+             if (callback || typeof callback == "function") {
+                callback(null, true);
+            }
+
+        }
+
+    }) 
+
+};
+
+
 /* Read JSON files, modify properties/property and re-save file
 -------------------------------------------------- */
 
 var writeJSONSync = function(nsp, data, callback) {
 
-    console.log(data);
+    if (data.path) {
+   
+        var file = appDir + data.path + "/" + data.filename;
+   
+    }
 
-    var file = appDir+"/config/"+data.filename;
+    else {
+
+         var file = data.filename;
+   
+    }
+
+    console.log(file);
 
     fs.readJson(file, function(err, object) {
-        
-        if (!err) {
+
+        if (err) {
+
+            if (callback || typeof callback == "function") {
+                callback(err, null);
+            }
+
+        }
+
+        else {
             
             var merged = _.merge(object, data);
             
             delete merged.formTitle;
+            delete merged.path;
             delete merged.filename;
 
-            fs.writeJson(file, merged, function(err) {
+            fs.outputJson(file, merged, function(err) {
 
-                if (err) { console.log("[!] Error writing JSON: "+err) }
+                if (err) { 
+                
+                    if (callback || typeof callback == "function") {
+                        callback(err, null);
+                    }
+                
+                }
 
                 else {
-                    console.log("[i] Wrote Data: "+data);
+
+                    console.log("[i] Wrote Data: " + data);
+
+                    if (callback || typeof callback == "function") {
+                        callback(null, data);
+                    }
+
                 }
 
             });
 
         }
         
+    });
+
+}
+
+/* Write/Overwrite a new json File
+-------------------------------------------------- */
+
+var writeJSON = function(nsp, data, callback) {
+
+    if (data.path) {
+   
+        var file = appDir + data.path + "/" + data.filename;
+   
+    }
+
+    else {
+
+         var file = data.filename;
+   
+    }
+
+    fs.outputJson(file, data, function(err) {
+
+        if (err) { 
+        
+            if (callback || typeof callback == "function") {
+                callback(err, null);
+            }
+        
+        }
+
         else {
 
-            console.log("[!] Error writing and/or reading JSON file input: " + err);
-       
-        }
+                console.log("[i] Wrote Data: " + data);
+
+                if (callback || typeof callback == "function") {
+                    callback(null, data);
+                }
+
+            }
 
     });
 
 }
+        
+
 
 /* Write Text file
 -------------------------------------------------- */
@@ -52,5 +149,7 @@ var writeTextSync = function(nsp, data, callback) {
 
 /* Exports
 -------------------------------------------------- */
-exports.writeJSONSync = writeJSONSync;
-exports.writeTextync = writeTextSync;
+exports.writeJSONSync   = writeJSONSync;
+exports.writeJSON       = writeJSON;
+exports.writeTextync    = writeTextSync;
+exports.copyFile        = copyFile;

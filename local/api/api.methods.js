@@ -67,6 +67,10 @@ var api = {
         common.serverAPI.submitCache(nsp, form);
     },
 
+    copyFile: function(nsp, src, dest) {
+        common.systemWrite.copyFile(nsp, src, dest);
+    },        
+
     writeJSONSync: function(nsp, data) {
         common.systemWrite.writeJSONSync(nsp, data);
     },    

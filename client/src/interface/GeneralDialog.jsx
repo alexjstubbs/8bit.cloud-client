@@ -15,7 +15,9 @@ module.exports = React.createClass({
             type: 0,
             dataFunction: "closeDialog",
             classList: 'col-xs-12',
-            body: "(001): A General Unspecified Error Occured. Refer to log file for more information."
+            body: "(001): A General Unspecified Error Occured. Refer to log file for more information.",
+            button: "Close Dialog",
+            url: "http://ignition.io/help"
         }
     },
 
@@ -31,18 +33,15 @@ module.exports = React.createClass({
 
         var type = {
             0: function() {
-                _this.setProps.dataFunction = "closeDialog";
-                return {icon: "ion-close-circled", title: "Oops! We've encountered an error!", button: "Close"};
+                return {icon: "ion-close-circled", title: "Oops! We've encountered an error!" };
             },
 
             1: function() {
-                _this.setProps.dataFunction = "closeDialog";
-                return {icon: "ion-information-circled", text: "Important Information", button: "Close"};
+                return {icon: "ion-information-circled", text: "Important Information" };
             },
 
             2: function() {
-                _this.setProps.dataFunction = "closeDialog";
-                return {icon: "ion-alert", text: "Warning!", button: "Ok, Got it!"};
+                return {icon: "ion-alert", text: "Warning!" };
             }
         }
 
@@ -56,9 +55,11 @@ module.exports = React.createClass({
 
                 <hr />
 
-                <p className="well">{this.props.body}</p>
+                <p className="well-alt">{this.props.body}</p>
 
-                <button data-function={this.props.dataFunction} className="navable btn btn-block btn-lg btn-alt">{type.button}</button>
+                <span className="alert hidden"><i className="ion-document-text"></i> &nbsp; {this.props.url}</span>
+
+                <button data-function={this.props.dataFunction} data-parameters={this.props.dataParameters} className="navable btn btn-block btn-lg btn-alt">{this.props.button}</button>
 
 
             </div>

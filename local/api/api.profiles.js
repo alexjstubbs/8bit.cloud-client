@@ -4,9 +4,7 @@
 var fs      = require('fs-extra')
 ,   path    = require('path')
 ,   _       = require('lodash')
-,   server  = require('./server/server.api')
-,   async   = require('async');
-
+,   server  = require('./server/server.api');
 
 /* List All Profiles
 -------------------------------------------------- */
@@ -40,49 +38,59 @@ function listProfiles(nsp) {
 -------------------------------------------------- */
 function newProfile(nsp, data) {
 
-    async.series([
-        // Validate Form, Show Next Screen,
-        function(callback){
-            server.validateForm(nsp, data, function(err) {
+    function profileError(err) {
 
-                if (err) {
-                     callback(err, null);
-                }
-
-                else {
-
-                    // Validated Form
-                    nsp.emit('clientEvent', {command: "nextScreen", params: null });
-                    callback(null, "validated");
-                
-                }
-               
-            })
+        switch(err.id) {
             
-        },
-        function(callback){
+            case "username_taken": 
+                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Choose another Username" });
+                break;
 
-            server.signUp(nsp, data, function(err, msg) {
-                console.log(msg);
+            case "email_taken": 
+                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "profileScreen", dataParameters: null, button: "Login" });
+                break;
 
-                nsp.emit('api', { loadingStatus:msg });
-            
-            });
+            case "password_notmatched": 
+                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Re-enter my password" });
+                break
 
-            // callback(null, 'two');
+            default: 
+                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "preloadDashboard", dataParameters: null, button: "Load Dashboard Anyway" });
+                break;
         }
-    ],
-    // optional callback
-    function(err, results){
+    };
+
+    // Validate Form
+    server.validateForm(nsp, data, function(err) {
 
         if (err) {
-           nsp.emit('messaging', {type: 0, body: err });
+            profileError(err);
         }
 
+        // Travel to next screen.
         else {
-            // Load Ignition Dashboard HERE
+ 
+            // Server Signup
+            server.signUp(nsp, data, function(err, msg) { 
+
+                if (err) {
+                    profileError(err);
+                }
+
+                // Success! Load Dashboard
+                else {
+                   nsp.emit('clientEvent', {command: "nextScreen", params: null });   
+                   nsp.emit('clientEvent', {command: "preloadDashboard", params: null })
+                    ;
+                }
+
+            });
+        
         }
+
     });
+
+
 
 }
 

@@ -2750,7 +2750,9 @@ module.exports = React.createClass({displayName: 'exports',
             type: 0,
             dataFunction: "closeDialog",
             classList: 'col-xs-12',
-            body: "(001): A General Unspecified Error Occured. Refer to log file for more information."
+            body: "(001): A General Unspecified Error Occured. Refer to log file for more information.",
+            button: "Close Dialog",
+            url: "http://ignition.io/help"
         }
     },
 
@@ -2766,18 +2768,15 @@ module.exports = React.createClass({displayName: 'exports',
 
         var type = {
             0: function() {
-                _this.setProps.dataFunction = "closeDialog";
-                return {icon: "ion-close-circled", title: "Oops! We've encountered an error!", button: "Close"};
+                return {icon: "ion-close-circled", title: "Oops! We've encountered an error!" };
             },
 
             1: function() {
-                _this.setProps.dataFunction = "closeDialog";
-                return {icon: "ion-information-circled", text: "Important Information", button: "Close"};
+                return {icon: "ion-information-circled", text: "Important Information" };
             },
 
             2: function() {
-                _this.setProps.dataFunction = "closeDialog";
-                return {icon: "ion-alert", text: "Warning!", button: "Ok, Got it!"};
+                return {icon: "ion-alert", text: "Warning!" };
             }
         }
 
@@ -2791,9 +2790,11 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.hr(null), 
 
-                React.DOM.p({className: "well"}, this.props.body), 
+                React.DOM.p({className: "well-alt"}, this.props.body), 
 
-                React.DOM.button({'data-function': this.props.dataFunction, className: "navable btn btn-block btn-lg btn-alt"}, type.button)
+                React.DOM.span({className: "alert hidden"}, React.DOM.i({className: "ion-document-text"}), "   ", this.props.url), 
+
+                React.DOM.button({'data-function': this.props.dataFunction, 'data-parameters': this.props.dataParameters, className: "navable btn btn-block btn-lg btn-alt"}, this.props.button)
 
 
             )
@@ -3950,6 +3951,7 @@ var React 				= require('react/addons')
 ,   Profiles 			= require('./Profiles.jsx')
 ,   init 				= require('../js/init.js')
 ,   navigationInit  	= require('../js/navigation.init.js');
+
 /* Init Clientside
 -------------------------------------------------- */
 init();
@@ -3958,11 +3960,9 @@ init();
 -------------------------------------------------- */
 var setupScreens = function(route) {
 
-	console.log(route);
-
 	var container = document.getElementById("screens");
 
-	if (route == "/dashboard" || route == "Dashboard") {
+	if (route == "/home" || route == "/home/" || route == "Dashboard") {
 		var _screens = ["Dashboard", "Browser", "Profile"];	
 		var screens = [Dashboard(null), Browser(null), LargeProfile(null)];
 	}
@@ -3987,6 +3987,8 @@ var setupScreens = function(route) {
 
 	});
 
+	console.log(container);
+	console.log(container.children);
 	_.first(container.children).id = "screen-active";
 
 	/* Init Navigation Controls
@@ -4505,8 +4507,9 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             navStack: 2,
             form: 'Wifi.json',
+            path: '/config',
             // /etc/wpa_supplicant/wpa_supplicant.conf
-            server: true,
+            server: false,
             classList: 'col-xs-12'
         }
     },
@@ -5351,7 +5354,7 @@ var connect = function() {
   -------------------------------------------------- */    
   api.on('messaging', function(data, sock) {
 			
-		dialog.general(null, data.type, data.body);
+		dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
 
 	});
 
@@ -5360,7 +5363,7 @@ var connect = function() {
   -------------------------------------------------- */
   api.on('clientEvent', function(data, sock) {
     
-    events[data.command]();
+    events[data.command](data.params);
 
   });
 
@@ -5505,7 +5508,7 @@ var popup = function(obj, callback) {
 
 /* Show General/Error Modal
 -------------------------------------------------- */
-var general = function(input, _type, body) {
+var general = function(input, _type, body, dataFunction, dataParameters, button) {
 
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
@@ -5525,7 +5528,7 @@ var general = function(input, _type, body) {
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-    React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body})}), _div);
+    React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body, dataFunction: dataFunction, dataParameters: dataParameters, button: button })}), _div);
 
 }
 
@@ -7480,6 +7483,25 @@ var systemNotify    	= require('./notification.init.js')
 
 var events = {
 
+
+	/* Set Navigation State
+	-------------------------------------------------- */
+	navigationState: function(parameters) {
+		sessionStorage.setItem("navigationState", parameters);
+	},
+
+	/* Remove Navigation State
+	-------------------------------------------------- */
+	removeNavigationState: function() {
+		sessionStorage.removeItem("navigationState");
+	},
+
+	/* Trigger New Screen Set
+	-------------------------------------------------- */
+	screenSet: function(parameters) {
+		Screens.setupScreens(parameters);
+	},
+
 	/* Trigger Next Screen 
 	-------------------------------------------------- */
 	nextScreen: function(parameters) {
@@ -7587,6 +7609,9 @@ var events = {
     /* Load Dashboard
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {
+
+    	// Load new QTBrowser window and use on complete to close this instance? 
+    	// if (document.readyState === "complete") { init(); }
 
     	window.location = "http://127.0.0.1:1210/home/";
 

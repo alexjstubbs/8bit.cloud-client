@@ -24,7 +24,7 @@ var connect = function() {
   -------------------------------------------------- */    
   api.on('messaging', function(data, sock) {
 			
-		dialog.general(null, data.type, data.body);
+		dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
 
 	});
 
@@ -33,7 +33,7 @@ var connect = function() {
   -------------------------------------------------- */
   api.on('clientEvent', function(data, sock) {
     
-    events[data.command]();
+    events[data.command](data.params);
 
   });
 
