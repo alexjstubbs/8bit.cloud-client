@@ -4262,7 +4262,7 @@ module.exports = React.createClass({displayName: 'exports',
                             React.DOM.div({className: "form-group"}, 
                                 
                                 React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Password", name: "password", type: "password"}), 
-                                React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Verify Password", name: "password2", type: "password"})
+                                React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Verify Password", name: "verificationPassword", type: "password"})
                            
                             ), 
                        

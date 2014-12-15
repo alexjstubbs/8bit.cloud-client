@@ -46,12 +46,18 @@ var constraints = {
 -------------------------------------------------- */
 var validate = function(data, callback) {
 
-	if (callback || typeof callback === "function") {
-		callback(_validate(data, constraints));
+
+	if (data.verificationPassword) {
+		if (data.password != data.verificationPassword) {
+			callback({"email": ['Passwords do not match']});
+		}
+		else {
+			callback();
+		}
 	}
 
 	else {
-		// Log data
+		callback(_validate(data, constraints));
 	}
 
 }

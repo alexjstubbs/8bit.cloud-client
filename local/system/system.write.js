@@ -115,7 +115,12 @@ var writeJSON = function(nsp, data, callback) {
    
     }
 
+    delete data.filename;
+    delete data.formTitle;
+    delete data.path;
+
     fs.outputJson(file, data, function(err) {
+
 
         if (err) { 
         

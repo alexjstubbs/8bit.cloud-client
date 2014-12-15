@@ -57,7 +57,7 @@ module.exports = React.createClass({
                             <div className="form-group">
                                 
                                 <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Password" name="password" type="password" />
-                                <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Verify Password" name="password2" type="password"  />
+                                <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Verify Password" name="verificationPassword" type="password"  />
                            
                             </div>
                        

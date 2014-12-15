@@ -303,8 +303,6 @@ var signUp = function(nsp, profile, callback) {
             form: query
         }, function (error, response, body) {
 
-            console.log("body:" + body);
-
             if (helpers.isJson(body)) {
 
 
@@ -390,9 +388,9 @@ var signUp = function(nsp, profile, callback) {
             }
 
             if (error) {
-                
-                fnLog(status.message, null);
-                console.log(error, "Server unreachable?");
+
+                // Server most likely Offline
+                fnLog({error: { id: "server_offline", message: "Your connection to the server cannot be established. Please check your internet connection and the status of the ignition.io service."}}, null);
 
             }
 
