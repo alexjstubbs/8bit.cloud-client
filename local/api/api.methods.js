@@ -86,6 +86,7 @@ var api = {
     sysIsOnline: function(nsp) {
         common.network.sysIsOnline(nsp);
     },
+    
 
     listWifiNetworks: function(nsp) {
         common.wireless.listWifiNetworks(nsp);

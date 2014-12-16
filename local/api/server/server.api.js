@@ -434,6 +434,7 @@ var signUp = function(nsp, profile, callback) {
 
 var getSockets = function(nsp, token) {
 
+
     var app = "sockets"
         _path = "https://" + path.join(server, app)
 
@@ -447,7 +448,7 @@ var getSockets = function(nsp, token) {
             form: {token: token.token }
         }, function (error, response, body) {
             sockets.networkConnection(token.token, nsp);
-            console.log(body)
+            console.log("SOCK: "+body);
         });
 
 }

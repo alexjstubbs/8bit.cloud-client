@@ -1,10 +1,29 @@
 /* Server socket API 
 -------------------------------------------------- */
-var fs = require('fs-extra')
-,   database = require('../../api/database/database.local')
-,   networkMethods = require('../../api/network/network.methods')
+var fs 				= require('fs-extra')
+,   database 		= require('../../api/database/database.local')
+,   networkMethods 	= require('../../api/network/network.methods')
 ,   network
 ,   issuedToken;
+
+/* Get Network Status
+-------------------------------------------------- */
+var networkStatus = function(callback) {
+
+	if (!network) {
+
+		setTimeout(function() {
+			callback(null, network.connected);
+		}, 1500);
+
+	}
+
+	else {
+
+		callback(null, network.connected);
+
+	}
+}
 
 /* Get issued Token (if available)
 -------------------------------------------------- */
@@ -44,7 +63,7 @@ var networkConnection = function(token, ansp, callback) {
 
    /* Connect to /Network (i.io) namespace/network
    -------------------------------------------------- */
-    nsp = io.connect('https://ignition.io:6052/network', {
+    nsp = io.connect('http://127.0.0.1:6052/network', {
         'query': 'token=' + token,
         secure: true
     });
@@ -111,6 +130,7 @@ var networkCheckConnection = function(callback) {
 		networkConnection(null, null, function(result) {
 	
 			callback(network);
+
 		});
 		
 	}
@@ -150,6 +170,7 @@ var networkInterface = function(ansp, json) {
 -------------------------------------------------- */
 var networkCommand = function(ansp, json) {
 
+
 	/* Token was removed manually by user. Error out.
 	-------------------------------------------------- */
     if (!json.token) {
@@ -188,6 +209,7 @@ var networkCommand = function(ansp, json) {
 
 /* Exports
 -------------------------------------------------- */
+exports.networkStatus   		= networkStatus;
 exports.networkConnection   	= networkConnection;
 exports.networkInterface    	= networkInterface;
 exports.networkCommand      	= networkCommand;

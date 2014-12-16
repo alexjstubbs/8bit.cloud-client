@@ -24,7 +24,7 @@ var connect = function() {
   -------------------------------------------------- */    
   api.on('messaging', function(data, sock) {
 			
-		dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
+		  dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
 
 	});
 
@@ -33,7 +33,7 @@ var connect = function() {
   -------------------------------------------------- */
   api.on('clientEvent', function(data, sock) {
     
-    events[data.command](data.params);
+      events[data.command](data.params);
 
   });
 
@@ -42,4 +42,4 @@ var connect = function() {
 /* Exports
 -------------------------------------------------- */
 exports.connect = connect;
-exports.api = api;
+exports.api     = api;

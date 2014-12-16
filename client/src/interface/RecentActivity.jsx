@@ -73,9 +73,11 @@ module.exports = React.createClass({
                           <h4 className="text-right">{this.props.title}</h4>
                         </th>
                     </thead>
-                        
-                   { activityNodes } 
-                                          
+                    <tbody>
+
+                        { activityNodes } 
+                   
+                   </tbody>               
                     </table>
                 </div>              
          

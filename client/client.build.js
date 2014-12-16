@@ -2003,7 +2003,7 @@ module.exports = React.createClass({displayName: 'exports',
                     ), 
                     React.DOM.div({className: "hello col-md-8"}, 
                         React.DOM.h3({className: "nopadding"}, "Welcome, ", this.props.username, " ", React.DOM.span({className: "muted"})), 
-                        NetworkStatus({isOnline: this.props.isOnline})
+                        NetworkStatus(null)
                     )
                 )
             )
@@ -3346,8 +3346,8 @@ module.exports = React.createClass({displayName: 'exports',
     
     getInitialState: function() {
         return {
-            isOnline: false,
-            ip: '127.0.0.1'
+            ip: '127.0.0.1',
+            isOnline: false
         };
     },
 
@@ -3355,18 +3355,11 @@ module.exports = React.createClass({displayName: 'exports',
 
         var _this = this;
         var user = this.props.username;
-        api.emit('request', { request: 'isOnline', param: this.props.username});
+
+        api.emit('request', { request: 'isOnline', param: null});
         api.emit('request', { request: 'ipInfo', param: null});
         
-        api.on('api', function(response) {
-    
-            if (response.username == user) { 
-                _this.setState({isOnline: response.isOnline})
-            }
-
-           _this.setState({ip: response.ip})
-
-        });
+        api.on('api', this.setState.bind(this));
 
      },
 
@@ -3381,7 +3374,7 @@ module.exports = React.createClass({displayName: 'exports',
         var classes = cx({
             'ion-ios-circle-outline': true,
             'purple': true,
-            'green': this.state.isOnline
+            'green': this.props.isOnline
         });
 
         return (
@@ -3869,9 +3862,11 @@ module.exports = React.createClass({displayName: 'exports',
                           React.DOM.h4({className: "text-right"}, this.props.title)
                         )
                     ), 
-                        
-                   activityNodes 
-                                          
+                    React.DOM.tbody(null, 
+
+                        activityNodes 
+                   
+                   )
                     )
                 )              
          
@@ -4183,7 +4178,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     return {
             avatar: React.DOM.i({className: "ion-person"}),
-            username: 'user',
             isOnline: false,
             id: "avatar"
         }
@@ -4192,15 +4186,16 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
 
         api.emit('request', { request: 'getSession'} );
+
         api.on('api', this.setState.bind(this));
-    
+        
     },
 
 
     render: function() {
         return (
             React.DOM.div({id: this.props.id}, 
-            UserAvatar({avatar: this.props.avatar, username: this.state.session.Username, isOnline: this.props.isOnline})
+                UserAvatar({avatar: this.props.avatar, username: this.state.session.Username, isOnline: this.props.isOnline})
             )
         );
     }
@@ -5382,7 +5377,7 @@ var connect = function() {
   -------------------------------------------------- */    
   api.on('messaging', function(data, sock) {
 			
-		dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
+		  dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
 
 	});
 
@@ -5391,7 +5386,7 @@ var connect = function() {
   -------------------------------------------------- */
   api.on('clientEvent', function(data, sock) {
     
-    events[data.command](data.params);
+      events[data.command](data.params);
 
   });
 
@@ -5400,7 +5395,7 @@ var connect = function() {
 /* Exports
 -------------------------------------------------- */
 exports.connect = connect;
-exports.api = api;
+exports.api     = api;
 },{"../dialogs":60,"../system.events":78,"socket.io-client":243}],59:[function(require,module,exports){
 /* Clientside Database Helpers
 -------------------------------------------------- */

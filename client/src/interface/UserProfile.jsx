@@ -22,7 +22,6 @@ module.exports = React.createClass({
 
     return {
             avatar: <i className="ion-person"></i>,
-            username: 'user',
             isOnline: false,
             id: "avatar"
         }
@@ -31,15 +30,16 @@ module.exports = React.createClass({
     componentDidMount: function() {
 
         api.emit('request', { request: 'getSession'} );
+
         api.on('api', this.setState.bind(this));
-    
+        
     },
 
 
     render: function() {
         return (
             <div id={this.props.id}>
-            <UserAvatar avatar={this.props.avatar} username={this.state.session.Username} isOnline={this.props.isOnline} />
+                <UserAvatar avatar={this.props.avatar} username={this.state.session.Username} isOnline={this.props.isOnline} />
             </div>
         );
     }

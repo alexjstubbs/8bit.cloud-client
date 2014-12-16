@@ -1,10 +1,10 @@
 /* Network.isOnline
 -------------------------------------------------- */
-var fs 		= require('fs-extra')
-,   _ 		= require('lodash')
-,	os 		= require('os')
-,	request = require('request')
-, 	o = require('socket.io-client');
+var fs 			= require('fs-extra')
+,   _ 			= require('lodash')
+,	os 			= require('os')
+,	request 	= require('request')
+,   sockets   	= require('../server/server.sockets');
 
 
 /* Connected to the Internet
@@ -65,10 +65,30 @@ function sysIsOnline(nsp) {
 
 /* Connected to the Ignition Server
 -------------------------------------------------- */
-function isOnline(nsp, username, hash) {
+function isOnline(nsp, username, callback) {
 
-    nsp.emit('api', {isOnline: true, username: "Alex Stubbs"});       
-           
+	if (!username) {
+		
+		sockets.networkStatus(function(err, status) {
+
+			// Sockets Method
+			if (nsp) {
+				nsp.emit('api', {isOnline: status });       
+			}
+
+			// Callback Method
+			if (callback || typeof callback == "function") {
+			    callback(null, status);
+		    }
+
+		});
+		
+	
+	}
+
+	else {
+		
+	}
 }
 
 /* Exports

@@ -18,7 +18,7 @@ module.exports = React.createClass({
                     </div>
                     <div className="hello col-md-8">
                         <h3 className="nopadding">Welcome, {this.props.username} <span className="muted"></span></h3>
-                        <NetworkStatus isOnline={this.props.isOnline} />
+                        <NetworkStatus />
                     </div>
                 </div>
             </div>
