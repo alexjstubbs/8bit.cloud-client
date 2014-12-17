@@ -27,7 +27,7 @@ var passHash = function(input, callback) {
 
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash("SEGA", salt, function(err, hash) {
-            
+
             if (err) {
                 console.log(err);
             }
@@ -73,11 +73,11 @@ var submitCache = function(nsp, data, callback) {
 
         // new Sign Up Form
         case "signUp": {
-            
+
             profiles.newProfile(nsp, data);
 
         }
-        
+
     }
 
 }
@@ -115,7 +115,7 @@ var submitForm = function(nsp, data, callback) {
     forms.validate(data, function(validation) {
 
         if (validation == undefined) {
-            
+
             var forms = {
                     signUp: function() {
                         signUp(nsp, data, callback);
@@ -132,7 +132,7 @@ var submitForm = function(nsp, data, callback) {
         }
 
         else {
-           
+
             nsp.emit('messaging', {type: 0, body: validation });
 
         }
@@ -160,7 +160,7 @@ var getCommunity = function(nsp) {
     }, function (error, response, body) {
 
             if (helpers.isJson(body)) {
-                nsp.emit('api', {community: JSON.parse(body)}) 
+                nsp.emit('api', {community: JSON.parse(body)})
 
             }
     });
@@ -173,28 +173,28 @@ var getCommunity = function(nsp) {
 var getEvents = function(nsp) {
 
     var app = "Events";
-   
+
     _path = "https://" + path.join(server, "api", v, app);
 
    request.get({
-   
+
         uri: _path,
-   
+
         rejectUnauthorized: false
-   
+
     }, function (error, response, body) {
 
         if (helpers.isJson(body)) {
-       
-            nsp.emit('api', {events: JSON.parse(body)}) 
-       
+
+            nsp.emit('api', {events: JSON.parse(body)})
+
         }
 
     });
 
 }
 
-/* Login 
+/* Login
 -------------------------------------------------- */
 
 var getSession = function(nsp, callback) {
@@ -211,14 +211,14 @@ var getSession = function(nsp, callback) {
     _path = "https://" + path.join(server, app);
 
     fs.readJson(__sessionFile, function(err, userProfile) {
-      
+
         if (err) {
 
             nsp.emit('messaging', {type: 0, body: err });
 
         }
 
-        var creds = { 
+        var creds = {
             Username: userProfile.Username,
             validPassword: userProfile.validPassword
         };
@@ -230,8 +230,10 @@ var getSession = function(nsp, callback) {
         }, function (error, response, body) {
 
             if (helpers.isJson(body)) {
-                
+
                 // Got new token
+
+                sockets.removeToken();
 
                 var _token = JSON.parse(body);
 
@@ -244,15 +246,15 @@ var getSession = function(nsp, callback) {
 
                     if (!err) {
 
-                        // Copy succeeded session file to profile file 
+                        // Copy succeeded session file to profile file
                        fileFunc.copyFile(nsp, __sessionFile, appDir + '/config/profiles/' + userProfile.Username + '.json', function(err) {
-                          
+
                             if (err) console.log({erroree: err});
-                            
+
                             else {
 
                                 console.log(userProfile.Username);
-                                
+
                                 fnLog(null, "Logged In!");
 
 
@@ -270,9 +272,9 @@ var getSession = function(nsp, callback) {
         else {
 
             switch(error.code) {
-                
+
                 case "ECONNREFUSED": {
-                    
+
                     // nsp.emit('messaging', {type: 0, body: "The ignition server seems to be temporarily down. Logging in Offline." });
 
                     // TODO: Findout if user is offline or server is offline. Notify if user is online but server is not, do not notify the other way around (offline mode).
@@ -291,14 +293,14 @@ var getSession = function(nsp, callback) {
 
         }
 
-      
+
         });
 
     });
 
 }
 
-/* Signup 
+/* Signup
 -------------------------------------------------- */
 
 var signUp = function(nsp, profile, callback) {
@@ -317,8 +319,8 @@ var signUp = function(nsp, profile, callback) {
     _path = "https://" + path.join(server, app);
 
     var password = passHash(profile.username, function(hashed) {
-   
-        var query = { 
+
+        var query = {
             Username: profile.username,
             Email: profile.email,
             validPassword: hashed,
@@ -354,22 +356,22 @@ var signUp = function(nsp, profile, callback) {
                         fileFunc.writeJSON(nsp, status.profile, function(err) {
 
                             if (err) {
-                
+
                                 console.log(err)
-                            
+
                             }
 
                             else {
 
 
                                 fileFunc.copyFile(nsp, file, __sessionFile, function(err) {
-                          
+
                                   if (err) {
                                       console.error(err);
-                                  } 
+                                  }
 
                                   else {
-                                   
+
                                     getSession(nsp, function(err){
 
                                         if (!err) {
@@ -383,10 +385,10 @@ var signUp = function(nsp, profile, callback) {
                                     });
 
                                 }
-                                
+
                             });
 
-                                nsp.emit('api',  {serverEvent: "signup"}); 
+                                nsp.emit('api',  {serverEvent: "signup"});
 
                             }
 
@@ -405,7 +407,7 @@ var signUp = function(nsp, profile, callback) {
 
 
                 // Signup Error
-               
+
             }
 
             // Currupt or undefined return
@@ -438,7 +440,7 @@ var getSockets = function(nsp, token) {
     var app = "sockets"
         _path = "https://" + path.join(server, app)
 
-        var query = { 
+        var query = {
             Token: token
         };
 
@@ -453,7 +455,7 @@ var getSockets = function(nsp, token) {
 
 }
 
-/* Logout 
+/* Logout
 -------------------------------------------------- */
 
 var leaveSession = function(nsp) {
@@ -461,7 +463,7 @@ var leaveSession = function(nsp) {
     var app = "logout";
         _path = "https://" + path.join(server, app);
 
-        var query = { 
+        var query = {
             Username: 'Alex',
             validPassword: 'Pass'
         };
@@ -472,7 +474,7 @@ var leaveSession = function(nsp) {
             form: { Username: "Alex", validPassword: "469df27ea91ab84345e0051c81868535" }
         }, function (error, response, body) {
             if (helpers.isJson(body)) {
-                
+
                 // nsp.emit('api', {messages: JSON.parse(body)})
             }
         });

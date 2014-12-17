@@ -9,20 +9,22 @@ var fs       = require('fs-extra')
 ,   sysWrite = require('../system/system.write');
 
 
-/* Create Session 
+/* Create Session
 -------------------------------------------------- */
 function createSession(nsp, copyObject) {
-
-// (nsp, src, dest, callback) {
 
     sysWrite.copyFile(nsp, copyObject.src, copyObject.dest, function(err) {
 
         if (err) {
+
              nsp.emit('messaging', {type: 0, body: err });
+
         }
 
         else {
+
             profileLogin(nsp);
+
         }
 
     });
@@ -38,12 +40,16 @@ function getSession(nsp) {
 
         if (err) {
 
+            nsp.emit('messaging', {type: 0, body: err });
+
         }
 
         else {
 
-            var sessionObject = { 
+            var sessionObject = {
+
                 session: sessionObject
+
             }
 
             nsp.emit('api', sessionObject)
@@ -51,7 +57,6 @@ function getSession(nsp) {
 
     });
 
-    // nsp.emit('api', {mySession: sessionObject });
 }
 
 /* List All Profiles
@@ -64,13 +69,19 @@ function listProfiles(nsp) {
 
     fs.readdir(loc, function(err, dir) {
 
-        if (err) { console.log(err) }
+        if (err) {
+            nsp.emit('messaging', {type: 0, body: err });
+        }
 
         else {
-            
-            _(dir).forEach(function(profile) { 
 
-                listObj.push({"username": path.basename(profile, '.json')})
+            _(dir).forEach(function(profile) {
+
+                if (profile != "Session.json" && profile != ".DS_Store") {
+
+                    listObj.push({"username": path.basename(profile, '.json')});
+
+                }
 
             });
 
@@ -89,19 +100,19 @@ function profileLogin(nsp) {
      function profileError(err) {
 
         switch(err.id) {
-            
-            case "wrong_password": 
+
+            case "wrong_password":
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Reset Password" });
                 break;
 
-            default: 
+            default:
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "preloadDashboard", dataParameters: null, button: "Continue Offline" });
                 break;
         }
     }
 
-        // Server Signup
-        server.getSession(nsp, function(err, msg) { 
+        // Server Login
+        server.getSession(nsp, function(err, msg) {
 
             if (err) {
 
@@ -113,13 +124,11 @@ function profileLogin(nsp) {
             // Success! Load Dashboard
             else {
 
-                console.log("Success");
-                
                 nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
 
             }
 
-        });                
+        });
 
 }
 
@@ -132,20 +141,20 @@ function newProfile(nsp, data) {
     function profileError(err) {
 
         switch(err.id) {
-            
-            case "username_taken": 
+
+            case "username_taken":
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Choose another Username" });
                 break;
 
-            case "email_taken": 
+            case "email_taken":
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "profileScreen", dataParameters: null, button: "Login" });
                 break;
 
-            case "password_notmatched": 
+            case "password_notmatched":
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Re-enter my password" });
                 break
 
-            default: 
+            default:
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "preloadDashboard", dataParameters: null, button: "Load Dashboard Anyway" });
                 break;
 
@@ -158,31 +167,31 @@ function newProfile(nsp, data) {
         if (err) {
 
             profileError(err);
-        
+
         }
 
         // Travel to next screen.
         else {
- 
+
             // Server Signup
-            server.signUp(nsp, data, function(err, msg) { 
+            server.signUp(nsp, data, function(err, msg) {
 
                 if (err) {
 
                     profileError(err);
-                
+
                 }
 
                 // Success! Load Dashboard
                 else {
-              
-                   // nsp.emit('clientEvent', {command: "nextScreen", params: null });   
+
+                   // nsp.emit('clientEvent', {command: "nextScreen", params: null });
                    nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
-              
+
                 }
 
             });
-        
+
         }
 
     });

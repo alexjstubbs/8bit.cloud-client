@@ -5,12 +5,14 @@ var api     = require('socket.io-client')('/api');
 /* Legacy Screen Transition
 -------------------------------------------------- */
 var screenTransition = function(screen, hidden, parent) {
-   
-    var event = new CustomEvent('screenTransition', { 
+
+
+    var event = new CustomEvent('screenTransition', {
         'detail': {
             screen: screen,
             hidden: hidden,
             parent: parent
+
         }
     });
 
@@ -22,7 +24,7 @@ var screenTransition = function(screen, hidden, parent) {
 -------------------------------------------------- */
 var changeView = function(view) {
 
-	var event = new CustomEvent('changeView', { 
+	var event = new CustomEvent('changeView', {
 	    'detail': {
 	        view: view
 	    }
@@ -31,12 +33,12 @@ var changeView = function(view) {
 	window.dispatchEvent(event);
 
 }
- 
+
 /* Dialogs (circular hack)
 -------------------------------------------------- */
 var dialog = function(input, action) {
-   
-    var event = new CustomEvent('dialog', { 
+
+    var event = new CustomEvent('dialog', {
         'detail': {
             input: input,
             action: action
@@ -50,8 +52,8 @@ var dialog = function(input, action) {
 /* UI Action Notification
 -------------------------------------------------- */
 var uiActionNotification = function(action) {
-   
-    var event = new CustomEvent('uiActionNotification', { 
+
+    var event = new CustomEvent('uiActionNotification', {
         'detail': {
             action: action
         }
@@ -65,14 +67,14 @@ var uiActionNotification = function(action) {
 -------------------------------------------------- */
 var serverResponse = function(response) {
 
-	var event = new CustomEvent('serverResponse', { 
+	var event = new CustomEvent('serverResponse', {
         'detail': {
             response: response
         }
     });
 
     window.dispatchEvent(event);
-} 
+}
 
 /* Update Game
 -------------------------------------------------- */
@@ -81,8 +83,8 @@ var updateGame = function(results, filepath, callback) {
 
 
     api.emit('request', { request: 'crc32', param: filepath });
-    
-       var event = new CustomEvent('updateGame', { 
+
+       var event = new CustomEvent('updateGame', {
             'detail': {
                 title: results[0].title,
                 description: results[0].description,
@@ -96,7 +98,6 @@ var updateGame = function(results, filepath, callback) {
             }
         });
     }
-  
     window.dispatchEvent(event);
 
 }

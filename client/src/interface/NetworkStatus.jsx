@@ -39,7 +39,7 @@ module.exports = React.createClass({
         var classes = cx({
             'ion-ios-circle-outline': true,
             'purple': true,
-            'green': this.props.isOnline
+            'green': this.state.isOnline
         });
 
         return (

@@ -27,8 +27,8 @@ String.prototype.hashCode = function() {
 /* Initialize the local Database
 -------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
-    nsp.emit('request', { request: 'storeGet', param: database });   
-    nsp.on('api', function(data){   
+    nsp.emit('request', { request: 'storeGet', param: database });
+    nsp.on('api', function(data){
         if (data.database) {
             if (database == "games") {
                     data = _.flatten(data.database, 'games'),
@@ -49,6 +49,7 @@ var filterByAttribute = function(database, query, callback) {
         var filter = [];
 
         _(query).forEach(function(_query) {
+
             if (_query['type']) {
                 var hash = JSON.stringify(_query).hashCode();
                 filters[hash] = PourOver.PourOver[_query['type']](_query['filter'], [_query['query']]);
@@ -59,8 +60,11 @@ var filterByAttribute = function(database, query, callback) {
         });
 
         if (filter.length > 1) {
+
             var filtered = filter[0].and(filter[1]);
+
             var filter_results = collection[database].get(filtered.cids);
+
         }
 
         else {
@@ -77,8 +81,8 @@ var filterByAttribute = function(database, query, callback) {
             if (database == "games") {
                 var title = query.query.query;
                 api.emit('request', { request: 'lookupGame', param: title });
-                
-                var obj = [{ 
+
+                var obj = [{
                     title: title,
                     description: title+" the videogame"
                 }];
@@ -87,7 +91,7 @@ var filterByAttribute = function(database, query, callback) {
 
         }
 
-    } 
+    }
 
     else {
         initLocalDatabase(database, function() {

@@ -11,7 +11,7 @@ var getFirstChild = function(el) {
         }
     return firstChild;
     }
-   
+
     else {
         return;
     }
@@ -35,7 +35,7 @@ var preloadImage = function(url, callback) {
     var img = new Image();
     img.src = url;
     img.onload = function () {
-        callback(true)        
+        callback(true)
     };
 }
 

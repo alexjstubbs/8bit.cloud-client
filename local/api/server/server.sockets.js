@@ -1,10 +1,18 @@
-/* Server socket API 
+/* Server socket API
 -------------------------------------------------- */
 var fs 				= require('fs-extra')
 ,   database 		= require('../../api/database/database.local')
 ,   networkMethods 	= require('../../api/network/network.methods')
 ,   network
 ,   issuedToken;
+
+
+/*  Remove Issued Token
+-------------------------------------------------- */
+var removeToken = function() {
+	issuedToken = '';
+}
+
 
 /* Get Network Status
 -------------------------------------------------- */
@@ -13,7 +21,15 @@ var networkStatus = function(callback) {
 	if (!network) {
 
 		setTimeout(function() {
-			callback(null, network.connected);
+
+			if (!network) {
+				callback(null, false);
+			}
+
+			else {
+				callback(null, network.connected);
+			}
+
 		}, 1500);
 
 	}
@@ -29,6 +45,8 @@ var networkStatus = function(callback) {
 -------------------------------------------------- */
 var issueToken = function(callback) {
 
+	console.log("issued token")
+
       fs.readJson(__sessionFile, function(err, userProfile) {
 
             if (err) {
@@ -38,8 +56,10 @@ var issueToken = function(callback) {
             if (userProfile) {
 
                 if (userProfile.token) {
+
                     var issuedToken = userProfile.token;
                     callback(null, issuedToken);
+
                 }
 
                 else {
@@ -47,11 +67,11 @@ var issueToken = function(callback) {
                 }
 
             }
-        
+
             else {
                 callback({error: "No token supplied"});
             }
-        
+
       })
 };
 
@@ -126,13 +146,13 @@ var networkConnection = function(token, ansp, callback) {
 var networkCheckConnection = function(callback) {
 
 	if (callback || typeof callback == "function") {
-		
+
 		networkConnection(null, null, function(result) {
-	
+
 			callback(network);
 
 		});
-		
+
 	}
 }
 
@@ -170,14 +190,13 @@ var networkInterface = function(ansp, json) {
 -------------------------------------------------- */
 var networkCommand = function(ansp, json) {
 
-
 	/* Token was removed manually by user. Error out.
 	-------------------------------------------------- */
     if (!json.token) {
         console.log("[!] No Token Supplied");
         // issueToken here as well...
     }
-    
+
     /* Network Connection doesn't Exist. Attempt to connect and proceed.
     -------------------------------------------------- */
     if (!network) {
@@ -185,7 +204,7 @@ var networkCommand = function(ansp, json) {
             console.log("Attempting Connect to send command: " + json.cmd);
 
             networkConnection(issuedToken, ansp, function(err, network) {
-                    
+
                 if (err) {
                    // ||Client Box||: You are not connected to the server interface
                     console.log("[!] Network Authentication Error: "+err);
@@ -209,6 +228,7 @@ var networkCommand = function(ansp, json) {
 
 /* Exports
 -------------------------------------------------- */
+exports.removeToken		   		= removeToken;
 exports.networkStatus   		= networkStatus;
 exports.networkConnection   	= networkConnection;
 exports.networkInterface    	= networkInterface;

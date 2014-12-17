@@ -1961,13 +1961,13 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         var actionString = _.filter(this.props.actionSet, {"type": this.props.action});
-                    
+
         var cx = React.addons.classSet;
         var classes = cx({
             'square': true
         });
         return (
-        
+
         React.DOM.tr({className: this.props.subNavable ? "subNavable" : "", 'data-snav': this.props.navStack}, 
             React.DOM.td({className: "td_square"}, React.DOM.div({className: classes +" "+ actionString[0].color}, React.DOM.i({className: actionString[0].icon}))), 
             React.DOM.td(null, React.DOM.strong(null, this.props.username), React.DOM.br(null), 
@@ -3374,7 +3374,7 @@ module.exports = React.createClass({displayName: 'exports',
         var classes = cx({
             'ion-ios-circle-outline': true,
             'purple': true,
-            'green': this.props.isOnline
+            'green': this.state.isOnline
         });
 
         return (
@@ -5426,8 +5426,8 @@ String.prototype.hashCode = function() {
 /* Initialize the local Database
 -------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
-    nsp.emit('request', { request: 'storeGet', param: database });   
-    nsp.on('api', function(data){   
+    nsp.emit('request', { request: 'storeGet', param: database });
+    nsp.on('api', function(data){
         if (data.database) {
             if (database == "games") {
                     data = _.flatten(data.database, 'games'),
@@ -5448,6 +5448,7 @@ var filterByAttribute = function(database, query, callback) {
         var filter = [];
 
         _(query).forEach(function(_query) {
+
             if (_query['type']) {
                 var hash = JSON.stringify(_query).hashCode();
                 filters[hash] = PourOver.PourOver[_query['type']](_query['filter'], [_query['query']]);
@@ -5458,8 +5459,11 @@ var filterByAttribute = function(database, query, callback) {
         });
 
         if (filter.length > 1) {
+
             var filtered = filter[0].and(filter[1]);
+
             var filter_results = collection[database].get(filtered.cids);
+
         }
 
         else {
@@ -5476,8 +5480,8 @@ var filterByAttribute = function(database, query, callback) {
             if (database == "games") {
                 var title = query.query.query;
                 api.emit('request', { request: 'lookupGame', param: title });
-                
-                var obj = [{ 
+
+                var obj = [{
                     title: title,
                     description: title+" the videogame"
                 }];
@@ -5486,7 +5490,7 @@ var filterByAttribute = function(database, query, callback) {
 
         }
 
-    } 
+    }
 
     else {
         initLocalDatabase(database, function() {
@@ -5500,6 +5504,7 @@ var filterByAttribute = function(database, query, callback) {
 -------------------------------------------------- */
 exports.filterByAttribute = filterByAttribute;
 exports.initLocalDatabase = initLocalDatabase;
+
 },{"../components/pourover":1,"lodash":82,"socket.io-client":243}],60:[function(require,module,exports){
 /* Dialogs and Modals interface
 -------------------------------------------------- */
@@ -5696,12 +5701,14 @@ var api     = require('socket.io-client')('/api');
 /* Legacy Screen Transition
 -------------------------------------------------- */
 var screenTransition = function(screen, hidden, parent) {
-   
-    var event = new CustomEvent('screenTransition', { 
+
+
+    var event = new CustomEvent('screenTransition', {
         'detail': {
             screen: screen,
             hidden: hidden,
             parent: parent
+
         }
     });
 
@@ -5713,7 +5720,7 @@ var screenTransition = function(screen, hidden, parent) {
 -------------------------------------------------- */
 var changeView = function(view) {
 
-	var event = new CustomEvent('changeView', { 
+	var event = new CustomEvent('changeView', {
 	    'detail': {
 	        view: view
 	    }
@@ -5722,12 +5729,12 @@ var changeView = function(view) {
 	window.dispatchEvent(event);
 
 }
- 
+
 /* Dialogs (circular hack)
 -------------------------------------------------- */
 var dialog = function(input, action) {
-   
-    var event = new CustomEvent('dialog', { 
+
+    var event = new CustomEvent('dialog', {
         'detail': {
             input: input,
             action: action
@@ -5741,8 +5748,8 @@ var dialog = function(input, action) {
 /* UI Action Notification
 -------------------------------------------------- */
 var uiActionNotification = function(action) {
-   
-    var event = new CustomEvent('uiActionNotification', { 
+
+    var event = new CustomEvent('uiActionNotification', {
         'detail': {
             action: action
         }
@@ -5756,14 +5763,14 @@ var uiActionNotification = function(action) {
 -------------------------------------------------- */
 var serverResponse = function(response) {
 
-	var event = new CustomEvent('serverResponse', { 
+	var event = new CustomEvent('serverResponse', {
         'detail': {
             response: response
         }
     });
 
     window.dispatchEvent(event);
-} 
+}
 
 /* Update Game
 -------------------------------------------------- */
@@ -5772,8 +5779,8 @@ var updateGame = function(results, filepath, callback) {
 
 
     api.emit('request', { request: 'crc32', param: filepath });
-    
-       var event = new CustomEvent('updateGame', { 
+
+       var event = new CustomEvent('updateGame', {
             'detail': {
                 title: results[0].title,
                 description: results[0].description,
@@ -5787,7 +5794,6 @@ var updateGame = function(results, filepath, callback) {
             }
         });
     }
-  
     window.dispatchEvent(event);
 
 }
@@ -6212,7 +6218,7 @@ var getFirstChild = function(el) {
         }
     return firstChild;
     }
-   
+
     else {
         return;
     }
@@ -6236,7 +6242,7 @@ var preloadImage = function(url, callback) {
     var img = new Image();
     img.src = url;
     img.onload = function () {
-        callback(true)        
+        callback(true)
     };
 }
 
@@ -6245,6 +6251,7 @@ var preloadImage = function(url, callback) {
 exports.getFirstChild = getFirstChild;
 exports.removeBrackets = removeBrackets;
 exports.preloadImage = preloadImage;
+
 },{}],65:[function(require,module,exports){
 /* Init Modules - Entry point to clientside controllers
  -------------------------------------------------- */ 

@@ -10,6 +10,7 @@
 
 if (process.platform == 'darwin') {
     process.env.NODE_ENV    = 'osx';
+
 }
 
 else {
