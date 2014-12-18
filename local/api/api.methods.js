@@ -2,11 +2,11 @@
 -------------------------------------------------- */
 
 var api = {
-    
+
     gamesList: function(nsp, param){
         common.listroms.listRoms(nsp, param);
     },
-    
+
     storeGet: function(nsp, database){
         common.databases.storeGet(nsp, database);
     },
@@ -34,7 +34,7 @@ var api = {
     ipInfo: function(nsp) {
         common.location.ipInfo(nsp);
     },
-    
+
     crc32: function(nsp, path) {
         common.hash.getCRC32(nsp, path);
     },
@@ -50,7 +50,7 @@ var api = {
     getSet: function(nsp, set) {
         common.getSet.getSet(nsp, set);
     },
-    
+
     getActivities: function(nsp, set) {
         common.serverAPI.getActivities(nsp);
     },
@@ -69,15 +69,15 @@ var api = {
 
     copyFile: function(nsp, copyObject) {
         common.systemWrite.copyFile(nsp, copyObject.src, copyObject.dest);
-    },        
+    },
 
     writeJSONSync: function(nsp, data) {
         common.systemWrite.writeJSONSync(nsp, data);
-    },    
+    },
 
     readJSONFile: function(nsp, file) {
         common.systemRead.readJSONFile(nsp, file);
-    },    
+    },
 
     writeTextSync: function(nsp, data) {
         common.systemWrite.writeJSONSync(nsp, data);
@@ -86,7 +86,7 @@ var api = {
     sysIsOnline: function(nsp) {
         common.network.sysIsOnline(nsp);
     },
-    
+
 
     listWifiNetworks: function(nsp) {
         common.wireless.listWifiNetworks(nsp);
@@ -99,19 +99,23 @@ var api = {
     profileList: function(nsp) {
          common.profiles.listProfiles(nsp);
     },
-    
+
     profileLogin: function(nsp) {
          common.profiles.profileLogin(nsp);
     },
 
     getSession: function(nsp) {
          common.profiles.getSession(nsp);
-    },    
+    },
 
     createSession: function(nsp, obj) {
          common.profiles.createSession(nsp, obj);
     },
-    
+
+    sessionProfile: function(nsp) {
+         common.profiles.getSession(nsp);
+    },
+
 }
 
 /* Exports

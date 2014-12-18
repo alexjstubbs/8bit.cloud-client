@@ -36,19 +36,19 @@ var events = {
 		Screens.setupScreens(parameters);
 	},
 
-	/* Trigger Next Screen 
+	/* Trigger Next Screen
 	-------------------------------------------------- */
 	nextScreen: function(parameters) {
 		KeyEvent(221);
-	},	
+	},
 
-	/* Trigger Previous Screen 
+	/* Trigger Previous Screen
 	-------------------------------------------------- */
 	previousScreen: function(parameters) {
 		KeyEvent(219);
 	},
 
-	/* Render Certain Child of Screen 
+	/* Render Certain Child of Screen
 	-------------------------------------------------- */
 	changeView: function(parameters) {
 		eventDispatcher.changeView(parameters);
@@ -61,11 +61,10 @@ var events = {
         dialog.keyboard(input);
     },
 
-
     /* Close current Dialog
     -------------------------------------------------- */
     closeDialog: function(el) {
-	
+
 	    dialog.close();
 
 	},
@@ -75,7 +74,7 @@ var events = {
 	openDialog: function(_type) {
 
 		dialog.general(null, _type);
-	
+
 	},
 
     /* Press Key on OnScreen Keyboard
@@ -115,14 +114,14 @@ var events = {
 
     /* Save Wifi Config
     -------------------------------------------------- */
-  
+
   	saveWifiConfig: function(parameters) {
 
         var form = document.forms[parameters].elements;
-       
+
         var obj = new Object;
 
-        _.each(form, function(input) { 
+        _.each(form, function(input) {
             if (input.name && input.value) {
                obj[input.name] = input.value;
             }
@@ -139,10 +138,10 @@ var events = {
     submitForm: function(parameters) {
 
         var form = document.forms[parameters].elements;
-       
+
         var obj = new Object;
 
-        _.each(form, function(input) { 
+        _.each(form, function(input) {
             if (input.name && input.value) {
                obj[input.name] = input.value;
             }
@@ -154,14 +153,21 @@ var events = {
 
 			case "true": {
 			    api.emit('request', { request: 'submitForm', param: obj });
+				break;
 			}
 
 			case "false": {
 			    api.emit('request', { request: 'writeJSONSync', param: obj });
+				break;
 			}
 
 			case "cache": {
 			 	api.emit('request', { request: "cacheForm", param: obj });
+				break;
+			}
+
+			default: {
+				console.log("error submitting form");
 			}
 
 	    }
@@ -171,7 +177,7 @@ var events = {
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {
 
-    	// Load new QTBrowser window and use on complete to close this instance? 
+    	// Load new QTBrowser window and use on complete to close this instance?
     	// if (document.readyState === "complete") { init(); }
 
     	window.location = "http://127.0.0.1:1210/home/";
@@ -187,12 +193,12 @@ var events = {
         var longname,
             list = document.querySelectorAll(".platform");
 
-        _(list).forEach(function(item) { 
+        _(list).forEach(function(item) {
             item.classList.remove("selected");
             if (item.getAttribute("data-parameters") == parameters) {
                 item.classList.add("selected");
                 longname = item.textContent;
-            }; 
+            };
         });
 
         api.emit('request', { request: 'gamesList', param: longname });
@@ -207,8 +213,14 @@ var events = {
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function(parameters) {
-        dialog.show();        // React.renderComponent(Modal({children: Messages(null)}), document.getElementById("appendices"));
-    },
+        dialog.show("SignUp");
+	},
+
+	/* Add a Friend(Request)
+    -------------------------------------------------- */
+    addFriend: function(parameters) {
+        dialog.show("AddFriend");
+	},
 
     /* Launch selected game
     -------------------------------------------------- */
@@ -227,7 +239,7 @@ exports.events = events;
 
 // module.exports = function(event, p) {
 
-//         // Message 
+//         // Message
 
 //         if (event == 'input_focus') {
 //             var input = document.getElementsByClassName("selectedNav")[0];
@@ -386,12 +398,12 @@ exports.events = events;
 //             var longname,
 //                 list = document.querySelectorAll(".platform");
 
-//             _(list).forEach(function(item) { 
+//             _(list).forEach(function(item) {
 //                 item.classList.remove("selected");
 //                 if (item.getAttribute("data-parameters") == p) {
 //                     item.classList.add("selected");
 //                     longname = item.textContent;
-//                 }; 
+//                 };
 //             });
 
 //             api.emit('request', { request: 'gamesList', param: longname });
@@ -454,7 +466,7 @@ exports.events = events;
 //             //                     url: 'http://localhost:1210/game/launch',
 //             //                     data: {launch: e},
 //             //                     timeout: 5000,
-//             //                     success: function (msg, status, jqXHR) { 
+//             //                     success: function (msg, status, jqXHR) {
 //             //                           // Do something on launch of game? Notify Server? Emit message?
 //             //                                                             }
 //             //                     });
@@ -464,7 +476,7 @@ exports.events = events;
 //             // need:
 //             // Emulator Core
 //             // Paramaters for RetroArch
-//             // 
+//             //
 
 //             // Pass JSON node of selected emu and add game path?
 

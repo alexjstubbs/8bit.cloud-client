@@ -43,8 +43,8 @@ var passHash = function(input, callback) {
 
 /* Add a Friend Endpoint
 -------------------------------------------------- */
-var addFriend = function(nsp) {
-    sockets.networkInterface(nsp, { cmd: 'addFriend', parameters: 'Alexander'});
+var addFriend = function(nsp, data) {
+    sockets.networkInterface(nsp, { cmd: 'addFriend', parameters: data.username});
 }
 
 /* Friends Endpoint
@@ -119,6 +119,9 @@ var submitForm = function(nsp, data, callback) {
             var forms = {
                     signUp: function() {
                         signUp(nsp, data, callback);
+                    },
+                    addFriend: function() {
+                        addFriend(nsp, data)
                     }
                 }
 
@@ -271,6 +274,11 @@ var getSession = function(nsp, callback) {
 
         else {
 
+            if (!error) {
+                var error = {};
+                error.code = "default";
+            }
+
             switch(error.code) {
 
                 case "ECONNREFUSED": {
@@ -285,7 +293,7 @@ var getSession = function(nsp, callback) {
 
                 default: {
 
-                    nsp.emit('messaging', {type: 0, body: "Could Not Authenticate User. Make sure you have entered a valid password." });
+                    nsp.emit('messaging', {type: 0, body: "Could Not Authenticate User. Make sure you have a valid username and password." });
 
                 }
 

@@ -1,5 +1,5 @@
 /* Form Validation etc.
- * Validation is also Duplicated Server-side. 
+ * Validation is also Duplicated Server-side.
  * No need to edit file.
 -------------------------------------------------- */
 
@@ -11,34 +11,52 @@ var fs           = require('fs-extra')
 -------------------------------------------------- */
 var urlPattern = /^(ht|f)tps?:\/\/[a-z0-9-\.]+\.[a-z]{2,4}\/?([^\s<>\#%"\,\{\}\\|\\\^\[\]`]+)?$/;
 
-/* General Validation Constraints
+
+/*  addFriend Validation Contraints
 -------------------------------------------------- */
-var constraints = {
-  formTitle: {
-  	presence: true
-  },  
-  email: {
-  	presence: true,
-  		email: {
+var addFriend_constraints = {
+
+    formTitle: {
+        presence: true
+    },
+    username: {
+        presence: true
+    }
+
+}
+
+/* signUp Validation Constraints
+-------------------------------------------------- */
+var signUp_constraints = {
+
+    formTitle: {
+    	presence: true
+    },
+
+    email: {
+    	presence: true,
+    		email: {
       	message: "doesn't look like a valid email"
     	}
-  },
-  username: {
-  	presence: true
-  },
-  password: {
-	presence: true,
-	    length: {
-		      minimum: 6,
-		      message: "must be at least 6 characters"
+    },
+
+    username: {
+    	presence: true
+    },
+
+    password: {
+        presence: true,
+            length: {
+        	      minimum: 6,
+        	      message: "must be at least 6 characters"
+        }
+    },
+    avatar: {
+        format: {
+        	pattern: urlPattern,
+        	message: "URL is invalid or malformed"
+        }
     }
-  },
-  avatar: {
-	format: {
-		pattern: urlPattern,
-		message: "URL is invalid or malformed"
-	}
-  }
 };
 
 
@@ -46,19 +64,33 @@ var constraints = {
 -------------------------------------------------- */
 var validate = function(data, callback) {
 
+    switch (data.formTitle) {
 
-	if (data.verificationPassword) {
-		if (data.password != data.verificationPassword) {
-			callback({"email": ['Passwords do not match']});
-		}
-		else {
-			callback();
-		}
-	}
+        // Sign Up
+        case "signUp": {
 
-	else {
-		callback(_validate(data, constraints));
-	}
+        	if (data.verificationPassword) {
+        		if (data.password != data.verificationPassword) {
+        			callback({"email": ['Passwords do not match']});
+        		}
+        		else {
+        			callback();
+        		}
+        	}
+
+        	else {
+        		callback(_validate(data, signUp_constraints));
+        	}
+
+        break;
+
+        }
+
+        // Add A Friend
+        case "addFriend": {
+            callback(_validate(data, addFriend_constraints));
+        }
+    }
 
 }
 

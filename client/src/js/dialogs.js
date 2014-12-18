@@ -8,6 +8,7 @@ var systemNotify    = require('./notification.init.js')
 ,   Messages        = require('../interface/Messages.jsx')
 ,   Popup           = require('../interface/Popup.jsx')
 ,   SignUp          = require('../interface/forms/SignUp.jsx')
+,   AddFriend       = require('../interface/forms/AddFriend.jsx')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
@@ -22,7 +23,7 @@ var popup = function(obj, callback) {
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-popup");
     document.body.appendChild(div);
-    
+
     React.renderComponent(Modal({children: SignUp(null)}), div);
 }
 
@@ -39,7 +40,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
 
     var fragment = document.createDocumentFragment();
 
-    _div = document.createElement("div"); 
+    _div = document.createElement("div");
     _div.classList.add("ignition-modal");
 
     _div.style.zIndex = _index.length+150;
@@ -54,7 +55,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
 
 /* Show Content Modal
 -------------------------------------------------- */
-var show = function(title, content) {
+var show = function(parent) {
 
      // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
@@ -63,7 +64,7 @@ var show = function(title, content) {
 
     var fragment = document.createDocumentFragment();
 
-    _div = document.createElement("div"); 
+    _div = document.createElement("div");
     _div.classList.add("ignition-modal");
 
     _div.style.zIndex = _index.length+150;
@@ -73,8 +74,21 @@ var show = function(title, content) {
     document.body.insertBefore(fragment, document.body.firstChild);
 
     // document.body.appendChild(fragment);
-    
-    React.renderComponent(Modal({}, SignUp({})), _div);
+
+    console.log(parent);
+
+    // TODO: Use another method.
+    switch(parent) {
+        case "SignUp":
+            Child = SignUp({});
+            break;
+        case "AddFriend":
+            Child = AddFriend({});
+            break;
+        default: Child = AddFriend({});
+    }
+
+    React.renderComponent(Modal({}, Child), _div);
 }
 
 /* Close Modal
@@ -87,7 +101,7 @@ var close = function(modal, callback) {
      var main = document.getElementById("main");
      main.classList.remove("opacity-50");
 
-    if (!modal) {    
+    if (!modal) {
 
         var modal = document.querySelectorAll(".ignition-modal");
 
@@ -96,7 +110,7 @@ var close = function(modal, callback) {
     }
 
     modal.parentNode.removeChild(modal);
-    
+
     navigationInit.navigationInit();
 
     if (callback || typeof callback === "function") {
@@ -114,7 +128,7 @@ var keyboard = function(input, callback) {
     sessionStorage.setItem("navigationState", "pause");
 
     var _index = document.querySelectorAll(".ignition-modal");
- 
+
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-keyboard");
     div.style.zIndex = _index.length+150;
@@ -122,7 +136,7 @@ var keyboard = function(input, callback) {
     document.body.insertBefore(div,  document.body.firstChild);
 
     var activeInputs = document.querySelectorAll(".activeInput")[0];
-    
+
     if (activeInputs) {
         activeInputs.classList.remove("activeInput");
     }
@@ -130,7 +144,7 @@ var keyboard = function(input, callback) {
     input.classList.add("activeInput");
 
     React.renderComponent(Modal({backdrop: true}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
-    
+
 }
 
 /* Exports
