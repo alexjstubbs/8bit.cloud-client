@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
             <button className="navable btn btn-alt btn-alt-size pull-left" data-function="mouseControlEnable"><i className='ion-wand'></i> &nbsp; Enable Mouse</button>
 
-            <button className="navable btn btn-alt btn-alt-size pull-right bg-red" data-function="closeDialogDisableMouse"><i className='ion-close'></i> &nbsp; Close Browser</button>
+            <button className="navable btn btn-alt btn-alt-size pull-right red-bg" data-function="closeDialogDisableMouse"><i className='ion-close'></i> &nbsp; Close Browser</button>
 
             </div>
 

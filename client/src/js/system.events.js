@@ -220,6 +220,15 @@ var events = {
 		}, 500);
 	},
 
+	/* 	Go to URL (web browser)
+	-------------------------------------------------- */
+	gotoUrl: function(parameters) {
+
+		var url = document.getElementById("url-bar").value;
+		document.getElementsByTagName("iframe")[0].src = url;
+
+	},
+
 	/* 	Disable Mouse, Close Agreement
 	-------------------------------------------------- */
 	closeDialogDisableMouse: function(parameters) {

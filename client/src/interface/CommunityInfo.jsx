@@ -21,7 +21,8 @@ module.exports = React.createClass({
                 Styles: null,
                 description: null
             }],
-            url: "http://www.racketboy.com/forum/viewtopic.php?f=33&t=47942"
+            url: "http://www.racketboy.com/forum/viewtopic.php?f=33&t=47942",
+            about: "http://www.racketboy.com/retro/racketboy-game-club-together-retro-intro"
         }
     },
 
@@ -61,7 +62,7 @@ module.exports = React.createClass({
                     </div>
 
                         <button className="col-xs-4 btn btn-alt btn-alt-size navable" data-function="launchBrowser" data-parameters={this.state.url}><i className='ion-chatboxes'></i> &nbsp; Join the Discussion</button>
-                        <button className="col-xs-4 btn btn-alt btn-alt-size navable"><i className='ion-help'></i> &nbsp; About the Club</button>
+                        <button className="col-xs-4 btn btn-alt btn-alt-size navable" data-function="launchBrowser" data-parameters={this.state.about}><i className='ion-help'></i> &nbsp; About the Club</button>
                         <button className="col-xs-3 btn btn-alt btn-alt-size navable red-bg _offset1" data-function="closeDialog"><i className='ion-close'></i> &nbsp; Close</button>
 
                     <div className="clearfix"></div>

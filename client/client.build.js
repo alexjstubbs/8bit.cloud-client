@@ -2338,7 +2338,8 @@ module.exports = React.createClass({displayName: 'exports',
                 Styles: null,
                 description: null
             }],
-            url: "http://www.racketboy.com/forum/viewtopic.php?f=33&t=47942"
+            url: "http://www.racketboy.com/forum/viewtopic.php?f=33&t=47942",
+            about: "http://www.racketboy.com/retro/racketboy-game-club-together-retro-intro"
         }
     },
 
@@ -2378,7 +2379,7 @@ module.exports = React.createClass({displayName: 'exports',
                     ), 
 
                         React.DOM.button({className: "col-xs-4 btn btn-alt btn-alt-size navable", 'data-function': "launchBrowser", 'data-parameters': this.state.url}, React.DOM.i({className: "ion-chatboxes"}), "   Join the Discussion"), 
-                        React.DOM.button({className: "col-xs-4 btn btn-alt btn-alt-size navable"}, React.DOM.i({className: "ion-help"}), "   About the Club"), 
+                        React.DOM.button({className: "col-xs-4 btn btn-alt btn-alt-size navable", 'data-function': "launchBrowser", 'data-parameters': this.state.about}, React.DOM.i({className: "ion-help"}), "   About the Club"), 
                         React.DOM.button({className: "col-xs-3 btn btn-alt btn-alt-size navable red-bg _offset1", 'data-function': "closeDialog"}, React.DOM.i({className: "ion-close"}), "   Close"), 
 
                     React.DOM.div({className: "clearfix"}), 
@@ -4392,7 +4393,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.button({className: "navable btn btn-alt btn-alt-size pull-left", 'data-function': "mouseControlEnable"}, React.DOM.i({className: "ion-wand"}), "   Enable Mouse"), 
 
-            React.DOM.button({className: "navable btn btn-alt btn-alt-size pull-right bg-red", 'data-function': "closeDialogDisableMouse"}, React.DOM.i({className: "ion-close"}), "   Close Browser")
+            React.DOM.button({className: "navable btn btn-alt btn-alt-size pull-right red-bg", 'data-function': "closeDialogDisableMouse"}, React.DOM.i({className: "ion-close"}), "   Close Browser")
 
             )
 
@@ -7984,6 +7985,15 @@ var events = {
 		setTimeout(function() {
 			document.getElementsByTagName("iframe")[0].focus();
 		}, 500);
+	},
+
+	/* 	Go to URL (web browser)
+	-------------------------------------------------- */
+	gotoUrl: function(parameters) {
+
+		var url = document.getElementById("url-bar").value;
+		document.getElementsByTagName("iframe")[0].src = url;
+
 	},
 
 	/* 	Disable Mouse, Close Agreement
