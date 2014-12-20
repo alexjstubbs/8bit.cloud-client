@@ -29,18 +29,18 @@ module.exports = function(k) {
             var currentSelection = document.querySelectorAll(".selectedNav");
 
             if (screen == 'Browser') {
-                
+
                 // Module pointer to navigation.browser refactor:
                 navigationBrowse(currentSelection[0]);
                 currentSelection[0].scrollIntoView(false);
-              
+
             }
         }
 
         // Left & Right
         if (k == 'right' || k == 'left') {
 
-        
+
             if (us[0]) {
                 us[0].classList.toggle("unselected");
             }
@@ -64,14 +64,14 @@ module.exports = function(k) {
 
                     var d = s.nextElementSibling.nextElementSibling;
 
-                        d.scrollIntoView(false); 
-               
+                        d.scrollIntoView(false);
+
                 }
             }
 
             // left
             if (k == 'left') {
-               
+
                 if (!i) {
                     i = s.parentNode.parentNode.getAttribute("data-nav");
                     i - 1;
@@ -81,10 +81,10 @@ module.exports = function(k) {
                 }
 
                 if (s.parentNode.classList.contains("scroll-into-view")) {
-                  
+
                     var d = s.previousElementSibling.previousElementSibling;
                     if (d) {
-                        d.scrollIntoView(false); 
+                        d.scrollIntoView(false);
                     }
                 }
             }
@@ -95,7 +95,7 @@ module.exports = function(k) {
 
 
             var lastNodeNav = _parent.querySelectorAll(".navable")[i];
-           
+
 
             // Outside Panel
             if (lastNodeNav) {
@@ -122,16 +122,20 @@ module.exports = function(k) {
 
             var sel = document.querySelectorAll(".selectedNav");
             var sub = sel[0].querySelectorAll(".subNavable");
- 
+
             // Down
             if (k == 'down') {
 
                 if(_.contains(formInputs, sel[0].type)) {
                     KeyEvent(39);
                 };
-                
-                // Textarea Scrolling
+
+                // Textarea/ScollingDiv Scrolling
                 if (sel[0].nodeName == "TEXTAREA") {
+                    sel[0].scrollTop = sel[0].scrollTop + 20;
+                };
+
+                if (sel[0].classList.contains("scrollable-view")) {
                     sel[0].scrollTop = sel[0].scrollTop + 20;
                 };
 
@@ -146,7 +150,7 @@ module.exports = function(k) {
                     curRow++;
 
                     if (curRow != allRows) {
-               
+
                     sel[0].classList.remove("selectedNav");
 
                     var nextRow = document.querySelectorAll("[data-row]")[curRow];
@@ -157,11 +161,11 @@ module.exports = function(k) {
                     }
 
                     else {
-                        
+
                     }
-                    
+
                     }
-                    
+
                 }
 
                 // Inside Sub Navigation
@@ -208,7 +212,12 @@ module.exports = function(k) {
                     KeyEvent(37);
                 };
 
+                // Scrollable Textarea/Div
                 if (sel[0].nodeName == "TEXTAREA") {
+                    sel[0].scrollTop = sel[0].scrollTop - 20;
+                };
+
+                if (sel[0].classList.contains("scrollable-view")) {
                     sel[0].scrollTop = sel[0].scrollTop - 20;
                 };
 
@@ -221,7 +230,7 @@ module.exports = function(k) {
                     var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
 
                     if (curRow != 0) {
-                                 
+
                     curRow--;
 
                     sel[0].classList.remove("selectedNav");
@@ -231,7 +240,7 @@ module.exports = function(k) {
                     nextRow.childNodes[elIndex].classList.add("selectedNav");;
 
                     }
-                    
+
                 }
 
                 // Inside Sub Navigation
@@ -240,7 +249,7 @@ module.exports = function(k) {
                     var i = sel[0].getAttribute("data-snav");
 
                      i--;
-                   
+
 
                     var q = col.length;
                     q = q - 1;

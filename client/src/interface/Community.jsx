@@ -13,11 +13,12 @@ module.exports = React.createClass({
        getInitialState: function() {
             return {
                  community: [{
-                    title: null, 
-                    Image: null, 
-                    URL: null, 
-                    rss: null, 
-                    Styles: null
+                    title: null,
+                    Image: null,
+                    URL: null,
+                    rss: null,
+                    Styles: null,
+                    Description: null
                 }]
         }
     },
@@ -27,7 +28,7 @@ module.exports = React.createClass({
             navable: true,
             navStack: 4,
             icon: "ion-ios-people ",
-            functionCall: "community",
+            functionCall: "moreCommunity",
             classString: "slide col-md-4",
             title: "Community",
             id: "panel_community",
@@ -57,7 +58,7 @@ module.exports = React.createClass({
          <div className={this.props.classString}>
 
          <table className="table table-striped navable" data-function={this.props.functionCall} id={this.props.id}>
-                          
+
              <thead>
                     <th>
                         <h4> <i className={this.props.icon}></i></h4>
@@ -67,9 +68,9 @@ module.exports = React.createClass({
                         <h4 className="text-right">{this.state.community[0].title}</h4>
                     </th>
              </thead>
-                
+
             <tr>
-                <td colSpan='2' className="rss_image"><br />                        
+                <td colSpan='2' className="rss_image"><br />
                   <span className="rImg"><img id="community_image" src={this.state.community[0].Image} className='img-responsive hidden' style={imageStyles} /></span>
                 </td>
             </tr>
@@ -90,4 +91,4 @@ module.exports = React.createClass({
     }
 });
 
-// 
+//

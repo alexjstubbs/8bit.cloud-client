@@ -30,7 +30,7 @@ var networkStatus = function(callback) {
 				callback(null, network.connected);
 			}
 
-		}, 1500);
+		}, 1);
 
 	}
 
@@ -44,8 +44,6 @@ var networkStatus = function(callback) {
 /* Get issued Token (if available)
 -------------------------------------------------- */
 var issueToken = function(callback) {
-
-	console.log("issued token")
 
       fs.readJson(__sessionFile, function(err, userProfile) {
 
@@ -93,6 +91,8 @@ var networkConnection = function(token, ansp, callback) {
     -------------------------------------------------- */
     nsp.on('connect', function (socket, sock) {
 
+		ansp.emit('api', { isOnline: true });
+
         network = nsp;
 
         if (callback) {
@@ -103,8 +103,7 @@ var networkConnection = function(token, ansp, callback) {
    -------------------------------------------------- */
     }).on('disconnect', function () {
 
-    	// Disable internet views
-        console.log('disconnected from /network');
+		ansp.emit('api', { isOnline: false });
 
     });
 

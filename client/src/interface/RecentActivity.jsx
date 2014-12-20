@@ -13,14 +13,11 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
-    
+
             activities: [
-                {"activity": "Achievement", "game": "super mario","username":"Alex"},
-                {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"},
-                {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"},
-                {"activity": "Gameplay", "game": "super mario", "username": "Stubbs"}
+
             ]
-    
+
         };
     },
 
@@ -49,7 +46,7 @@ module.exports = React.createClass({
         // api.on('api', this.setState.bind(this));
 
         api.on('network-api', this.setState.bind(this));
-        
+
     },
 
     render: function() {
@@ -75,15 +72,12 @@ module.exports = React.createClass({
                     </thead>
                     <tbody>
 
-                        { activityNodes } 
-                   
-                   </tbody>               
+                        { activityNodes }
+
+                   </tbody>
                     </table>
-                </div>              
-         
+                </div>
+
         );
     }
 });
-
-
-

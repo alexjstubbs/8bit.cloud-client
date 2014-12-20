@@ -13,21 +13,19 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             session: {
-                Avatar: <i className="ion-person"></i>
+                Avatar: <i className='ion-person'></i>
             }
         }
     },
 
     componentDidMount: function() {
 
-        console.log(this.state.session.Avatar);
         api.emit('request', { request: 'sessionProfile', param: null});
         api.on('api', this.setState.bind(this));
 
     },
 
     render: function() {
-
 
         var Avatar;
 
@@ -51,9 +49,9 @@ module.exports = React.createClass({
              <div>
                 <div>
                     <div className="col-md-4">
-                    <div className={classes}>
-                        {Avatar ? <img src={this.state.session.Avatar} className='img-responsive' /> : this.state.session.Avatar}
-                    </div>
+                        <div className={classes}>
+                            {Avatar ? <img src={this.state.session.Avatar} className='img-responsive' /> : <i className='ion-person'></i>}
+                        </div>
                     <div className="hello col-md-8">
                         <h3 className="nopadding">Welcome, {this.props.username} <span className="muted"></span></h3>
                         <NetworkStatus />

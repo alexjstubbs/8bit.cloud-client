@@ -41,6 +41,14 @@
 	outline: 0;
 }
 
+.mouse {
+    cursor: default !important;
+}
+
+.nomouse {
+    cursor: none !important;
+}
+
 .square.gold-bg {
     background:gold !important;
     color:white !important;
@@ -74,6 +82,11 @@
     color:white !important;
     font-size:3em !important;
     padding:0 10px !important;
+}
+
+button.red-bg {
+    background:@red !important;
+    color:white !important;
 }
 
 .no-padding {
@@ -177,8 +190,10 @@ textarea.form-control {
     width:auto;
     height:auto;
     min-height:250px;
+    max-height:80vh;
     z-index:1982;
     padding:15px;
+    overflow:hidden;
 
 	 position: fixed;
      top: 10vh;
@@ -208,6 +223,37 @@ textarea.form-control {
 #general-dialog h2 span {
 	display:inline !important;
 }
+
+.community-modal {
+    width:50vw !important;
+}
+
+#community-info {
+    overflow:hidden;
+    height:35vh;
+    margin-bottom:20px;
+}
+
+#community-info img {
+    text-align:center;
+    margin:0 auto;
+    .img-responsive;
+}
+
+#community-info p:first-child {
+    display:none;
+}
+
+#community-info p:empty {
+    display: none !important;
+}
+
+.community-img {
+    margin:0 auto;
+    text-align:center;
+}
+
+
 
 /* Welcome Animation
 -------------------------------------------------- */
@@ -573,8 +619,8 @@ ul#profile-list li span.emulator {
 /* Web Browser
 -------------------------------------------------- */
 iframe.browser-frame {
-	width:100vw;
-	height:100vh;
+	width:100%;
+	height:50vh;
 	border:none;
 }
 
@@ -635,6 +681,7 @@ td#rss_info {
 
 body {
     overflow:hidden;
+    .nomouse;
 }
 
 #main {
@@ -651,6 +698,11 @@ body {
 	background:@black;
 	color:@white;
 	height:50vh;
+}
+
+.scrollable-view {
+    overflow:hidden;
+    height:20vh;
 }
 
 ul#screens {
@@ -693,8 +745,6 @@ ul#screens > li {
     opacity:0.3 !important;
 }
 
-
-
 .progress-bar.mute {
     background:@gray-darker;
 }
@@ -733,6 +783,10 @@ ul#screens > li {
 i.button_go {
     color:@primary;
     font-size:2em !important;
+}
+
+.small-break {
+    height:6px;
 }
 
 .square {
@@ -1259,6 +1313,14 @@ footer .progress {
     margin:0 5px;
 }
 
+.btn-alt-size {
+    font-size:1em;
+}
+
+.btn-alt-margin {
+    margin:0;
+}
+
 
 a.btn-alt {
     color:@white;
@@ -1287,6 +1349,11 @@ a.btn-alt {
 
 .save-slot img {
     border:1px solid #000;
+}
+
+._offset1 {
+    position:relative;
+    right:-30px;
 }
 
 .profile-section {
@@ -1794,6 +1861,11 @@ p.game_deck {
 .up10 {
     position:relative;
     top:-20px;
+}
+
+.up5 {
+    position:relative;
+    top:15px;
 }
 
 .square.avatared {

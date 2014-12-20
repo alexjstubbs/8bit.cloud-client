@@ -21,11 +21,10 @@ module.exports = React.createClass({
     render: function() {
 
         return (
-            <div className={this.props.classString}> 
+            <div className={this.props.classString}>
                 <Inbox myMessages={this.props.myMessages} />
                 <FriendsBox  />
             </div>
         );
     }
 });
-

@@ -7,14 +7,30 @@ var systemNotify    = require('./notification.init.js')
 ,   Modal           = require('../interface/Modal.jsx')
 ,   Messages        = require('../interface/Messages.jsx')
 ,   Popup           = require('../interface/Popup.jsx')
+,   Prompt          = require('../interface/Prompt.jsx')
+,   WebBrowser      = require('../interface/WebBrowser.jsx')
 ,   SignUp          = require('../interface/forms/SignUp.jsx')
 ,   AddFriend       = require('../interface/forms/AddFriend.jsx')
+,   CommunityInfo   = require('../interface/CommunityInfo.jsx')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
 ,   GeneralDialog   = require("../interface/GeneralDialog.jsx");
 
 var _div;
+
+/* Prompt Dialog
+-------------------------------------------------- */
+var prompt = function(callback) {
+
+    var div = document.createElement("div");
+    div.classList.add("ignition-modal", "ignition-popup");
+    document.body.appendChild(div);
+
+    React.renderComponent(Modal({children: Prompt(null)}), div);
+
+
+}
 
 /* General Message Dialog
 -------------------------------------------------- */
@@ -55,14 +71,14 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
 
 /* Show Content Modal
 -------------------------------------------------- */
-var show = function(parent) {
+var show = function(parent, parameters, arg) {
 
      // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
-    var _index = document.querySelectorAll(".ignition-modal");
-
-    var fragment = document.createDocumentFragment();
+    var _index      = document.querySelectorAll(".ignition-modal"),
+        fragment    = document.createDocumentFragment(),
+        properties  = {}
 
     _div = document.createElement("div");
     _div.classList.add("ignition-modal");
@@ -73,22 +89,29 @@ var show = function(parent) {
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-    // document.body.appendChild(fragment);
-
-    console.log(parent);
-
     // TODO: Use another method.
     switch(parent) {
+        case "WebBrowser":
+            Child = WebBrowser({url: parameters});
+            break;
+        case "Prompt":
+            properties = {backdrop: true};
+            Child = Prompt({message: arg, agree: 'browserFocusAgree'});
+            break;
         case "SignUp":
             Child = SignUp({});
             break;
         case "AddFriend":
             Child = AddFriend({});
             break;
+        case "Community":
+            properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
+            Child = CommunityInfo({});
+            break;
         default: Child = AddFriend({});
     }
 
-    React.renderComponent(Modal({}, Child), _div);
+    React.renderComponent(Modal(properties, Child), _div);
 }
 
 /* Close Modal
@@ -149,6 +172,7 @@ var keyboard = function(input, callback) {
 
 /* Exports
 -------------------------------------------------- */
+exports.prompt              = prompt;
 exports.show                = show;
 exports.close               = close;
 exports.keyboard            = keyboard;

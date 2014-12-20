@@ -185,6 +185,66 @@ var events = {
 
     },
 
+    /* Get Community Info
+    -------------------------------------------------- */
+	moreCommunity: function(parameters) {
+
+		dialog.show("Community");
+
+    },
+
+    /* Web Browser
+    -------------------------------------------------- */
+	launchBrowser: function(parameters) {
+
+		dialog.show("WebBrowser", parameters);
+
+    },
+
+	/* Web Browser
+	-------------------------------------------------- */
+	browserFocus: function(parameters) {
+
+		dialog.show("Prompt", null, "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?");
+
+		//	document.body.classList.add("mouse");
+	},
+
+	/* Focus Agreement
+	-------------------------------------------------- */
+	browserFocusAgree: function(parameters) {
+		events.mouseControlEnable();
+		dialog.close();
+		setTimeout(function() {
+			document.getElementsByTagName("iframe")[0].focus();
+		}, 500);
+	},
+
+	/* 	Disable Mouse, Close Agreement
+	-------------------------------------------------- */
+	closeDialogDisableMouse: function(parameters) {
+
+		document.body.classList.remove("mouse");
+		dialog.close();
+
+	},
+
+	/* 	Enable Mouse
+	-------------------------------------------------- */
+	mouseControlEnable: function(parameters) {
+
+		document.body.classList.add("mouse");
+
+	},
+
+	/* 	Disable Mouse
+	-------------------------------------------------- */
+	mouseControlDisable: function(parameters) {
+
+		document.body.classList.remove("mouse");
+		dialog.close();
+
+	},
 
     /* Switch Emulator on Action button/keypress
     -------------------------------------------------- */

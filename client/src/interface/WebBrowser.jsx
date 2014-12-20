@@ -4,21 +4,51 @@
 
 'use strict';
 
-var React = require('react/addons');
+var React           = require('react/addons')
+,   navigationInit   = require('../js/navigation.init');
 
 module.exports = React.createClass({
 
     getDefaultProps: function() {
-
-    return {
-       
-        }
+        return {
+                url: "http://ignition.io",
+                id: "web-frame"
+            }
     },
+
+    componentDidMount: function() {
+
+        navigationInit.navigationInit();
+
+        // document.getElementsByTagName("iframe")[0].focus();
+    },
+
     render: function() {
+
         return (
-            <div id={this.props.id} className="parent">
-             <iframe src="http://www.joystiq.com" className="browser-frame col-xs-12"></iframe>
+            <div className="parent">
+
+            <form>
+                <div className="col-xs-10">
+                    <input id="url-bar" type="text" className="input-lg navable form-control" data-function="inputFocus" value={this.props.url} />
+                </div>
+
+                <button className="up5 btn-alt btn col-xs-1 btn-alt-font btn-alt-size navable" data-function="gotoUrl"><i className="ion-arrow-right-c"></i></button>
+            </form>
+
+            <div className="clearfix"></div>
+
+            <iframe id={this.props.id} src={this.props.url} className="navable browser-frame" data-function="browserFocus" data-parameters={this.props.id}></iframe>
+
+            <hr />
+
+            <button className="navable btn btn-alt btn-alt-size pull-left" data-function="mouseControlEnable"><i className='ion-wand'></i> &nbsp; Enable Mouse</button>
+
+            <button className="navable btn btn-alt btn-alt-size pull-right bg-red" data-function="closeDialogDisableMouse"><i className='ion-close'></i> &nbsp; Close Browser</button>
+
             </div>
+
+
         );
     }
 });

@@ -14,7 +14,7 @@ module.exports = React.createClass({
     return {
             navable: false,
             backdrop: false,
-            classList: "container ignition-modal systemNotificationContent col-xs-1",
+            classList: "container ignition-modal systemNotificationContent",
             children: [],
             input: null,
             columns: "col-xs-12"
@@ -25,7 +25,6 @@ module.exports = React.createClass({
 
         if (this.props.backdrop) {
             var main = document.getElementById("main");
-            console.log(main)
             main.classList.add("opacity-50");
         }
 
@@ -33,11 +32,8 @@ module.exports = React.createClass({
 
     render: function() {
 
-        // var backdrop;
-
-
         return (
-            
+
 
             <div>
 
@@ -49,6 +45,3 @@ module.exports = React.createClass({
         );
     }
 });
-
-
-

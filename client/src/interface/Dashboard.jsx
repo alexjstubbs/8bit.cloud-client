@@ -27,13 +27,6 @@ var myMessages = [
     {"username": "Andie", "attachment": true, "body": "Yo"}
 ]
 
-// var activities = [
-//     { 'username': 'Sergeant Stubbs', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Castlevania"},
-//     { 'username': 'Ascetic0990',   'activity': "achievement", "timestamp": "2014081210323", "game": "Resident Evil"},
-//     { 'username': 'Alex', 'activity': "gameplay", "timestamp": "2013121210230", "game": "Super Mario"},
-//     { 'username': 'Andie',   'activity': "achievement", "timestamp": "2012081210323", "game": "Resident Evil"}
-// ];
-
 var actionSet = [
     {"type": "Achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
     {"type": "Gameplay", "string": "recently played", "icon": "ion-ios-game-controller-a", "color": "red-bg"}
@@ -65,7 +58,7 @@ var eventSet = [
 ];
 /* Components
 -------------------------------------------------- */
-     
+
 module.exports = React.createClass({
 
 
@@ -79,7 +72,7 @@ module.exports = React.createClass({
         return {
             hidden: false,
             parent: true
-        }   
+        }
     },
 
     componentDidMount: function() {
@@ -105,14 +98,14 @@ module.exports = React.createClass({
         return (
 
             <div id="home" className={classes}>
-            
+
             <UserProfile username={myProfile[0].username} isOnline={myProfile[0].username} />
             <HeaderGroup myMessages={this.state.messages} />
-            
-            <div className="clearfix"></div> 
+
+            <div className="clearfix"></div>
             <br />
 
-            <div className="container-fluid" id="area"> 
+            <div className="container-fluid" id="area">
             <div data-screen='home' className="screen">
 
             <RecentActivity actionSet={actionSet} />
