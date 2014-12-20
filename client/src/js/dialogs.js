@@ -8,6 +8,7 @@ var systemNotify    = require('./notification.init.js')
 ,   Messages        = require('../interface/Messages.jsx')
 ,   Popup           = require('../interface/Popup.jsx')
 ,   Prompt          = require('../interface/Prompt.jsx')
+,   Terminal        = require('../interface/Terminal.jsx')
 ,   WebBrowser      = require('../interface/WebBrowser.jsx')
 ,   SignUp          = require('../interface/forms/SignUp.jsx')
 ,   AddFriend       = require('../interface/forms/AddFriend.jsx')
@@ -93,6 +94,9 @@ var show = function(parent, parameters, arg) {
     switch(parent) {
         case "WebBrowser":
             Child = WebBrowser({url: parameters});
+            break;
+        case "Terminal":
+            Child = Terminal();
             break;
         case "Prompt":
             properties = {backdrop: true};

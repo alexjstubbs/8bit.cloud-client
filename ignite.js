@@ -41,6 +41,10 @@ global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
+// 
+// var child = require('child_process').fork('ignition_modules/tty/terminal.js');
+
+
 
 /* Initial Setup
 -------------------------------------------------- */
@@ -73,7 +77,6 @@ app.use(methodOverride());
 app.use(app.router);
 app.use(common.express.compress());
 app.use(common.express.static(__dirname + '/client'));
-
 app.use(common.express.errorHandler());
 
 /* Anonymous Analytics OPT-IN

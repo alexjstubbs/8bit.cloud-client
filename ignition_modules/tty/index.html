@@ -1,0 +1,88 @@
+<!doctype html>
+<title>term.js</title>
+<!--
+  term.js
+  Copyright (c) 2012-2013, Christopher Jeffrey (MIT License)
+-->
+<style>
+    body {
+        background:#000;
+    }
+
+  .terminal {
+    float: left;
+    border: #000 solid 5px;
+    font-family: "DejaVu Sans Mono", "Liberation Mono", monospace;
+    font-size: 12px;
+    color: #f0f0f0;
+    background: red;
+  }
+
+  .terminal-cursor {
+    color: #000;
+    background: #f0f0f0;
+  }
+
+</style>
+<script src="/socket.io/socket.io.js"></script>
+<script src="term.js"></script>
+<script>
+;(function() {
+  window.onload = function() {
+    var socket = io.connect();
+    socket.on('connect', function() {
+      var term = new Terminal({
+
+              "termName": "xterm",
+              "geometry": [120, 24],
+              "scrollback": 1000,
+              "visualBell": false,
+              "popOnBell": false,
+              "cursorBlink": true,
+              "screenKeys": false,
+              "colors": [
+              "#2e3436",
+              "#cc0000",
+              "#4e9a06",
+              "#c4a000",
+              "#3465a4",
+              "#75507b",
+              "#06989a",
+              "#d3d7cf",
+              "#555753",
+              "#ef2929",
+              "#8ae234",
+              "#fce94f",
+              "#729fcf",
+              "#ad7fa8",
+              "#34e2e2",
+              "#eeeeec"
+              ]
+
+      });
+
+      term.on('data', function(data) {
+        socket.emit('data', data);
+      });
+
+      term.on('title', function(title) {
+        document.title = title;
+      });
+
+      term.open(document.body);
+
+      term.write('\x1b[31mIgnition Console Module v0.12.\x1b[m\r\n');
+      term.write('\x1b[31mUse command: \'quit\' to exit\x1b[m\r\n');
+
+
+      socket.on('data', function(data) {
+        term.write(data);
+      });
+
+      socket.on('disconnect', function() {
+        term.destroy();
+      });
+    });
+  };
+}).call(this);
+</script>

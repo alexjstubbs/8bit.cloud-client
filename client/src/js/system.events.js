@@ -220,6 +220,14 @@ var events = {
 		}, 500);
 	},
 
+	/* 	Terminal
+	-------------------------------------------------- */
+	showTerminal: function(parameters) {
+
+		dialog.show("Terminal");
+
+	},
+	
 	/* 	Go to URL (web browser)
 	-------------------------------------------------- */
 	gotoUrl: function(parameters) {
