@@ -2007,12 +2007,14 @@ module.exports = React.createClass({displayName: 'exports',
 
         api.emit('request', { request: 'sessionProfile', param: null});
         api.on('api', this.setState.bind(this));
-
+    
     },
 
     render: function() {
 
         var Avatar;
+
+        Avatar = true;
 
         if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.state.session.Avatar)) {
             Avatar = true
@@ -3826,14 +3828,24 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
         return (
-                 
-            React.DOM.li({className: "navable user-profile-card", 'data-function': "logIn", 'data-parameters': this.props.username}, 
-                React.DOM.i({className: "ion-person"}), 
-                React.DOM.h1(null, this.props.username)
+
+            React.DOM.li({className: "navable user-profile-card muted", 'data-function': "logIn", 'data-parameters': this.props.username}, 
+
+                React.DOM.div({className: "profiles-avatar col-xs-5"}, 
+                    React.DOM.i({className: "ion-ios-game-controller-b-outline"})
+                ), 
+
+                React.DOM.ul({className: "col-xs-7"}, 
+                    React.DOM.li(null, React.DOM.h1(null, this.props.username)), 
+                    React.DOM.li(null, React.DOM.span({className: "mute"}, "Last Seen:"), " Yesterday"), 
+                    React.DOM.li(null, React.DOM.span({className: "mute"}, "Playtime:"), " 12 hours")
+                )
+
             )
         )
     }
 });
+
 },{"../js/navigation.init":76,"lodash":85,"react/addons":87}],32:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -3875,15 +3887,17 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
         return (
-      
+
             React.DOM.div({className: "parent"}, 
 
                 React.DOM.ul({id: "profile-list", className: "scroll-into-view"}, 
+
                     React.DOM.li({className: "no-show"}, "     "), 
 
                         profileNodes, 
 
                      React.DOM.li({className: "no-show"}, "     ")
+                     
                 )
 
             )
@@ -3891,6 +3905,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
+
 },{"../js/navigation.init":76,"./Profile.jsx":31,"lodash":85,"react/addons":87,"socket.io-client":246}],33:[function(require,module,exports){
 /**
 * @jsx React.DOM
@@ -4167,20 +4182,21 @@ var React = require('react/addons');
 module.exports = React.createClass({displayName: 'exports',
     render: function() {
         return (
-            React.DOM.div({className: "well home_well col-md-12"}, 
+            React.DOM.div({className: "dashboard-tools well home_well col-md-12"}, 
                 React.DOM.ul(null, 
                     React.DOM.li({className: "col-md-1"}), 
-                    React.DOM.li({className: "col-md-2"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-up-c"})), " QUICK LAUNCH"), 
-                    React.DOM.li({className: "col-md-2"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-down-c"})), " FAVORITES"), 
-                    React.DOM.li({className: "col-md-2"}, React.DOM.strong(null, "F5:"), " MESSAGES"), 
-                    React.DOM.li({className: "col-md-2"}, React.DOM.strong(null, "F10:"), " FRIENDS"), 
-                    React.DOM.li({className: "col-md-2"}, React.DOM.strong(null, "F5:"), " SETTINGS")
+                    React.DOM.li({className: "col-md-2 navable", 'data-function': "launchBrowser", 'data-parameters': "http://ignition.io"}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
+                    React.DOM.li({className: "col-md-2 navable", 'data-function': "showTerminal"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-terminal"})), " Terminal"), 
+                    React.DOM.li({className: "col-md-2 navable"}, React.DOM.strong(null, React.DOM.i({className: "ion-gear-a"})), " Settings"), 
+                    React.DOM.li({className: "col-md-2 navable", 'data-function': "logOut"}, React.DOM.strong(null, React.DOM.i({className: "ion-log-out"})), " Logout"), 
+                    React.DOM.li({className: "col-md-2 navable"}, React.DOM.strong(null, React.DOM.i({className: "ion-power"})), " Shutdown")
                 )
 
             )
         );
     }
 });
+
 },{"react/addons":87}],38:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -5627,7 +5643,7 @@ var io      = require('socket.io-client')
 var connect = function() {
 
     api.on('connect', function(){
-		
+
    	// Offset List roms? or list roms on switch tab
     //  setTimeout(function() {
     //     api.emit('request', { request: 'listRoms', param: "Nintendo" });
@@ -5637,9 +5653,9 @@ var connect = function() {
 
 
   /* Server to Client Notification
-  -------------------------------------------------- */    
+  -------------------------------------------------- */
   api.on('messaging', function(data, sock) {
-			
+
 		  dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
 
 	});
@@ -5648,7 +5664,7 @@ var connect = function() {
   /* Server to Client Communication
   -------------------------------------------------- */
   api.on('clientEvent', function(data, sock) {
-    
+
       events[data.command](data.params);
 
   });
@@ -5659,6 +5675,7 @@ var connect = function() {
 -------------------------------------------------- */
 exports.connect = connect;
 exports.api     = api;
+
 },{"../dialogs":64,"../system.events":82,"socket.io-client":246}],63:[function(require,module,exports){
 /* Clientside Database Helpers
 -------------------------------------------------- */
@@ -7928,6 +7945,13 @@ var events = {
 
     },
 
+	/*  Log Out
+	-------------------------------------------------- */
+	logOut: function(parameters) {
+
+		window.location = 'http://127.0.0.1:1210/profiles';
+
+	},
 
     /* Save Wifi Config
     -------------------------------------------------- */
@@ -8044,7 +8068,7 @@ var events = {
 		dialog.show("Terminal");
 
 	},
-	
+
 	/* 	Go to URL (web browser)
 	-------------------------------------------------- */
 	gotoUrl: function(parameters) {

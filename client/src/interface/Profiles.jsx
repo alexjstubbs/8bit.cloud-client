@@ -38,15 +38,17 @@ module.exports = React.createClass({
         });
 
         return (
-      
+
             <div className="parent">
 
-                <ul id="profile-list" className="scroll-into-view">   
-                    <li className="no-show"> &nbsp; &nbsp; </li>  
+                <ul id="profile-list" className="scroll-into-view">
+
+                    <li className="no-show"> &nbsp; &nbsp; </li>
 
                         {profileNodes}
 
-                     <li className="no-show"> &nbsp; &nbsp; </li>  
+                     <li className="no-show"> &nbsp; &nbsp; </li>
+                     
                 </ul>
 
             </div>

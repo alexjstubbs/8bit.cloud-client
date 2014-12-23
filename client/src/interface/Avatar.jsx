@@ -22,12 +22,14 @@ module.exports = React.createClass({
 
         api.emit('request', { request: 'sessionProfile', param: null});
         api.on('api', this.setState.bind(this));
-
+    
     },
 
     render: function() {
 
         var Avatar;
+
+        Avatar = true;
 
         if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.state.session.Avatar)) {
             Avatar = true

@@ -96,6 +96,8 @@ function listProfiles(nsp) {
 -------------------------------------------------- */
 function profileLogin(nsp) {
 
+    console.log("CALLED PROFILE LOGIN...");
+
     // Error Handeling
      function profileError(err) {
 

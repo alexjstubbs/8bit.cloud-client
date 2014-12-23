@@ -11,7 +11,7 @@ var io      = require('socket.io-client')
 var connect = function() {
 
     api.on('connect', function(){
-		
+
    	// Offset List roms? or list roms on switch tab
     //  setTimeout(function() {
     //     api.emit('request', { request: 'listRoms', param: "Nintendo" });
@@ -21,9 +21,9 @@ var connect = function() {
 
 
   /* Server to Client Notification
-  -------------------------------------------------- */    
+  -------------------------------------------------- */
   api.on('messaging', function(data, sock) {
-			
+
 		  dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
 
 	});
@@ -32,7 +32,7 @@ var connect = function() {
   /* Server to Client Communication
   -------------------------------------------------- */
   api.on('clientEvent', function(data, sock) {
-    
+
       events[data.command](data.params);
 
   });

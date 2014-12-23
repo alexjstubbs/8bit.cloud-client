@@ -530,25 +530,29 @@ textarea.form-control {
 	top:40vh;
 }
 
+/* Dashboard Toolbar
+-------------------------------------------------- */
+.dashboard-tools li {
+    opacity:0.4;
+    font-size:1em;
+    padding:10px;
+}
+
+.dashboard-tools li i {
+    color:@white;
+    padding:0 10px 0 0;
+}
 
 /* Profiles (login)
 -------------------------------------------------- */
-
 
 ul#profile-list {
     overflow-y:hidden;
     overflow-x:visible;
     white-space:nowrap;
     list-style-type: none !important;
-    margin:10vw 0 0 0vw;
+    margin:3vw 0 0 0vw;
     padding:10px 25px;
-}
-
-
-ul#profile-list li {
-    display:inline-block;
-    margin:0 30px 0 30px;
-    color:@gray-dark;
 }
 
 
@@ -557,28 +561,77 @@ ul#profile-list li span.emulator {
 }
 
 .user-profile-card {
-	background:@blue;
-	color:@white;
-	width:300px;
-	height:300px;
-	text-align: center;
-	padding:10px;
-	opacity:0.2;
-}
+	background:lighten(@black, 10%);
+    width:50vw;
+    height:40vh;
+    padding:40px;
 
-.user-profile-card i:first-child {
-	font-size:10em;
-	color:darken(@blue, 15%);
+    opacity:0.3;
+    border-left:2px solid @red;
 }
 
 .user-profile-card.selectedNav {
-	opacity:1.0;
-	color:@white;
-	-ms-transform: scale(1.2); /* IE 9 */
-    -webkit-transform: scale(1.2); /* Chrome, Safari, Opera */
-    transform: scale(1.2);
+    display:block;
+    opacity:1;
 }
 
+.user-profile-card ul {
+    list-style-type:none;
+}
+
+.user-profile-card ul li i {
+    text-align:right;
+
+}
+
+.user-profile-card {
+    list-style-type:none;
+    font-size:1.5em;
+}
+
+.user-profile-card .profiles-avatar {
+    width:140px;
+    height:140px;
+    background:@primary;
+
+    color:darken(@primary, 10%);
+    margin-right:15px;
+}
+
+.profiles-avatar i {
+    font-size:6em;
+    position:relative;
+    top:-20px;
+}
+
+/*
+.user-profile-card:first-child  .profiles-avatar {
+    color:darken(@primary, 10%);
+    background:@primary;
+}
+ */
+
+
+.user-profile-card:nth-child(3n+0)  .profiles-avatar {
+    color:darken(@purple, 10%);
+    background:@purple;
+
+}
+
+.user-profile-card:nth-child(4n+0)  .profiles-avatar {
+    color:darken(@blue, 10%);
+    background:@blue;
+
+}
+
+/* .user-profile-card.selectedNav {
+    opacity:1.0;
+    color:@white;
+    -ms-transform: scale(1.2); IE 9
+    -webkit-transform: scale(1.2); Chrome, Safari, Opera
+    transform: scale(1.2);
+}
+ */
 
 /* Keyboard
 -------------------------------------------------- */
@@ -937,6 +990,13 @@ i.start {
     -moz-animation: outlineAnimation 0.6s infinite;
     -webkit-animation: outlineAnimation 0.6s infinite;
 	animation: outlineAnimation 0.6s infinite;
+}
+
+.selectedNav.muted {
+    -moz-animation: none;
+    -webkit-animation:none;
+    animation: none;
+    outline:none;
 }
 
 @keyframes outlineAnimation {

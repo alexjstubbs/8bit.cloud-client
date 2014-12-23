@@ -111,6 +111,13 @@ var events = {
 
     },
 
+	/*  Log Out
+	-------------------------------------------------- */
+	logOut: function(parameters) {
+
+		window.location = 'http://127.0.0.1:1210/profiles';
+
+	},
 
     /* Save Wifi Config
     -------------------------------------------------- */
@@ -227,7 +234,7 @@ var events = {
 		dialog.show("Terminal");
 
 	},
-	
+
 	/* 	Go to URL (web browser)
 	-------------------------------------------------- */
 	gotoUrl: function(parameters) {

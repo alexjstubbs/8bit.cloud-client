@@ -23,10 +23,19 @@ module.exports = React.createClass({
 
     render: function() {
         return (
-                 
-            <li className="navable user-profile-card" data-function="logIn" data-parameters={this.props.username}>
-                <i className='ion-person'></i>
-                <h1>{this.props.username}</h1>
+
+            <li className="navable user-profile-card muted" data-function="logIn" data-parameters={this.props.username}>
+
+                <div className="profiles-avatar col-xs-5">
+                    <i className='ion-ios-game-controller-b-outline'></i>
+                </div>
+
+                <ul className="col-xs-7">
+                    <li><h1>{this.props.username}</h1></li>
+                    <li><span className="mute">Last Seen:</span> Yesterday</li>
+                    <li><span className="mute">Playtime:</span> 12 hours</li>
+                </ul>
+
             </li>
         )
     }
