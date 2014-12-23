@@ -1,5 +1,5 @@
 #Ignition
-### A modern social retro gaming OS designed for your living room.
+###### A modern social retro gaming OS designed for your living room.
 
 --
 
