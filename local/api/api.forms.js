@@ -89,6 +89,11 @@ var validate = function(data, callback) {
         // Add A Friend
         case "addFriend": {
             callback(_validate(data, addFriend_constraints));
+            break;
+        }
+
+        case "passMessage": {
+            callback();
         }
     }
 

@@ -10,15 +10,26 @@ var fs          = require('fs-extra')
 ,   forms       = require('../../api/api.forms')
 ,   bcrypt      = require('bcrypt')
 ,   profiles    = require('../../api/api.profiles')
-,   fileFunc    = require('../../system/system.write');
+,   fileFunc    = require('../../system/system.write')
+,   fileRead    = require('../../system/system.read')
+,   serverapi;
 
-/* Set up (use config file)
+/* Set up
 -------------------------------------------------- */
+// fileRead.readJSONFile(null, './config/server.json', function(err, data) {
+//
+//     if (!err) {
+//         var serverapi = data.protocol + path.join(data.address, "api", (data.api));
+//     }
+//
+//     else {
+//         nsp.emit('messaging', {type: 0, body: err });
+//     }
+//
+// });
 
-// var server      = "ignition.io:3000"
-var server      = "127.0.0.1:3000"
-,   port        = 3000
-,   v           = "v1";
+var server = "https://127.0.0.1:3000";
+
 
 /* Password Hash
 -------------------------------------------------- */
@@ -29,7 +40,7 @@ var passHash = function(input, callback) {
         bcrypt.hash("SEGA", salt, function(err, hash) {
 
             if (err) {
-                console.log(err);
+                nsp.emit('messaging', {type: 0, body: err });
             }
 
             else {
@@ -49,7 +60,7 @@ var addFriend = function(nsp, data) {
 
 /* Friends Endpoint
 -------------------------------------------------- */
-var getFriend = function(nsp) {
+var getFriends = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getFriends' });
 }
 
@@ -63,6 +74,20 @@ var getActivities = function(nsp) {
 -------------------------------------------------- */
 var getMessages = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getMessages' });
+}
+
+/*  Send Message
+-------------------------------------------------- */
+var passMessage = function(nsp, data) {
+
+    data = {
+        To: "Alex--",
+        Type: "message",
+        Attachment: false,
+        Body: "Welp. ok whats happenins?"
+    }
+
+    sockets.networkInterface(nsp, { cmd: 'passMessage', parameters: data });
 }
 
 /* Submit Cache Form (offline/online store)
@@ -117,11 +142,17 @@ var submitForm = function(nsp, data, callback) {
         if (validation == undefined) {
 
             var forms = {
+
                     signUp: function() {
                         signUp(nsp, data, callback);
                     },
+
                     addFriend: function() {
                         addFriend(nsp, data)
+                    },
+
+                    passMessage: function() {
+                        passMessage(nsp, data);
                     }
                 }
 
@@ -494,11 +525,10 @@ var leaveSession = function(nsp) {
 
 exports.getCommunity    = getCommunity;
 exports.getEvents       = getEvents;
-// exports.getMessages     = signUp;
 exports.getMessages     = getMessages;
 exports.getSession      = getSession;
 exports.leaveSession    = leaveSession;
-exports.getFriend       = getFriend;
+exports.getFriends      = getFriends;
 exports.getActivities   = getActivities;
 exports.signUp          = signUp;
 exports.submitForm      = submitForm;

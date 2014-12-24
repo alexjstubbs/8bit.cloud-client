@@ -42,7 +42,7 @@ global.__sessionFile        = appDir+"/config/profiles/Session.json";
 api(__api);
 
 //
-var child = require('child_process').fork('ignition_modules/tty/terminal.js');
+// var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
 
 

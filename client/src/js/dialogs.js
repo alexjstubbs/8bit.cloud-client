@@ -12,6 +12,7 @@ var systemNotify    = require('./notification.init.js')
 ,   WebBrowser      = require('../interface/WebBrowser.jsx')
 ,   SignUp          = require('../interface/forms/SignUp.jsx')
 ,   AddFriend       = require('../interface/forms/AddFriend.jsx')
+,   PassMessage     = require('../interface/forms/PassMessage.jsx')
 ,   CommunityInfo   = require('../interface/CommunityInfo.jsx')
 ,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
@@ -93,9 +94,11 @@ var show = function(parent, parameters, arg) {
     // TODO: Use another method.
     switch(parent) {
         case "WebBrowser":
+            properties = {backdrop: true};
             Child = WebBrowser({url: parameters});
             break;
         case "Terminal":
+            properties = {backdrop: true};
             Child = Terminal();
             break;
         case "Prompt":
@@ -108,7 +111,11 @@ var show = function(parent, parameters, arg) {
         case "AddFriend":
             Child = AddFriend({});
             break;
+        case "PassMessage":
+            Child = PassMessage({});
+            break;
         case "Community":
+            properties = {backdrop: true};
             properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
             Child = CommunityInfo({});
             break;

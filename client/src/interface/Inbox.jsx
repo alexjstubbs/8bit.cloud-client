@@ -19,7 +19,7 @@ module.exports = React.createClass({
             newMessages: false,
             messageCount: 0,
             shortcutKey: "F9",
-            functionCall: "viewMessages",
+            functionCall: "passMessage",
             classString: "col-md-3 pull-left square dark-gray",
             id: "inbox"
         }
@@ -29,7 +29,7 @@ module.exports = React.createClass({
         newMessages = this.props.myMessages;
 
         if (this.props.myMessages.length > 0) {
-            newMessages = true 
+            newMessages = true
         }
 
         var cx = React.addons.classSet;
@@ -52,6 +52,3 @@ module.exports = React.createClass({
         );
     }
 });
-
-
-

@@ -300,6 +300,12 @@ var events = {
         dialog.show("SignUp");
 	},
 
+	/* Send Message
+	-------------------------------------------------- */
+	passMessage: function(parameters) {
+		dialog.show("PassMessage");
+	},
+
 	/* Add a Friend(Request)
     -------------------------------------------------- */
     addFriend: function(parameters) {

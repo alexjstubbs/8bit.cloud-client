@@ -2,14 +2,16 @@
 -------------------------------------------------- */
 var api = require('../api');
 
+/*  Entry Point for Network
+-------------------------------------------------- */
 var serverEvents = function(nsp) {
 
 	nsp.on('network', function(data) {
-
-	    console.log("data:"+data);
 
 	})
 
 };
 
+/*  Exports
+-------------------------------------------------- */
 exports.serverEvents = serverEvents;
