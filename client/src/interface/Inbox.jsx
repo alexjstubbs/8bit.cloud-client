@@ -19,7 +19,7 @@ module.exports = React.createClass({
             newMessages: false,
             messageCount: 0,
             shortcutKey: "F9",
-            functionCall: "passMessage",
+            functionCall: "viewMessages",
             classString: "col-md-3 pull-left square dark-gray",
             id: "inbox"
         }

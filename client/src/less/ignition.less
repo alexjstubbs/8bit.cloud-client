@@ -1929,6 +1929,37 @@ p.game_deck {
     overflow:hidden;
 }
 
+.message-unread {
+    opacity:1.0;
+}
+
+
+.message-read {
+    opacity:0.5;
+}
+
+.message-preview {
+    border:1px solid @gray-dark;
+    margin:10px 0;
+    position:relative;
+    overflow:hidden;
+    height:15vh;
+}
+
+.message-preview .preview {
+    position:relative;
+    top:5vh;
+    padding:0 0 0 10px;
+    border-left:1px solid @gray-dark;
+}
+
+.message-preview .timestamp {
+    position:relative;
+    top:5vh;
+    .text-right;
+    border-left:1px solid @gray-dark;
+}
+
 /* Sign Up (Overrides Login)
 -------------------------------------------------- */
 

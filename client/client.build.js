@@ -3030,7 +3030,7 @@ module.exports = React.createClass({displayName: 'exports',
             newMessages: false,
             messageCount: 0,
             shortcutKey: "F9",
-            functionCall: "passMessage",
+            functionCall: "viewMessages",
             classString: "col-md-3 pull-left square dark-gray",
             id: "inbox"
         }
@@ -3284,43 +3284,125 @@ module.exports = React.createClass({displayName: 'exports',
     } 
 });
 },{"lodash":86,"react/addons":88}],22:[function(require,module,exports){
+/**
+* @jsx React.DOM
+*/
 
-},{}],23:[function(require,module,exports){
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   NetworkStatus   = require('./NetworkStatus.jsx')
+,   navigationInit  = require('../js/navigation.init');
+
+module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+        return {
+            message: null
+        }
+    },
+
+    componentDidMount: function() {
+
+        navigationInit.navigationInit();
+
+    },
+
+    getDefaultProps: function() {
+
+        return {
+            navable: true,
+            navStack: 2,
+            From: null,
+            Avatar: React.DOM.div({className: "col-md-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
+            Body: "No Content",
+            messageId: null,
+            Type: "Message"
+        }
+    },
+
+    render: function() {
+
+        var message = JSON.parse(this.props.message);
+        return (
+
+            React.DOM.div({className: "parent"}, 
+
+                message.Body, 
+
+                React.DOM.hr(null), 
+
+                React.DOM.button({className: "navable btn btn-alt btn-alt-size"}, "Close Message"), 
+                React.DOM.button({className: "navable btn btn-alt btn-alt-size"}, "Delete Message"), 
+                React.DOM.button({className: "navable btn btn-alt btn-alt-size"}, "Reply")
+
+            )
+
+        );
+    }
+});
+
+},{"../js/navigation.init":77,"./NetworkStatus.jsx":26,"lodash":86,"react/addons":88}],23:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
 
 var React           = require('react/addons')
 ,   _               = require('lodash')
-,   NetworkStatus   = require('./NetworkStatus.jsx');
-
-// { "type": "text", "sender": "Alex Stubbs", "attachment": null, "timestamp": 2013121210230 }
+,   NetworkStatus   = require('./NetworkStatus.jsx')
+,   navigationInit      = require('../js/navigation.init');
 
 module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+            return {
+                friends: []
+            }
+    },
+
+    componentDidMount: function() {
+
+        navigationInit.navigationInit();
+
+    },
 
     getDefaultProps: function() {
 
     return {
             navable: true,
             navStack: 2,
-            Avatar: React.DOM.i({className: "ion-person"}),
-            Body: "No Content"
+            From: null,
+            Avatar: React.DOM.div({className: "col-md-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
+            Body: "No Content",
+            Type: "Message"
         }
     },
 
     render: function() {
 
+        var messageObj = JSON.stringify(this.props.message);
+
         return (
 
-            React.DOM.div(null, 
+            React.DOM.div({className: "navable message-preview message-unread", 'data-function': "viewMessage", 'data-parameters': messageObj}, 
 
                 React.DOM.div({className: "col-xs-1"}, 
-                    this.props.Avatar
+
+                    React.DOM.small({className: "timestamp"}, React.DOM.span({className: "label label-info"}, this.props.From))
                 ), 
 
-                React.DOM.div({className: "col-xs-11"}, 
-                    this.props.Body
-                )
+                React.DOM.div({className: "col-xs-8"}, 
+                    React.DOM.p({className: "preview"}, this.props.Body)
+                ), 
+
+                React.DOM.div({className: "col-xs-3"}, 
+
+                    React.DOM.p({className: "timestamp"}, this.props.timestamp)
+
+                ), 
+
+                React.DOM.div({className: "clearfix"}), 
+
+                React.DOM.br(null)
 
 
             )
@@ -3329,7 +3411,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"./NetworkStatus.jsx":26,"lodash":86,"react/addons":88}],24:[function(require,module,exports){
+},{"../js/navigation.init":77,"./NetworkStatus.jsx":26,"lodash":86,"react/addons":88}],24:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3338,23 +3420,23 @@ var React               = require('react/addons')
 ,   _                   = require('lodash')
 ,   moment              = require('moment')
 ,   MessagePreview      = require('./MessagePreview.jsx')
-,   api                 = require('socket.io-client')('/api');
+,   api                 = require('socket.io-client')('/api')
+,   navigationInit      = require('../js/navigation.init');
 
 
 module.exports = React.createClass({displayName: 'exports',
 
+
     getInitialState: function() {
         return {
-            messages: [
-                // { "From": "text", "To": "Alexander Stubbs", "Attachment": null, "timestamp": 2013121210230 },
-                // { "From": "text", "To": "Romanania Stubbs", "Attachment": null, "timestamp": 2012121210230 }
-            ]
-        };
+            messages: []
+        }
     },
 
     componentDidMount: function () {
         api.emit('request', { request: 'messages'});
-        api.on('api', this.setState.bind(this));
+        api.on('network-api', this.setState.bind(this));
+
      },
 
     getDefaultProps: function() {
@@ -3367,20 +3449,34 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         var messageNodes = this.state.messages.map(function (message, i) {
-          return MessagePreview({key: i.id, avatar: message.From, body: message.Body, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
+          return MessagePreview({key: i.id, message: message, messageId: message._id, From: message.From, Body: message.Body, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
         });
 
         return (
 
-            React.DOM.div(null, 
-                messageNodes
+            React.DOM.div({className: "parent"}, 
+
+                messageNodes, 
+
+                React.DOM.hr(null), 
+
+                React.DOM.span({className: "pull-left"}, 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "closeDialog"}, 
+                    React.DOM.i({className: "ion-close red"}), "   Close Window")
+                ), 
+
+                React.DOM.span({className: "pull-right"}, 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "passMessage"}, 
+                    React.DOM.i({className: "ion-paper-airplane green"}), "   New Message")
+                )
+
             )
 
         );
     }
 });
 
-},{"./MessagePreview.jsx":23,"lodash":86,"moment":87,"react/addons":88,"socket.io-client":247}],25:[function(require,module,exports){
+},{"../js/navigation.init":77,"./MessagePreview.jsx":23,"lodash":86,"moment":87,"react/addons":88,"socket.io-client":247}],25:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -5888,6 +5984,7 @@ var systemNotify    = require('./notification.init.js')
 ,   api             = require('socket.io-client')('/api')
 ,   React           = require('react/addons')
 ,   Modal           = require('../interface/Modal.jsx')
+,   Message         = require('../interface/Message.jsx')
 ,   Messages        = require('../interface/Messages.jsx')
 ,   Popup           = require('../interface/Popup.jsx')
 ,   Prompt          = require('../interface/Prompt.jsx')
@@ -5999,6 +6096,10 @@ var show = function(parent, parameters, arg) {
         case "Messages":
             Child = Messages({});
             break;
+        case "Message":
+            properties = {backdrop: true};
+            Child = Message({message: parameters});
+            break;
         case "Community":
             properties = {backdrop: true};
             properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
@@ -6079,7 +6180,7 @@ exports.keyboard            = keyboard;
 exports.popup               = popup;
 exports.general             = general;
 
-},{"../interface/CommunityInfo.jsx":8,"../interface/GeneralDialog.jsx":15,"../interface/Messages.jsx":24,"../interface/Modal.jsx":25,"../interface/OnScreenKeyboard.jsx":27,"../interface/Popup.jsx":30,"../interface/Prompt.jsx":33,"../interface/Terminal.jsx":39,"../interface/WebBrowser.jsx":42,"../interface/forms/AddFriend.jsx":43,"../interface/forms/PassMessage.jsx":44,"../interface/forms/SignUp.jsx":45,"./navigation.init.js":77,"./notification.init.js":82,"lodash":86,"react/addons":88,"socket.io-client":247}],66:[function(require,module,exports){
+},{"../interface/CommunityInfo.jsx":8,"../interface/GeneralDialog.jsx":15,"../interface/Message.jsx":22,"../interface/Messages.jsx":24,"../interface/Modal.jsx":25,"../interface/OnScreenKeyboard.jsx":27,"../interface/Popup.jsx":30,"../interface/Prompt.jsx":33,"../interface/Terminal.jsx":39,"../interface/WebBrowser.jsx":42,"../interface/forms/AddFriend.jsx":43,"../interface/forms/PassMessage.jsx":44,"../interface/forms/SignUp.jsx":45,"./navigation.init.js":77,"./notification.init.js":82,"lodash":86,"react/addons":88,"socket.io-client":247}],66:[function(require,module,exports){
 /* API Event Listeners
 -------------------------------------------------- */
 var api             = require('socket.io-client')('/api')
@@ -8242,6 +8343,12 @@ var events = {
     -------------------------------------------------- */
     viewMessages: function(parameters) {
         dialog.show("Messages");
+	},
+
+	/*  View Single Message
+	-------------------------------------------------- */
+	viewMessage: function(parameters) {
+		dialog.show("Message", parameters)
 	},
 
 	/* Send Message

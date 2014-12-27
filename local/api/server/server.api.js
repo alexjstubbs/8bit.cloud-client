@@ -71,7 +71,7 @@ var getActivities = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getActivities' });
 }
 
-/* Message Endpoint
+/* Messages Endpoint
 -------------------------------------------------- */
 var getMessages = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getMessages' });
@@ -86,7 +86,7 @@ var passMessage = function(nsp, data) {
     }
 
     else {
-        _data = { 
+        _data = {
             To: data.To,
             Type: data.Type,
             Attachment: false,

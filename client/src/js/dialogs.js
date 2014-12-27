@@ -5,6 +5,7 @@ var systemNotify    = require('./notification.init.js')
 ,   api             = require('socket.io-client')('/api')
 ,   React           = require('react/addons')
 ,   Modal           = require('../interface/Modal.jsx')
+,   Message         = require('../interface/Message.jsx')
 ,   Messages        = require('../interface/Messages.jsx')
 ,   Popup           = require('../interface/Popup.jsx')
 ,   Prompt          = require('../interface/Prompt.jsx')
@@ -115,6 +116,10 @@ var show = function(parent, parameters, arg) {
             break;
         case "Messages":
             Child = Messages({});
+            break;
+        case "Message":
+            properties = {backdrop: true};
+            Child = Message({message: parameters});
             break;
         case "Community":
             properties = {backdrop: true};

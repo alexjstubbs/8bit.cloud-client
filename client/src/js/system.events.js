@@ -300,6 +300,12 @@ var events = {
         dialog.show("Messages");
 	},
 
+	/*  View Single Message
+	-------------------------------------------------- */
+	viewMessage: function(parameters) {
+		dialog.show("Message", parameters)
+	},
+
 	/* Send Message
 	-------------------------------------------------- */
 	passMessage: function(parameters) {
