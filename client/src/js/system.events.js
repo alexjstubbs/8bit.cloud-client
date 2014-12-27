@@ -297,7 +297,7 @@ var events = {
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function(parameters) {
-        dialog.show("SignUp");
+        dialog.show("Messages");
 	},
 
 	/* Send Message

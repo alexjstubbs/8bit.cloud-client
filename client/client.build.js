@@ -2000,6 +2000,7 @@ module.exports = React.createClass({displayName: 'exports',
             session: {
                 Avatar: React.DOM.i({className: "ion-person"})
             }
+
         }
     },
 
@@ -2007,7 +2008,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         api.emit('request', { request: 'sessionProfile', param: null});
         api.on('api', this.setState.bind(this));
-    
+
     },
 
     render: function() {
@@ -2028,24 +2029,14 @@ module.exports = React.createClass({displayName: 'exports',
         var classes = cx({
             'avatared': Avatar,
             'square': true,
-            'pull-left': true,
-            'col-md-2': true
+            'pull-left': true
         });
 
         return (
-             React.DOM.div(null, 
-                React.DOM.div(null, 
-                    React.DOM.div({className: "col-md-4"}, 
-                        React.DOM.div({className: classes}, 
-                            Avatar ? React.DOM.img({src: this.state.session.Avatar, className: "img-responsive"}) : React.DOM.i({className: "ion-person"})
-                        ), 
-                    React.DOM.div({className: "hello col-md-8"}, 
-                        React.DOM.h3({className: "nopadding"}, "Welcome, ", this.props.username, " ", React.DOM.span({className: "muted"})), 
-                        NetworkStatus(null)
-                    )
-                )
+
+            React.DOM.div({className: classes}, 
+                Avatar ? React.DOM.img({src: this.state.session.Avatar, className: "img-responsive"}) : React.DOM.i({className: "ion-person"})
             )
-        )
         );
     }
 });
@@ -3311,7 +3302,9 @@ module.exports = React.createClass({displayName: 'exports',
 
     return {
             navable: true,
-            navStack: 2
+            navStack: 2,
+            Avatar: React.DOM.i({className: "ion-person"}),
+            Body: "No Content"
         }
     },
 
@@ -3320,17 +3313,21 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
             React.DOM.div(null, 
-                NetworkStatus({username: this.props.sender}), 
-                this.props.sender, 
-                React.DOM.div({class: "clearfix"}), React.DOM.br(null)
-            )              
-         
+
+                React.DOM.div({className: "col-xs-1"}, 
+                    this.props.Avatar
+                ), 
+
+                React.DOM.div({className: "col-xs-11"}, 
+                    this.props.Body
+                )
+
+
+            )
+
         );
     }
 });
-
-
-
 
 },{"./NetworkStatus.jsx":26,"lodash":86,"react/addons":88}],24:[function(require,module,exports){
 /**
@@ -3349,13 +3346,13 @@ module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
             messages: [
-                { "From": "text", "To": "Alexander Stubbs", "Attachment": null, "timestamp": 2013121210230 },
-                { "From": "text", "To": "Romanania Stubbs", "Attachment": null, "timestamp": 2012121210230 }
+                // { "From": "text", "To": "Alexander Stubbs", "Attachment": null, "timestamp": 2013121210230 },
+                // { "From": "text", "To": "Romanania Stubbs", "Attachment": null, "timestamp": 2012121210230 }
             ]
         };
     },
 
-    componentDidMount: function () {   
+    componentDidMount: function () {
         api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
      },
@@ -3363,29 +3360,25 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
     return {
-            navable: true,
-            navStack: 2
+            navable: true
         }
     },
 
     render: function() {
 
         var messageNodes = this.state.messages.map(function (message, i) {
-          return MessagePreview({key: i.id, navStack: i+1, sender: message.from, attachments: message.attachment, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
+          return MessagePreview({key: i.id, avatar: message.From, body: message.Body, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
         });
 
         return (
 
             React.DOM.div(null, 
                 messageNodes
-            )              
-         
+            )
+
         );
     }
 });
-
-
-
 
 },{"./MessagePreview.jsx":23,"lodash":86,"moment":87,"react/addons":88,"socket.io-client":247}],25:[function(require,module,exports){
 /**
@@ -3394,9 +3387,10 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons')
-,   Backdrop = require('./Backdrop.jsx')
-,   OnScreenKeyboard = require('./OnScreenKeyboard.jsx');
+var React               = require('react/addons')
+,   Backdrop            = require('./Backdrop.jsx')
+,   OnScreenKeyboard    = require('./OnScreenKeyboard.jsx')
+,   _                   = require('lodash');
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -3414,8 +3408,17 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
 
         if (this.props.backdrop) {
+
             var main = document.getElementById("main");
             main.classList.add("opacity-50");
+
+            var modals = document.getElementsByClassName("ignition-modal-parent");
+            _(modals).forEach(function(el) {
+                el.classList.add("opacity-50");
+            });
+
+            _.first(modals).classList.remove("opacity-50");
+
         }
 
     },
@@ -3436,7 +3439,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"./Backdrop.jsx":5,"./OnScreenKeyboard.jsx":27,"react/addons":88}],26:[function(require,module,exports){
+},{"./Backdrop.jsx":5,"./OnScreenKeyboard.jsx":27,"lodash":86,"react/addons":88}],26:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4386,18 +4389,33 @@ module.exports = React.createClass({displayName: 'exports',
         api.emit('request', { request: 'getSession'} );
 
         api.on('api', this.setState.bind(this));
-        
+
     },
 
 
     render: function() {
+
+
+
         return (
+
             React.DOM.div({id: this.props.id}, 
-                UserAvatar({avatar: this.props.avatar, username: this.state.session.Username, isOnline: this.props.isOnline})
+                React.DOM.div(null, 
+                    React.DOM.div({className: "col-md-4"}, 
+                        UserAvatar(null), 
+
+                        React.DOM.div({className: "hello col-md-8"}, 
+                            React.DOM.h3({className: "nopadding"}, "Welcome, ", this.state.session.Username, " ", React.DOM.span({className: "muted"})), 
+                            NetworkStatus(null)
+                        )
+                    )
+                )
             )
+
         );
     }
 });
+
 },{"./Avatar.jsx":4,"./NetworkStatus.jsx":26,"react/addons":88}],42:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -4512,15 +4530,23 @@ module.exports = React.createClass({displayName: 'exports',
 'use strict';
 
 var React           = require('react/addons')
-,   navigationInit  = require('../../js/navigation.init');
+,   navigationInit  = require('../../js/navigation.init')
+,   Avatar          = require('../Avatar.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
+
+    getInitialState: function() {
+            return {
+                type: "message"
+            }
+    },
 
     getDefaultProps: function() {
 
         return {
             navable: true,
             form: 'passMessage',
+            backdrop: true,
             server: "true",
             classList: 'col-xs-12'
         }
@@ -4535,16 +4561,38 @@ module.exports = React.createClass({displayName: 'exports',
         return (
             React.DOM.div({className: "parent"}, 
 
+            React.DOM.div({className: "col-xs-1"}, 
+                Avatar(null)
+            ), 
+
+
             React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
-            React.DOM.fieldset(null, 
+            React.DOM.fieldset({className: "col-xs-11"}, 
 
-            React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "To", name: "To", type: "text"})
+                React.DOM.span({className: "col-xs-12"}, 
+
+                    React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Recipient Username", name: "To", type: "text"}), 
+
+                React.DOM.textarea({'data-function': "inputFocus", name: "Body", className: "textarea-height navable scrollable form-control"}
+                )
+
+                )
 
             ), 
 
-            React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add green pull-right"}), "   Send Message"), 
+            React.DOM.div({className: "clearfix"}), 
 
+            React.DOM.hr(null), 
+
+            React.DOM.div({className: "pull-right"}, 
+
+                React.DOM.button({className: "btn btn-alt btn-alt-size navable", 'data-function': "closeDialog"}, " ", React.DOM.i({className: "ion-close red"}), "   Cancel Message"), 
+                React.DOM.button({className: "btn btn-alt btn-alt-size navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, " ", React.DOM.i({className: "ion-person-add green"}), "   Send Message")
+
+            ), 
+
+            React.DOM.input({type: "hidden", name: "Type", value: this.state.type}), 
             React.DOM.input({type: "hidden", name: "server", value: this.props.server})
 
             )
@@ -4554,7 +4602,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../js/navigation.init":77,"react/addons":88}],45:[function(require,module,exports){
+},{"../../js/navigation.init":77,"../Avatar.jsx":4,"react/addons":88}],45:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -5866,7 +5914,6 @@ var prompt = function(callback) {
 
     React.renderComponent(Modal({children: Prompt(null)}), div);
 
-
 }
 
 /* General Message Dialog
@@ -5918,7 +5965,7 @@ var show = function(parent, parameters, arg) {
         properties  = {}
 
     _div = document.createElement("div");
-    _div.classList.add("ignition-modal");
+    _div.classList.add("ignition-modal-parent");
 
     _div.style.zIndex = _index.length+150;
 
@@ -5949,6 +5996,9 @@ var show = function(parent, parameters, arg) {
         case "PassMessage":
             Child = PassMessage({});
             break;
+        case "Messages":
+            Child = Messages({});
+            break;
         case "Community":
             properties = {backdrop: true};
             properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
@@ -5964,11 +6014,15 @@ var show = function(parent, parameters, arg) {
 -------------------------------------------------- */
 var close = function(modal, callback) {
 
-    // Pase screen switching in background
+    // Pause screen switching in background
     sessionStorage.setItem("navigationState", "");
 
      var main = document.getElementById("main");
-     main.classList.remove("opacity-50");
+     var opacits = document.querySelectorAll(".opacity-50");
+
+     _(opacits).forEach(function(el) {
+            el.classList.remove("opacity-50");
+     });
 
     if (!modal) {
 
@@ -5999,7 +6053,7 @@ var keyboard = function(input, callback) {
     var _index = document.querySelectorAll(".ignition-modal");
 
     var div = document.createElement("div");
-    div.classList.add("ignition-modal", "ignition-keyboard");
+    div.classList.add("ignition-modal-parent", "ignition-keyboard");
     div.style.zIndex = _index.length+150;
 
     document.body.insertBefore(div,  document.body.firstChild);
@@ -6012,7 +6066,7 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
-    React.renderComponent(Modal({backdrop: true}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
+    React.renderComponent(Modal({backdrop: true, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
 }
 
@@ -7308,11 +7362,12 @@ exports.symbolsKeyboard  = symbolsKeyboard;
 },{"./navigation.init.js":77}],80:[function(require,module,exports){
 /* On Screen Keyboard translations
 -------------------------------------------------- */
-var events = require("./events");
+var events = require("./events")
+,   _      = require("lodash");
 
 var keypress = function(parameters) {
 
- var upper, 
+ var upper,
         keys 			= document.getElementsByClassName("_key"),
         activeInput 	= document.getElementById("keyboard-input-area"),
         recentInput 	= document.getElementsByClassName("activeInput")[0],
@@ -7321,7 +7376,7 @@ var keypress = function(parameters) {
         kbType 			= document.querySelectorAll("[data-keyboardtype]")[0].getAttribute("data-keyboardtype"),
         cursor 			= document.querySelectorAll(".cursor");
 
-    
+
     // Key is Uppercase
     if (document.getElementsByClassName("uppercase")[0]) {
         upper = true;
@@ -7337,14 +7392,14 @@ var keypress = function(parameters) {
     }
 
 
-    // Switch for keypress 
+    // Switch for keypress
     switch (parameters) {
 
 	// Symbols
 	case "<i class='ion-code-working'></i>":
 
 		if (kbType == 'alpha') {
-			var event = new CustomEvent('updateKeyboard', { 
+			var event = new CustomEvent('updateKeyboard', {
 			    'detail': {
 			        type: "symbols",
 			    }
@@ -7352,7 +7407,7 @@ var keypress = function(parameters) {
 		}
 
 		else {
-			var event = new CustomEvent('updateKeyboard', { 
+			var event = new CustomEvent('updateKeyboard', {
 			    'detail': {
 			        type: "alpha",
 			    }
@@ -7366,11 +7421,11 @@ var keypress = function(parameters) {
     // Cursor Left
     case "<i class='ion-arrow-left-b opacity-20'></i>":
 
-        
+
     	// = 8 or 9 ???
         // console.log(cursor[0].offsetLeft);
         // console.log(cursor[0].style.left);
-        
+
         // activeInput.innerHTML = activeInput.innerHTML.slice(0,-1);
 
         // console.log(cursor[0].offsetLeft);
@@ -7388,13 +7443,13 @@ var keypress = function(parameters) {
     case "<i class='ion-arrow-right-b opacity-20'></i>":
 
         console.log(cursor[0].offsetLeft);
-        
+
         if (cursor[0].offsetRight != 0) {
 	        cursor[0].style.left = cursor[0].offsetLeft - 7 + "px";
         }
 
         return;
-    
+
     // Accept
     case "<i class='ion-checkmark'></i>":
         // dialog.close();
@@ -7411,17 +7466,17 @@ var keypress = function(parameters) {
         return;
 
     // @
-    case "<i class='ion-at'></i>": 
+    case "<i class='ion-at'></i>":
         activeInput.innerHTML += "@";
 
         cursor[0].scrollIntoView(true);
         recentInput.scrollTop = cursor[0].offsetTop;
-        return; 
+        return;
 
     // Return
     case "<i class='ion-arrow-return-left'></i>":
 
-    	if (type != 'text') { 
+    	if (type != 'text') {
 			activeInput.innerHTML +="<br />";
 			recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
 
@@ -7438,10 +7493,10 @@ var keypress = function(parameters) {
 
         return;
 
-    // Caps 
+    // Caps
     case "<i class='ion-arrow-up-a'></i>":
-        
-        _(keys).forEach(function(key, i) { 
+
+        _(keys).forEach(function(key, i) {
             key.classList.toggle("uppercase");
         });
 
@@ -7449,8 +7504,8 @@ var keypress = function(parameters) {
 
     // Shift (Temp Caps)
     case "<i class='ion-ios7-arrow-thin-up'></i>": {
-        
-        _(keys).forEach(function(key, i) { 
+
+        _(keys).forEach(function(key, i) {
             key.classList.toggle("uppercase");
             key.classList.toggle("temp-uppercase");
         });
@@ -7460,12 +7515,12 @@ var keypress = function(parameters) {
 
     // Letter / Alpha
     default:
-        
-        if (upper) { 
-            parameters = parameters.toUpperCase(); 
+
+        if (upper) {
+            parameters = parameters.toUpperCase();
             upper = false;
         }
-        
+
         activeInput.innerHTML +=parameters;
         recentInput.value = activeInput.innerHTML.replace(/<br>/g, '\r\n');
 
@@ -7478,7 +7533,8 @@ var keypress = function(parameters) {
 -------------------------------------------------- */
 
 exports.keypress = keypress;
-},{"./events":67}],81:[function(require,module,exports){
+
+},{"./events":67,"lodash":86}],81:[function(require,module,exports){
 /* General Navigation Functions
 -------------------------------------------------- */
 
@@ -8185,7 +8241,7 @@ var events = {
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function(parameters) {
-        dialog.show("SignUp");
+        dialog.show("Messages");
 	},
 
 	/* Send Message

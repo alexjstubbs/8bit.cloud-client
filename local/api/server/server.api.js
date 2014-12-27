@@ -28,7 +28,8 @@ var fs          = require('fs-extra')
 //
 // });
 
-var server = "https://127.0.0.1:3000";
+var server = "127.0.0.1:3000",
+    v = "v1";
 
 
 /* Password Hash
@@ -80,14 +81,24 @@ var getMessages = function(nsp) {
 -------------------------------------------------- */
 var passMessage = function(nsp, data) {
 
-    data = {
-        To: "Alex--",
-        Type: "message",
-        Attachment: false,
-        Body: "Welp. ok whats happenins?"
+    if (!data) {
+        nsp.emit('messaging', {type: 0, body: "Required Data is Missing from the Form." });
     }
 
-    sockets.networkInterface(nsp, { cmd: 'passMessage', parameters: data });
+    else {
+        _data = { 
+            To: data.To,
+            Type: data.Type,
+            Attachment: false,
+            Body: data.Body
+        }
+
+        sockets.networkInterface(nsp, { cmd: 'passMessage', parameters: _data });
+
+        nsp.emit('clientEvent', {command: "closeDialog", params: null });
+    }
+
+
 }
 
 /* Submit Cache Form (offline/online store)
@@ -233,6 +244,8 @@ var getEvents = function(nsp) {
 
 var getSession = function(nsp, callback) {
 
+    // sockets.removeConnection(nsp);
+
     // Callback Sync
     function fnLog(err, msg) {
         if (callback || typeof callback == "function") {
@@ -323,6 +336,8 @@ var getSession = function(nsp, callback) {
                 }
 
                 default: {
+
+                    console.log(error);
 
                     nsp.emit('messaging', {type: 0, body: "Could Not Authenticate User. Make sure you have a valid username and password." });
 
@@ -474,7 +489,6 @@ var signUp = function(nsp, profile, callback) {
 -------------------------------------------------- */
 
 var getSockets = function(nsp, token) {
-
 
     var app = "sockets"
         _path = "https://" + path.join(server, app)

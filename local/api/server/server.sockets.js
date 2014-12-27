@@ -13,6 +13,15 @@ var removeToken = function() {
 	issuedToken = '';
 }
 
+/*  Remove Dead Connections
+-------------------------------------------------- */
+var removeConnection = function() {
+	if (network) {
+		network.disconnect();
+		console.log("removed previous socket...")
+	}
+}
+
 
 /* Get Network Status
 -------------------------------------------------- */
@@ -77,10 +86,12 @@ var issueToken = function(callback) {
 -------------------------------------------------- */
 var networkConnection = function(token, ansp, callback) {
 
+
     var io = require('socket.io-client');
 
    /* Connect to /Network (i.io) namespace/network
    -------------------------------------------------- */
+
     nsp = io.connect('http://127.0.0.1:6052/network', {
         'query': 'token=' + token,
         secure: true
@@ -90,6 +101,7 @@ var networkConnection = function(token, ansp, callback) {
     /* Connection "" successfull
     -------------------------------------------------- */
     nsp.on('connect', function (socket, sock) {
+
 
 		ansp.emit('api', { isOnline: true });
 
@@ -121,6 +133,11 @@ var networkConnection = function(token, ansp, callback) {
         -------------------------------------------------- */
         else {
             __api.emit('network-api', data);
+
+
+			// { result: resultList[id], object: object };
+			// __api.emit('messaging', {type: 1, body: data });
+
         }
 
     })
@@ -228,6 +245,7 @@ var networkCommand = function(ansp, json) {
 /* Exports
 -------------------------------------------------- */
 exports.removeToken		   		= removeToken;
+exports.removeConnection  		= removeConnection;
 exports.networkStatus   		= networkStatus;
 exports.networkConnection   	= networkConnection;
 exports.networkInterface    	= networkInterface;

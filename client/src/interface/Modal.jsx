@@ -4,9 +4,10 @@
 
 'use strict';
 
-var React = require('react/addons')
-,   Backdrop = require('./Backdrop.jsx')
-,   OnScreenKeyboard = require('./OnScreenKeyboard.jsx');
+var React               = require('react/addons')
+,   Backdrop            = require('./Backdrop.jsx')
+,   OnScreenKeyboard    = require('./OnScreenKeyboard.jsx')
+,   _                   = require('lodash');
 
 
 module.exports = React.createClass({
@@ -24,8 +25,17 @@ module.exports = React.createClass({
     componentDidMount: function() {
 
         if (this.props.backdrop) {
+
             var main = document.getElementById("main");
             main.classList.add("opacity-50");
+
+            var modals = document.getElementsByClassName("ignition-modal-parent");
+            _(modals).forEach(function(el) {
+                el.classList.add("opacity-50");
+            });
+
+            _.first(modals).classList.remove("opacity-50");
+
         }
 
     },

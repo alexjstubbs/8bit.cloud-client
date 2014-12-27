@@ -137,6 +137,10 @@ textarea.form-control {
 	color:@white;
 }
 
+textarea.textarea-height {
+    height:40vh;
+}
+
 #placehold_input[data-inputtype='textarea'] {
 	height:30vh;
 	overflow:auto;
@@ -636,6 +640,10 @@ ul#profile-list li span.emulator {
 /* Keyboard
 -------------------------------------------------- */
 
+.keyboard-modal {
+    border:1px solid @purple !important;
+}
+
 #KB {
     text-align:center;
     margin:0 auto;
@@ -769,18 +777,6 @@ ul#screens > li {
     margin:0;
     height:100vh;
 }
-
-#backdrop {
-    // position:fixed;
-    // width:100%;
-    // height:100%;
-    // z-index:1980;
-    // background:@black;
-    // opacity:1.0;
-    // top:0;
-    // left:0;
-}
-
 
 .yellow {
     color:@yellow;
@@ -1296,7 +1292,7 @@ footer .progress {
 .systemNotificationContent {
     background:@black !important;
     color:@white !important;
-    border:1px solid @primary !important;
+    border:1px solid @primary;
     font-size:1.4em;
 }
 

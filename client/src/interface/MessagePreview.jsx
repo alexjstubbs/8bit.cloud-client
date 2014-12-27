@@ -14,7 +14,9 @@ module.exports = React.createClass({
 
     return {
             navable: true,
-            navStack: 2
+            navStack: 2,
+            Avatar: <i className='ion-person'></i>,
+            Body: "No Content"
         }
     },
 
@@ -23,14 +25,18 @@ module.exports = React.createClass({
         return (
 
             <div>
-                <NetworkStatus username={this.props.sender} />
-                {this.props.sender} 
-                <div class='clearfix'></div><br />
-            </div>              
-         
+
+                <div className="col-xs-1">
+                    {this.props.Avatar}
+                </div>
+
+                <div className="col-xs-11">
+                    {this.props.Body}
+                </div>
+
+
+            </div>
+
         );
     }
 });
-
-
-

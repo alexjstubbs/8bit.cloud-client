@@ -32,15 +32,29 @@ module.exports = React.createClass({
         api.emit('request', { request: 'getSession'} );
 
         api.on('api', this.setState.bind(this));
-        
+
     },
 
 
     render: function() {
+
+
+
         return (
+
             <div id={this.props.id}>
-                <UserAvatar avatar={this.props.avatar} username={this.state.session.Username} isOnline={this.props.isOnline} />
+                <div>
+                    <div className="col-md-4">
+                        <UserAvatar />
+
+                        <div className="hello col-md-8">
+                            <h3 className="nopadding">Welcome, {this.state.session.Username} <span className="muted"></span></h3>
+                            <NetworkStatus />
+                        </div>
+                    </div>
+                </div>
             </div>
+
         );
     }
 });

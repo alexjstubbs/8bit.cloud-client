@@ -15,6 +15,7 @@ module.exports = React.createClass({
             session: {
                 Avatar: <i className='ion-person'></i>
             }
+
         }
     },
 
@@ -22,7 +23,7 @@ module.exports = React.createClass({
 
         api.emit('request', { request: 'sessionProfile', param: null});
         api.on('api', this.setState.bind(this));
-    
+
     },
 
     render: function() {
@@ -43,24 +44,14 @@ module.exports = React.createClass({
         var classes = cx({
             'avatared': Avatar,
             'square': true,
-            'pull-left': true,
-            'col-md-2': true
+            'pull-left': true
         });
 
         return (
-             <div>
-                <div>
-                    <div className="col-md-4">
-                        <div className={classes}>
-                            {Avatar ? <img src={this.state.session.Avatar} className='img-responsive' /> : <i className='ion-person'></i>}
-                        </div>
-                    <div className="hello col-md-8">
-                        <h3 className="nopadding">Welcome, {this.props.username} <span className="muted"></span></h3>
-                        <NetworkStatus />
-                    </div>
-                </div>
+
+            <div className={classes}>
+                {Avatar ? <img src={this.state.session.Avatar} className='img-responsive' /> : <i className='ion-person'></i>}
             </div>
-        </div>
         );
     }
 });

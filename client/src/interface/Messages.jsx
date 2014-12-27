@@ -14,13 +14,13 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             messages: [
-                { "From": "text", "To": "Alexander Stubbs", "Attachment": null, "timestamp": 2013121210230 },
-                { "From": "text", "To": "Romanania Stubbs", "Attachment": null, "timestamp": 2012121210230 }
+                // { "From": "text", "To": "Alexander Stubbs", "Attachment": null, "timestamp": 2013121210230 },
+                // { "From": "text", "To": "Romanania Stubbs", "Attachment": null, "timestamp": 2012121210230 }
             ]
         };
     },
 
-    componentDidMount: function () {   
+    componentDidMount: function () {
         api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
      },
@@ -28,26 +28,22 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
     return {
-            navable: true,
-            navStack: 2
+            navable: true
         }
     },
 
     render: function() {
 
         var messageNodes = this.state.messages.map(function (message, i) {
-          return <MessagePreview key={i.id} navStack={i+1} sender={message.from} attachments={message.attachment} timestamp={moment(message.timestamp, "YYYYMMDDhhmms").fromNow()} />
+          return <MessagePreview key={i.id} avatar={message.From} body={message.Body} timestamp={moment(message.timestamp, "YYYYMMDDhhmms").fromNow()} />
         });
 
         return (
 
             <div>
-                {messageNodes} 
-            </div>              
-         
+                {messageNodes}
+            </div>
+
         );
     }
 });
-
-
-

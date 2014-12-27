@@ -31,7 +31,6 @@ var prompt = function(callback) {
 
     React.renderComponent(Modal({children: Prompt(null)}), div);
 
-
 }
 
 /* General Message Dialog
@@ -83,7 +82,7 @@ var show = function(parent, parameters, arg) {
         properties  = {}
 
     _div = document.createElement("div");
-    _div.classList.add("ignition-modal");
+    _div.classList.add("ignition-modal-parent");
 
     _div.style.zIndex = _index.length+150;
 
@@ -114,6 +113,9 @@ var show = function(parent, parameters, arg) {
         case "PassMessage":
             Child = PassMessage({});
             break;
+        case "Messages":
+            Child = Messages({});
+            break;
         case "Community":
             properties = {backdrop: true};
             properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
@@ -129,11 +131,15 @@ var show = function(parent, parameters, arg) {
 -------------------------------------------------- */
 var close = function(modal, callback) {
 
-    // Pase screen switching in background
+    // Pause screen switching in background
     sessionStorage.setItem("navigationState", "");
 
      var main = document.getElementById("main");
-     main.classList.remove("opacity-50");
+     var opacits = document.querySelectorAll(".opacity-50");
+
+     _(opacits).forEach(function(el) {
+            el.classList.remove("opacity-50");
+     });
 
     if (!modal) {
 
@@ -164,7 +170,7 @@ var keyboard = function(input, callback) {
     var _index = document.querySelectorAll(".ignition-modal");
 
     var div = document.createElement("div");
-    div.classList.add("ignition-modal", "ignition-keyboard");
+    div.classList.add("ignition-modal-parent", "ignition-keyboard");
     div.style.zIndex = _index.length+150;
 
     document.body.insertBefore(div,  document.body.firstChild);
@@ -177,7 +183,7 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
-    React.renderComponent(Modal({backdrop: true}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
+    React.renderComponent(Modal({backdrop: true, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
 }
 
