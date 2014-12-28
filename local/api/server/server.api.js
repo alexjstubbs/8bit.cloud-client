@@ -53,6 +53,12 @@ var passHash = function(input, callback) {
 
 }
 
+/* Get User Profile
+-------------------------------------------------- */
+var getProfile = function(nsp, username) {
+    sockets.networkInterface(nsp, { cmd: 'getProfile', parameters: username});
+}
+
 /* Add a Friend Endpoint
 -------------------------------------------------- */
 var addFriend = function(nsp, data) {
@@ -537,6 +543,7 @@ var leaveSession = function(nsp) {
 /* Exports
 -------------------------------------------------- */
 
+exports.getProfile      = getProfile;
 exports.getCommunity    = getCommunity;
 exports.getEvents       = getEvents;
 exports.getMessages     = getMessages;

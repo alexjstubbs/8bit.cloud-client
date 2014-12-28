@@ -6,7 +6,8 @@ var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
 ,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx');
+,   UserAvatar      = require('./Avatar.jsx')
+,   UserStatus      = require('./UserStatus.jsx');
 
 module.exports = React.createClass({
 
@@ -38,6 +39,7 @@ module.exports = React.createClass({
     render: function() {
 
         var message = JSON.parse(this.props.message);
+
         return (
 
             <div className="parent">
@@ -50,8 +52,10 @@ module.exports = React.createClass({
 
                     <div className="col-xs-6">
 
-                        <h3 className="mute no-padding">{message.From}</h3>
+                        <h3 className="mute no-padding no-margin">{message.From}</h3>
                         <h5 className="mute">{message.Timestamp}</h5>
+
+                        <UserStatus Username={message.From} />
                         <br />
 
                     </div>

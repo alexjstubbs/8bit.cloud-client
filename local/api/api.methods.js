@@ -67,6 +67,10 @@ var api = {
         common.serverAPI.submitCache(nsp, form);
     },
 
+    getProfile: function(nsp, username) {
+        common.serverAPI.getProfile(nsp, username);
+    },
+
     copyFile: function(nsp, copyObject) {
         common.systemWrite.copyFile(nsp, copyObject.src, copyObject.dest);
     },
@@ -86,7 +90,6 @@ var api = {
     sysIsOnline: function(nsp) {
         common.network.sysIsOnline(nsp);
     },
-
 
     listWifiNetworks: function(nsp) {
         common.wireless.listWifiNetworks(nsp);
@@ -115,6 +118,7 @@ var api = {
     sessionProfile: function(nsp) {
          common.profiles.getSession(nsp);
     },
+
 
 }
 
