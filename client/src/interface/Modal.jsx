@@ -14,7 +14,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
     return {
             navable: false,
-            backdrop: false,
+            backdrop: true,
             classList: "container ignition-modal systemNotificationContent",
             children: [],
             input: null,
@@ -31,10 +31,10 @@ module.exports = React.createClass({
 
             var modals = document.getElementsByClassName("ignition-modal-parent");
             _(modals).forEach(function(el) {
-                el.classList.add("opacity-50");
+                el.classList.add("opacity-0");
             });
 
-            _.first(modals).classList.remove("opacity-50");
+            _.first(modals).classList.remove("opacity-0");
 
         }
 

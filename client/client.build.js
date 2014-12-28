@@ -3291,7 +3291,8 @@ module.exports = React.createClass({displayName: 'exports',
 var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   navigationInit  = require('../js/navigation.init');
+,   navigationInit  = require('../js/navigation.init')
+,   UserAvatar      = require('./Avatar.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3327,21 +3328,51 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "parent"}, 
 
-                message.Body, 
+                React.DOM.div({className: "col-xs-12"}, 
+
+                    React.DOM.div({className: "col-xs-2"}, 
+                        UserAvatar({username: message.From})
+                    ), 
+
+                    React.DOM.div({className: "col-xs-6"}, 
+
+                        React.DOM.h3({className: "mute no-padding"}, message.From), 
+                        React.DOM.h5({className: "mute"}, message.Timestamp), 
+                        React.DOM.br(null)
+
+                    ), 
+
+                    React.DOM.div({className: "col-xs-4 text-right"}, 
+                        React.DOM.h2(null, React.DOM.i({className: "ion-ios-chatboxes-outline"}), "   Message")
+                    ), 
+
+
+                    React.DOM.div({className: "clearfix"}), 
+
+                    React.DOM.div({className: "well-alt coll-xs-12 navable scrollable"}, 
+                        message.Body
+                    )
+                ), 
+
+                React.DOM.div({className: "clearfix"}), 
 
                 React.DOM.hr(null), 
 
-                React.DOM.button({className: "navable btn btn-alt btn-alt-size"}, "Close Message"), 
-                React.DOM.button({className: "navable btn btn-alt btn-alt-size"}, "Delete Message"), 
-                React.DOM.button({className: "navable btn btn-alt btn-alt-size"}, "Reply")
+                React.DOM.div({className: "pull-left"}, 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "closeDialog"}, React.DOM.i({className: "ion-close red"}), "   Close Message")
+                ), 
 
+                React.DOM.div({className: "pull-right"}, 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size"}, React.DOM.i({className: "ion-trash-a red"}), "   Delete Message"), 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "passMessage", 'data-parameters': message.From}, React.DOM.i({className: "ion-reply green"}), "   Reply")
+                )
             )
 
         );
     }
 });
 
-},{"../js/navigation.init":77,"./NetworkStatus.jsx":26,"lodash":86,"react/addons":88}],23:[function(require,module,exports){
+},{"../js/navigation.init":77,"./Avatar.jsx":4,"./NetworkStatus.jsx":26,"lodash":86,"react/addons":88}],23:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3493,7 +3524,7 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
     return {
             navable: false,
-            backdrop: false,
+            backdrop: true,
             classList: "container ignition-modal systemNotificationContent",
             children: [],
             input: null,
@@ -3510,10 +3541,10 @@ module.exports = React.createClass({displayName: 'exports',
 
             var modals = document.getElementsByClassName("ignition-modal-parent");
             _(modals).forEach(function(el) {
-                el.classList.add("opacity-50");
+                el.classList.add("opacity-0");
             });
 
-            _.first(modals).classList.remove("opacity-50");
+            _.first(modals).classList.remove("opacity-0");
 
         }
 
@@ -4668,10 +4699,10 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.span({className: "col-xs-12"}, 
 
-                    React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Recipient Username", name: "To", type: "text"}), 
+                    React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Recipient Username", value: this.props.To, name: "To", type: "text"}), 
 
-                React.DOM.textarea({'data-function': "inputFocus", name: "Body", className: "textarea-height navable scrollable form-control"}
-                )
+                    React.DOM.textarea({'data-function': "inputFocus", name: "Body", className: "textarea-height navable scrollable form-control"}
+                    )
 
                 )
 
@@ -6064,6 +6095,11 @@ var show = function(parent, parameters, arg) {
     _div = document.createElement("div");
     _div.classList.add("ignition-modal-parent");
 
+    _notification = document.createElement("div");
+    _notification.classList.add("ignition-modal-notification");
+    fragment.appendChild(_notification);
+
+
     _div.style.zIndex = _index.length+150;
 
     fragment.appendChild(_div);
@@ -6091,7 +6127,8 @@ var show = function(parent, parameters, arg) {
             Child = AddFriend({});
             break;
         case "PassMessage":
-            Child = PassMessage({});
+            properties = {backdrop: true};
+            Child = PassMessage({To: parameters});
             break;
         case "Messages":
             Child = Messages({});
@@ -6120,10 +6157,16 @@ var close = function(modal, callback) {
 
      var main = document.getElementById("main");
      var opacits = document.querySelectorAll(".opacity-50");
+     var opacits_ = document.querySelectorAll(".opacity-0");
 
      _(opacits).forEach(function(el) {
             el.classList.remove("opacity-50");
      });
+
+    
+     if (_.first(opacits_)) {
+         _.first(opacits_).classList.remove("opacity-0");
+     }
 
     if (!modal) {
 
@@ -8354,7 +8397,7 @@ var events = {
 	/* Send Message
 	-------------------------------------------------- */
 	passMessage: function(parameters) {
-		dialog.show("PassMessage");
+		dialog.show("PassMessage", parameters);
 	},
 
 	/* Add a Friend(Request)

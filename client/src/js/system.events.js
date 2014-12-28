@@ -309,7 +309,7 @@ var events = {
 	/* Send Message
 	-------------------------------------------------- */
 	passMessage: function(parameters) {
-		dialog.show("PassMessage");
+		dialog.show("PassMessage", parameters);
 	},
 
 	/* Add a Friend(Request)

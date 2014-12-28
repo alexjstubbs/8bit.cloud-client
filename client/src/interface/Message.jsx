@@ -5,7 +5,8 @@
 var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   navigationInit  = require('../js/navigation.init');
+,   navigationInit  = require('../js/navigation.init')
+,   UserAvatar      = require('./Avatar.jsx');
 
 module.exports = React.createClass({
 
@@ -41,14 +42,44 @@ module.exports = React.createClass({
 
             <div className="parent">
 
-                {message.Body}
+                <div className="col-xs-12">
+
+                    <div className="col-xs-2">
+                        <UserAvatar username={message.From} />
+                    </div>
+
+                    <div className="col-xs-6">
+
+                        <h3 className="mute no-padding">{message.From}</h3>
+                        <h5 className="mute">{message.Timestamp}</h5>
+                        <br />
+
+                    </div>
+
+                    <div className="col-xs-4 text-right">
+                        <h2><i className="ion-ios-chatboxes-outline"></i> &nbsp; Message</h2>
+                    </div>
+
+
+                    <div className="clearfix"></div>
+
+                    <div className="well-alt coll-xs-12 navable scrollable">
+                        {message.Body}
+                    </div>
+                </div>
+
+                <div className="clearfix"></div>
 
                 <hr />
 
-                <button className="navable btn btn-alt btn-alt-size">Close Message</button>
-                <button className="navable btn btn-alt btn-alt-size">Delete Message</button>
-                <button className="navable btn btn-alt btn-alt-size">Reply</button>
+                <div className="pull-left">
+                    <button className="navable btn btn-alt btn-alt-size" data-function="closeDialog"><i className="ion-close red"></i> &nbsp; Close Message</button>
+                </div>
 
+                <div className="pull-right">
+                    <button className="navable btn btn-alt btn-alt-size"><i className="ion-trash-a red"></i> &nbsp; Delete Message</button>
+                    <button className="navable btn btn-alt btn-alt-size" data-function="passMessage" data-parameters={message.From}><i className="ion-reply green"></i> &nbsp; Reply</button>
+                </div>
             </div>
 
         );

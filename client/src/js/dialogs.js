@@ -85,6 +85,11 @@ var show = function(parent, parameters, arg) {
     _div = document.createElement("div");
     _div.classList.add("ignition-modal-parent");
 
+    _notification = document.createElement("div");
+    _notification.classList.add("ignition-modal-notification");
+    fragment.appendChild(_notification);
+
+
     _div.style.zIndex = _index.length+150;
 
     fragment.appendChild(_div);
@@ -112,7 +117,8 @@ var show = function(parent, parameters, arg) {
             Child = AddFriend({});
             break;
         case "PassMessage":
-            Child = PassMessage({});
+            properties = {backdrop: true};
+            Child = PassMessage({To: parameters});
             break;
         case "Messages":
             Child = Messages({});
@@ -141,10 +147,16 @@ var close = function(modal, callback) {
 
      var main = document.getElementById("main");
      var opacits = document.querySelectorAll(".opacity-50");
+     var opacits_ = document.querySelectorAll(".opacity-0");
 
      _(opacits).forEach(function(el) {
             el.classList.remove("opacity-50");
      });
+
+    
+     if (_.first(opacits_)) {
+         _.first(opacits_).classList.remove("opacity-0");
+     }
 
     if (!modal) {
 

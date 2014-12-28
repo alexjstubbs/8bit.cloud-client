@@ -47,10 +47,10 @@ module.exports = React.createClass({
 
                 <span className="col-xs-12">
 
-                    <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Recipient Username" name="To" type="text" />
+                    <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Recipient Username" value={this.props.To} name="To" type="text" />
 
-                <textarea data-function='inputFocus' name="Body" className='textarea-height navable scrollable form-control' >
-                </textarea>
+                    <textarea data-function='inputFocus' name="Body" className='textarea-height navable scrollable form-control' >
+                    </textarea>
 
                 </span>
 
