@@ -62,9 +62,13 @@ module.exports = function(k) {
                 if (s.parentNode.classList.contains("scroll-into-view")) {
                     // var d = document.querySelectorAll(".selectedNav");
 
-                    var d = s.nextElementSibling.nextElementSibling;
-
+                    if (s.nextElementSibling) {
+                        var d = s.nextElementSibling.nextElementSibling;
+                    }
+                    
+                    if (d) {
                         d.scrollIntoView(false);
+                    }
 
                 }
             }

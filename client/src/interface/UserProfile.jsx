@@ -21,8 +21,6 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
     return {
-            avatar: <i className="ion-person"></i>,
-            isOnline: false,
             id: "avatar"
         }
     },
@@ -38,14 +36,12 @@ module.exports = React.createClass({
 
     render: function() {
 
-
-
         return (
 
             <div id={this.props.id}>
                 <div>
                     <div className="col-md-4">
-                        <UserAvatar />
+                        <UserAvatar Username={this.state.session.Username} />
 
                         <div className="hello col-md-8">
                             <h3 className="nopadding">Welcome, {this.state.session.Username} <span className="muted"></span></h3>

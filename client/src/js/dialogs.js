@@ -153,7 +153,7 @@ var close = function(modal, callback) {
             el.classList.remove("opacity-50");
      });
 
-    
+
      if (_.first(opacits_)) {
          _.first(opacits_).classList.remove("opacity-0");
      }
@@ -184,7 +184,7 @@ var keyboard = function(input, callback) {
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
-    var _index = document.querySelectorAll(".ignition-modal");
+    var _index = document.querySelectorAll(".ignition-modal-");
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent", "ignition-keyboard");
@@ -200,6 +200,7 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
+    // FIX ME: take styles from ignition modal, remov class name
     React.renderComponent(Modal({backdrop: true, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
 }

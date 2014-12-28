@@ -6,13 +6,11 @@ var navigationInit  = require('./navigation.init.js')
 -------------------------------------------------- */
 var symbolsKeyboard = function(elem) {
   
-    console.log("WED");
-
     this.elem = elem;
     this.elem.className = "keyboard";
 
     symbolsKeyboard.rows.map(function(row, i) {
-      
+
       this.elem.appendChild(this.createRow(row, i));
 
     }.bind(this));
@@ -26,7 +24,7 @@ var Keyboard = function(elem) {
     this.elem.className = "keyboard";
 
     Keyboard.rows.map(function(row, i) {
-      
+
       this.elem.appendChild(this.createRow(row, i));
 
     }.bind(this));

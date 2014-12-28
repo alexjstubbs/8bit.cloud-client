@@ -7,7 +7,8 @@ var React           = require('react/addons')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
 ,   navigationInit  = require('../js/navigation.init')
 ,   UserAvatar      = require('./Avatar.jsx')
-,   UserStatus      = require('./UserStatus.jsx');
+,   UserStatus      = require('./UserStatus.jsx')
+,   moment          = require('moment');
 
 module.exports = React.createClass({
 
@@ -38,7 +39,8 @@ module.exports = React.createClass({
 
     render: function() {
 
-        var message = JSON.parse(this.props.message);
+        var message = JSON.parse(this.props.message),
+            _moment  = moment(message.Timestamp, "YYYYMMDDhhmms").fromNow();
 
         return (
 
@@ -53,7 +55,7 @@ module.exports = React.createClass({
                     <div className="col-xs-6">
 
                         <h3 className="mute no-padding no-margin">{message.From}</h3>
-                        <h5 className="mute">{message.Timestamp}</h5>
+                        <h5 className="mute">{_moment}</h5>
 
                         <UserStatus Username={message.From} />
                         <br />

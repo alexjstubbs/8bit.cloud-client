@@ -1991,24 +1991,65 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React           = require('react/addons')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   api             = require('socket.io-client')('/api');
+,   api             = require('socket.io-client')('/api')
+,   _               = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
-            session: {
+
+            profile: {
+                IP: null,
+                Online: false,
                 Avatar: React.DOM.i({className: "ion-person"})
             }
 
         }
     },
 
+    getDefaultProps: function() {
+
+        return {
+            Username: "Guest"
+        }
+
+    },
+
     componentDidMount: function() {
 
-        api.emit('request', { request: 'sessionProfile', param: null});
-        api.on('api', this.setState.bind(this));
+        this.updateAvatar();
 
+    },
+
+    componentWillReceiveProps: function(props) {
+
+        this.updateAvatar();
+
+    },
+
+    updateAvatar: function() {
+
+        var _this = this;
+
+        if (this.props.Username || this.props.Username != "Guest") {
+
+            api.emit('request', { request: 'getProfile', param: this.props.Username});
+
+            api.on('network-api', function(obj) {
+
+                if (!_.isEmpty(obj.userProfile)) {
+
+
+                    if (obj.userProfile[0].Username == _this.props.Username) {
+
+                        _this.setState({profile: obj.userProfile[0]});
+
+                    }
+                }
+
+            });
+        }
     },
 
     render: function() {
@@ -2017,7 +2058,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         Avatar = true;
 
-        if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.state.session.Avatar)) {
+        if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.state.profile.Avatar)) {
             Avatar = true
         }
 
@@ -2035,13 +2076,13 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
             React.DOM.div({className: classes}, 
-                Avatar ? React.DOM.img({src: this.state.session.Avatar, className: "img-responsive"}) : React.DOM.i({className: "ion-person"})
+                Avatar ? React.DOM.img({src: this.state.profile.Avatar, className: "img-responsive"}) : React.DOM.i({className: "ion-person"})
             )
         );
     }
 });
 
-},{"./NetworkStatus.jsx":26,"react/addons":89,"socket.io-client":248}],5:[function(require,module,exports){
+},{"./NetworkStatus.jsx":26,"lodash":87,"react/addons":89,"socket.io-client":248}],5:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3293,7 +3334,8 @@ var React           = require('react/addons')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
 ,   navigationInit  = require('../js/navigation.init')
 ,   UserAvatar      = require('./Avatar.jsx')
-,   UserStatus      = require('./UserStatus.jsx');
+,   UserStatus      = require('./UserStatus.jsx')
+,   moment          = require('moment');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3324,7 +3366,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        var message = JSON.parse(this.props.message);
+        var message = JSON.parse(this.props.message),
+            _moment  = moment(message.Timestamp, "YYYYMMDDhhmms").fromNow();
 
         return (
 
@@ -3339,7 +3382,7 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.div({className: "col-xs-6"}, 
 
                         React.DOM.h3({className: "mute no-padding no-margin"}, message.From), 
-                        React.DOM.h5({className: "mute"}, message.Timestamp), 
+                        React.DOM.h5({className: "mute"}, _moment), 
 
                         UserStatus({Username: message.From}), 
                         React.DOM.br(null)
@@ -3376,7 +3419,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":78,"./Avatar.jsx":4,"./NetworkStatus.jsx":26,"./UserStatus.jsx":42,"lodash":87,"react/addons":89}],23:[function(require,module,exports){
+},{"../js/navigation.init":78,"./Avatar.jsx":4,"./NetworkStatus.jsx":26,"./UserStatus.jsx":42,"lodash":87,"moment":88,"react/addons":89}],23:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3492,7 +3535,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "parent"}, 
 
                 React.DOM.div({className: "messages-list scroll-into-view"}, 
-                    "  ", messageNodes, "  "
+                    messageNodes
                 ), 
 
                 React.DOM.hr(null), 
@@ -4511,8 +4554,6 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
     return {
-            avatar: React.DOM.i({className: "ion-person"}),
-            isOnline: false,
             id: "avatar"
         }
     },
@@ -4528,14 +4569,12 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-
-
         return (
 
             React.DOM.div({id: this.props.id}, 
                 React.DOM.div(null, 
                     React.DOM.div({className: "col-md-4"}, 
-                        UserAvatar(null), 
+                        UserAvatar({Username: this.state.session.Username}), 
 
                         React.DOM.div({className: "hello col-md-8"}, 
                             React.DOM.h3({className: "nopadding"}, "Welcome, ", this.state.session.Username, " ", React.DOM.span({className: "muted"})), 
@@ -6245,7 +6284,7 @@ var close = function(modal, callback) {
             el.classList.remove("opacity-50");
      });
 
-    
+
      if (_.first(opacits_)) {
          _.first(opacits_).classList.remove("opacity-0");
      }
@@ -6276,7 +6315,7 @@ var keyboard = function(input, callback) {
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
-    var _index = document.querySelectorAll(".ignition-modal");
+    var _index = document.querySelectorAll(".ignition-modal-");
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent", "ignition-keyboard");
@@ -6292,6 +6331,7 @@ var keyboard = function(input, callback) {
 
     input.classList.add("activeInput");
 
+    // FIX ME: take styles from ignition modal, remov class name
     React.renderComponent(Modal({backdrop: true, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
 }
@@ -7455,13 +7495,11 @@ var navigationInit  = require('./navigation.init.js')
 -------------------------------------------------- */
 var symbolsKeyboard = function(elem) {
   
-    console.log("WED");
-
     this.elem = elem;
     this.elem.className = "keyboard";
 
     symbolsKeyboard.rows.map(function(row, i) {
-      
+
       this.elem.appendChild(this.createRow(row, i));
 
     }.bind(this));
@@ -7475,7 +7513,7 @@ var Keyboard = function(elem) {
     this.elem.className = "keyboard";
 
     Keyboard.rows.map(function(row, i) {
-      
+
       this.elem.appendChild(this.createRow(row, i));
 
     }.bind(this));
@@ -7825,9 +7863,13 @@ module.exports = function(k) {
                 if (s.parentNode.classList.contains("scroll-into-view")) {
                     // var d = document.querySelectorAll(".selectedNav");
 
-                    var d = s.nextElementSibling.nextElementSibling;
-
+                    if (s.nextElementSibling) {
+                        var d = s.nextElementSibling.nextElementSibling;
+                    }
+                    
+                    if (d) {
                         d.scrollIntoView(false);
+                    }
 
                 }
             }

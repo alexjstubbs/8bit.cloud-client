@@ -43,7 +43,7 @@ module.exports = React.createClass({
             <div className="parent">
 
                 <div className="messages-list scroll-into-view">
-                    &nbsp; {messageNodes} &nbsp;
+                    {messageNodes}
                 </div>
 
                 <hr />
