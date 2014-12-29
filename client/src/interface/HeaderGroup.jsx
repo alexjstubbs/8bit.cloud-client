@@ -21,8 +21,6 @@ module.exports = React.createClass({
     },
     render: function() {
 
-        console.log(this.props.unread);
-
         return (
             <div className={this.props.classString}>
                 <Inbox myMessages={this.props.myMessages} unread={this.props.unread}/>

@@ -41,3 +41,17 @@ window.addEventListener("uiActionNotification", function(e) {
   }
 
 }, false);
+
+/* Update components on Dashboard
+-------------------------------------------------- */
+
+window.addEventListener("renderScreenComponents", function(e) {
+
+  switch (e.detail.screen) {
+
+    case "Dashboard":
+        api.emit('request', { request: 'messages'});
+        return;
+  }
+
+}, false);

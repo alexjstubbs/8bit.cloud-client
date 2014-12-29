@@ -36,6 +36,9 @@ module.exports = React.createClass({
 
     render: function() {
 
+        var readMessages = localStorage.getItem("read_messages");
+        var read = _.contains(readMessages, this.props.message._id);
+
         var messageObj = JSON.stringify(this.props.message);
 
         var Avatar;
@@ -57,9 +60,15 @@ module.exports = React.createClass({
             'pull-left': true
         });
 
+        var parentClasses = cx({
+            'navable': true,
+            'message-preview': true,
+            'message-read': read
+        });
+
         return (
 
-            <div className="navable message-preview message-unread" data-function="viewMessage" data-parameters={messageObj}>
+            <div className={parentClasses} data-function="viewMessage" data-parameters={messageObj}>
 
                 <div className="col-xs-2">
                     <div className={classes}>
@@ -78,6 +87,7 @@ module.exports = React.createClass({
                 <div className="col-xs-3">
 
                     <p className="timestamp">{this.props.timestamp}</p>
+
 
                 </div>
 

@@ -2514,6 +2514,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
+        var _this = this;
+
         api.emit('request', { request: 'getSession'} );
         api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
@@ -2522,7 +2524,6 @@ module.exports = React.createClass({displayName: 'exports',
 
             if (data.messages) {
 
-
             var allMessages = _.flatten(data.messages, '_id');
             var readMessages = localStorage.getItem("read_messages");
 
@@ -2530,7 +2531,9 @@ module.exports = React.createClass({displayName: 'exports',
                 readMessages = readMessages.split(",");
             }
 
-            unreadMessages = _.xor(allMessages, readMessages).length;
+            unreadMessages = _.difference(allMessages, readMessages).length;
+
+            _this.forceUpdate();
 
 
             }
@@ -2993,8 +2996,6 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
     render: function() {
-
-        console.log(this.props.unread);
 
         return (
             React.DOM.div({className: this.props.classString}, 
@@ -3500,6 +3501,9 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        var readMessages = localStorage.getItem("read_messages");
+        var read = _.contains(readMessages, this.props.message._id);
+
         var messageObj = JSON.stringify(this.props.message);
 
         var Avatar;
@@ -3521,9 +3525,15 @@ module.exports = React.createClass({displayName: 'exports',
             'pull-left': true
         });
 
+        var parentClasses = cx({
+            'navable': true,
+            'message-preview': true,
+            'message-read': read
+        });
+
         return (
 
-            React.DOM.div({className: "navable message-preview message-unread", 'data-function': "viewMessage", 'data-parameters': messageObj}, 
+            React.DOM.div({className: parentClasses, 'data-function': "viewMessage", 'data-parameters': messageObj}, 
 
                 React.DOM.div({className: "col-xs-2"}, 
                     React.DOM.div({className: classes}, 
@@ -3542,6 +3552,7 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.div({className: "col-xs-3"}, 
 
                     React.DOM.p({className: "timestamp"}, this.props.timestamp)
+
 
                 ), 
 
@@ -3583,8 +3594,20 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function () {
 
+        var _this = this;
+
         api.emit('request', { request: 'messages'});
-        api.on('network-api', this.setState.bind(this));
+
+        api.on('network-api', function(data) {
+
+            if (data.messages) {
+                _this.setState(data);
+                _this.forceUpdate();
+                navigationInit.navigationInit();
+            }
+
+        });
+
 
         noMessages = React.DOM.div({className: "well"}, React.DOM.i({className: "ion-sad-outline"}), "   You have no messages.")
 
@@ -3603,6 +3626,8 @@ module.exports = React.createClass({displayName: 'exports',
         var messageNodes = this.state.messages.map(function (message, i) {
           return MessagePreview({key: i.id, Avatar: message.Avatar, message: message, messageId: message._id, From: message.From, Body: message.Body, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
         });
+
+        messageNodes.reverse();
 
         return (
 
@@ -6219,6 +6244,7 @@ exports.initLocalDatabase = initLocalDatabase;
 
 var systemNotify    = require('./notification.init.js')
 ,   api             = require('socket.io-client')('/api')
+,   events          = require('./events.js')
 ,   React           = require('react/addons')
 ,   Modal           = require('../interface/Modal.jsx')
 ,   Message         = require('../interface/Message.jsx')
@@ -6231,10 +6257,10 @@ var systemNotify    = require('./notification.init.js')
 ,   AddFriend       = require('../interface/forms/AddFriend.jsx')
 ,   PassMessage     = require('../interface/forms/PassMessage.jsx')
 ,   CommunityInfo   = require('../interface/CommunityInfo.jsx')
-,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
-,   GeneralDialog   = require("../interface/GeneralDialog.jsx");
+,   GeneralDialog   = require("../interface/GeneralDialog.jsx")
+,   _               = require('lodash');
 
 var _div;
 
@@ -6358,10 +6384,8 @@ var show = function(parent, parameters, arg) {
 -------------------------------------------------- */
 var close = function(modal, callback) {
 
-    // Pause screen switching in background
+    // UnPause screen switching in background
     sessionStorage.setItem("navigationState", "");
-
-     var main = document.getElementById("main");
 
      var opacits = document.querySelectorAll(".opacity-50");
      var opacits_ = document.querySelectorAll(".opacity-0");
@@ -6370,7 +6394,6 @@ var close = function(modal, callback) {
             el.classList.remove("opacity-50");
      });
 
-     console.log(opacits_);
 
      if (_.first(opacits_)) {
          _.first(opacits_).classList.remove("opacity-0");
@@ -6385,6 +6408,13 @@ var close = function(modal, callback) {
     // }
 
     var modal = document.querySelectorAll(".ignition-modal-parent");
+
+    // Re-render dashboard
+    if (modal.length == 1) {
+
+        events.renderScreenComponents("Dashboard");
+
+    }
 
     modal = _.first(modal);
 
@@ -6436,7 +6466,7 @@ exports.keyboard            = keyboard;
 exports.popup               = popup;
 exports.general             = general;
 
-},{"../interface/CommunityInfo.jsx":8,"../interface/GeneralDialog.jsx":15,"../interface/Message.jsx":22,"../interface/Messages.jsx":24,"../interface/Modal.jsx":25,"../interface/OnScreenKeyboard.jsx":27,"../interface/Popup.jsx":30,"../interface/Prompt.jsx":33,"../interface/Terminal.jsx":39,"../interface/WebBrowser.jsx":43,"../interface/forms/AddFriend.jsx":44,"../interface/forms/PassMessage.jsx":45,"../interface/forms/SignUp.jsx":46,"./navigation.init.js":78,"./notification.init.js":83,"lodash":87,"react/addons":89,"socket.io-client":248}],67:[function(require,module,exports){
+},{"../interface/CommunityInfo.jsx":8,"../interface/GeneralDialog.jsx":15,"../interface/Message.jsx":22,"../interface/Messages.jsx":24,"../interface/Modal.jsx":25,"../interface/OnScreenKeyboard.jsx":27,"../interface/Popup.jsx":30,"../interface/Prompt.jsx":33,"../interface/Terminal.jsx":39,"../interface/WebBrowser.jsx":43,"../interface/forms/AddFriend.jsx":44,"../interface/forms/PassMessage.jsx":45,"../interface/forms/SignUp.jsx":46,"./events.js":68,"./navigation.init.js":78,"./notification.init.js":83,"lodash":87,"react/addons":89,"socket.io-client":248}],67:[function(require,module,exports){
 /* API Event Listeners
 -------------------------------------------------- */
 var api             = require('socket.io-client')('/api')
@@ -6481,10 +6511,39 @@ window.addEventListener("uiActionNotification", function(e) {
 
 }, false);
 
+/* Update components on Dashboard
+-------------------------------------------------- */
+
+window.addEventListener("renderScreenComponents", function(e) {
+
+  switch (e.detail.screen) {
+
+    case "Dashboard":
+        api.emit('request', { request: 'messages'});
+        return;
+  }
+
+}, false);
+
 },{"./dialogs":66,"./events":68,"./ui.notification":86,"lodash":87,"socket.io-client":248}],68:[function(require,module,exports){
 /* Custom Events
 -------------------------------------------------- */
 var api     = require('socket.io-client')('/api');
+
+/* Legacy Screen Transition
+-------------------------------------------------- */
+var renderScreenComponents = function(screen) {
+
+
+    var event = new CustomEvent('renderScreenComponents', {
+        'detail': {
+            screen: screen
+        }
+    });
+
+    window.dispatchEvent(event);
+
+};
 
 /* Legacy Screen Transition
 -------------------------------------------------- */
@@ -6588,6 +6647,7 @@ var updateGame = function(results, filepath, callback) {
 
 /* Exports
 -------------------------------------------------- */
+exports.renderScreenComponents  = renderScreenComponents;
 exports.screenTransition 		= screenTransition;
 exports.dialog 			 		= dialog;
 exports.updateGame 		 		= updateGame;

@@ -70,6 +70,8 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
+        var _this = this;
+
         api.emit('request', { request: 'getSession'} );
         api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
@@ -78,7 +80,6 @@ module.exports = React.createClass({
 
             if (data.messages) {
 
-
             var allMessages = _.flatten(data.messages, '_id');
             var readMessages = localStorage.getItem("read_messages");
 
@@ -86,7 +87,9 @@ module.exports = React.createClass({
                 readMessages = readMessages.split(",");
             }
 
-            unreadMessages = _.xor(allMessages, readMessages).length;
+            unreadMessages = _.difference(allMessages, readMessages).length;
+
+            _this.forceUpdate();
 
 
             }

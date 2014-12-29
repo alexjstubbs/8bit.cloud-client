@@ -24,8 +24,20 @@ module.exports = React.createClass({
 
     componentDidMount: function () {
 
+        var _this = this;
+
         api.emit('request', { request: 'messages'});
-        api.on('network-api', this.setState.bind(this));
+
+        api.on('network-api', function(data) {
+
+            if (data.messages) {
+                _this.setState(data);
+                _this.forceUpdate();
+                navigationInit.navigationInit();
+            }
+
+        });
+
 
         noMessages = <div className="well"><i className="ion-sad-outline"></i> &nbsp; You have no messages.</div>
 
@@ -44,6 +56,8 @@ module.exports = React.createClass({
         var messageNodes = this.state.messages.map(function (message, i) {
           return <MessagePreview key={i.id} Avatar={message.Avatar} message={message} messageId={message._id} From={message.From} Body={message.Body} timestamp={moment(message.timestamp, "YYYYMMDDhhmms").fromNow()} />
         });
+
+        messageNodes.reverse();
 
         return (
 

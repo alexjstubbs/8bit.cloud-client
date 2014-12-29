@@ -3,6 +3,7 @@
 
 var systemNotify    = require('./notification.init.js')
 ,   api             = require('socket.io-client')('/api')
+,   events          = require('./events.js')
 ,   React           = require('react/addons')
 ,   Modal           = require('../interface/Modal.jsx')
 ,   Message         = require('../interface/Message.jsx')
@@ -15,10 +16,10 @@ var systemNotify    = require('./notification.init.js')
 ,   AddFriend       = require('../interface/forms/AddFriend.jsx')
 ,   PassMessage     = require('../interface/forms/PassMessage.jsx')
 ,   CommunityInfo   = require('../interface/CommunityInfo.jsx')
-,   _               = require('lodash')
 ,   navigationInit  = require("./navigation.init.js")
 ,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
-,   GeneralDialog   = require("../interface/GeneralDialog.jsx");
+,   GeneralDialog   = require("../interface/GeneralDialog.jsx")
+,   _               = require('lodash');
 
 var _div;
 
@@ -142,10 +143,8 @@ var show = function(parent, parameters, arg) {
 -------------------------------------------------- */
 var close = function(modal, callback) {
 
-    // Pause screen switching in background
+    // UnPause screen switching in background
     sessionStorage.setItem("navigationState", "");
-
-     var main = document.getElementById("main");
 
      var opacits = document.querySelectorAll(".opacity-50");
      var opacits_ = document.querySelectorAll(".opacity-0");
@@ -154,7 +153,6 @@ var close = function(modal, callback) {
             el.classList.remove("opacity-50");
      });
 
-     console.log(opacits_);
 
      if (_.first(opacits_)) {
          _.first(opacits_).classList.remove("opacity-0");
@@ -169,6 +167,13 @@ var close = function(modal, callback) {
     // }
 
     var modal = document.querySelectorAll(".ignition-modal-parent");
+
+    // Re-render dashboard
+    if (modal.length == 1) {
+
+        events.renderScreenComponents("Dashboard");
+
+    }
 
     modal = _.first(modal);
 

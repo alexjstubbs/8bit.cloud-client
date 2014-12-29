@@ -4,6 +4,21 @@ var api     = require('socket.io-client')('/api');
 
 /* Legacy Screen Transition
 -------------------------------------------------- */
+var renderScreenComponents = function(screen) {
+
+
+    var event = new CustomEvent('renderScreenComponents', {
+        'detail': {
+            screen: screen
+        }
+    });
+
+    window.dispatchEvent(event);
+
+};
+
+/* Legacy Screen Transition
+-------------------------------------------------- */
 var screenTransition = function(screen, hidden, parent) {
 
 
@@ -104,6 +119,7 @@ var updateGame = function(results, filepath, callback) {
 
 /* Exports
 -------------------------------------------------- */
+exports.renderScreenComponents  = renderScreenComponents;
 exports.screenTransition 		= screenTransition;
 exports.dialog 			 		= dialog;
 exports.updateGame 		 		= updateGame;
