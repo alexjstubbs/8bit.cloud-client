@@ -20,7 +20,7 @@ module.exports = React.createClass({
             messageCount: 0,
             shortcutKey: "F9",
             functionCall: "viewMessages",
-            classString: "col-md-3 pull-left square dark-gray",
+            classString: "col-xs-3 pull-left square dark-gray",
             id: "inbox",
             unread: null
         }
@@ -44,11 +44,11 @@ module.exports = React.createClass({
         });
 
         return (
-        <div id={this.props.id} className="col-md-6 pull-left">
+        <div id={this.props.id} className="col-xs-6 pull-left">
             <div className={this.props.navable ? 'navable '+this.props.classString : this.props.classString} data-function={this.props.functionCall} data-parameters={this.props.myMessages}>
                 <i className={icon + classes}></i>
             </div>
-            <div className="hello col-md-7 pad_h_5">
+            <div className="hello col-xs-7 pad_h_5">
                 <h4 className="nopadding">{this.props.unread ? this.props.unread + " New messages" : "Messages"}</h4>
                 <span className="muted">Press {this.props.shortcutKey} to read</span>
             </div>

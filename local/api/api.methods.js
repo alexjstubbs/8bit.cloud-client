@@ -39,6 +39,10 @@ var api = {
         common.network.isOnline(nsp, username);
     },
 
+    getFriends: function(nsp) {
+        common.serverAPI.getFriends(nsp);
+    },
+
     lookupGame: function(nsp, game) {
         common.game.apicall(nsp, game);
     },

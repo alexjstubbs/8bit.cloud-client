@@ -41,9 +41,9 @@ module.exports = React.createClass({
       
         return (
 
-            <li className='col-md-3'>
+            <li className='col-xs-3'>
                
-               <div className="col-md-4 pull-left trophy-icon">
+               <div className="col-xs-4 pull-left trophy-icon">
                   
                   <span className='trophy'>
 
@@ -59,7 +59,7 @@ module.exports = React.createClass({
 
                </div>
                
-               <span className='pull-right col-md-8 offset-md-2 trophy-info'>
+               <span className='pull-right col-xs-8 offset-md-2 trophy-info'>
            
                   <h5 className='achievement-title no-padding no-margin'>{this.props.title}</h5>
                   <span className='achievement-description'>{this.props.description}</span>

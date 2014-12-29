@@ -54,7 +54,7 @@ module.exports = React.createClass({
 
                         <div id="ul-wrap"></div>
 
-                        <div className="col-md-12 text-left">
+                        <div className="col-xs-12 text-left">
                         
                             <ul id="platform-list" className="platform-list scroll-into-view">   
 

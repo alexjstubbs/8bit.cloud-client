@@ -30,7 +30,7 @@ module.exports = React.createClass({
             icon: "ion-ios-people ",
             functionCall: "highlightPanel",
             functionParams: "panel_activity",
-            classString: "slide col-md-4",
+            classString: "slide col-xs-4",
             stackLength: 4,
             actionSet: [],
             id: "recent_activity",
@@ -54,7 +54,7 @@ module.exports = React.createClass({
         var actionSet = this.props.actionSet;
 
         var activityNodes = this.state.activities.map(function (activity, i) {
-          return <Activity actionSet={actionSet} key={i.id} navStack={i+1} username={activity.username} action={activity.activity} game={activity.game} timestamp={ moment(activity.timestamp, "YYYYMMDDhhmms").fromNow() } />
+          return <Activity actionSet={actionSet} key={i.id} navStack={i+1} username={activity.username} action={activity.activity} game={activity.game} timestamp={ activity.Timestamp } />
         });
 
         return (

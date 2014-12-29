@@ -29,7 +29,7 @@ module.exports = React.createClass({
             navStack: 4,
             icon: "ion-ios-people ",
             functionCall: "moreCommunity",
-            classString: "slide col-md-4",
+            classString: "slide col-xs-4",
             title: "Community",
             id: "panel_community",
             imageStyles: null,

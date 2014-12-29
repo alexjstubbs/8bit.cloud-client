@@ -4,7 +4,10 @@
 
 'use strict';
 
-var React = require('react/addons');
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   onlineFriends
+,   plural;
 
 module.exports = React.createClass({
 
@@ -21,18 +24,36 @@ module.exports = React.createClass({
             icon: "ion-person-stalker ",
             friendsOnline: 0,
             shortcutKey: "F5",
-            functionCall: "addFriend",
-            classString: 'col-md-3 pull-left square dark-gray',
+            functionCall: "viewFriends",
+            classString: 'col-xs-3 pull-left square dark-gray',
             id: "friendsBox"
         }
     },
 
+
     componentDidMount: function() {
-        api.on('network-api', this.setState.bind(this));
-        api.on('network-api', function(e) {
-            console.log(e)
+
+        var _this = this;
+
+        api.emit('request', { request: 'getFriends'});
+
+        api.on('network-api', function(data) {
+
+            if (data.friends) {
+                _this.setState(data);
+
+                onlineFriends = _.compact(_.flatten(data.friends, 'Online')).length;
+
+                console.log(onlineFriends);
+
+                _this.forceUpdate();
+            }
+
+
         });
+
     },
+
 
     render: function() {
 
@@ -40,18 +61,22 @@ module.exports = React.createClass({
         var classes = cx({
             'gray': true,
             'navable': false,
-            'dark-gray': this.props.friendsOnline,
+            'purple': onlineFriends,
         });
+
+        if (onlineFriends > 1) { plural = "Friends" }
+        else { plural = "Friend" }
+
         return (
 
-        <div id={this.props.id} className="col-md-6 pull-right">
+        <div id={this.props.id} className="col-xs-6 pull-right">
 
             <div className={this.props.navable ? 'navable '+this.props.classString : this.props.classString} data-function={this.props.functionCall}>
                 <i className={this.props.icon + classes}></i>
             </div>
 
-            <div className="hello col-md-7 pad_h_5">
-                <h4 className="nopadding">{this.state.onlineFriends ? this.state.onlineFriends : "No"} Friends Online</h4>
+            <div className="hello col-xs-7 pad_h_5">
+                <h4 className="nopadding">{onlineFriends ? onlineFriends : "No"} {plural} Online</h4>
                 <span className="muted">Press {this.props.shortcutKey} to view</span>
             </div>
 

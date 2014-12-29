@@ -33,7 +33,7 @@ module.exports = React.createClass({
 
         return (
 
-        <div className="col-md-4">
+        <div className="col-xs-4">
             <span><i className={eventString ? this.props.classString + eventString[0].icon : this.props.classString}></i><span className="large-notification">{this.props.eventAppend}</span></span>
             <span className="muted left-adjust">{eventString ? eventString[0].shortcut : " "} to update</span>
         </div>

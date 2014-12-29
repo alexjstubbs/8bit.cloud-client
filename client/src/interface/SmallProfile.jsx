@@ -49,7 +49,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div className="col-md-8 game_info col-md-offset-1 pull-right"  id="small_profile">
+            <div className="col-xs-8 game_info col-xs-offset-1 pull-right"  id="small_profile">
                      
                 <div className="game_info_header" id="profile_header">
                     <div className={this.state.crc32 ? classes : classes + " hidden"} data-achievements={this.props.crc32} id="achievement_display"><i className='icon ion-ios-star yellow'></i>  Achievements Available</div>
@@ -59,7 +59,7 @@ module.exports = React.createClass({
                 <div className="clearfix"></div>
 
                       
-                <div className="info_list_name col-md-6">
+                <div className="info_list_name col-xs-6">
                     
                     <h2><span className="game_name">{this.state.title}</span></h2>
                     
@@ -76,7 +76,7 @@ module.exports = React.createClass({
 
                 </div>
                         
-                <span className="col-md-3 game_image">
+                <span className="col-xs-3 game_image">
                     <img className="img-responsive" src={this.state.image} />
                 </span>
 

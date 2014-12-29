@@ -60,11 +60,11 @@ module.exports = React.createClass({
         <div className="container-fluid parent">
          
          <header>
-            <div className="col-md-2 boxed pull-left">
+            <div className="col-xs-2 boxed pull-left">
                <i className="icon ion-ios-arrow-thin-left"></i> &nbsp; Game Listing
             </div>
          
-            <span className='pull-right col-md-2'>
+            <span className='pull-right col-xs-2'>
             <i className='icon ion-minus-round start'></i>  START &nbsp; <span className='mute'>: &nbsp; PLAY</span>
             </span>
          </header>
@@ -73,7 +73,7 @@ module.exports = React.createClass({
 
          <br /><br />
 
-         <div className="col-md-2" id="profile-boxart">  
+         <div className="col-xs-2" id="profile-boxart">  
             <div id="no-boxart">
             <i className='icon ion-image'></i>
             <img src={this.state.boxart} className="img-responsive" />
@@ -86,7 +86,7 @@ module.exports = React.createClass({
             </ul>
          </div>
       
-         <div className="col-md-4" id="profile-gameinfo">
+         <div className="col-xs-4" id="profile-gameinfo">
             <h2 id="profile-gametitle">{this.state.title}</h2>
             <span className='muted'>{this.state.genre}</span>
             <br />
@@ -99,7 +99,7 @@ module.exports = React.createClass({
         
             {saveNodes}  
 
-        <div className="col-md-9 profile-section">
+        <div className="col-xs-9 profile-section">
         <h1>Achievements <span className="achievement-stats">0 out of 0 Accomplished.</span></h1>
         <ul id="achievements">
 
@@ -108,18 +108,18 @@ module.exports = React.createClass({
         </ul>
         </div>
 
-         <div className="col-md-10 profile-section hidden">
+         <div className="col-xs-10 profile-section hidden">
             <h1>Screenshots</h1>
             
          </div>
        
-         <div className="col-md-10 profile-section hidden">
+         <div className="col-xs-10 profile-section hidden">
             <h1>Description</h1>
             <br />
             <p>He's Back! And this time the evil Dr. Wily (once the supreme power in the universe) has created even more sinister robots to mount his attack. But as MegaMan, you've also grown in power and ability. Can you save mankind from the evil desires of Dr. Wily? Each of the eight empires is ruled by a different super-robot. You must defeat each enemy on his own turf, building up weapons as you go. Only after all are destroyed will you go head-on with the mastermind himself, the evil Dr. Wily. </p>
          </div>
         
-         <div className="col-md-10 profile-section hidden">
+         <div className="col-xs-10 profile-section hidden">
             <h1>Movies</h1>
            
          </div>

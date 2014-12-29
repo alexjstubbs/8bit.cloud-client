@@ -13,12 +13,14 @@ module.exports = React.createClass({
     getDefaultProps: function() {
     return {
             navable: false,
-            classString: "col-md-6 pull-right",
+            classString: "col-xs-6 pull-right",
             myMessages: [],
             unread: null
 
         }
     },
+
+    
     render: function() {
 
         return (

@@ -19,7 +19,7 @@ module.exports = React.createClass({
             icon: "ion-ios-heart-outline ",
             functionCall: "highlightPanel",
             functionParams: "panel_favorites",
-            classString: "slide col-md-4",
+            classString: "slide col-xs-4",
             stackLength: 4,
             id: "panel_favorites",
             title: "My Favorites",

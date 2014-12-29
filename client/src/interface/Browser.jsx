@@ -68,9 +68,9 @@ module.exports = React.createClass({
              <PlatformList platforms={this.props.platforms} />
 
 
-                    <div id="area" className='col-md-12'> 
+                    <div id="area" className='col-xs-12'> 
 
-                        <div data-screen='list' className="text-center col-md-12 screen row-fluid up10"> 
+                        <div data-screen='list' className="text-center col-xs-12 screen row-fluid up10"> 
               
                           <ul className="pagination pagination-md" id="browser_pagination">
                             <li data-alpha='#'><a href="#A">#</a></li>
@@ -113,7 +113,7 @@ module.exports = React.createClass({
             
             <div className='hidden'>
 
-                <div className="col-md-12 alpha_list"> 
+                <div className="col-xs-12 alpha_list"> 
 
                     <table className="table table-striped" id="list">
                     

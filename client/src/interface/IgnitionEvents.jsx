@@ -36,7 +36,7 @@ module.exports = React.createClass({
     return {
             navable: false,
             navStack: 0,
-            classString: "col-md-12",
+            classString: "col-xs-12",
             eventSet: [],
             id: "events",
             eventType: "",

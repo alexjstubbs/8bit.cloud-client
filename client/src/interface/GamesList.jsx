@@ -82,7 +82,7 @@ module.exports = React.createClass({
 
         return (
 
-                <div className="col-md-4 alpha_list navable" data-mute='true' data-function={this.props.functionCall} data-function-deprecated='launchGame' id="alpha_list">
+                <div className="col-xs-4 alpha_list navable" data-mute='true' data-function={this.props.functionCall} data-function-deprecated='launchGame' id="alpha_list">
                     <table className="table table-striped" id="list">
                         <tbody>
                             { listNodes } 

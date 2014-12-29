@@ -8,6 +8,8 @@ var systemNotify    = require('./notification.init.js')
 ,   Modal           = require('../interface/Modal.jsx')
 ,   Message         = require('../interface/Message.jsx')
 ,   Messages        = require('../interface/Messages.jsx')
+,   Friends         = require('../interface/Friends.jsx')
+,   Friend          = require('../interface/Friend.jsx')
 ,   Popup           = require('../interface/Popup.jsx')
 ,   Prompt          = require('../interface/Prompt.jsx')
 ,   Terminal        = require('../interface/Terminal.jsx')
@@ -113,6 +115,9 @@ var show = function(parent, parameters, arg) {
             break;
         case "SignUp":
             Child = SignUp({});
+            break;
+        case "Friends":
+            Child = Friends({});
             break;
         case "AddFriend":
             Child = AddFriend({});

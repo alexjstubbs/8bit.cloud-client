@@ -40,10 +40,10 @@ module.exports = React.createClass({
 
             <div id={this.props.id}>
                 <div>
-                    <div className="col-md-4">
+                    <div className="col-xs-4">
                         <UserAvatar Username={this.state.session.Username} />
 
-                        <div className="hello col-md-8">
+                        <div className="hello col-xs-8">
                             <h3 className="nopadding">Welcome, {this.state.session.Username} <span className="muted"></span></h3>
                             <NetworkStatus />
                         </div>

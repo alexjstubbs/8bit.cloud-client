@@ -737,6 +737,33 @@ td#rss_info {
     background:@black;
 }
 
+
+/* This currently controls the zoom level of the UI based on resolution)
+/* http://en.wikipedia.org/wiki/List_of_common_resolutions
+-------------------------------------------------- */
+
+/* (1920x1080) Full HD Display */
+@media screen and (min-width: 1920px) {
+    body {
+        zoom:1.4 !important;
+    }
+}
+
+
+/* (1280x720 720p HD Display */
+@media screen and (min-width: 1280px) and (max-width: 1920px) {
+    body {
+        zoom:0.9 !important;
+    }
+}
+
+/* (640 x 480) 480i Display */
+@media screen and (min-width: 640px) and (max-width: 1280px) {
+    body {
+        zoom:0.5 !important;
+    }
+}
+
 /* WebKit (refer to: http://css-tricks.com/custom-scrollbars-in-webkit/)
 -------------------------------------------------- */
 
@@ -755,12 +782,7 @@ td#rss_info {
 /* Ignition Specific
 -------------------------------------------------- */
 
-/* (1920x1080) Full HD Display */
-@media  screen and (min-width: 1920px) {
-    body {
-        zoom:1.4;
-    }
-}
+
 
 body {
     overflow:hidden;

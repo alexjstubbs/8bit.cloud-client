@@ -336,13 +336,20 @@ var events = {
 	/*  View Single Message
 	-------------------------------------------------- */
 	viewMessage: function(parameters) {
-		dialog.show("Message", parameters)
+		dialog.show("Message", parameters);
+		api.emit('request', { request: 'messages', param: null });
 	},
 
 	/* Send Message
 	-------------------------------------------------- */
 	passMessage: function(parameters) {
 		dialog.show("PassMessage", parameters);
+	},
+
+	/* View Friends
+    -------------------------------------------------- */
+    viewFriends: function(parameters) {
+        dialog.show("Friends");
 	},
 
 	/* Add a Friend(Request)
@@ -354,7 +361,7 @@ var events = {
     /* Launch selected game
     -------------------------------------------------- */
     launchGame: function(parameters) {
-        // Do via sockets
+        // Do via sockets and update server activity (so-and-so played game, 10 hours ago)
     },
 
 }

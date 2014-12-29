@@ -10,12 +10,6 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({
 
-    getInitialState: function() {
-            return {
-                friends: []
-            }
-    },
-
     componentDidMount: function() {
 
         navigationInit.navigationInit();
@@ -25,10 +19,8 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
     return {
-            navable: true,
-            navStack: 2,
             From: null,
-            Avatar: <div className="col-md-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
+            Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
             Body: "No Content",
             Type: "Message"
         }
