@@ -312,10 +312,7 @@ var getSession = function(nsp, callback) {
 
                             else {
 
-                                console.log(userProfile.Username);
-
                                 fnLog(null, "Logged In!");
-
 
                                 getSockets(nsp, _token);
 

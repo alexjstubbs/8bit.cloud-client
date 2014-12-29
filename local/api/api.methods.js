@@ -11,6 +11,14 @@ var api = {
         common.databases.storeGet(nsp, database);
     },
 
+    storeData: function(nsp, object){
+        common.databases.storeData(object.database, object.values);
+    },
+
+    compactDatabase: function(nsp, database){
+        common.databases.compactDatabase(database);
+    },
+
     platformList: function(nsp){
         common.listPlatforms.listPlatforms(nsp);
     },

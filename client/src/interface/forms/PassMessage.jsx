@@ -36,8 +36,8 @@ module.exports = React.createClass({
         return (
             <div className="parent">
 
-            <div className="col-xs-1">
-                <Avatar />
+            <div className="col-xs-1 square">
+                <h2><i className="ion-email"></i></h2>
             </div>
 
 

@@ -20,6 +20,18 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
+            var readItems = [];
+
+            readItems.push(localStorage.getItem("read_messages"));
+            readItems.push(JSON.parse(this.props.message)._id);
+
+            localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
+
+            
+
+        // JSON.parse(this.props.message)._id
+        //  _.flatten(data.messages, '_id'));
+
         navigationInit.navigationInit();
 
     },

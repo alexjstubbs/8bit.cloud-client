@@ -13,19 +13,12 @@ var React           = require('react/addons')
 ,   Favorites       = require('./Favorites.jsx')
 ,   Community       = require('./Community.jsx')
 ,   IgnitionEvents  = require('./IgnitionEvents.jsx')
-,   ShortcutBar     = require('./ShortcutBar.jsx');
+,   ShortcutBar     = require('./ShortcutBar.jsx')
+,   unreadMessages;
 
 /* Sample Data for Development
 -------------------------------------------------- */
 
-var myProfile = [
-    {"username": "Alex", "online": false}
-]
-
-var myMessages = [
-    {"username": "Sergeant Stubbs", "attachment": false, "body": "Hey whats up??"},
-    {"username": "Andie", "attachment": true, "body": "Yo"}
-]
 
 var actionSet = [
     {"type": "Achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
@@ -78,10 +71,26 @@ module.exports = React.createClass({
     componentDidMount: function() {
 
         api.emit('request', { request: 'getSession'} );
-        // api.emit('request', { request: 'messages'});
+        api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
 
-        sessionStorage.setItem("navigationState", "");
+        api.on('network-api', function(data) {
+
+            if (data.messages) {
+
+
+            var allMessages = _.flatten(data.messages, '_id');
+            var readMessages = localStorage.getItem("read_messages");
+
+            if (readMessages) {
+                readMessages = readMessages.split(",");
+            }
+
+            unreadMessages = _.xor(allMessages, readMessages).length;
+
+
+            }
+        });
 
 
     },
@@ -99,8 +108,8 @@ module.exports = React.createClass({
 
             <div id="home" className={classes}>
 
-            <UserProfile username={myProfile[0].username} isOnline={myProfile[0].username} />
-            <HeaderGroup myMessages={this.state.messages} />
+            <UserProfile />
+            <HeaderGroup myMessages={this.state.messages} unread={unreadMessages}/>
 
             <div className="clearfix"></div>
             <br />

@@ -17,13 +17,13 @@ api.on('api', function(_event){
 /* Dialog (react bug workaround)
 -------------------------------------------------- */
 window.addEventListener("dialog", function(e) {
-	
+
   switch (e.detail.action) {
-  	
+
   	case "close":
-  	  	dialog.close(e.detail.input);
+  	  	dialog.close();
   	  	return;
-  
+
   }
 
 }, false);
@@ -34,7 +34,7 @@ window.addEventListener("dialog", function(e) {
 window.addEventListener("uiActionNotification", function(e) {
 
   switch (e.detail.action) {
-    
+
     case "blocked":
         uiNotification.blocked();
         return;

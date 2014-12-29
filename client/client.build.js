@@ -2457,19 +2457,12 @@ var React           = require('react/addons')
 ,   Favorites       = require('./Favorites.jsx')
 ,   Community       = require('./Community.jsx')
 ,   IgnitionEvents  = require('./IgnitionEvents.jsx')
-,   ShortcutBar     = require('./ShortcutBar.jsx');
+,   ShortcutBar     = require('./ShortcutBar.jsx')
+,   unreadMessages;
 
 /* Sample Data for Development
 -------------------------------------------------- */
 
-var myProfile = [
-    {"username": "Alex", "online": false}
-]
-
-var myMessages = [
-    {"username": "Sergeant Stubbs", "attachment": false, "body": "Hey whats up??"},
-    {"username": "Andie", "attachment": true, "body": "Yo"}
-]
 
 var actionSet = [
     {"type": "Achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
@@ -2522,10 +2515,26 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
 
         api.emit('request', { request: 'getSession'} );
-        // api.emit('request', { request: 'messages'});
+        api.emit('request', { request: 'messages'});
         api.on('api', this.setState.bind(this));
 
-        sessionStorage.setItem("navigationState", "");
+        api.on('network-api', function(data) {
+
+            if (data.messages) {
+
+
+            var allMessages = _.flatten(data.messages, '_id');
+            var readMessages = localStorage.getItem("read_messages");
+
+            if (readMessages) {
+                readMessages = readMessages.split(",");
+            }
+
+            unreadMessages = _.xor(allMessages, readMessages).length;
+
+
+            }
+        });
 
 
     },
@@ -2543,8 +2552,8 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({id: "home", className: classes}, 
 
-            UserProfile({username: myProfile[0].username, isOnline: myProfile[0].username}), 
-            HeaderGroup({myMessages: this.state.messages}), 
+            UserProfile(null), 
+            HeaderGroup({myMessages: this.state.messages, unread: unreadMessages}), 
 
             React.DOM.div({className: "clearfix"}), 
             React.DOM.br(null), 
@@ -2979,14 +2988,17 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             classString: "col-md-6 pull-right",
             myMessages: [],
+            unread: null
 
         }
     },
     render: function() {
 
+        console.log(this.props.unread);
+
         return (
             React.DOM.div({className: this.props.classString}, 
-                Inbox({myMessages: this.props.myMessages}), 
+                Inbox({myMessages: this.props.myMessages, unread: this.props.unread}), 
                 FriendsBox(null)
             )
         );
@@ -3066,9 +3078,10 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash'),
-    newMessages;
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   newMessages
+,   icon            = "ion-email ";
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3076,37 +3089,41 @@ module.exports = React.createClass({displayName: 'exports',
     return {
             navable: true,
             navStack: 0,
-            icon: "ion-ios-email-outline ",
             myMessages: [],
             newMessages: false,
             messageCount: 0,
             shortcutKey: "F9",
             functionCall: "viewMessages",
             classString: "col-md-3 pull-left square dark-gray",
-            id: "inbox"
+            id: "inbox",
+            unread: null
         }
     },
     render: function() {
 
-        newMessages = this.props.myMessages;
+        newMessages = this.props.myMessages.length;
 
-        if (this.props.myMessages.length > 0) {
-            newMessages = true
+        if (this.props.unread == 0) {
+            icon = "ion-email ";
+        }
+
+        else {
+            icon = "ion-email-unread ";
         }
 
         var cx = React.addons.classSet;
         var classes = cx({
             'gray': true,
-            'red': newMessages
+            'red': this.props.unread
         });
 
         return (
         React.DOM.div({id: this.props.id, className: "col-md-6 pull-left"}, 
             React.DOM.div({className: this.props.navable ? 'navable '+this.props.classString : this.props.classString, 'data-function': this.props.functionCall, 'data-parameters': this.props.myMessages}, 
-                React.DOM.i({className: this.props.icon + classes})
+                React.DOM.i({className: icon + classes})
             ), 
             React.DOM.div({className: "hello col-md-7 pad_h_5"}, 
-                React.DOM.h4({className: "nopadding"}, this.props.myMessages.length, " ", newMessages ? "New messages" : "Messages"), 
+                React.DOM.h4({className: "nopadding"}, this.props.unread ? this.props.unread + " New messages" : "Messages"), 
                 React.DOM.span({className: "muted"}, "Press ", this.props.shortcutKey, " to read")
             )
         )
@@ -3356,6 +3373,18 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
+
+            var readItems = [];
+
+            readItems.push(localStorage.getItem("read_messages"));
+            readItems.push(JSON.parse(this.props.message)._id);
+
+            localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
+
+            
+
+        // JSON.parse(this.props.message)._id
+        //  _.flatten(data.messages, '_id'));
 
         navigationInit.navigationInit();
 
@@ -4865,8 +4894,8 @@ module.exports = React.createClass({displayName: 'exports',
         return (
             React.DOM.div({className: "parent"}, 
 
-            React.DOM.div({className: "col-xs-1"}, 
-                Avatar(null)
+            React.DOM.div({className: "col-xs-1 square"}, 
+                React.DOM.h2(null, React.DOM.i({className: "ion-email"}))
             ), 
 
 
@@ -6333,6 +6362,7 @@ var close = function(modal, callback) {
     sessionStorage.setItem("navigationState", "");
 
      var main = document.getElementById("main");
+
      var opacits = document.querySelectorAll(".opacity-50");
      var opacits_ = document.querySelectorAll(".opacity-0");
 
@@ -6340,18 +6370,23 @@ var close = function(modal, callback) {
             el.classList.remove("opacity-50");
      });
 
+     console.log(opacits_);
 
      if (_.first(opacits_)) {
          _.first(opacits_).classList.remove("opacity-0");
      }
 
-    if (!modal) {
+    // if (!modal) {
+    //
+    //     var modal = document.querySelectorAll(".ignition-modal");
+    //
+    //     modal = _.first(modal);
+    //
+    // }
 
-        var modal = document.querySelectorAll(".ignition-modal");
+    var modal = document.querySelectorAll(".ignition-modal-parent");
 
-        modal = _.first(modal);
-
-    }
+    modal = _.first(modal);
 
     modal.parentNode.removeChild(modal);
 
@@ -6421,13 +6456,13 @@ api.on('api', function(_event){
 /* Dialog (react bug workaround)
 -------------------------------------------------- */
 window.addEventListener("dialog", function(e) {
-	
+
   switch (e.detail.action) {
-  	
+
   	case "close":
-  	  	dialog.close(e.detail.input);
+  	  	dialog.close();
   	  	return;
-  
+
   }
 
 }, false);
@@ -6438,13 +6473,14 @@ window.addEventListener("dialog", function(e) {
 window.addEventListener("uiActionNotification", function(e) {
 
   switch (e.detail.action) {
-    
+
     case "blocked":
         uiNotification.blocked();
         return;
   }
 
 }, false);
+
 },{"./dialogs":66,"./events":68,"./ui.notification":86,"lodash":87,"socket.io-client":248}],68:[function(require,module,exports){
 /* Custom Events
 -------------------------------------------------- */
@@ -8578,8 +8614,6 @@ var events = {
 			disagree: "closeDialog",
 			parameters: parameters
 		}
-
-		console.log("called");
 
 		dialog.show("Prompt", null, arg);
 

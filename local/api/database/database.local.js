@@ -20,10 +20,15 @@ function initDatabases(callback) {
     db.activities = new Datastore({
         filename: './databases/activities.db',
         autoload: true
-    });    
+    });
 
     db.network = new Datastore({
         filename: './databases/network.db',
+        autoload: true
+    });
+
+    db.messages = new Datastore({
+        filename: './databases/messages.db',
         autoload: true
     });
 
@@ -39,14 +44,18 @@ function initDatabases(callback) {
 /* Compact Database
 -------------------------------------------------- */
 function compactDatabase(database, callback) {
+    console.log("COMPACT: "+database);
     db[database].persistence.compactDatafile();
-    callback();
+
+    if (callback) {
+        callback();
+    }
 }
 
-/* Get Databases 
+/* Get Databases
 -------------------------------------------------- */
 function storeGet(nsp, database, callback) {
-     
+
     db[database].find({}, function (err, docs) {
 
         if (!err && nsp) {
@@ -71,12 +80,18 @@ function storeData(database, doc, callback) {
     db[database].insert(doc, function(err, doc){
 
         if (err) {
+
             console.log("[!] Error storing data: "+err)
-            callback(err, null);
+
+            if (callback) {
+                callback(err, null);
+            }
         }
 
         else {
-            callback(null, doc);
+            if (callback) {
+                callback(null, doc);
+            }
         }
 
     });
@@ -104,7 +119,7 @@ function storeActivity(nsp, activity) {
 /* Store Achievement Document
 -------------------------------------------------- */
 function storeAchievement(document, callback) {
-    
+
     // Does it Exist?
     db.achievements.find({
         CRC32: {
@@ -177,11 +192,14 @@ function findGame(document, callback) {
 
 }
 
-exports.storeGame = storeGame;
-exports.findGame = findGame;
-exports.storeAchievement = storeAchievement;
-exports.findAchievements = findAchievements;
-exports.initDatabases = initDatabases;
-exports.storeGet = storeGet;
-exports.storeData = storeData;
-exports.compactDatabase = compactDatabase;
+/*  Exports
+-------------------------------------------------- */
+
+exports.storeGame           = storeGame;
+exports.findGame            = findGame;
+exports.storeAchievement    = storeAchievement;
+exports.findAchievements    = findAchievements;
+exports.initDatabases       = initDatabases;
+exports.storeGet            = storeGet;
+exports.storeData           = storeData;
+exports.compactDatabase     = compactDatabase;

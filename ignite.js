@@ -118,4 +118,5 @@ http.listen(1210, "127.0.0.1");
 console.log("[i] Ignition Client Launched.");
 
 common.databases.initDatabases();
+
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');

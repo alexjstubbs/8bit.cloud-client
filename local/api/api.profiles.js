@@ -123,7 +123,7 @@ function profileLogin(nsp) {
 
             // Success! Load Dashboard
             else {
-
+                
                 nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
 
             }

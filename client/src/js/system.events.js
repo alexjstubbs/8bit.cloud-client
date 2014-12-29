@@ -311,8 +311,6 @@ var events = {
 			parameters: parameters
 		}
 
-		console.log("called");
-
 		dialog.show("Prompt", null, arg);
 
 	},

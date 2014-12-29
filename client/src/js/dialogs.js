@@ -146,6 +146,7 @@ var close = function(modal, callback) {
     sessionStorage.setItem("navigationState", "");
 
      var main = document.getElementById("main");
+
      var opacits = document.querySelectorAll(".opacity-50");
      var opacits_ = document.querySelectorAll(".opacity-0");
 
@@ -153,18 +154,23 @@ var close = function(modal, callback) {
             el.classList.remove("opacity-50");
      });
 
+     console.log(opacits_);
 
      if (_.first(opacits_)) {
          _.first(opacits_).classList.remove("opacity-0");
      }
 
-    if (!modal) {
+    // if (!modal) {
+    //
+    //     var modal = document.querySelectorAll(".ignition-modal");
+    //
+    //     modal = _.first(modal);
+    //
+    // }
 
-        var modal = document.querySelectorAll(".ignition-modal");
+    var modal = document.querySelectorAll(".ignition-modal-parent");
 
-        modal = _.first(modal);
-
-    }
+    modal = _.first(modal);
 
     modal.parentNode.removeChild(modal);
 
