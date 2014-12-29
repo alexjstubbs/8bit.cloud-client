@@ -39,6 +39,7 @@ module.exports = React.createClass({
 
     render: function() {
 
+
         var message = JSON.parse(this.props.message),
             _moment  = moment(message.Timestamp, "YYYYMMDDhhmms").fromNow();
 
@@ -46,17 +47,17 @@ module.exports = React.createClass({
 
             <div className="parent">
 
-                <div className="col-xs-12">
+                <div className="col-xs-12" className="full-message">
 
-                    <div className="col-xs-2">
+                    <div className="col-xs-1">
                         <UserAvatar username={message.From} />
                     </div>
 
                     <div className="col-xs-6">
 
-                        <h3 className="mute no-padding no-margin">{message.From}</h3>
-                        <h5 className="mute">{_moment}</h5>
-
+                        <div className="no-padding no-margin">{message.From}</div><br />
+                        <div className="mute">{_moment}</div>
+                        <br />
                         <UserStatus Username={message.From} />
                         <br />
 
@@ -68,6 +69,8 @@ module.exports = React.createClass({
 
 
                     <div className="clearfix"></div>
+
+                    <br />
 
                     <div className="well-alt coll-xs-12 navable scrollable">
                         {message.Body}
@@ -83,7 +86,7 @@ module.exports = React.createClass({
                 </div>
 
                 <div className="pull-right">
-                    <button className="navable btn btn-alt btn-alt-size"><i className="ion-trash-a red"></i> &nbsp; Delete Message</button>
+                    <button className="navable btn btn-alt btn-alt-size" data-function="deleteMessage" data-parameters={message._id}><i className="ion-trash-a red"></i> &nbsp; Delete Message</button>
                     <button className="navable btn btn-alt btn-alt-size" data-function="passMessage" data-parameters={message.From}><i className="ion-reply green"></i> &nbsp; Reply</button>
                 </div>
             </div>

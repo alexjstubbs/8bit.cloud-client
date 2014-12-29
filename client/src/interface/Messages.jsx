@@ -7,7 +7,10 @@ var React               = require('react/addons')
 ,   moment              = require('moment')
 ,   MessagePreview      = require('./MessagePreview.jsx')
 ,   api                 = require('socket.io-client')('/api')
-,   navigationInit      = require('../js/navigation.init');
+,   navigationInit      = require('../js/navigation.init')
+,   UserAvatar          = require('./Avatar.jsx')
+,   Avatar
+,   noMessages;
 
 
 module.exports = React.createClass({
@@ -20,10 +23,14 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function () {
+
         api.emit('request', { request: 'messages'});
         api.on('network-api', this.setState.bind(this));
 
-     },
+        noMessages = <div className="well"><i className="ion-sad-outline"></i> &nbsp; You have no messages.</div>
+
+        navigationInit.navigationInit();
+    },
 
     getDefaultProps: function() {
 
@@ -35,7 +42,7 @@ module.exports = React.createClass({
     render: function() {
 
         var messageNodes = this.state.messages.map(function (message, i) {
-          return <MessagePreview key={i.id} message={message} messageId={message._id} From={message.From} Body={message.Body} timestamp={moment(message.timestamp, "YYYYMMDDhhmms").fromNow()} />
+          return <MessagePreview key={i.id} Avatar={message.Avatar} message={message} messageId={message._id} From={message.From} Body={message.Body} timestamp={moment(message.timestamp, "YYYYMMDDhhmms").fromNow()} />
         });
 
         return (
@@ -44,7 +51,12 @@ module.exports = React.createClass({
 
                 <div className="messages-list scroll-into-view">
                     {messageNodes}
+
+                    {this.state.messages.length ? null : <h3 className="text-center">{noMessages}</h3>}
+
+
                 </div>
+
 
                 <hr />
 

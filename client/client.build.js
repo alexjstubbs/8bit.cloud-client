@@ -1992,11 +1992,15 @@ module.exports = React.createClass({displayName: 'exports',
 var React           = require('react/addons')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
 ,   api             = require('socket.io-client')('/api')
-,   _               = require('lodash');
+,   _               = require('lodash')
+,   throttled;
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
+
+        throttled = _.throttle(this.updateAvatar, 1000);
+
         return {
 
             profile: {
@@ -2018,23 +2022,28 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-        this.updateAvatar();
+        throttled();
 
     },
 
     componentWillReceiveProps: function(props) {
 
-        this.updateAvatar();
+        throttled();
 
     },
 
     updateAvatar: function() {
 
+
         var _this = this;
 
-        if (this.props.Username || this.props.Username != "Guest") {
+        if (_this.props.Username) {
 
-            api.emit('request', { request: 'getProfile', param: this.props.Username});
+            if (_this.props.Username != "Guest") {
+
+            console.log(_this.props.Username);
+
+            api.emit('request', { request: 'getProfile', param: _this.props.Username});
 
             api.on('network-api', function(obj) {
 
@@ -2049,7 +2058,8 @@ module.exports = React.createClass({displayName: 'exports',
                 }
 
             });
-        }
+}    
+    }
     },
 
     render: function() {
@@ -3366,6 +3376,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+
         var message = JSON.parse(this.props.message),
             _moment  = moment(message.Timestamp, "YYYYMMDDhhmms").fromNow();
 
@@ -3373,17 +3384,17 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "parent"}, 
 
-                React.DOM.div({className: "col-xs-12"}, 
+                React.DOM.div({className: "col-xs-12", className: "full-message"}, 
 
-                    React.DOM.div({className: "col-xs-2"}, 
+                    React.DOM.div({className: "col-xs-1"}, 
                         UserAvatar({username: message.From})
                     ), 
 
                     React.DOM.div({className: "col-xs-6"}, 
 
-                        React.DOM.h3({className: "mute no-padding no-margin"}, message.From), 
-                        React.DOM.h5({className: "mute"}, _moment), 
-
+                        React.DOM.div({className: "no-padding no-margin"}, message.From), React.DOM.br(null), 
+                        React.DOM.div({className: "mute"}, _moment), 
+                        React.DOM.br(null), 
                         UserStatus({Username: message.From}), 
                         React.DOM.br(null)
 
@@ -3395,6 +3406,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 
                     React.DOM.div({className: "clearfix"}), 
+
+                    React.DOM.br(null), 
 
                     React.DOM.div({className: "well-alt coll-xs-12 navable scrollable"}, 
                         message.Body
@@ -3410,7 +3423,7 @@ module.exports = React.createClass({displayName: 'exports',
                 ), 
 
                 React.DOM.div({className: "pull-right"}, 
-                    React.DOM.button({className: "navable btn btn-alt btn-alt-size"}, React.DOM.i({className: "ion-trash-a red"}), "   Delete Message"), 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "deleteMessage", 'data-parameters': message._id}, React.DOM.i({className: "ion-trash-a red"}), "   Delete Message"), 
                     React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "passMessage", 'data-parameters': message.From}, React.DOM.i({className: "ion-reply green"}), "   Reply")
                 )
             )
@@ -3427,7 +3440,8 @@ module.exports = React.createClass({displayName: 'exports',
 var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   navigationInit      = require('../js/navigation.init');
+,   navigationInit  = require('../js/navigation.init')
+,   UserAvatar      = require('./Avatar.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3459,17 +3473,41 @@ module.exports = React.createClass({displayName: 'exports',
 
         var messageObj = JSON.stringify(this.props.message);
 
+        var Avatar;
+
+        Avatar = true;
+
+        if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.props.message.Avatar)) {
+            Avatar = true
+        }
+
+        else {
+            Avatar = false;
+        }
+
+        var cx = React.addons.classSet;
+        var classes = cx({
+            'avatared': Avatar,
+            'square': true,
+            'pull-left': true
+        });
+
         return (
 
             React.DOM.div({className: "navable message-preview message-unread", 'data-function': "viewMessage", 'data-parameters': messageObj}, 
 
-                React.DOM.div({className: "col-xs-1"}, 
-
-                    React.DOM.small({className: "timestamp"}, React.DOM.span({className: "label label-info"}, this.props.From))
+                React.DOM.div({className: "col-xs-2"}, 
+                    React.DOM.div({className: classes}, 
+                        Avatar ? React.DOM.img({src: this.props.message.Avatar, className: "img-responsive"}) : React.DOM.i({className: "ion-person"})
+                    )
                 ), 
 
-                React.DOM.div({className: "col-xs-8"}, 
-                    React.DOM.p({className: "preview"}, this.props.Body)
+                React.DOM.div({className: "col-xs-7"}, 
+                React.DOM.p(null, 
+                    this.props.From, 
+                    React.DOM.br(null), 
+                    this.props.Body
+                )
                 ), 
 
                 React.DOM.div({className: "col-xs-3"}, 
@@ -3489,7 +3527,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":78,"./NetworkStatus.jsx":26,"lodash":87,"react/addons":89}],24:[function(require,module,exports){
+},{"../js/navigation.init":78,"./Avatar.jsx":4,"./NetworkStatus.jsx":26,"lodash":87,"react/addons":89}],24:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3499,7 +3537,10 @@ var React               = require('react/addons')
 ,   moment              = require('moment')
 ,   MessagePreview      = require('./MessagePreview.jsx')
 ,   api                 = require('socket.io-client')('/api')
-,   navigationInit      = require('../js/navigation.init');
+,   navigationInit      = require('../js/navigation.init')
+,   UserAvatar          = require('./Avatar.jsx')
+,   Avatar
+,   noMessages;
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -3512,10 +3553,14 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function () {
+
         api.emit('request', { request: 'messages'});
         api.on('network-api', this.setState.bind(this));
 
-     },
+        noMessages = React.DOM.div({className: "well"}, React.DOM.i({className: "ion-sad-outline"}), "   You have no messages.")
+
+        navigationInit.navigationInit();
+    },
 
     getDefaultProps: function() {
 
@@ -3527,7 +3572,7 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         var messageNodes = this.state.messages.map(function (message, i) {
-          return MessagePreview({key: i.id, message: message, messageId: message._id, From: message.From, Body: message.Body, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
+          return MessagePreview({key: i.id, Avatar: message.Avatar, message: message, messageId: message._id, From: message.From, Body: message.Body, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
         });
 
         return (
@@ -3535,8 +3580,13 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "parent"}, 
 
                 React.DOM.div({className: "messages-list scroll-into-view"}, 
-                    messageNodes
+                    messageNodes, 
+
+                    this.state.messages.length ? null : React.DOM.h3({className: "text-center"}, noMessages)
+
+
                 ), 
+
 
                 React.DOM.hr(null), 
 
@@ -3556,7 +3606,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":78,"./MessagePreview.jsx":23,"lodash":87,"moment":88,"react/addons":89,"socket.io-client":248}],25:[function(require,module,exports){
+},{"../js/navigation.init":78,"./Avatar.jsx":4,"./MessagePreview.jsx":23,"lodash":87,"moment":88,"react/addons":89,"socket.io-client":248}],25:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4098,7 +4148,8 @@ module.exports = React.createClass({displayName: 'exports',
         return {
             message: "Are you sure?",
             agree: "closeDialog",
-            disagree: "closeDialog"
+            disagree: "closeDialog",
+            parameters: null
         }
     },
 
@@ -4119,8 +4170,8 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.hr(null), 
 
-                React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "closeDialog"}, "Cancel"), 
-                React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': this.props.agree}, "Yes")
+                React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': this.props.disagree}, "Cancel"), 
+                React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': this.props.agree, 'data-parameters': this.props.parameters}, "Yes")
 
             )
 
@@ -4630,18 +4681,23 @@ module.exports = React.createClass({displayName: 'exports',
 
         var _this = this;
 
-        api.emit('request', { request: 'getProfile', param: this.props.Username});
+        if (this.props.Username || this.props.Username != "Guest") {
 
-        api.on('network-api', function(obj) {
+            api.emit('request', { request: 'getProfile', param: this.props.Username});
 
-            if (obj.userProfile[0].Username == _this.props.Username) {
+            api.on('network-api', function(obj) {
 
-                _this.setState({profile: obj.userProfile[0]});
+            if (!_.isEmpty(obj.userProfile)) {
 
+                if (obj.userProfile[0].Username == _this.props.Username) {
+
+                    _this.setState({profile: obj.userProfile[0]});
+
+                }
             }
 
         });
-
+    }
 
      },
 
@@ -6239,7 +6295,7 @@ var show = function(parent, parameters, arg) {
             break;
         case "Prompt":
             properties = {backdrop: true};
-            Child = Prompt({message: arg, agree: 'browserFocusAgree'});
+            Child = Prompt({message: arg.message, agree: arg.agree, disagree: arg.disagree, parameters: arg.parameters});
             break;
         case "SignUp":
             Child = SignUp({});
@@ -8424,9 +8480,15 @@ var events = {
 	-------------------------------------------------- */
 	browserFocus: function(parameters) {
 
-		dialog.show("Prompt", null, "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?");
+		var arg = {
+			message: "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?",
+			agree: "browserFocusAgree",
+			disagree: "closeDialog",
+			parameters: parameters
+		}
 
-		//	document.body.classList.add("mouse");
+		dialog.show("Prompt", null, arg);
+
 	},
 
 	/* Focus Agreement
@@ -8505,6 +8567,35 @@ var events = {
     highlightPanel: function(parameters) {
 		KeyEvent(40);
     },
+
+	/*  Delete Message Prompt
+	-------------------------------------------------- */
+	deleteMessage: function(parameters) {
+
+		var arg = {
+			message: "Are you sure you want to delete this message?",
+			agree: "deleteMessageConfirmed",
+			disagree: "closeDialog",
+			parameters: parameters
+		}
+
+		console.log("called");
+
+		dialog.show("Prompt", null, arg);
+
+	},
+
+    /* Delete Message
+    -------------------------------------------------- */
+    deleteMessageConfirmed: function(parameters) {
+
+		api.emit('request', { request: 'deleteMessage', param: parameters });
+		api.emit('request', { request: 'messages', param: null });
+
+		dialog.close();
+		dialog.close();
+
+	},
 
     /* View Messages event
     -------------------------------------------------- */

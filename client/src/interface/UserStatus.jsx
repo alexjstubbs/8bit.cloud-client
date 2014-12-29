@@ -39,18 +39,23 @@ module.exports = React.createClass({
 
         var _this = this;
 
-        api.emit('request', { request: 'getProfile', param: this.props.Username});
+        if (this.props.Username || this.props.Username != "Guest") {
 
-        api.on('network-api', function(obj) {
+            api.emit('request', { request: 'getProfile', param: this.props.Username});
 
-            if (obj.userProfile[0].Username == _this.props.Username) {
+            api.on('network-api', function(obj) {
 
-                _this.setState({profile: obj.userProfile[0]});
+            if (!_.isEmpty(obj.userProfile)) {
 
+                if (obj.userProfile[0].Username == _this.props.Username) {
+
+                    _this.setState({profile: obj.userProfile[0]});
+
+                }
             }
 
         });
-
+    }
 
      },
 

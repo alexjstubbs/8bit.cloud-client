@@ -13,7 +13,8 @@ module.exports = React.createClass({
         return {
             message: "Are you sure?",
             agree: "closeDialog",
-            disagree: "closeDialog"
+            disagree: "closeDialog",
+            parameters: null
         }
     },
 
@@ -34,8 +35,8 @@ module.exports = React.createClass({
 
                 <hr />
 
-                <button className="navable btn btn-alt btn-alt-size" data-function="closeDialog">Cancel</button>
-                <button className="navable btn btn-alt btn-alt-size" data-function={this.props.agree}>Yes</button>
+                <button className="navable btn btn-alt btn-alt-size" data-function={this.props.disagree}>Cancel</button>
+                <button className="navable btn btn-alt btn-alt-size" data-function={this.props.agree} data-parameters={this.props.parameters}>Yes</button>
 
             </div>
 

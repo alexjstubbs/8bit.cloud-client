@@ -862,13 +862,13 @@ i.button_go {
 }
 
 .square {
-    font-size:3em;
+    font-size:4rem;
     max-width:70px;
     max-height:75px;
     .make-md-column(12);
     padding:10px 5px 10px 5px;
     text-align:center;
-    background:@primary;
+    background:@blue;
     color:@white;
     position:relative;
 }
@@ -1941,6 +1941,11 @@ p.game_deck {
     padding-right:5px;
 }
 
+.top10 {
+    position:relative;
+    top:10px;
+}
+
 .up10 {
     position:relative;
     top:-20px;
@@ -1959,13 +1964,12 @@ p.game_deck {
 .messages-list {
     padding:0 10px;
     overflow-y:auto;
-    height:60vh;
+    max-height:60vh;
 }
 
 .message-unread {
     opacity:1.0;
 }
-
 
 .message-read {
     opacity:0.5;
@@ -1976,7 +1980,17 @@ p.game_deck {
     margin:10px 0;
     position:relative;
     overflow:hidden;
-    height:15vh;
+    height:13vh;
+    padding:10px 0;
+}
+
+.message-preview div:nth-child(2) {
+    padding-top:1vh;
+}
+
+
+.message-preview div:nth-child(3) {
+    padding-top:2vh;
 }
 
 .message-preview .preview {
@@ -1987,10 +2001,21 @@ p.game_deck {
 }
 
 .message-preview .timestamp {
-    position:relative;
-    top:5vh;
     .text-right;
-    border-left:1px solid @gray-dark;
+    .mute;
+    .small;
+}
+
+
+.full-message div:nth-child(1) {
+    .pull-left;
+    padding-left:0;
+    margin-left:0;
+}
+
+.full-message div:nth-child(2) {
+    text-align:left;
+    font-size:1.6rem;
 }
 
 /* Sign Up (Overrides Login)

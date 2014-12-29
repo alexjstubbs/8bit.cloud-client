@@ -7,11 +7,15 @@
 var React           = require('react/addons')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
 ,   api             = require('socket.io-client')('/api')
-,   _               = require('lodash');
+,   _               = require('lodash')
+,   throttled;
 
 module.exports = React.createClass({
 
     getInitialState: function() {
+
+        throttled = _.throttle(this.updateAvatar, 1000);
+
         return {
 
             profile: {
@@ -33,23 +37,28 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        this.updateAvatar();
+        throttled();
 
     },
 
     componentWillReceiveProps: function(props) {
 
-        this.updateAvatar();
+        throttled();
 
     },
 
     updateAvatar: function() {
 
+
         var _this = this;
 
-        if (this.props.Username || this.props.Username != "Guest") {
+        if (_this.props.Username) {
 
-            api.emit('request', { request: 'getProfile', param: this.props.Username});
+            if (_this.props.Username != "Guest") {
+
+            console.log(_this.props.Username);
+
+            api.emit('request', { request: 'getProfile', param: _this.props.Username});
 
             api.on('network-api', function(obj) {
 
@@ -64,7 +73,8 @@ module.exports = React.createClass({
                 }
 
             });
-        }
+}    
+    }
     },
 
     render: function() {

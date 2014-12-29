@@ -83,6 +83,12 @@ var getMessages = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getMessages' });
 }
 
+/* Delete Message
+-------------------------------------------------- */
+var deleteMessage = function(nsp, message) {
+    sockets.networkInterface(nsp, { cmd: 'deleteMessage', parameters: message });
+}
+
 /*  Send Message
 -------------------------------------------------- */
 var passMessage = function(nsp, data) {
@@ -547,6 +553,7 @@ exports.getProfile      = getProfile;
 exports.getCommunity    = getCommunity;
 exports.getEvents       = getEvents;
 exports.getMessages     = getMessages;
+exports.deleteMessage   = deleteMessage;
 exports.getSession      = getSession;
 exports.leaveSession    = leaveSession;
 exports.getFriends      = getFriends;

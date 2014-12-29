@@ -212,9 +212,15 @@ var events = {
 	-------------------------------------------------- */
 	browserFocus: function(parameters) {
 
-		dialog.show("Prompt", null, "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?");
+		var arg = {
+			message: "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?",
+			agree: "browserFocusAgree",
+			disagree: "closeDialog",
+			parameters: parameters
+		}
 
-		//	document.body.classList.add("mouse");
+		dialog.show("Prompt", null, arg);
+
 	},
 
 	/* Focus Agreement
@@ -293,6 +299,35 @@ var events = {
     highlightPanel: function(parameters) {
 		KeyEvent(40);
     },
+
+	/*  Delete Message Prompt
+	-------------------------------------------------- */
+	deleteMessage: function(parameters) {
+
+		var arg = {
+			message: "Are you sure you want to delete this message?",
+			agree: "deleteMessageConfirmed",
+			disagree: "closeDialog",
+			parameters: parameters
+		}
+
+		console.log("called");
+
+		dialog.show("Prompt", null, arg);
+
+	},
+
+    /* Delete Message
+    -------------------------------------------------- */
+    deleteMessageConfirmed: function(parameters) {
+
+		api.emit('request', { request: 'deleteMessage', param: parameters });
+		api.emit('request', { request: 'messages', param: null });
+
+		dialog.close();
+		dialog.close();
+
+	},
 
     /* View Messages event
     -------------------------------------------------- */

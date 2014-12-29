@@ -23,6 +23,10 @@ var api = {
         common.serverAPI.getMessages(nsp);
     },
 
+    deleteMessage: function(nsp, id) {
+        common.serverAPI.deleteMessage(nsp, id);
+    },
+
     isOnline: function(nsp, username) {
         common.network.isOnline(nsp, username);
     },

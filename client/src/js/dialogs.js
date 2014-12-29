@@ -108,7 +108,7 @@ var show = function(parent, parameters, arg) {
             break;
         case "Prompt":
             properties = {backdrop: true};
-            Child = Prompt({message: arg, agree: 'browserFocusAgree'});
+            Child = Prompt({message: arg.message, agree: arg.agree, disagree: arg.disagree, parameters: arg.parameters});
             break;
         case "SignUp":
             Child = SignUp({});
