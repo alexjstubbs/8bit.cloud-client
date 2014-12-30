@@ -62,7 +62,7 @@ var getProfile = function(nsp, username) {
 /* Add a Friend Endpoint
 -------------------------------------------------- */
 var addFriend = function(nsp, data) {
-    sockets.networkInterface(nsp, { cmd: 'addFriend', parameters: data.username});
+    sockets.networkInterface(nsp, { cmd: 'addFriend', parameters: data});
 }
 
 /* Friends Endpoint
@@ -172,6 +172,10 @@ var submitForm = function(nsp, data, callback) {
 
                     addFriend: function() {
                         addFriend(nsp, data)
+                        // TODO: Add loopback
+                        nsp.emit('clientEvent', {command: "closeDialog", params: null });
+
+
                     },
 
                     passMessage: function() {

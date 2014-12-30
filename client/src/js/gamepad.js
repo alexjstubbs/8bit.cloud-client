@@ -88,8 +88,6 @@ var gamepadSupport = {
          */
         onGamepadConnect: function(event) {
 
-            console.log("CONNECTED")
-
             // Add the new gamepad on the list of gamepads to look after.
             gamepadSupport.gamepads.push(event.gamepad);
 
@@ -212,16 +210,20 @@ var gamepadSupport = {
                 console.log("left trigger")
                 navigationKeyEvent(219);
             }
-            if (button[8]) {
-                console.log("select");
+
+            if (button[8] || button[1] || button [3]) {
+                console.log("select: back");
+                Mousetrap.trigger('shift');
             }
-            if (button[9]) {
-                console.log("start");
+
+            if (button[0] || button[2] || button[9]) {
+                console.log("start:confirm")
                 Mousetrap.trigger('enter');
             }
         },
 
         axesPressed: function(axes) {
+
             if (axes[1] == 1) {
                 Mousetrap.trigger('down');
 
@@ -256,7 +258,6 @@ var gamepadSupport = {
 
             if (rawGamepads) {
 
-
                 // We don’t want to use rawGamepads coming straight from the browser,
                 // since it can have “holes” (e.g. if you plug two gamepads, and then
                 // unplug the first one, the remaining one will be at index [1]).
@@ -289,18 +290,21 @@ var gamepadSupport = {
                     // Event Change (ignition):
                     if (rawGamepads[0]) {
 
+
                         // notify.log("<i class='icon ion-game-controller-a'></i> Gamepad Detected");
 
-                        urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
-                        var xmlhttpl = new XMLHttpRequest();
-                        xmlhttpl.open("POST", urllaunch, true);
-                        xmlhttpl.send("");
+                        // urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
+                        // var xmlhttpl = new XMLHttpRequest();
+                        // xmlhttpl.open("POST", urllaunch, true);
+                        // xmlhttpl.send("");
 
-                        console.log("Gamepad Connected");
+                        console.log("Gamepad Connected!");
+                        console.log(rawGamepads[0]);
 
-                        sounds('notify_up.wav');
+                        // sounds('notify_up.wav');
 
                         gamepadSupport.STATE_CHANGE = 1;
+
                     } else {
 
                         console.log("No Gamepad");
@@ -308,15 +312,15 @@ var gamepadSupport = {
                         if (gamepadSupport.STATE_CHANGE == 1) {
 
 
-                            urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
-                            var xmlhttpl = new XMLHttpRequest();
-                            xmlhttpl.open("POST", urllaunch, true);
-                            xmlhttpl.send("");
+                            // urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
+                            // var xmlhttpl = new XMLHttpRequest();
+                            // xmlhttpl.open("POST", urllaunch, true);
+                            // xmlhttpl.send("");
 
                             console.log("Gamepad Disconnected");
 
                             gamepadSupport.STATE_CHANGE = 0
-                            sounds('notify_down.wav');
+                            // sounds('notify_down.wav');
 
                         }
 

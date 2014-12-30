@@ -364,6 +364,13 @@ var events = {
         // Do via sockets and update server activity (so-and-so played game, 10 hours ago)
     },
 
+	/* See game Profile
+	-------------------------------------------------- */
+	largeProfile: function(parameters) {
+
+		// TODO: 
+		KeyEvent(221);
+	}
 }
 
 

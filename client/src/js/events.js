@@ -2,7 +2,7 @@
 -------------------------------------------------- */
 var api     = require('socket.io-client')('/api');
 
-/* Legacy Screen Transition
+/* Render Screen Components
 -------------------------------------------------- */
 var renderScreenComponents = function(screen) {
 
@@ -35,7 +35,7 @@ var screenTransition = function(screen, hidden, parent) {
 
 };
 
-/* Change view of screen (render child)
+/* Change view of screen (to render child)
 -------------------------------------------------- */
 var changeView = function(view) {
 

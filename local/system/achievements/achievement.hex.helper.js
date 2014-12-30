@@ -28,7 +28,7 @@ function checkHex(file, offset, bufflength, addresses, callback) {
 
             // Check each Hex in Achievement array
             addresses.forEach(function(i) {
-               
+
                 var nup = parseInt(i) + parseInt(offset);
                 var hex = buffer[nup];
                 hex = hex.toString(16);
@@ -52,11 +52,11 @@ function readHex(req, res, callback) {
 
     var address = req.params.address;
 
-    /* Offsets are emulator/core specific. 
+    /* Offsets are emulator/core specific.
     -------------------------------------------------- */
 
     // FCEU
-    // var offset = 0x54 
+    // var offset = 0x54
     if (req.params.offset) {
         var offset = req.params.offset;
     } else {
@@ -86,28 +86,29 @@ function readHex(req, res, callback) {
 
 function getCRC32(nsp, filepath) {
 
-    console.log(filepath);
 
-    fs.readFile(filepath, function(err, data) {
-        if (data) {
+    if (filepath) {
+        fs.readFile(filepath, function(err, data) {
+            if (data) {
 
-            buffered = crc32(data);
+                buffered = crc32(data);
 
-            database.findAchievements({
-                CRC32: {
-                    $in: [buffered.toString('hex')]
-                }
-            }, function(data) {
-                    if (buffered) {
-                         nsp.emit('api', {crc32: data});
+                database.findAchievements({
+                    CRC32: {
+                        $in: [buffered.toString('hex')]
                     }
-            })
-        } else {
-             nsp.emit('api', {crc32: null});
-        }
-                // res.send(buffered.toString('hex'));
-            })
-        
+                }, function(data) {
+                        if (buffered) {
+                             nsp.emit('api', {crc32: data});
+                        }
+                })
+            } else {
+                 nsp.emit('api', {crc32: null});
+            }
+                    // res.send(buffered.toString('hex'));
+                })
+    }
+
 }
 
 exports.readHex = readHex;

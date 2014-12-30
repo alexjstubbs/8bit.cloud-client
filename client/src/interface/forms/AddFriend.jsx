@@ -11,7 +11,7 @@ module.exports = React.createClass({
 
     getInitialState: function() {
             return {
-                
+
             }
     },
 
@@ -51,7 +51,7 @@ module.exports = React.createClass({
                         </div>
 
                         <div className="col-xs-11 text-center">
-                            <textarea placeholder="Optional Message to User" data-function='inputFocus' name="Body" className='textarea-height navable scrollable input-lg form-control' >
+                            <textarea placeholder="Optional Message to User" data-function='inputFocus' name="Message" className='textarea-height navable scrollable input-lg form-control' >
                             </textarea>
                         </div>
 

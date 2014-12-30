@@ -6,7 +6,7 @@ var api             = require('socket.io-client')('/api')
 , 	dialog          = require('./dialogs')
 ,   uiNotification  = require('./ui.notification');
 
-/* Possibly Unused. Run unit tests
+/* TODO: Fix up to contain all detail
 -------------------------------------------------- */
 api.on('api', function(_event){
     if (_event.updateGame) {

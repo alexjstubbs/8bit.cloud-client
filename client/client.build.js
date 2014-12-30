@@ -3417,20 +3417,23 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    api = require('socket.io-client')('/api'),
-    _ = require('lodash'),
-    SaveStates = require('./SaveStates.jsx'),
-    AchievementList = require('./AchievementList.jsx');
+var React = require('react/addons')
+,   api = require('socket.io-client')('/api')
+,   _ = require('lodash')
+,   SaveStates = require('./SaveStates.jsx')
+,   AchievementList = require('./AchievementList.jsx');
+
 
 module.exports = React.createClass({displayName: 'exports',
 
   getInitialState: function() {
           return {
-            "title": "Unknown Title",            
-            "boxart": "",
+            "screen": "Profile",
+            "title": "Unknown Title",
+            "boxart": null,
+            "image": null,
             "genre": "Action > Adventure",
-            "playtime": "1:12:02",
+            "playtime": "Never Played",
             "savestates": [
                 {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
             ],
@@ -3438,18 +3441,34 @@ module.exports = React.createClass({displayName: 'exports',
         };
     },
 
+    screenMount: function() {
+        // console.log("Load states etc.");
+
+    },
+
     componentDidMount: function () {
 
         var component = this;
+
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail)
+
+            console.log(e.detail);
         });
-        
+
         api.on('api', this.setState.bind(this));
+
+        window.addEventListener("mountView", function(e) {
+
+            if (e.detail.screen == component.state.screen) {
+                component.screenMount();
+            };
+        });
+
 
      },
 
-    
+
     render: function() {
 
         var saveNodes = this.state.savestates.map(function (state, i) {
@@ -3466,36 +3485,33 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
         React.DOM.div({id: "Profile"}, 
-    
+
         React.DOM.div({className: "container-fluid parent"}, 
-         
+
          React.DOM.header(null, 
             React.DOM.div({className: "col-xs-2 boxed pull-left"}, 
                React.DOM.i({className: "icon ion-ios-arrow-thin-left"}), "   Game Listing"
             ), 
-         
+
             React.DOM.span({className: "pull-right col-xs-2"}, 
             React.DOM.i({className: "icon ion-minus-round start"}), "  START   ", React.DOM.span({className: "mute"}, ":   PLAY")
             )
          ), 
-         
+
          React.DOM.div({className: "clearfix"}), 
 
          React.DOM.br(null), React.DOM.br(null), 
 
          React.DOM.div({className: "col-xs-2", id: "profile-boxart"}, 
-            React.DOM.div({id: "no-boxart"}, 
-            React.DOM.i({className: "icon ion-image"}), 
-            React.DOM.img({src: this.state.boxart, className: "img-responsive"})
-            ), 
 
-            
+            this.state.image ? React.DOM.img({src: this.state.image, className: "img-responsive"}) : React.DOM.div({id: "no-boxart"}, " ", React.DOM.i({className: "icon ion-image"}), " "), 
+
 
             React.DOM.ul({id: "profile-sub-buttons", className: "hidden"}, 
                React.DOM.li(null, React.DOM.button({className: "btn btn-purple"}, React.DOM.i({className: "fa fa-video-camera "}), "   Live Stream"))
             )
          ), 
-      
+
          React.DOM.div({className: "col-xs-4", id: "profile-gameinfo"}, 
             React.DOM.h2({id: "profile-gametitle"}, this.state.title), 
             React.DOM.span({className: "muted"}, this.state.genre), 
@@ -3503,10 +3519,10 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "timer"}, "Time Played: ", this.state.playtime), 
             React.DOM.br(null), 
             React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable", 'data-function': "launchGame", 'data-parameters': ""}, "Play Game"), 
-            " ",  
+            " ", 
             React.DOM.a({className: "btn-alt btn-lg navable"}, "Multiplayer")
          ), 
-        
+
             saveNodes, 
 
         React.DOM.div({className: "col-xs-9 profile-section"}, 
@@ -3514,32 +3530,33 @@ module.exports = React.createClass({displayName: 'exports',
         React.DOM.ul({id: "achievements"}, 
 
              achievementNodes
-    
+
         )
         ), 
 
          React.DOM.div({className: "col-xs-10 profile-section hidden"}, 
             React.DOM.h1(null, "Screenshots")
-            
+
          ), 
-       
+
          React.DOM.div({className: "col-xs-10 profile-section hidden"}, 
             React.DOM.h1(null, "Description"), 
             React.DOM.br(null), 
             React.DOM.p(null, "He's Back! And this time the evil Dr. Wily (once the supreme power in the universe) has created even more sinister robots to mount his attack. But as MegaMan, you've also grown in power and ability. Can you save mankind from the evil desires of Dr. Wily? Each of the eight empires is ruled by a different super-robot. You must defeat each enemy on his own turf, building up weapons as you go. Only after all are destroyed will you go head-on with the mastermind himself, the evil Dr. Wily. ")
          ), 
-        
+
          React.DOM.div({className: "col-xs-10 profile-section hidden"}, 
             React.DOM.h1(null, "Movies")
-           
+
          )
-      
+
       )
    )
 
         )
     }
 });
+
 },{"./AchievementList.jsx":2,"./SaveStates.jsx":37,"lodash":89,"react/addons":91,"socket.io-client":250}],23:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -3561,13 +3578,13 @@ module.exports = React.createClass({displayName: 'exports',
             functionParams: null,
             game: null,
             alpha: "."
-        } 
-    }, 
-    
+        }
+    },
+
     render: function() {
 
         return (
-        
+
                 React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.filename, 'data-title': this.props.game, 'data-path': this.props.path}, 
                     React.DOM.td({'data-tdalpha': "alpha_selection"}, 
                         React.DOM.div({className: "left_alpha pull-left"}, this.props.alpha), 
@@ -3575,8 +3592,9 @@ module.exports = React.createClass({displayName: 'exports',
                     )
                 )
         )
-    } 
+    }
 });
+
 },{"lodash":89,"react/addons":91}],24:[function(require,module,exports){
 /**
 * @jsx React.DOM
@@ -4729,13 +4747,13 @@ module.exports = React.createClass({displayName: 'exports',
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail)
         });
-        
+
         api.on('api', this.setState.bind(this));
 
      },
 
     render: function() {
-        
+
         var cx = React.addons.classSet;
         var classes = cx({
             'pull-left': true
@@ -4744,7 +4762,7 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
             React.DOM.div({className: "col-xs-8 game_info col-xs-offset-1 pull-right", id: "small_profile"}, 
-                     
+
                 React.DOM.div({className: "game_info_header", id: "profile_header"}, 
                     React.DOM.div({className: this.state.crc32 ? classes : classes + " hidden", 'data-achievements': this.props.crc32, id: "achievement_display"}, React.DOM.i({className: "icon ion-ios-star yellow"}), "  Achievements Available"), 
                     React.DOM.div({className: "pull-right"}, React.DOM.strong(null, "Game Profile  ", React.DOM.i({className: "ion-ios-arrow-thin-right"})))
@@ -4752,35 +4770,36 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.div({className: "clearfix"}), 
 
-                      
+
                 React.DOM.div({className: "info_list_name col-xs-6"}, 
-                    
+
                     React.DOM.h2(null, React.DOM.span({className: "game_name"}, this.state.title)), 
-                    
+
                     React.DOM.hr(null), 
-                 
+
                     React.DOM.span({className: "game_genre"}, this.state.genre), 
 
                     React.DOM.h4(null, "Overview"), 
-                    
+
                     React.DOM.p({className: "game_deck"}, this.state.description), 
 
                     React.DOM.span({className: "game_ersb"}, this.state.ersp_rating)
 
 
                 ), 
-                        
+
                 React.DOM.span({className: "col-xs-3 game_image"}, 
                     React.DOM.img({className: "img-responsive", src: this.state.image})
                 ), 
 
                 React.DOM.div({className: "clearfix"})
-                     
+
             )
 
         )
     }
 });
+
 },{"lodash":89,"react/addons":91,"socket.io-client":250}],41:[function(require,module,exports){
 /**
 * @jsx React.DOM
@@ -5057,7 +5076,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
             return {
-                
+
             }
     },
 
@@ -5097,7 +5116,7 @@ module.exports = React.createClass({displayName: 'exports',
                         ), 
 
                         React.DOM.div({className: "col-xs-11 text-center"}, 
-                            React.DOM.textarea({placeholder: "Optional Message to User", 'data-function': "inputFocus", name: "Body", className: "textarea-height navable scrollable input-lg form-control"}
+                            React.DOM.textarea({placeholder: "Optional Message to User", 'data-function': "inputFocus", name: "Message", className: "textarea-height navable scrollable input-lg form-control"}
                             )
                         )
 
@@ -6722,7 +6741,7 @@ var api             = require('socket.io-client')('/api')
 , 	dialog          = require('./dialogs')
 ,   uiNotification  = require('./ui.notification');
 
-/* Possibly Unused. Run unit tests
+/* TODO: Fix up to contain all detail
 -------------------------------------------------- */
 api.on('api', function(_event){
     if (_event.updateGame) {
@@ -6777,7 +6796,7 @@ window.addEventListener("renderScreenComponents", function(e) {
 -------------------------------------------------- */
 var api     = require('socket.io-client')('/api');
 
-/* Legacy Screen Transition
+/* Render Screen Components
 -------------------------------------------------- */
 var renderScreenComponents = function(screen) {
 
@@ -6810,7 +6829,7 @@ var screenTransition = function(screen, hidden, parent) {
 
 };
 
-/* Change view of screen (render child)
+/* Change view of screen (to render child)
 -------------------------------------------------- */
 var changeView = function(view) {
 
@@ -6992,8 +7011,6 @@ var gamepadSupport = {
          */
         onGamepadConnect: function(event) {
 
-            console.log("CONNECTED")
-
             // Add the new gamepad on the list of gamepads to look after.
             gamepadSupport.gamepads.push(event.gamepad);
 
@@ -7116,16 +7133,20 @@ var gamepadSupport = {
                 console.log("left trigger")
                 navigationKeyEvent(219);
             }
-            if (button[8]) {
-                console.log("select");
+
+            if (button[8] || button[1] || button [3]) {
+                console.log("select: back");
+                Mousetrap.trigger('shift');
             }
-            if (button[9]) {
-                console.log("start");
+
+            if (button[0] || button[2] || button[9]) {
+                console.log("start:confirm")
                 Mousetrap.trigger('enter');
             }
         },
 
         axesPressed: function(axes) {
+
             if (axes[1] == 1) {
                 Mousetrap.trigger('down');
 
@@ -7160,7 +7181,6 @@ var gamepadSupport = {
 
             if (rawGamepads) {
 
-
                 // We don’t want to use rawGamepads coming straight from the browser,
                 // since it can have “holes” (e.g. if you plug two gamepads, and then
                 // unplug the first one, the remaining one will be at index [1]).
@@ -7193,18 +7213,21 @@ var gamepadSupport = {
                     // Event Change (ignition):
                     if (rawGamepads[0]) {
 
+
                         // notify.log("<i class='icon ion-game-controller-a'></i> Gamepad Detected");
 
-                        urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
-                        var xmlhttpl = new XMLHttpRequest();
-                        xmlhttpl.open("POST", urllaunch, true);
-                        xmlhttpl.send("");
+                        // urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
+                        // var xmlhttpl = new XMLHttpRequest();
+                        // xmlhttpl.open("POST", urllaunch, true);
+                        // xmlhttpl.send("");
 
-                        console.log("Gamepad Connected");
+                        console.log("Gamepad Connected!");
+                        console.log(rawGamepads[0]);
 
-                        sounds('notify_up.wav');
+                        // sounds('notify_up.wav');
 
                         gamepadSupport.STATE_CHANGE = 1;
+
                     } else {
 
                         console.log("No Gamepad");
@@ -7212,15 +7235,15 @@ var gamepadSupport = {
                         if (gamepadSupport.STATE_CHANGE == 1) {
 
 
-                            urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
-                            var xmlhttpl = new XMLHttpRequest();
-                            xmlhttpl.open("POST", urllaunch, true);
-                            xmlhttpl.send("");
+                            // urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
+                            // var xmlhttpl = new XMLHttpRequest();
+                            // xmlhttpl.open("POST", urllaunch, true);
+                            // xmlhttpl.send("");
 
                             console.log("Gamepad Disconnected");
 
                             gamepadSupport.STATE_CHANGE = 0
-                            sounds('notify_down.wav');
+                            // sounds('notify_down.wav');
 
                         }
 
@@ -7299,6 +7322,7 @@ var gamepadSupport = {
 };
 
 exports.gamepadSupport = gamepadSupport;
+
 },{"./mousetrap.min.js":75,"./navigation.keyEvent.js":81,"./system.sounds.js":87}],72:[function(require,module,exports){
 /* Misc. Helper Functions
 -------------------------------------------------- */
@@ -8975,6 +8999,13 @@ var events = {
         // Do via sockets and update server activity (so-and-so played game, 10 hours ago)
     },
 
+	/* See game Profile
+	-------------------------------------------------- */
+	largeProfile: function(parameters) {
+
+		// TODO: 
+		KeyEvent(221);
+	}
 }
 
 

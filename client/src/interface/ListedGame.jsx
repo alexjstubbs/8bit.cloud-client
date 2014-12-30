@@ -18,13 +18,13 @@ module.exports = React.createClass({
             functionParams: null,
             game: null,
             alpha: "."
-        } 
-    }, 
-    
+        }
+    },
+
     render: function() {
 
         return (
-        
+
                 <tr className='subNavable' data-snav={this.props.navStack} data-function={this.props.functionCall} data-parameters={this.props.filename} data-title={this.props.game} data-path={this.props.path}>
                     <td data-tdalpha='alpha_selection'>
                         <div className='left_alpha pull-left'>{this.props.alpha}</div>
@@ -32,5 +32,5 @@ module.exports = React.createClass({
                     </td>
                 </tr>
         )
-    } 
+    }
 });

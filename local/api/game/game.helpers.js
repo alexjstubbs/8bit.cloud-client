@@ -20,7 +20,7 @@ function isJson(data) {
     return true;
 }
 
-/* Check For Sequels 
+/* Check For Sequels
 -------------------------------------------------- */
 function hasNumbers(string) {
     var regex = /\d/g;
@@ -76,7 +76,7 @@ function gameLaunch(req, res, callback) {
 function apicall(nsp, game) {
 
     // !!!!!YOU MUST HAVE PYTHON INSTALLED!!!!!!
-    // python archive_api_call.py api.archive.vg/2.0/Archive.search/json/ Super+Castlevania 
+    // python archive_api_call.py api.archive.vg/2.0/Archive.search/json/ Super+Castlevania
     var vg = spawn('python', ['/Users/alexstubbs/projects/Ignition/Release/local/api/database/py/archive_api_call.py', 'api.archive.vg/2.0/Archive.search/json/', game]);
 
     var data = '';
@@ -108,6 +108,7 @@ function apicall(nsp, game) {
                     if (newDocument) {
                         // callback(null, newDocument);
                         console.log("found and stored");
+                        
                         nsp.emit('api', {updateGame: newDocument});
                     } else {
                         console.log("error: No New Document");
@@ -133,12 +134,12 @@ function apicall(nsp, game) {
 }
 
 
-/* Get Preview Profile 
+/* Get Preview Profile
 -------------------------------------------------- */
 function gameProfileSmall(nsp, game) {
 
     game = game.trim();
-    
+
     var research = new RegExp(game, "i");
 
     database.findGame({
@@ -183,8 +184,8 @@ function gameProfileSmall(nsp, game) {
                 }
             }
            nsp.emit('api', {gameInfo: doc.games.game[0]});
-         
-            
+
+
         } else {
             apicall(game, function(err, newDoc) {
                 if (err) {
