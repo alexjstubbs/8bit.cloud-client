@@ -27,10 +27,6 @@ module.exports = React.createClass({
 
             localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
 
-            
-
-        // JSON.parse(this.props.message)._id
-        //  _.flatten(data.messages, '_id'));
 
         navigationInit.navigationInit();
 
@@ -69,13 +65,13 @@ module.exports = React.createClass({
 
                         <div className="no-padding no-margin">{message.From}</div><br />
                         <div className="mute">{_moment}</div>
-                        <br />
+
                         <UserStatus Username={message.From} />
                         <br />
 
                     </div>
 
-                    <div className="col-xs-4 text-right">
+                    <div className="col-xs-5 text-right">
                         <h2><i className="ion-ios-chatboxes-outline"></i> &nbsp; Message</h2>
                     </div>
 

@@ -9,6 +9,12 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({
 
+    getInitialState: function() {
+            return {
+                
+            }
+    },
+
     getDefaultProps: function() {
 
         return {
@@ -32,11 +38,34 @@ module.exports = React.createClass({
 
                     <fieldset>
 
-                        <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Username" name="username" type="text" />
+                        <div className="col-xs-1 text-center">
+                            <h2><i className="ion-person-add"></i></h2>
+                        </div>
+
+                        <div className="col-xs-11">
+                            <input className="form-control input-lg navable" data-function='inputFocus' placeholder="Username" name="username" type="text" />
+                        </div>
+
+                        <div className="col-xs-1 text-center">
+                            <h2><i className="ion-chatbox"></i></h2>
+                        </div>
+
+                        <div className="col-xs-11 text-center">
+                            <textarea placeholder="Optional Message to User" data-function='inputFocus' name="Body" className='textarea-height navable scrollable input-lg form-control' >
+                            </textarea>
+                        </div>
 
                     </fieldset>
 
-                    <button className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add green pull-right"></i> &nbsp; Add as a Friend</button>
+                    <hr />
+
+                    <div className="pull-left">
+                        <button className="btn btn-lg btn-alt btn-alt-size navable" data-function='closeDialog' data-parameters={this.props.form}><i className="ion-close red"></i> &nbsp; Close Window</button>
+                    </div>
+
+                    <div className="pull-right">
+                        <button className="btn btn-lg btn-alt btn-alt-size navable" data-function='submitForm' data-parameters={this.props.form}><i className="fa fa-circle-o-notch fa-spin"></i> &nbsp; Add as a Friend</button>
+                    </div>
 
                     <input type="hidden" name="server" value={this.props.server} />
 

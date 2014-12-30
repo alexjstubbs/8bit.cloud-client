@@ -29,11 +29,7 @@ module.exports = React.createClass({
 
         newMessages = this.props.myMessages.length;
 
-        if (this.props.unread == 0) {
-            icon = "ion-email ";
-        }
-
-        else {
+        if (this.props.unread > 0) {
             icon = "ion-email-unread ";
         }
 

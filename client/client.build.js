@@ -2858,7 +2858,7 @@ var React               = require('react/addons')
 ,   navigationInit      = require('../js/navigation.init')
 ,   UserAvatar          = require('./Avatar.jsx')
 ,   Avatar
-,   noFriends           // You poor sucker
+,   noFriends
 ,   noFriendsOnline
 ,   hasFriends;
 
@@ -2880,16 +2880,17 @@ module.exports = React.createClass({displayName: 'exports',
         api.on('network-api', function(data) {
 
             if (data.friends) {
+
                 _this.setState(data);
                 _this.forceUpdate();
                 navigationInit.navigationInit();
+
+                noFriends = true;
             }
 
         });
 
         navigationInit.navigationInit();
-
-        noFriends = '<i classname="ion-sad-outline"> &nbsp; You currently have no Friends. Add a friend below!';
 
     },
 
@@ -2903,27 +2904,16 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
 
-        if (this.state.friends.length > 0) {
-            hasFriends = true;
-        }
-
-        else {
-            hasFriends = false;
-        }
-
-        console.log(hasFriends);
-
         var friendsNodes = this.state.friends.map(function (friend, i) {
 
             var time = moment(friend.LastSeen).format('YYYY-MM-DD hh:mm:ss');
                 time = moment(time).fromNow();
 
-                console.log(friend);
-
             return FriendNode({key: i.id, friend: friend, Username: friend.Username, Avatar: friend.Avatar, Playing: friend.Playing, Online: friend.Online, IP: friend.IP, LastSeen: time})
         });
 
         friendsNodes.reverse();
+
 
         return (
 
@@ -2931,10 +2921,9 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "messages-list scroll-into-view"}, 
 
-                hasFriends ? null : React.DOM.h3({className: "text-center"}, noFriends), 
+                noFriends ? null : React.DOM.h3({className: "text-center"}, React.DOM.br(null), React.DOM.i({className: "ion-sad-outline"}), "   You currently have no friends. Add a friend below!", React.DOM.br(null), React.DOM.br(null)), 
 
                 friendsNodes
-
 
             ), 
 
@@ -3344,11 +3333,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         newMessages = this.props.myMessages.length;
 
-        if (this.props.unread == 0) {
-            icon = "ion-email ";
-        }
-
-        else {
+        if (this.props.unread > 0) {
             icon = "ion-email-unread ";
         }
 
@@ -3622,10 +3607,6 @@ module.exports = React.createClass({displayName: 'exports',
 
             localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
 
-            
-
-        // JSON.parse(this.props.message)._id
-        //  _.flatten(data.messages, '_id'));
 
         navigationInit.navigationInit();
 
@@ -3664,13 +3645,13 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.div({className: "no-padding no-margin"}, message.From), React.DOM.br(null), 
                         React.DOM.div({className: "mute"}, _moment), 
-                        React.DOM.br(null), 
+
                         UserStatus({Username: message.From}), 
                         React.DOM.br(null)
 
                     ), 
 
-                    React.DOM.div({className: "col-xs-4 text-right"}, 
+                    React.DOM.div({className: "col-xs-5 text-right"}, 
                         React.DOM.h2(null, React.DOM.i({className: "ion-ios-chatboxes-outline"}), "   Message")
                     ), 
 
@@ -5074,6 +5055,12 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({displayName: 'exports',
 
+    getInitialState: function() {
+            return {
+                
+            }
+    },
+
     getDefaultProps: function() {
 
         return {
@@ -5097,11 +5084,34 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.fieldset(null, 
 
-                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Username", name: "username", type: "text"})
+                        React.DOM.div({className: "col-xs-1 text-center"}, 
+                            React.DOM.h2(null, React.DOM.i({className: "ion-person-add"}))
+                        ), 
+
+                        React.DOM.div({className: "col-xs-11"}, 
+                            React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Username", name: "username", type: "text"})
+                        ), 
+
+                        React.DOM.div({className: "col-xs-1 text-center"}, 
+                            React.DOM.h2(null, React.DOM.i({className: "ion-chatbox"}))
+                        ), 
+
+                        React.DOM.div({className: "col-xs-11 text-center"}, 
+                            React.DOM.textarea({placeholder: "Optional Message to User", 'data-function': "inputFocus", name: "Body", className: "textarea-height navable scrollable input-lg form-control"}
+                            )
+                        )
 
                     ), 
 
-                    React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add green pull-right"}), "   Add as a Friend"), 
+                    React.DOM.hr(null), 
+
+                    React.DOM.div({className: "pull-left"}, 
+                        React.DOM.button({className: "btn btn-lg btn-alt btn-alt-size navable", 'data-function': "closeDialog", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-close red"}), "   Close Window")
+                    ), 
+
+                    React.DOM.div({className: "pull-right"}, 
+                        React.DOM.button({className: "btn btn-lg btn-alt btn-alt-size navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "fa fa-circle-o-notch fa-spin"}), "   Add as a Friend")
+                    ), 
 
                     React.DOM.input({type: "hidden", name: "server", value: this.props.server})
 

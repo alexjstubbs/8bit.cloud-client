@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -26,3 +27,37 @@ node_modules
 
 #Artwork
 databases/images
+=======
+*.pyc
+*.egg-info
+*.db
+*.db.old
+*.swp
+*.db-journal
+
+.coverage
+.DS_Store
+.installed.cfg
+_gh_pages/*
+
+.idea/*
+.svn/*
+src/website/static/*
+src/website/media/*
+
+bin
+cfcache
+develop-eggs
+dist
+downloads
+eggs
+parts
+tmp
+.sass-cache
+node_modules
+
+src/website/settingslocal.py
+stunnel.log
+
+.ruby-version
+>>>>>>> a65bd93d81e9e6bd5ebfa41757a4474960b973b4

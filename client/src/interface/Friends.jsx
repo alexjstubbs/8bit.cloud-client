@@ -10,7 +10,7 @@ var React               = require('react/addons')
 ,   navigationInit      = require('../js/navigation.init')
 ,   UserAvatar          = require('./Avatar.jsx')
 ,   Avatar
-,   noFriends           // You poor sucker
+,   noFriends
 ,   noFriendsOnline
 ,   hasFriends;
 
@@ -32,16 +32,17 @@ module.exports = React.createClass({
         api.on('network-api', function(data) {
 
             if (data.friends) {
+
                 _this.setState(data);
                 _this.forceUpdate();
                 navigationInit.navigationInit();
+
+                noFriends = true;
             }
 
         });
 
         navigationInit.navigationInit();
-
-        noFriends = '<i classname="ion-sad-outline"> &nbsp; You currently have no Friends. Add a friend below!';
 
     },
 
@@ -55,27 +56,16 @@ module.exports = React.createClass({
     render: function() {
 
 
-        if (this.state.friends.length > 0) {
-            hasFriends = true;
-        }
-
-        else {
-            hasFriends = false;
-        }
-
-        console.log(hasFriends);
-
         var friendsNodes = this.state.friends.map(function (friend, i) {
 
             var time = moment(friend.LastSeen).format('YYYY-MM-DD hh:mm:ss');
                 time = moment(time).fromNow();
 
-                console.log(friend);
-
             return <FriendNode key={i.id} friend={friend} Username={friend.Username} Avatar={friend.Avatar} Playing={friend.Playing} Online={friend.Online} IP={friend.IP} LastSeen={time} />
         });
 
         friendsNodes.reverse();
+
 
         return (
 
@@ -83,10 +73,9 @@ module.exports = React.createClass({
 
             <div className="messages-list scroll-into-view">
 
-                {hasFriends ? null : <h3 className="text-center">{noFriends}</h3>}
+                {noFriends ? null : <h3 className="text-center"><br /><i className="ion-sad-outline"></i> &nbsp; You currently have no friends. Add a friend below!<br /><br /></h3>}
 
                 {friendsNodes}
-
 
             </div>
 
