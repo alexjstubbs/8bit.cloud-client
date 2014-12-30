@@ -103,19 +103,19 @@ function apicall(nsp, game) {
             document = data;
 
             if (rLength > 50) {
-                console.log(database);
+                
                 database.storeGame(document, function(newDocument) {
                     if (newDocument) {
                         // callback(null, newDocument);
                         console.log("found and stored");
-                        
+
                         nsp.emit('api', {updateGame: newDocument});
                     } else {
                         console.log("error: No New Document");
                     }
                 });
             } else {
-                console.log("error: Shorter than 50 chars")
+                console.log("error: Document was Shorter than 50 chars so assuming empty.");
             }
         }
 

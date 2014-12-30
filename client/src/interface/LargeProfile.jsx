@@ -42,8 +42,6 @@ module.exports = React.createClass({
 
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail)
-
-            console.log(e.detail);
         });
 
         api.on('api', this.setState.bind(this));

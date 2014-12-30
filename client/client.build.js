@@ -3452,8 +3452,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail)
-
-            console.log(e.detail);
         });
 
         api.on('api', this.setState.bind(this));
@@ -6939,9 +6937,18 @@ exports.uiActionNotification 	= uiActionNotification;
  * @author mwichary@google.com (Marcin Wichary)
  */
 
+ /*
+  * Software/File has been modified by alex@alexstubbs.com.
+  * Modifications include event specifics for use for the ignition Software.
+  * Original unmodified source can be found at: http://www.html5rocks.com/en/tutorials/doodles/gamepad/
+  *
+*/
+
 var navigationKeyEvent      = require("./navigation.keyEvent.js")
 ,   sounds                  = require("./system.sounds.js")
-,   mousetrap               = require("./mousetrap.min.js");
+,   mousetrap               = require("./mousetrap.min.js")
+,   _                       = require("lodash")
+,   buttonTimestamp         = {};
 
 var gamepadSupport = {
 
@@ -7123,46 +7130,108 @@ var gamepadSupport = {
             }
         },
 
+        doubleTap: function(button, callback) {
+
+            // Double Tap check
+            if (_.uniq(button).length == 2) {
+
+                var button_a = button.toString();
+
+                if (buttonTimestamp.button) {
+                    var button_b = buttonTimestamp.button.toString();
+                }
+
+
+                if (button_a == button_b) {
+
+                    if (buttonTimestamp.timestamp) {
+
+
+                        var now =  Math.round(+new Date()/100);
+                        var diff = now - buttonTimestamp.timestamp;
+
+                        if (diff < 3) {
+                            callback(true);
+                        }
+
+                        else {
+                            callback(false);
+                        }
+                    }
+                }
+
+                buttonTimestamp = {
+                    timestamp: Math.round(+new Date()/100),
+                    button: button
+                }
+
+            }
+
+        },
+
         buttonPressed: function(button) {
 
-            if (button[5]) {
-                console.log("right trigger")
-                navigationKeyEvent(221);
-            }
-            if (button[4]) {
-                console.log("left trigger")
-                navigationKeyEvent(219);
-            }
+            gamepadSupport.doubleTap(button, function(dt) {
+                if (!dt) {
 
-            if (button[8] || button[1] || button [3]) {
-                console.log("select: back");
-                Mousetrap.trigger('shift');
-            }
+                    // Mappings
 
-            if (button[0] || button[2] || button[9]) {
-                console.log("start:confirm")
-                Mousetrap.trigger('enter');
-            }
+                    if (button[5]) {
+                        navigationKeyEvent(221);
+                    }
+                    if (button[4]) {
+                        navigationKeyEvent(219);
+                    }
+
+                    if (button[8] || button[1] || button [3]) {
+                        Mousetrap.trigger('shift');
+                    }
+
+                    if (button[0] || button[2] || button[9]) {
+                        Mousetrap.trigger('enter');
+                    }
+                }
+
+            });
+
+
         },
 
         axesPressed: function(axes) {
 
-            if (axes[1] == 1) {
-                Mousetrap.trigger('down');
+            gamepadSupport.doubleTap(axes, function(dt) {
 
-            }
-            if (axes[1] == -1) {
-                Mousetrap.trigger('up');
-            }
+                if (!dt) {
 
-            if (axes[0] == 1) {
-                // navigationKeyEvent(39);
-                Mousetrap.trigger('right');
-            }
-            if (axes[0] == -1) {
-                // navigationKeyEvent(37);
-                Mousetrap.trigger('left');
-            }
+                    if (axes[1] == 1) {
+                        Mousetrap.trigger('down');
+
+                    }
+                    if (axes[1] == -1) {
+                        Mousetrap.trigger('up');
+                    }
+
+                    if (axes[0] == 1) {
+                        // navigationKeyEvent(39);
+                        Mousetrap.trigger('right');
+                    }
+                    if (axes[0] == -1) {
+                        // navigationKeyEvent(37);
+                        Mousetrap.trigger('left');
+                    }
+                }
+
+                else {
+                    
+                    if (axes[0] == 1) {
+                        navigationKeyEvent(221);
+                    }
+
+                    if (axes[0] == -1) {
+                        navigationKeyEvent(221);
+                    }
+                }
+            });
         },
 
         // This function is called only on Chrome, which does not yet support
@@ -7221,8 +7290,8 @@ var gamepadSupport = {
                         // xmlhttpl.open("POST", urllaunch, true);
                         // xmlhttpl.send("");
 
-                        console.log("Gamepad Connected!");
-                        console.log(rawGamepads[0]);
+                        console.log("[gamepad]: Gamepad Connected!");
+                        // console.log(rawGamepads[0]);
 
                         // sounds('notify_up.wav');
 
@@ -7230,7 +7299,7 @@ var gamepadSupport = {
 
                     } else {
 
-                        console.log("No Gamepad");
+                        console.log("[gamepad]: No Gamepad Detected!");
 
                         if (gamepadSupport.STATE_CHANGE == 1) {
 
@@ -7240,7 +7309,7 @@ var gamepadSupport = {
                             // xmlhttpl.open("POST", urllaunch, true);
                             // xmlhttpl.send("");
 
-                            console.log("Gamepad Disconnected");
+                            console.log("[gamepad]: Gamepad Disconnected!");
 
                             gamepadSupport.STATE_CHANGE = 0
                             // sounds('notify_down.wav');
@@ -7323,7 +7392,7 @@ var gamepadSupport = {
 
 exports.gamepadSupport = gamepadSupport;
 
-},{"./mousetrap.min.js":75,"./navigation.keyEvent.js":81,"./system.sounds.js":87}],72:[function(require,module,exports){
+},{"./mousetrap.min.js":75,"./navigation.keyEvent.js":81,"./system.sounds.js":87,"lodash":89}],72:[function(require,module,exports){
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
