@@ -51,6 +51,7 @@ window.addEventListener("renderScreenComponents", function(e) {
 
     case "Dashboard":
         api.emit('request', { request: 'messages'});
+        localStorage.setItem("navigationState", "");
         return;
   }
 

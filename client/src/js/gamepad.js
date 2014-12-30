@@ -220,16 +220,16 @@ var gamepadSupport = {
                     var button_b = buttonTimestamp.button.toString();
                 }
 
-
                 if (button_a == button_b) {
 
                     if (buttonTimestamp.timestamp) {
 
-
-                        var now =  Math.round(+new Date()/100);
+                        var now = Math.round(+new Date()/100);
                         var diff = now - buttonTimestamp.timestamp;
 
-                        if (diff < 3) {
+                        // TODO: Make this number adjustable in settings
+
+                        if (diff < 2.2) {
                             callback(true);
                         }
 
@@ -237,6 +237,10 @@ var gamepadSupport = {
                             callback(false);
                         }
                     }
+                }
+
+                else {
+                    callback(false);
                 }
 
                 buttonTimestamp = {
@@ -251,6 +255,7 @@ var gamepadSupport = {
         buttonPressed: function(button) {
 
             gamepadSupport.doubleTap(button, function(dt) {
+
                 if (!dt) {
 
                     // Mappings
@@ -301,13 +306,13 @@ var gamepadSupport = {
                 }
 
                 else {
-                    
+
                     if (axes[0] == 1) {
                         navigationKeyEvent(221);
                     }
 
                     if (axes[0] == -1) {
-                        navigationKeyEvent(221);
+                        navigationKeyEvent(219);
                     }
                 }
             });

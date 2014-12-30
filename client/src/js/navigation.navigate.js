@@ -65,7 +65,7 @@ module.exports = function(k) {
                     if (s.nextElementSibling) {
                         var d = s.nextElementSibling.nextElementSibling;
                     }
-                    
+
                     if (d) {
                         d.scrollIntoView(false);
                     }
@@ -86,9 +86,11 @@ module.exports = function(k) {
 
                 if (s.parentNode.classList.contains("scroll-into-view")) {
 
-                    var d = s.previousElementSibling.previousElementSibling;
-                    if (d) {
-                        d.scrollIntoView(false);
+                    if (s.previousElementSibling) {
+                        var d = s.previousElementSibling.previousElementSibling;
+                        if (d) {
+                            d.scrollIntoView(false);
+                        }
                     }
                 }
             }
