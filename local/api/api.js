@@ -13,11 +13,11 @@ var api = function(nsp) {
       nsp.on('request', function(request) {
 
         var method = request.request;
-        
+
         var param = request.param;
 
         methods.apiMethod[method](nsp, param);
-        
+
         });
 
     });

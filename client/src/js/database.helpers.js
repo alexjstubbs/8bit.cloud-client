@@ -25,18 +25,31 @@ String.prototype.hashCode = function() {
 };
 
 /* Initialize the local Database
+ * TODO: Speed Improvements. USE AJAX
 -------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
-    nsp.emit('request', { request: 'storeGet', param: database });
-    nsp.on('api', function(data){
-        if (data.database) {
-            if (database == "games") {
+    // nsp.emit('request', { request: 'storeGet', param: database });
+
+    var path = 'http://127.0.0.1:1210/database/'+database;
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+
+                var data = xmlhttp.responseText;
+
+                if (database == "games") {
                     data = _.flatten(data.database, 'games'),
                     data = _.flatten(data, 'game');
                     collection[database] = new PourOver.PourOver.Collection(data);
-            }
+                }
+
         }
-    });
+    }
+    xmlhttp.open("GET",path,true);
+    xmlhttp.send();
+
     return;
 }
 

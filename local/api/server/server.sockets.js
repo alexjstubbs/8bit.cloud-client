@@ -92,7 +92,7 @@ var networkConnection = function(token, ansp, callback) {
    /* Connect to /Network (i.io) namespace/network
    -------------------------------------------------- */
 
-    nsp = io.connect('http://127.0.0.1:6052/network', {
+    nsp = io.connect('http://ignition.io:6052/network', {
         'query': 'token=' + token,
         secure: true
     });
@@ -102,6 +102,7 @@ var networkConnection = function(token, ansp, callback) {
     -------------------------------------------------- */
     nsp.on('connect', function (socket, sock) {
 
+		console.log("NSP connection call");
 
 		ansp.emit('api', { isOnline: true });
 
@@ -117,12 +118,16 @@ var networkConnection = function(token, ansp, callback) {
 
 		ansp.emit('api', { isOnline: false });
 
+		console.log("NSP DISCONNECTED");
+
+
     });
 
     /* Data from "" Recieved
     -------------------------------------------------- */
     nsp.on('network', function(data, sock) {
 
+		console.log("GOT DATA: "+data);
     	/* If command recieved, run.
     	-------------------------------------------------- */
         if (data.run) {
@@ -134,7 +139,7 @@ var networkConnection = function(token, ansp, callback) {
         else {
             __api.emit('network-api', data);
 
-
+			console.log("Just got Network-Api call: "+JSON.stringify(data));
 			// { result: resultList[id], object: object };
 			// __api.emit('messaging', {type: 1, body: data });
 
@@ -217,7 +222,7 @@ var networkCommand = function(ansp, json) {
     -------------------------------------------------- */
     if (!network) {
 
-            console.log("Attempting Connect to send command: " + json.cmd);
+            console.log("Not connected to network! Attempting Connect to send command: " + json.cmd);
 
             networkConnection(issuedToken, ansp, function(err, network) {
 
@@ -227,6 +232,7 @@ var networkCommand = function(ansp, json) {
                 }
 
                 else {
+
                     network.emit('cmd', json);
                 }
 
@@ -237,7 +243,7 @@ var networkCommand = function(ansp, json) {
        /* All is well. Send Command
        -------------------------------------------------- */
         else {
-            console.log("sending command: "+json)
+            console.log("!!!! sending command: "+JSON.stringify(json));
             network.emit('cmd', json);
         }
 }

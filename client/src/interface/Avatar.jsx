@@ -49,21 +49,17 @@ module.exports = React.createClass({
 
     updateAvatar: function() {
 
-
         var _this = this;
 
         if (_this.props.Username) {
 
             if (_this.props.Username != "Guest") {
 
-            console.log(_this.props.Username);
-
             api.emit('request', { request: 'getProfile', param: _this.props.Username});
 
             api.on('network-api', function(obj) {
 
                 if (!_.isEmpty(obj.userProfile)) {
-
 
                     if (obj.userProfile[0].Username == _this.props.Username) {
 
@@ -73,7 +69,7 @@ module.exports = React.createClass({
                 }
 
             });
-}    
+}
     }
     },
 

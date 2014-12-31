@@ -1,4 +1,4 @@
-/* Translates Gamepad button events into keyboard events (webkit renderer workaround)
+/* Translates Gamepad button events into keyboard events (chromium renderer workaround)
 -------------------------------------------------- */
 
 module.exports = function(k) {
@@ -8,17 +8,17 @@ module.exports = function(k) {
     Podium.keydown = function(k) {
         var oEvent = document.createEvent('KeyboardEvent');
 
-        // Chromium Hack
+        // Chromium Hack.. DOES NOT WORK IN WEBKIT (qtbrowser).
         Object.defineProperty(oEvent, 'keyCode', {
                     get : function() {
                         return this.keyCodeVal;
                     }
-        });     
+        });
         Object.defineProperty(oEvent, 'which', {
                     get : function() {
                         return this.keyCodeVal;
                     }
-        });     
+        });
 
         if (oEvent.initKeyboardEvent) {
             oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, false, false, false, false, k, k);
@@ -36,5 +36,5 @@ module.exports = function(k) {
 
     }
         Podium.keydown(k);
-        
+
 };

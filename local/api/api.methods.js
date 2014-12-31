@@ -84,6 +84,9 @@ var api = {
     },
 
     getProfile: function(nsp, username) {
+        console.log("----");
+        console.log("JUST CALLED GET PROFILE");
+        console.log("----");
         common.serverAPI.getProfile(nsp, username);
     },
 

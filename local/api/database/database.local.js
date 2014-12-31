@@ -59,7 +59,7 @@ function storeGet(nsp, database, callback) {
     db[database].find({}, function (err, docs) {
 
         if (!err && nsp) {
-            nsp.emit('api', {database: docs});
+            nsp.emit('database-api', {database: docs});
         }
 
         if (!err && !nsp) {
@@ -192,6 +192,23 @@ function findGame(document, callback) {
 
 }
 
+/*  Get Games DB via AJAX (webkit socket slowness workaround)
+-------------------------------------------------- */
+function getGamesAjax(req, res) {
+
+    storeGet(null, "games", function(err, result) {
+
+            if (err) {
+                res.send(err);
+            }
+
+            else {
+                res.send(result);
+            }
+    });
+
+}
+
 /*  Exports
 -------------------------------------------------- */
 
@@ -203,3 +220,4 @@ exports.initDatabases       = initDatabases;
 exports.storeGet            = storeGet;
 exports.storeData           = storeData;
 exports.compactDatabase     = compactDatabase;
+exports.getGamesAjax        = getGamesAjax;

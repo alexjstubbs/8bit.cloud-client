@@ -107,6 +107,7 @@ app.get('/profiles', common.render.ignite);
 app.get('/home', common.render.ignite);
 app.get('/home/:username', common.render.ignite);
 
+app.get('/database/games', common.databases.getGamesAjax);
 app.get('/games/:platform/:name', common.db.gameImage);
 
 

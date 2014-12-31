@@ -33,8 +33,6 @@ module.exports = React.createClass({
         var classes = cx({
             'square': true
         });
-
-        console.log(this.props.timestamp);
         
         var time = moment(this.props.timestamp).format('YYYY-MM-DD hh:mm:ss');
 

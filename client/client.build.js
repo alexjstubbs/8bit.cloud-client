@@ -1967,8 +1967,6 @@ module.exports = React.createClass({displayName: 'exports',
         var classes = cx({
             'square': true
         });
-
-        console.log(this.props.timestamp);
         
         var time = moment(this.props.timestamp).format('YYYY-MM-DD hh:mm:ss');
 
@@ -2040,21 +2038,17 @@ module.exports = React.createClass({displayName: 'exports',
 
     updateAvatar: function() {
 
-
         var _this = this;
 
         if (_this.props.Username) {
 
             if (_this.props.Username != "Guest") {
 
-            console.log(_this.props.Username);
-
             api.emit('request', { request: 'getProfile', param: _this.props.Username});
 
             api.on('network-api', function(obj) {
 
                 if (!_.isEmpty(obj.userProfile)) {
-
 
                     if (obj.userProfile[0].Username == _this.props.Username) {
 
@@ -2064,7 +2058,7 @@ module.exports = React.createClass({displayName: 'exports',
                 }
 
             });
-}    
+}
     }
     },
 
@@ -6416,18 +6410,31 @@ String.prototype.hashCode = function() {
 };
 
 /* Initialize the local Database
+ * TODO: Speed Improvements. USE AJAX
 -------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
-    nsp.emit('request', { request: 'storeGet', param: database });
-    nsp.on('api', function(data){
-        if (data.database) {
-            if (database == "games") {
+    // nsp.emit('request', { request: 'storeGet', param: database });
+
+    var path = 'http://127.0.0.1:1210/database/'+database;
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange=function() {
+            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+
+                var data = xmlhttp.responseText;
+
+                if (database == "games") {
                     data = _.flatten(data.database, 'games'),
                     data = _.flatten(data, 'game');
                     collection[database] = new PourOver.PourOver.Collection(data);
-            }
+                }
+
         }
-    });
+    }
+    xmlhttp.open("GET",path,true);
+    xmlhttp.send();
+
     return;
 }
 
@@ -7448,7 +7455,7 @@ exports.preloadImage = preloadImage;
 
 },{}],73:[function(require,module,exports){
 /* Init Modules - Entry point to clientside controllers
- -------------------------------------------------- */ 
+ -------------------------------------------------- */
 
 var gamepad 			= require("./gamepad.js")
 ,   navigationBindings  = require("./navigation.bindings.js")
@@ -7472,12 +7479,13 @@ module.exports = function() {
     -------------------------------------------------- */
     gamepad.gamepadSupport.init();
     document.onkeydown = navigationEvent;
-    
+
     /* Get Games Database for ROM Browser
     -------------------------------------------------- */
     database.initLocalDatabase("games");
 
 }
+
 },{"../js/navigation.browser.js":77,"./api/connection.js":66,"./database.helpers":67,"./gamepad.js":71,"./navigation.bindings.js":76,"./navigation.event.js":78}],74:[function(require,module,exports){
 /* Mixins
 -------------------------------------------------- */
@@ -7944,7 +7952,7 @@ var highlight = function() {
 exports.highlight = highlight;
 exports.navigationInit = navigationInit;
 },{"lodash":89}],81:[function(require,module,exports){
-/* Translates Gamepad button events into keyboard events (webkit renderer workaround)
+/* Translates Gamepad button events into keyboard events (chromium renderer workaround)
 -------------------------------------------------- */
 
 module.exports = function(k) {
@@ -7954,17 +7962,17 @@ module.exports = function(k) {
     Podium.keydown = function(k) {
         var oEvent = document.createEvent('KeyboardEvent');
 
-        // Chromium Hack
+        // Chromium Hack.. DOES NOT WORK IN WEBKIT (qtbrowser).
         Object.defineProperty(oEvent, 'keyCode', {
                     get : function() {
                         return this.keyCodeVal;
                     }
-        });     
+        });
         Object.defineProperty(oEvent, 'which', {
                     get : function() {
                         return this.keyCodeVal;
                     }
-        });     
+        });
 
         if (oEvent.initKeyboardEvent) {
             oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, false, false, false, false, k, k);
@@ -7982,8 +7990,9 @@ module.exports = function(k) {
 
     }
         Podium.keydown(k);
-        
+
 };
+
 },{}],82:[function(require,module,exports){
 /* OnScreen Keyboard
 -------------------------------------------------- */

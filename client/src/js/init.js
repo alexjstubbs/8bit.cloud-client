@@ -1,5 +1,5 @@
 /* Init Modules - Entry point to clientside controllers
- -------------------------------------------------- */ 
+ -------------------------------------------------- */
 
 var gamepad 			= require("./gamepad.js")
 ,   navigationBindings  = require("./navigation.bindings.js")
@@ -23,7 +23,7 @@ module.exports = function() {
     -------------------------------------------------- */
     gamepad.gamepadSupport.init();
     document.onkeydown = navigationEvent;
-    
+
     /* Get Games Database for ROM Browser
     -------------------------------------------------- */
     database.initLocalDatabase("games");
