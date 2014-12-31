@@ -10,6 +10,7 @@ var systemNotify    = require('./notification.init.js')
 ,   Messages        = require('../interface/Messages.jsx')
 ,   Friends         = require('../interface/Friends.jsx')
 ,   Friend          = require('../interface/Friend.jsx')
+,   FriendLarge     = require('../interface/FriendLarge.jsx')
 ,   Popup           = require('../interface/Popup.jsx')
 ,   Prompt          = require('../interface/Prompt.jsx')
 ,   Terminal        = require('../interface/Terminal.jsx')
@@ -118,6 +119,9 @@ var show = function(parent, parameters, arg) {
             break;
         case "Friends":
             Child = Friends({});
+            break;
+        case "FriendLarge":
+            Child = FriendLarge({friend: parameters});
             break;
         case "AddFriend":
             Child = AddFriend({});

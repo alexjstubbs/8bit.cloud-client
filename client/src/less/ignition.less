@@ -9,6 +9,8 @@
 
 /* Typography
 -------------------------------------------------- */
+
+// Open Sans
 @font-face {
   font-family: 'Open Sans';
   font-style: light;
@@ -32,6 +34,33 @@
   font-style: extrabold;
   font-weight: 800;
   src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url('../fonts/OSExtended.woff') format('woff');
+}
+
+
+// Roboto
+@font-face {
+  font-family: 'Roboto';
+  font-style: light;
+  font-weight: 100;
+  src: local('Roboto Light'), local('Roboto-Light'), url('../fonts/Roboto-Thin-webfont.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Roboto'), local('Roboto-Light'), url('../fonts/Roboto-Regular-webfont.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: bold;
+  font-weight: 700;
+  src: local('Roboto Bold'), local('Roboto-Bold'), url('../fontsRoboto-Bold-webfont.woff') format('woff');
+}
+@font-face {
+  font-family: 'Roboto';
+  font-style: extrabold;
+  font-weight: 800;
+  src: local('Roboto Black'), local('Roboto-Black'), url('../fonts/Roboto-Black-webfont.woff') format('woff');
 }
 
 
@@ -181,12 +210,12 @@ textarea.textarea-height {
 .well-alt {
 	padding:20px 15px;
 	margin:15px 0;
-	background:lighten(@gray-darker, 5%);
+	background:lighten(@gray-darker, 3%);
 }
 
 .well-dark {
-	padding:3px !important;
-	background:lighten(@gray-darker, 2%);
+	padding:2px 7px !important;
+	background:lighten(@gray-darker, 5%);
 }
 
 .well-small {
@@ -1982,6 +2011,10 @@ p.game_deck {
     top:15px;
 }
 
+.down5 {
+    margin-bottom:5px;
+}
+
 .square.avatared {
     background:none !important;
     overflow:hidden;
@@ -2016,7 +2049,7 @@ p.game_deck {
 
 
 .message-preview div:nth-child(3) {
-    padding-top:2vh;
+    padding-top:3.5vh;
 }
 
 .message-preview .preview {

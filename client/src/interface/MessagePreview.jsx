@@ -6,7 +6,8 @@ var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   NetworkStatus   = require('./NetworkStatus.jsx')
 ,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx');
+,   UserAvatar      = require('./Avatar.jsx')
+,   moment          = require('moment');
 
 module.exports = React.createClass({
 
@@ -27,6 +28,9 @@ module.exports = React.createClass({
     },
 
     render: function() {
+
+        var message = this.props.message,
+        _moment  = moment(message.Timestamp, "YYYYMMDDhhmms").fromNow();
 
         var readMessages = localStorage.getItem("read_messages");
         var read = _.contains(readMessages, this.props.message._id);
@@ -78,7 +82,7 @@ module.exports = React.createClass({
 
                 <div className="col-xs-3">
 
-                    <p className="timestamp">{this.props.timestamp}</p>
+                    <p className="timestamp">{_moment}</p>
 
 
                 </div>

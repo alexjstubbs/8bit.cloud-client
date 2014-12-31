@@ -5,8 +5,9 @@
 'use strict';
 
 var React           = require('react/addons')
-,    _              = require('lodash')
+,   _               = require('lodash')
 ,   moment          = require('moment')
+,   api             = require('socket.io-client')('/api')
 ,   actionString;
 
 module.exports = React.createClass({
@@ -33,13 +34,11 @@ module.exports = React.createClass({
         var classes = cx({
             'square': true
         });
-        
+
         var time = moment(this.props.timestamp).format('YYYY-MM-DD hh:mm:ss');
 
 
         return (
-
-
 
         <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack}>
             <td className="td_square"><div className={classes +" "+ actionString[0].color}><i className={actionString[0].icon}></i></div></td>

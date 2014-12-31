@@ -352,6 +352,12 @@ var events = {
         dialog.show("Friends");
 	},
 
+	/* View Friends
+    -------------------------------------------------- */
+    viewFriend: function(parameters) {
+        dialog.show("FriendLarge", parameters);
+	},
+
 	/* Add a Friend(Request)
     -------------------------------------------------- */
     addFriend: function(parameters) {
@@ -368,7 +374,7 @@ var events = {
 	-------------------------------------------------- */
 	largeProfile: function(parameters) {
 
-		// TODO: 
+		// TODO:
 		KeyEvent(221);
 	}
 }

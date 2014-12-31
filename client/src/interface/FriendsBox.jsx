@@ -6,6 +6,7 @@
 
 var React           = require('react/addons')
 ,   _               = require('lodash')
+,   api             = require('socket.io-client')('/api')
 ,   onlineFriends
 ,   plural;
 
@@ -43,8 +44,6 @@ module.exports = React.createClass({
                 _this.setState(data);
 
                 onlineFriends = _.compact(_.flatten(data.friends, 'Online')).length;
-
-                console.log(onlineFriends);
 
                 _this.forceUpdate();
             }

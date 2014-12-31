@@ -25,7 +25,7 @@ String.prototype.hashCode = function() {
 };
 
 /* Initialize the local Database
- * TODO: Speed Improvements. USE AJAX
+ * TODO: Speed Improvements.
 -------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
     // nsp.emit('request', { request: 'storeGet', param: database });
@@ -35,7 +35,7 @@ var initLocalDatabase = function(database, callback) {
         var xmlhttp = new XMLHttpRequest();
 
         xmlhttp.onreadystatechange=function() {
-            if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
                 var data = xmlhttp.responseText;
 

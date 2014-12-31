@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React = require('react/addons'),
-    api = require('socket.io-client')('/api');
+var React = require('react/addons')
+,   api = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
-    
+
     getInitialState: function() {
         return {
             ip: '127.0.0.1',
@@ -23,7 +23,7 @@ module.exports = React.createClass({
 
         api.emit('request', { request: 'isOnline', param: null});
         api.emit('request', { request: 'ipInfo', param: null});
-        
+
         api.on('api', this.setState.bind(this));
 
      },
@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
         return (
             <span>
-                <span className="muted well online" data-location={this.state.ip} style={inlineStyle}><strong><i className={classes}></i></strong> {this.state.isOnline ? "Online" : "Offline"}</span> 
+                <span className="muted well-alt online" data-location={this.state.ip} style={inlineStyle}><strong><i className={classes}></i></strong> {this.state.isOnline ? "Online" : "Offline"}</span>
             </span>
             )
     }

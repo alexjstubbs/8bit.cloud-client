@@ -29,21 +29,21 @@ var setupScreens = function(route) {
 	var container = document.getElementById("screens");
 
 	if (route == "/home" || route == "/home/" || route == "Dashboard") {
-		var _screens = ["Dashboard", "Browser", "Profile"];	
+		var _screens = ["Dashboard", "Browser", "Profile"];
 		var screens = [<Dashboard />, <Browser />, <LargeProfile />];
 	}
-	
+
 	if (route == "/welcome" || route == "Welcome") {
-		var _screens = ["Welcome", "NetworkSetup", "NewProfile"];	
+		var _screens = ["Welcome", "NetworkSetup", "NewProfile"];
 		var screens = [<Welcome />, <NetworkSetup />, <NewProfile />];
 	}
 
 	if (route == "/profiles" || route == "Profiles") {
-		var _screens = ["Profiles"];	
+		var _screens = ["Profiles"];
 		var screens = [<Profiles />];
 	}
 
-	_(screens).forEach(function(el, i) { 
+	_(screens).forEach(function(el, i) {
 
 		var li = document.createElement("li");
 
@@ -52,9 +52,6 @@ var setupScreens = function(route) {
 	    React.renderComponent(screens[i], li);
 
 	});
-
-	console.log(container);
-	console.log(container.children);
 
 	_.first(container.children).id = "screen-active";
 

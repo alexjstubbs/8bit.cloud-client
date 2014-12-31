@@ -4,9 +4,10 @@
 
 'use strict';
 
-var React = require('react/addons');
-var UserAvatar = require('./Avatar.jsx');
-var NetworkStatus = require('./NetworkStatus.jsx');
+var React           = require('react/addons')
+,   UserAvatar      = require('./Avatar.jsx')
+,   NetworkStatus   = require('./NetworkStatus.jsx')
+,   api             = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
 

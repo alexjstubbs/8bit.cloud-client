@@ -4,9 +4,10 @@
 
 'use strict';
 
-var React = require('react/addons'),
-    Event = require('./Event.jsx'),
-        _ = require('lodash');
+var React   = require('react/addons')
+,   Event   = require('./Event.jsx')
+,   api     = require('socket.io-client')('/api')
+,   _       = require('lodash');
 
 module.exports = React.createClass({
 
@@ -29,7 +30,7 @@ module.exports = React.createClass({
         api.emit('request', { request: 'getSet', param: 'event'});
         api.emit('request', { request: 'events'});
         api.on('api', this.setState.bind(this));
-  
+
     },
 
     getDefaultProps: function() {
@@ -58,7 +59,7 @@ module.exports = React.createClass({
 
                 {eventNodes}
 
-            </div> 
+            </div>
 
         );
     }

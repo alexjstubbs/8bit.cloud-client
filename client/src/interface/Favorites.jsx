@@ -33,6 +33,8 @@ module.exports = React.createClass({
           return <Favorite key={i.id} navStack={i+1} game={favorite.game} system={favorite.system} timestamp={ moment(favorite.timestamp, "YYYYMMDDhhmms").fromNow() } />
         });
 
+        var nodes = favoriteNodes.length;
+
         return (
 
             <div className={this.props.classString} id={this.props.id}>
@@ -46,15 +48,14 @@ module.exports = React.createClass({
                           <h4 className="text-right">{this.props.title}</h4>
                         </th>
                     </thead>
-                        
-                   { favoriteNodes } 
-                                          
+
+
+                   { nodes ? favoriteNodes  : <td><h2>No Favorites Set</h2></td> }
+
+
                     </table>
-                </div>              
-         
+                </div>
+
         );
     }
 });
-
-
-

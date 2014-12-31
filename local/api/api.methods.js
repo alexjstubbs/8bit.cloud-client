@@ -51,6 +51,10 @@ var api = {
         common.location.ipInfo(nsp);
     },
 
+    ipLocation: function(nsp, ip) {
+        common.location.ipLocation(nsp, ip);
+    },
+
     crc32: function(nsp, path) {
         common.hash.getCRC32(nsp, path);
     },
@@ -84,9 +88,6 @@ var api = {
     },
 
     getProfile: function(nsp, username) {
-        console.log("----");
-        console.log("JUST CALLED GET PROFILE");
-        console.log("----");
         common.serverAPI.getProfile(nsp, username);
     },
 

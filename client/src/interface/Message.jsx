@@ -64,7 +64,7 @@ module.exports = React.createClass({
                     <div className="col-xs-6">
 
                         <div className="no-padding no-margin">{message.From}</div><br />
-                        <div className="mute">{_moment}</div>
+                        <div className="mute down5">sent {_moment}</div>
 
                         <UserStatus Username={message.From} />
                         <br />
@@ -80,7 +80,7 @@ module.exports = React.createClass({
 
                     <br />
 
-                    <div className="well-alt coll-xs-12 navable scrollable">
+                    <div className="well-alt coll-xs-12 scrollable">
                         {message.Body}
                     </div>
                 </div>

@@ -57,9 +57,6 @@ module.exports = React.createClass({
             'message-preview': true
         });
 
-
-        console.log(this.props.Avatar);
-
         return (
 
 
@@ -71,14 +68,14 @@ module.exports = React.createClass({
                 </div>
             </div>
 
-            <div className="col-xs-8">
-                <p>{this.props.Username}</p>
-                <UserStatus Username={this.props.Username} />
+            <div className="col-xs-6">
+                <div>{this.props.Username}</div>
+                <small><UserStatus Username={this.props.Username} /></small>
             </div>
 
-            <div className="col-xs-3">
+            <div className="col-xs-5">
 
-            <p className="timestamp">Last Seen: {this.props.LastSeen}</p>
+            <p className="timestamp">Last seen {this.props.LastSeen}</p>
 
 
             </div>

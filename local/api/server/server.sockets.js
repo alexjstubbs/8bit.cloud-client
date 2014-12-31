@@ -118,16 +118,13 @@ var networkConnection = function(token, ansp, callback) {
 
 		ansp.emit('api', { isOnline: false });
 
-		console.log("NSP DISCONNECTED");
-
-
     });
 
     /* Data from "" Recieved
     -------------------------------------------------- */
     nsp.on('network', function(data, sock) {
 
-		console.log("GOT DATA: "+data);
+
     	/* If command recieved, run.
     	-------------------------------------------------- */
         if (data.run) {
@@ -139,7 +136,6 @@ var networkConnection = function(token, ansp, callback) {
         else {
             __api.emit('network-api', data);
 
-			console.log("Just got Network-Api call: "+JSON.stringify(data));
 			// { result: resultList[id], object: object };
 			// __api.emit('messaging', {type: 1, body: data });
 
@@ -243,7 +239,6 @@ var networkCommand = function(ansp, json) {
        /* All is well. Send Command
        -------------------------------------------------- */
         else {
-            console.log("!!!! sending command: "+JSON.stringify(json));
             network.emit('cmd', json);
         }
 }

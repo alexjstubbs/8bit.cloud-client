@@ -2,12 +2,11 @@
  * @jsx React.DOM
  */
 
-var React = require('react/addons'),
-    Activity = require('./Activity.jsx'),
-    _ = require('lodash'),
-    moment = require('moment')
-    api = require('socket.io-client')('/api');
-
+var React       = require('react/addons')
+,   Activity    = require('./Activity.jsx')
+,   _           = require('lodash')
+,   moment      = require('moment')
+,   api         = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
 
@@ -57,6 +56,10 @@ module.exports = React.createClass({
           return <Activity actionSet={actionSet} key={i.id} navStack={i+1} username={activity.username} action={activity.activity} game={activity.game} timestamp={ activity.Timestamp } />
         });
 
+        nodes = activityNodes.length;
+
+        console.log(nodes);
+
         return (
 
             <div className={this.props.classString} id={this.props.id}>
@@ -72,7 +75,7 @@ module.exports = React.createClass({
                     </thead>
                     <tbody>
 
-                        { activityNodes }
+                    { nodes ? activityNodes : <td><h2>No Recent Activity</h2></td> }
 
                    </tbody>
                     </table>

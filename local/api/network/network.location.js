@@ -1,19 +1,43 @@
-
-/* List Roms by System
+/*  Location Information
 -------------------------------------------------- */
-var fs = require('fs'),
-    _ = require('lodash');
+request         = require('request')
+,   helpers     = require('../../system/helpers');
 
-
+/*  Get local IP and info
+-------------------------------------------------- */
 function ipInfo(nsp) {
 
     location = [{ ip: '1.1.1.1' }];
+    nsp.emit('api', {ipInfo: location});
 
-    nsp.emit('api', {ipInfo: location});       
-           
 }
 
-exports.ipInfo = ipInfo;
+/*  Get location and info by IP
+-------------------------------------------------- */
+function ipLocation(nsp, ip) {
+
+    if (ip) {
+
+        var path = "http://ipinfo.io/"+ip+"/json"
+
+        request.get({
+            uri: path,
+            rejectUnauthorized: false
+        }, function (error, response, body) {
+
+            if (helpers.isJson(body)) {
+
+                nsp.emit('api', {requestedIpLocation: JSON.parse(body)})
+
+            }
+        });
+    }
+}
+
+/*  Exports
+-------------------------------------------------- */
+exports.ipInfo      = ipInfo;
+exports.ipLocation  = ipLocation;
 
 
 // http://ipinfo.io/8.8.8.8/json
