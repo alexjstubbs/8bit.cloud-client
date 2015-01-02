@@ -1,4 +1,4 @@
-/* Reading filesystem 
+/* Reading filesystem
 -------------------------------------------------- */
 
 var fs   = require('fs-extra')
@@ -23,7 +23,7 @@ var readJSONFile = function(nsp, file, callback) {
         }
 
         else {
- 
+
             if (callback || typeof callback == "function") {
                 callback(null, readObject);
             }

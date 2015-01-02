@@ -2863,8 +2863,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-        throttled = _.throttle(this.getLocation, 3000);
-
         navigationInit.navigationInit();
 
         api.on('api', this.setState.bind(this));
@@ -2872,7 +2870,9 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     getLocation: function() {
-        
+
+        console.log(this.props.friend.IP);
+
         if (this.props.friend.IP) {
             api.emit('request', {request: 'ipLocation', param: this.props.friend.IP});
         }
@@ -2893,7 +2893,15 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
 
+    componentWillUpdate: function() {
+        console.log("wt");
+        // this.getLocation();
+    },
+
     render: function() {
+
+
+        // throttled = _.throttle(this.getLocation, 3000);
 
         var friend = JSON.parse(this.props.friend),
             _moment  = moment(friend.LastSeen, "YYYYMMDDhhmms").fromNow();
@@ -3519,10 +3527,10 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons')
-,   api = require('socket.io-client')('/api')
-,   _ = require('lodash')
-,   SaveStates = require('./SaveStates.jsx')
+var React           = require('react/addons')
+,   api             = require('socket.io-client')('/api')
+,   _               = require('lodash')
+,   SaveStates      = require('./SaveStates.jsx')
 ,   AchievementList = require('./AchievementList.jsx');
 
 
@@ -3539,7 +3547,11 @@ module.exports = React.createClass({displayName: 'exports',
             "savestates": [
                 {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
             ],
-            "crc32": null
+            "crc32": null,
+            "developer": null,
+            "filepath": null,
+            "gameFilepath": null
+
         };
     },
 
@@ -3553,7 +3565,7 @@ module.exports = React.createClass({displayName: 'exports',
         var component = this;
 
         window.addEventListener('updateGame', function eventHandler(e) {
-            component.setState(e.detail)
+            component.setState(e.detail);
         });
 
         api.on('api', this.setState.bind(this));
@@ -3582,21 +3594,13 @@ module.exports = React.createClass({displayName: 'exports',
             });
         }
 
+        console.log(this.state.image);
+
         return (
 
         React.DOM.div({id: "Profile"}, 
 
         React.DOM.div({className: "container-fluid parent"}, 
-
-         React.DOM.header(null, 
-            React.DOM.div({className: "col-xs-2 boxed pull-left"}, 
-               React.DOM.i({className: "icon ion-ios-arrow-thin-left"}), "   Game Listing"
-            ), 
-
-            React.DOM.span({className: "pull-right col-xs-2"}, 
-            React.DOM.i({className: "icon ion-minus-round start"}), "  START   ", React.DOM.span({className: "mute"}, ":   PLAY")
-            )
-         ), 
 
          React.DOM.div({className: "clearfix"}), 
 
@@ -3620,13 +3624,15 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.br(null), 
             React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable", 'data-function': "launchGame", 'data-parameters': ""}, "Play Game"), 
             " ", 
-            React.DOM.a({className: "btn-alt btn-lg navable"}, "Multiplayer")
+            React.DOM.a({className: "btn-alt btn-lg navable"}, "Multiplayer"), 
+            React.DOM.a({className: "btn-alt btn-lg navable"}, React.DOM.i({className: "ion-gear-a"}))
+
          ), 
 
             saveNodes, 
 
         React.DOM.div({className: "col-xs-9 profile-section"}, 
-        React.DOM.h1(null, "Achievements ", React.DOM.span({className: "achievement-stats"}, "0 out of 0 Accomplished.")), 
+            React.DOM.h1(null, "Achievements ", React.DOM.span({className: "achievement-stats"}, "0 out of 0 Accomplished.")), 
         React.DOM.ul({id: "achievements"}, 
 
              achievementNodes
@@ -3685,7 +3691,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-                React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.filename, 'data-title': this.props.game, 'data-path': this.props.path}, 
+                React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.path, 'data-title': this.props.game, 'data-path': this.props.path}, 
                     React.DOM.td({'data-tdalpha': "alpha_selection"}, 
                         React.DOM.div({className: "left_alpha pull-left"}, this.props.alpha), 
                         React.DOM.a({className: "launch", 'data-ref': this.props.navStack, 'data-game': this.props.game, href: "#"}, this.props.game)
@@ -4630,8 +4636,6 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
         nodes = activityNodes.length;
-
-        console.log(nodes);
 
         return (
 
@@ -6648,6 +6652,9 @@ var systemNotify    = require('./notification.init.js')
 
 var _div;
 
+
+
+
 /* Prompt Dialog
 -------------------------------------------------- */
 var prompt = function(callback) {
@@ -6767,7 +6774,9 @@ var show = function(parent, parameters, arg) {
         default: Child = AddFriend({});
     }
 
+
     React.renderComponent(Modal(properties, Child), _div);
+
 }
 
 /* Close Modal
@@ -7016,6 +7025,8 @@ var updateGame = function(results, filepath, callback) {
     if (results[0]) {
 
 
+        console.log(filepath);
+
     api.emit('request', { request: 'crc32', param: filepath });
 
        var event = new CustomEvent('updateGame', {
@@ -7035,6 +7046,7 @@ var updateGame = function(results, filepath, callback) {
     window.dispatchEvent(event);
 
 }
+
 
 /* Exports
 -------------------------------------------------- */
@@ -7585,6 +7597,17 @@ var gamepad 			= require("./gamepad.js")
 
 module.exports = function() {
 
+    // var everythingLoaded = setInterval(function() {
+    //     if (/loaded|complete/.test(document.readyState)) {
+    //         clearInterval(everythingLoaded);
+    //         document.body.style.opacity = 1;
+    //         console.log("readu");
+    //     }
+    // }, 10);
+
+    /*  Clear local Storage
+    -------------------------------------------------- */
+    sessionStorage.removeItem("navigationState");
 
 	/* Client and Backend Connection init
 	-------------------------------------------------- */
@@ -9216,6 +9239,7 @@ var events = {
 
 		// TODO:
 		KeyEvent(221);
+
 	}
 }
 

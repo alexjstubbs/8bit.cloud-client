@@ -7,10 +7,10 @@
 
 'use strict';
 
-var React = require('react/addons')
-,   api = require('socket.io-client')('/api')
-,   _ = require('lodash')
-,   SaveStates = require('./SaveStates.jsx')
+var React           = require('react/addons')
+,   api             = require('socket.io-client')('/api')
+,   _               = require('lodash')
+,   SaveStates      = require('./SaveStates.jsx')
 ,   AchievementList = require('./AchievementList.jsx');
 
 
@@ -27,7 +27,11 @@ module.exports = React.createClass({
             "savestates": [
                 {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
             ],
-            "crc32": null
+            "crc32": null,
+            "developer": null,
+            "filepath": null,
+            "gameFilepath": null
+
         };
     },
 
@@ -41,7 +45,7 @@ module.exports = React.createClass({
         var component = this;
 
         window.addEventListener('updateGame', function eventHandler(e) {
-            component.setState(e.detail)
+            component.setState(e.detail);
         });
 
         api.on('api', this.setState.bind(this));
@@ -70,21 +74,13 @@ module.exports = React.createClass({
             });
         }
 
+        console.log(this.state.image);
+
         return (
 
         <div id="Profile">
 
         <div className="container-fluid parent">
-
-         <header>
-            <div className="col-xs-2 boxed pull-left">
-               <i className="icon ion-ios-arrow-thin-left"></i> &nbsp; Game Listing
-            </div>
-
-            <span className='pull-right col-xs-2'>
-            <i className='icon ion-minus-round start'></i>  START &nbsp; <span className='mute'>: &nbsp; PLAY</span>
-            </span>
-         </header>
 
          <div className="clearfix"></div>
 
@@ -109,12 +105,14 @@ module.exports = React.createClass({
             <a id="play-game" className='btn-alt btn-lg navable' data-function="launchGame" data-parameters="">Play Game</a>
             &nbsp;
             <a className='btn-alt btn-lg navable'>Multiplayer</a>
+            <a className='btn-alt btn-lg navable'><i className="ion-gear-a"></i></a>
+
          </div>
 
             {saveNodes}
 
         <div className="col-xs-9 profile-section">
-        <h1>Achievements <span className="achievement-stats">0 out of 0 Accomplished.</span></h1>
+            <h1>Achievements <span className="achievement-stats">0 out of 0 Accomplished.</span></h1>
         <ul id="achievements">
 
              {achievementNodes}

@@ -37,33 +37,6 @@
 }
 
 
-// Roboto
-@font-face {
-  font-family: 'Roboto';
-  font-style: light;
-  font-weight: 100;
-  src: local('Roboto Light'), local('Roboto-Light'), url('../fonts/Roboto-Thin-webfont.woff') format('woff');
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Roboto'), local('Roboto-Light'), url('../fonts/Roboto-Regular-webfont.woff') format('woff');
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: bold;
-  font-weight: 700;
-  src: local('Roboto Bold'), local('Roboto-Bold'), url('../fontsRoboto-Bold-webfont.woff') format('woff');
-}
-@font-face {
-  font-family: 'Roboto';
-  font-style: extrabold;
-  font-weight: 800;
-  src: local('Roboto Black'), local('Roboto-Black'), url('../fonts/Roboto-Black-webfont.woff') format('woff');
-}
-
-
 /* Helpers / animations
 -------------------------------------------------- */
 :focus {
@@ -213,6 +186,11 @@ textarea.textarea-height {
 	background:lighten(@gray-darker, 3%);
 }
 
+.well-alt-size {
+    padding:10px 15px;
+    margin:0 5px 0 0;
+}
+
 .well-dark {
 	padding:2px 7px !important;
 	background:lighten(@gray-darker, 5%);
@@ -224,6 +202,19 @@ textarea.textarea-height {
 
 .text-center {
     text-align:center !important;
+}
+
+
+.button-back {
+    font-weight:bold;
+    font-size:1.4em;
+    color:@red;
+}
+
+.button-confirm {
+    font-weight:bold;
+    font-size:1.4em;
+    color:@green;
 }
 
 /* Windowing
@@ -241,14 +232,13 @@ textarea.textarea-height {
     padding:15px;
     overflow:hidden;
 
-	 position: fixed;
-     top: 10vh;
-     right: 0;
-     left: 0;
-     width:70vw;
-     margin: 0 auto;
+    position: fixed;
+    top: 10vh;
+    right: 0;
+    left: 0;
+    width:70vw;
+    margin: 0 auto;
 }
-
 
 .ignition-popup {
     position:fixed;
@@ -588,7 +578,7 @@ textarea.textarea-height {
 /* Dashboard Toolbar
 -------------------------------------------------- */
 .dashboard-tools li {
-    opacity:0.4;
+    /* opacity:0.4; */
     font-size:1em;
     padding:10px;
 }
@@ -771,10 +761,14 @@ td#rss_info {
 /* http://en.wikipedia.org/wiki/List_of_common_resolutions
 -------------------------------------------------- */
 
+body {
+    /* opacity:0; */
+}
+
 /* (1920x1080) Full HD Display */
 @media screen and (min-width: 1920px) {
     body {
-        zoom:1.4 !important;
+        zoom:1.2 !important;
     }
 }
 
@@ -1061,9 +1055,9 @@ i.start {
 
 
 .selectedNav {
-    -moz-animation: outlineAnimation 0.6s infinite;
-    -webkit-animation: outlineAnimation 0.6s infinite;
-	animation: outlineAnimation 0.6s infinite;
+    -moz-animation: outlineAnimation 0.9s infinite;
+    -webkit-animation: outlineAnimation 0.9s infinite;
+	animation: outlineAnimation 0.9s infinite;
 }
 
 .selectedNav.muted {
@@ -1074,27 +1068,27 @@ i.start {
 }
 
 @keyframes outlineAnimation {
-  0%   { opacity:1; outline:@blue ridge 1px; }
-  25%  { opacity:0.9; outline:@blue ridge 1px;}
-  50%  { opacity:0.8; outline:@purple ridge 1px;}
-  75%  { opacity:0.9; outline:@blue ridge 1px;}
-  100% { opacity:1; outline:@blue ridge 1px;  }
+  0%   { outline:@blue ridge 1px; }
+  25%  { outline:@purple ridge 1px;}
+  50%  { outline:@blue ridge 1px; }
+  75%  { outline:@purple ridge 1px;}
+  100% { outline:@blue ridge 1px;  }
 }
 
 @-webkit-keyframes outlineAnimation {
-  0%   { opacity:1; outline:@blue ridge 1px; }
-  25%  { opacity:0.9; outline:@blue ridge 1px;}
-  50%  { opacity:0.8; outline:@purple ridge 1px;}
-  75%  { opacity:0.9; outline:@blue ridge 1px;}
-  100% { opacity:1; outline:@blue ridge 1px;  }
+    0%   { outline:@blue ridge 1px; }
+    25%  { outline:@purple ridge 1px;}
+    50%  { outline:@blue ridge 1px; }
+    75%  { outline:@purple ridge 1px;}
+    100% { outline:@blue ridge 1px;  }
 }
 
 @-moz-keyframes outlineAnimation {
-  0%   { opacity:1; outline:@blue ridge 1px; }
-  25%  { opacity:0.9; outline:@blue ridge 1px;}
-  50%  { opacity:0.8; outline:@purple ridge 1px;}
-  75%  { opacity:0.9; outline:@blue ridge 1px;}
-  100% { opacity:1; outline:@blue ridge 1px;  }
+    0%   { outline:@blue ridge 1px; }
+    25%  { outline:@purple ridge 1px;}
+    50%  { outline:@blue ridge 1px; }
+    75%  { outline:@purple ridge 1px;}
+    100% { outline:@blue ridge 1px;  }
 }
 
 .loading-container i.fa-rocket {
@@ -1393,7 +1387,9 @@ footer .progress {
 #main[data-screen='Profile'] header {
     .make-md-column(12);
     color:@white;
-    font-size:1.2em;
+    padding-top:0;
+
+
 }
 
 #profile-boxart {

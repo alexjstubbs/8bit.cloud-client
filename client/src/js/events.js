@@ -97,6 +97,8 @@ var updateGame = function(results, filepath, callback) {
     if (results[0]) {
 
 
+        console.log(filepath);
+
     api.emit('request', { request: 'crc32', param: filepath });
 
        var event = new CustomEvent('updateGame', {
@@ -116,6 +118,7 @@ var updateGame = function(results, filepath, callback) {
     window.dispatchEvent(event);
 
 }
+
 
 /* Exports
 -------------------------------------------------- */

@@ -16,6 +16,8 @@ function ipInfo(nsp) {
 -------------------------------------------------- */
 function ipLocation(nsp, ip) {
 
+    console.log("ip: "+ip);
+    
     if (ip) {
 
         var path = "http://ipinfo.io/"+ip+"/json"

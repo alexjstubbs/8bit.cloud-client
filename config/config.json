@@ -1,3 +1,9 @@
 {
-  "roms": "/roms/"
+  "roms": "/root/roms/",
+  "saves": "/root/saves/"
+  "auto_login": false,
+  "auto_login_user": null,
+  "theme": "moon",
+  "zoom": "1.5",
+  "browser_url": "http://ignition.io"
 }

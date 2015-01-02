@@ -58,8 +58,6 @@ module.exports = React.createClass({
 
         nodes = activityNodes.length;
 
-        console.log(nodes);
-
         return (
 
             <div className={this.props.classString} id={this.props.id}>

@@ -26,6 +26,9 @@ var systemNotify    = require('./notification.init.js')
 
 var _div;
 
+
+
+
 /* Prompt Dialog
 -------------------------------------------------- */
 var prompt = function(callback) {
@@ -145,7 +148,9 @@ var show = function(parent, parameters, arg) {
         default: Child = AddFriend({});
     }
 
+
     React.renderComponent(Modal(properties, Child), _div);
+
 }
 
 /* Close Modal

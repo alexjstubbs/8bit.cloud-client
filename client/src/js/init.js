@@ -10,6 +10,17 @@ var gamepad 			= require("./gamepad.js")
 
 module.exports = function() {
 
+    // var everythingLoaded = setInterval(function() {
+    //     if (/loaded|complete/.test(document.readyState)) {
+    //         clearInterval(everythingLoaded);
+    //         document.body.style.opacity = 1;
+    //         console.log("readu");
+    //     }
+    // }, 10);
+
+    /*  Clear local Storage
+    -------------------------------------------------- */
+    sessionStorage.removeItem("navigationState");
 
 	/* Client and Backend Connection init
 	-------------------------------------------------- */

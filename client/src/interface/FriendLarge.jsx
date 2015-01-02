@@ -23,8 +23,6 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        throttled = _.throttle(this.getLocation, 3000);
-
         navigationInit.navigationInit();
 
         api.on('api', this.setState.bind(this));
@@ -32,7 +30,9 @@ module.exports = React.createClass({
     },
 
     getLocation: function() {
-        
+
+        console.log(this.props.friend.IP);
+
         if (this.props.friend.IP) {
             api.emit('request', {request: 'ipLocation', param: this.props.friend.IP});
         }
@@ -53,7 +53,15 @@ module.exports = React.createClass({
         }
     },
 
+    componentWillUpdate: function() {
+        console.log("wt");
+        // this.getLocation();
+    },
+
     render: function() {
+
+
+        // throttled = _.throttle(this.getLocation, 3000);
 
         var friend = JSON.parse(this.props.friend),
             _moment  = moment(friend.LastSeen, "YYYYMMDDhhmms").fromNow();
