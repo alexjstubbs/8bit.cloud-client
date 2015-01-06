@@ -41,7 +41,7 @@ global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
-//
+// Terminal Fork
 // var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
 
@@ -120,4 +120,7 @@ console.log("[i] Ignition Client Launched.");
 
 common.databases.initDatabases();
 
+ // console.log(process.env.NODE_ENV); {
+ //     common.
+ // }
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');

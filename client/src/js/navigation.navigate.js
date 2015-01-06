@@ -8,6 +8,7 @@ var systemEvents        = require('./system.events.js')
 ,   _                   = require('lodash')
 ,   formInputs          = ['text', 'input', 'submit', 'password'];
 
+var throttled_nav = _.throttle(navigationBrowse, 700);
 
 /* Exported Navigation Module (blackbox)
 -------------------------------------------------- */
@@ -31,7 +32,8 @@ module.exports = function(k) {
             if (screen == 'Browser') {
 
                 // Module pointer to navigation.browser refactor:
-                navigationBrowse(currentSelection[0]);
+                throttled_nav(currentSelection[0]);
+
                 currentSelection[0].scrollIntoView(false);
 
             }

@@ -7,6 +7,7 @@
 var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   WizardHeader    = require('./WizardHeader.jsx')
+,   api             = require('socket.io-client')('/api')
 ,   WifiAdvanced    = require('../forms/WifiAdvancedSetup.jsx');
 
 module.exports = React.createClass({

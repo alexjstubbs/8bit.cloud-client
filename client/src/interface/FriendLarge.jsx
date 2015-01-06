@@ -60,7 +60,6 @@ module.exports = React.createClass({
 
     render: function() {
 
-
         // throttled = _.throttle(this.getLocation, 3000);
 
         var friend = JSON.parse(this.props.friend),

@@ -213,7 +213,7 @@ var saveForm = function(nsp, data) {
 var getCommunity = function(nsp) {
 
     var app = "Communities";
-    _path = "http://" + path.join(server, "api", v, app);
+    _path = "https://" + path.join(server, "api", v, app);
 
    request.get({
         uri: _path,
@@ -235,7 +235,7 @@ var getEvents = function(nsp) {
 
     var app = "Events";
 
-    _path = "http://" + path.join(server, "api", v, app);
+    _path = "https://" + path.join(server, "api", v, app);
 
    request.get({
 
@@ -271,7 +271,7 @@ var getSession = function(nsp, callback) {
 
     var app = "login";
 
-    _path = "http://" + path.join(server, app);
+    _path = "https://" + path.join(server, app);
 
     fs.readJson(__sessionFile, function(err, userProfile) {
 
@@ -383,7 +383,7 @@ var signUp = function(nsp, profile, callback) {
 
     var app = "signup";
 
-    _path = "http://" + path.join(server, app);
+    _path = "https://" + path.join(server, app);
 
     var password = passHash(profile.username, function(hashed) {
 
@@ -504,7 +504,7 @@ var signUp = function(nsp, profile, callback) {
 var getSockets = function(nsp, token) {
 
     var app = "sockets"
-        _path = "http://" + path.join(server, app)
+        _path = "https://" + path.join(server, app)
 
         var query = {
             Token: token
@@ -527,7 +527,7 @@ var getSockets = function(nsp, token) {
 var leaveSession = function(nsp) {
 
     var app = "logout";
-        _path = "http://" + path.join(server, app);
+        _path = "https://" + path.join(server, app);
 
         var query = {
             Username: 'Alex',

@@ -3,9 +3,9 @@
 var fs 				= require('fs-extra')
 ,   database 		= require('../../api/database/database.local')
 ,   networkMethods 	= require('../../api/network/network.methods')
+, 	io 				= require('socket.io-client')
 ,   network
 ,   issuedToken;
-
 
 /*  Remove Issued Token
 -------------------------------------------------- */
@@ -18,7 +18,7 @@ var removeToken = function() {
 var removeConnection = function() {
 	if (network) {
 		network.disconnect();
-		console.log("removed previous socket...")
+		console.log("removed previous socket...");
 	}
 }
 
@@ -54,14 +54,16 @@ var networkStatus = function(callback) {
 -------------------------------------------------- */
 var issueToken = function(callback) {
 
+	console.log("here");
+
       fs.readJson(__sessionFile, function(err, userProfile) {
+
 
             if (err) {
                 console.log("Token Error: " + err);
             }
 
             if (userProfile) {
-
                 if (userProfile.token) {
 
                     var issuedToken = userProfile.token;
@@ -86,9 +88,6 @@ var issueToken = function(callback) {
 -------------------------------------------------- */
 var networkConnection = function(token, ansp, callback) {
 
-
-    var io = require('socket.io-client');
-
    /* Connect to /Network (i.io) namespace/network
    -------------------------------------------------- */
 
@@ -97,12 +96,9 @@ var networkConnection = function(token, ansp, callback) {
         secure: true
     });
 
-
     /* Connection "" successfull
     -------------------------------------------------- */
     nsp.on('connect', function (socket, sock) {
-
-		console.log("NSP connection call");
 
 		ansp.emit('api', { isOnline: true });
 
@@ -221,6 +217,7 @@ var networkCommand = function(ansp, json) {
             console.log("Not connected to network! Attempting Connect to send command: " + json.cmd);
 
             networkConnection(issuedToken, ansp, function(err, network) {
+
 
                 if (err) {
                    // ||Client Box||: You are not connected to the server interface

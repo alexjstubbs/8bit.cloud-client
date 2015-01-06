@@ -5,6 +5,7 @@
 'use strict';
 
 var React           = require('react/addons')
+,   api             = require('socket.io-client')('/api')
 ,   WizardHeader    = require('./WizardHeader.jsx');
 
 module.exports = React.createClass({
@@ -15,7 +16,7 @@ module.exports = React.createClass({
             button: "Create Your Profile"
         }
     },
-    
+
 
     getDefaultProps: function() {
         return {
@@ -52,7 +53,7 @@ module.exports = React.createClass({
         var status = states[this.props.status]();
 
         return (
-	    
+
 
 	        <div>
 
@@ -71,7 +72,7 @@ module.exports = React.createClass({
 				<button id="network-next" data-function={status.functionCall} data-parameters={status.functionParameters} className="hidden navable btn pull-right btn-lg btn-alt">{status.button} &nbsp; <i className="ion-arrow-right-c"></i></button>
 
 			</div>
-				
+
         );
     }
 });

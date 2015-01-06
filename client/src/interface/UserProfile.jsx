@@ -28,9 +28,19 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
+        var _this = this;
+
         api.emit('request', { request: 'getSession'} );
 
-        api.on('api', this.setState.bind(this));
+        api.on('api', function(data) {
+
+            if (data.session) {
+
+                api.on('api', _this.setState.bind(_this));
+
+            }
+
+        });
 
     },
 

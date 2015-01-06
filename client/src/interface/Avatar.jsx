@@ -14,7 +14,7 @@ module.exports = React.createClass({
 
     getInitialState: function() {
 
-        throttled = _.throttle(this.updateAvatar, 1000);
+        throttled = _.once(this.updateAvatar, 1200);
 
         return {
 

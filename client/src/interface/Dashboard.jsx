@@ -113,6 +113,7 @@ module.exports = React.createClass({
             <div id="home" className={classes}>
 
             <UserProfile />
+
             <HeaderGroup myMessages={this.state.messages} unread={unreadMessages}/>
 
             <div className="clearfix"></div>

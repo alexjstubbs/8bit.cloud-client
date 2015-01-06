@@ -5,6 +5,7 @@
 'use strict';
 
 var React     = require('react/addons')
+,   api             = require('socket.io-client')('/api')
 ,   events    = require('../../js/system.events').events;
 
 module.exports = React.createClass({

@@ -1,6 +1,6 @@
 {
-  "roms": "/root/roms/",
-  "saves": "/root/saves/"
+  "roms": "/roms/",
+  "saves": "/saves/",
   "auto_login": false,
   "auto_login_user": null,
   "theme": "moon",

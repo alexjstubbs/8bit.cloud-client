@@ -12,7 +12,8 @@ var systemNotify    	= require('./notification.init.js')
 ,   dialog          	= require('./dialogs')
 , 	eventDispatcher 	= require('./events')
 , 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents')
-, 	Screens 			= require('../interface/Screens.jsx');
+, 	Screens 			= require('../interface/Screens.jsx')
+,   mousetrap           = require("./mousetrap.min.js");
 
 // browser = require("./browser.js");
 
@@ -376,6 +377,7 @@ var events = {
 
 		// TODO:
 		KeyEvent(221);
+
 
 	}
 }

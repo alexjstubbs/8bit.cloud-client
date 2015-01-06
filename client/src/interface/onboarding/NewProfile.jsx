@@ -6,6 +6,7 @@
 
 var React           = require('react/addons')
 ,   _               = require('lodash')
+,   api             = require('socket.io-client')('/api')
 ,   clientEvents    = require('../../js/system.events').events
 ,   WizardHeader    = require('./WizardHeader.jsx')
 ,   Signup          = require('../forms/Signup.jsx');
@@ -38,15 +39,15 @@ module.exports = React.createClass({
                     <div className="col-sm-1"></div>
 
                     <div className="col-sm-5">
-                    
+
                         <br /><br />
 
                         <img id="add-profile-img" src="/src/img/add-profile.png" alt="Add Profile" className="img-responsive img-center" />
-               
+
                     </div>
 
 
-              
+
           </div>
         );
     }

@@ -74,7 +74,6 @@ module.exports = React.createClass({
             });
         }
 
-        console.log(this.state.image);
 
         return (
 

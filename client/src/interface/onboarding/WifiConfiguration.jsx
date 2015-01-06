@@ -7,6 +7,7 @@
 var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   WizardHeader    = require('./WizardHeader.jsx')
+,   api             = require('socket.io-client')('/api')
 ,   WifiSetup       = require('../forms/WifiSetup.jsx');
 
 module.exports = React.createClass({
@@ -14,7 +15,7 @@ module.exports = React.createClass({
     componentDidMount:function() {
          sessionStorage.setItem("navigationState", "pause");
     },
-    
+
     render: function() {
 
         return (
@@ -32,13 +33,13 @@ module.exports = React.createClass({
                     <div className="col-sm-1"></div>
 
                     <div className="col-sm-5">
-                    
+
                         <img id="wifi-config-img" src="/src/img/wifi-config.png" alt="Wifi Configuration" className="img-responsive img-center" />
-               
+
                     </div>
 
 
-              
+
           </div>
         );
     }

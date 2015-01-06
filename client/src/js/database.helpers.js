@@ -93,6 +93,7 @@ var filterByAttribute = function(database, query, callback) {
 
             if (database == "games") {
                 var title = query.query.query;
+
                 api.emit('request', { request: 'lookupGame', param: title });
 
                 var obj = [{

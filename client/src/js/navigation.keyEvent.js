@@ -3,38 +3,62 @@
 
 module.exports = function(k) {
 
-    Podium = {};
 
-    Podium.keydown = function(k) {
-        var oEvent = document.createEvent('KeyboardEvent');
+    var keyboardEvent = document.createEvent("KeyboardEvent");
 
-        // Chromium Hack.. DOES NOT WORK IN WEBKIT (qtbrowser).
-        Object.defineProperty(oEvent, 'keyCode', {
-                    get : function() {
-                        return this.keyCodeVal;
-                    }
-        });
-        Object.defineProperty(oEvent, 'which', {
-                    get : function() {
-                        return this.keyCodeVal;
-                    }
-        });
+    var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
 
-        if (oEvent.initKeyboardEvent) {
-            oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, false, false, false, false, k, k);
-        } else {
-            oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
-        }
 
-        oEvent.keyCodeVal = k;
+    keyboardEvent[initMethod](
+        "keydown",
+        true,      // bubbles oOooOOo0
+        true,      // cancelable
+        window,    // view
+        false,     // ctrlKeyArg
+        false,     // altKeyArg
+        false,     // shiftKeyArg
+        false,     // metaKeyArg
+        k,
+        0          // charCode
+    );
 
-        if (oEvent.keyCode !== k) {
-            alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
-        }
+    window.dispatchEvent(keyboardEvent);
 
-        document.dispatchEvent(oEvent);
-
-    }
-        Podium.keydown(k);
+    console.log(keyboardEvent);
+    
+    //
+    // Podium = {};
+    //
+    // Podium.keydown = function(k) {
+    //     var oEvent = document.createEvent('KeyboardEvent');
+    //
+    //     // Chromium Hack.. DOES NOT WORK IN WEBKIT (qtbrowser).
+    //     Object.defineProperty(oEvent, 'keyCode', {
+    //                 get : function() {
+    //                     return this.keyCodeVal;
+    //                 }
+    //     });
+    //     Object.defineProperty(oEvent, 'which', {
+    //                 get : function() {
+    //                     return this.keyCodeVal;
+    //                 }
+    //     });
+    //
+    //     if (oEvent.initKeyboardEvent) {
+    //         oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, false, false, false, false, k, k);
+    //     } else {
+    //         oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
+    //     }
+    //
+    //     oEvent.keyCodeVal = k;
+    //
+    //     if (oEvent.keyCode !== k) {
+    //         alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
+    //     }
+    //
+    //     document.dispatchEvent(oEvent);
+    //
+    // }
+    //     Podium.keydown(k);
 
 };

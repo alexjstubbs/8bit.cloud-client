@@ -5,6 +5,7 @@
 'use strict';
 
 var React   = require('react/addons')
+,   api             = require('socket.io-client')('/api')
 ,    _      = require('lodash');
 
 module.exports = React.createClass({
@@ -21,7 +22,7 @@ module.exports = React.createClass({
     render: function() {
 
         return (
-      
+
         <div>
             Controller Layout
         </div>

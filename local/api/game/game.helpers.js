@@ -56,8 +56,8 @@ function gameLaunch(req, res, callback) {
         base = base.join(' ');
 
 
-        // Pause Chromium to free up RAM
-        execute('sudo pkill -STOP chromium', function(stdout) {});
+        // Pause Renderer to free up RAM
+        // execute('sudo pkill -STOP qtbrowser', function(stdout) {});
 
         execute('sudo openvt -sw python ' + __dirname + '/py/launch.py ' + args[0] + " " + args[1] + " " + base, function(stdout) {
             // console.log("out:"+stdout);
@@ -75,39 +75,36 @@ function gameLaunch(req, res, callback) {
 -------------------------------------------------- */
 function apicall(nsp, game) {
 
-    // !!!!!YOU MUST HAVE PYTHON INSTALLED!!!!!!
     // python archive_api_call.py api.archive.vg/2.0/Archive.search/json/ Super+Castlevania
     var vg = spawn('python', ['/Users/alexstubbs/projects/Ignition/Release/local/api/database/py/archive_api_call.py', 'api.archive.vg/2.0/Archive.search/json/', game]);
 
     var data = '';
 
     vg.stdout.on('data', function(buffer) {
-        console.log("got data from API");
         data += buffer;
     });
 
     vg.stdout.on('end', function(err) {
+
 
         data = data.toString('utf8');
 
         var rLength = data.length;
         var isjson = isJson(data);
 
-        console.log(data);
-
         // JSON Friendly Data
         if (isjson == true) {
 
             data = JSON.parse(data); // Errors
 
-            document = data;
+            _document = data;
 
             if (rLength > 50) {
-                
-                database.storeGame(document, function(newDocument) {
+
+                database.storeGame(_document, function(newDocument) {
                     if (newDocument) {
                         // callback(null, newDocument);
-                        console.log("found and stored");
+                        // console.log("found and stored");
 
                         nsp.emit('api', {updateGame: newDocument});
                     } else {
