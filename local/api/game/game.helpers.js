@@ -86,10 +86,7 @@ function apicall(nsp, game, callback) {
 
     vg.stdout.on('end', function(err) {
 
-
         data = data.toString('utf8');
-
-        console.log(data);
 
         var rLength = data.length;
         var isjson = isJson(data);
@@ -142,6 +139,7 @@ function gameProfileSmall(nsp, game) {
 
     var research = new RegExp(game, "i");
 
+
     database.findGame({
         $or: [{
             "games.game.title": {
@@ -154,7 +152,12 @@ function gameProfileSmall(nsp, game) {
         }]
     }, function(doc) {
 
-        if (doc.length > 5) {
+
+
+        console.log(doc.length);
+
+        if (doc > 4) {
+
 
             doc = doc[0];
             doc = JSON.stringify(doc);
@@ -171,10 +174,10 @@ function gameProfileSmall(nsp, game) {
 
 
             if (gameTitle == recordTitle || gameTitleThe == recordTitle) {
-                console.log("Matched!")
+
+                console.log("[!!!] MATCHED in Database");
 
                 nsp.emit('api', {updateGame: doc});
-
 
             } else {
                 for (key in doc.games.game) {
@@ -193,12 +196,12 @@ function gameProfileSmall(nsp, game) {
 
         } else {
 
+            console.log("[!!!] Didn't Match in Database");
+
             apicall(null, game, function(err, newDoc) {
                 if (err) {
-                    // console.log(err);
-                    // res.send(null);
+                    console.log(err);
                 } else {
-                    // res.send(newDoc);
                     nsp.emit('api', {updateGame: newDoc});
                 }
             });

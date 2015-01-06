@@ -1,6 +1,7 @@
 /* Local System Database
 -------------------------------------------------- */
-var Datastore = require('nedb');
+var Datastore   = require('nedb')
+,   _           = require('lodash');
 
 /* Init Databases (called on profile creation?)
 -------------------------------------------------- */
@@ -180,8 +181,9 @@ function findGame(document, callback) {
 
     db.games.find(document, function(err, docs) {
 
+
         if (docs.length) {
-            console.log("[!] found game")
+            console.log("[!] found game");
             callback(docs)
         } else {
             console.log("[!] Couldn't Find Game.")
