@@ -73,7 +73,7 @@ function gameLaunch(req, res, callback) {
 
 /* Call Archive.vg API to store and populate game
 -------------------------------------------------- */
-function apicall(nsp, game) {
+function apicall(nsp, game, callback) {
 
     // python archive_api_call.py api.archive.vg/2.0/Archive.search/json/ Super+Castlevania
     var vg = spawn('python', ['/Users/alexstubbs/projects/Ignition/Release/local/api/database/py/archive_api_call.py', 'api.archive.vg/2.0/Archive.search/json/', game]);
@@ -89,6 +89,8 @@ function apicall(nsp, game) {
 
         data = data.toString('utf8');
 
+        console.log(data);
+
         var rLength = data.length;
         var isjson = isJson(data);
 
@@ -103,10 +105,10 @@ function apicall(nsp, game) {
 
                 database.storeGame(_document, function(newDocument) {
                     if (newDocument) {
-                        // callback(null, newDocument);
+                        callback(null, newDocument);
                         // console.log("found and stored");
 
-                        nsp.emit('api', {updateGame: newDocument});
+                        // nsp.emit('api', {updateGame: newDocument});
                     } else {
                         console.log("error: No New Document");
                     }
@@ -118,14 +120,15 @@ function apicall(nsp, game) {
 
         // Not JSON friendly DATA
         else {
-            console.log("error: not JSON data")
+
+            console.log("error: not JSON data");
         }
 
     });
 
     vg.stderr.on('data', function(data) {
-        console.log("error stdouts: " + data)
-        // callback('err');
+        // console.log("error stdouts: " + data)
+        callback(data, null);
     });
 
 }
@@ -150,7 +153,8 @@ function gameProfileSmall(nsp, game) {
             }
         }]
     }, function(doc) {
-        if (doc != "") {
+
+        if (doc.length > 5) {
 
             doc = doc[0];
             doc = JSON.stringify(doc);
@@ -167,7 +171,11 @@ function gameProfileSmall(nsp, game) {
 
 
             if (gameTitle == recordTitle || gameTitleThe == recordTitle) {
-                // console.log("Matched!")
+                console.log("Matched!")
+
+                nsp.emit('api', {updateGame: doc});
+
+
             } else {
                 for (key in doc.games.game) {
                     if (doc.games.game[key].title) {
@@ -184,13 +192,14 @@ function gameProfileSmall(nsp, game) {
 
 
         } else {
-            apicall(game, function(err, newDoc) {
+
+            apicall(null, game, function(err, newDoc) {
                 if (err) {
                     // console.log(err);
                     // res.send(null);
                 } else {
                     // res.send(newDoc);
-                    nsp.emit('api', {gameInfo: null});
+                    nsp.emit('api', {updateGame: newDoc});
                 }
             });
         }

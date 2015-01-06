@@ -148,10 +148,9 @@ function storeAchievement(document, callback) {
 -------------------------------------------------- */
 function findAchievements(criteria, callback) {
 
-    console.log("[i] Searching For: " + JSON.stringify(criteria));
+    //console.log("[i] Searching For: " + JSON.stringify(criteria));
 
     db.achievements.find(criteria, function(err, docs) {
-        console.log(err)
         if (docs[0]) {
             callback(docs)
         } else {
@@ -181,7 +180,7 @@ function findGame(document, callback) {
 
     db.games.find(document, function(err, docs) {
 
-        if (docs) {
+        if (docs.length) {
             console.log("[!] found game")
             callback(docs)
         } else {

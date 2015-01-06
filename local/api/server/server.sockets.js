@@ -54,7 +54,6 @@ var networkStatus = function(callback) {
 -------------------------------------------------- */
 var issueToken = function(callback) {
 
-	console.log("here");
 
       fs.readJson(__sessionFile, function(err, userProfile) {
 

@@ -44,7 +44,8 @@ var api = {
     },
 
     lookupGame: function(nsp, game) {
-        common.game.apicall(nsp, game);
+        common.game.gameProfileSmall(nsp, game);
+        // common.game.apicall(nsp, game);
     },
 
     ipInfo: function(nsp) {
