@@ -2,7 +2,7 @@
 -------------------------------------------------- */
 var fs 							= require('fs-extra')
 ,   database 					= require('../../api/database/database.local')
-,   networkMethods 				= require('../../api/network/network.methods')
+,   networkMethod 				= require('./server.methods').networkMethod
 , 	io 							= require('socket.io-client')
 , 	_ 							= require('lodash')
 , 	async 						= require('async')
@@ -87,10 +87,6 @@ var issueToken = function(callback) {
       })
 };
 
-var networkDebounce = _.throttle(function() {
-	console.log("why twice?");
-}, 500);
-
 /* Initialize Network Connection
 -------------------------------------------------- */
 var networkConnection = function(token, ansp, callback) {
@@ -133,27 +129,16 @@ var networkConnection = function(token, ansp, callback) {
     -------------------------------------------------- */
     nsp.on('network', function(data, sock) {
 
-
-    	/* If command recieved, run.
-    	-------------------------------------------------- */
-        // if (data.run) {
-		//
-        //     // networkMethods[data['cmd']](nsp, data);
-        // }
-
-        /* If just binding data, emit.
-        -------------------------------------------------- */
-        // else {
-            __api.emit('network-api', data);
-
-			console.log("-----");
-			console.log(data);
-
-			console.log("-----");
-			// { result: resultList[id], object: object };
-			// __api.emit('messaging', {type: 1, body: data });
-
-        // }
+		switch(data) {
+			case data.error:
+				__api.emit('messaging', {type: 1, body: data });
+				break;
+			case data.result:
+				networkMethod[data.result.id](data);
+				break;
+			default:
+				__api.emit('network-api', data);
+			}
 
     })
 
@@ -255,6 +240,8 @@ var networkCommand = function(ansp, json) {
 
 	else {
 
+		/*  Wait till network is up to send awaiting commands...
+		-------------------------------------------------- */
 		async.until(
 				function () { return network; },
 				function (callback) {
