@@ -1,11 +1,15 @@
 /* Server socket API
 -------------------------------------------------- */
-var fs 				= require('fs-extra')
-,   database 		= require('../../api/database/database.local')
-,   networkMethods 	= require('../../api/network/network.methods')
-, 	io 				= require('socket.io-client')
+var fs 							= require('fs-extra')
+,   database 					= require('../../api/database/database.local')
+,   networkMethods 				= require('../../api/network/network.methods')
+, 	io 							= require('socket.io-client')
+, 	_ 							= require('lodash')
+, 	async 						= require('async')
+, 	_await 						= false
 ,   network
 ,   issuedToken;
+
 
 /*  Remove Issued Token
 -------------------------------------------------- */
@@ -83,6 +87,10 @@ var issueToken = function(callback) {
       })
 };
 
+var networkDebounce = _.throttle(function() {
+	console.log("why twice?");
+}, 500);
+
 /* Initialize Network Connection
 -------------------------------------------------- */
 var networkConnection = function(token, ansp, callback) {
@@ -90,10 +98,16 @@ var networkConnection = function(token, ansp, callback) {
    /* Connect to /Network (i.io) namespace/network
    -------------------------------------------------- */
 
-    nsp = io.connect('http://ignition.io:6052/network', {
-        'query': 'token=' + token,
-        secure: true
-    });
+	if (!network) {
+		nsp = io.connect('http://ignition.io:6052/network', {
+	        'query': 'token=' + token,
+	        secure: true
+	    });
+	}
+
+	else {
+		callback(null, network);
+	}
 
     /* Connection "" successfull
     -------------------------------------------------- */
@@ -122,19 +136,24 @@ var networkConnection = function(token, ansp, callback) {
 
     	/* If command recieved, run.
     	-------------------------------------------------- */
-        if (data.run) {
-            networkMethods[data['cmd']](nsp, data);
-        }
+        // if (data.run) {
+		//
+        //     // networkMethods[data['cmd']](nsp, data);
+        // }
 
         /* If just binding data, emit.
         -------------------------------------------------- */
-        else {
+        // else {
             __api.emit('network-api', data);
 
+			console.log("-----");
+			console.log(data);
+
+			console.log("-----");
 			// { result: resultList[id], object: object };
 			// __api.emit('messaging', {type: 1, body: data });
 
-        }
+        // }
 
     })
 
@@ -198,6 +217,7 @@ var networkInterface = function(ansp, json) {
 
 }
 
+
 /* Send Command to Network
 -------------------------------------------------- */
 var networkCommand = function(ansp, json) {
@@ -213,30 +233,47 @@ var networkCommand = function(ansp, json) {
     -------------------------------------------------- */
     if (!network) {
 
-            console.log("Not connected to network! Attempting Connect to send command: " + json.cmd);
+		if (_await != true) {
 
-            networkConnection(issuedToken, ansp, function(err, network) {
+			_await = true;
+
+			networkConnection(issuedToken, ansp, function(err, network) {
+
+				if (err) {
+					// ||Client Box||: You are not connected to the server interface
+					console.log("[!] Network Authentication Error: "+err);
+				}
+
+				else {
+					network.emit('cmd', json);
+					openNetwork = true;
+				}
+
+			});
+
+		}
+
+	else {
+
+		async.until(
+				function () { return network; },
+				function (callback) {
+					setTimeout(callback, 1000);
+				},
+				function (err) {
+					network.emit('cmd', json);
+				}
+			);
+		}
+	}
 
 
-                if (err) {
-                   // ||Client Box||: You are not connected to the server interface
-                    console.log("[!] Network Authentication Error: "+err);
-                }
+	/* All is well. Send Command
+	-------------------------------------------------- */
+	else {
+		network.emit('cmd', json);
+	}
 
-                else {
-
-                    network.emit('cmd', json);
-                }
-
-            });
-
-        }
-
-       /* All is well. Send Command
-       -------------------------------------------------- */
-        else {
-            network.emit('cmd', json);
-        }
 }
 
 /* Exports

@@ -6,15 +6,14 @@ var subFriends = _.once(function(socket, data) {
 
     var online = 0,
         present = false;
-    
-    _(data.friends).forEach(function(friend, i) { 
-        if (friend.Online) { online++ } 
+
+    _(data.friends).forEach(function(friend, i) {
+        if (friend.Online) { online++ }
     });
 
     if (online > 0) { present = true }
 
         console.log(present)
-
 
      __api.emit('network-api', { onlineFriends: 12 } );
 

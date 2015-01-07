@@ -139,6 +139,7 @@ function gameProfileSmall(nsp, game) {
 
     var research = new RegExp(game, "i");
 
+    database.compactDatabase("games");
 
     database.findGame({
         $or: [{
@@ -152,12 +153,7 @@ function gameProfileSmall(nsp, game) {
         }]
     }, function(doc) {
 
-
-
-        console.log(doc.length);
-
-        if (doc > 4) {
-
+        if (doc[0].timestamp) {
 
             doc = doc[0];
             doc = JSON.stringify(doc);
@@ -171,7 +167,6 @@ function gameProfileSmall(nsp, game) {
             } else {
                 var recordTitle = doc.games.game.title.toUpperCase()
             };
-
 
             if (gameTitle == recordTitle || gameTitleThe == recordTitle) {
 
@@ -191,6 +186,7 @@ function gameProfileSmall(nsp, game) {
                     }
                 }
             }
+
            nsp.emit('api', {gameInfo: doc.games.game[0]});
 
 
