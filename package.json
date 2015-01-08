@@ -1,35 +1,22 @@
 {
-  "name": "Delilah-Client",
+  "name": "Ignition Client",
   "main": "ignite.html",
-  "node-main": "app.js",
-  "window": {
-    "frame": true,
-    "toolbar": true,
-    "resizable": true,
-    "kiosk": false,
-    "fullscreen": false,
-    "width": 1260,
-    "height": 800
-  },
+  "node-main": "ignite.js",
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
+    "start": "node ignite"
   },
   "dependencies": {
     "async": "^0.9.0",
-    "asyncawait": "^0.7.4",
     "bcrypt": "^0.8.0",
-    "bluebird": "^2.3.11",
     "busboy": "^0.2.9",
-    "es6-promise": "^1.0.0",
     "express": "^3.0.4",
     "jsonwebtoken": "^1.1.2",
     "lodash": "^2.4.1",
     "method-override": "^2.3.0",
     "moment": "^2.8.1",
     "mongodb": "1.3.5",
-    "mu2": "0.5.17",
     "mu2express": "0.0.1",
     "mustache": "0.7.1",
     "nedb": "^0.9.4",
