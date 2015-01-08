@@ -60,6 +60,17 @@ module.exports = function() {
         events.showTerminal();
     });
 
+    Mousetrap.bind('s', function(e) {
+        e.preventDefault();
+        events.nextScreen();
+    });
+
+    Mousetrap.bind('a', function(e) {
+        e.preventDefault();
+        events.previousScreen();
+    });
+
+
     // if (e.preventDefault) {
     //     e.preventDefault();
     // }

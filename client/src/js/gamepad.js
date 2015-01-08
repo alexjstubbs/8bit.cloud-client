@@ -261,10 +261,13 @@ var gamepadSupport = {
                     // Mappings
 
                     if (button[5]) {
-                        navigationKeyEvent(221);
+                        // navigationKeyEvent(221);
+                        Mousetrap.trigger('a');
                     }
+
                     if (button[4]) {
-                        navigationKeyEvent(219);
+                        // navigationKeyEvent(219);
+                        Mousetrap.trigger('s');
                     }
 
                     if (button[8] || button[1] || button [3]) {
