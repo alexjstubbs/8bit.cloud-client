@@ -7610,12 +7610,13 @@ exports.preloadImage = preloadImage;
 /* Init Modules - Entry point to clientside controllers
  -------------------------------------------------- */
 
-var gamepad 			= require("./gamepad.js")
-,   navigationBindings  = require("./navigation.bindings.js")
-,   navigationEvent 	= require("./navigation.event.js")
-,   api 				= require("./api/connection.js")
-,   browserNavigation	= require('../js/navigation.browser.js').browserNavigation
-,   database 			= require('./database.helpers');
+var gamepad 			     = require("./gamepad")
+,   navigationBindings       = require("./navigation.bindings")
+,   navigationEvent 	     = require("./navigation.event")
+,   api 				     = require("./api/connection")
+,   browserNavigation	     = require('../js/navigation.browser').browserNavigation
+,   database 			     = require('./database.helpers')
+,   sysEvents                = require('./system.events').events;
 
 module.exports = function() {
 
@@ -7635,15 +7636,16 @@ module.exports = function() {
     /* Bind Gamepad controls to Navigation
     -------------------------------------------------- */
     gamepad.gamepadSupport.init();
+    sysEvents.removeNavigationState();
     document.onkeydown = navigationEvent;
-
+    
     /* Get Games Database for ROM Browser
     -------------------------------------------------- */
     database.initLocalDatabase("games");
 
 }
 
-},{"../js/navigation.browser.js":78,"./api/connection.js":67,"./database.helpers":68,"./gamepad.js":72,"./navigation.bindings.js":77,"./navigation.event.js":79}],75:[function(require,module,exports){
+},{"../js/navigation.browser":78,"./api/connection":67,"./database.helpers":68,"./gamepad":72,"./navigation.bindings":77,"./navigation.event":79,"./system.events":87}],75:[function(require,module,exports){
 /* Mixins
 -------------------------------------------------- */
 
@@ -7683,6 +7685,7 @@ var mousetrap   = require('./mousetrap.min')
 module.exports = function() {
 
     // pause              = Pause Next/Prev navigation
+    // pauseAll           = Pause All navigation
     // pauseRight         = Pause only Next but allow Prev
     // pauseLeft          = Pause only Left but allow Next
     // pauseDown          = Pause only Down
@@ -7693,56 +7696,96 @@ module.exports = function() {
     var pauseNavigation = sessionStorage.getItem("navigationState");
 
     Mousetrap.bind('tab', function(e) {
-        navigate("right");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("right");
+        }
     });
 
     Mousetrap.bind('right', function(e) {
-        navigate("right");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("right");
+        }
     });
 
     Mousetrap.bind('left', function(e) {
-        navigate("left");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("left");
+        }
     });
 
     Mousetrap.bind('down', function(e) {
-        navigate("down");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("down");
+        }
     });
 
     Mousetrap.bind('up', function(e) {
-        navigate("up");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("up");
+        }
     });
 
     Mousetrap.bind('enter', function(e) {
-        if (pauseNavigation != "pauseEnter") {
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        console.log("hit: "+pauseNavigation)
+        if (pauseNavigation != "pauseEnter" && pauseNavigation != "pauseAll") {
+
             navigate("enter");
         }
     });
 
     Mousetrap.bind(',', function(e) {
-        if (pauseNavigation != "pauseComma") {
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseComma" && pauseNavigation != "pauseAll") {
             navigate("cancel");
         }
     });
 
     Mousetrap.bind('delete', function(e) {
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
       if (e.preventDefault) {
             e.preventDefault();
         }
     });
 
     Mousetrap.bind('ctrl+k', function(e) {
-        e.preventDefault();
-        events.showTerminal();
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            e.preventDefault();
+            events.showTerminal();
+        }
     });
 
     Mousetrap.bind('s', function(e) {
-        e.preventDefault();
-        events.nextScreen();
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            e.preventDefault();
+            events.nextScreen();
+        }
     });
 
     Mousetrap.bind('a', function(e) {
-        e.preventDefault();
-        events.previousScreen();
+        pauseNavigation = sessionStorage.getItem("navigationState");
+        
+        if (pauseNavigation != "pauseAll") {
+            e.preventDefault();
+            events.previousScreen();
+        }
     });
 
 
@@ -7922,7 +7965,7 @@ module.exports = function(e) {
 
         // Toggle Renamed Parent Class
         var oldScreen = screens[currentScreenId].querySelectorAll("._parent")[0];
-        
+
         if (oldScreen) {
           oldScreen.classList.add("parent");
           oldScreen.classList.remove("_parent");
@@ -7937,10 +7980,10 @@ module.exports = function(e) {
         screens[currentScreenId].id = "screen-active";
         screens[currentScreenId].classList.remove("hidden");
 
-        // Set up Navigation 
+        // Set up Navigation
         _(screens).forEach(function(_screen, i) {
           if (_.contains(_screen.classList, "hidden")) {
-          
+
           }
           else {
             navigationInit.navigationInit(_screen);
@@ -7958,7 +8001,7 @@ module.exports = function(e) {
 
   if (k == 221) {
 
-    if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
+    if (pauseNavigation != "pauseRight" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
           if (currentScreenId != screens.length-1) {
 
@@ -7966,7 +8009,7 @@ module.exports = function(e) {
             currentScreen.id = null;
 
             setScreen();
-         } 
+         }
       }
 
       else {
@@ -7981,7 +8024,7 @@ module.exports = function(e) {
 
   if (k == 219) {
 
-      if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
+      if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
           if (currentScreenId != 0) {
 
@@ -7996,7 +8039,7 @@ module.exports = function(e) {
       else {
         events.uiActionNotification('blocked');
       }
-  } 
+  }
 
   else {
       return
@@ -8005,6 +8048,7 @@ module.exports = function(e) {
 
 
 };
+
 },{"./account.js":66,"./events.js":71,"./helpers.js":73,"./navigation.init.js":81,"lodash":90}],80:[function(require,module,exports){
 /* UI Helper Functions
 -------------------------------------------------- */
@@ -8933,7 +8977,8 @@ var systemNotify    	= require('./notification.init.js')
 , 	eventDispatcher 	= require('./events')
 , 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents')
 , 	Screens 			= require('../interface/Screens.jsx')
-,   mousetrap           = require("./mousetrap.min.js");
+,   mousetrap           = require("./mousetrap.min.js")
+,   navigationEvent 	= require("./navigation.event");
 
 // browser = require("./browser.js");
 
@@ -9290,6 +9335,8 @@ var events = {
     launchGame: function(parameters) {
         // Do via sockets and update server activity (so-and-so played game, 10 hours ago)
 
+		events.navigationState("pauseAll");
+
 		document.body.style.display = "none";
 
 		var Obj = {
@@ -9319,6 +9366,7 @@ var events = {
 
 		document.body.style.display = "block";
 
+		events.removeNavigationState();
 	}
 }
 
@@ -9327,7 +9375,7 @@ var events = {
 -------------------------------------------------- */
 exports.events = events;
 
-},{"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/Screens.jsx":39,"./dialogs":69,"./events":71,"./mousetrap.min.js":76,"./navigation.init.js":81,"./navigation.keyEvent":82,"./navigation.keyboardKeyEvents":84,"./notification.init.js":86,"lodash":90,"react/addons":92,"socket.io-client":251}],88:[function(require,module,exports){
+},{"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/Screens.jsx":39,"./dialogs":69,"./events":71,"./mousetrap.min.js":76,"./navigation.event":79,"./navigation.init.js":81,"./navigation.keyEvent":82,"./navigation.keyboardKeyEvents":84,"./notification.init.js":86,"lodash":90,"react/addons":92,"socket.io-client":251}],88:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

@@ -40,7 +40,7 @@ module.exports = function(e) {
 
         // Toggle Renamed Parent Class
         var oldScreen = screens[currentScreenId].querySelectorAll("._parent")[0];
-        
+
         if (oldScreen) {
           oldScreen.classList.add("parent");
           oldScreen.classList.remove("_parent");
@@ -55,10 +55,10 @@ module.exports = function(e) {
         screens[currentScreenId].id = "screen-active";
         screens[currentScreenId].classList.remove("hidden");
 
-        // Set up Navigation 
+        // Set up Navigation
         _(screens).forEach(function(_screen, i) {
           if (_.contains(_screen.classList, "hidden")) {
-          
+
           }
           else {
             navigationInit.navigationInit(_screen);
@@ -76,7 +76,7 @@ module.exports = function(e) {
 
   if (k == 221) {
 
-    if (pauseNavigation != "pauseRight" && pauseNavigation != "pause") {
+    if (pauseNavigation != "pauseRight" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
           if (currentScreenId != screens.length-1) {
 
@@ -84,7 +84,7 @@ module.exports = function(e) {
             currentScreen.id = null;
 
             setScreen();
-         } 
+         }
       }
 
       else {
@@ -99,7 +99,7 @@ module.exports = function(e) {
 
   if (k == 219) {
 
-      if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause") {
+      if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
           if (currentScreenId != 0) {
 
@@ -114,7 +114,7 @@ module.exports = function(e) {
       else {
         events.uiActionNotification('blocked');
       }
-  } 
+  }
 
   else {
       return

@@ -13,7 +13,8 @@ var systemNotify    	= require('./notification.init.js')
 , 	eventDispatcher 	= require('./events')
 , 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents')
 , 	Screens 			= require('../interface/Screens.jsx')
-,   mousetrap           = require("./mousetrap.min.js");
+,   mousetrap           = require("./mousetrap.min.js")
+,   navigationEvent 	= require("./navigation.event");
 
 // browser = require("./browser.js");
 
@@ -370,6 +371,8 @@ var events = {
     launchGame: function(parameters) {
         // Do via sockets and update server activity (so-and-so played game, 10 hours ago)
 
+		events.navigationState("pauseAll");
+
 		document.body.style.display = "none";
 
 		var Obj = {
@@ -399,6 +402,7 @@ var events = {
 
 		document.body.style.display = "block";
 
+		events.removeNavigationState();
 	}
 }
 

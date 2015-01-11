@@ -8,6 +8,7 @@ var mousetrap   = require('./mousetrap.min')
 module.exports = function() {
 
     // pause              = Pause Next/Prev navigation
+    // pauseAll           = Pause All navigation
     // pauseRight         = Pause only Next but allow Prev
     // pauseLeft          = Pause only Left but allow Next
     // pauseDown          = Pause only Down
@@ -18,56 +19,96 @@ module.exports = function() {
     var pauseNavigation = sessionStorage.getItem("navigationState");
 
     Mousetrap.bind('tab', function(e) {
-        navigate("right");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("right");
+        }
     });
 
     Mousetrap.bind('right', function(e) {
-        navigate("right");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("right");
+        }
     });
 
     Mousetrap.bind('left', function(e) {
-        navigate("left");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("left");
+        }
     });
 
     Mousetrap.bind('down', function(e) {
-        navigate("down");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("down");
+        }
     });
 
     Mousetrap.bind('up', function(e) {
-        navigate("up");
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            navigate("up");
+        }
     });
 
     Mousetrap.bind('enter', function(e) {
-        if (pauseNavigation != "pauseEnter") {
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        console.log("hit: "+pauseNavigation)
+        if (pauseNavigation != "pauseEnter" && pauseNavigation != "pauseAll") {
+
             navigate("enter");
         }
     });
 
     Mousetrap.bind(',', function(e) {
-        if (pauseNavigation != "pauseComma") {
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseComma" && pauseNavigation != "pauseAll") {
             navigate("cancel");
         }
     });
 
     Mousetrap.bind('delete', function(e) {
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
       if (e.preventDefault) {
             e.preventDefault();
         }
     });
 
     Mousetrap.bind('ctrl+k', function(e) {
-        e.preventDefault();
-        events.showTerminal();
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            e.preventDefault();
+            events.showTerminal();
+        }
     });
 
     Mousetrap.bind('s', function(e) {
-        e.preventDefault();
-        events.nextScreen();
+        pauseNavigation = sessionStorage.getItem("navigationState");
+
+        if (pauseNavigation != "pauseAll") {
+            e.preventDefault();
+            events.nextScreen();
+        }
     });
 
     Mousetrap.bind('a', function(e) {
-        e.preventDefault();
-        events.previousScreen();
+        pauseNavigation = sessionStorage.getItem("navigationState");
+        
+        if (pauseNavigation != "pauseAll") {
+            e.preventDefault();
+            events.previousScreen();
+        }
     });
 
 

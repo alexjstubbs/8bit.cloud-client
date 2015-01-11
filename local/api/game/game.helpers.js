@@ -45,7 +45,7 @@ function gameLaunch(nsp, payload) {
 
 
 
-    execute('killall -SIGSTOP qtbrowser', function(stdout) {
+    execute('killall -SIGSTOP qtbrowser', function(error, stderr, stdout) {
 
         execute('openvt -s | /opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so" "/root/roms/nes/Tetris.NES"', function(error, stderr, stdout) {
 
@@ -58,7 +58,7 @@ function gameLaunch(nsp, payload) {
                 execute('killall -SIGCONT qtbrowser', function(stdout) {
 
                     nsp.emit('clientEvent', {command: "resumeClient", params: null });
-
+                    
 
                 });
 
