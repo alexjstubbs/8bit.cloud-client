@@ -119,7 +119,11 @@ console.log("[i] Ignition Client Launched.");
 
 common.databases.initDatabases();
 
- // console.log(process.env.NODE_ENV); {
- //     common.
- // }
+if (process.platform != 'darwin') {
+    var sys = require('sys')
+    var exec = require('child_process').exec;
+    function puts(error, stdout, stderr) { sys.puts(stdout) }
+    exec("setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url='http://127.0.0.1:1210/home'", puts);
+}
+
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');

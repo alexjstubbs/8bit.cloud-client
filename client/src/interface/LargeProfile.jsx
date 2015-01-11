@@ -37,7 +37,6 @@ module.exports = React.createClass({
 
     screenMount: function() {
         // console.log("Load states etc.");
-
     },
 
     componentDidMount: function () {

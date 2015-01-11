@@ -1,12 +1,12 @@
 /* Game Helpers
 -------------------------------------------------- */
-var database = require(appDir+'/local/api/database/database.local')
-,   execute = require(appDir+'/local/system/system.exec')
-,   achievements = require(appDir+'/local/system/achievements/achievement.loop').achievements
-,   util = require('util')
-,   spawn = require('child_process').spawn
-,   fs = require('fs')
-,   _ = require('lodash');
+var database            = require(appDir+'/local/api/database/database.local')
+,   execute             = require(appDir+'/local/system/system.exec')
+,   achievements        = require(appDir+'/local/system/achievements/achievement.loop').achievements
+,   util                = require('util')
+,   spawn               = require('child_process').spawn
+,   fs                  = require('fs')
+,   _                   = require('lodash');
 
 
 /* Check for valid JSON return
@@ -37,37 +37,80 @@ function toCap(str) {
 
 /* Launch Game/Emulator
 -------------------------------------------------- */
-function gameLaunch(req, res, callback) {
-
-    // var filepath = '/home/pi/ignition/ramdisk/working.ram'
-
-    var payload = '';
-    var ignite = '';
-
-    req.on('data', function(data) {
-        payload += data;
-    });
-
-    req.on('end', function() {
-
-        var args = payload.split(" ");
-        var l = args.length;
-        var base = args.slice(2, l);
-        base = base.join(' ');
+function gameLaunch(nsp, payload) {
 
 
-        // Pause Renderer to free up RAM
-        // execute('sudo pkill -STOP qtbrowser', function(stdout) {});
+    // console.log(_.values(payload));
+// openvt -sw
 
-        execute('sudo openvt -sw python ' + __dirname + '/py/launch.py ' + args[0] + " " + args[1] + " " + base, function(stdout) {
-            // console.log("out:"+stdout);
+
+
+    execute('killall -SIGSTOP qtbrowser', function(stdout) {
+
+        execute('openvt -s | /opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so" "/root/roms/nes/Tetris.NES"', function(error, stderr, stdout) {
+
+            // console.log("error:"+error);
+            // console.log("stderr:"+stderr);
+            // console.log("stdout:"+stdout);
+
+            execute('chvt 1', function() {
+
+                execute('killall -SIGCONT qtbrowser', function(stdout) {
+
+                    nsp.emit('clientEvent', {command: "resumeClient", params: null });
+
+
+                });
+
+            });
+
         });
 
-        achievements.dumpRetroRamInit();
-
     });
 
-    res.send(null);
+
+    // execute('openvt -c 6 -s python ' + __dirname + '/py/launch.py ' + payload.rootcmd + " " + payload.options + " " + payload.args + " " + payload.file, function(error, stderr, stdout) {
+    //     console.log("error:"+error);
+    //     console.log("stderr:"+stderr);
+    //     console.log("stdout:"+stdout);
+    //
+    //     execute('chvt 1 | killall -SIGCONT qtbrowser', function(stdout) {});
+    //     //
+    //     nsp.emit('clientEvent', {command: "resumeClient", params: null });
+    //     //
+    //
+    //     console.log("finished???");
+    //
+    // });
+    // var filepath = '/home/pi/ignition/ramdisk/working.ram'
+
+    // var payload = '';
+    // var ignite = '';
+    //
+    // req.on('data', function(data) {
+    //     payload += data;
+    // });
+    //
+    // req.on('end', function() {
+    //
+    //     var args = payload.split(" ");
+    //     var l = args.length;
+    //     var base = args.slice(2, l);
+    //     base = base.join(' ');
+    //
+    //
+    //     // Pause Renderer to free up RAM
+    //     // execute('sudo pkill -STOP qtbrowser', function(stdout) {});
+    //
+    //     execute('sudo openvt -sw python ' + __dirname + '/py/launch.py ' + args[0] + " " + args[1] + " " + base, function(stdout) {
+    //         // console.log("out:"+stdout);
+    //     });
+    //
+    //     achievements.dumpRetroRamInit();
+    //
+    // });
+    //
+    // res.send(null);
 
 }
 

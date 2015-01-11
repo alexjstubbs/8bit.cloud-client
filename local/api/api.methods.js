@@ -3,6 +3,10 @@
 
 var api = {
 
+    launchGame: function(nsp, param){
+        common.game.gameLaunch(nsp, param);
+    },
+
     gamesList: function(nsp, param){
         common.listroms.listRoms(nsp, param);
     },
