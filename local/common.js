@@ -3,7 +3,6 @@
 common = {
        express:                    require('express')
 ,      http:                       require('http')
-,      path:                       require('path')
 ,      request:                    require('request')
 ,      mu2express:                 require('mu2express')
 ,      render:                     require('../local/render')

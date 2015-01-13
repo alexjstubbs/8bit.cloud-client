@@ -41,24 +41,24 @@ function gameLaunch(nsp, payload) {
 
 
     // console.log(_.values(payload));
-// openvt -sw
-
-
+    // openvt -sw
 
     execute('killall -SIGSTOP qtbrowser', function(error, stderr, stdout) {
 
-        execute('openvt -s | /opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so" "/root/roms/nes/Tetris.NES"', function(error, stderr, stdout) {
+        execute('/root/tmp/openvg/client/test2/openvg/client/shapedemo | /opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so" "/root/roms/nes/Tetris.NES"', function(error, stderr, stdout) {
 
             // console.log("error:"+error);
             // console.log("stderr:"+stderr);
             // console.log("stdout:"+stdout);
 
+            if (stderr) {
+                nsp.emit('messaging', {type: 0, body: stderr });
+            }
+
             execute('chvt 1', function() {
 
                 execute('killall -SIGCONT qtbrowser', function(stdout) {
 
-                    nsp.emit('clientEvent', {command: "resumeClient", params: null });
-                    
 
                 });
 
@@ -68,49 +68,6 @@ function gameLaunch(nsp, payload) {
 
     });
 
-
-    // execute('openvt -c 6 -s python ' + __dirname + '/py/launch.py ' + payload.rootcmd + " " + payload.options + " " + payload.args + " " + payload.file, function(error, stderr, stdout) {
-    //     console.log("error:"+error);
-    //     console.log("stderr:"+stderr);
-    //     console.log("stdout:"+stdout);
-    //
-    //     execute('chvt 1 | killall -SIGCONT qtbrowser', function(stdout) {});
-    //     //
-    //     nsp.emit('clientEvent', {command: "resumeClient", params: null });
-    //     //
-    //
-    //     console.log("finished???");
-    //
-    // });
-    // var filepath = '/home/pi/ignition/ramdisk/working.ram'
-
-    // var payload = '';
-    // var ignite = '';
-    //
-    // req.on('data', function(data) {
-    //     payload += data;
-    // });
-    //
-    // req.on('end', function() {
-    //
-    //     var args = payload.split(" ");
-    //     var l = args.length;
-    //     var base = args.slice(2, l);
-    //     base = base.join(' ');
-    //
-    //
-    //     // Pause Renderer to free up RAM
-    //     // execute('sudo pkill -STOP qtbrowser', function(stdout) {});
-    //
-    //     execute('sudo openvt -sw python ' + __dirname + '/py/launch.py ' + args[0] + " " + args[1] + " " + base, function(stdout) {
-    //         // console.log("out:"+stdout);
-    //     });
-    //
-    //     achievements.dumpRetroRamInit();
-    //
-    // });
-    //
-    // res.send(null);
 
 }
 

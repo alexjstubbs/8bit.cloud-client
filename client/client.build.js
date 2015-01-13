@@ -3030,7 +3030,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "messages-list scroll-into-view"}, 
 
-                noFriends ? null : React.DOM.h3({className: "text-center"}, React.DOM.br(null), React.DOM.i({className: "ion-sad-outline"}), "   You currently have no friends. Add a friend below!", React.DOM.br(null), React.DOM.br(null)), 
+                noFriends ? null : React.DOM.h3({className: "text-center"}, React.DOM.br(null), React.DOM.i({className: "ion-sad-outline"}), "   You currently have no friends online", React.DOM.br(null), React.DOM.br(null)), 
 
                 friendsNodes
 
@@ -3919,7 +3919,8 @@ var React               = require('react/addons')
 ,   navigationInit      = require('../js/navigation.init')
 ,   UserAvatar          = require('./Avatar.jsx')
 ,   Avatar
-,   noMessages;
+,   noMessages
+,   noMsg;
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -3948,8 +3949,6 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
 
-        noMessages = React.DOM.div({className: "well"}, React.DOM.i({className: "ion-sad-outline"}), "   You have no messages.")
-
         navigationInit.navigationInit();
     },
 
@@ -3962,6 +3961,12 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        noMsg = true;
+
+        if (this.state.messages.length != 0) {
+            noMsg = false;
+        }
+
         var messageNodes = this.state.messages.map(function (message, i) {
           return MessagePreview({key: i.id, Avatar: message.Avatar, message: message, messageId: message._id, From: message.From, Body: message.Body, timestamp: moment(message.timestamp, "YYYYMMDDhhmms").fromNow()})
         });
@@ -3973,12 +3978,14 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "parent"}, 
 
                 React.DOM.div({className: "messages-list scroll-into-view"}, 
-                    messageNodes, 
 
-                    this.state.messages.length ? null : React.DOM.h3({className: "text-center"}, noMessages)
+                    messageNodes
 
 
                 ), 
+
+
+                 noMsg ? React.DOM.div({className: "well"}, React.DOM.h3({className: "text-center"}, React.DOM.i({className: "ion-sad-outline"}), "   You have no messages")) : null, 
 
 
                 React.DOM.hr(null), 
@@ -7638,10 +7645,14 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     sysEvents.removeNavigationState();
     document.onkeydown = navigationEvent;
-    
+
     /* Get Games Database for ROM Browser
     -------------------------------------------------- */
     database.initLocalDatabase("games");
+
+    // setTimeout(function() {
+    //     document.body.classList.add("load-ui");
+    // }, 10000);
 
 }
 
@@ -8968,6 +8979,7 @@ module.exports = function(path, height, width, left, top) {
 var systemNotify    	= require('./notification.init.js')
 ,   KeyEvent       	 	= require('./navigation.keyEvent')
 ,   api             	= require('socket.io-client')('/api')
+,   aApi				= require("./api/connection")
 ,   React           	= require('react/addons')
 ,   Modal           	= require('../interface/Modal.jsx')
 ,   Messages        	= require('../interface/Messages.jsx')
@@ -9339,6 +9351,19 @@ var events = {
 
 		document.body.style.display = "none";
 
+
+		api.io.disconnect();
+
+		// Resume Client timeout
+		setTimeout(function() {
+			document.body.style.display = "block";
+			events.removeNavigationState();
+
+			api.io.connect();
+
+
+		}, 500);
+
 		var Obj = {
 			rootcmd: "/opt/emulators/retroarch",
 			options: "-L",
@@ -9360,14 +9385,6 @@ var events = {
 
 	},
 
-	/* Resume Client (UI)
-	-------------------------------------------------- */
-	resumeClient: function(parameters) {
-
-		document.body.style.display = "block";
-
-		events.removeNavigationState();
-	}
 }
 
 
@@ -9375,7 +9392,7 @@ var events = {
 -------------------------------------------------- */
 exports.events = events;
 
-},{"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/Screens.jsx":39,"./dialogs":69,"./events":71,"./mousetrap.min.js":76,"./navigation.event":79,"./navigation.init.js":81,"./navigation.keyEvent":82,"./navigation.keyboardKeyEvents":84,"./notification.init.js":86,"lodash":90,"react/addons":92,"socket.io-client":251}],88:[function(require,module,exports){
+},{"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/Screens.jsx":39,"./api/connection":67,"./dialogs":69,"./events":71,"./mousetrap.min.js":76,"./navigation.event":79,"./navigation.init.js":81,"./navigation.keyEvent":82,"./navigation.keyboardKeyEvents":84,"./notification.init.js":86,"lodash":90,"react/addons":92,"socket.io-client":251}],88:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

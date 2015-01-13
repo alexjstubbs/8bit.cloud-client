@@ -4,6 +4,7 @@
 var systemNotify    	= require('./notification.init.js')
 ,   KeyEvent       	 	= require('./navigation.keyEvent')
 ,   api             	= require('socket.io-client')('/api')
+,   aApi				= require("./api/connection")
 ,   React           	= require('react/addons')
 ,   Modal           	= require('../interface/Modal.jsx')
 ,   Messages        	= require('../interface/Messages.jsx')
@@ -375,6 +376,19 @@ var events = {
 
 		document.body.style.display = "none";
 
+
+		api.io.disconnect();
+
+		// Resume Client timeout
+		setTimeout(function() {
+			document.body.style.display = "block";
+			events.removeNavigationState();
+
+			api.io.connect();
+
+
+		}, 500);
+
 		var Obj = {
 			rootcmd: "/opt/emulators/retroarch",
 			options: "-L",
@@ -396,14 +410,6 @@ var events = {
 
 	},
 
-	/* Resume Client (UI)
-	-------------------------------------------------- */
-	resumeClient: function(parameters) {
-
-		document.body.style.display = "block";
-
-		events.removeNavigationState();
-	}
 }
 
 

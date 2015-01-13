@@ -123,7 +123,7 @@ function profileLogin(nsp) {
 
             // Success! Load Dashboard
             else {
-                
+
                 nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
 
             }
@@ -198,11 +198,10 @@ function newProfile(nsp, data) {
 
 }
 
-
 /* Exports
 -------------------------------------------------- */
-exports.createSession    = createSession;
-exports.getSession       = getSession;
-exports.listProfiles     = listProfiles;
-exports.newProfile       = newProfile;
-exports.profileLogin     = profileLogin;
+exports.createSession       = createSession;
+exports.getSession          = getSession;
+exports.listProfiles        = listProfiles;
+exports.newProfile          = newProfile;
+exports.profileLogin        = profileLogin;

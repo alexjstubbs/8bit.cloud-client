@@ -29,9 +29,13 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     sysEvents.removeNavigationState();
     document.onkeydown = navigationEvent;
-    
+
     /* Get Games Database for ROM Browser
     -------------------------------------------------- */
     database.initLocalDatabase("games");
+
+    // setTimeout(function() {
+    //     document.body.classList.add("load-ui");
+    // }, 10000);
 
 }

@@ -73,7 +73,7 @@ module.exports = React.createClass({
 
             <div className="messages-list scroll-into-view">
 
-                {noFriends ? null : <h3 className="text-center"><br /><i className="ion-sad-outline"></i> &nbsp; You currently have no friends. Add a friend below!<br /><br /></h3>}
+                {noFriends ? null : <h3 className="text-center"><br /><i className="ion-sad-outline"></i> &nbsp; You currently have no friends online<br /><br /></h3>}
 
                 {friendsNodes}
 

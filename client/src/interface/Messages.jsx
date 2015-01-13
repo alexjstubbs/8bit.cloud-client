@@ -10,7 +10,8 @@ var React               = require('react/addons')
 ,   navigationInit      = require('../js/navigation.init')
 ,   UserAvatar          = require('./Avatar.jsx')
 ,   Avatar
-,   noMessages;
+,   noMessages
+,   noMsg;
 
 
 module.exports = React.createClass({
@@ -39,8 +40,6 @@ module.exports = React.createClass({
         });
 
 
-        noMessages = <div className="well"><i className="ion-sad-outline"></i> &nbsp; You have no messages.</div>
-
         navigationInit.navigationInit();
     },
 
@@ -53,6 +52,12 @@ module.exports = React.createClass({
 
     render: function() {
 
+        noMsg = true;
+
+        if (this.state.messages.length != 0) {
+            noMsg = false;
+        }
+
         var messageNodes = this.state.messages.map(function (message, i) {
           return <MessagePreview key={i.id} Avatar={message.Avatar} message={message} messageId={message._id} From={message.From} Body={message.Body} timestamp={moment(message.timestamp, "YYYYMMDDhhmms").fromNow()} />
         });
@@ -64,12 +69,14 @@ module.exports = React.createClass({
             <div className="parent">
 
                 <div className="messages-list scroll-into-view">
-                    {messageNodes}
 
-                    {this.state.messages.length ? null : <h3 className="text-center">{noMessages}</h3>}
+                    {messageNodes}
 
 
                 </div>
+
+
+                { noMsg ? <div className="well"><h3 className="text-center"><i className="ion-sad-outline"></i> &nbsp; You have no messages</h3></div> : null }
 
 
                 <hr />

@@ -330,6 +330,17 @@ textarea.textarea-height {
 	100% { opacity:1; }
 }
 
+@-moz-keyframes loadup {
+    0%   { opacity:0; }
+    100% { opacity:1; }
+}
+
+@-webkit-keyframes loadup {
+    0%   { opacity:0; }
+    100% { opacity:1; }
+}
+
+
 .ui-alert {
 	color:@red;
 	opacity:0;
@@ -765,7 +776,6 @@ html {
     padding:15px 35px;
 }
 
-
 /* (1920x1080) Full HD Display */
 @media screen and (min-width: 1920px) {
     body {
@@ -1048,11 +1058,20 @@ i.start {
   left:-70px;
 }
 
+.load-ui {
+    -moz-animation: loadup 1s 1;
+    -webkit-animation: loadup 1s;
+    animation:loadup 1s;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+}
+
 .blink {
 	-moz-animation: flickerAnimation 1s infinite;
 	-webkit-animation: flickerAnimation 1s infinite;
 	animation: flickerAnimation 1s infinite;
 }
+
 
 
 .selectedNav {

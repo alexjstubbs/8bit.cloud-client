@@ -22,6 +22,13 @@ var api = function(nsp) {
 
     });
 
+
+    nsp.on('disconnection', function(nsp){
+
+        console.log('[i] client disconnected from API');
+
+    });
+
 }
 
 /* Exports

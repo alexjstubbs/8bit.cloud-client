@@ -40,27 +40,18 @@ global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
-// Terminal Fork
-// var child = require('child_process').fork('ignition_modules/tty/terminal.js');
-
-
 
 /* Initial Setup
 -------------------------------------------------- */
-var firstrun = true;
+var firstrun = false
+,   _location;
 
 if (firstrun) {
-    // Launch Renderer to Welcome / iNet check
-
-    // ask for reporting permission the first time
-    // if (insight.optOut === undefined) {
-    //     return insight.askPermission();
-    // }
-
+    _location = 'http://127.0.0.1:1210/welcome';
 }
 
 else {
-    // Launch Renderer To Dashboard
+    _location = 'http://127.0.0.1:1210/home';
 }
 
 /* Server Configurtation
@@ -80,16 +71,16 @@ app.use(common.express.errorHandler());
 
 /* Anonymous Analytics OPT-IN
 -------------------------------------------------- */
-var insight = new Insight({
-    // Google Analytics tracking code
-    trackingCode: 'UA-54752042-1',
-    packageName: pkg.name,
-    packageVersion: pkg.version
-});
-
-insight.optOut = false;
-
-insight.track('ignition', 'beta');
+// var insight = new Insight({
+//     // Google Analytics tracking code
+//     trackingCode: 'UA-54752042-1',
+//     packageName: pkg.name,
+//     packageVersion: pkg.version
+// });
+//
+// insight.optOut = false;
+//
+// insight.track('ignition', 'beta');
 
 /* Client Routes
 -------------------------------------------------- */
@@ -123,7 +114,10 @@ if (process.platform != 'darwin') {
     var sys = require('sys')
     var exec = require('child_process').exec;
     function puts(error, stdout, stderr) { sys.puts(stdout) }
-    exec("setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url='http://127.0.0.1:1210/home'", puts);
+    exec("killall qmlscene | setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url="+_location, puts);
 }
+
+// Terminal Fork
+// var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');
