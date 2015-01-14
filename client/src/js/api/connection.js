@@ -12,38 +12,15 @@ var connect = function() {
 
     api.on('connect', function(){
 
+        console.log(events);
+        console.log("E"+events);
+
    	// Offset List roms? or list roms on switch tab
     //  setTimeout(function() {
     //     api.emit('request', { request: 'listRoms', param: "Nintendo" });
     // }, 2000);
 
-    console.log("conencted!")
-
   });
-
-  api.on('connect_timeout', function(msg){
-      console.log("timedout: "+msg)
-  })
-
-  api.on('reconnect_attempt', function(msg){
-      console.log("reconnect_attempt: "+msg)
-  })
-
-  api.on('reconnecting', function(msg, w){
-      console.log("reconnecting: "+msg, w)
-  })
-
-  api.on('reconnect_error', function(msg, w){
-      console.log("reconnect_error: "+msg, w)
-  })
-
-  api.on('reconnect_failed', function(msg, w){
-      console.log("reconnect_failed: "+msg, w)
-  })
-
-  api.on('reconnect', function(msg, w){
-      console.log("reconnect: "+msg, w)
-  })
 
 
   /* Server to Client Notification

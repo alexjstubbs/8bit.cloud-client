@@ -22,13 +22,20 @@ module.exports = function() {
 
     /* Bind local Navigation
     -------------------------------------------------- */
-    navigationBindings();
+    navigationBindings("init");
 
     /* Bind Gamepad controls to Navigation
     -------------------------------------------------- */
     gamepad.gamepadSupport.init();
     sysEvents.removeNavigationState();
-    document.onkeydown = navigationEvent;
+
+    document.addEventListener('keydown', function (e) {
+
+        navigationEvent(e);
+
+    });
+
+    // document.onkeydown = navigationEvent;
 
     /* Get Games Database for ROM Browser
     -------------------------------------------------- */

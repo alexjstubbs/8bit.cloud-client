@@ -4,10 +4,11 @@
 var systemNotify    	= require('./notification.init.js')
 ,   KeyEvent       	 	= require('./navigation.keyEvent')
 ,   api             	= require('socket.io-client')('/api')
-,   aApi				= require("./api/connection")
 ,   React           	= require('react/addons')
 ,   Modal           	= require('../interface/Modal.jsx')
 ,   Messages        	= require('../interface/Messages.jsx')
+, 	navigationBindings  = require("./navigation.bindings")
+,   navigationEvent 	= require("./navigation.event")
 ,   _               	= require('lodash')
 ,   navigationInit  	= require("./navigation.init.js")
 ,   dialog          	= require('./dialogs')
@@ -372,42 +373,39 @@ var events = {
     launchGame: function(parameters) {
         // TODO:  via sockets and update server activity (so-and-so played game, 10 hours ago)
 
+		navigationBindings("deinit");
 
-		events.navigationState("pauseAll");
-		document.body.style.display = "none";
+		document.removeEventListener("keydown", function(e) {
+			console.log("removed event listener...");
+		});
 
+		var _doc = document.getElementById("main");
+
+		document.body.style.background = "transparent";
+		_doc.style.display = "none";
 		// Disconnect Socket for Reconnection
 
-		// Timeout to be caught on process resume
-		setTimeout(function() {
-			document.body.style.display = "block";
-			events.removeNavigationState();
 
-			// Disconnect old socket and re-connect to Sockets again after unfreeze.
-			api.io.disconnect();
+		setTimeout(function() {
+
+			dialog.uiNotification();
 
 			setTimeout(function() {
-				api.io.reconnect();
-				api.io.connect();
-			}, 500);
+				dialog.close(null, null, "uiNotification");
+			}, 4500);
 
-			console.log(api);
-			console.log(aApi.api.io);
+		}, 10000);
 
-		}, 2500);
 
 		var Obj = {
 			rootcmd: "/opt/emulators/retroarch",
 			options: "-L",
 			args: "/opt/emulatorcores/fceu-next/fb_alpha_libretro.so",
-			file: "/root/roms/nes/Tetris.NES"
+			file: "/root/roms/nes/Double Dragon (U).nes"
 		}
 
-		console.log(api);
-		console.log(aApi.api.io);
 
 		api.emit('request', { request: 'launchGame', param: Obj });
-		// api.io.disconnect();
 
     },
 
@@ -419,7 +417,24 @@ var events = {
 		KeyEvent(221);
 
 
+	},
+
+	resumeClient: function(parameters) {
+
+		var _doc = document.getElementById("main");
+		document.body.style.background = "#000000";
+		_doc.style.display = "block";
+		navigationInit.navigationInit();
+
+		navigationBindings("init");
+
+		document.addEventListener("keydown", function(e) {
+			navigationEvent(e);
+		});
+
+
 	}
+
 
 }
 

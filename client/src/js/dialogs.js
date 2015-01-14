@@ -1,32 +1,31 @@
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var systemNotify    = require('./notification.init.js')
-,   api             = require('socket.io-client')('/api')
-,   events          = require('./events.js')
-,   React           = require('react/addons')
-,   Modal           = require('../interface/Modal.jsx')
-,   Message         = require('../interface/Message.jsx')
-,   Messages        = require('../interface/Messages.jsx')
-,   Friends         = require('../interface/Friends.jsx')
-,   Friend          = require('../interface/Friend.jsx')
-,   FriendLarge     = require('../interface/FriendLarge.jsx')
-,   Popup           = require('../interface/Popup.jsx')
-,   Prompt          = require('../interface/Prompt.jsx')
-,   Terminal        = require('../interface/Terminal.jsx')
-,   WebBrowser      = require('../interface/WebBrowser.jsx')
-,   SignUp          = require('../interface/forms/SignUp.jsx')
-,   AddFriend       = require('../interface/forms/AddFriend.jsx')
-,   PassMessage     = require('../interface/forms/PassMessage.jsx')
-,   CommunityInfo   = require('../interface/CommunityInfo.jsx')
-,   navigationInit  = require("./navigation.init.js")
-,   Keyboard        = require("../interface/OnScreenKeyboard.jsx")
-,   GeneralDialog   = require("../interface/GeneralDialog.jsx")
-,   _               = require('lodash');
+var systemNotify            = require('./notification.init.js')
+,   api                     = require('socket.io-client')('/api')
+,   events                  = require('./events.js')
+,   React                   = require('react/addons')
+,   Modal                   = require('../interface/Modal.jsx')
+,   Message                 = require('../interface/Message.jsx')
+,   Messages                = require('../interface/Messages.jsx')
+,   Friends                 = require('../interface/Friends.jsx')
+,   Friend                  = require('../interface/Friend.jsx')
+,   AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx')
+,   FriendLarge             = require('../interface/FriendLarge.jsx')
+,   Popup                   = require('../interface/Popup.jsx')
+,   Prompt                  = require('../interface/Prompt.jsx')
+,   Terminal                = require('../interface/Terminal.jsx')
+,   WebBrowser              = require('../interface/WebBrowser.jsx')
+,   SignUp                  = require('../interface/forms/SignUp.jsx')
+,   AddFriend               = require('../interface/forms/AddFriend.jsx')
+,   PassMessage             = require('../interface/forms/PassMessage.jsx')
+,   CommunityInfo           = require('../interface/CommunityInfo.jsx')
+,   navigationInit          = require("./navigation.init.js")
+,   Keyboard                = require("../interface/OnScreenKeyboard.jsx")
+,   GeneralDialog           = require("../interface/GeneralDialog.jsx")
+,   _                       = require('lodash');
 
 var _div;
-
-
 
 
 /* Prompt Dialog
@@ -155,7 +154,7 @@ var show = function(parent, parameters, arg) {
 
 /* Close Modal
 -------------------------------------------------- */
-var close = function(modal, callback) {
+var close = function(modal, callback, exception) {
 
     // UnPause screen switching in background
     sessionStorage.setItem("navigationState", "");
@@ -193,7 +192,9 @@ var close = function(modal, callback) {
 
     modal.parentNode.removeChild(modal);
 
-    navigationInit.navigationInit();
+    if (!exception) {
+        navigationInit.navigationInit();
+    }
 
     if (callback || typeof callback === "function") {
         callback();
@@ -230,6 +231,22 @@ var keyboard = function(input, callback) {
 
 }
 
+/* Show Keyboard
+-------------------------------------------------- */
+var uiNotification = function(input, callback) {
+
+    var _index = document.querySelectorAll(".ignition-modal-");
+
+    var div = document.createElement("div");
+    div.classList.add("ignition-modal-parent");
+    div.style.zIndex = _index.length+150;
+
+    document.body.insertBefore(div,  document.getElementById("ui-notifications"));
+
+    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({message: "lorem"})), div);
+
+}
+
 /* Exports
 -------------------------------------------------- */
 exports.prompt              = prompt;
@@ -238,3 +255,4 @@ exports.close               = close;
 exports.keyboard            = keyboard;
 exports.popup               = popup;
 exports.general             = general;
+exports.uiNotification      = uiNotification;

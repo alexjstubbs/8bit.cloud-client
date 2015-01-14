@@ -12,7 +12,7 @@ var navigationInit = function(element, callback) {
         parent;
 
     // Remove all indexing and selections
-     _(navables).forEach(function(el, i) { 
+     _(navables).forEach(function(el, i) {
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
         el.classList.remove("selectedActive");
@@ -31,10 +31,10 @@ var navigationInit = function(element, callback) {
     navables = parent.querySelectorAll('.navable');
 
     // Add navigation index based on position
-    _(navables).forEach(function(el, i) { 
+    _(navables).forEach(function(el, i) {
         el.setAttribute("data-nav", i);
     });
-    
+
     // Should i re-select an input on a form?
     var activeInput = parent.querySelectorAll(".activeInput")[0];
     if (activeInput) {
@@ -47,10 +47,25 @@ var navigationInit = function(element, callback) {
          _.first(navables).classList.add("selectedNav", "selected");
     }
 
-   // Add blinking selection outline
-    highlight();
-  
 }
+
+/* General Navigation Assigns/Init
+-------------------------------------------------- */
+var navigationDeinit = function(element, callback) {
+
+    // Get all global navable elements.
+    var navables = document.querySelectorAll('.navable, .subNavable'),
+    parent;
+
+    // Remove all indexing and selections
+    _(navables).forEach(function(el, i) {
+        el.removeAttribute("data-nav");
+        el.classList.remove("selectedNav");
+        el.classList.remove("selectedActive");
+    });
+
+}
+
 
 /* Highlight Selection
 -------------------------------------------------- */
@@ -64,5 +79,6 @@ var highlight = function() {
 
 /* Exports
 -------------------------------------------------- */
-exports.highlight = highlight;
-exports.navigationInit = navigationInit;
+exports.highlight           = highlight;
+exports.navigationInit      = navigationInit;
+exports.navigationDeinit    = navigationDeinit;

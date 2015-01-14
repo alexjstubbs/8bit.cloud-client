@@ -44,7 +44,6 @@ module.exports = React.createClass({
 
         return (
 
-
             <div>
 
                 <div className={this.props.classList} id={this.props.id}>

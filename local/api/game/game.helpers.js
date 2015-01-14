@@ -44,10 +44,11 @@ function gameLaunch(nsp, payload) {
     // openvt -sw
 
 
+        execute('/opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so" "/root/roms/nes/Double Dragon (U).nes"', function(error, stderr, stdout) {
 
-    execute('killall -SIGSTOP qtbrowser', function(error, stderr, stdout) {
-
-        execute('/root/tmp/openvg/client/test2/openvg/client/shapedemo | /opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so" "/root/roms/nes/Tetris.NES"', function(error, stderr, stdout) {
+            // setTimeout(function() {
+            //     nsp.emit('notification', {type: "achievement", body: "stderr" });
+            // }, 2500);
 
             // console.log("error:"+error);
             // console.log("stderr:"+stderr);
@@ -57,17 +58,7 @@ function gameLaunch(nsp, payload) {
                 nsp.emit('messaging', {type: 0, body: stderr });
             }
 
-            execute('chvt 1', function() {
-
-                execute('killall -SIGCONT qtbrowser', function(stdout) {
-
-                    // nsp.reconnect();
-
-                });
-
-            });
-
-        });
+            nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
 
     });
 

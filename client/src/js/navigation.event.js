@@ -17,6 +17,7 @@ var _               = require("lodash")
 -------------------------------------------------- */
 module.exports = function(e) {
 
+
   var k                 = e.keyCode
   ,   s                 = document.getElementById("main").getAttribute("data-screen")
   ,   screens           = document.getElementById("screens").childNodes
@@ -75,6 +76,7 @@ module.exports = function(e) {
   -------------------------------------------------- */
 
   if (k == 221) {
+
 
     if (pauseNavigation != "pauseRight" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
