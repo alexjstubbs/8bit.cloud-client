@@ -370,24 +370,31 @@ var events = {
     /* Launch selected game
     -------------------------------------------------- */
     launchGame: function(parameters) {
-        // Do via sockets and update server activity (so-and-so played game, 10 hours ago)
+        // TODO:  via sockets and update server activity (so-and-so played game, 10 hours ago)
+
 
 		events.navigationState("pauseAll");
-
 		document.body.style.display = "none";
 
+		// Disconnect Socket for Reconnection
 
-		api.io.disconnect();
-
-		// Resume Client timeout
+		// Timeout to be caught on process resume
 		setTimeout(function() {
 			document.body.style.display = "block";
 			events.removeNavigationState();
 
-			api.io.connect();
+			// Disconnect old socket and re-connect to Sockets again after unfreeze.
+			api.io.disconnect();
 
+			setTimeout(function() {
+				api.io.reconnect();
+				api.io.connect();
+			}, 500);
 
-		}, 500);
+			console.log(api);
+			console.log(aApi.api.io);
+
+		}, 2500);
 
 		var Obj = {
 			rootcmd: "/opt/emulators/retroarch",
@@ -396,7 +403,11 @@ var events = {
 			file: "/root/roms/nes/Tetris.NES"
 		}
 
+		console.log(api);
+		console.log(aApi.api.io);
+
 		api.emit('request', { request: 'launchGame', param: Obj });
+		// api.io.disconnect();
 
     },
 
@@ -408,7 +419,7 @@ var events = {
 		KeyEvent(221);
 
 
-	},
+	}
 
 }
 

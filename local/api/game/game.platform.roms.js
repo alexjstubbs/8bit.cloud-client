@@ -13,27 +13,27 @@ function listRoms(nsp, platform) {
         list,
         _path;
 
-    var initDir = process.env['HOME'] + config.roms + platforms[platform].short;
+    var initDir = config.roms + platforms[platform].short;
 
     fs.readdir(initDir, function(err, list) {
 
         if (err) {
 
             console.log(err)
-        
+
         } else {
 
-            _(list).forEach(function(filename) { 
+            _(list).forEach(function(filename) {
 
                 _path = path.join(initDir, filename);
-        
+
 
                 listObj.push({"filename":filename,"path":_path,"ext":path.extname(filename),"title":filename})
-                
+
                 });
 
              nsp.emit('api', {gamesList: listObj});
-            
+
         }
 
     });
