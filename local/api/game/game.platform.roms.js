@@ -1,43 +1,65 @@
 /* List Roms by System
 -------------------------------------------------- */
-var fs = require('fs'),
-    path = require('path'),
-    _ = require('lodash');
+var fs      = require('fs-extra')
+,   path    = require('path')
+,   _       = require('lodash')
+,   platforms
+,   config;
 
-var platforms = require(appDir+'/config/platforms.json'),
-    config = require(appDir+'/config/config.json');
 
+/*  List Roms
+-------------------------------------------------- */
 function listRoms(nsp, platform) {
 
-    var listObj = [],
-        list,
-        _path;
+    fs.readJson(appDir+'/config/config.json', function(err, packageObj) {
 
-    var initDir = config.roms + platforms[platform].short;
+        if (!err) {
 
-    fs.readdir(initDir, function(err, list) {
+            config = packageObj;
 
-        if (err) {
+            fs.readJson(appDir+'/config/platforms.json', function(err, packageObj) {
 
-            console.log(err)
+                if (!err) {
 
-        } else {
+                    platforms = packageObj;
 
-            _(list).forEach(function(filename) {
+                    var listObj = [],
+                        list,
+                        _path;
 
-                _path = path.join(initDir, filename);
+                    var initDir = config.roms + platforms[platform].short;
 
+                    fs.readdir(initDir, function(err, list) {
 
-                listObj.push({"filename":filename,"path":_path,"ext":path.extname(filename),"title":filename})
+                        if (err) {
 
-                });
+                            console.log(err);
 
-             nsp.emit('api', {gamesList: listObj});
+                        } else {
 
-        }
+                            _(list).forEach(function(filename) {
 
-    });
+                                _path = path.join(initDir, filename);
+
+                                listObj.push({"filename":filename,"path":_path,"ext":path.extname(filename),"title":filename})
+
+                            });
+
+                            nsp.emit('api', {gamesList: listObj});
+
+                        }
+
+                    });
+
+                };
+
+            })
+
+        };
+    })
 
 }
 
+/*  Exports
+-------------------------------------------------- */
 exports.listRoms = listRoms;

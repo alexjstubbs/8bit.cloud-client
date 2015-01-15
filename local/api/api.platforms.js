@@ -1,26 +1,45 @@
 /* List Roms by System
 -------------------------------------------------- */
+var fs          = require('fs-extra')
+,   path        = require('path')
+,   _           = require('lodash')
+,   platforms;
 
-var fs = require('fs'),
-    path = require('path'),
-    _ = require('lodash'),
-    platforms = require('../../config/platforms.json');
-
-var config = require(appDir+'/config/config.json');
-
+/*  List Platforms / Software
+-------------------------------------------------- */
 function listPlatforms(nsp) {
 
-        var listObj = [],
-            list;
+    fs.readJson(appDir+'/config/platforms.json', function(err, packageObj) {
 
-        _(platforms).forEach(function(platform) { 
-            listObj.push(
-                 {"long": platform.long, "short": platform.short,"ext": platform.ext,"emulators": platforms.emulators}
-                )
-            });
+        if (!err) {
 
-        nsp.emit('api', {platforms: listObj});
+            platforms = packageObj;
+
+                var listObj = [],
+                    list;
+
+                _(platforms).forEach(function(platform) {
+
+                    listObj.push({
+                             "long": platform.long,
+                             "short": platform.short,
+                             "ext": platform.ext,
+                             "emulators": platforms.emulators
+                        });
+                    });
+
+                nsp.emit('api', {platforms: listObj});
+
+            }
+
+            else {
+                console.log(err);
+            }
+
+    });
 
 }
 
+/*  Exports
+-------------------------------------------------- */
 exports.listPlatforms = listPlatforms;

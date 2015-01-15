@@ -1,5 +1,5 @@
 {
-  "roms": "~/roms/",
+  "roms": "/Users/alexstubbs/roms/",
   "saves": "/saves/",
   "auto_login": false,
   "auto_login_user": null,

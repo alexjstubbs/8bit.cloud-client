@@ -29,7 +29,8 @@
         "long": "Nintendo 64",
         "short": "n64",
         "ext": [
-            ".bin"
+            ".z64",
+            ".zip"
         ],
         "emulators": [
             "mupen64plus-rpi"
@@ -114,7 +115,7 @@
             ".7z"
         ],
         "emulators": [
-            "vice",
+            "vice"
         ]
     },
     "Amiga": {
@@ -163,7 +164,7 @@
         "emulators": [
             "gpsp"
         ]
-    }
+    },
     "MSX": {
         "long": "MSX",
         "short": "msx",
@@ -257,5 +258,5 @@
         "emulators": [
             "cpc4rpi"
         ]
-    },
+    }
 }

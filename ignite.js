@@ -40,7 +40,6 @@ global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
 api(__api);
 
-
 /* Initial Setup
 -------------------------------------------------- */
 var firstrun = false
@@ -69,7 +68,7 @@ app.use(common.express.compress());
 app.use(common.express.static(__dirname + '/client'));
 app.use(common.express.errorHandler());
 
-/* Anonymous Analytics OPT-IN
+/* Anonymous Analytics OPT-IN (disabled)
 -------------------------------------------------- */
 // var insight = new Insight({
 //     // Google Analytics tracking code
@@ -81,6 +80,7 @@ app.use(common.express.errorHandler());
 // insight.optOut = false;
 //
 // insight.track('ignition', 'beta');
+
 
 /* Client Routes
 -------------------------------------------------- */
