@@ -12,9 +12,6 @@ var connect = function() {
 
     api.on('connect', function(){
 
-        console.log(events);
-        console.log("E"+events);
-
    	// Offset List roms? or list roms on switch tab
     //  setTimeout(function() {
     //     api.emit('request', { request: 'listRoms', param: "Nintendo" });

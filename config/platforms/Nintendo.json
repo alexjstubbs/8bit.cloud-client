@@ -2,16 +2,7 @@
   "name": "Nintendo",
   "properties": {
     "short": "nes",
-    "ext": ".nes"
+    "ext": [".nes", ".zip", ".7z"]
   },
-  "emulators": {
-    "FCEU-next": {
-      "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
-      "Achievements": {
-        "offset": "0x54",
-        "buffer_length": "4390",
-        "timing": 1
-      }
-    }
-  }
+  "emulators": ["retroarch", ""]
 }

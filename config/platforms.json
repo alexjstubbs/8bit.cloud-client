@@ -2,211 +2,260 @@
     "Nintendo": {
         "long": "Nintendo",
         "short": "nes",
-        "ext": ".nes",
-        "emulators": {
-            "FCEU-next": {
-                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
-                "Achievements": {
-                    "offset": "0x54",
-                    "buffer_length": "4390",
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".nes",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "retroarch"
+        ]
     },
     "Super Nintendo": {
         "long": "Super Nintendo",
         "short": "snes",
-        "ext": ".sms",
-        "emulators": {
-            "snes9x": {
-                "path": "/path/to/emu.so",
-                "Achievements": {
-                    "offset": 123,
-                    "buffer_length": 321,
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".sms",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "retroarch",
+            "pisnes",
+            "snes9x-rpi"
+        ]
     },
     "Nintendo 64": {
         "long": "Nintendo 64",
         "short": "n64",
-        "ext": ".nes",
-        "emulators": {
-            "FCEU-next": {
-                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
-                "Achievements": {
-                    "offset": "0x54",
-                    "buffer_length": "4390",
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".bin"
+        ],
+        "emulators": [
+            "mupen64plus-rpi"
+        ]
     },
     "Sega Master System": {
         "long": "Sega Master System",
         "short": "sms",
-        "ext": ".sms",
-        "emulators": {
-            "snes9x": {
-                "path": "/path/to/emu.so",
-                "Achievements": {
-                    "offset": 123,
-                    "buffer_length": 321,
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".sms",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "retroarch"
+        ]
     },
     "Sega Genesis": {
         "long": "Sega Genesis",
-        "short": "gen",
-        "ext": ".nes",
-        "emulators": {
-            "FCEU-next": {
-                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
-                "Achievements": {
-                    "offset": "0x54",
-                    "buffer_length": "4390",
-                    "timing": 1
-                }
-            }
-        }
+        "short": "genesis",
+        "ext": [
+            ".gen",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "retroarch",
+            "dgen-sdl"
+        ]
     },
     "Sega Saturn": {
         "long": "Sega Saturn",
         "short": "ss",
-        "ext": ".sms",
-        "emulators": {
-            "snes9x": {
-                "path": "/path/to/emu.so",
-                "Achievements": {
-                    "offset": 123,
-                    "buffer_length": 321,
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".iso"
+        ],
+        "emulators": null
     },
     "Neo Geo": {
         "long": "Neo Geo",
         "short": "neogeo",
-        "ext": ".nes",
-        "emulators": {
-            "FCEU-next": {
-                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
-                "Achievements": {
-                    "offset": "0x54",
-                    "buffer_length": "4390",
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".iso",
+            ".bin"
+        ],
+        "emulators": [
+            "retroarch",
+            "GnGeo-Pi"
+        ]
     },
     "Arcade": {
         "long": "Arcade",
-        "short": "mame",
-        "ext": ".sms",
-        "emulators": {
-            "snes9x": {
-                "path": "/path/to/emu.so",
-                "Achievements": {
-                    "offset": 123,
-                    "buffer_length": 321,
-                    "timing": 1
-                }
-            }
-        }
+        "short": "arcade",
+        "ext": [
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "retroarch",
+            "advancemame",
+            "mame4all-pi"
+        ]
     },
     "Playstation": {
         "long": "Playstation",
-        "short": "ps1",
-        "ext": ".nes",
-        "emulators": {
-            "FCEU-next": {
-                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
-                "Achievements": {
-                    "offset": "0x54",
-                    "buffer_length": "4390",
-                    "timing": 1
-                }
-            }
-        }
+        "short": "psx",
+        "ext": [
+            ".iso",
+            ".bin"
+        ],
+        "emulators": [
+            "retroarch",
+            "pcsx_rearmed"
+        ]
     },
     "Commodore 64": {
         "long": "Commodore 64",
         "short": "c64",
-        "ext": ".sms",
-        "emulators": {
-            "snes9x": {
-                "path": "/path/to/emu.so",
-                "Achievements": {
-                    "offset": 123,
-                    "buffer_length": 321,
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".c64",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "vice",
+        ]
     },
     "Amiga": {
         "long": "Amiga",
         "short": "amiga",
-        "ext": ".nes",
-        "emulators": {
-            "FCEU-next": {
-                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
-                "Achievements": {
-                    "offset": "0x54",
-                    "buffer_length": "4390",
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "uae4rpi"
+        ]
     },
     "Gameboy": {
         "long": "Gameboy",
         "short": "gb",
-        "ext": ".sms",
-        "emulators": {
-            "snes9x": {
-                "path": "/path/to/emu.so",
-                "Achievements": {
-                    "offset": 123,
-                    "buffer_length": 321,
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".gb",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "retroarch"
+        ]
     },
     "Gameboy Color": {
         "long": "Gameboy Color",
         "short": "gbc",
-        "ext": ".nes",
-        "emulators": {
-            "FCEU-next": {
-                "path": "~/RetroPie/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
-                "Achievements": {
-                    "offset": "0x54",
-                    "buffer_length": "4390",
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".gbc",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "retroarch"
+        ]
     },
     "Gameboy Advance": {
         "long": "Gameboy Advance",
         "short": "gba",
-        "ext": ".sms",
-        "emulators": {
-            "snes9x": {
-                "path": "/path/to/emu.so",
-                "Achievements": {
-                    "offset": 123,
-                    "buffer_length": 321,
-                    "timing": 1
-                }
-            }
-        }
+        "ext": [
+            ".gba",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "gpsp"
+        ]
     }
+    "MSX": {
+        "long": "MSX",
+        "short": "msx",
+        "ext": [
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "openmsx"
+        ]
+    },
+    "ZX Spectrum": {
+        "long": "ZX Spectrum",
+        "short": "zx",
+        "ext": [
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "fbzx"
+        ]
+    },
+    "DOS": {
+        "long": "DOS",
+        "short": "dos",
+        "ext": [
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "fastdosbox",
+            "rpix86"
+        ]
+    },
+    "Intellivision": {
+        "long": "Intellivision",
+        "short": "intel",
+        "ext": [
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "jzintv"
+        ]
+    },
+    "Atari 2600": {
+        "long": "Atari 2600",
+        "short": "atari-2600",
+        "ext": [
+            ".bin",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "retroarch"
+        ]
+    },
+    "Atari 800": {
+        "long": "Atari 800",
+        "short": "atari-800",
+        "ext": [
+            ".bin",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "atari800"
+        ]
+    },
+    "Apple": {
+        "long": "Apple Macintosh",
+        "short": "apple",
+        "ext": [
+            ".bin",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "basiliskii",
+            "linapple"
+        ]
+    },
+    "Amstrad CPC": {
+        "long": "Amstrad CPC",
+        "short": "apcps",
+        "ext": [
+            ".bin",
+            ".zip",
+            ".7z"
+        ],
+        "emulators": [
+            "cpc4rpi"
+        ]
+    },
 }

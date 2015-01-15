@@ -70,12 +70,18 @@ module.exports = function(k) {
             if (s.parentNode.classList.contains("scroll-into-view")) {
                 // var d = document.querySelectorAll(".selectedNav");
 
+
                 if (s.nextElementSibling) {
                     var d = s.nextElementSibling.nextElementSibling;
                 }
 
+
                 if (d) {
                     d.scrollIntoView(false);
+                }
+
+                else {
+                    s.scrollIntoView(false);
                 }
 
             }

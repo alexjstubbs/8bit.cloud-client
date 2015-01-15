@@ -4307,24 +4307,21 @@ module.exports = React.createClass({displayName: 'exports',
 
         var classname;
 
-        console.log("doubt it")
-
         if (this.props.require) {
             classname = "label-selected required";
         }
 
-
         return (
 
-            React.DOM.div(null, 
+            React.DOM.div({className: "scroll-into-view"}, 
 
                 React.DOM.span({className: "hidden"}, this.props.desc), 
 
-                React.DOM.span({className: "col-xs-2"}, 
+                React.DOM.span({className: "col-xs-2 scroll-into-view"}, 
                     React.DOM.span({id: this.props.id, className: classname + " navable label label-unselected", 'data-function': "selectBox", 'data-parameters': this.props.id}, this.props.arg)
                 ), 
 
-                React.DOM.span({className: "col-xs-10"}, 
+                React.DOM.span({className: "col-xs-10 scroll-into-view"}, 
                     React.DOM.input({id: "input-"+this.props.id, className: "form-control input-lg navable", type: "text", 'data-function': "inputFocus", name: this.props.arg, value: this.props.default})
                 )
 
@@ -5020,37 +5017,6 @@ var React           = require('react/addons')
 
 module.exports = React.createClass({displayName: 'exports',
 
-    // "-B/--bsxslot": "Path to BSX slotted rom. Load BSX BIOS as the regular rom.",
-    // "--sufamiA": "Path to A slot of Sufami Turbo. Load Sufami base cart as regular rom.",
-    // "--sufamiB": "Path to B slot of Sufami Turbo.",
-    // "-N/--nodevice": "Disconnects controller device connected to port (1 to 8).",
-    // "-A/--dualanalog": "Connect a DualAnalog controller to port (1 to 8).",
-    // "-m/--mouse": "Connect a mouse into port of the device (1 to 8).",
-    // "-p/--scope": "Connect a virtual SuperScope into port 2. (SNES specific).",
-    // "-j/--justifier": "Connect a virtual Konami Justifier into port 2. (SNES specific).",
-    // "-J/--justifiers": "Daisy chain two virtual Konami Justifiers into port 2. (SNES specific).",
-    // "-4/--multitap": "Connect a SNES multitap to port 2. (SNES specific).",
-    // "-P/--bsvplay": "Playback a BSV movie file.",
-    // "-R/--bsvrecord": "Start recording a BSV movie file from the beginning.",
-    // "-M/--sram-mode": "Takes an argument telling how SRAM should be handled in the session. {no,}load-{no,}: save describes if SRAM should be loaded, and if SRAM should be saved. Do note that noload-save implies that save files will be deleted and overwritten.",
-    // "-H/--host": "Host netplay as player 1.",
-    // "-C/--connect": "Connect to netplay as player 2.",
-    // "--port": "Port used to netplay. Default is 55435.",
-    // "-F/--frames": "Sync frames when using netplay.",
-    // "--spectate": "Netplay will become spectating mode. Host can live stream the game content to players that connect. However, the client will not be able to play. Multiple clients can connect to the host.",
-    // "--nick": "picks a nickname for use with netplay. Not mandatory.",
-    // "--command": "Sends a command over UDP to an already running RetroArch process. Available commands are listed if command is invalid.",
-    // "-r/--record": "Path to record video file. Using .mkv extension is recommended.",
-    // "--recordconfig": "Path to settings used during recording.",
-    // "--size": "Overrides output video size when recording with FFmpeg (format: WIDTHxHEIGHT).",
-    // "-v/--verbose": "Verbose logging.",
-    // "-U/--ups": "Specifies path for UPS patch that will be applied to ROM.",
-    // "--bps": "Specifies path for BPS patch that will be applied to ROM.",
-    // "--ips": "Specifies path for IPS patch that will be applied to ROM.",
-    // "--no-patch": "Disables all forms of rom patching.",
-    // "-X/--xml": "Specifies path to XML memory map.",
-    // "-D/--detach": "Detach RetroArch from the running console. Not relevant for all platforms."
-
     getInitialState: function() {
             return {
                 "retroarch": {
@@ -5076,7 +5042,7 @@ module.exports = React.createClass({displayName: 'exports',
                             "desc": "Extra config files are loaded in, and take priority over config selected in -c (or default). Multiple configs are delimited by ','.",
                             "default": null,
                             "subfield": true,
-                            "required": true
+                            "required": false
                         },
 
                         "-L/--libretro": {
@@ -5101,7 +5067,257 @@ module.exports = React.createClass({displayName: 'exports',
                             "default": null,
                             "subfield": true,
                             "required": false
-                        }
+                        },
+
+                        "-B/--bsxslot": {
+                            "arg": "-B",
+                            "desc": "Path to BSX slotted rom. Load BSX BIOS as the regular rom.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "--sufamiA": {
+                            "arg": "--sufamiA",
+                            "desc": "Path to A slot of Sufami Turbo. Load Sufami base cart as regular rom.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "--sufamiB": {
+                            "arg": "--sufamiB",
+                            "desc": "Path to B slot of Sufami Turbo.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "-N/--nodevice": {
+                            "arg": "-N",
+                            "desc": "Disconnects controller device connected to port (1 to 8).",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "-A/--dualanalog": {
+                            "arg": "-A",
+                            "desc": "Connect a DualAnalog controller to port (1 to 8)",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "-m/--mouse": {
+                            "arg": "-m",
+                            "desc": "Connect a mouse into port of the device (1 to 8).",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "-p/--scope": {
+                            "arg": "-p",
+                            "desc": "Connect a virtual SuperScope into port 2. (SNES specific).",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "j/--justifier": {
+                            "arg": "-j",
+                            "desc": "Connect a virtual Konami Justifier into port 2. (SNES specific).",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "j/--justifier": {
+                            "arg": "-j",
+                            "desc": "Connect a virtual Konami Justifier into port 2. (SNES specific).",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "-J/--justifiers": {
+                            "arg": "-J",
+                            "desc": "Daisy chain two virtual Konami Justifiers into port 2. (SNES specific).",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "-4/--multitap": {
+                            "arg": "-4",
+                            "desc": "Connect a SNES multitap to port 2. (SNES specific).",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "-P/--bsvplay": {
+                            "arg": "-P",
+                            "desc": "Playback a BSV movie file.",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "-R/--bsvrecord": {
+                            "arg": "-R",
+                            "desc": "Start recording a BSV movie file from the beginning.",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "-M/--sram-mode": {
+                            "arg": "-M",
+                            "desc": "Takes an argument telling how SRAM should be handled in the session. {no,}load-{no,}: save describes if SRAM should be loaded, and if SRAM should be saved. Do note that noload-save implies that save files will be deleted and overwritten.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "-H/--host": {
+                            "arg": "-H",
+                            "desc": "Host netplay as player 1.",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "-C/--connect": {
+                            "arg": "-C",
+                            "desc": "Connect to netplay as player 2.",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "--port": {
+                            "arg": "--port",
+                            "desc": "Port used to netplay. Default is 55435",
+                            "default": "55435",
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "-F/--frames": {
+                            "arg": "-F",
+                            "desc": "Sync frames when using netplay.",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "--spectate": {
+                            "arg": "--spectate",
+                            "desc": "Netplay will become spectating mode. Host can live stream the game content to players that connect. However, the client will not be able to play. Multiple clients can connect to the host.",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "--nick": {
+                            "arg": "--nick",
+                            "desc": "picks a nickname for use with netplay. Not mandatory.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "--command": {
+                            "arg": "--command",
+                            "desc": "Sends a command over UDP to an already running RetroArch process. Available commands are listed if command is invalid.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "r/--record": {
+                            "arg": "-r",
+                            "desc": "Path to record video file. Using .mkv extension is recommended.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "--recordconfig": {
+                            "arg": "--recordconfig",
+                            "desc": "Path to settings used during recording.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "--size": {
+                            "arg": "--recordconfig",
+                            "desc": "Overrides output video size when recording with FFmpeg (format: WIDTHxHEIGHT).",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "-v/--verbose": {
+                            "arg": "-v",
+                            "desc": "Verbose logging.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "-U/--ups": {
+                            "arg": "-U",
+                            "desc": "Specifies path for UPS patch that will be applied to ROM.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "--bps": {
+                            "arg": "--bps",
+                            "desc": "Specifies path for BPS patch that will be applied to ROM.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "--ips": {
+                            "arg": "--bps",
+                            "desc": "Specifies path for IPS patch that will be applied to ROM.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "--no-patch": {
+                            "arg": "--no-patch",
+                            "desc": "Disables all forms of rom patching.",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+                        "-X/--xml": {
+                            "arg": "-X",
+                            "desc": "Specifies path to XML memory map.",
+                            "default": null,
+                            "subfield": true,
+                            "required": false
+                        },
+
+                        "-D/--detach": {
+                            "arg": "-D",
+                            "desc": "Detach RetroArch from the running console. Not relevant for all platforms.",
+                            "default": null,
+                            "subfield": false,
+                            "required": false
+                        },
+
+
 
                     }
 
@@ -5130,7 +5346,11 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         var navable;
-        
+
+        if (Object.keys(this.state[this.props.software].arguements).length >= 6) {
+            navable = "messages-list";
+        };
+
         var idPre = this.props.software;
 
         var optionNodes = _.map(this.state[this.props.software].arguements, function(opt, i) {
@@ -5145,7 +5365,8 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
-                    React.DOM.div({className: "{navable} scrollable-view"}, 
+
+                    React.DOM.div({className: navable}, 
 
                         optionNodes
 
@@ -6748,9 +6969,6 @@ var io      = require('socket.io-client')
 var connect = function() {
 
     api.on('connect', function(){
-
-        console.log(events);
-        console.log("E"+events);
 
    	// Offset List roms? or list roms on switch tab
     //  setTimeout(function() {
@@ -8947,12 +9165,18 @@ module.exports = function(k) {
             if (s.parentNode.classList.contains("scroll-into-view")) {
                 // var d = document.querySelectorAll(".selectedNav");
 
+
                 if (s.nextElementSibling) {
                     var d = s.nextElementSibling.nextElementSibling;
                 }
 
+
                 if (d) {
                     d.scrollIntoView(false);
+                }
+
+                else {
+                    s.scrollIntoView(false);
                 }
 
             }
