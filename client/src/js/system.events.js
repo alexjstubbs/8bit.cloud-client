@@ -394,7 +394,7 @@ var events = {
 				dialog.close(null, null, "uiNotification");
 			}, 4500);
 
-		}, 10000);
+		}, 60000);
 
 
 		var Obj = {
@@ -428,12 +428,28 @@ var events = {
 
 		navigationBindings("init");
 
-		document.addEventListener("keydown", function(e) {
-			navigationEvent(e);
-		});
+
+	},
+
+	softwareOptions: function(parameters) {
+
+		dialog.show("SoftwareOptions", parameters);
+
+	},
+
+	selectBox: function(parameters) {
+
+		var doc 	= document.getElementById(parameters);
+		var input 	= document.getElementById("input-"+parameters);
 
 
-	}
+		if (!doc.classList.contains("required")) {
+			doc.classList.toggle("label-selected");
+			input.classList.toggle("disabled");
+		}
+
+	},
+
 
 
 }

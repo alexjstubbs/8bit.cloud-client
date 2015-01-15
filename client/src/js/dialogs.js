@@ -10,6 +10,7 @@ var systemNotify            = require('./notification.init.js')
 ,   Messages                = require('../interface/Messages.jsx')
 ,   Friends                 = require('../interface/Friends.jsx')
 ,   Friend                  = require('../interface/Friend.jsx')
+,   SoftwareOptions         = require('../interface/SoftwareOptions.jsx')
 ,   AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx')
 ,   FriendLarge             = require('../interface/FriendLarge.jsx')
 ,   Popup                   = require('../interface/Popup.jsx')
@@ -131,6 +132,10 @@ var show = function(parent, parameters, arg) {
         case "PassMessage":
             properties = {backdrop: true};
             Child = PassMessage({To: parameters});
+            break;
+        case "SoftwareOptions":
+            properties = {backdrop: true};
+            Child = SoftwareOptions({software: parameters});
             break;
         case "Messages":
             Child = Messages({});

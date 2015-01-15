@@ -103,7 +103,7 @@ module.exports = React.createClass({
             <a id="play-game" className='btn-alt btn-lg navable' data-function="launchGame" data-parameters="">Play Game</a>
             &nbsp;
             <a className='btn-alt btn-lg navable'>Multiplayer</a>
-            <a className='btn-alt btn-lg navable'><i className="ion-gear-a"></i></a>
+            <a className='btn-alt btn-lg navable' data-function='softwareOptions' data-parameters='retroarch'><i className="ion-gear-a"></i></a>
 
          </div>
 

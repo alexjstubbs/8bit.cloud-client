@@ -41,6 +41,6 @@
             "-D/--detach": "Detach RetroArch from the running console. Not relevant for all platforms."
         },
 
-        "default_arguements": "-c /root/ignition/config/emulatos/retroarch.conf "
+        "default_arguements": "-c /root/ignition/config/emulatos/retroarch.conf"
     }
 }

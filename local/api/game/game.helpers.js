@@ -44,15 +44,7 @@ function gameLaunch(nsp, payload) {
     // openvt -sw
 
 
-        execute('/opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so" "/root/roms/nes/Double Dragon (U).nes"', function(error, stderr, stdout) {
-
-            // setTimeout(function() {
-            //     nsp.emit('notification', {type: "achievement", body: "stderr" });
-            // }, 2500);
-
-            // console.log("error:"+error);
-            // console.log("stderr:"+stderr);
-            // console.log("stdout:"+stdout);
+        execute('/opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/pocketsnes-libretro/libretro.so" "/root/roms/snes/Street Fighter 2 Turbo.zip"', function(error, stderr, stdout) {
 
             if (stderr) {
                 nsp.emit('messaging', {type: 0, body: stderr });

@@ -244,9 +244,9 @@ textarea.textarea-height {
     min-height: 0 !important;
     height:50px !important;
     width:40vw;
-/*     -moz-animation:fadeInOut 4.5s;
--webkit-animation:fadeInOut 4.5s;
-animation:fadeInOut 4.5s; */
+    /* -moz-animation:fadeInOutFast 3.5s; */
+    /* -webkit-animation:fadeInOutFast 3.5s; */
+    /* animation:fadeInOutFast 3.5s; */
 }
 
 .ignition-popup {
@@ -307,7 +307,23 @@ animation:fadeInOut 4.5s; */
     text-align:center;
 }
 
+form i.navable {
+    padding:5px 10px;
+}
 
+.label-unselected {
+    position:relative;
+    top:20px;
+    border-radius:0;
+    background:@gray-dark;
+    padding:5px 10px;
+    opacity:0.7;
+}
+
+.label-selected {
+    background:@red;
+    opacity:1.0;
+}
 
 /* Welcome Animation
 -------------------------------------------------- */
@@ -377,6 +393,18 @@ animation:fadeInOut 4.5s; */
 	opacity:1;
 	transform: scale(1.2)
 	}
+	100% { opacity:0; }
+}
+
+@keyframes fadeInOutFast {
+	0% { opacity:0; }
+	50% { opacity:1; }
+	100% { opacity:0; }
+}
+
+@-webkit-keyframes fadeInOutFast {
+	0% { opacity:0; }
+	50% { opacity:1; }
 	100% { opacity:0; }
 }
 
