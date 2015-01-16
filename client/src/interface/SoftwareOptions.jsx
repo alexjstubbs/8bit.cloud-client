@@ -9,6 +9,7 @@ var React           = require('react/addons')
 ,   OptionNode      = require('./OptionNode.jsx')
 ,   navable
 ,   optionNodes
+,   selected
 ,   launchContext   = {};
 
 module.exports = React.createClass({
@@ -23,7 +24,9 @@ module.exports = React.createClass({
 
         return {
             software: "retroarch",
-            form: "softwareOptions",
+            form: 'retro',
+            server: false,
+            ensureExists: true,
             backdrop: true,
             server: "false",
             classList: 'col-xs-12',
@@ -43,23 +46,59 @@ module.exports = React.createClass({
 
     componentWillUpdate: function(props, state) {
 
+        document.addEventListener('selectBox', function eventHandler(e) {
+
+            if (e.detail.el.classList.contains("no-sub-field")) {
+
+                if (e.detail.el.value) {
+                    e.detail.el.value = '';
+                }
+                else if (!e.detail.el.value) {
+                    e.detail.el.value = 'true'
+                }
+
+            }
+
+        });
 
         if (state.commandlineConfig) {
 
             if (Object.keys(state.commandlineConfig.arguements).length >= 5) {
-                navable = "navable scrollable-view";
+                navable = "scroll-into-view scrollable-view";
             };
 
             var idPre = state.commandlineConfig.package;
 
             optionNodes = _.map(state.commandlineConfig.arguements, function(opt, i) {
 
-                return <OptionNode id={idPre+i} arg={opt.arg} desc={opt.desc} default={opt.default} subfield={opt.subfield} require={opt.required} />
+
+                if (!opt.default) {
+
+                    opt.default = null;
+                    selected = false;
+
+                }
+
+                else {
+
+                    if (opt.default === true) {
+                        opt.default = null;
+                    }
+
+                    selected = true;
+                }
+
+                return <OptionNode selected={selected} id={idPre+i} arg={opt.arg} desc={opt.desc} default={opt.default} subfield={opt.subfield} require={opt.required} />
 
             });
 
-
         }
+
+    },
+
+    componentDidUpdate: function() {
+
+        navigationInit.navigationInit();
 
     },
 
@@ -107,8 +146,11 @@ module.exports = React.createClass({
                     <hr />
 
                     <button className="pull-left btn btn-alt btn-alt-size navable" data-function="closeDialog"><i className='ion-close'></i> &nbsp; Cancel</button>
-                    <button className="pull-right btn btn-alt btn-alt-size navable" data-function="closeDialog"><i className='ion-checkmark'></i> &nbsp; Save Changes</button>
+                    <button className="pull-right btn btn-alt btn-alt-size navable" data-function='submitForm' data-parameters={this.props.form}><i className='ion-checkmark'></i> &nbsp; Save Changes</button>
 
+                    <input type="hidden" name="server" value={this.props.server} />
+                    <input type="hidden" name="filename" value="test2.json" />
+                    <input type="hidden" name="ensureExists" value={this.props.ensureExists} />
 
                 </form>
 

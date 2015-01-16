@@ -132,6 +132,25 @@ var launchContext = function(context) {
     document.dispatchEvent(event);
 
 };
+
+
+/* Select Box
+-------------------------------------------------- */
+var selectBox = function(el, selected) {
+
+    console.log("e")
+    var event = new CustomEvent('selectBox', {
+        'detail':{
+            el: el,
+            selected: selected
+        }
+    });
+
+    document.dispatchEvent(event);
+
+};
+
+
 /* Exports
 -------------------------------------------------- */
 exports.renderScreenComponents  = renderScreenComponents;
@@ -141,3 +160,4 @@ exports.updateGame 		 		= updateGame;
 exports.changeView 		 		= changeView;
 exports.uiActionNotification 	= uiActionNotification;
 exports.launchContext       	= launchContext;
+exports.selectBox       	    = selectBox;

@@ -1,0 +1,16 @@
+{
+  "-c": "/opt/configs/ignition/retroarch.conf",
+  "-p": "true",
+  "-j": "true",
+  "-J": "true",
+  "-4": "true",
+  "-P": "true",
+  "-R": "true",
+  "-H": "true",
+  "-C": "true",
+  "--port": "true",
+  "-F": "true",
+  "--spectate": "true",
+  "--no-patch": "true",
+  "-D": "true"
+}

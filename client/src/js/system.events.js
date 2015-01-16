@@ -89,6 +89,14 @@ var events = {
 
     },
 
+    /* Prevent any action
+    -------------------------------------------------- */
+	preventDefault: function(parameters) {
+
+		return 0;
+
+    },
+
     /* Log User In
     -------------------------------------------------- */
     logIn: function(parameters) {
@@ -149,7 +157,7 @@ var events = {
 
         var form = document.forms[parameters].elements;
 
-        var obj = new Object;
+        var obj = {};
 
         _.each(form, function(input) {
             if (input.name && input.value) {
@@ -453,6 +461,8 @@ var events = {
 			doc.classList.toggle("label-selected");
 			input.classList.toggle("disabled");
 		}
+
+		eventDispatcher.selectBox(input, doc.classList.contains("label-selected"));
 
 	},
 

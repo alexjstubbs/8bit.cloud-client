@@ -1,4 +1,4 @@
-/* Writing / Reading filesystem 
+/* Writing / Reading filesystem
 -------------------------------------------------- */
 
 var fs   = require('fs-extra')
@@ -14,7 +14,7 @@ var copyFile = function(nsp, src, dest, callback) {
     fs.copy(src, dest, function(err) {
 
         if (err) {
-            
+
             nsp.emit('messaging', {type: 0, body: err });
 
             if (callback || typeof callback == "function") {
@@ -31,7 +31,7 @@ var copyFile = function(nsp, src, dest, callback) {
 
         }
 
-    }) 
+    })
 
 };
 
@@ -41,61 +41,107 @@ var copyFile = function(nsp, src, dest, callback) {
 
 var writeJSONSync = function(nsp, data, callback) {
 
+    console.log(data.ensureExists);
+
     if (data.path) {
-   
+
         var file = appDir + data.path + "/" + data.filename;
-   
+
     }
 
     else {
 
          var file = data.filename;
-   
+
     }
 
-    fs.readJson(file, function(err, object) {
+    if (data.ensureExists) {
 
-        if (err) {
 
-            if (callback || typeof callback == "function") {
-                callback(err, null);
+
+        fs.ensureFile(file, function(err) {
+
+
+            if (err) {
+                console.log(err);
             }
 
-        }
+            else {
 
-        else {
-            
-            var merged = _.merge(object, data);
-            
-            delete merged.formTitle;
-            delete merged.path;
-            delete merged.filename;
 
-            fs.outputJson(file, merged, function(err) {
-
-                if (err) { 
-                
-                    if (callback || typeof callback == "function") {
-                        callback(err, null);
-                    }
-                
-                }
-
-                else {
-
-                    console.log("[i] Wrote Data: " + data);
-
-                    if (callback || typeof callback == "function") {
-                        callback(null, data);
+                fs.writeJson(file, {created: Date.now() / 1000 | 0}, function(err) {
+                    if (err) {
+                        console.log(err);
                     }
 
+                    else {
+                        writeFile();
+                    }
+
+                })
+            }
+
+        });
+    }
+
+    else {
+        writeFile();
+    }
+
+    function writeFile() {
+
+
+        fs.readJson(file, function(err, object) {
+
+            if (err) {
+
+                console.log(err);
+
+                if (callback || typeof callback == "function") {
+                    callback(err, null);
+
                 }
 
-            });
+            }
 
-        }
-        
-    });
+            else {
+
+                var merged = _.merge(object, data);
+
+                delete merged.formTitle;
+                delete merged.path;
+                delete merged.filename;
+                delete merged.ensureExists;
+                delete merged.server;
+                delete merged.created;
+
+                fs.outputJson(file, merged, function(err) {
+
+                    if (err) {
+
+                        if (callback || typeof callback == "function") {
+                            callback(err, null);
+                        }
+
+                    }
+
+                    else {
+
+                        console.log("[i] Wrote Data: " + data);
+
+                        if (callback || typeof callback == "function") {
+                            callback(null, data);
+                        }
+
+                    }
+
+                });
+
+            }
+
+        });
+
+    }
 
 }
 
@@ -105,15 +151,15 @@ var writeJSONSync = function(nsp, data, callback) {
 var writeJSON = function(nsp, data, callback) {
 
     if (data.path) {
-   
+
         var file = appDir + data.path + "/" + data.filename;
-   
+
     }
 
     else {
 
          var file = data.filename;
-   
+
     }
 
     delete data.filename;
@@ -123,12 +169,12 @@ var writeJSON = function(nsp, data, callback) {
     fs.outputJson(file, data, function(err) {
 
 
-        if (err) { 
-        
+        if (err) {
+
             if (callback || typeof callback == "function") {
                 callback(err, null);
             }
-        
+
         }
 
         else {
@@ -144,13 +190,13 @@ var writeJSON = function(nsp, data, callback) {
     });
 
 }
-        
+
 
 
 /* Write Text file
 -------------------------------------------------- */
 var writeTextSync = function(nsp, data, callback) {
-    
+
 }
 
 /* Exports

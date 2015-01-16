@@ -3637,6 +3637,7 @@ module.exports = React.createClass({displayName: 'exports',
             var achievementNodes = this.state.crc32[0].Achievements.map(function (achievement, i) {
                 return AchievementList({title: achievement.title, description: achievement.description, navStack: i+1})
             });
+            
         }
 
         return (
@@ -4290,7 +4291,10 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React           = require('react/addons');
+var React            = require('react/addons')
+,   navigationInit   = require('../js/navigation.init')
+,   subfield
+,   defaults;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -4306,14 +4310,39 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
 
+    componentDidMount: function() {
+
+
+        if (!this.props.subfield) {
+
+            document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
+            document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault"); 
+
+            if (this.props.selected) {
+
+                defaults = "true";
+
+            }
+        }
+
+        navigationInit.navigationInit();
+
+    },
 
     render: function() {
 
+        defaults = this.props.default;
+
         var classname;
 
-        if (this.props.require) {
+        if (this.props.require || this.props.selected) {
             classname = "label-selected required";
         }
+
+        // if (this.props.subfield === true) {
+        //     subfield = <span className="col-xs-10 scroll-into-view"> <input id={"input-"+this.props.id} className="form-control input-lg navable" type="text" data-function="inputFocus" name={this.props.arg} value={this.props.default} /></span>
+        // }
+
 
         return (
 
@@ -4325,8 +4354,9 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.span({id: this.props.id, className: classname + " navable label label-unselected", 'data-function': "selectBox", 'data-parameters': this.props.id}, this.props.arg)
                 ), 
 
+
                 React.DOM.span({className: "col-xs-10 scroll-into-view"}, 
-                    React.DOM.input({id: "input-"+this.props.id, className: "form-control input-lg navable", type: "text", 'data-function': "inputFocus", name: this.props.arg, value: this.props.default})
+                    React.DOM.input({id: "input-"+this.props.id, className: "form-control input-lg navable", type: "text", 'data-function': "inputFocus", name: this.props.arg, value: defaults})
                 )
 
             )
@@ -4335,7 +4365,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"react/addons":95}],33:[function(require,module,exports){
+},{"../js/navigation.init":84,"react/addons":95}],33:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -5021,6 +5051,7 @@ var React           = require('react/addons')
 ,   OptionNode      = require('./OptionNode.jsx')
 ,   navable
 ,   optionNodes
+,   selected
 ,   launchContext   = {};
 
 module.exports = React.createClass({displayName: 'exports',
@@ -5035,7 +5066,9 @@ module.exports = React.createClass({displayName: 'exports',
 
         return {
             software: "retroarch",
-            form: "softwareOptions",
+            form: 'retro',
+            server: false,
+            ensureExists: true,
             backdrop: true,
             server: "false",
             classList: 'col-xs-12',
@@ -5055,23 +5088,59 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentWillUpdate: function(props, state) {
 
+        document.addEventListener('selectBox', function eventHandler(e) {
+
+            if (e.detail.el.classList.contains("no-sub-field")) {
+
+                if (e.detail.el.value) {
+                    e.detail.el.value = '';
+                }
+                else if (!e.detail.el.value) {
+                    e.detail.el.value = 'true'
+                }
+
+            }
+
+        });
 
         if (state.commandlineConfig) {
 
             if (Object.keys(state.commandlineConfig.arguements).length >= 5) {
-                navable = "navable scrollable-view";
+                navable = "scroll-into-view scrollable-view";
             };
 
             var idPre = state.commandlineConfig.package;
 
             optionNodes = _.map(state.commandlineConfig.arguements, function(opt, i) {
 
-                return OptionNode({id: idPre+i, arg: opt.arg, desc: opt.desc, default: opt.default, subfield: opt.subfield, require: opt.required})
+
+                if (!opt.default) {
+
+                    opt.default = null;
+                    selected = false;
+
+                }
+
+                else {
+
+                    if (opt.default === true) {
+                        opt.default = null;
+                    }
+
+                    selected = true;
+                }
+
+                return OptionNode({selected: selected, id: idPre+i, arg: opt.arg, desc: opt.desc, default: opt.default, subfield: opt.subfield, require: opt.required})
 
             });
 
-
         }
+
+    },
+
+    componentDidUpdate: function() {
+
+        navigationInit.navigationInit();
 
     },
 
@@ -5119,8 +5188,11 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.hr(null), 
 
                     React.DOM.button({className: "pull-left btn btn-alt btn-alt-size navable", 'data-function': "closeDialog"}, React.DOM.i({className: "ion-close"}), "   Cancel"), 
-                    React.DOM.button({className: "pull-right btn btn-alt btn-alt-size navable", 'data-function': "closeDialog"}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes")
+                    React.DOM.button({className: "pull-right btn btn-alt btn-alt-size navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes"), 
 
+                    React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
+                    React.DOM.input({type: "hidden", name: "filename", value: "test2.json"}), 
+                    React.DOM.input({type: "hidden", name: "ensureExists", value: this.props.ensureExists})
 
                 )
 
@@ -7327,6 +7399,25 @@ var launchContext = function(context) {
     document.dispatchEvent(event);
 
 };
+
+
+/* Select Box
+-------------------------------------------------- */
+var selectBox = function(el, selected) {
+
+    console.log("e")
+    var event = new CustomEvent('selectBox', {
+        'detail':{
+            el: el,
+            selected: selected
+        }
+    });
+
+    document.dispatchEvent(event);
+
+};
+
+
 /* Exports
 -------------------------------------------------- */
 exports.renderScreenComponents  = renderScreenComponents;
@@ -7336,6 +7427,7 @@ exports.updateGame 		 		= updateGame;
 exports.changeView 		 		= changeView;
 exports.uiActionNotification 	= uiActionNotification;
 exports.launchContext       	= launchContext;
+exports.selectBox       	    = selectBox;
 
 },{"socket.io-client":254}],75:[function(require,module,exports){
 /**
@@ -9366,6 +9458,14 @@ var events = {
 
     },
 
+    /* Prevent any action
+    -------------------------------------------------- */
+	preventDefault: function(parameters) {
+
+		return 0;
+
+    },
+
     /* Log User In
     -------------------------------------------------- */
     logIn: function(parameters) {
@@ -9426,7 +9526,7 @@ var events = {
 
         var form = document.forms[parameters].elements;
 
-        var obj = new Object;
+        var obj = {};
 
         _.each(form, function(input) {
             if (input.name && input.value) {
@@ -9730,6 +9830,8 @@ var events = {
 			doc.classList.toggle("label-selected");
 			input.classList.toggle("disabled");
 		}
+
+		eventDispatcher.selectBox(input, doc.classList.contains("label-selected"));
 
 	},
 
