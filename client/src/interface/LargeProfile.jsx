@@ -11,13 +11,18 @@ var React           = require('react/addons')
 ,   api             = require('socket.io-client')('/api')
 ,   _               = require('lodash')
 ,   SaveStates      = require('./SaveStates.jsx')
-,   AchievementList = require('./AchievementList.jsx');
-
+,   AchievementList = require('./AchievementList.jsx')
+,   launchContext   = {
+        filepath: null,
+        platform: null
+};
 
 module.exports = React.createClass({
 
   getInitialState: function() {
-          return {
+
+        return {
+
             "screen": "Profile",
             "title": "Unknown Title",
             "boxart": null,
@@ -30,13 +35,11 @@ module.exports = React.createClass({
             "crc32": null,
             "developer": null,
             "filepath": null,
-            "gameFilepath": null
-
+            "platform": null
         };
     },
 
     screenMount: function() {
-        // console.log("Load states etc.");
     },
 
     componentDidMount: function () {
@@ -47,6 +50,11 @@ module.exports = React.createClass({
             component.setState(e.detail);
         });
 
+        document.addEventListener('launchContext', function eventHandler(e) {
+            launchContext = JSON.stringify(e.detail);
+            component.forceUpdate();
+        });
+
         api.on('api', this.setState.bind(this));
 
         window.addEventListener("mountView", function(e) {
@@ -54,11 +62,10 @@ module.exports = React.createClass({
             if (e.detail.screen == component.state.screen) {
                 component.screenMount();
             };
+
         });
 
-
      },
-
 
     render: function() {
 
@@ -72,7 +79,6 @@ module.exports = React.createClass({
                 return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />
             });
         }
-
 
         return (
 
@@ -100,7 +106,7 @@ module.exports = React.createClass({
             <br />
             <div className="timer">Time Played: {this.state.playtime}</div>
             <br />
-            <a id="play-game" className='btn-alt btn-lg navable' data-function="launchGame" data-parameters="">Play Game</a>
+            <a id="play-game" className='btn-alt btn-lg navable' data-function="launchGame" data-parameters={launchContext}>Play Game</a>
             &nbsp;
             <a className='btn-alt btn-lg navable'>Multiplayer</a>
             <a className='btn-alt btn-lg navable' data-function='softwareOptions' data-parameters='retroarch'><i className="ion-gear-a"></i></a>

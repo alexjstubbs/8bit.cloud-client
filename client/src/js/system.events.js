@@ -110,7 +110,6 @@ var events = {
 		else {
 
 
-
 		}
 
     },
@@ -296,6 +295,9 @@ var events = {
         });
 
         api.emit('request', { request: 'gamesList', param: longname });
+
+
+
     },
 
     /* Drop navigation on sub-panels on Action button/keypress
@@ -373,40 +375,35 @@ var events = {
     launchGame: function(parameters) {
         // TODO:  via sockets and update server activity (so-and-so played game, 10 hours ago)
 
-		navigationBindings("deinit");
+		if (parameters) {
 
-		document.removeEventListener("keydown", function(e) {
-			console.log("removed event listener...");
-		});
+			navigationBindings("deinit");
 
-		var _doc = document.getElementById("main");
+			document.removeEventListener("keydown", function(e) {
+				console.log("removed event listener...");
+			});
 
-		document.body.style.background = "transparent";
-		_doc.style.display = "none";
-		// Disconnect Socket for Reconnection
+			var _doc = document.getElementById("main");
 
-
-		setTimeout(function() {
-
-			dialog.uiNotification();
+			document.body.style.background = "transparent";
+			_doc.style.display = "none";
 
 			setTimeout(function() {
-				dialog.close(null, null, "uiNotification");
-			}, 4500);
 
-		}, 60000);
+				dialog.uiNotification();
 
+				setTimeout(function() {
+					dialog.close(null, null, "uiNotification");
+				}, 4500);
 
-		var Obj = {
-			rootcmd: "/opt/emulators/retroarch",
-			options: "-L",
-			args: "/opt/emulatorcores/fceu-next/fb_alpha_libretro.so",
-			file: "/root/roms/nes/Double Dragon (U).nes"
+			}, 60000);
+
+			api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
 		}
 
-
-		api.emit('request', { request: 'launchGame', param: Obj });
-
+		else {
+			console.log("slowdown");
+		}
     },
 
 	/* See game Profile
@@ -416,6 +413,16 @@ var events = {
 		// TODO:
 		KeyEvent(221);
 
+		var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
+		var shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
+
+		var _launchContext = {
+			platform: platform,
+			filepath: parameters,
+			shortname: shortname
+		}
+
+		eventDispatcher.launchContext(_launchContext);
 
 	},
 

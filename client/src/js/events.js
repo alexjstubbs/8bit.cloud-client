@@ -1,11 +1,10 @@
 /* Custom Events
 -------------------------------------------------- */
-var api     = require('socket.io-client')('/api');
+var api = require('socket.io-client')('/api');
 
 /* Render Screen Components
 -------------------------------------------------- */
 var renderScreenComponents = function(screen) {
-
 
     var event = new CustomEvent('renderScreenComponents', {
         'detail': {
@@ -20,7 +19,6 @@ var renderScreenComponents = function(screen) {
 /* Legacy Screen Transition
 -------------------------------------------------- */
 var screenTransition = function(screen, hidden, parent) {
-
 
     var event = new CustomEvent('screenTransition', {
         'detail': {
@@ -89,34 +87,51 @@ var serverResponse = function(response) {
     });
 
     window.dispatchEvent(event);
+
 }
 
 /* Update Game
 -------------------------------------------------- */
 var updateGame = function(results, filepath, callback) {
+
     if (results[0]) {
 
     api.emit('request', { request: 'crc32', param: filepath });
 
-       var event = new CustomEvent('updateGame', {
-            'detail': {
-                title: results[0].title,
-                description: results[0].description,
-                rating: results[0].rating,
-                ersb_rating: results[0].rating,
-                genre: results[0].genre,
-                id: results[0].id,
-                developer: results[0].developer,
-                image: "http://127.0.0.1:1210/games/"+results[0].system+"/"+results[0].title,
-                filepath: filepath
-            }
+           var event = new CustomEvent('updateGame', {
+
+                'detail': {
+                    title: results[0].title,
+                    description: results[0].description,
+                    rating: results[0].rating,
+                    ersb_rating: results[0].rating,
+                    genre: results[0].genre,
+                    id: results[0].id,
+                    developer: results[0].developer,
+                    image: "http://127.0.0.1:1210/games/"+results[0].system+"/"+results[0].title,
+                    filepath: filepath
+                }
+
         });
+
     }
+
     window.dispatchEvent(event);
 
 }
 
 
+/* Launch Context
+-------------------------------------------------- */
+var launchContext = function(context) {
+
+    var event = new CustomEvent('launchContext', {
+        'detail': context
+    });
+
+    document.dispatchEvent(event);
+
+};
 /* Exports
 -------------------------------------------------- */
 exports.renderScreenComponents  = renderScreenComponents;
@@ -125,3 +140,4 @@ exports.dialog 			 		= dialog;
 exports.updateGame 		 		= updateGame;
 exports.changeView 		 		= changeView;
 exports.uiActionNotification 	= uiActionNotification;
+exports.launchContext       	= launchContext;

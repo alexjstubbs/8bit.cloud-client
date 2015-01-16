@@ -1,0 +1,7 @@
+{
+    "software": "retroarch",
+    "arguements": [
+        {"--nick": "anonymous"},
+        {"-L": "../../fceum-libretro.so"}
+    ]
+}

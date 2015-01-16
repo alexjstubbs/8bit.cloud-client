@@ -39,9 +39,18 @@ function listRoms(nsp, platform) {
 
                             _(list).forEach(function(filename) {
 
+                                // if (path.extname(filename) )
+                                // _.contains(collection, target, [fromIndex=0])
+
+                        
                                 _path = path.join(initDir, filename);
 
-                                listObj.push({"filename":filename,"path":_path,"ext":path.extname(filename),"title":filename})
+                                listObj.push({
+                                    "filename": filename,
+                                    "path": _path,
+                                    "ext": path.extname(filename),
+                                    "title": filename
+                                });
 
                             });
 

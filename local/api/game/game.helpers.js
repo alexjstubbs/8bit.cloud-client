@@ -5,9 +5,10 @@ var database            = require(appDir+'/local/api/database/database.local')
 ,   achievements        = require(appDir+'/local/system/achievements/achievement.loop').achievements
 ,   util                = require('util')
 ,   spawn               = require('child_process').spawn
-,   fs                  = require('fs')
-,   _                   = require('lodash');
-
+,   fs                  = require('fs-extra')
+,   _                   = require('lodash')
+,   listPlatforms       = require(appDir+'/local/api/api.platforms').listPlatforms
+,   readJSON            = require(appDir+'/local/system/system.read').readJSONFile;
 
 /* Check for valid JSON return
 -------------------------------------------------- */
@@ -39,20 +40,53 @@ function toCap(str) {
 -------------------------------------------------- */
 function gameLaunch(nsp, payload) {
 
+    var pFile = appDir+"/config/platforms/commandline/user/"+payload.shortname+".json";
 
-    // console.log(_.values(payload));
-    // openvt -sw
+    if (fs.existsSync(pFile)) {
 
+        readJSON(null, pFile, function(err, results) {
+            console.log(results);
+        })
 
-        execute('/opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/pocketsnes-libretro/libretro.so" "/root/roms/snes/Street Fighter 2 Turbo.zip"', function(error, stderr, stdout) {
+    }
 
-            if (stderr) {
-                nsp.emit('messaging', {type: 0, body: stderr });
-            }
+    else {
 
-            nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+        listPlatforms(null, function(listobj) {
 
-    });
+            var platform = listobj[payload.platform]
+
+            readJSON(null, appDir+"/config/platforms/commandline/"+platform.emulators[0]+".json", function(err, results) {
+
+                // Retroarch
+                if (results.cores) {
+                    console.log("wel");
+                        console.log(results.cores[payload.shortname]);
+                }
+
+                // Standalone
+                else {
+                    console.log("no cores");
+                }
+            })
+
+        })
+
+    }
+
+    // listPlatforms(null, function(listobj) {
+    //     var listobj[payload.platform]
+    // })
+
+    //     execute('/opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/pocketsnes-libretro/libretro.so" "/root/roms/snes/Street Fighter 2 Turbo.zip"', function(error, stderr, stdout) {
+    //
+    //         if (stderr) {
+    //             nsp.emit('messaging', {type: 0, body: stderr });
+    //         }
+    //
+    //         nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+    //
+    // });
 
 
 }
@@ -156,7 +190,7 @@ function gameProfileSmall(nsp, game) {
 
             if (gameTitle == recordTitle || gameTitleThe == recordTitle) {
 
-                console.log("[!!!] MATCHED in Database");
+                // console.log("[!!!] MATCHED in Database");
 
                 nsp.emit('api', {updateGame: doc});
 

@@ -3572,13 +3572,18 @@ var React           = require('react/addons')
 ,   api             = require('socket.io-client')('/api')
 ,   _               = require('lodash')
 ,   SaveStates      = require('./SaveStates.jsx')
-,   AchievementList = require('./AchievementList.jsx');
-
+,   AchievementList = require('./AchievementList.jsx')
+,   launchContext   = {
+        filepath: null,
+        platform: null
+};
 
 module.exports = React.createClass({displayName: 'exports',
 
   getInitialState: function() {
-          return {
+
+        return {
+
             "screen": "Profile",
             "title": "Unknown Title",
             "boxart": null,
@@ -3591,13 +3596,11 @@ module.exports = React.createClass({displayName: 'exports',
             "crc32": null,
             "developer": null,
             "filepath": null,
-            "gameFilepath": null
-
+            "platform": null
         };
     },
 
     screenMount: function() {
-        // console.log("Load states etc.");
     },
 
     componentDidMount: function () {
@@ -3608,6 +3611,11 @@ module.exports = React.createClass({displayName: 'exports',
             component.setState(e.detail);
         });
 
+        document.addEventListener('launchContext', function eventHandler(e) {
+            launchContext = JSON.stringify(e.detail);
+            component.forceUpdate();
+        });
+
         api.on('api', this.setState.bind(this));
 
         window.addEventListener("mountView", function(e) {
@@ -3615,11 +3623,10 @@ module.exports = React.createClass({displayName: 'exports',
             if (e.detail.screen == component.state.screen) {
                 component.screenMount();
             };
+
         });
 
-
      },
-
 
     render: function() {
 
@@ -3633,7 +3640,6 @@ module.exports = React.createClass({displayName: 'exports',
                 return AchievementList({title: achievement.title, description: achievement.description, navStack: i+1})
             });
         }
-
 
         return (
 
@@ -3661,7 +3667,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.br(null), 
             React.DOM.div({className: "timer"}, "Time Played: ", this.state.playtime), 
             React.DOM.br(null), 
-            React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable", 'data-function': "launchGame", 'data-parameters': ""}, "Play Game"), 
+            React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable", 'data-function': "launchGame", 'data-parameters': launchContext}, "Play Game"), 
             " ", 
             React.DOM.a({className: "btn-alt btn-lg navable"}, "Multiplayer"), 
             React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "softwareOptions", 'data-parameters': "retroarch"}, React.DOM.i({className: "ion-gear-a"}))
@@ -3709,21 +3715,21 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash');
-
+var React = require('react/addons')
+,   _     = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
+
     getDefaultProps: function() {
-    return {
-            navable: false,
-            subNavable: true,
-            navStack: 1,
-            functionCall: "largeProfile",
-            functionParams: null,
-            game: null,
-            alpha: "."
-        }
+        return {
+                navable: false,
+                subNavable: true,
+                navStack: 1,
+                functionCall: "largeProfile",
+                functionParams: null,
+                game: null,
+                alpha: "."
+            }
     },
 
     render: function() {
@@ -4369,21 +4375,20 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-        _ = require('lodash'),
-        Platform = require('./Platform.jsx'),
-        getFirstChild = require('../js/helpers.js').getFirstChild,
-        api = require('socket.io-client')('/api');
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   Platform        = require('./Platform.jsx')
+,   getFirstChild   = require('../js/helpers.js').getFirstChild
+,   api             = require('socket.io-client')('/api');
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
-      
 
         return {
             platforms: [
                 {},
-                ]
+            ]
         };
     },
 
@@ -4420,23 +4425,23 @@ module.exports = React.createClass({displayName: 'exports',
                         React.DOM.div({id: "ul-wrap"}), 
 
                         React.DOM.div({className: "col-xs-12 text-left"}, 
-                        
+
                             React.DOM.ul({id: "platform-list", className: "platform-list scroll-into-view"}, 
 
                                 React.DOM.li({className: "no-show"}, "     "), 
-                              
+
                                 platformNodes, 
 
                                  React.DOM.li({className: "no-show"}, "     ")
-                               
+
                             )
-                
+
                         )
 
                     ), 
 
                     React.DOM.div({className: "clearfix"}), 
-                    
+
                     React.DOM.div({className: "col-lg-12"}, 
                         React.DOM.hr({className: "mute"})
                     )
@@ -4444,9 +4449,10 @@ module.exports = React.createClass({displayName: 'exports',
             )
 
             );
-        
+
     }
 });
+
 },{"../js/helpers.js":76,"./Platform.jsx":33,"lodash":93,"react/addons":95,"socket.io-client":254}],35:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -7453,12 +7459,11 @@ window.addEventListener("renderScreenComponents", function(e) {
 },{"./dialogs":72,"./events":74,"./ui.notification":92,"lodash":93,"socket.io-client":254}],74:[function(require,module,exports){
 /* Custom Events
 -------------------------------------------------- */
-var api     = require('socket.io-client')('/api');
+var api = require('socket.io-client')('/api');
 
 /* Render Screen Components
 -------------------------------------------------- */
 var renderScreenComponents = function(screen) {
-
 
     var event = new CustomEvent('renderScreenComponents', {
         'detail': {
@@ -7473,7 +7478,6 @@ var renderScreenComponents = function(screen) {
 /* Legacy Screen Transition
 -------------------------------------------------- */
 var screenTransition = function(screen, hidden, parent) {
-
 
     var event = new CustomEvent('screenTransition', {
         'detail': {
@@ -7542,34 +7546,51 @@ var serverResponse = function(response) {
     });
 
     window.dispatchEvent(event);
+
 }
 
 /* Update Game
 -------------------------------------------------- */
 var updateGame = function(results, filepath, callback) {
+
     if (results[0]) {
 
     api.emit('request', { request: 'crc32', param: filepath });
 
-       var event = new CustomEvent('updateGame', {
-            'detail': {
-                title: results[0].title,
-                description: results[0].description,
-                rating: results[0].rating,
-                ersb_rating: results[0].rating,
-                genre: results[0].genre,
-                id: results[0].id,
-                developer: results[0].developer,
-                image: "http://127.0.0.1:1210/games/"+results[0].system+"/"+results[0].title,
-                filepath: filepath
-            }
+           var event = new CustomEvent('updateGame', {
+
+                'detail': {
+                    title: results[0].title,
+                    description: results[0].description,
+                    rating: results[0].rating,
+                    ersb_rating: results[0].rating,
+                    genre: results[0].genre,
+                    id: results[0].id,
+                    developer: results[0].developer,
+                    image: "http://127.0.0.1:1210/games/"+results[0].system+"/"+results[0].title,
+                    filepath: filepath
+                }
+
         });
+
     }
+
     window.dispatchEvent(event);
 
 }
 
 
+/* Launch Context
+-------------------------------------------------- */
+var launchContext = function(context) {
+
+    var event = new CustomEvent('launchContext', {
+        'detail': context
+    });
+
+    document.dispatchEvent(event);
+
+};
 /* Exports
 -------------------------------------------------- */
 exports.renderScreenComponents  = renderScreenComponents;
@@ -7578,6 +7599,7 @@ exports.dialog 			 		= dialog;
 exports.updateGame 		 		= updateGame;
 exports.changeView 		 		= changeView;
 exports.uiActionNotification 	= uiActionNotification;
+exports.launchContext       	= launchContext;
 
 },{"socket.io-client":254}],75:[function(require,module,exports){
 /**
@@ -8268,10 +8290,7 @@ module.exports = function(init) {
         Mousetrap.bind('enter', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
-            console.log("hit: "+pauseNavigation)
             if (pauseNavigation != "pauseEnter" && pauseNavigation != "pauseAll") {
-
-                console.log(pauseNavigation);
 
                 navigate("enter");
             }
@@ -9632,7 +9651,6 @@ var events = {
 		else {
 
 
-
 		}
 
     },
@@ -9818,6 +9836,9 @@ var events = {
         });
 
         api.emit('request', { request: 'gamesList', param: longname });
+
+
+
     },
 
     /* Drop navigation on sub-panels on Action button/keypress
@@ -9895,40 +9916,35 @@ var events = {
     launchGame: function(parameters) {
         // TODO:  via sockets and update server activity (so-and-so played game, 10 hours ago)
 
-		navigationBindings("deinit");
+		if (parameters) {
 
-		document.removeEventListener("keydown", function(e) {
-			console.log("removed event listener...");
-		});
+			navigationBindings("deinit");
 
-		var _doc = document.getElementById("main");
+			document.removeEventListener("keydown", function(e) {
+				console.log("removed event listener...");
+			});
 
-		document.body.style.background = "transparent";
-		_doc.style.display = "none";
-		// Disconnect Socket for Reconnection
+			var _doc = document.getElementById("main");
 
-
-		setTimeout(function() {
-
-			dialog.uiNotification();
+			document.body.style.background = "transparent";
+			_doc.style.display = "none";
 
 			setTimeout(function() {
-				dialog.close(null, null, "uiNotification");
-			}, 4500);
 
-		}, 60000);
+				dialog.uiNotification();
 
+				setTimeout(function() {
+					dialog.close(null, null, "uiNotification");
+				}, 4500);
 
-		var Obj = {
-			rootcmd: "/opt/emulators/retroarch",
-			options: "-L",
-			args: "/opt/emulatorcores/fceu-next/fb_alpha_libretro.so",
-			file: "/root/roms/nes/Double Dragon (U).nes"
+			}, 60000);
+
+			api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
 		}
 
-
-		api.emit('request', { request: 'launchGame', param: Obj });
-
+		else {
+			console.log("slowdown");
+		}
     },
 
 	/* See game Profile
@@ -9938,6 +9954,16 @@ var events = {
 		// TODO:
 		KeyEvent(221);
 
+		var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
+		var shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
+
+		var _launchContext = {
+			platform: platform,
+			filepath: parameters,
+			shortname: shortname
+		}
+
+		eventDispatcher.launchContext(_launchContext);
 
 	},
 

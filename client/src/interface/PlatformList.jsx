@@ -4,21 +4,20 @@
 
 'use strict';
 
-var React = require('react/addons'),
-        _ = require('lodash'),
-        Platform = require('./Platform.jsx'),
-        getFirstChild = require('../js/helpers.js').getFirstChild,
-        api = require('socket.io-client')('/api');
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   Platform        = require('./Platform.jsx')
+,   getFirstChild   = require('../js/helpers.js').getFirstChild
+,   api             = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
 
     getInitialState: function() {
-      
 
         return {
             platforms: [
                 {},
-                ]
+            ]
         };
     },
 
@@ -55,30 +54,30 @@ module.exports = React.createClass({
                         <div id="ul-wrap"></div>
 
                         <div className="col-xs-12 text-left">
-                        
-                            <ul id="platform-list" className="platform-list scroll-into-view">   
 
-                                <li className="no-show"> &nbsp; &nbsp; </li>   
-                              
-                                {platformNodes}  
+                            <ul id="platform-list" className="platform-list scroll-into-view">
 
-                                 <li className="no-show"> &nbsp; &nbsp; </li>   
-                               
+                                <li className="no-show"> &nbsp; &nbsp; </li>
+
+                                {platformNodes}
+
+                                 <li className="no-show"> &nbsp; &nbsp; </li>
+
                             </ul>
-                
+
                         </div>
 
                     </header>
 
                     <div className="clearfix"></div>
-                    
+
                     <div className="col-lg-12">
                         <hr className='mute' />
-                    </div> 
+                    </div>
 
             </span>
 
             );
-        
+
     }
 });

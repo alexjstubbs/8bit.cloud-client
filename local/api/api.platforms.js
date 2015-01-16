@@ -1,13 +1,14 @@
 /* List Roms by System
 -------------------------------------------------- */
-var fs          = require('fs-extra')
-,   path        = require('path')
-,   _           = require('lodash')
+var fs              = require('fs-extra')
+,   path            = require('path')
+,   _               = require('lodash')
 ,   platforms;
+
 
 /*  List Platforms / Software
 -------------------------------------------------- */
-function listPlatforms(nsp) {
+function listPlatforms(nsp, callback) {
 
     fs.readJson(appDir+'/config/platforms.json', function(err, packageObj) {
 
@@ -28,8 +29,13 @@ function listPlatforms(nsp) {
                         });
                     });
 
-                nsp.emit('api', {platforms: listObj});
+                if (nsp) {
+                    nsp.emit('api', {platforms: listObj});
+                }
 
+                if (callback) {
+                    callback(platforms);
+                }
             }
 
             else {

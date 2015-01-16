@@ -78,10 +78,7 @@ module.exports = function(init) {
         Mousetrap.bind('enter', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
-            console.log("hit: "+pauseNavigation)
             if (pauseNavigation != "pauseEnter" && pauseNavigation != "pauseAll") {
-
-                console.log(pauseNavigation);
 
                 navigate("enter");
             }

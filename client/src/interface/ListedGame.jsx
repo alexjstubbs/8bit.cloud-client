@@ -4,21 +4,21 @@
 
 'use strict';
 
-var React = require('react/addons'),
-    _ = require('lodash');
-
+var React = require('react/addons')
+,   _     = require('lodash');
 
 module.exports = React.createClass({
+
     getDefaultProps: function() {
-    return {
-            navable: false,
-            subNavable: true,
-            navStack: 1,
-            functionCall: "largeProfile",
-            functionParams: null,
-            game: null,
-            alpha: "."
-        }
+        return {
+                navable: false,
+                subNavable: true,
+                navStack: 1,
+                functionCall: "largeProfile",
+                functionParams: null,
+                game: null,
+                alpha: "."
+            }
     },
 
     render: function() {
