@@ -40,8 +40,10 @@ function toCap(str) {
 -------------------------------------------------- */
 function gameLaunch(nsp, payload) {
 
+    // Possible User Config File String
     var pFile = appDir+"/config/platforms/commandline/user/"+payload.shortname+".json";
 
+    // User Has Specific Config
     if (fs.existsSync(pFile)) {
 
         readJSON(null, pFile, function(err, results) {
@@ -50,6 +52,7 @@ function gameLaunch(nsp, payload) {
 
     }
 
+    // No User Config, Use Default Config
     else {
 
         listPlatforms(null, function(listobj) {
@@ -58,35 +61,45 @@ function gameLaunch(nsp, payload) {
 
             readJSON(null, appDir+"/config/platforms/commandline/"+platform.emulators[0]+".json", function(err, results) {
 
-                // Retroarch
+                // Path to executable
+                var expath = results.path;
+
+                // Retroarch is the selected emulator
                 if (results.cores) {
-                    console.log("wel");
-                        console.log(results.cores[payload.shortname]);
+
+                    var core = results.platforms[payload.shortname].cores[0];
+                        core = "-L " + results.cores[core];
+
                 }
 
-                // Standalone
+                // A Standalone emulator is first
                 else {
-                    console.log("no cores");
+                    core = '';
                 }
+
+                var commandline = expath + ' ' +  core + ' ' + '"'+payload.filepath+'"';
+
+                console.log("command: "+commandline);
+                
+                // Launch Emulator
+                execute(commandline, function(error, stderr, stdout) {
+
+                    if (stderr) {
+                        nsp.emit('messaging', {type: 0, body: stderr });
+                    }
+
+                    nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+
+                });
+
             })
 
         })
 
     }
 
-    // listPlatforms(null, function(listobj) {
-    //     var listobj[payload.platform]
-    // })
 
-    //     execute('/opt/emulators/RetroArch/retroarch -L "/opt/emulatorcores/pocketsnes-libretro/libretro.so" "/root/roms/snes/Street Fighter 2 Turbo.zip"', function(error, stderr, stdout) {
-    //
-    //         if (stderr) {
-    //             nsp.emit('messaging', {type: 0, body: stderr });
-    //         }
-    //
-    //         nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
-    //
-    // });
+
 
 
 }

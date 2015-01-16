@@ -1,76 +1,76 @@
 {
     "package": "retroarch",
     "path": "/opt/emulators/RetroArch/retroarch",
-    "platforms": [
-        {
+    "platforms": {
+        "arcade": {
             "title": "arcade",
             "cores": [
                 "FB Alpha"
             ]
         },
-        {
+        "atari-2600": {
             "title": "atari-2600",
             "cores": [
                 "Stella"
             ]
         },
-        {
+        "nes": {
             "title": "nes",
             "cores": [
                 "FCEUMM"
             ]
         },
-        {
+        "snes": {
             "title": "snes",
             "cores": [
                 "Pocket SNES"
             ]
         },
-        {
+        "gbc": {
             "title": "gbc",
             "cores": [
                 "Gambatte"
             ]
         },
-        {
+        "genesis": {
             "title": "genesis",
             "cores": [
                 "Genesis Plus GX"
             ]
         },
-        {
+        "sms": {
             "title": "sms",
             "cores": [
                 "Genesis Plus GX",
                 "Picodrive"
             ]
         },
-        {
+        "doom": {
             "title": "doom",
             "cores": [
                 "PRBoom"
             ]
         },
-        {
+        "pce": {
             "title": "pce",
             "cores": [
                 "Mednafen PCE",
                 "Mednafen PCE Fast"
             ]
         },
-        {
+        "psx": {
             "title": "psx",
             "cores": [
                 "PCSX"
             ]
         },
-        {
+        "cave": {
             "title": "cave",
             "cores": [
                 "NXengine"
             ]
         }
-    ],
+    },
     "cores": {
         "FB Alpha": "/opt/emulatorcores/fba-libretro/fb_alpha_libretro.so",
         "FCEUMM": "/opt/emulatorcores/fceu-next/fceu-next/fceumm-code/fceumm_libretro.so",
