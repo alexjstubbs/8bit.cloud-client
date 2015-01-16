@@ -12,10 +12,7 @@ var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   SaveStates      = require('./SaveStates.jsx')
 ,   AchievementList = require('./AchievementList.jsx')
-,   launchContext   = {
-        filepath: null,
-        platform: null
-};
+,   launchContext   = {};
 
 module.exports = React.createClass({
 
@@ -54,6 +51,7 @@ module.exports = React.createClass({
             launchContext = JSON.stringify(e.detail);
             component.forceUpdate();
         });
+
 
         api.on('api', this.setState.bind(this));
 
@@ -109,7 +107,7 @@ module.exports = React.createClass({
             <a id="play-game" className='btn-alt btn-lg navable' data-function="launchGame" data-parameters={launchContext}>Play Game</a>
             &nbsp;
             <a className='btn-alt btn-lg navable'>Multiplayer</a>
-            <a className='btn-alt btn-lg navable' data-function='softwareOptions' data-parameters='retroarch'><i className="ion-gear-a"></i></a>
+            <a className='btn-alt btn-lg navable' data-function='softwareOptions' data-parameters={launchContext}><i className="ion-gear-a"></i></a>
 
          </div>
 

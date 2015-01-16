@@ -36,9 +36,10 @@ function toCap(str) {
     });
 }
 
-/* Launch Game/Emulator
+
+/*  Get Commandline Options
 -------------------------------------------------- */
-function gameLaunch(nsp, payload) {
+function getCommandlineConfig(nsp, payload, callback) {
 
     // Possible User Config File String
     var pFile = appDir+"/config/platforms/commandline/user/"+payload.shortname+".json";
@@ -47,8 +48,16 @@ function gameLaunch(nsp, payload) {
     if (fs.existsSync(pFile)) {
 
         readJSON(null, pFile, function(err, results) {
-            console.log(results);
-        })
+
+            if (nsp) {
+                nsp.emit('api', {commandlineConfig: results});
+            }
+
+            if (callback) {
+                callback(null, results);
+            }
+
+        });
 
     }
 
@@ -61,46 +70,61 @@ function gameLaunch(nsp, payload) {
 
             readJSON(null, appDir+"/config/platforms/commandline/"+platform.emulators[0]+".json", function(err, results) {
 
-                // Path to executable
-                var expath = results.path;
 
-                // Retroarch is the selected emulator
-                if (results.cores) {
+                if (nsp) {
+                    nsp.emit('api', {commandlineConfig: results});
+                };
 
-                    var core = results.platforms[payload.shortname].cores[0];
-                        core = "-L " + results.cores[core].path;
-
-                }
-
-                // A Standalone emulator is first
-                else {
-                    core = '';
-                }
-
-                var commandline = expath + ' ' +  core + ' ' + '"'+payload.filepath+'"';
-
-                console.log("command: "+commandline);
-
-                // Launch Emulator
-                execute(commandline, function(error, stderr, stdout) {
-
-                    if (stderr) {
-                        nsp.emit('messaging', {type: 0, body: stderr });
-                    }
-
-                    nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
-
-                });
+                if (callback) {
+                    callback(null, results);
+                };
 
             })
 
         })
-
     }
 
+}
 
 
+/* Launch Game/Emulator
+-------------------------------------------------- */
+function gameLaunch(nsp, payload) {
 
+    getCommandlineConfig(null, payload, function(results) {
+
+        // Path to executable
+        var expath = results.path;
+
+        // Retroarch is the selected emulator
+        if (results.cores) {
+
+            var core = results.platforms[payload.shortname].cores[0];
+                core = "-L " + results.cores[core].path;
+
+        }
+
+        // A Standalone emulator is first
+        else {
+            core = '';
+        }
+
+        var commandline = expath + ' ' +  core + ' ' + '"'+payload.filepath+'"';
+
+        console.log("command: "+commandline);
+
+        // Launch Emulator
+        execute(commandline, function(error, stderr, stdout) {
+
+            if (stderr) {
+                nsp.emit('messaging', {type: 0, body: stderr });
+            }
+
+            nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+
+        });
+
+    });
 
 }
 
@@ -255,8 +279,8 @@ function gameProfileLarge(req, res, callback) {
 
 /* Exports
 -------------------------------------------------- */
-
-exports.apicall = apicall;
-exports.gameLaunch = gameLaunch;
-exports.gameProfileSmall = gameProfileSmall;
-exports.gameProfileLarge = gameProfileLarge;
+exports.apicall                 = apicall;
+exports.gameLaunch              = gameLaunch;
+exports.gameProfileSmall        = gameProfileSmall;
+exports.gameProfileLarge        = gameProfileLarge;
+exports.getCommandlineConfig    = getCommandlineConfig;

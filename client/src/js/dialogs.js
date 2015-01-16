@@ -135,7 +135,7 @@ var show = function(parent, parameters, arg) {
             break;
         case "SoftwareOptions":
             properties = {backdrop: true};
-            Child = SoftwareOptions({software: parameters});
+            Child = SoftwareOptions({payload: parameters });
             break;
         case "Messages":
             Child = Messages({});

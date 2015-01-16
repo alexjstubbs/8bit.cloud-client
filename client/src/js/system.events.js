@@ -380,7 +380,7 @@ var events = {
 			navigationBindings("deinit");
 
 			document.removeEventListener("keydown", function(e) {
-				console.log("removed event listener...");
+				return;
 			});
 
 			var _doc = document.getElementById("main");
@@ -388,22 +388,19 @@ var events = {
 			document.body.style.background = "transparent";
 			_doc.style.display = "none";
 
-			setTimeout(function() {
-
-				dialog.uiNotification();
-
-				setTimeout(function() {
-					dialog.close(null, null, "uiNotification");
-				}, 4500);
-
-			}, 60000);
+			// setTimeout(function() {
+			//
+			// 	dialog.uiNotification();
+			//
+			// 	setTimeout(function() {
+			// 		dialog.close(null, null, "uiNotification");
+			// 	}, 4500);
+			//
+			// }, 60000);
 
 			api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
 		}
 
-		else {
-			console.log("slowdown");
-		}
     },
 
 	/* See game Profile
@@ -440,7 +437,9 @@ var events = {
 
 	softwareOptions: function(parameters) {
 
-		dialog.show("SoftwareOptions", parameters);
+		var options = JSON.parse(parameters);
+
+		dialog.show("SoftwareOptions", options);
 
 	},
 

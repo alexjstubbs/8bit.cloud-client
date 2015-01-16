@@ -7,6 +7,10 @@ var api = {
         common.game.gameLaunch(nsp, param);
     },
 
+    getCommandlineConfig: function(nsp, payload) {
+        common.game.getCommandlineConfig(nsp, payload, null);
+    },
+
     gamesList: function(nsp, param){
         common.listroms.listRoms(nsp, param);
     },
@@ -143,6 +147,7 @@ var api = {
     sessionProfile: function(nsp) {
          common.profiles.getSession(nsp);
     },
+
 
 
 }
