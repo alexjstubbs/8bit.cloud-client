@@ -72,18 +72,47 @@
         }
     },
     "cores": {
-        "FB Alpha": "/opt/emulatorcores/fba-libretro/fb_alpha_libretro.so",
-        "FCEUMM": "/opt/emulatorcores/fceu-next/fceu-next/fceumm-code/fceumm_libretro.so",
-        "Pocket SNES": "/opt/emulatorcores/pocketsnes-libretro/libretro.so",
-        "Gambatte": "/opt/emulatorcores/gambatte-libretro/libgambatte/gambatte_libretro.so",
-        "Genesis Plus GX": "/opt/emulatorcores/Genesis-Plus-GX/genesis_plus_gx_libretro.so",
-        "PRBoom": "/opt/emulatorcores/libretro-prboom/prboom_libretro.so",
-        "Mednafen PCE": "/opt/emulatorcores/mednafen-pce-libretro/libretro.so",
-        "Mednafen PCE Fast": "/opt/emulatorcores/mednafenpcefast/mednafen_pce_fast_libretro.so",
-        "NXengine": "/opt/emulatorcores/nxengine-libretro/nxengine-libretro.so",
-        "PCSX Rearmed": "/opt/emulatorcores/pcsx_rearmed/libretro.so",
-        "Picodrive": "/opt/emulatorcores/picodrive/picodrive_libretro.so",
-        "Stella": "/opt/emulatorcores/stella-libretro/stella_libretro.so"
+        "FB Alpha": {
+            "path": "/opt/emulatorcores/fba-libretro/fb_alpha_libretro.so"
+        },
+        "FCEUMM": {
+            "path": "/opt/emulatorcores/fceu-next/fceu-next/fceumm-code/fceumm_libretro.so",
+            "achievements": {
+                "offset": "0x54",
+                "buffer_length": "4390",
+                "default_timing": 1000
+            }
+        },
+        "Pocket SNES": {
+            "path": "/opt/emulatorcores/pocketsnes-libretro/libretro.so"
+        },
+        "Gambatte": {
+            "path": "/opt/emulatorcores/gambatte-libretro/libgambatte/gambatte_libretro.so"
+        },
+        "Genesis Plus GX": {
+            "path": "/opt/emulatorcores/Genesis-Plus-GX/genesis_plus_gx_libretro.so"
+        },
+        "PRBoom": {
+            "path": "/opt/emulatorcores/libretro-prboom/prboom_libretro.so"
+        },
+        "Mednafen PCE": {
+            "path": "/opt/emulatorcores/mednafen-pce-libretro/libretro.so"
+        },
+        "Mednafen PCE Fast": {
+            "path": "/opt/emulatorcores/mednafenpcefast/mednafen_pce_fast_libretro.so"
+        },
+        "NXengine": {
+            "path": "/opt/emulatorcores/nxengine-libretro/nxengine-libretro.so"
+        },
+        "PCSX Rearmed": {
+            "path": "/opt/emulatorcores/pcsx_rearmed/libretro.so"
+        },
+        "Picodrive": {
+            "path": "/opt/emulatorcores/picodrive/picodrive_libretro.so"
+        },
+        "Stella": {
+            "path": "/opt/emulatorcores/stella-libretro/stella_libretro.so"
+        }
     },
     "option_index": 1,
     "suppliment": {

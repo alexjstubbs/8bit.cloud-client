@@ -339,8 +339,8 @@ module.exports = React.createClass({
 
         var navable;
 
-        if (Object.keys(this.state[this.props.software].arguements).length >= 6) {
-            navable = "messages-list";
+        if (Object.keys(this.state[this.props.software].arguements).length >= 5) {
+            navable = "messages-list messages-list-small";
         };
 
         var idPre = this.props.software;
@@ -354,6 +354,30 @@ module.exports = React.createClass({
         return (
 
             <div className="parent">
+
+                <div className="container-fluid">
+
+                    <h3 className="no-padding"> &nbsp; <i className="ion-gear-a"></i> &nbsp; Advanced Configuration Options</h3>
+
+                <hr />
+
+                <div className="col-xs-10">
+
+                    <span className="navable label label-selected" data-function="selectBox">FCEUMM</span>
+                        &nbsp; &nbsp;
+                    <span className="navable label label-unselected" data-function="selectBox">FCE-Ultra</span>
+
+                </div>
+
+                <div className="col-xs-1">
+                    <span className="navable label label-selected" data-function="selectBox">Achievements</span>
+                </div>
+
+                <div className="clearfix"></div>
+
+                <hr />
+
+                </div>
 
                 <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
 

@@ -45,7 +45,6 @@ function initDatabases(callback) {
 /* Compact Database
 -------------------------------------------------- */
 function compactDatabase(database, callback) {
-    console.log("COMPACT: "+database);
     db[database].persistence.compactDatafile();
 
     if (callback) {

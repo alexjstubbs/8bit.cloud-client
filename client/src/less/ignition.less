@@ -311,9 +311,12 @@ form i.navable {
     padding:5px 10px;
 }
 
-.label-unselected {
+form .label-unselected {
     position:relative;
     top:20px;
+}
+
+.label-unselected {
     border-radius:0;
     background:@gray-dark;
     padding:5px 10px;
@@ -321,6 +324,7 @@ form i.navable {
 }
 
 .label-selected {
+    border-radius:0;
     background:@red;
     opacity:1.0;
 }
@@ -2078,6 +2082,12 @@ p.game_deck {
     padding:0 10px;
     overflow-y:auto;
     max-height:60vh;
+}
+
+.messages-list-small {
+    padding:0 10px;
+    overflow-y:auto;
+    max-height:30vh;
 }
 
 .message-unread {

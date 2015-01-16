@@ -68,7 +68,7 @@ function gameLaunch(nsp, payload) {
                 if (results.cores) {
 
                     var core = results.platforms[payload.shortname].cores[0];
-                        core = "-L " + results.cores[core];
+                        core = "-L " + results.cores[core].path;
 
                 }
 
@@ -80,7 +80,7 @@ function gameLaunch(nsp, payload) {
                 var commandline = expath + ' ' +  core + ' ' + '"'+payload.filepath+'"';
 
                 console.log("command: "+commandline);
-                
+
                 // Launch Emulator
                 execute(commandline, function(error, stderr, stdout) {
 

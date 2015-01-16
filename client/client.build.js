@@ -5353,8 +5353,8 @@ module.exports = React.createClass({displayName: 'exports',
 
         var navable;
 
-        if (Object.keys(this.state[this.props.software].arguements).length >= 6) {
-            navable = "messages-list";
+        if (Object.keys(this.state[this.props.software].arguements).length >= 5) {
+            navable = "messages-list messages-list-small";
         };
 
         var idPre = this.props.software;
@@ -5368,6 +5368,30 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
             React.DOM.div({className: "parent"}, 
+
+                React.DOM.div({className: "container-fluid"}, 
+
+                    React.DOM.h3({className: "no-padding"}, "   ", React.DOM.i({className: "ion-gear-a"}), "   Advanced Configuration Options"), 
+
+                React.DOM.hr(null), 
+
+                React.DOM.div({className: "col-xs-10"}, 
+
+                    React.DOM.span({className: "navable label label-selected", 'data-function': "selectBox"}, "FCEUMM"), 
+                        "   ", 
+                    React.DOM.span({className: "navable label label-unselected", 'data-function': "selectBox"}, "FCE-Ultra")
+
+                ), 
+
+                React.DOM.div({className: "col-xs-1"}, 
+                    React.DOM.span({className: "navable label label-selected", 'data-function': "selectBox"}, "Achievements")
+                ), 
+
+                React.DOM.div({className: "clearfix"}), 
+
+                React.DOM.hr(null)
+
+                ), 
 
                 React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
