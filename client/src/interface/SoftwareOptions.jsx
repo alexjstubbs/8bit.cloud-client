@@ -73,8 +73,8 @@ module.exports = React.createClass({
             optionNodes = _.map(state.commandlineConfig.arguements, function(opt, i) {
 
 
-                if (!opt.default) {
-                    opt.default = null;
+                if (!opt.defaults) {
+                    opt.defaults = null;
                 }
 
                 if (!opt.ticked) {
@@ -83,14 +83,16 @@ module.exports = React.createClass({
 
                 else {
 
-                    if (opt.default === true) {
-                        opt.default = null;
+
+                    if (opt.defaults === true) {
+                        opt.defaults = null;
                     }
 
                     selected = true;
+
                 }
 
-                return <OptionNode selected={selected} id={idPre+i} arg={opt.arg} desc={opt.desc} default={opt.default} subfield={opt.subfield} require={opt.required} />
+                return <OptionNode selected={selected} id={idPre+i} arg={opt.arg} desc={opt.desc} defaults={opt.defaults} subfield={opt.subfield} require={opt.required} />
 
             });
 

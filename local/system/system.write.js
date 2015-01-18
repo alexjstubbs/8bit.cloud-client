@@ -216,13 +216,13 @@ var writeAdvancedConfig = function(nsp, data, callback) {
                 delete data.selectList;
 
                 _.forIn(data, function(value, key) {
-                    results.arguements[key].default = value;
+                    console.log(value);
+                    results.arguements[key].defaults = value;
                 });
 
                 var a = 0;
                 _.forIn(results.arguements, function(value, key){
                     results.arguements[key].ticked = selectList[a];
-                    console.log(selectList[a]);
                     a++;
                 });
 

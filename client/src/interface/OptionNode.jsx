@@ -5,7 +5,7 @@
 var React            = require('react/addons')
 ,   navigationInit   = require('../js/navigation.init')
 ,   subfield
-,   defaults;
+,   _default;
 
 module.exports = React.createClass({
 
@@ -15,7 +15,7 @@ module.exports = React.createClass({
             id: null,
             arg: null,
             desc: null,
-            default: null,
+            defaults: null,
             require: false
 
         }
@@ -40,8 +40,8 @@ module.exports = React.createClass({
 
     render: function() {
 
-        if (defaults != 'true') {
-            defaults = this.props.default;
+        if (_default != 'true') {
+            _default = this.props.defaults;
         }
 
         var classname;
@@ -65,7 +65,7 @@ module.exports = React.createClass({
                 </span>
 
                 <span className="col-xs-10 scroll-into-view">
-                    <input id={"input-"+this.props.id} className="form-control input-lg navable" type="text" data-function="inputFocus" name={this.props.arg} value={defaults} />
+                    <input id={"input-"+this.props.id} className="form-control input-lg navable" type="text" data-function="inputFocus" name={this.props.arg} value={_default} />
                 </span>
 
             </div>

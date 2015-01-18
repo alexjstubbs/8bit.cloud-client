@@ -4294,7 +4294,7 @@ module.exports = React.createClass({displayName: 'exports',
 var React            = require('react/addons')
 ,   navigationInit   = require('../js/navigation.init')
 ,   subfield
-,   defaults;
+,   _default;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -4304,7 +4304,7 @@ module.exports = React.createClass({displayName: 'exports',
             id: null,
             arg: null,
             desc: null,
-            default: null,
+            defaults: null,
             require: false
 
         }
@@ -4329,8 +4329,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        if (defaults != 'true') {
-            defaults = this.props.default;
+        if (_default != 'true') {
+            _default = this.props.defaults;
         }
 
         var classname;
@@ -4354,7 +4354,7 @@ module.exports = React.createClass({displayName: 'exports',
                 ), 
 
                 React.DOM.span({className: "col-xs-10 scroll-into-view"}, 
-                    React.DOM.input({id: "input-"+this.props.id, className: "form-control input-lg navable", type: "text", 'data-function': "inputFocus", name: this.props.arg, value: defaults})
+                    React.DOM.input({id: "input-"+this.props.id, className: "form-control input-lg navable", type: "text", 'data-function': "inputFocus", name: this.props.arg, value: _default})
                 )
 
             )
@@ -5113,8 +5113,8 @@ module.exports = React.createClass({displayName: 'exports',
             optionNodes = _.map(state.commandlineConfig.arguements, function(opt, i) {
 
 
-                if (!opt.default) {
-                    opt.default = null;
+                if (!opt.defaults) {
+                    opt.defaults = null;
                 }
 
                 if (!opt.ticked) {
@@ -5123,14 +5123,16 @@ module.exports = React.createClass({displayName: 'exports',
 
                 else {
 
-                    if (opt.default === true) {
-                        opt.default = null;
+
+                    if (opt.defaults === true) {
+                        opt.defaults = null;
                     }
 
                     selected = true;
+
                 }
 
-                return OptionNode({selected: selected, id: idPre+i, arg: opt.arg, desc: opt.desc, default: opt.default, subfield: opt.subfield, require: opt.required})
+                return OptionNode({selected: selected, id: idPre+i, arg: opt.arg, desc: opt.desc, defaults: opt.defaults, subfield: opt.subfield, require: opt.required})
 
             });
 
