@@ -11,6 +11,10 @@ var api = {
         common.game.getCommandlineConfig(nsp, payload, null);
     },
 
+    writeAdvancedConfig: function(nsp, payload) {
+        common.systemWrite.writeAdvancedConfig(nsp, payload, null);
+    },
+
     gamesList: function(nsp, param){
         common.listroms.listRoms(nsp, param);
     },

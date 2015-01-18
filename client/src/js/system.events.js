@@ -191,6 +191,23 @@ var events = {
 	    }
     },
 
+	/* Submit form on Action button/keypress
+	-------------------------------------------------- */
+	writeAdvancedConfig: function(parameters) {
+
+		var form = document.forms[parameters].elements,
+			formObj = {};
+
+		_.each(form, function(input) {
+			if (input.name && input.value) {
+				formObj[input.name] = input.value;
+			}
+		});
+
+		api.emit('request', { request: 'writeAdvancedConfig', param: formObj});
+
+	},
+
     /* Load Dashboard
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {

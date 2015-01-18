@@ -4312,15 +4312,17 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
+        component = this;
 
         if (!this.props.subfield) {
 
             document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
-            document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault"); 
+            document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault");
 
             if (this.props.selected) {
 
                 defaults = "true";
+                component.forceUpdate();
 
             }
         }
@@ -4331,18 +4333,17 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        defaults = this.props.default;
+        console.log(defaults);
+
+        if (defaults != 'true') {
+            defaults = this.props.default;
+        }
 
         var classname;
 
         if (this.props.require || this.props.selected) {
             classname = "label-selected required";
         }
-
-        // if (this.props.subfield === true) {
-        //     subfield = <span className="col-xs-10 scroll-into-view"> <input id={"input-"+this.props.id} className="form-control input-lg navable" type="text" data-function="inputFocus" name={this.props.arg} value={this.props.default} /></span>
-        // }
-
 
         return (
 
@@ -5052,6 +5053,7 @@ var React           = require('react/addons')
 ,   navable
 ,   optionNodes
 ,   selected
+,   _package
 ,   launchContext   = {};
 
 module.exports = React.createClass({displayName: 'exports',
@@ -5065,14 +5067,14 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
         return {
-            software: "retroarch",
-            form: 'retro',
+            software: null,
+            form: 'advancedOptions',
             server: false,
+            path: '/config/platforms/commandline/user',
             ensureExists: true,
             backdrop: true,
             server: "false",
-            classList: 'col-xs-12',
-            platform: null
+            classList: 'col-xs-12'
         }
     },
 
@@ -5146,6 +5148,10 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        if (this.state.commandlineConfig) {
+            _package = this.state.commandlineConfig.package;
+        }
+
         return (
 
             React.DOM.div({className: "parent"}, 
@@ -5188,11 +5194,14 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.hr(null), 
 
                     React.DOM.button({className: "pull-left btn btn-alt btn-alt-size navable", 'data-function': "closeDialog"}, React.DOM.i({className: "ion-close"}), "   Cancel"), 
-                    React.DOM.button({className: "pull-right btn btn-alt btn-alt-size navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes"), 
+                    React.DOM.button({className: "pull-right btn btn-alt btn-alt-size navable", 'data-function': "writeAdvancedConfig", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes"), 
 
                     React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
-                    React.DOM.input({type: "hidden", name: "filename", value: "test2.json"}), 
+                    React.DOM.input({type: "hidden", name: "package", value: _package}), 
+                    React.DOM.input({type: "hidden", name: "path", value: this.props.path}), 
+                    React.DOM.input({type: "hidden", name: "filename", value: this.props.payload.shortname + ".json"}), 
                     React.DOM.input({type: "hidden", name: "ensureExists", value: this.props.ensureExists})
+
 
                 )
 
@@ -7405,7 +7414,6 @@ var launchContext = function(context) {
 -------------------------------------------------- */
 var selectBox = function(el, selected) {
 
-    console.log("e")
     var event = new CustomEvent('selectBox', {
         'detail':{
             el: el,
@@ -9559,6 +9567,23 @@ var events = {
 
 	    }
     },
+
+	/* Submit form on Action button/keypress
+	-------------------------------------------------- */
+	writeAdvancedConfig: function(parameters) {
+
+		var form = document.forms[parameters].elements,
+			formObj = {};
+
+		_.each(form, function(input) {
+			if (input.name && input.value) {
+				formObj[input.name] = input.value;
+			}
+		});
+
+		api.emit('request', { request: 'writeAdvancedConfig', param: formObj});
+
+	},
 
     /* Load Dashboard
     -------------------------------------------------- */

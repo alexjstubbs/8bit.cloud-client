@@ -23,15 +23,17 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
+        component = this;
 
         if (!this.props.subfield) {
 
             document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
-            document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault"); 
+            document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault");
 
             if (this.props.selected) {
 
                 defaults = "true";
+                component.forceUpdate();
 
             }
         }
@@ -42,18 +44,17 @@ module.exports = React.createClass({
 
     render: function() {
 
-        defaults = this.props.default;
+        console.log(defaults);
+
+        if (defaults != 'true') {
+            defaults = this.props.default;
+        }
 
         var classname;
 
         if (this.props.require || this.props.selected) {
             classname = "label-selected required";
         }
-
-        // if (this.props.subfield === true) {
-        //     subfield = <span className="col-xs-10 scroll-into-view"> <input id={"input-"+this.props.id} className="form-control input-lg navable" type="text" data-function="inputFocus" name={this.props.arg} value={this.props.default} /></span>
-        // }
-
 
         return (
 

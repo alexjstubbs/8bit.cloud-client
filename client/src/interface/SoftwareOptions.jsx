@@ -10,6 +10,7 @@ var React           = require('react/addons')
 ,   navable
 ,   optionNodes
 ,   selected
+,   _package
 ,   launchContext   = {};
 
 module.exports = React.createClass({
@@ -23,14 +24,14 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
         return {
-            software: "retroarch",
-            form: 'retro',
+            software: null,
+            form: 'advancedOptions',
             server: false,
+            path: '/config/platforms/commandline/user',
             ensureExists: true,
             backdrop: true,
             server: "false",
-            classList: 'col-xs-12',
-            platform: null
+            classList: 'col-xs-12'
         }
     },
 
@@ -104,6 +105,10 @@ module.exports = React.createClass({
 
     render: function() {
 
+        if (this.state.commandlineConfig) {
+            _package = this.state.commandlineConfig.package;
+        }
+
         return (
 
             <div className="parent">
@@ -146,11 +151,14 @@ module.exports = React.createClass({
                     <hr />
 
                     <button className="pull-left btn btn-alt btn-alt-size navable" data-function="closeDialog"><i className='ion-close'></i> &nbsp; Cancel</button>
-                    <button className="pull-right btn btn-alt btn-alt-size navable" data-function='submitForm' data-parameters={this.props.form}><i className='ion-checkmark'></i> &nbsp; Save Changes</button>
+                    <button className="pull-right btn btn-alt btn-alt-size navable" data-function='writeAdvancedConfig' data-parameters={this.props.form}><i className='ion-checkmark'></i> &nbsp; Save Changes</button>
 
                     <input type="hidden" name="server" value={this.props.server} />
-                    <input type="hidden" name="filename" value="test2.json" />
+                    <input type="hidden" name="package" value={_package} />
+                    <input type="hidden" name="path" value={this.props.path} />
+                    <input type="hidden" name="filename" value={this.props.payload.shortname + ".json"} />
                     <input type="hidden" name="ensureExists" value={this.props.ensureExists} />
+
 
                 </form>
 

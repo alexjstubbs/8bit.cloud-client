@@ -138,7 +138,6 @@ var launchContext = function(context) {
 -------------------------------------------------- */
 var selectBox = function(el, selected) {
 
-    console.log("e")
     var event = new CustomEvent('selectBox', {
         'detail':{
             el: el,
