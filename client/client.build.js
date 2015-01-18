@@ -5083,10 +5083,10 @@ module.exports = React.createClass({displayName: 'exports',
 
         api.on('api', this.setState.bind(this));
 
+
     },
 
     componentWillUpdate: function(props, state) {
-
 
         document.addEventListener('selectBox', function eventHandler(e) {
 
@@ -5156,8 +5156,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         if (this.state.softwareChoices) {
             var softwareChoices = this.state.softwareChoices.map(function (choice, i) {
-                return React.DOM.span({className: "navable label label-unselected right-20", 'data-function': "selectBox"}, choice)
-
+                return React.DOM.span({id: "_id"+choice, className: choice === _package ? "label-selected navable label right-20" : " label-unselected navable label right-20", 'data-function': "choiceBox", 'data-parameters': "_id"+choice}, choice)
             });
         }
 
@@ -5173,7 +5172,9 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.div({className: "col-xs-10"}, 
 
-                    softwareChoices
+                    React.DOM.fieldset(null, 
+                        softwareChoices
+                    )
 
                 ), 
 
@@ -9867,7 +9868,7 @@ var events = {
 	},
 
 	softwareOptions: function(parameters) {
-		
+
 		var options = JSON.parse(parameters);
 
 		dialog.show("SoftwareOptions", options);
@@ -9881,14 +9882,27 @@ var events = {
 
 		if (!doc.classList.contains("required")) {
 			doc.classList.toggle("label-selected");
-			input.classList.toggle("disabled");
+			if (input) { input.classList.toggle("disabled") };
 		}
 
 		eventDispatcher.selectBox(input, doc.classList.contains("label-selected"));
 
 	},
 
+	choiceBox: function(parameters) {
 
+		var doc = document.getElementById(parameters),
+			parent = doc.parentNode;
+
+			_.each(parent.childNodes, function(el) {
+				el.classList.remove("label-selected");
+			})
+
+			doc.classList.add("label-selected");
+
+			api.emit('request', { request: 'getSpecificCommandLineConfig', param: doc.innerHTML });
+
+	},
 
 }
 

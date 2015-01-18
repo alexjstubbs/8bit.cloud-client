@@ -7,6 +7,10 @@ var api = {
         common.game.gameLaunch(nsp, param);
     },
 
+    getSpecificCommandLineConfig: function(nsp, software) {
+        common.game.getSpecificCommandLineConfig(nsp, software, null);
+    },
+
     getCommandlineConfig: function(nsp, payload) {
         common.game.getCommandlineConfig(nsp, payload, null);
     },

@@ -36,8 +36,33 @@ function toCap(str) {
     });
 }
 
+/*  Get Specific Commandline Config
+-------------------------------------------------- */
+function getSpecificCommandLineConfig(nsp, software, callback) {
 
-/*  Get Commandline Options
+    readJSON(null, appDir+"/config/platforms/commandline/"+software+".json", function(err, results) {
+
+        if (err) {
+            console.log(err);
+        }
+
+        else {
+
+            if (nsp) {
+                nsp.emit('api', {commandlineConfig: results});
+            };
+
+            if (callback) {
+                callback(null, results);
+            };
+        }
+
+    })
+
+};
+
+
+/*  Get Default Commandline Options
 -------------------------------------------------- */
 function getCommandlineConfig(nsp, payload, callback) {
 
@@ -82,7 +107,7 @@ function getCommandlineConfig(nsp, payload, callback) {
 
             })
 
-        })
+        });
     }
 
 }
@@ -290,8 +315,9 @@ function gameProfileLarge(req, res, callback) {
 
 /* Exports
 -------------------------------------------------- */
-exports.apicall                 = apicall;
-exports.gameLaunch              = gameLaunch;
-exports.gameProfileSmall        = gameProfileSmall;
-exports.gameProfileLarge        = gameProfileLarge;
-exports.getCommandlineConfig    = getCommandlineConfig;
+exports.apicall                         = apicall;
+exports.gameLaunch                      = gameLaunch;
+exports.gameProfileSmall                = gameProfileSmall;
+exports.gameProfileLarge                = gameProfileLarge;
+exports.getCommandlineConfig            = getCommandlineConfig;
+exports.getSpecificCommandLineConfig    = getSpecificCommandLineConfig;

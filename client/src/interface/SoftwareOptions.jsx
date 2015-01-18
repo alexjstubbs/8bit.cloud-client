@@ -43,10 +43,10 @@ module.exports = React.createClass({
 
         api.on('api', this.setState.bind(this));
 
+
     },
 
     componentWillUpdate: function(props, state) {
-
 
         document.addEventListener('selectBox', function eventHandler(e) {
 
@@ -116,8 +116,7 @@ module.exports = React.createClass({
 
         if (this.state.softwareChoices) {
             var softwareChoices = this.state.softwareChoices.map(function (choice, i) {
-                return <span className="navable label label-unselected right-20" data-function="selectBox">{choice}</span>
-
+                return <span id={"_id"+choice} className={choice === _package ? "label-selected navable label right-20" : " label-unselected navable label right-20"} data-function="choiceBox" data-parameters={"_id"+choice}>{choice}</span>
             });
         }
 
@@ -133,7 +132,9 @@ module.exports = React.createClass({
 
                 <div className="col-xs-10">
 
-                    {softwareChoices}
+                    <fieldset>
+                        {softwareChoices}
+                    </fieldset>
 
                 </div>
 

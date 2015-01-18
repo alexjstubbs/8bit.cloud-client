@@ -482,7 +482,7 @@ var events = {
 	},
 
 	softwareOptions: function(parameters) {
-		
+
 		var options = JSON.parse(parameters);
 
 		dialog.show("SoftwareOptions", options);
@@ -496,14 +496,27 @@ var events = {
 
 		if (!doc.classList.contains("required")) {
 			doc.classList.toggle("label-selected");
-			input.classList.toggle("disabled");
+			if (input) { input.classList.toggle("disabled") };
 		}
 
 		eventDispatcher.selectBox(input, doc.classList.contains("label-selected"));
 
 	},
 
+	choiceBox: function(parameters) {
 
+		var doc = document.getElementById(parameters),
+			parent = doc.parentNode;
+
+			_.each(parent.childNodes, function(el) {
+				el.classList.remove("label-selected");
+			})
+
+			doc.classList.add("label-selected");
+
+			api.emit('request', { request: 'getSpecificCommandLineConfig', param: doc.innerHTML });
+
+	},
 
 }
 
