@@ -74,10 +74,11 @@ module.exports = React.createClass({
 
 
                 if (!opt.default) {
-
                     opt.default = null;
-                    selected = false;
+                }
 
+                if (!opt.ticked) {
+                    selected = false;
                 }
 
                 else {

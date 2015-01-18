@@ -1,6 +1,6 @@
 {
     "package": "retroarch",
-    "path": "/opt/emulators/RetroArch/retroarch",
+    "expath": "/opt/emulators/RetroArch/retroarch",
     "platforms": {
         "arcade": {
             "title": "arcade",
@@ -126,126 +126,144 @@
             "desc": "Path for config file. By default looks for config in $XDG_CONFIG_HOME/retroarch/retroarch.cfg, $HOME/.config/retroarch/retroarch.cfg, and $HOME/.retroarch.cfg.",
             "default": "/opt/configs/ignition/retroarch.conf",
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": true
         },
         "--appendconfig": {
             "arg": "--appendconfig",
             "desc": "Extra config files are loaded in, and take priority over config selected in -c (or default). Multiple configs are delimited by ','.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-L": {
             "arg": "-L",
             "desc": "Path to libretro implementation. Overrides any config setting.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-g": {
             "arg": "-g",
             "desc": "Path to Gameboy ROM. Load SuperGameBoy as the regular rom.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-b": {
             "arg": "-b",
             "desc": "Path to BSX rom. Load BSX BIOS as the regular rom.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-B": {
             "arg": "-B",
             "desc": "Path to BSX slotted rom. Load BSX BIOS as the regular rom.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--sufamiA": {
             "arg": "--sufamiA",
             "desc": "Path to A slot of Sufami Turbo. Load Sufami base cart as regular rom.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--sufamiB": {
             "arg": "--sufamiB",
             "desc": "Path to B slot of Sufami Turbo.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-N": {
             "arg": "-N",
             "desc": "Disconnects controller device connected to port (1 to 8).",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-A": {
             "arg": "-A",
             "desc": "Connect a DualAnalog controller to port (1 to 8)",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-m": {
             "arg": "-m",
             "desc": "Connect a mouse into port of the device (1 to 8).",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-p": {
             "arg": "-p",
             "desc": "Connect a virtual SuperScope into port 2. (SNES specific).",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-j": {
             "arg": "-j",
             "desc": "Connect a virtual Konami Justifier into port 2. (SNES specific).",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-J": {
             "arg": "-J",
             "desc": "Daisy chain two virtual Konami Justifiers into port 2. (SNES specific).",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-4": {
             "arg": "-4",
             "desc": "Connect a SNES multitap to port 2. (SNES specific).",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-P": {
             "arg": "-P",
             "desc": "Playback a BSV movie file.",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-R": {
             "arg": "-R",
             "desc": "Start recording a BSV movie file from the beginning.",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-M": {
             "arg": "-M",
             "desc": "Takes an argument telling how SRAM should be handled in the session. {no,}load-{no,}: save describes if SRAM should be loaded, and if SRAM should be saved. Do note that noload-save implies that save files will be deleted and overwritten.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-H": {
             "arg": "-H",
@@ -259,112 +277,128 @@
             "desc": "Connect to netplay as player 2.",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--port": {
             "arg": "--port",
             "desc": "Port used to netplay. Default is 55435",
             "default": "55435",
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-F": {
             "arg": "-F",
             "desc": "Sync frames when using netplay.",
             "default": true,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--spectate": {
             "arg": "--spectate",
             "desc": "Netplay will become spectating mode. Host can live stream the game content to players that connect. However, the client will not be able to play. Multiple clients can connect to the host.",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--nick": {
             "arg": "--nick",
             "desc": "picks a nickname for use with netplay. Not mandatory.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--command": {
             "arg": "--command",
             "desc": "Sends a command over UDP to an already running RetroArch process. Available commands are listed if command is invalid.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-r": {
             "arg": "-r",
             "desc": "Path to record video file. Using .mkv extension is recommended.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--recordconfig": {
             "arg": "--recordconfig",
             "desc": "Path to settings used during recording.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--size": {
             "arg": "--size",
             "desc": "Overrides output video size when recording with FFmpeg (format: WIDTHxHEIGHT).",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-v": {
             "arg": "-v",
             "desc": "Verbose logging.",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-U": {
             "arg": "-U",
             "desc": "Specifies path for UPS patch that will be applied to ROM.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--bps": {
             "arg": "--bps",
             "desc": "Specifies path for BPS patch that will be applied to ROM.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--ips": {
             "arg": "--bps",
             "desc": "Specifies path for IPS patch that will be applied to ROM.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "--no-patch": {
             "arg": "--no-patch",
             "desc": "Disables all forms of rom patching.",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-X": {
             "arg": "-X",
             "desc": "Specifies path to XML memory map.",
             "default": false,
             "subfield": true,
-            "required": false
+            "required": false,
+            "ticked": false
         },
         "-D": {
             "arg": "-D",
             "desc": "Detach RetroArch from the running console. Not relevant for all platforms.",
             "default": false,
             "subfield": false,
-            "required": false
+            "required": false,
+            "ticked": false
         }
     }
 }

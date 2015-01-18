@@ -204,7 +204,18 @@ var events = {
 			}
 		});
 
+		var selects = document.querySelectorAll("span[data-identifier='selectBoxConfig']"),
+			selectList = [];
+
+		_.each(selects, function(select) {
+			selectList.push(select.classList.contains("label-selected"));
+		});
+
+		formObj.selectList = selectList;
+
 		api.emit('request', { request: 'writeAdvancedConfig', param: formObj});
+
+		dialog.close();
 
 	},
 
@@ -472,7 +483,6 @@ var events = {
 
 		var doc 	= document.getElementById(parameters);
 		var input 	= document.getElementById("input-"+parameters);
-
 
 		if (!doc.classList.contains("required")) {
 			doc.classList.toggle("label-selected");

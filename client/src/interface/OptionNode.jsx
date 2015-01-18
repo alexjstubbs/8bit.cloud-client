@@ -30,12 +30,8 @@ module.exports = React.createClass({
             document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
             document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault");
 
-            if (this.props.selected) {
+            component.forceUpdate();
 
-                defaults = "true";
-                component.forceUpdate();
-
-            }
         }
 
         navigationInit.navigationInit();
@@ -44,16 +40,18 @@ module.exports = React.createClass({
 
     render: function() {
 
-        console.log(defaults);
-
         if (defaults != 'true') {
             defaults = this.props.default;
         }
 
         var classname;
 
-        if (this.props.require || this.props.selected) {
+        if (this.props.require) {
             classname = "label-selected required";
+        }
+
+        if (this.props.selected) {
+            classname = "label-selected";
         }
 
         return (
@@ -63,9 +61,8 @@ module.exports = React.createClass({
                 <span className="hidden">{this.props.desc}</span>
 
                 <span className="col-xs-2 scroll-into-view">
-                    <span id={this.props.id} className={classname + " navable label label-unselected"} data-function="selectBox" data-parameters={this.props.id}>{this.props.arg}</span>
+                    <span id={this.props.id} className={classname + " navable label label-unselected"} data-function="selectBox" data-parameters={this.props.id} data-identifier='selectBoxConfig'>{this.props.arg}</span>
                 </span>
-
 
                 <span className="col-xs-10 scroll-into-view">
                     <input id={"input-"+this.props.id} className="form-control input-lg navable" type="text" data-function="inputFocus" name={this.props.arg} value={defaults} />

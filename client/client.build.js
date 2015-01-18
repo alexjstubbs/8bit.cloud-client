@@ -4319,12 +4319,8 @@ module.exports = React.createClass({displayName: 'exports',
             document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
             document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault");
 
-            if (this.props.selected) {
+            component.forceUpdate();
 
-                defaults = "true";
-                component.forceUpdate();
-
-            }
         }
 
         navigationInit.navigationInit();
@@ -4333,16 +4329,18 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        console.log(defaults);
-
         if (defaults != 'true') {
             defaults = this.props.default;
         }
 
         var classname;
 
-        if (this.props.require || this.props.selected) {
+        if (this.props.require) {
             classname = "label-selected required";
+        }
+
+        if (this.props.selected) {
+            classname = "label-selected";
         }
 
         return (
@@ -4352,9 +4350,8 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.span({className: "hidden"}, this.props.desc), 
 
                 React.DOM.span({className: "col-xs-2 scroll-into-view"}, 
-                    React.DOM.span({id: this.props.id, className: classname + " navable label label-unselected", 'data-function': "selectBox", 'data-parameters': this.props.id}, this.props.arg)
+                    React.DOM.span({id: this.props.id, className: classname + " navable label label-unselected", 'data-function': "selectBox", 'data-parameters': this.props.id, 'data-identifier': "selectBoxConfig"}, this.props.arg)
                 ), 
-
 
                 React.DOM.span({className: "col-xs-10 scroll-into-view"}, 
                     React.DOM.input({id: "input-"+this.props.id, className: "form-control input-lg navable", type: "text", 'data-function': "inputFocus", name: this.props.arg, value: defaults})
@@ -5117,10 +5114,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 
                 if (!opt.default) {
-
                     opt.default = null;
-                    selected = false;
+                }
 
+                if (!opt.ticked) {
+                    selected = false;
                 }
 
                 else {
@@ -9581,7 +9579,18 @@ var events = {
 			}
 		});
 
+		var selects = document.querySelectorAll("span[data-identifier='selectBoxConfig']"),
+			selectList = [];
+
+		_.each(selects, function(select) {
+			selectList.push(select.classList.contains("label-selected"));
+		});
+
+		formObj.selectList = selectList;
+
 		api.emit('request', { request: 'writeAdvancedConfig', param: formObj});
+
+		dialog.close();
 
 	},
 
@@ -9849,7 +9858,6 @@ var events = {
 
 		var doc 	= document.getElementById(parameters);
 		var input 	= document.getElementById("input-"+parameters);
-
 
 		if (!doc.classList.contains("required")) {
 			doc.classList.toggle("label-selected");

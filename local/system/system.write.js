@@ -162,7 +162,6 @@ var writeJSON = function(nsp, data, callback) {
 
     fs.outputJson(file, data, function(err) {
 
-
         if (err) {
 
             if (callback || typeof callback == "function") {
@@ -187,9 +186,6 @@ var writeJSON = function(nsp, data, callback) {
 -------------------------------------------------- */
 var writeAdvancedConfig = function(nsp, data, callback) {
 
-// { -c: "/opt/configs/ignition/retroarch.conf", --port: "55435", -F: "true", server: "false", package: "retroarch", path: "/config/platforms/commandline/user", filename: "nes.json", ensureExists: "true" }
-
-
     if (!data.package) {
         var error = "There was an error saving your configuration. Please try again.";
         nsp.emit('messaging', {type: 0, body: error });
@@ -198,8 +194,6 @@ var writeAdvancedConfig = function(nsp, data, callback) {
     else {
 
         var file = appDir + "/config/platforms/commandline/" + data.package + ".json";
-
-        console.log(file);
 
         read.readJSONFile(null, file, function(err, results) {
 
@@ -211,6 +205,7 @@ var writeAdvancedConfig = function(nsp, data, callback) {
             else {
 
                 var platform = data.filename;
+                var selectList = data.selectList;
 
                 delete data.filename;
                 delete data.formTitle;
@@ -218,19 +213,31 @@ var writeAdvancedConfig = function(nsp, data, callback) {
                 delete data.package;
                 delete data.ensureExists;
                 delete data.server;
+                delete data.selectList;
 
                 _.forIn(data, function(value, key) {
-
-                    // console.log(value);
-                    // console.log(results.arguements[key].default);
-
                     results.arguements[key].default = value;
-
                 });
 
-                data.path = "/config/platforms/commandline/user";
-                data.filename = platform + ".json";
-                console.log(results);
+                var a = 0;
+                _.forIn(results.arguements, function(value, key){
+                    results.arguements[key].ticked = selectList[a];
+                    console.log(selectList[a]);
+                    a++;
+                });
+
+                results.path = "/config/platforms/commandline/user";
+                results.filename = platform;
+
+                writeJSON(null, results, function(err, data) {
+
+                    if (err) {
+                        var error = "There was an error saving your configuration. Please try again.";
+                        nsp.emit('messaging', {type: 0, body: error });
+                    }
+
+                })
+
             }
 
         });
