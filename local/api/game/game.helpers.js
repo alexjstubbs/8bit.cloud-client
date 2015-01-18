@@ -73,6 +73,7 @@ function getCommandlineConfig(nsp, payload, callback) {
 
                 if (nsp) {
                     nsp.emit('api', {commandlineConfig: results});
+                    nsp.emit('api', {softwareChoices: platform.emulators});
                 };
 
                 if (callback) {

@@ -5087,6 +5087,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentWillUpdate: function(props, state) {
 
+
         document.addEventListener('selectBox', function eventHandler(e) {
 
             if (e.detail.el.classList.contains("no-sub-field")) {
@@ -5148,8 +5149,16 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+
         if (this.state.commandlineConfig) {
             _package = this.state.commandlineConfig.package;
+        }
+
+        if (this.state.softwareChoices) {
+            var softwareChoices = this.state.softwareChoices.map(function (choice, i) {
+                return React.DOM.span({className: "navable label label-unselected right-20", 'data-function': "selectBox"}, choice)
+
+            });
         }
 
         return (
@@ -5164,9 +5173,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.div({className: "col-xs-10"}, 
 
-                    React.DOM.span({className: "navable label label-selected", 'data-function': "selectBox"}, "FCEUMM"), 
-                        "   ", 
-                    React.DOM.span({className: "navable label label-unselected", 'data-function': "selectBox"}, "FCE-Ultra")
+                    softwareChoices
 
                 ), 
 
@@ -5194,6 +5201,7 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.hr(null), 
 
                     React.DOM.button({className: "pull-left btn btn-alt btn-alt-size navable", 'data-function': "closeDialog"}, React.DOM.i({className: "ion-close"}), "   Cancel"), 
+                    React.DOM.button({className: "pull-left btn btn-alt btn-alt-size btn-red navable", 'data-function': "restoreAdvancedConfig", 'data-parameters': this.props.payload.shortname}, React.DOM.i({className: "ion-alert"}), "   Restore Defaults"), 
                     React.DOM.button({className: "pull-right btn btn-alt btn-alt-size navable", 'data-function': "writeAdvancedConfig", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes"), 
 
                     React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
@@ -9596,6 +9604,16 @@ var events = {
 
 	},
 
+	/*  Restore Default Config file
+	-------------------------------------------------- */
+	restoreAdvancedConfig: function(parameters) {
+
+		var path = "/config/platforms/commandline/user/"+parameters+".json";
+		api.emit('request', { request: 'removeFile', param: path});
+
+		dialog.close();
+	},
+
     /* Load Dashboard
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {
@@ -9849,7 +9867,7 @@ var events = {
 	},
 
 	softwareOptions: function(parameters) {
-
+		
 		var options = JSON.parse(parameters);
 
 		dialog.show("SoftwareOptions", options);

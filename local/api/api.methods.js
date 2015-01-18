@@ -15,6 +15,10 @@ var api = {
         common.systemWrite.writeAdvancedConfig(nsp, payload, null);
     },
 
+    removeFile: function(nsp, path) {
+        common.systemWrite.removeFile(nsp, path, null);
+    },
+
     gamesList: function(nsp, param){
         common.listroms.listRoms(nsp, param);
     },

@@ -219,6 +219,16 @@ var events = {
 
 	},
 
+	/*  Restore Default Config file
+	-------------------------------------------------- */
+	restoreAdvancedConfig: function(parameters) {
+
+		var path = "/config/platforms/commandline/user/"+parameters+".json";
+		api.emit('request', { request: 'removeFile', param: path});
+
+		dialog.close();
+	},
+
     /* Load Dashboard
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {
@@ -472,7 +482,7 @@ var events = {
 	},
 
 	softwareOptions: function(parameters) {
-
+		
 		var options = JSON.parse(parameters);
 
 		dialog.show("SoftwareOptions", options);

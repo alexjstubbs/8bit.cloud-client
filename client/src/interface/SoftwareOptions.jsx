@@ -47,6 +47,7 @@ module.exports = React.createClass({
 
     componentWillUpdate: function(props, state) {
 
+
         document.addEventListener('selectBox', function eventHandler(e) {
 
             if (e.detail.el.classList.contains("no-sub-field")) {
@@ -108,8 +109,16 @@ module.exports = React.createClass({
 
     render: function() {
 
+
         if (this.state.commandlineConfig) {
             _package = this.state.commandlineConfig.package;
+        }
+
+        if (this.state.softwareChoices) {
+            var softwareChoices = this.state.softwareChoices.map(function (choice, i) {
+                return <span className="navable label label-unselected right-20" data-function="selectBox">{choice}</span>
+
+            });
         }
 
         return (
@@ -124,9 +133,7 @@ module.exports = React.createClass({
 
                 <div className="col-xs-10">
 
-                    <span className="navable label label-selected" data-function="selectBox">FCEUMM</span>
-                        &nbsp; &nbsp;
-                    <span className="navable label label-unselected" data-function="selectBox">FCE-Ultra</span>
+                    {softwareChoices}
 
                 </div>
 
@@ -154,6 +161,7 @@ module.exports = React.createClass({
                     <hr />
 
                     <button className="pull-left btn btn-alt btn-alt-size navable" data-function="closeDialog"><i className='ion-close'></i> &nbsp; Cancel</button>
+                    <button className="pull-left btn btn-alt btn-alt-size btn-red navable" data-function="restoreAdvancedConfig" data-parameters={this.props.payload.shortname}><i className='ion-alert'></i> &nbsp; Restore Defaults</button>
                     <button className="pull-right btn btn-alt btn-alt-size navable" data-function='writeAdvancedConfig' data-parameters={this.props.form}><i className='ion-checkmark'></i> &nbsp; Save Changes</button>
 
                     <input type="hidden" name="server" value={this.props.server} />

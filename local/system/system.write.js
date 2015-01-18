@@ -5,6 +5,38 @@ var fs   = require('fs-extra')
 ,   read = require('./system.read')
 ,   _    = require('lodash');
 
+
+/*  Remove a file
+-------------------------------------------------- */
+var removeFile = function(nsp, file, callback) {
+
+    file = appDir + file;
+    
+    fs.unlink(file, function (err) {
+        if (err) {
+
+            if (nsp) {
+                nsp.emit('messaging', {type: 0, body: err });
+            }
+
+            if (callback || typeof callback == "function") {
+                callback(err, null);
+            }
+
+        }
+
+        else {
+
+            if (callback || typeof callback == "function") {
+                callback(null, true);
+            }
+
+        }
+
+    });
+
+}
+
 /* Copy a file
 -------------------------------------------------- */
 var copyFile = function(nsp, src, dest, callback) {
@@ -255,6 +287,7 @@ var writeTextSync = function(nsp, data, callback) {
 
 /* Exports
 -------------------------------------------------- */
+exports.removeFile              = removeFile;
 exports.writeJSONSync           = writeJSONSync;
 exports.writeJSON               = writeJSON;
 exports.writeTextync            = writeTextSync;
