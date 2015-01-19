@@ -4980,10 +4980,24 @@ module.exports = React.createClass({displayName: 'exports',
               "id": "",
               "developer": "",
               "image": "",
-              "crc32": null
+              "crc32": null,
+              "screen": "Browser"
         };
     },
 
+    screenMount: function() {
+
+        //switchEmulator
+        var short = document.querySelectorAll(".platform.selected");
+        var selectedNav = document.querySelectorAll(".selectedNav")[0];
+
+        if (short.length > 1) {
+            selectedNav.classList.remove("selectedNav");
+            _.first(short).classList.remove("selected");
+            _.last(short).classList.add("selectedNav");
+        }
+
+    },
 
     componentDidMount: function () {
 
@@ -4991,6 +5005,14 @@ module.exports = React.createClass({displayName: 'exports',
 
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail);
+        });
+
+        window.addEventListener("mountView", function(e) {
+
+            if (e.detail.screen == component.state.screen) {
+                component.screenMount();
+            };
+
         });
 
         api.on('api', this.setState.bind(this));
@@ -8000,7 +8022,6 @@ var gamepad 			     = require("./gamepad")
 
 module.exports = function() {
 
-    console.log(sysEvents);
 
     /*  Clear local Storage
     -------------------------------------------------- */
