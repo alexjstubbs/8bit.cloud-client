@@ -32,12 +32,22 @@ module.exports = React.createClass({
             'purple-bg': true
         });
         return (
-        
+
         <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack}>
+
             <td className="td_square"><div className={classes}><i className={this.props.icon}></i></div></td>
-            <td><strong>{this.props.game}</strong><br /> 
-            {this.props.system}</td>
+
+            <td>
+                <strong>{this.props.game}</strong>
+
+                <br />
+            
+                {this.props.system}
+
+            </td>
+
             <td className="text-right"> Last Played: {this.props.timestamp}</td>
+
         </tr>
 
         );

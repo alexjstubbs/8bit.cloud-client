@@ -27,13 +27,7 @@ var actionSet = [
 ];
 
 
-var favorites = [
-    { 'game': 'Super Castlevania', 'System': "Super Nintendo", "timestamp": "2013121210230"},
-    { 'game': 'Super Mario', 'System': "Nintendo Entertainment System", "timestamp": "2013121210230"},
-    { 'game': 'Tomb Raider', 'System': "Playstation", "timestamp": "2013121210230"},
-    { 'game': 'Tomba!', 'System': "Playstation", "timestamp": "2013121210230"}
-
-];
+var favorites = [];
 
 // var communityEvent = [
 //     {'title': "Together Retro", "image": "http://www.racketboy.com/images/tr-lost-vikings.png", "url": "http://www.racketboy.com", "rss": "http://www.rackerboy.com?rss2", "imageStyles": '{"width": "90%", "height": "90%", "position": "relative", "left": "20px"}'}
@@ -55,9 +49,9 @@ var eventSet = [
 
 module.exports = React.createClass({
 
-
     getInitialState: function() {
         return {
+            screen: "Dashboard",
             messages: []
         };
     },
@@ -69,9 +63,47 @@ module.exports = React.createClass({
         }
     },
 
+    screenMount: function() {
+
+        var component = this;
+
+        setTimeout(function() {
+
+            var path = 'http://127.0.0.1:1210/database/favorites';
+
+            var xmlhttp = new XMLHttpRequest();
+
+            xmlhttp.onreadystatechange=function() {
+
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+                    var data = xmlhttp.responseText;
+
+                    var JSONified = JSON.parse(data);
+
+                    favorites = JSONified;
+
+                    console.log(favorites);
+
+                    component.forceUpdate();
+
+                }
+            }
+
+            xmlhttp.open("GET",path,true);
+            xmlhttp.send();
+
+            return;
+
+        }, 500);
+
+    },
+
     componentDidMount: function() {
 
-        var _this = this;
+        this.screenMount();
+
+        var component = this;
 
         api.emit('request', { request: 'getSession'} );
         api.emit('request', { request: 'messages'});
@@ -90,12 +122,20 @@ module.exports = React.createClass({
 
             unreadMessages = _.difference(allMessages, readMessages).length;
 
-            _this.forceUpdate();
+            component.forceUpdate();
 
 
             }
+
         });
 
+        window.addEventListener("mountView", function(e) {
+
+            if (e.detail.screen == component.state.screen) {
+
+                component.screenMount();
+            }
+        });
 
     },
 

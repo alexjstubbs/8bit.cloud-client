@@ -33,6 +33,11 @@ function initDatabases(callback) {
         autoload: true
     });
 
+    db.favorites = new Datastore({
+        filename: './databases/favorites.db',
+        autoload: true
+    });
+
     // TODO: Store all in the directory
     var testStore = require('../../../databases/ignition-achievements/Official/smb.json');
 
@@ -95,6 +100,35 @@ function storeData(database, doc, callback) {
         }
 
     });
+}
+
+/* Remove Favoirite
+-------------------------------------------------- */
+function removeFavorite(database, doc, callback) {
+
+    db[database].find(doc, function(err, docs) {
+
+        if (err) {
+            console.log(err);
+        }
+
+        else {
+
+            db[database].remove({filepath: docs[0].filepath}, {multi: true}, function (err, numRemoved) {
+                if (err) {
+                    console.log(err);
+                }
+
+                else {
+                    //console.log(numRemoved);
+                }
+
+            });
+
+        }
+
+    });
+
 }
 
 
@@ -196,7 +230,7 @@ function findGame(document, callback) {
 -------------------------------------------------- */
 function getGamesAjax(req, res) {
 
-    storeGet(null, "games", function(err, result) {
+    storeGet(null, req.params.database, function(err, result) {
 
             if (err) {
                 res.send(err);
@@ -219,5 +253,6 @@ exports.findAchievements    = findAchievements;
 exports.initDatabases       = initDatabases;
 exports.storeGet            = storeGet;
 exports.storeData           = storeData;
+exports.removeFavorite      = removeFavorite
 exports.compactDatabase     = compactDatabase;
 exports.getGamesAjax        = getGamesAjax;

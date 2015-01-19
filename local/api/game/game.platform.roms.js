@@ -35,6 +35,9 @@ function listRoms(nsp, platform) {
 
                             console.log(err);
 
+
+                            nsp.emit('api', {gamesList: null});
+
                         } else {
 
                             _(list).forEach(function(filename) {
@@ -42,7 +45,7 @@ function listRoms(nsp, platform) {
                                 // if (path.extname(filename) )
                                 // _.contains(collection, target, [fromIndex=0])
 
-                        
+
                                 _path = path.join(initDir, filename);
 
                                 listObj.push({

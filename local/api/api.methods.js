@@ -31,6 +31,10 @@ var api = {
         common.databases.storeGet(nsp, database);
     },
 
+    removeFavorite: function(nsp, object){
+        common.databases.removeFavorite(object.database, object.values);
+    },
+
     storeData: function(nsp, object){
         common.databases.storeData(object.database, object.values);
     },

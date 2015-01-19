@@ -1,5 +1,5 @@
 {
-  "name": "Ignition Client",
+  "name": "ignition-client",
   "main": "ignite.html",
   "node-main": "ignite.js",
   "version": "0.0.1",

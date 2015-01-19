@@ -302,6 +302,8 @@ var events = {
     -------------------------------------------------- */
     switchEmulator: function(parameters) {
 
+        // document.getElementById("alpha_list_tbody").innerHTML = "";
+
         var longname,
             list = document.querySelectorAll(".platform");
 
@@ -315,7 +317,41 @@ var events = {
 
         api.emit('request', { request: 'gamesList', param: longname });
 
+    },
 
+    /*  Save Favorite
+    -------------------------------------------------- */
+    addFavorite: function(parameters) {
+
+        var long = document.getElementById("toggle-favorite").getAttribute("data-selection"),
+            pObj = JSON.parse(parameters);
+
+        pObj.long = long;
+
+        var Obj = {
+            database: "favorites",
+            values: pObj
+        }
+
+        api.emit('request', { request: 'storeData', param: Obj });
+
+    },
+
+    /*  Remove Favorite
+    -------------------------------------------------- */
+    removeFavorite: function(parameters) {
+
+        var long = document.getElementById("toggle-favorite").getAttribute("data-selection"),
+            pObj = JSON.parse(parameters);
+
+        pObj.long = long;
+
+        var Obj = {
+            database: "favorites",
+            values: pObj
+        }
+
+        api.emit('request', { request: 'removeFavorite', param: Obj });
 
     },
 

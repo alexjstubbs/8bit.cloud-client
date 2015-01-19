@@ -4,12 +4,11 @@
 
 'use strict';
 
-var React = require('react/addons'),
-        _ = require('lodash'),
-        ListedGame = require('./ListedGame.jsx'),
-        api = require('socket.io-client')('/api'),
-        keyboard = require('./mixins/KeyboardShortcutsMixin'),
-        removeBrackets = require('../js/helpers').removeBrackets;
+var React           = require('react/addons')
+,   _               = require('lodash')
+,   ListedGame      = require('./ListedGame.jsx')
+,   api             = require('socket.io-client')('/api')
+,   removeBrackets  = require('../js/helpers').removeBrackets;
 
 module.exports = React.createClass({
      getInitialState: function() {
@@ -21,14 +20,13 @@ module.exports = React.createClass({
     },
 
      componentDidMount: function() {
-   
+
         api.emit('request', { request: 'gamesList', param: "Nintendo" });
         api.on('api', this.setState.bind(this));
 
     },
 
     componentDidUpdate: function() {
-        // console.log(this.state.gamesList);
 
         var nodeList = document.querySelectorAll(".left_alpha");
 
@@ -46,7 +44,7 @@ module.exports = React.createClass({
              alpha_list.push(alpha);
         });
     },
-      
+
     getDefaultProps: function() {
 
     return {
@@ -61,34 +59,41 @@ module.exports = React.createClass({
 
         var skipped;
 
-        var listNodes = this.state.gamesList.map(function (game, i) {
-            var gameTitle = removeBrackets(game.title);
-            
-            if (gameTitle) {
-                if (skipped == true) {
-                    
-                    return <ListedGame key={i.id} navStack={i} game={gameTitle} filename={game.filename} path={game.path} />
-                    skipped = false;
+        if (this.state.gamesList) {
+
+            var listNodes = this.state.gamesList.map(function (game, i) {
+                var gameTitle = removeBrackets(game.title);
+
+                if (gameTitle) {
+                    if (skipped == true) {
+
+                        return <ListedGame key={i.id} navStack={i} game={gameTitle} filename={game.filename} path={game.path} />
+                        skipped = false;
+                    }
+                    else {
+                        return <ListedGame key={i.id} navStack={i+1} game={gameTitle} filename={game.filename} path={game.path} />
+                    }
                 }
                 else {
-                    return <ListedGame key={i.id} navStack={i+1} game={gameTitle} filename={game.filename} path={game.path} />
+                    skipped = true;
                 }
-            }
-            else {
-                skipped = true;
-            }
-           
-        });
+
+            });
+        }
+
+        else {
+            listNodes = <div className="vertica-align"><h3 className="mute"><i className="ion-information-circled"></i> &nbsp; No Games</h3><br /><button className="navable btn btn-alt purple-bg"><i className="ion-plus"></i> &nbsp; Add Games Now</button></div>;
+        }
 
         return (
 
                 <div className="col-xs-4 alpha_list navable" data-mute='true' data-function={this.props.functionCall} data-function-deprecated='launchGame' id="alpha_list">
                     <table className="table table-striped" id="list">
-                        <tbody>
-                            { listNodes } 
+                        <tbody id="alpha_list_tbody">
+                            { listNodes }
                         </tbody>
-                    </table>   
-                </div> 
+                    </table>
+                </div>
 
             );
     }

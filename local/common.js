@@ -26,6 +26,7 @@ common = {
 ,      systemRead:                 require('../local/system/system.read')
 ,      wireless:                   require('../local/api/network/network.wireless')
 ,      shell:                      require('../local/system/system.shell')
+,      USB:                         require('../local/system/system.usb')
 
 };
 

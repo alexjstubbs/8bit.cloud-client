@@ -29,8 +29,9 @@ module.exports = React.createClass({
 
     render: function() {
 
+
         var favoriteNodes = this.props.favorites.map(function (favorite, i) {
-          return <Favorite key={i.id} navStack={i+1} game={favorite.game} system={favorite.system} timestamp={ moment(favorite.timestamp, "YYYYMMDDhhmms").fromNow() } />
+          return <Favorite key={i.id} navStack={i+1} game={favorite.long} system={favorite.Platform} filepath={favorite.filepath} timestamp={ moment(favorite.timestamp, "YYYYMMDDhhmms").fromNow() } />
         });
 
         var nodes = favoriteNodes.length;
@@ -49,9 +50,11 @@ module.exports = React.createClass({
                         </th>
                     </thead>
 
+                    <tbody>
 
-                   { nodes ? favoriteNodes  : <td><h2>No Favorites Set</h2></td> }
+                       { nodes ? favoriteNodes  : <td><h2>No Favorites Set</h2></td> }
 
+                    </tbody>
 
                     </table>
                 </div>

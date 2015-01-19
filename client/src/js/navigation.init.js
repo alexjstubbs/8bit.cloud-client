@@ -35,16 +35,21 @@ var navigationInit = function(element, callback) {
         el.setAttribute("data-nav", i);
     });
 
+    var defaultSelected = document.querySelectorAll(".default-navable")[0];
+
     // Should i re-select an input on a form?
     var activeInput = parent.querySelectorAll(".activeInput")[0];
+
     if (activeInput) {
         activeInput.classList.add("selectedNav", "selected");
         activeInput.classList.remove("activeInput");
     }
 
-    // Choose first child
+    // Choose first child or Default if specified
     else {
+
          _.first(navables).classList.add("selectedNav", "selected");
+
     }
 
 }

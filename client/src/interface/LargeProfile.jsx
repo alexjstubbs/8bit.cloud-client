@@ -32,7 +32,9 @@ module.exports = React.createClass({
             "crc32": null,
             "developer": null,
             "filepath": null,
-            "platform": null
+            "platform": null,
+            "favorite": false
+
         };
     },
 
@@ -48,8 +50,45 @@ module.exports = React.createClass({
         });
 
         document.addEventListener('launchContext', function eventHandler(e) {
+
             launchContext = JSON.stringify(e.detail);
             component.forceUpdate();
+
+            setTimeout(function() {
+
+                var path = 'http://127.0.0.1:1210/database/favorites';
+
+                var xmlhttp = new XMLHttpRequest();
+
+                xmlhttp.onreadystatechange=function() {
+
+                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+                        var data = xmlhttp.responseText;
+
+                        var JSONified = JSON.parse(data);
+
+                        console.log(JSONified[0]);
+                        console.log(component.state);
+
+                        if (_.contains(JSONified[0], component.state.title)) {
+                            component.setState({favorite: true});
+                        }
+
+                        else {
+                            component.setState({favorite: false});
+                        }
+
+                    }
+                }
+
+                xmlhttp.open("GET",path,true);
+                xmlhttp.send();
+
+                return;
+            }, 500);
+
+
         });
 
 
@@ -58,14 +97,16 @@ module.exports = React.createClass({
         window.addEventListener("mountView", function(e) {
 
             if (e.detail.screen == component.state.screen) {
+
                 component.screenMount();
-            };
+            }
 
         });
 
      },
 
     render: function() {
+
 
         var saveNodes = this.state.savestates.map(function (state, i) {
             return <SaveStates filename={state.filename} image={state.image} slot={state.slot} navStack={i+1} />
@@ -91,23 +132,38 @@ module.exports = React.createClass({
 
          <div className="col-xs-2" id="profile-boxart">
 
+
             <img src={this.state.image} className="img-responsive" />
 
 
-            <ul id="profile-sub-buttons" className="hidden">
-               <li><button className='btn btn-purple'><i className='fa fa-video-camera '></i> &nbsp; Live Stream</button></li>
+            <ul id="profile-sub-buttons">
+
+               <li className="hidden"><button className='btn btn-purple'><i className='fa fa-video-camera '></i> &nbsp; Live Stream</button></li>
+
+               <li><button id="toggle-favorite" className='btn red-bg noround navable' data-selection={this.state.title} data-function={this.state.favorite ? "removeFavorite" : "addFavorite"} data-parameters={launchContext}><i className={this.state.favorite ? "ion-heart-broken" : "ion-heart"}></i> &nbsp; {this.state.favorite ? "Remove" : "Add"} as a favorite</button></li>
+
             </ul>
-         </div>
+
+
+        </div>
 
          <div className="col-xs-4" id="profile-gameinfo">
+
             <h2 id="profile-gametitle">{this.state.title}</h2>
+
             <span className='muted'>{this.state.genre}</span>
+
             <br />
+
             <div className="timer">Time Played: {this.state.playtime}</div>
+
             <br />
-            <a id="play-game" className='btn-alt btn-lg navable' data-function="launchGame" data-parameters={launchContext}>Play Game</a>
+
+            <a id="play-game" className='btn-alt btn-lg navable activeInput' data-function="launchGame" data-parameters={launchContext}>Play Game</a>
             &nbsp;
+
             <a className='btn-alt btn-lg navable'>Multiplayer</a>
+
             <a className='btn-alt btn-lg navable' data-function='softwareOptions' data-parameters={launchContext}><i className="ion-gear-a"></i></a>
 
          </div>
@@ -115,26 +171,35 @@ module.exports = React.createClass({
             {saveNodes}
 
         <div className="col-xs-9 profile-section">
+
             <h1>Achievements <span className="achievement-stats">0 out of 0 Accomplished.</span></h1>
+
         <ul id="achievements">
 
              {achievementNodes}
 
         </ul>
+
         </div>
 
          <div className="col-xs-10 profile-section hidden">
+
             <h1>Screenshots</h1>
 
          </div>
 
          <div className="col-xs-10 profile-section hidden">
+
             <h1>Description</h1>
+
             <br />
+
             <p>He's Back! And this time the evil Dr. Wily (once the supreme power in the universe) has created even more sinister robots to mount his attack. But as MegaMan, you've also grown in power and ability. Can you save mankind from the evil desires of Dr. Wily? Each of the eight empires is ruled by a different super-robot. You must defeat each enemy on his own turf, building up weapons as you go. Only after all are destroyed will you go head-on with the mastermind himself, the evil Dr. Wily. </p>
-         </div>
+
+        </div>
 
          <div className="col-xs-10 profile-section hidden">
+
             <h1>Movies</h1>
 
          </div>
