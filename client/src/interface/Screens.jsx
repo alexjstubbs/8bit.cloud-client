@@ -26,6 +26,8 @@ init();
 -------------------------------------------------- */
 var setupScreens = function(route) {
 
+	console.log(Browser);
+
 	var container = document.getElementById("screens");
 
 	if (route == "/home" || route == "/home/" || route == "Dashboard") {

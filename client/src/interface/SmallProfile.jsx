@@ -10,7 +10,6 @@
 var React           = require('react/addons')
 ,   api             = require('socket.io-client')('/api')
 ,   _               = require('lodash')
-,   sevents          = require('../js/system.events')
 ,   achievements;
 
 
@@ -30,12 +29,6 @@ module.exports = React.createClass({
         };
     },
 
-    screenMount: function() {
-
-        //switchEmulator
-        var short = document.querySelectorAll(".selected");
-        console.log(short);
-    },
 
     componentDidMount: function () {
 
@@ -46,7 +39,6 @@ module.exports = React.createClass({
         });
 
         api.on('api', this.setState.bind(this));
-
 
      },
 

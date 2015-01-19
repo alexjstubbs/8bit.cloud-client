@@ -4881,6 +4881,8 @@ init();
 -------------------------------------------------- */
 var setupScreens = function(route) {
 
+	console.log(Browser);
+
 	var container = document.getElementById("screens");
 
 	if (route == "/home" || route == "/home/" || route == "Dashboard") {
@@ -4963,7 +4965,6 @@ module.exports = React.createClass({displayName: 'exports',
 var React           = require('react/addons')
 ,   api             = require('socket.io-client')('/api')
 ,   _               = require('lodash')
-,   sevents          = require('../js/system.events')
 ,   achievements;
 
 
@@ -4983,12 +4984,6 @@ module.exports = React.createClass({displayName: 'exports',
         };
     },
 
-    screenMount: function() {
-
-        //switchEmulator
-        var short = document.querySelectorAll(".selected");
-        console.log(short);
-    },
 
     componentDidMount: function () {
 
@@ -4999,7 +4994,6 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
         api.on('api', this.setState.bind(this));
-
 
      },
 
@@ -5051,7 +5045,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/system.events":90,"lodash":93,"react/addons":95,"socket.io-client":254}],44:[function(require,module,exports){
+},{"lodash":93,"react/addons":95,"socket.io-client":254}],44:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
