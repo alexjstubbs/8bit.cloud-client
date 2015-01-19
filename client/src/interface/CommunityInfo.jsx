@@ -37,6 +37,7 @@ module.exports = React.createClass({
 
     render: function() {
 
+
         var ta = document.getElementById('community-info');
 
         if (this.state.community[0].description) {

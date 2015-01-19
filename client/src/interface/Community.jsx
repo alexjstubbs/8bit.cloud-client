@@ -46,6 +46,7 @@ module.exports = React.createClass({
 
     render: function() {
 
+
         var imageStyles = this.state.community[0].Styles;
 
         var component = this;
@@ -65,12 +66,16 @@ module.exports = React.createClass({
                     </th>
 
                     <th colSpan='2'>
-                        <h4 className="text-right">{this.state.community[0].title}</h4>
+                        <h4 className="text-right">{this.state.community.title ? this.state.community[0].title : "Community" }</h4>
                     </th>
              </thead>
 
             <tr>
-                <td colSpan='2' className="rss_image"><br />
+                <td colSpan='2' className="rss_image">
+                { this.state.community[0] ? null :  <h2> &nbsp; Currently Offline</h2> }
+
+                <br />
+
                   <span className="rImg"><img id="community_image" src={this.state.community[0].Image} className='img-responsive hidden' style={imageStyles} /></span>
                 </td>
             </tr>
@@ -78,7 +83,7 @@ module.exports = React.createClass({
             <tr>
                 <td colSpan='2' id="rss_info">
                     <br />
-                    <h4 className="rss_title pull-left"><i className='ion-speakerphone'></i> {this.state.community[0].subtitle}</h4>
+                    { this.state.community.subtitle ? <h4 className="rss_title pull-left"><i className='ion-speakerphone'></i> {this.state.community[0].subtitle}</h4> : null }
                     <span className="rss_author pull-right"></span>
                 </td>
             </tr>

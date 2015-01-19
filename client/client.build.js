@@ -2351,6 +2351,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+
         var imageStyles = this.state.community[0].Styles;
 
         var component = this;
@@ -2370,12 +2371,16 @@ module.exports = React.createClass({displayName: 'exports',
                     ), 
 
                     React.DOM.th({colSpan: "2"}, 
-                        React.DOM.h4({className: "text-right"}, this.state.community[0].title)
+                        React.DOM.h4({className: "text-right"}, this.state.community.title ? this.state.community[0].title : "Community")
                     )
              ), 
 
             React.DOM.tr(null, 
-                React.DOM.td({colSpan: "2", className: "rss_image"}, React.DOM.br(null), 
+                React.DOM.td({colSpan: "2", className: "rss_image"}, 
+                 this.state.community[0] ? null :  React.DOM.h2(null, "   Currently Offline"), 
+
+                React.DOM.br(null), 
+
                   React.DOM.span({className: "rImg"}, React.DOM.img({id: "community_image", src: this.state.community[0].Image, className: "img-responsive hidden", style: imageStyles}))
                 )
             ), 
@@ -2383,7 +2388,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.tr(null, 
                 React.DOM.td({colSpan: "2", id: "rss_info"}, 
                     React.DOM.br(null), 
-                    React.DOM.h4({className: "rss_title pull-left"}, React.DOM.i({className: "ion-speakerphone"}), " ", this.state.community[0].subtitle), 
+                     this.state.community.subtitle ? React.DOM.h4({className: "rss_title pull-left"}, React.DOM.i({className: "ion-speakerphone"}), " ", this.state.community[0].subtitle) : null, 
                     React.DOM.span({className: "rss_author pull-right"})
                 )
             )
@@ -2437,6 +2442,7 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     render: function() {
+
 
         var ta = document.getElementById('community-info');
 
