@@ -7,10 +7,11 @@
 
 'use strict';
 
-var React = require('react/addons'),
-    api = require('socket.io-client')('/api'),
-    _ = require('lodash'),
-    achievements;
+var React           = require('react/addons')
+,   api             = require('socket.io-client')('/api')
+,   _               = require('lodash')
+,   sevents          = require('../js/system.events')
+,   achievements;
 
 
 module.exports = React.createClass({
@@ -25,18 +26,36 @@ module.exports = React.createClass({
               "id": "",
               "developer": "",
               "image": "",
-              "crc32": null
+              "crc32": null,
+              "screen": "Browser"
         };
+    },
+
+    screenMount: function() {
+
+        //switchEmulator
+        var short = document.querySelectorAll(".selected");
+        console.log(short);
     },
 
     componentDidMount: function () {
 
         var component = this;
+
         window.addEventListener('updateGame', function eventHandler(e) {
-            component.setState(e.detail)
+            component.setState(e.detail);
         });
 
         api.on('api', this.setState.bind(this));
+
+
+        window.addEventListener("mountView", function(e) {
+
+            if (e.detail.screen == component.state.screen) {
+                component.screenMount();
+            };
+
+        });
 
      },
 
@@ -63,11 +82,11 @@ module.exports = React.createClass({
 
                     <h2><span className="game_name">{this.state.title}</span></h2>
 
-                    <hr />
+                    {this.state.title ? <hr /> : null}
 
                     <span className="game_genre">{this.state.genre}</span>
 
-                    <h4>Overview</h4>
+                    {this.state.title ? <h4>Overview</h4> : null }
 
                     <p className="game_deck">{this.state.description}</p>
 
@@ -77,7 +96,7 @@ module.exports = React.createClass({
                 </div>
 
                 <span className="col-xs-3 game_image">
-                    <img className="img-responsive" src={this.state.image} />
+                    {this.state.image ? <img className="img-responsive" src={this.state.image} /> : null }
                 </span>
 
                 <div className="clearfix"></div>

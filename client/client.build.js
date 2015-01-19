@@ -3609,9 +3609,7 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
         document.addEventListener('launchContext', function eventHandler(e) {
-            console.log("got one");
             launchContext = JSON.stringify(e.detail);
-            console.log(launchContext);
             component.forceUpdate();
         });
 
@@ -3654,7 +3652,7 @@ module.exports = React.createClass({displayName: 'exports',
 
          React.DOM.div({className: "col-xs-2", id: "profile-boxart"}, 
 
-            this.state.image ? React.DOM.img({src: this.state.image, className: "img-responsive"}) : React.DOM.div({id: "no-boxart"}, " ", React.DOM.i({className: "icon ion-image"}), " "), 
+            React.DOM.img({src: this.state.image, className: "img-responsive"}), 
 
 
             React.DOM.ul({id: "profile-sub-buttons", className: "hidden"}, 
@@ -4962,10 +4960,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons'),
-    api = require('socket.io-client')('/api'),
-    _ = require('lodash'),
-    achievements;
+var React           = require('react/addons')
+,   api             = require('socket.io-client')('/api')
+,   _               = require('lodash')
+,   sevents          = require('../js/system.events')
+,   achievements;
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -4980,18 +4979,36 @@ module.exports = React.createClass({displayName: 'exports',
               "id": "",
               "developer": "",
               "image": "",
-              "crc32": null
+              "crc32": null,
+              "screen": "Browser"
         };
+    },
+
+    screenMount: function() {
+
+        //switchEmulator
+        var short = document.querySelectorAll(".selected");
+        console.log(short);
     },
 
     componentDidMount: function () {
 
         var component = this;
+
         window.addEventListener('updateGame', function eventHandler(e) {
-            component.setState(e.detail)
+            component.setState(e.detail);
         });
 
         api.on('api', this.setState.bind(this));
+
+
+        window.addEventListener("mountView", function(e) {
+
+            if (e.detail.screen == component.state.screen) {
+                component.screenMount();
+            };
+
+        });
 
      },
 
@@ -5018,11 +5035,11 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.h2(null, React.DOM.span({className: "game_name"}, this.state.title)), 
 
-                    React.DOM.hr(null), 
+                    this.state.title ? React.DOM.hr(null) : null, 
 
                     React.DOM.span({className: "game_genre"}, this.state.genre), 
 
-                    React.DOM.h4(null, "Overview"), 
+                    this.state.title ? React.DOM.h4(null, "Overview") : null, 
 
                     React.DOM.p({className: "game_deck"}, this.state.description), 
 
@@ -5032,7 +5049,7 @@ module.exports = React.createClass({displayName: 'exports',
                 ), 
 
                 React.DOM.span({className: "col-xs-3 game_image"}, 
-                    React.DOM.img({className: "img-responsive", src: this.state.image})
+                    this.state.image ? React.DOM.img({className: "img-responsive", src: this.state.image}) : null
                 ), 
 
                 React.DOM.div({className: "clearfix"})
@@ -5043,7 +5060,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"lodash":93,"react/addons":95,"socket.io-client":254}],44:[function(require,module,exports){
+},{"../js/system.events":90,"lodash":93,"react/addons":95,"socket.io-client":254}],44:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -7998,6 +8015,8 @@ var gamepad 			     = require("./gamepad")
 
 module.exports = function() {
 
+    console.log(sysEvents);
+
     /*  Clear local Storage
     -------------------------------------------------- */
     sessionStorage.removeItem("navigationState");
@@ -8216,6 +8235,7 @@ var getFirstChild       = require('./helpers.js').getFirstChild
 
 var browserNavigation = function(k) {
 
+
  // Podium = {};
  //
  //    Podium.keydown = function(k) {
@@ -8257,7 +8277,6 @@ var browserNavigation = function(k) {
     td = getFirstChild(td);
     td = getFirstChild(td);
     td.classList.add('browser_hovered');
-
 
     var b;
     [].forEach.call(
@@ -8304,8 +8323,10 @@ var browserNavigationEvents = function(g) {
             filter: "system",
             query: shortname.trim()
         },
-    },function(result){
+    }, function(result){
+
             events.updateGame(result, filepath);
+
         }
     );
 
@@ -8318,13 +8339,12 @@ var browserNavigationEvents = function(g) {
     document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
 
 
-
 };
 
 /* Exports
 -------------------------------------------------- */
 
-exports.browserNavigation = browserNavigation;
+exports.browserNavigation       = browserNavigation;
 exports.browserNavigationEvents = browserNavigationEvents;
 
 },{"../js/navigation.browser.js":81,"./database.helpers":71,"./events":74,"./helpers.js":76}],82:[function(require,module,exports){
@@ -8997,7 +9017,7 @@ module.exports = function(k) {
             window.clearTimeout(timeSync);
 
             memSelection = currentSelection[0];
-            timeSync = window.setTimeout(showSelection, 1000);
+            timeSync = window.setTimeout(showSelection, 700);
 
             currentSelection[0].scrollIntoView(false);
 
@@ -9392,62 +9412,61 @@ module.exports = function(path, height, width, left, top) {
 /* Requested system events via client (usually button presses)
 -------------------------------------------------- */
 
-var systemNotify    	= require('./notification.init.js')
-,   KeyEvent       	 	= require('./navigation.keyEvent')
-,   api             	= require('socket.io-client')('/api')
-,   React           	= require('react/addons')
-,   Modal           	= require('../interface/Modal.jsx')
-,   Messages        	= require('../interface/Messages.jsx')
-, 	navigationBindings  = require("./navigation.bindings")
-,   navigationEvent 	= require("./navigation.event")
-,   _               	= require('lodash')
-,   navigationInit  	= require("./navigation.init.js")
-,   dialog          	= require('./dialogs')
-, 	eventDispatcher 	= require('./events')
-, 	keyboardKeyEvents 	= require('./navigation.keyboardKeyEvents')
-, 	Screens 			= require('../interface/Screens.jsx')
-,   mousetrap           = require("./mousetrap.min.js")
-,   navigationEvent 	= require("./navigation.event");
+var systemNotify        	= require('./notification.init.js')
+,   KeyEvent                = require('./navigation.keyEvent')
+,   api                 	= require('socket.io-client')('/api')
+,   React               	= require('react/addons')
+,   Modal               	= require('../interface/Modal.jsx')
+,   Messages            	= require('../interface/Messages.jsx')
+,   navigationBindings  	= require("./navigation.bindings")
+,   navigationEvent     	= require("./navigation.event")
+,   _                   	= require('lodash')
+,   navigationInit      	= require("./navigation.init.js")
+,   dialog              	= require('./dialogs')
+,   eventDispatcher     	= require('./events')
+,   keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents')
+,   Screens             	= require('../interface/Screens.jsx')
+,   mousetrap           	= require("./mousetrap.min.js")
+,   navigationEvent     	= require("./navigation.event");
 
-// browser = require("./browser.js");
 
 var events = {
 
-	/* Set Navigation State
-	-------------------------------------------------- */
-	navigationState: function(parameters) {
-		sessionStorage.setItem("navigationState", parameters);
-	},
+    /* Set Navigation State
+    -------------------------------------------------- */
+    navigationState: function(parameters) {
+        sessionStorage.setItem("navigationState", parameters);
+    },
 
-	/* Remove Navigation State
-	-------------------------------------------------- */
-	removeNavigationState: function() {
-		sessionStorage.removeItem("navigationState");
-	},
+    /* Remove Navigation State
+    -------------------------------------------------- */
+    removeNavigationState: function() {
+        sessionStorage.removeItem("navigationState");
+    },
 
-	/* Trigger New Screen Set
-	-------------------------------------------------- */
-	screenSet: function(parameters) {
-		Screens.setupScreens(parameters);
-	},
+    /* Trigger New Screen Set
+    -------------------------------------------------- */
+    screenSet: function(parameters) {
+        Screens.setupScreens(parameters);
+    },
 
-	/* Trigger Next Screen
-	-------------------------------------------------- */
-	nextScreen: function(parameters) {
-		KeyEvent(221);
-	},
+    /* Trigger Next Screen
+    -------------------------------------------------- */
+    nextScreen: function(parameters) {
+        KeyEvent(221);
+    },
 
-	/* Trigger Previous Screen
-	-------------------------------------------------- */
-	previousScreen: function(parameters) {
-		KeyEvent(219);
-	},
+    /* Trigger Previous Screen
+    -------------------------------------------------- */
+    previousScreen: function(parameters) {
+        KeyEvent(219);
+    },
 
-	/* Render Certain Child of Screen
-	-------------------------------------------------- */
-	changeView: function(parameters) {
-		eventDispatcher.changeView(parameters);
-	},
+    /* Render Certain Child of Screen
+    -------------------------------------------------- */
+    changeView: function(parameters) {
+        eventDispatcher.changeView(parameters);
+    },
 
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
@@ -9459,72 +9478,56 @@ var events = {
     /* Close current Dialog
     -------------------------------------------------- */
     closeDialog: function(el) {
+        dialog.close();
+    },
 
-	    dialog.close();
-
-	},
-
-	/* General Dialog
-	-------------------------------------------------- */
-	openDialog: function(_type) {
-
-		dialog.general(null, _type);
-
-	},
+    /* General Dialog
+    -------------------------------------------------- */
+    openDialog: function(_type) {
+        dialog.general(null, _type);
+    },
 
     /* Press Key on OnScreen Keyboard
     -------------------------------------------------- */
     depressKey: function(parameters) {
-
-		keyboardKeyEvents.keypress(parameters);
-
+        keyboardKeyEvents.keypress(parameters);
     },
 
     /* Prevent any action
     -------------------------------------------------- */
-	preventDefault: function(parameters) {
-
-		return 0;
-
+    preventDefault: function(parameters) {
+        return 0;
     },
 
     /* Log User In
     -------------------------------------------------- */
     logIn: function(parameters) {
 
-    	if (parameters) {
+        if (parameters) {
 
-	    	var src  = "config/profiles/" + parameters + ".json";
-	    	var dest = "config/profiles/Session.json";
+            var src  = "config/profiles/" + parameters + ".json";
+            var dest = "config/profiles/Session.json";
 
-	    	var copyObject = {};
+            var copyObject = {};
 
-	    	copyObject.src = src;
-	    	copyObject.dest = dest;
+            copyObject.src = src;
+            copyObject.dest = dest;
 
-			api.emit('request', { request: 'createSession', param: copyObject});
+            api.emit('request', { request: 'createSession', param: copyObject});
 
-		}
-
-		else {
-
-
-		}
+        }
 
     },
 
-	/*  Log Out
-	-------------------------------------------------- */
-	logOut: function(parameters) {
-
-		window.location = 'http://127.0.0.1:1210/profiles';
-
-	},
+    /*  Log Out
+    -------------------------------------------------- */
+    logOut: function(parameters) {
+        window.location = 'http://127.0.0.1:1210/profiles';
+    },
 
     /* Save Wifi Config
     -------------------------------------------------- */
-
-  	saveWifiConfig: function(parameters) {
+	saveWifiConfig: function(parameters) {
 
         var form = document.forms[parameters].elements;
 
@@ -9538,7 +9541,7 @@ var events = {
 
         obj.formTitle = parameters;
 
-  		api.emit('request', { request: 'writeTextSync', param: obj });
+        api.emit('request', { request: 'writeTextSync', param: obj });
 
     },
 
@@ -9560,161 +9563,151 @@ var events = {
 
         switch(obj.server) {
 
-			case "true": {
-			    api.emit('request', { request: 'submitForm', param: obj });
-				break;
-			}
+            case "true": {
+                api.emit('request', { request: 'submitForm', param: obj });
+                break;
+            }
 
-			case "false": {
-			    api.emit('request', { request: 'writeJSONSync', param: obj });
-				break;
-			}
+            case "false": {
+                api.emit('request', { request: 'writeJSONSync', param: obj });
+                break;
+            }
 
-			case "cache": {
-			 	api.emit('request', { request: "cacheForm", param: obj });
-				break;
-			}
+            case "cache": {
+                 api.emit('request', { request: "cacheForm", param: obj });
+                break;
+            }
 
-			default: {
-				console.log("error submitting form");
-			}
+            default: {
+                console.log("error submitting form");
+            }
 
-	    }
+        }
     },
 
-	/* Submit form on Action button/keypress
-	-------------------------------------------------- */
-	writeAdvancedConfig: function(parameters) {
+    /* Submit form on Action button/keypress
+    -------------------------------------------------- */
+    writeAdvancedConfig: function(parameters) {
 
-		var form = document.forms[parameters].elements,
-			formObj = {};
+        var form = document.forms[parameters].elements,
+            formObj = {};
 
-		_.each(form, function(input) {
-			if (input.name && input.value) {
-				formObj[input.name] = input.value;
-			}
-		});
+        _.each(form, function(input) {
+            if (input.name && input.value) {
+                formObj[input.name] = input.value;
+            }
+        });
 
-		var selects = document.querySelectorAll("span[data-identifier='selectBoxConfig']"),
-			selectList = [];
+        var selects = document.querySelectorAll("span[data-identifier='selectBoxConfig']"),
+            selectList = [];
 
-		_.each(selects, function(select) {
-			selectList.push(select.classList.contains("label-selected"));
-		});
+        _.each(selects, function(select) {
+            selectList.push(select.classList.contains("label-selected"));
+        });
 
-		formObj.selectList = selectList;
+        formObj.selectList = selectList;
 
-		api.emit('request', { request: 'writeAdvancedConfig', param: formObj});
+        api.emit('request', { request: 'writeAdvancedConfig', param: formObj});
 
-		dialog.close();
+        dialog.close();
 
-	},
+    },
 
-	/*  Restore Default Config file
-	-------------------------------------------------- */
-	restoreAdvancedConfig: function(parameters) {
+    /*  Restore Default Config file
+    -------------------------------------------------- */
+    restoreAdvancedConfig: function(parameters) {
 
-		var path = "/config/platforms/commandline/user/"+parameters+".json";
-		api.emit('request', { request: 'removeFile', param: path});
+        var path = "/config/platforms/commandline/user/"+parameters+".json";
+        api.emit('request', { request: 'removeFile', param: path});
 
-		dialog.close();
-	},
+        dialog.close();
+    },
 
     /* Load Dashboard
     -------------------------------------------------- */
     preloadDashboard: function(parameters) {
 
-    	// Load new QTBrowser window and use on complete to close this instance?
-    	// if (document.readyState === "complete") { init(); }
+        // Load new QTBrowser window and use on complete to close this instance?
+        // if (document.readyState === "complete") { init(); }
 
-    	window.location = "http://127.0.0.1:1210/home/";
+        window.location = "http://127.0.0.1:1210/home/";
 
 
     },
 
     /* Get Community Info
     -------------------------------------------------- */
-	moreCommunity: function(parameters) {
-
-		dialog.show("Community");
-
+    moreCommunity: function(parameters) {
+        dialog.show("Community");
     },
 
     /* Web Browser
     -------------------------------------------------- */
-	launchBrowser: function(parameters) {
+    launchBrowser: function(parameters) {
+        dialog.show("WebBrowser", parameters);
+    },
 
-		dialog.show("WebBrowser", parameters);
+    /* Web Browser
+    -------------------------------------------------- */
+    browserFocus: function(parameters) {
+
+        var arg = {
+            message: "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?",
+            agree: "browserFocusAgree",
+            disagree: "closeDialog",
+            parameters: parameters
+        }
+
+        dialog.show("Prompt", null, arg);
 
     },
 
-	/* Web Browser
-	-------------------------------------------------- */
-	browserFocus: function(parameters) {
+    /* Focus Agreement
+    -------------------------------------------------- */
+    browserFocusAgree: function(parameters) {
+        events.mouseControlEnable();
+        dialog.close();
+        setTimeout(function() {
+            document.getElementsByTagName("iframe")[0].focus();
+        }, 500);
+    },
 
-		var arg = {
-			message: "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?",
-			agree: "browserFocusAgree",
-			disagree: "closeDialog",
-			parameters: parameters
-		}
+    /*     Terminal
+    -------------------------------------------------- */
+    showTerminal: function(parameters) {
+        dialog.show("Terminal");
+    },
 
-		dialog.show("Prompt", null, arg);
+    /*     Go to URL (web browser)
+    -------------------------------------------------- */
+    gotoUrl: function(parameters) {
 
-	},
+        var url = document.getElementById("url-bar").value;
+        document.getElementsByTagName("iframe")[0].src = url;
 
-	/* Focus Agreement
-	-------------------------------------------------- */
-	browserFocusAgree: function(parameters) {
-		events.mouseControlEnable();
-		dialog.close();
-		setTimeout(function() {
-			document.getElementsByTagName("iframe")[0].focus();
-		}, 500);
-	},
+    },
 
-	/* 	Terminal
-	-------------------------------------------------- */
-	showTerminal: function(parameters) {
+    /*     Disable Mouse, Close Agreement
+    -------------------------------------------------- */
+    closeDialogDisableMouse: function(parameters) {
 
-		dialog.show("Terminal");
+        document.body.classList.remove("mouse");
+        dialog.close();
 
-	},
+    },
 
-	/* 	Go to URL (web browser)
-	-------------------------------------------------- */
-	gotoUrl: function(parameters) {
+    /*     Enable Mouse
+    -------------------------------------------------- */
+    mouseControlEnable: function(parameters) {
+        document.body.classList.add("mouse");
+    },
 
-		var url = document.getElementById("url-bar").value;
-		document.getElementsByTagName("iframe")[0].src = url;
-
-	},
-
-	/* 	Disable Mouse, Close Agreement
-	-------------------------------------------------- */
-	closeDialogDisableMouse: function(parameters) {
-
-		document.body.classList.remove("mouse");
-		dialog.close();
-
-	},
-
-	/* 	Enable Mouse
-	-------------------------------------------------- */
-	mouseControlEnable: function(parameters) {
-
-		document.body.classList.add("mouse");
-
-	},
-
-	/* 	Disable Mouse
-	-------------------------------------------------- */
-	mouseControlDisable: function(parameters) {
-
-		document.body.classList.remove("mouse");
-		dialog.close();
-
-	},
+    /*     Disable Mouse
+    -------------------------------------------------- */
+    mouseControlDisable: function(parameters) {
+        document.body.classList.remove("mouse");
+        dialog.close();
+    },
 
     /* Switch Emulator on Action button/keypress
     -------------------------------------------------- */
@@ -9740,175 +9733,183 @@ var events = {
     /* Drop navigation on sub-panels on Action button/keypress
     -------------------------------------------------- */
     highlightPanel: function(parameters) {
-		KeyEvent(40);
+        KeyEvent(40);
     },
 
-	/*  Delete Message Prompt
-	-------------------------------------------------- */
-	deleteMessage: function(parameters) {
+    /*  Delete Message Prompt
+    -------------------------------------------------- */
+    deleteMessage: function(parameters) {
 
-		var arg = {
-			message: "Are you sure you want to delete this message?",
-			agree: "deleteMessageConfirmed",
-			disagree: "closeDialog",
-			parameters: parameters
-		}
+        var arg = {
+            message: "Are you sure you want to delete this message?",
+            agree: "deleteMessageConfirmed",
+            disagree: "closeDialog",
+            parameters: parameters
+        }
 
-		dialog.show("Prompt", null, arg);
+        dialog.show("Prompt", null, arg);
 
-	},
+    },
 
     /* Delete Message
     -------------------------------------------------- */
     deleteMessageConfirmed: function(parameters) {
 
-		api.emit('request', { request: 'deleteMessage', param: parameters });
-		api.emit('request', { request: 'messages', param: null });
+        api.emit('request', { request: 'deleteMessage', param: parameters });
+        api.emit('request', { request: 'messages', param: null });
 
-		dialog.close();
-		dialog.close();
+        dialog.close();
+        dialog.close();
 
-	},
+    },
 
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function(parameters) {
         dialog.show("Messages");
-	},
+    },
 
-	/*  View Single Message
-	-------------------------------------------------- */
-	viewMessage: function(parameters) {
-		dialog.show("Message", parameters);
-		api.emit('request', { request: 'messages', param: null });
-	},
+    /*  View Single Message
+    -------------------------------------------------- */
+    viewMessage: function(parameters) {
+        dialog.show("Message", parameters);
+        api.emit('request', { request: 'messages', param: null });
+    },
 
-	/* Send Message
-	-------------------------------------------------- */
-	passMessage: function(parameters) {
-		dialog.show("PassMessage", parameters);
-	},
+    /* Send Message
+    -------------------------------------------------- */
+    passMessage: function(parameters) {
+        dialog.show("PassMessage", parameters);
+    },
 
-	/* View Friends
+    /* View Friends
     -------------------------------------------------- */
     viewFriends: function(parameters) {
         dialog.show("Friends");
-	},
+    },
 
-	/* View Friends
+    /* View Friends
     -------------------------------------------------- */
     viewFriend: function(parameters) {
         dialog.show("FriendLarge", parameters);
-	},
+    },
 
-	/* Add a Friend(Request)
+    /* Add a Friend(Request)
     -------------------------------------------------- */
     addFriend: function(parameters) {
         dialog.show("AddFriend");
-	},
+    },
 
     /* Launch selected game
     -------------------------------------------------- */
     launchGame: function(parameters) {
         // TODO:  via sockets and update server activity (so-and-so played game, 10 hours ago)
 
-		if (parameters) {
+        if (parameters) {
 
-			navigationBindings("deinit");
+            navigationBindings("deinit");
 
-			document.removeEventListener("keydown", function(e) {
-				return;
-			});
+            document.removeEventListener("keydown", function(e) {
+                return;
+            });
 
-			var _doc = document.getElementById("main");
+            var _doc = document.getElementById("main");
 
-			document.body.style.background = "transparent";
-			_doc.style.display = "none";
+            document.body.style.background = "transparent";
+            _doc.style.display = "none";
 
-			// setTimeout(function() {
-			//
-			// 	dialog.uiNotification();
-			//
-			// 	setTimeout(function() {
-			// 		dialog.close(null, null, "uiNotification");
-			// 	}, 4500);
-			//
-			// }, 60000);
+            // setTimeout(function() {
+            //
+            //     dialog.uiNotification();
+            //
+            //     setTimeout(function() {
+            //         dialog.close(null, null, "uiNotification");
+            //     }, 4500);
+            //
+            // }, 60000);
 
-			api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
-		}
+            api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
+        }
 
     },
 
-	/* See game Profile
+    /* See game Profile
+    -------------------------------------------------- */
+    largeProfile: function(parameters) {
+
+        var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
+        var shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
+
+        var _launchContext = {
+            platform: platform,
+            filepath: parameters,
+            shortname: shortname
+        }
+
+        eventDispatcher.launchContext(_launchContext);
+
+        KeyEvent(221);
+
+    },
+
+	/*  Resume Client
 	-------------------------------------------------- */
-	largeProfile: function(parameters) {
+    resumeClient: function(parameters) {
 
-		var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
-		var shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
+        var _doc = document.getElementById("main");
+        document.body.style.background = "#000000";
+        _doc.style.display = "block";
+        navigationInit.navigationInit();
 
-		var _launchContext = {
-			platform: platform,
-			filepath: parameters,
-			shortname: shortname
-		}
-
-		eventDispatcher.launchContext(_launchContext);
-
-		KeyEvent(221);
-
-	},
-
-	resumeClient: function(parameters) {
-
-		var _doc = document.getElementById("main");
-		document.body.style.background = "#000000";
-		_doc.style.display = "block";
-		navigationInit.navigationInit();
-
-		navigationBindings("init");
+        navigationBindings("init");
 
 
-	},
+    },
 
-	softwareOptions: function(parameters) {
+	/*  Software Options
+	-------------------------------------------------- */
+    softwareOptions: function(parameters) {
 
-		console.log(parameters);
+        console.log(parameters);
 
-		var options = JSON.parse(parameters);
+        var options = JSON.parse(parameters);
 
-		dialog.show("SoftwareOptions", options);
+        dialog.show("SoftwareOptions", options);
 
-	},
+    },
 
-	selectBox: function(parameters) {
+	/*  Select Box UI for options
+	-------------------------------------------------- */
+    selectBox: function(parameters) {
 
-		var doc 	= document.getElementById(parameters);
-		var input 	= document.getElementById("input-"+parameters);
+        var doc     = document.getElementById(parameters);
+        var input     = document.getElementById("input-"+parameters);
 
-		if (!doc.classList.contains("required")) {
-			doc.classList.toggle("label-selected");
-			if (input) { input.classList.toggle("disabled") };
-		}
+        if (!doc.classList.contains("required")) {
+            doc.classList.toggle("label-selected");
+            if (input) { input.classList.toggle("disabled") };
+        }
 
-		eventDispatcher.selectBox(input, doc.classList.contains("label-selected"));
+        eventDispatcher.selectBox(input, doc.classList.contains("label-selected"));
 
-	},
+    },
 
-	choiceBox: function(parameters) {
+	/*  Choice Box (radio) for Options
+	-------------------------------------------------- */
+    choiceBox: function(parameters) {
 
-		var doc = document.getElementById(parameters),
-			parent = doc.parentNode;
+        var doc = document.getElementById(parameters),
+            parent = doc.parentNode;
 
-			_.each(parent.childNodes, function(el) {
-				el.classList.remove("label-selected");
-			})
+            _.each(parent.childNodes, function(el) {
+                el.classList.remove("label-selected");
+            })
 
-			doc.classList.add("label-selected");
+            doc.classList.add("label-selected");
 
-			api.emit('request', { request: 'getSpecificCommandLineConfig', param: doc.innerHTML });
+            api.emit('request', { request: 'getSpecificCommandLineConfig', param: doc.innerHTML });
 
-	},
+    },
 
 }
 

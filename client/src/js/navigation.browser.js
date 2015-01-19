@@ -12,6 +12,7 @@ var getFirstChild       = require('./helpers.js').getFirstChild
 
 var browserNavigation = function(k) {
 
+
  // Podium = {};
  //
  //    Podium.keydown = function(k) {
@@ -53,7 +54,6 @@ var browserNavigation = function(k) {
     td = getFirstChild(td);
     td = getFirstChild(td);
     td.classList.add('browser_hovered');
-
 
     var b;
     [].forEach.call(
@@ -100,8 +100,10 @@ var browserNavigationEvents = function(g) {
             filter: "system",
             query: shortname.trim()
         },
-    },function(result){
+    }, function(result){
+
             events.updateGame(result, filepath);
+
         }
     );
 
@@ -114,11 +116,10 @@ var browserNavigationEvents = function(g) {
     document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
 
 
-
 };
 
 /* Exports
 -------------------------------------------------- */
 
-exports.browserNavigation = browserNavigation;
+exports.browserNavigation       = browserNavigation;
 exports.browserNavigationEvents = browserNavigationEvents;

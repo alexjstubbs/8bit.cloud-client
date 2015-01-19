@@ -11,6 +11,8 @@ var gamepad 			     = require("./gamepad")
 
 module.exports = function() {
 
+    console.log(sysEvents);
+
     /*  Clear local Storage
     -------------------------------------------------- */
     sessionStorage.removeItem("navigationState");

@@ -15,10 +15,10 @@ exports.gameImage = function(req, res, callback) {
     }
 
     else {
-        img = fs.readFileSync('./client/src/img/blank.png');
+        img = fs.readFileSync('./client/src/img/no-boxart.png');
     }
 
     res.writeHead(200, {'Content-Type': 'image/png' });
     res.end(img, 'binary');
-   
+
 }

@@ -39,7 +39,7 @@ module.exports = function(k) {
             window.clearTimeout(timeSync);
 
             memSelection = currentSelection[0];
-            timeSync = window.setTimeout(showSelection, 1000);
+            timeSync = window.setTimeout(showSelection, 700);
 
             currentSelection[0].scrollIntoView(false);
 

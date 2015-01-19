@@ -48,9 +48,7 @@ module.exports = React.createClass({
         });
 
         document.addEventListener('launchContext', function eventHandler(e) {
-            console.log("got one");
             launchContext = JSON.stringify(e.detail);
-            console.log(launchContext);
             component.forceUpdate();
         });
 
@@ -93,7 +91,7 @@ module.exports = React.createClass({
 
          <div className="col-xs-2" id="profile-boxart">
 
-            {this.state.image ? <img src={this.state.image} className="img-responsive" /> : <div id="no-boxart"> <i className='icon ion-image'></i> </div> }
+            <img src={this.state.image} className="img-responsive" />
 
 
             <ul id="profile-sub-buttons" className="hidden">
