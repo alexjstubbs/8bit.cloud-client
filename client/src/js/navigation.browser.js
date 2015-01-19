@@ -83,11 +83,12 @@ var browserNavigation = function(k) {
 -------------------------------------------------- */
 
 var browserNavigationEvents = function(g) {
+    //<tr data-reactid=".1.0.1.0.1.0.0.0.1" data-path="/Users/alexstubbs/roms/nes/Battle City.7z" data-title="Battle City" data-parameters="/Users/alexstubbs/roms/nes/Battle City.7z" data-function="largeProfile" data-snav="1" class="subNavable selectedNav">
 
-    var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
-        game = removeBrackets(g.getAttribute("data-title")),
-        game = game.replace(/\.[^/.]+$/, ""),
-        filepath = g.getAttribute("data-path");
+    var shortname   = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
+        game        = removeBrackets(g.getAttribute("data-title")),
+        game        = game.replace(/\.[^/.]+$/, ""),
+        filepath    = g.getAttribute("data-path");
 
     database.filterByAttribute("games", {
         "query": {

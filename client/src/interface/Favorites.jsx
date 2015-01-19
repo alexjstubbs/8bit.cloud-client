@@ -29,12 +29,13 @@ module.exports = React.createClass({
 
     render: function() {
 
-
         var favoriteNodes = this.props.favorites.map(function (favorite, i) {
-          return <Favorite key={i.id} navStack={i+1} game={favorite.long} system={favorite.Platform} filepath={favorite.filepath} timestamp={ moment(favorite.timestamp, "YYYYMMDDhhmms").fromNow() } />
+          return <Favorite key={i.id} platform={favorite.platform} shortname={favorite.shortname} navStack={i+1} game={favorite.long} system={favorite.Platform} filepath={favorite.filepath} timestamp={ moment(favorite.timestamp, "YYYYMMDDhhmms").fromNow() } />
         });
 
         var nodes = favoriteNodes.length;
+        // favoriteNodes = favoriteNodes.reverse();
+
 
         return (
 

@@ -68,9 +68,6 @@ module.exports = React.createClass({
 
                         var JSONified = JSON.parse(data);
 
-                        console.log(JSONified[0]);
-                        console.log(component.state);
-
                         if (_.contains(JSONified[0], component.state.title)) {
                             component.setState({favorite: true});
                         }

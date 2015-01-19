@@ -310,7 +310,7 @@ module.exports = function(k) {
                     }
 
                 }
-                
+
                 var q = col.length;
                 q = q - 1;
 

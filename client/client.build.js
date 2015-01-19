@@ -2499,7 +2499,8 @@ var React           = require('react/addons')
 ,   Community       = require('./Community.jsx')
 ,   IgnitionEvents  = require('./IgnitionEvents.jsx')
 ,   ShortcutBar     = require('./ShortcutBar.jsx')
-,   unreadMessages;
+,   unreadMessages
+,   favorites       = [];
 
 /* Sample Data for Development
 -------------------------------------------------- */
@@ -2511,11 +2512,6 @@ var actionSet = [
 ];
 
 
-var favorites = [];
-
-// var communityEvent = [
-//     {'title': "Together Retro", "image": "http://www.racketboy.com/images/tr-lost-vikings.png", "url": "http://www.racketboy.com", "rss": "http://www.rackerboy.com?rss2", "imageStyles": '{"width": "90%", "height": "90%", "position": "relative", "left": "20px"}'}
-// ];
 
 var ignitionEvents = [
     {'Type': 'Update', 'copy': 'Ignition 1.0 released!', 'username': ''},
@@ -2566,8 +2562,6 @@ module.exports = React.createClass({displayName: 'exports',
                     var JSONified = JSON.parse(data);
 
                     favorites = JSONified;
-
-                    console.log(favorites);
 
                     component.forceUpdate();
 
@@ -2746,14 +2740,25 @@ module.exports = React.createClass({displayName: 'exports',
     },
     render: function() {
 
+        var launchContext = {
+            platform: this.props.platform,
+            filepath: this.props.filepath,
+            shortname: this.props.shortname,
+            longname: this.props.game
+        }
+
+        launchContext = JSON.stringify(launchContext);
+
         var cx = React.addons.classSet;
         var classes = cx({
             'square': true,
             'purple-bg': true
         });
+
+
         return (
 
-        React.DOM.tr({className: this.props.subNavable ? "subNavable" : "", 'data-snav': this.props.navStack}, 
+        React.DOM.tr({className: this.props.subNavable ? "subNavable" : "", 'data-snav': this.props.navStack, 'data-function': "favoriteCut", 'data-parameters': launchContext}, 
 
             React.DOM.td({className: "td_square"}, React.DOM.div({className: classes}, React.DOM.i({className: this.props.icon}))), 
 
@@ -2806,12 +2811,13 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-
         var favoriteNodes = this.props.favorites.map(function (favorite, i) {
-          return Favorite({key: i.id, navStack: i+1, game: favorite.long, system: favorite.Platform, filepath: favorite.filepath, timestamp:  moment(favorite.timestamp, "YYYYMMDDhhmms").fromNow() })
+          return Favorite({key: i.id, platform: favorite.platform, shortname: favorite.shortname, navStack: i+1, game: favorite.long, system: favorite.Platform, filepath: favorite.filepath, timestamp:  moment(favorite.timestamp, "YYYYMMDDhhmms").fromNow() })
         });
 
         var nodes = favoriteNodes.length;
+        // favoriteNodes = favoriteNodes.reverse();
+
 
         return (
 
@@ -3688,9 +3694,6 @@ module.exports = React.createClass({displayName: 'exports',
                         var data = xmlhttp.responseText;
 
                         var JSONified = JSON.parse(data);
-
-                        console.log(JSONified[0]);
-                        console.log(component.state);
 
                         if (_.contains(JSONified[0], component.state.title)) {
                             component.setState({favorite: true});
@@ -5005,9 +5008,7 @@ init();
 /* Set up Screens
 -------------------------------------------------- */
 var setupScreens = function(route) {
-
-	console.log(Browser);
-
+	
 	var container = document.getElementById("screens");
 
 	if (route == "/home" || route == "/home/" || route == "Dashboard") {
@@ -8371,11 +8372,12 @@ var browserNavigation = function(k) {
 -------------------------------------------------- */
 
 var browserNavigationEvents = function(g) {
+    //<tr data-reactid=".1.0.1.0.1.0.0.0.1" data-path="/Users/alexstubbs/roms/nes/Battle City.7z" data-title="Battle City" data-parameters="/Users/alexstubbs/roms/nes/Battle City.7z" data-function="largeProfile" data-snav="1" class="subNavable selectedNav">
 
-    var shortname = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
-        game = removeBrackets(g.getAttribute("data-title")),
-        game = game.replace(/\.[^/.]+$/, ""),
-        filepath = g.getAttribute("data-path");
+    var shortname   = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
+        game        = removeBrackets(g.getAttribute("data-title")),
+        game        = game.replace(/\.[^/.]+$/, ""),
+        filepath    = g.getAttribute("data-path");
 
     database.filterByAttribute("games", {
         "query": {
@@ -9358,7 +9360,7 @@ module.exports = function(k) {
                     }
 
                 }
-                
+
                 var q = col.length;
                 q = q - 1;
 
@@ -9523,6 +9525,7 @@ var systemNotify        	= require('./notification.init.js')
 ,   Modal               	= require('../interface/Modal.jsx')
 ,   Messages            	= require('../interface/Messages.jsx')
 ,   navigationBindings  	= require("./navigation.bindings")
+,   database                = require('./database.helpers')
 ,   navigationEvent     	= require("./navigation.event")
 ,   _                   	= require('lodash')
 ,   navigationInit      	= require("./navigation.init.js")
@@ -9977,8 +9980,8 @@ var events = {
     -------------------------------------------------- */
     largeProfile: function(parameters) {
 
-        var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
-        var shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
+        var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
+            shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
 
         var _launchContext = {
             platform: platform,
@@ -9988,6 +9991,39 @@ var events = {
 
         eventDispatcher.launchContext(_launchContext);
 
+        KeyEvent(221);
+
+    },
+
+    /*  Favorite Shortcut
+    -------------------------------------------------- */
+    favoriteCut: function(parameters) {
+        // TODO: Create widget for favorites instead of passing them to profile
+
+        var JSONified = JSON.parse(parameters);
+
+        eventDispatcher.launchContext(JSONified);
+
+
+        database.filterByAttribute("games", {
+            "query": {
+                type: "makeExactFilter",
+                filter: "title",
+                query: JSONified.longname
+            },
+            "subquery": {
+                type:"makeExactFilter",
+                filter: "system",
+                query: JSONified.shortname
+            },
+        }, function(result){
+
+            eventDispatcher.updateGame(result, JSONified.filepath);
+
+        }
+    );
+
+        KeyEvent(221);
         KeyEvent(221);
 
     },
@@ -10058,7 +10094,7 @@ var events = {
 -------------------------------------------------- */
 exports.events = events;
 
-},{"../interface/Messages.jsx":28,"../interface/Modal.jsx":29,"../interface/Screens.jsx":41,"./dialogs":71,"./events":73,"./mousetrap.min.js":78,"./navigation.bindings":79,"./navigation.event":81,"./navigation.init.js":83,"./navigation.keyEvent":84,"./navigation.keyboardKeyEvents":86,"./notification.init.js":88,"lodash":92,"react/addons":94,"socket.io-client":253}],90:[function(require,module,exports){
+},{"../interface/Messages.jsx":28,"../interface/Modal.jsx":29,"../interface/Screens.jsx":41,"./database.helpers":70,"./dialogs":71,"./events":73,"./mousetrap.min.js":78,"./navigation.bindings":79,"./navigation.event":81,"./navigation.init.js":83,"./navigation.keyEvent":84,"./navigation.keyboardKeyEvents":86,"./notification.init.js":88,"lodash":92,"react/addons":94,"socket.io-client":253}],90:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

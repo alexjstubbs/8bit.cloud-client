@@ -26,14 +26,25 @@ module.exports = React.createClass({
     },
     render: function() {
 
+        var launchContext = {
+            platform: this.props.platform,
+            filepath: this.props.filepath,
+            shortname: this.props.shortname,
+            longname: this.props.game
+        }
+
+        launchContext = JSON.stringify(launchContext);
+
         var cx = React.addons.classSet;
         var classes = cx({
             'square': true,
             'purple-bg': true
         });
+
+
         return (
 
-        <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack}>
+        <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack} data-function="favoriteCut" data-parameters={launchContext}>
 
             <td className="td_square"><div className={classes}><i className={this.props.icon}></i></div></td>
 

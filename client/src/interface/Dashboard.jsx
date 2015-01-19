@@ -15,7 +15,8 @@ var React           = require('react/addons')
 ,   Community       = require('./Community.jsx')
 ,   IgnitionEvents  = require('./IgnitionEvents.jsx')
 ,   ShortcutBar     = require('./ShortcutBar.jsx')
-,   unreadMessages;
+,   unreadMessages
+,   favorites       = [];
 
 /* Sample Data for Development
 -------------------------------------------------- */
@@ -27,11 +28,6 @@ var actionSet = [
 ];
 
 
-var favorites = [];
-
-// var communityEvent = [
-//     {'title': "Together Retro", "image": "http://www.racketboy.com/images/tr-lost-vikings.png", "url": "http://www.racketboy.com", "rss": "http://www.rackerboy.com?rss2", "imageStyles": '{"width": "90%", "height": "90%", "position": "relative", "left": "20px"}'}
-// ];
 
 var ignitionEvents = [
     {'Type': 'Update', 'copy': 'Ignition 1.0 released!', 'username': ''},
@@ -82,8 +78,6 @@ module.exports = React.createClass({
                     var JSONified = JSON.parse(data);
 
                     favorites = JSONified;
-
-                    console.log(favorites);
 
                     component.forceUpdate();
 

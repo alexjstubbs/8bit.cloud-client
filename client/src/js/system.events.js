@@ -8,6 +8,7 @@ var systemNotify        	= require('./notification.init.js')
 ,   Modal               	= require('../interface/Modal.jsx')
 ,   Messages            	= require('../interface/Messages.jsx')
 ,   navigationBindings  	= require("./navigation.bindings")
+,   database                = require('./database.helpers')
 ,   navigationEvent     	= require("./navigation.event")
 ,   _                   	= require('lodash')
 ,   navigationInit      	= require("./navigation.init.js")
@@ -462,8 +463,8 @@ var events = {
     -------------------------------------------------- */
     largeProfile: function(parameters) {
 
-        var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
-        var shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
+        var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
+            shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
 
         var _launchContext = {
             platform: platform,
@@ -473,6 +474,39 @@ var events = {
 
         eventDispatcher.launchContext(_launchContext);
 
+        KeyEvent(221);
+
+    },
+
+    /*  Favorite Shortcut
+    -------------------------------------------------- */
+    favoriteCut: function(parameters) {
+        // TODO: Create widget for favorites instead of passing them to profile
+
+        var JSONified = JSON.parse(parameters);
+
+        eventDispatcher.launchContext(JSONified);
+
+
+        database.filterByAttribute("games", {
+            "query": {
+                type: "makeExactFilter",
+                filter: "title",
+                query: JSONified.longname
+            },
+            "subquery": {
+                type:"makeExactFilter",
+                filter: "system",
+                query: JSONified.shortname
+            },
+        }, function(result){
+
+            eventDispatcher.updateGame(result, JSONified.filepath);
+
+        }
+    );
+
+        KeyEvent(221);
         KeyEvent(221);
 
     },
