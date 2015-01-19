@@ -27,7 +27,8 @@ module.exports = React.createClass({
 
         if (!this.props.subfield) {
 
-            document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
+            document.getElementById("input-"+this.props.id).classList.add("no-sub-field")
+            document.getElementById("input-"+this.props.id).classList.remove("navable");
             document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault");
 
             component.forceUpdate();
@@ -39,10 +40,13 @@ module.exports = React.createClass({
     },
 
     render: function() {
+        //
+        // console.log(_default);
+        // console.log(this.props.defaults);
 
-        if (_default != 'true') {
+        // if (_default != 'true') {
             _default = this.props.defaults;
-        }
+        // }
 
         var classname;
 
@@ -64,7 +68,7 @@ module.exports = React.createClass({
                     <span id={this.props.id} className={classname + " navable label label-unselected"} data-function="selectBox" data-parameters={this.props.id} data-identifier='selectBoxConfig'>{this.props.arg}</span>
                 </span>
 
-                <span className="col-xs-10 scroll-into-view">
+                <span className="col-xs-10 scroll-into-view_">
                     <input id={"input-"+this.props.id} className="form-control input-lg navable" type="text" data-function="inputFocus" name={this.props.arg} value={_default} />
                 </span>
 

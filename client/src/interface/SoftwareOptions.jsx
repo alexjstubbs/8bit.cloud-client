@@ -139,7 +139,7 @@ module.exports = React.createClass({
                 </div>
 
                 <div className="col-xs-1">
-                    <span className="navable label label-selected" data-function="selectBox">Achievements</span>
+                    <span className="navable label label-selected hidden" data-function="selectBox">Achievements</span>
                 </div>
 
                 <div className="clearfix"></div>

@@ -1,8 +1,0 @@
-{
-  "name": "Nintendo",
-  "properties": {
-    "short": "nes",
-    "ext": [".nes", ".zip", ".7z"]
-  },
-  "emulators": ["retroarch", ""]
-}

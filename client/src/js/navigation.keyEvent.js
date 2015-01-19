@@ -1,30 +1,21 @@
-/* Translates Gamepad button events into keyboard events (chromium renderer workaround)
+/* Translates Gamepad button events into keyboard events
 -------------------------------------------------- */
 
 module.exports = function(k) {
 
+    var eventObj = document.createEventObject ?
+    document.createEventObject() : document.createEvent("Events");
 
-    var keyboardEvent = document.createEvent("KeyboardEvent");
-    var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
+    if(eventObj.initEvent){
+        eventObj.initEvent("keydown", true, true);
+    }
 
+    eventObj.keyCode = k;
+    eventObj.which = k;
 
-    keyboardEvent[initMethod](
-        "keydown", // event type : keydown, keyup, keypress
-        true, // bubbles
-        true, // cancelable
-        window, // viewArg: should be window
-        false, // ctrlKeyArg
-        false, // altKeyArg
-        false, // shiftKeyArg
-        false, // metaKeyArg
-        k, // keyCodeArg : unsigned long the virtual key code, else 0
-        0 // charCodeArgs : unsigned long the Unicode character associated with the depressed key, else 0
-    );
-    
-    document.dispatchEvent(keyboardEvent);
+    document.dispatchEvent ? document.dispatchEvent(eventObj) : document.fireEvent("onkeydown", eventObj);
 
-
-    //
+    // Below is for Pi's old version of Chromium (not ignitions custom compiled version).
     // Podium = {};
     //
     // Podium.keydown = function(k) {

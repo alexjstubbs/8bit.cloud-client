@@ -48,7 +48,9 @@ module.exports = React.createClass({
         });
 
         document.addEventListener('launchContext', function eventHandler(e) {
+            console.log("got one");
             launchContext = JSON.stringify(e.detail);
+            console.log(launchContext);
             component.forceUpdate();
         });
 
@@ -76,7 +78,7 @@ module.exports = React.createClass({
             var achievementNodes = this.state.crc32[0].Achievements.map(function (achievement, i) {
                 return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />
             });
-            
+
         }
 
         return (

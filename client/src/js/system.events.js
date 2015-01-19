@@ -453,9 +453,6 @@ var events = {
 	-------------------------------------------------- */
 	largeProfile: function(parameters) {
 
-		// TODO:
-		KeyEvent(221);
-
 		var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
 		var shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
 
@@ -466,6 +463,8 @@ var events = {
 		}
 
 		eventDispatcher.launchContext(_launchContext);
+
+		KeyEvent(221);
 
 	},
 
@@ -482,6 +481,8 @@ var events = {
 	},
 
 	softwareOptions: function(parameters) {
+
+		console.log(parameters);
 
 		var options = JSON.parse(parameters);
 

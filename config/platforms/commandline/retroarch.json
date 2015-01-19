@@ -76,7 +76,7 @@
             "path": "/opt/emulatorcores/fba-libretro/fb_alpha_libretro.so"
         },
         "FCEUMM": {
-            "path": "/opt/emulatorcores/fceu-next/fceu-next/fceumm-code/fceumm_libretro.so",
+            "path": "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
             "achievements": {
                 "offset": "0x54",
                 "buffer_length": "4390",
@@ -124,10 +124,10 @@
         "-c": {
             "arg": "-c",
             "desc": "Path for config file. By default looks for config in $XDG_CONFIG_HOME/retroarch/retroarch.cfg, $HOME/.config/retroarch/retroarch.cfg, and $HOME/.retroarch.cfg.",
-            "defaults": "/opt/configs/ignition/retroarch.conf",
+            "defaults": "/opt/configs/all/retroarch.cfg",
             "subfield": true,
             "required": false,
-            "ticked": true
+            "ticked": false
         },
         "--appendconfig": {
             "arg": "--appendconfig",

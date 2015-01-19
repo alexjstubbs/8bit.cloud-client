@@ -3609,7 +3609,9 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
         document.addEventListener('launchContext', function eventHandler(e) {
+            console.log("got one");
             launchContext = JSON.stringify(e.detail);
+            console.log(launchContext);
             component.forceUpdate();
         });
 
@@ -3637,7 +3639,7 @@ module.exports = React.createClass({displayName: 'exports',
             var achievementNodes = this.state.crc32[0].Achievements.map(function (achievement, i) {
                 return AchievementList({title: achievement.title, description: achievement.description, navStack: i+1})
             });
-            
+
         }
 
         return (
@@ -4316,7 +4318,8 @@ module.exports = React.createClass({displayName: 'exports',
 
         if (!this.props.subfield) {
 
-            document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
+            document.getElementById("input-"+this.props.id).classList.add("no-sub-field")
+            document.getElementById("input-"+this.props.id).classList.remove("navable");
             document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault");
 
             component.forceUpdate();
@@ -4328,10 +4331,13 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     render: function() {
+        //
+        // console.log(_default);
+        // console.log(this.props.defaults);
 
-        if (_default != 'true') {
+        // if (_default != 'true') {
             _default = this.props.defaults;
-        }
+        // }
 
         var classname;
 
@@ -4353,7 +4359,7 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.span({id: this.props.id, className: classname + " navable label label-unselected", 'data-function': "selectBox", 'data-parameters': this.props.id, 'data-identifier': "selectBoxConfig"}, this.props.arg)
                 ), 
 
-                React.DOM.span({className: "col-xs-10 scroll-into-view"}, 
+                React.DOM.span({className: "col-xs-10 scroll-into-view_"}, 
                     React.DOM.input({id: "input-"+this.props.id, className: "form-control input-lg navable", type: "text", 'data-function': "inputFocus", name: this.props.arg, value: _default})
                 )
 
@@ -5179,7 +5185,7 @@ module.exports = React.createClass({displayName: 'exports',
                 ), 
 
                 React.DOM.div({className: "col-xs-1"}, 
-                    React.DOM.span({className: "navable label label-selected", 'data-function': "selectBox"}, "Achievements")
+                    React.DOM.span({className: "navable label label-selected hidden", 'data-function': "selectBox"}, "Achievements")
                 ), 
 
                 React.DOM.div({className: "clearfix"}), 
@@ -7410,6 +7416,8 @@ var updateGame = function(results, filepath, callback) {
 -------------------------------------------------- */
 var launchContext = function(context) {
 
+    console.log("FIRED");
+
     var event = new CustomEvent('launchContext', {
         'detail': context
     });
@@ -8581,33 +8589,24 @@ exports.navigationInit      = navigationInit;
 exports.navigationDeinit    = navigationDeinit;
 
 },{"lodash":93}],85:[function(require,module,exports){
-/* Translates Gamepad button events into keyboard events (chromium renderer workaround)
+/* Translates Gamepad button events into keyboard events
 -------------------------------------------------- */
 
 module.exports = function(k) {
 
+    var eventObj = document.createEventObject ?
+    document.createEventObject() : document.createEvent("Events");
 
-    var keyboardEvent = document.createEvent("KeyboardEvent");
-    var initMethod = typeof keyboardEvent.initKeyboardEvent !== 'undefined' ? "initKeyboardEvent" : "initKeyEvent";
+    if(eventObj.initEvent){
+        eventObj.initEvent("keydown", true, true);
+    }
 
+    eventObj.keyCode = k;
+    eventObj.which = k;
 
-    keyboardEvent[initMethod](
-        "keydown", // event type : keydown, keyup, keypress
-        true, // bubbles
-        true, // cancelable
-        window, // viewArg: should be window
-        false, // ctrlKeyArg
-        false, // altKeyArg
-        false, // shiftKeyArg
-        false, // metaKeyArg
-        k, // keyCodeArg : unsigned long the virtual key code, else 0
-        0 // charCodeArgs : unsigned long the Unicode character associated with the depressed key, else 0
-    );
-    
-    document.dispatchEvent(keyboardEvent);
+    document.dispatchEvent ? document.dispatchEvent(eventObj) : document.fireEvent("onkeydown", eventObj);
 
-
-    //
+    // Below is for Pi's old version of Chromium (not ignitions custom compiled version).
     // Podium = {};
     //
     // Podium.keydown = function(k) {
@@ -9029,11 +9028,9 @@ module.exports = function(k) {
             if (s.parentNode.classList.contains("scroll-into-view")) {
                 // var d = document.querySelectorAll(".selectedNav");
 
-
                 if (s.nextElementSibling) {
                     var d = s.nextElementSibling.nextElementSibling;
                 }
-
 
                 if (d) {
                     d.scrollIntoView(false);
@@ -9061,9 +9058,17 @@ module.exports = function(k) {
 
                 if (s.previousElementSibling) {
                     var d = s.previousElementSibling.previousElementSibling;
+
+
                     if (d) {
                         d.scrollIntoView(false);
                     }
+
+                    else {
+                        s.scrollIntoView(false);
+                    }
+
+
                 }
             }
         }
@@ -9839,9 +9844,6 @@ var events = {
 	-------------------------------------------------- */
 	largeProfile: function(parameters) {
 
-		// TODO:
-		KeyEvent(221);
-
 		var platform = document.querySelectorAll(".platform.selected")[0].getAttribute("data-title");
 		var shortname = document.querySelectorAll(".platform.selected")[0].getAttribute("data-parameters");
 
@@ -9852,6 +9854,8 @@ var events = {
 		}
 
 		eventDispatcher.launchContext(_launchContext);
+
+		KeyEvent(221);
 
 	},
 
@@ -9868,6 +9872,8 @@ var events = {
 	},
 
 	softwareOptions: function(parameters) {
+
+		console.log(parameters);
 
 		var options = JSON.parse(parameters);
 

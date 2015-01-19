@@ -1,0 +1,19 @@
+{
+    "package": "snes9x-rpi",
+    "expath": "/opt/emulators/snes9x-rpi",
+    "platforms": {
+        "snes": {
+            "title": "snes"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

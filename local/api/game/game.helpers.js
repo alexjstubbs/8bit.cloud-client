@@ -72,15 +72,22 @@ function getCommandlineConfig(nsp, payload, callback) {
     // User Has Specific Config
     if (fs.existsSync(pFile)) {
 
-        readJSON(null, pFile, function(err, results) {
+        listPlatforms(null, function(listobj) {
 
-            if (nsp) {
-                nsp.emit('api', {commandlineConfig: results});
-            }
+            var platform = listobj[payload.platform]
 
-            if (callback) {
-                callback(null, results);
-            }
+            readJSON(null, pFile, function(err, results) {
+
+                if (nsp) {
+                    nsp.emit('api', {commandlineConfig: results});
+                    nsp.emit('api', {softwareChoices: platform.emulators});
+                }
+
+                if (callback) {
+                    callback(null, results);
+                }
+
+            });
 
         });
 
@@ -145,19 +152,19 @@ function gameLaunch(nsp, payload) {
 
         }
 
-        console.log("command: "+ commandline.join(' ') + ' "'+payload.filepath+'"');
+        console.log("command: "+ results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"');
 
         // Launch Emulator
 
-        // execute(commandline, function(error, stderr, stdout) {
-        //
-        //     if (stderr) {
-        //         nsp.emit('messaging', {type: 0, body: stderr });
-        //     }
-        //
-        //     nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
-        //
-        // });
+        execute(results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"', function(error, stderr, stdout) {
+
+            if (stderr) {
+                nsp.emit('messaging', {type: 0, body: stderr });
+            }
+
+            nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+
+        });
 
 
     });
