@@ -67,6 +67,7 @@ module.exports = function(k) {
                 i++;
             }
 
+
             if (s.parentNode.classList.contains("scroll-into-view")) {
                 // var d = document.querySelectorAll(".selectedNav");
 
@@ -208,6 +209,23 @@ module.exports = function(k) {
                     i++;
                 }
 
+                if (sel[0].parentNode.classList.contains("scroll-into-view")) {
+                    // var d = document.querySelectorAll(".selectedNav");
+
+                    if (sel[0].nextElementSibling) {
+                        var d = sel[0].nextElementSibling.nextElementSibling;
+                    }
+
+                    if (d) {
+                        d.scrollIntoView(false);
+                    }
+
+                    else {
+                        sel[0].scrollIntoView(false);
+                    }
+
+                }
+
 
                 sel[0].classList.remove("selectedNav");
                 sel[0].parentNode.parentNode.querySelectorAll(".subNavable")[i].classList.add("selectedNav");
@@ -276,7 +294,23 @@ module.exports = function(k) {
 
                 i--;
 
+                if (sel[0].parentNode.classList.contains("scroll-into-view")) {
+                    // var d = document.querySelectorAll(".selectedNav");
 
+                    if (sel[0].nextElementSibling) {
+                        var d = sel[0].nextElementSibling.nextElementSibling;
+                    }
+
+                    if (d) {
+                        d.scrollIntoView(false);
+                    }
+
+                    else {
+                        sel[0].scrollIntoView(false);
+                    }
+
+                }
+                
                 var q = col.length;
                 q = q - 1;
 

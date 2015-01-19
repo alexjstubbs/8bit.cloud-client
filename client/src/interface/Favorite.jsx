@@ -41,7 +41,7 @@ module.exports = React.createClass({
                 <strong>{this.props.game}</strong>
 
                 <br />
-            
+
                 {this.props.system}
 
             </td>

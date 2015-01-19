@@ -2761,7 +2761,7 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.strong(null, this.props.game), 
 
                 React.DOM.br(null), 
-            
+
                 this.props.system
 
             ), 
@@ -2796,7 +2796,7 @@ module.exports = React.createClass({displayName: 'exports',
             icon: "ion-ios-heart-outline ",
             functionCall: "highlightPanel",
             functionParams: "panel_favorites",
-            classString: "slide col-xs-4",
+            classString: "slide col-xs-4 scroll-into-view",
             stackLength: 4,
             id: "panel_favorites",
             title: "My Favorites",
@@ -2816,7 +2816,7 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
             React.DOM.div({className: this.props.classString, id: this.props.id}, 
-                React.DOM.table({className: "table navable", 'data-function': this.props.functionCall, 'data-parameters': this.props.functionParams, id: "panel_activity"}, 
+                React.DOM.table({className: "scroll-into-view table navable scroll-into-view", 'data-function': this.props.functionCall, 'data-parameters': this.props.functionParams, id: "panel_activity"}, 
                     React.DOM.thead(null, 
                         React.DOM.th(null, 
                             React.DOM.h4(null, " ", React.DOM.i({className: this.props.icon}))
@@ -2827,7 +2827,7 @@ module.exports = React.createClass({displayName: 'exports',
                         )
                     ), 
 
-                    React.DOM.tbody(null, 
+                    React.DOM.tbody({className: "scroll-into-view"}, 
 
                         nodes ? favoriteNodes  : React.DOM.td(null, React.DOM.h2(null, "No Favorites Set"))
 
@@ -9115,6 +9115,7 @@ module.exports = function(k) {
                 i++;
             }
 
+
             if (s.parentNode.classList.contains("scroll-into-view")) {
                 // var d = document.querySelectorAll(".selectedNav");
 
@@ -9256,6 +9257,23 @@ module.exports = function(k) {
                     i++;
                 }
 
+                if (sel[0].parentNode.classList.contains("scroll-into-view")) {
+                    // var d = document.querySelectorAll(".selectedNav");
+
+                    if (sel[0].nextElementSibling) {
+                        var d = sel[0].nextElementSibling.nextElementSibling;
+                    }
+
+                    if (d) {
+                        d.scrollIntoView(false);
+                    }
+
+                    else {
+                        sel[0].scrollIntoView(false);
+                    }
+
+                }
+
 
                 sel[0].classList.remove("selectedNav");
                 sel[0].parentNode.parentNode.querySelectorAll(".subNavable")[i].classList.add("selectedNav");
@@ -9324,7 +9342,23 @@ module.exports = function(k) {
 
                 i--;
 
+                if (sel[0].parentNode.classList.contains("scroll-into-view")) {
+                    // var d = document.querySelectorAll(".selectedNav");
 
+                    if (sel[0].nextElementSibling) {
+                        var d = sel[0].nextElementSibling.nextElementSibling;
+                    }
+
+                    if (d) {
+                        d.scrollIntoView(false);
+                    }
+
+                    else {
+                        sel[0].scrollIntoView(false);
+                    }
+
+                }
+                
                 var q = col.length;
                 q = q - 1;
 

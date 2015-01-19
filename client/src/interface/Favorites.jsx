@@ -19,7 +19,7 @@ module.exports = React.createClass({
             icon: "ion-ios-heart-outline ",
             functionCall: "highlightPanel",
             functionParams: "panel_favorites",
-            classString: "slide col-xs-4",
+            classString: "slide col-xs-4 scroll-into-view",
             stackLength: 4,
             id: "panel_favorites",
             title: "My Favorites",
@@ -39,7 +39,7 @@ module.exports = React.createClass({
         return (
 
             <div className={this.props.classString} id={this.props.id}>
-                <table className="table navable" data-function={this.props.functionCall} data-parameters={this.props.functionParams} id="panel_activity">
+                <table className="scroll-into-view table navable scroll-into-view" data-function={this.props.functionCall} data-parameters={this.props.functionParams} id="panel_activity">
                     <thead>
                         <th>
                             <h4> <i className={this.props.icon}></i></h4>
@@ -50,7 +50,7 @@ module.exports = React.createClass({
                         </th>
                     </thead>
 
-                    <tbody>
+                    <tbody className="scroll-into-view">
 
                        { nodes ? favoriteNodes  : <td><h2>No Favorites Set</h2></td> }
 

@@ -344,6 +344,17 @@ form .label-unselected {
     opacity:1.0;
 }
 
+
+#panel_favorites tbody {
+    padding:5px;
+    display:inline-block;
+    width:130%;
+    height:350px;
+    overflow-y: visible;    /* Trigger vertical scroll    */
+    overflow-x: auto;
+}
+
+
 /* Welcome Animation
 -------------------------------------------------- */
 @-webkit-keyframes welcomeFade {
@@ -836,6 +847,9 @@ td#rss_info {
 
 html {
     padding:15px 35px;
+    position: fixed;
+    overflow-y: scroll;
+    width: 100%;
 }
 
 /* (1920x1080) Full HD Display */
