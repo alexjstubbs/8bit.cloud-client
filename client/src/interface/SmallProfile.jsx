@@ -26,8 +26,7 @@ module.exports = React.createClass({
               "id": "",
               "developer": "",
               "image": "",
-              "crc32": null,
-              "screen": "Browser"
+              "crc32": null
         };
     },
 
@@ -48,14 +47,6 @@ module.exports = React.createClass({
 
         api.on('api', this.setState.bind(this));
 
-
-        window.addEventListener("mountView", function(e) {
-
-            if (e.detail.screen == component.state.screen) {
-                component.screenMount();
-            };
-
-        });
 
      },
 
