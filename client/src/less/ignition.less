@@ -15,25 +15,25 @@
   font-family: 'Open Sans';
   font-style: light;
   font-weight: 100;
-  src: local('Open Sans Light'), local('OpenSans-Light'), url('../fonts/OSlite.woff') format('woff');
+  src: local('Open Sans Light'), local('OpenSans-Light'), url('../src/fonts/OSlite.woff') format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: normal;
   font-weight: 300;
-  src: local('Open Sans'), local('OpenSans'), url('../fonts/OS.woff') format('woff');
+  src: local('Open Sans'), local('OpenSans'), url('../src/fonts/OS.woff') format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: bold;
   font-weight: 700;
-  src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../fonts/OSBold.woff') format('woff');
+  src: local('Open Sans Bold'), local('OpenSans-Bold'), url('../src/fonts/OSBold.woff') format('woff');
 }
 @font-face {
   font-family: 'Open Sans';
   font-style: extrabold;
   font-weight: 800;
-  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url('../fonts/OSExtended.woff') format('woff');
+  src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'), url('../src/fonts/OSExtended.woff') format('woff');
 }
 
 
@@ -344,15 +344,31 @@ form .label-unselected {
     opacity:1.0;
 }
 
+#panel_activity, #panel_community {
+    display:block;
+}
+
+#panel_activity tbody {
+    height:300px;
+}
+
+#panel_activity tbody td h2 {
+    text-align:center;
+}
+
+#panel_activity, #panel_community {
+    background:@gray-darker;
+    padding-bottom:5px;
+}
 
 #panel_favorites tbody {
     padding:5px;
     display:block;
-    width:130%;
     height:300px;
-    overflow-y: visible;
+    overflow-y: hidden;
     overflow-x: auto;
 }
+
 
 /* Welcome Animation
 -------------------------------------------------- */

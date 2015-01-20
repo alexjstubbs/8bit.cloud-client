@@ -40,20 +40,20 @@ module.exports = React.createClass({
         return (
 
             <div className={this.props.classString} id={this.props.id}>
-                <table className="scroll-into-view table navable scroll-into-view" data-function={this.props.functionCall} data-parameters={this.props.functionParams} id="panel_activity">
+                <table className="table navable scroll-into-view" data-function={this.props.functionCall} data-parameters={this.props.functionParams} id="panel_activity">
                     <thead>
-                        <th>
+                        <th className="pull-right">
                             <h4> <i className={this.props.icon}></i></h4>
                         </th>
 
-                        <th colSpan='2'>
+                        <th className="col-xs-11 text-right">
                           <h4 className="text-right">{this.props.title}</h4>
                         </th>
                     </thead>
 
                     <tbody className="scroll-into-view">
 
-                       { nodes ? favoriteNodes  : <td><h2>No Favorites Set</h2></td> }
+                       { nodes ? favoriteNodes  : <td colSpan="2"><h2>No Favorites Set</h2></td> }
 
                     </tbody>
 

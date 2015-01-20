@@ -66,7 +66,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
     var fragment = document.createDocumentFragment();
 
     _div = document.createElement("div");
-    _div.classList.add("ignition-modal");
+    _div.classList.add("ignition-modal-parent");
 
     _div.style.zIndex = _index.length+150;
 
@@ -244,7 +244,7 @@ var uiNotification = function(input, callback) {
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent");
-    div.style.zIndex = _index.length+150;
+    div.style.zIndex = _index.length+250;
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 

@@ -7,6 +7,7 @@
 var React               = require('react/addons')
 ,   Backdrop            = require('./Backdrop.jsx')
 ,   OnScreenKeyboard    = require('./OnScreenKeyboard.jsx')
+,   navigationInit      = require('../js/navigation.init')
 ,   _                   = require('lodash');
 
 
@@ -38,10 +39,12 @@ module.exports = React.createClass({
 
         }
 
+        navigationInit.navigationInit();
     },
 
     render: function() {
 
+    
         return (
 
             <div>

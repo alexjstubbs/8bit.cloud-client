@@ -107,7 +107,7 @@ app.get('/games/:platform/:name', common.db.gameImage);
 
 http.listen(1210, "127.0.0.1");
 
-console.log("[i] Ignition Client Launched.");
+console.log("[info]: Ignition Client Launched.");
 
 common.databases.initDatabases();
 
@@ -119,6 +119,6 @@ if (process.platform != 'darwin') {
 }
 
 // Terminal Fork
-// var child = require('child_process').fork('ignition_modules/tty/terminal.js');
+var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');

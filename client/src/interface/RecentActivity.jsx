@@ -71,9 +71,10 @@ module.exports = React.createClass({
                           <h4 className="text-right">{this.props.title}</h4>
                         </th>
                     </thead>
+
                     <tbody>
 
-                    { nodes ? activityNodes : <td><h2>No Recent Activity</h2></td> }
+                    { nodes ? activityNodes : <td colSpan="2"><h2>No Recent Activity</h2></td> }
 
                    </tbody>
                     </table>

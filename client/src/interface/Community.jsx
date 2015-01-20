@@ -72,7 +72,6 @@ module.exports = React.createClass({
 
             <tr>
                 <td colSpan='2' className="rss_image">
-                { this.state.community[0] ? null :  <h2> &nbsp; Currently Offline</h2> }
 
                 <br />
 

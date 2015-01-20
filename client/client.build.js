@@ -2377,7 +2377,6 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.tr(null, 
                 React.DOM.td({colSpan: "2", className: "rss_image"}, 
-                 this.state.community[0] ? null :  React.DOM.h2(null, "   Currently Offline"), 
 
                 React.DOM.br(null), 
 
@@ -2632,6 +2631,8 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
 
+        console.log(this.state);
+
         return (
 
             React.DOM.div({id: "home", className: classes}, 
@@ -2648,7 +2649,9 @@ module.exports = React.createClass({displayName: 'exports',
 
             RecentActivity({actionSet: actionSet}), 
             Favorites({favorites: favorites}), 
-            Community(null)
+
+             this.state.isOnline ? Community(null) :  React.DOM.span(null, React.DOM.br(null), React.DOM.br(null), React.DOM.img({src: "../src/img/offline-community.png", className: "col-xs-4 img-responsive"}))
+
 
             )
             ), 
@@ -2828,20 +2831,20 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
             React.DOM.div({className: this.props.classString, id: this.props.id}, 
-                React.DOM.table({className: "scroll-into-view table navable scroll-into-view", 'data-function': this.props.functionCall, 'data-parameters': this.props.functionParams, id: "panel_activity"}, 
+                React.DOM.table({className: "table navable scroll-into-view", 'data-function': this.props.functionCall, 'data-parameters': this.props.functionParams, id: "panel_activity"}, 
                     React.DOM.thead(null, 
-                        React.DOM.th(null, 
+                        React.DOM.th({className: "pull-right"}, 
                             React.DOM.h4(null, " ", React.DOM.i({className: this.props.icon}))
                         ), 
 
-                        React.DOM.th({colSpan: "2"}, 
+                        React.DOM.th({className: "col-xs-11 text-right"}, 
                           React.DOM.h4({className: "text-right"}, this.props.title)
                         )
                     ), 
 
                     React.DOM.tbody({className: "scroll-into-view"}, 
 
-                        nodes ? favoriteNodes  : React.DOM.td(null, React.DOM.h2(null, "No Favorites Set"))
+                        nodes ? favoriteNodes  : React.DOM.td({colSpan: "2"}, React.DOM.h2(null, "No Favorites Set"))
 
                     )
 
@@ -3376,12 +3379,13 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
-        
+
         navigationInit.navigationInit();
 
     },
 
     render: function() {
+
 
        var _this = this;
 
@@ -3421,6 +3425,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
+
 },{"../js/navigation.init":83,"lodash":92,"react/addons":94}],20:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -4196,6 +4201,7 @@ module.exports = React.createClass({displayName: 'exports',
 var React               = require('react/addons')
 ,   Backdrop            = require('./Backdrop.jsx')
 ,   OnScreenKeyboard    = require('./OnScreenKeyboard.jsx')
+,   navigationInit      = require('../js/navigation.init')
 ,   _                   = require('lodash');
 
 
@@ -4227,10 +4233,12 @@ module.exports = React.createClass({displayName: 'exports',
 
         }
 
+        navigationInit.navigationInit();
     },
 
     render: function() {
 
+    
         return (
 
             React.DOM.div(null, 
@@ -4244,7 +4252,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"./Backdrop.jsx":6,"./OnScreenKeyboard.jsx":31,"lodash":92,"react/addons":94}],30:[function(require,module,exports){
+},{"../js/navigation.init":83,"./Backdrop.jsx":6,"./OnScreenKeyboard.jsx":31,"lodash":92,"react/addons":94}],30:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4915,9 +4923,10 @@ module.exports = React.createClass({displayName: 'exports',
                           React.DOM.h4({className: "text-right"}, this.props.title)
                         )
                     ), 
+
                     React.DOM.tbody(null, 
 
-                     nodes ? activityNodes : React.DOM.td(null, React.DOM.h2(null, "No Recent Activity"))
+                     nodes ? activityNodes : React.DOM.td({colSpan: "2"}, React.DOM.h2(null, "No Recent Activity"))
 
                    )
                     )
@@ -7122,7 +7131,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
     var fragment = document.createDocumentFragment();
 
     _div = document.createElement("div");
-    _div.classList.add("ignition-modal");
+    _div.classList.add("ignition-modal-parent");
 
     _div.style.zIndex = _index.length+150;
 
@@ -7300,7 +7309,7 @@ var uiNotification = function(input, callback) {
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent");
-    div.style.zIndex = _index.length+150;
+    div.style.zIndex = _index.length+250;
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 

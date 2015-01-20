@@ -142,6 +142,8 @@ module.exports = React.createClass({
         });
 
 
+        console.log(this.state);
+
         return (
 
             <div id="home" className={classes}>
@@ -158,7 +160,9 @@ module.exports = React.createClass({
 
             <RecentActivity actionSet={actionSet} />
             <Favorites favorites={favorites} />
-            <Community />
+
+            { this.state.isOnline ? <Community /> :  <span><br /><br /><img src="../src/img/offline-community.png" className="col-xs-4 img-responsive" /></span> }
+
 
             </div>
             </div>

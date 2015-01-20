@@ -22,12 +22,13 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        
+
         navigationInit.navigationInit();
 
     },
 
     render: function() {
+
 
        var _this = this;
 

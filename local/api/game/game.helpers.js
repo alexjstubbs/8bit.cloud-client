@@ -152,17 +152,28 @@ function gameLaunch(nsp, payload) {
 
         }
 
-        console.log("command: "+ results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"');
+        // console.log("command: "+ results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"');
 
         // Launch Emulator
 
         execute(results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"', function(error, stderr, stdout) {
 
+            nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+
+            // if (error) {
+            //     console.log("error: " + error);
+            //     nsp.emit('messaging', {type: 0, body: error });
+            // }
+
             if (stderr) {
+                console.log("stderr: " + stderr);
                 nsp.emit('messaging', {type: 0, body: stderr });
             }
 
-            nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+            if (stdout) {
+                console.log("stdout: " + stdout);
+                nsp.emit('messaging', {type: 0, body: stdout });
+            }
 
         });
 
