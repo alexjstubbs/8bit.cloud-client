@@ -8,23 +8,21 @@ var api = function(nsp) {
 
     nsp.on('connection', function(nsp){
 
-      console.log('[i] client connected to API');
+      console.log('[info] client connected to API');
 
       nsp.on('request', function(request) {
 
-        var method = request.request;
-
-        var param = request.param;
+        var method = request.request,
+            param = request.param;
 
         methods.apiMethod[method](nsp, param);
 
         });
-
+        
     });
 
 
     nsp.on('disconnection', function(nsp){
-
         console.log('[i] client disconnected from API');
 
     });
@@ -33,5 +31,4 @@ var api = function(nsp) {
 
 /* Exports
 -------------------------------------------------- */
-
 module.exports = api;

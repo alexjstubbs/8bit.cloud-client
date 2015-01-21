@@ -1,6 +1,6 @@
 /*  Location Information
 -------------------------------------------------- */
-request         = require('request')
+var request     = require('request')
 ,   helpers     = require('../../system/helpers');
 
 /*  Get local IP and info
@@ -17,7 +17,7 @@ function ipInfo(nsp) {
 function ipLocation(nsp, ip) {
 
     console.log("ip: "+ip);
-    
+
     if (ip) {
 
         var path = "http://ipinfo.io/"+ip+"/json"

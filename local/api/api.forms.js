@@ -3,9 +3,8 @@
  * No need to edit file.
 -------------------------------------------------- */
 
-var fs           = require('fs-extra')
-,   _validate    = require("validate.js")
-, 	_ 			 = require("lodash");
+var _validate      = require("validate.js")
+,   _              = require("lodash");
 
 /* Matching
 -------------------------------------------------- */
@@ -30,31 +29,31 @@ var addFriend_constraints = {
 var signUp_constraints = {
 
     formTitle: {
-    	presence: true
+        presence: true
     },
 
     email: {
-    	presence: true,
-    		email: {
-      	message: "doesn't look like a valid email"
-    	}
+        presence: true,
+            email: {
+          message: "doesn't look like a valid email"
+        }
     },
 
     username: {
-    	presence: true
+        presence: true
     },
 
     password: {
         presence: true,
             length: {
-        	      minimum: 6,
-        	      message: "must be at least 6 characters"
+                  minimum: 6,
+                  message: "must be at least 6 characters"
         }
     },
     avatar: {
         format: {
-        	pattern: urlPattern,
-        	message: "URL is invalid or malformed"
+            pattern: urlPattern,
+            message: "URL is invalid or malformed"
         }
     }
 };
@@ -69,18 +68,18 @@ var validate = function(data, callback) {
         // Sign Up
         case "signUp": {
 
-        	if (data.verificationPassword) {
-        		if (data.password != data.verificationPassword) {
-        			callback({"email": ['Passwords do not match']});
-        		}
-        		else {
-        			callback();
-        		}
-        	}
+            if (data.verificationPassword) {
+                if (data.password != data.verificationPassword) {
+                    callback({"email": ['Passwords do not match']});
+                }
+                else {
+                    callback();
+                }
+            }
 
-        	else {
-        		callback(_validate(data, signUp_constraints));
-        	}
+            else {
+                callback(_validate(data, signUp_constraints));
+            }
 
         break;
 
@@ -107,5 +106,5 @@ var save = function(nsp, data, callback) {
 
 /* Exports
 -------------------------------------------------- */
-exports.validate 	= validate;
-exports.save  		= save;
+exports.validate     = validate;
+exports.save         = save;

@@ -1,9 +1,9 @@
 /* Checks Achievements during gameplay
 -------------------------------------------------- */
-var fs = require('fs')
-,   hex = require(appDir+'/local/common').hex
-,   execute = require(appDir+'/local/common').exec
-,   database = require(appDir+'/local/common').databases;
+var fs          = require('fs')
+,   hex         = require(appDir+'/local/common').hex
+,   execute     = require(appDir+'/local/common').exec
+,   database    = require(appDir+'/local/common').databases;
 
 var doubleCheck = false,
     stateSize = '',
@@ -78,7 +78,7 @@ function achievementCheck(gameAchievements, callback) {
     }
 
     // hex.checkHex(file, offset, bufferSize, addresses, function(hex) {
-    //   console.log(hex);       
+    //   console.log(hex);
     // });
 
     fs.unwatchFile(file);
@@ -147,5 +147,7 @@ function achievementCheck(gameAchievements, callback) {
     })
 };
 
+/*  Exports
+-------------------------------------------------- */
 exports.achievementCheck = achievementCheck;
 exports.dumpRetroRamInit = dumpRetroRamInit;

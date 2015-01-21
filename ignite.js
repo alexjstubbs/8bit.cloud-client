@@ -8,6 +8,8 @@
 /* Dev. run enviorment
 -------------------------------------------------- */
 
+var _begin = Math.floor(Date.now() / 1000);
+
 if (process.platform == 'darwin') {
     process.env.NODE_ENV    = 'osx';
 }
@@ -23,25 +25,15 @@ global.appDir               = path.dirname(require.main.filename);
 
 /* Module dependencies
 -------------------------------------------------- */
-console.log("1");
-
 var common                  = require('./local/common')
 ,   busboy                  = require('busboy')
 ,   methodOverride          = require('method-override')
 ,   app                     = common.express()
 ,   http                    = require('http').createServer(app);
 
-console.log("2")
-
-// var  fs                     = require('fs-extra');
-,   api                     = require('./local/api/api')
-
 global.__io                 = require('socket.io').listen(http);
 global.__api                = __io.of('/api');
 global.__sessionFile        = appDir+"/config/profiles/Session.json";
-
-console.log("3");
-
 
 /* Initial Setup
 -------------------------------------------------- */
@@ -71,26 +63,12 @@ app.use(common.express.compress());
 app.use(common.express.static(__dirname + '/client'));
 app.use(common.express.errorHandler());
 
-/* Anonymous Analytics OPT-IN (disabled)
--------------------------------------------------- */
-// var insight = new Insight({
-//     // Google Analytics tracking code
-//     trackingCode: 'UA-54752042-1',
-//     packageName: pkg.name,
-//     packageVersion: pkg.version
-// });
-//
-// insight.optOut = false;
-//
-// insight.track('ignition', 'beta');
-
 
 /* Client Routes
 -------------------------------------------------- */
 // Sign Up (initial)
 app.get('/welcome', common.render.ignite);
 app.get('/agreement', common.render.ignite);
-app.get('/EULA', common.render.EULA);
 app.get('/WifiConfig', common.render.WifiConfig);
 
 // Profiles
@@ -108,21 +86,33 @@ app.get('/games/:platform/:name', common.db.gameImage);
 /* Server Initialization
 -------------------------------------------------- */
 
+console.log(Math.floor(Date.now() / 1000) - _begin);
+
 http.listen(1210, "127.0.0.1", function(err, result) {
 
     console.log("[info]: Ignition Client Launched.");
+
+    var api = require('./local/api/api');
 
     common.databases.initDatabases();
 
     api(__api);
 
     if (process.platform != 'darwin') {
-        var sys = require('sys')
+
         var exec = require('child_process').exec;
-        function puts(error, stdout, stderr) { sys.puts(stdout) }
-        exec("killall qmlscene | setsid nice -12 qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url="+_location, puts);
+
+        var child = exec('setsid nice -12 qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url='+_location+' | killall qmlscene');
+
+        child.stdout.on('data', function(data) {
+            console.log('(stdout) | ' + data);
+        });
+        child.stderr.on('data', function(data) {
+            console.log('(stderr) | ' + data);
+        });
+
     }
-    
+
 });
 
 // Terminal Fork

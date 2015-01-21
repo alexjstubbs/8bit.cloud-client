@@ -245,7 +245,6 @@ function getGamesAjax(req, res) {
 
 /*  Exports
 -------------------------------------------------- */
-
 exports.storeGame           = storeGame;
 exports.findGame            = findGame;
 exports.storeAchievement    = storeAchievement;

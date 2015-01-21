@@ -1,11 +1,9 @@
 /* State and RAM reading helper.
 -------------------------------------------------- */
-var fs = require('fs-extra')
-,   Buffer = require('buffer').Buffer
-,   constants = require('constants')
-,   crc32 = require('buffer-crc32')
-,   path = require('path')
-    database = require(appDir+'/local/api/database/database.local');
+var fs          = require('fs-extra')
+,   Buffer      = require('buffer').Buffer
+,   crc32       = require('buffer-crc32')
+    database    = require(appDir+'/local/api/database/database.local');
 
 
 // NES has 2kb of working RAM header. 13kb of state sizes (just under);
@@ -111,6 +109,8 @@ function getCRC32(nsp, filepath) {
 
 }
 
-exports.readHex = readHex;
-exports.checkHex = checkHex;
-exports.getCRC32 = getCRC32;
+/*  Exports
+-------------------------------------------------- */
+exports.readHex     = readHex;
+exports.checkHex    = checkHex;
+exports.getCRC32    = getCRC32;

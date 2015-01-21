@@ -3,12 +3,9 @@
 common = {
        express:                    require('express')
 ,      http:                       require('http')
-,      request:                    require('request')
 ,      mu2express:                 require('mu2express')
 ,      render:                     require('../local/render')
 ,      game:                       require('../local/api/game/game.helpers')
-,      achievements:               require('../local/system/achievements/achievement.loop')
-,      hex:                        require('../local/system/achievements/achievement.hex.helper')
 ,      hash:                       require('../local/system/achievements/achievement.hex.helper')
 ,      listroms:                   require('../local/api/game/game.platform.roms')
 ,      databases:                  require('../local/api/database/database.local')
@@ -23,7 +20,6 @@ common = {
 ,      systemWrite:                require('../local/system/system.write')
 ,      systemRead:                 require('../local/system/system.read')
 ,      wireless:                   require('../local/api/network/network.wireless')
-,      shell:                      require('../local/system/system.shell')
 
 };
 

@@ -2,8 +2,6 @@
 -------------------------------------------------- */
 var database            = require(appDir+'/local/api/database/database.local')
 ,   execute             = require(appDir+'/local/system/system.exec')
-,   achievements        = require(appDir+'/local/system/achievements/achievement.loop').achievements
-,   util                = require('util')
 ,   spawn               = require('child_process').spawn
 ,   fs                  = require('fs-extra')
 ,   _                   = require('lodash')
@@ -327,25 +325,11 @@ function gameProfileSmall(nsp, game) {
 
 }
 
-/* Large Game Profile
--------------------------------------------------- */
-function gameProfileLarge(req, res, callback) {
-
-    res.render('profile', {
-        'locals': [{
-            passed: "Stuff"
-        }]
-    });
-
-
-}
-
 
 /* Exports
 -------------------------------------------------- */
 exports.apicall                         = apicall;
 exports.gameLaunch                      = gameLaunch;
 exports.gameProfileSmall                = gameProfileSmall;
-exports.gameProfileLarge                = gameProfileLarge;
 exports.getCommandlineConfig            = getCommandlineConfig;
 exports.getSpecificCommandLineConfig    = getSpecificCommandLineConfig;
