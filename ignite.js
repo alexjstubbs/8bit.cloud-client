@@ -7,9 +7,6 @@
 
 /* Dev. run enviorment
 -------------------------------------------------- */
-
-var _begin = Math.floor(Date.now() / 1000);
-
 if (process.platform == 'darwin') {
     process.env.NODE_ENV    = 'osx';
 }
@@ -37,8 +34,8 @@ global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
 /* Initial Setup
 -------------------------------------------------- */
-var firstrun = false
-,   _location;
+var firstrun = false,
+    _location;
 
 if (firstrun) {
     _location = 'http://127.0.0.1:1210/welcome';
@@ -78,6 +75,9 @@ app.get('/profiles', common.render.ignite);
 app.get('/home', common.render.ignite);
 app.get('/home/:username', common.render.ignite);
 
+// Audio
+app.get('/audio/:file', common.render.audio);
+
 app.get('/database/:database', common.databases.getGamesAjax);
 app.get('/games/:platform/:name', common.db.gameImage);
 
@@ -85,8 +85,6 @@ app.get('/games/:platform/:name', common.db.gameImage);
 
 /* Server Initialization
 -------------------------------------------------- */
-
-console.log(Math.floor(Date.now() / 1000) - _begin);
 
 http.listen(1210, "127.0.0.1", function(err, result) {
 
@@ -102,7 +100,10 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
         var exec = require('child_process').exec;
 
-        var child = exec('setsid nice -12 qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url='+_location+' | killall qmlscene');
+        var child = exec('setsid nice -12 qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url='+_location);
+
+        // Remove Loader
+        exec('killall qmlscene', function(err, stdout, stderr) {});
 
         child.stdout.on('data', function(data) {
             console.log('(stdout) | ' + data);
@@ -113,9 +114,12 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
     }
 
+    // Terminal Fork
+    var child = require('child_process').fork('ignition_modules/tty/terminal.js');
+
 });
 
-// Terminal Fork
+
 // var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');

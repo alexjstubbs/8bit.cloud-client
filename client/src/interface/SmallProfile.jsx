@@ -10,31 +10,49 @@
 var React           = require('react/addons')
 ,   api             = require('socket.io-client')('/api')
 ,   _               = require('lodash')
+,   mixins          = require('./mixins/mixins.jsx')
 ,   achievements;
 
 
 module.exports = React.createClass({
 
-  getInitialState: function() {
-          return {
-              "rating": {},
-              "description": "",
-              "title": "",
-              "esrb_rating": {},
-              "genre": "",
-              "id": "",
-              "developer": "",
-              "image": "",
-              "crc32": null,
-              "screen": "Browser"
+    mixins: [mixins.listener, mixins.screenMount],
+
+    getInitialState: function() {
+        return {
+
+            "id":             "",
+            "title":          "",
+            "genre":          "",
+            "image":          "",
+            "filepath":       "",
+            "developer":      "",
+            "description":    "",
+
+            "rating":         {},
+            "gameInfo":       {},
+            "updateGame":     {},
+            "esrb_rating":    {},
+
+            "gamesList":      [],
+            "platforms":      [],
+
+            "crc32":          null
+
         };
+    },
+
+    getDefaultProps: function() {
+        return {
+            screen: "Browser"
+        }
     },
 
     screenMount: function() {
 
         //switchEmulator
-        var short = document.querySelectorAll(".platform.selected");
-        var selectedNav = document.querySelectorAll(".selectedNav")[0];
+        var short = document.querySelectorAll(".platform.selected"),
+            selectedNav = document.querySelectorAll(".selectedNav")[0];
 
         if (short.length > 1) {
             selectedNav.classList.remove("selectedNav");
@@ -52,16 +70,6 @@ module.exports = React.createClass({
             component.setState(e.detail);
         });
 
-        window.addEventListener("mountView", function(e) {
-
-            if (e.detail.screen == component.state.screen) {
-                component.screenMount();
-            };
-
-        });
-
-        api.on('api', this.setState.bind(this));
-
      },
 
     render: function() {
@@ -76,8 +84,10 @@ module.exports = React.createClass({
             <div className="col-xs-8 game_info col-xs-offset-1 pull-right"  id="small_profile">
 
                 <div className="game_info_header" id="profile_header">
+
                     <div className={this.state.crc32 ? classes : classes + " hidden"} data-achievements={this.props.crc32} id="achievement_display"><i className='icon ion-ios-star yellow'></i>  Achievements Available</div>
                     <div className="pull-right"><strong>Game Profile  <i className='ion-ios-arrow-thin-right'></i></strong></div>
+
                 </div>
 
                 <div className="clearfix"></div>
@@ -97,11 +107,12 @@ module.exports = React.createClass({
 
                     <span className="game_ersb">{this.state.ersp_rating}</span>
 
-
                 </div>
 
                 <span className="col-xs-3 game_image">
+
                     {this.state.image ? <img className="img-responsive" src={this.state.image} /> : null }
+
                 </span>
 
                 <div className="clearfix"></div>

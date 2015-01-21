@@ -15,8 +15,12 @@ var React           = require('react/addons')
 ,   Community       = require('./Community.jsx')
 ,   IgnitionEvents  = require('./IgnitionEvents.jsx')
 ,   ShortcutBar     = require('./ShortcutBar.jsx')
+,   mixins          = require('./mixins/mixins.jsx')
 ,   unreadMessages
 ,   favorites       = [];
+
+
+// ,   watch           = ["isOnline", "ipInfo", "session", "eventSet", "messages"]
 
 /* Sample Data for Development
 -------------------------------------------------- */
@@ -26,8 +30,6 @@ var actionSet = [
     {"type": "Achievement", "string": "unlocked an achievement in", "icon": "ion-trophy", "color": "gold-bg"},
     {"type": "Gameplay", "string": "recently played", "icon": "ion-ios-game-controller-a", "color": "red-bg"}
 ];
-
-
 
 var ignitionEvents = [
     {'Type': 'Update', 'copy': 'Ignition 1.0 released!', 'username': ''},
@@ -40,22 +42,28 @@ var eventSet = [
     {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios-chatboxes", "shortcut": "F6"},
     {"Type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
 ];
+
 /* Components
 -------------------------------------------------- */
 
 module.exports = React.createClass({
 
+    mixins: [mixins.listener, mixins.screenMount],
+
     getInitialState: function() {
         return {
-            screen: "Dashboard",
-            messages: []
+            isOnline:       false,
+            ipInfo:         null,
+            session:        {},
+            eventSet:       {},
+            messages:       []
         };
     },
 
+
     getDefaultProps: function() {
         return {
-            hidden: false,
-            parent: true
+            screen: "Dashboard"
         }
     },
 
@@ -95,13 +103,11 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        this.screenMount();
-
         var component = this;
 
         api.emit('request', { request: 'getSession'} );
         api.emit('request', { request: 'messages'});
-        api.on('api', this.setState.bind(this));
+
 
         api.on('network-api', function(data) {
 
@@ -123,14 +129,6 @@ module.exports = React.createClass({
 
         });
 
-        window.addEventListener("mountView", function(e) {
-
-            if (e.detail.screen == component.state.screen) {
-
-                component.screenMount();
-            }
-        });
-
     },
 
     render: function() {
@@ -141,36 +139,35 @@ module.exports = React.createClass({
             'parent': true
         });
 
-
         return (
 
             <div id="home" className={classes}>
 
-            <UserProfile />
+                <UserProfile />
 
-            <HeaderGroup myMessages={this.state.messages} unread={unreadMessages}/>
+                <HeaderGroup myMessages={this.state.messages} unread={unreadMessages}/>
 
-            <div className="clearfix"></div>
-            <br />
+                <div className="clearfix"></div>
+                <br />
 
-            <div className="container-fluid" id="area">
-            <div data-screen='home' className="screen">
+                <div className="container-fluid" id="area">
+                <div data-screen='home' className="screen">
 
-            <RecentActivity actionSet={actionSet} />
-            <Favorites favorites={favorites} />
+                    <RecentActivity actionSet={actionSet} />
+                    <Favorites favorites={favorites} />
 
-            { this.state.isOnline ? <Community /> :  <span><br /><br /><img src="../src/img/offline-community.jpg" className="col-xs-4 img-responsive" /></span> }
+                    { this.state.isOnline ? <Community /> :  <span><br /><br /><img src="../src/img/offline-community.jpg" className="col-xs-4 img-responsive" /></span> }
 
 
-            </div>
-            </div>
+                </div>
+                </div>
 
-            <IgnitionEvents eventSet={eventSet} />
+                <IgnitionEvents eventSet={eventSet} />
 
-            <div class="clearfix"></div>
-            <br />
+                <div class="clearfix"></div>
+                <br />
 
-            <ShortcutBar />
+                <ShortcutBar />
 
             </div>
         )

@@ -14,7 +14,19 @@ var ignite = function(req, res, next) {
     });
 };
 
-/* Wifi Configu
+/*  Audio
+-------------------------------------------------- */
+var audio = function(req, res, next) {
+
+    var mp3 = fs.readFileSync("./client/src/audio/click2.mp3");
+
+    res.writeHead(200, {'Content-Type': 'audio/mpeg' });
+    res.end(mp3, 'binary');
+
+    console.log("ee")
+}
+
+/* Wifi Config
 -------------------------------------------------- */
 var WifiConfig = function(req, res, next) {
     var path = appDir+'/.WifiConfig';
@@ -36,3 +48,4 @@ var WifiConfig = function(req, res, next) {
 -------------------------------------------------- */
 exports.ignite        = ignite;
 exports.WifiConfig    = WifiConfig;
+exports.audio         = audio;

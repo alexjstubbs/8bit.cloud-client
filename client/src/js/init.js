@@ -42,6 +42,14 @@ module.exports = function() {
     database.initLocalDatabase("games");
 
     // setTimeout(function() {
+    //     // document.getElementById('__demo').play();
+    //     var audio = new Audio('http://127.0.0.1:1210/audio/doesntmatter');
+    //     console.log(audio);
+    //
+    //
+    // }, 5000);
+    
+    // setTimeout(function() {
     //     document.body.classList.add("load-ui");
     // }, 10000);
 
