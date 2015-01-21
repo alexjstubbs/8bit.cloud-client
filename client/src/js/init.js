@@ -29,7 +29,7 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     sysEvents.removeNavigationState();
 
-    document.addEventListener('keydown', function (e) {
+    window.addEventListener('keydown', function (e) {
 
         navigationEvent(e);
 

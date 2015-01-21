@@ -156,29 +156,39 @@ function gameLaunch(nsp, payload) {
 
         // Launch Emulator
 
-        execute(results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"', function(error, stderr, stdout) {
+        execute('renice +10 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
 
-            nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+            execute("nice -19 " + results.expath +" "+ commandline.join(' ') + ' "'+payload.filepath+'"', function(error, stderr, stdout) {
 
-            // if (error) {
-            //     console.log("error: " + error);
-            //     nsp.emit('messaging', {type: 0, body: error });
-            // }
+                nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
 
-            if (stderr) {
-                console.log("stderr: " + stderr);
-                nsp.emit('messaging', {type: 0, body: stderr });
-            }
+                    // if (error) {
+                    //     console.log("error: " + error);
+                    //     nsp.emit('messaging', {type: 0, body: error });
+                    // }
 
-            if (stdout) {
-                console.log("stdout: " + stdout);
-                nsp.emit('messaging', {type: 0, body: stdout });
-            }
+                    if (stderr) {
+                        console.log("stderr: " + stderr);
+                        nsp.emit('messaging', {type: 0, body: stderr });
+                    }
+
+                    if (stdout) {
+                        console.log("stdout: " + stdout);
+                        nsp.emit('messaging', {type: 0, body: stdout });
+                    }
+
+
+                    execute('renice -12 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
+
+
+            });
+
 
         });
 
-
     });
+
+
 
 }
 

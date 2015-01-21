@@ -23,22 +23,25 @@ global.appDir               = path.dirname(require.main.filename);
 
 /* Module dependencies
 -------------------------------------------------- */
+console.log("1");
+
 var common                  = require('./local/common')
-,   express                 = require('express')
 ,   busboy                  = require('busboy')
 ,   methodOverride          = require('method-override')
-,   app                     = express()
-,   http                    = require('http').createServer(app)
-,   fs                      = require('fs-extra')
+,   app                     = common.express()
+,   http                    = require('http').createServer(app);
+
+console.log("2")
+
+// var  fs                     = require('fs-extra');
 ,   api                     = require('./local/api/api')
-,   Insight                 = require('insight')
-,   pkg                     = require('./package.json');
 
 global.__io                 = require('socket.io').listen(http);
 global.__api                = __io.of('/api');
 global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
-api(__api);
+console.log("3");
+
 
 /* Initial Setup
 -------------------------------------------------- */
@@ -105,20 +108,24 @@ app.get('/games/:platform/:name', common.db.gameImage);
 /* Server Initialization
 -------------------------------------------------- */
 
-http.listen(1210, "127.0.0.1");
+http.listen(1210, "127.0.0.1", function(err, result) {
 
-console.log("[info]: Ignition Client Launched.");
+    console.log("[info]: Ignition Client Launched.");
 
-common.databases.initDatabases();
+    common.databases.initDatabases();
 
-if (process.platform != 'darwin') {
-    var sys = require('sys')
-    var exec = require('child_process').exec;
-    function puts(error, stdout, stderr) { sys.puts(stdout) }
-    exec("killall qmlscene | setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url="+_location, puts);
-}
+    api(__api);
+
+    if (process.platform != 'darwin') {
+        var sys = require('sys')
+        var exec = require('child_process').exec;
+        function puts(error, stdout, stderr) { sys.puts(stdout) }
+        exec("killall qmlscene | setsid nice -12 qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url="+_location, puts);
+    }
+    
+});
 
 // Terminal Fork
-var child = require('child_process').fork('ignition_modules/tty/terminal.js');
+// var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');

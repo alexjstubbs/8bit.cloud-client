@@ -2631,8 +2631,6 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
 
-        console.log(this.state);
-
         return (
 
             React.DOM.div({id: "home", className: classes}, 
@@ -2650,7 +2648,7 @@ module.exports = React.createClass({displayName: 'exports',
             RecentActivity({actionSet: actionSet}), 
             Favorites({favorites: favorites}), 
 
-             this.state.isOnline ? Community(null) :  React.DOM.span(null, React.DOM.br(null), React.DOM.br(null), React.DOM.img({src: "../src/img/offline-community.png", className: "col-xs-4 img-responsive"}))
+             this.state.isOnline ? Community(null) :  React.DOM.span(null, React.DOM.br(null), React.DOM.br(null), React.DOM.img({src: "../src/img/offline-community.jpg", className: "col-xs-4 img-responsive"}))
 
 
             )
@@ -7515,8 +7513,6 @@ var updateGame = function(results, filepath, callback) {
 -------------------------------------------------- */
 var launchContext = function(context) {
 
-    console.log("FIRED");
-
     var event = new CustomEvent('launchContext', {
         'detail': context
     });
@@ -8115,7 +8111,7 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     sysEvents.removeNavigationState();
 
-    document.addEventListener('keydown', function (e) {
+    window.addEventListener('keydown', function (e) {
 
         navigationEvent(e);
 
@@ -8704,7 +8700,7 @@ module.exports = function(k) {
     var eventObj = document.createEventObject ?
     document.createEventObject() : document.createEvent("Events");
 
-    if(eventObj.initEvent){
+    if (eventObj.initEvent){
         eventObj.initEvent("keydown", true, true);
     }
 
@@ -8712,41 +8708,6 @@ module.exports = function(k) {
     eventObj.which = k;
 
     document.dispatchEvent ? document.dispatchEvent(eventObj) : document.fireEvent("onkeydown", eventObj);
-
-    // Below is for Pi's old version of Chromium (not ignitions custom compiled version).
-    // Podium = {};
-    //
-    // Podium.keydown = function(k) {
-    //     var oEvent = document.createEvent('KeyboardEvent');
-    //
-    //     // Chromium Hack.. DOES NOT WORK IN WEBKIT (qtbrowser).
-    //     Object.defineProperty(oEvent, 'keyCode', {
-    //                 get : function() {
-    //                     return this.keyCodeVal;
-    //                 }
-    //     });
-    //     Object.defineProperty(oEvent, 'which', {
-    //                 get : function() {
-    //                     return this.keyCodeVal;
-    //                 }
-    //     });
-    //
-    //     if (oEvent.initKeyboardEvent) {
-    //         oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, false, false, false, false, k, k);
-    //     } else {
-    //         oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
-    //     }
-    //
-    //     oEvent.keyCodeVal = k;
-    //
-    //     if (oEvent.keyCode !== k) {
-    //         alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
-    //     }
-    //
-    //     document.dispatchEvent(oEvent);
-    //
-    // }
-    //     Podium.keydown(k);
 
 };
 
@@ -9967,7 +9928,8 @@ var events = {
 
             navigationBindings("deinit");
 
-            document.removeEventListener("keydown", function(e) {
+            window.removeEventListener("keydown", function(e) {
+                e.stopPropagation();
                 return;
             });
 

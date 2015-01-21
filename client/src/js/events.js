@@ -125,8 +125,6 @@ var updateGame = function(results, filepath, callback) {
 -------------------------------------------------- */
 var launchContext = function(context) {
 
-    console.log("FIRED");
-
     var event = new CustomEvent('launchContext', {
         'detail': context
     });

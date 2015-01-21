@@ -435,7 +435,8 @@ var events = {
 
             navigationBindings("deinit");
 
-            document.removeEventListener("keydown", function(e) {
+            window.removeEventListener("keydown", function(e) {
+                e.stopPropagation();
                 return;
             });
 
