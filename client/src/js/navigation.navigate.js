@@ -32,14 +32,15 @@ module.exports = function(k) {
     }
 
     function currentSelection() {
-        var currentSelection = document.querySelectorAll(".selectedNav");
 
         if (screen == 'Browser') {
+
+            var currentSelection = document.querySelectorAll(".selectedNav");
 
             window.clearTimeout(timeSync);
 
             memSelection = currentSelection[0];
-            timeSync = window.setTimeout(showSelection, 700);
+            timeSync = window.setTimeout(showSelection, 1000);
 
             currentSelection[0].scrollIntoView(false);
 
@@ -202,12 +203,12 @@ module.exports = function(k) {
 
                 i--;
 
-                var q = col.length;
-                q = q - 1;
+                var cont = sel[0].nextSibling;
 
-                if (i < q) {
+                if (cont) {
                     i++;
                 }
+
 
                 if (sel[0].parentNode.classList.contains("scroll-into-view")) {
                     // var d = document.querySelectorAll(".selectedNav");
@@ -311,10 +312,10 @@ module.exports = function(k) {
 
                 }
 
-                var q = col.length;
-                q = q - 1;
+                var cont = sel[0].previousSibling;
 
-                if (i - 1 != -1) {
+
+                if (cont) {
                     i--;
                 } else {
                     if (screen == 'browser') {
@@ -336,6 +337,7 @@ module.exports = function(k) {
         // Has Sub Navigation
         if (sub[0]) {
             col = sel[0].querySelectorAll(".subNavable");
+
             sel[0].classList.remove("selectedNav"); // Remove Parent Select
             sub[0].classList.add("selectedNav"); // Add sub nav Select Class
 

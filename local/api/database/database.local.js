@@ -216,10 +216,10 @@ function findGame(document, callback) {
 
 
         if (docs.length) {
-            console.log("[!] found game");
+            // console.log("[!] found game");
             callback(docs)
         } else {
-            console.log("[!] Couldn't Find Game.")
+            // console.log("[!] Couldn't Find Game.")
             callback("null");
         }
     });

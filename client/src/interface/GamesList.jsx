@@ -8,9 +8,12 @@ var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   ListedGame      = require('./ListedGame.jsx')
 ,   api             = require('socket.io-client')('/api')
+,   navigationInit  = require('../js/navigation.init')
 ,   removeBrackets  = require('../js/helpers').removeBrackets;
 
 module.exports = React.createClass({
+
+
      getInitialState: function() {
         return {
             gamesList: [
@@ -21,8 +24,29 @@ module.exports = React.createClass({
 
      componentDidMount: function() {
 
-        api.emit('request', { request: 'gamesList', param: "Nintendo" });
-        api.on('api', this.setState.bind(this));
+         var Obj = {
+             platform: "Nintendo",
+             start: 0
+         }
+
+        api.emit('request', { request: 'gamesList', param: Obj });
+
+        // One-off for appending paged results
+        var component = this;
+
+        api.on('api', function(object) {
+
+            if (object.gamesList) {
+
+                var a = object.gamesList,
+                    b = component.state.gamesList,
+                    c = b.concat(a);
+
+                component.setState({gamesList: _.rest(c)});
+
+            }
+
+        });
 
     },
 
@@ -42,6 +66,7 @@ module.exports = React.createClass({
                 }
 
              alpha_list.push(alpha);
+
         });
     },
 
@@ -62,23 +87,28 @@ module.exports = React.createClass({
         if (this.state.gamesList) {
 
             var listNodes = this.state.gamesList.map(function (game, i) {
+
                 var gameTitle = removeBrackets(game.title);
 
                 if (gameTitle) {
-                    if (skipped == true) {
 
+                    if (skipped == true) {
                         return <ListedGame key={i.id} navStack={i} game={gameTitle} filename={game.filename} path={game.path} />
                         skipped = false;
                     }
+
                     else {
                         return <ListedGame key={i.id} navStack={i+1} game={gameTitle} filename={game.filename} path={game.path} />
                     }
+
                 }
+
                 else {
                     skipped = true;
                 }
 
             });
+
         }
 
         else {
@@ -89,7 +119,7 @@ module.exports = React.createClass({
 
                 <div className="col-xs-4 alpha_list navable" data-mute='true' data-function={this.props.functionCall} data-function-deprecated='launchGame' id="alpha_list">
                     <table className="table table-striped" id="list">
-                        <tbody id="alpha_list_tbody">
+                        <tbody id="alpha_list_tbody" className="infinite-scroll">
                             { listNodes }
                         </tbody>
                     </table>

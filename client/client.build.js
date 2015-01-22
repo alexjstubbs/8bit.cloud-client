@@ -3264,9 +3264,12 @@ var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   ListedGame      = require('./ListedGame.jsx')
 ,   api             = require('socket.io-client')('/api')
+,   navigationInit  = require('../js/navigation.init')
 ,   removeBrackets  = require('../js/helpers').removeBrackets;
 
 module.exports = React.createClass({displayName: 'exports',
+
+
      getInitialState: function() {
         return {
             gamesList: [
@@ -3277,8 +3280,29 @@ module.exports = React.createClass({displayName: 'exports',
 
      componentDidMount: function() {
 
-        api.emit('request', { request: 'gamesList', param: "Nintendo" });
-        api.on('api', this.setState.bind(this));
+         var Obj = {
+             platform: "Nintendo",
+             start: 0
+         }
+
+        api.emit('request', { request: 'gamesList', param: Obj });
+
+        // One-off for appending paged results
+        var component = this;
+
+        api.on('api', function(object) {
+
+            if (object.gamesList) {
+
+                var a = object.gamesList,
+                    b = component.state.gamesList,
+                    c = b.concat(a);
+
+                component.setState({gamesList: _.rest(c)});
+
+            }
+
+        });
 
     },
 
@@ -3298,6 +3322,7 @@ module.exports = React.createClass({displayName: 'exports',
                 }
 
              alpha_list.push(alpha);
+
         });
     },
 
@@ -3318,23 +3343,28 @@ module.exports = React.createClass({displayName: 'exports',
         if (this.state.gamesList) {
 
             var listNodes = this.state.gamesList.map(function (game, i) {
+
                 var gameTitle = removeBrackets(game.title);
 
                 if (gameTitle) {
-                    if (skipped == true) {
 
+                    if (skipped == true) {
                         return ListedGame({key: i.id, navStack: i, game: gameTitle, filename: game.filename, path: game.path})
                         skipped = false;
                     }
+
                     else {
                         return ListedGame({key: i.id, navStack: i+1, game: gameTitle, filename: game.filename, path: game.path})
                     }
+
                 }
+
                 else {
                     skipped = true;
                 }
 
             });
+
         }
 
         else {
@@ -3345,7 +3375,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.div({className: "col-xs-4 alpha_list navable", 'data-mute': "true", 'data-function': this.props.functionCall, 'data-function-deprecated': "launchGame", id: "alpha_list"}, 
                     React.DOM.table({className: "table table-striped", id: "list"}, 
-                        React.DOM.tbody({id: "alpha_list_tbody"}, 
+                        React.DOM.tbody({id: "alpha_list_tbody", className: "infinite-scroll"}, 
                             listNodes 
                         )
                     )
@@ -3355,7 +3385,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/helpers":76,"./ListedGame.jsx":25,"lodash":93,"react/addons":95,"socket.io-client":254}],19:[function(require,module,exports){
+},{"../js/helpers":76,"../js/navigation.init":84,"./ListedGame.jsx":25,"lodash":93,"react/addons":95,"socket.io-client":254}],19:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -7460,8 +7490,9 @@ var renderScreenComponents = function(screen) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 };
 
 /* Legacy Screen Transition
@@ -7477,8 +7508,9 @@ var screenTransition = function(screen, hidden, parent) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 };
 
 /* Change view of screen (to render child)
@@ -7491,8 +7523,9 @@ var changeView = function(view) {
 	    }
 	});
 
-	window.dispatchEvent(event);
-
+    if (event) {
+    	window.dispatchEvent(event);
+    }
 }
 
 /* Dialogs (circular hack)
@@ -7506,8 +7539,9 @@ var dialog = function(input, action) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 };
 
 /* UI Action Notification
@@ -7520,8 +7554,9 @@ var uiActionNotification = function(action) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 };
 
 /* Server Response
@@ -7534,8 +7569,9 @@ var serverResponse = function(response) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 }
 
 /* Update Game
@@ -7565,8 +7601,9 @@ var updateGame = function(results, filepath, callback) {
 
     }
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    };
 }
 
 
@@ -7578,8 +7615,9 @@ var launchContext = function(context) {
         'detail': context
     });
 
-    document.dispatchEvent(event);
-
+    if (event) {
+        document.dispatchEvent(event);
+    }
 };
 
 
@@ -7594,8 +7632,9 @@ var selectBox = function(el, selected) {
         }
     });
 
-    document.dispatchEvent(event);
-
+    if (event) {
+        document.dispatchEvent(event);
+    }
 };
 
 
@@ -8367,13 +8406,13 @@ var getFirstChild       = require('./helpers.js').getFirstChild
 ,   removeBrackets      = require('./helpers.js').removeBrackets
 ,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation
 ,   database            = require('./database.helpers')
+,   api                 = require('socket.io-client')('/api')
 ,   events              = require('./events');
 
 /* Module Definitions
 -------------------------------------------------- */
 
 var browserNavigation = function(k) {
-
 
  // Podium = {};
  //
@@ -8476,8 +8515,23 @@ var browserNavigationEvents = function(g) {
     var actives = document.querySelectorAll(".active")[0];
     if (actives) { actives.classList.remove("active"); }
 
-    document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
+    if(/[^a-zA-Z0-9]/.test(alpha)) {
+        document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
+    }
 
+
+    // Pagiante
+    var i = g.getAttribute("data-snav");
+    if ((i % 19) == 0 || (i % 18) == 0) {
+
+        var Obj = {
+            platform: "Nintendo",
+            start: i
+        }
+
+        api.emit('request', { request: 'gamesList', param: Obj });
+
+    }
 
 };
 
@@ -8487,7 +8541,7 @@ var browserNavigationEvents = function(g) {
 exports.browserNavigation       = browserNavigation;
 exports.browserNavigationEvents = browserNavigationEvents;
 
-},{"../js/navigation.browser.js":81,"./database.helpers":71,"./events":74,"./helpers.js":76}],82:[function(require,module,exports){
+},{"../js/navigation.browser.js":81,"./database.helpers":71,"./events":74,"./helpers.js":76,"socket.io-client":254}],82:[function(require,module,exports){
  /*
  * @jsx React.DOM
  */
@@ -8706,6 +8760,7 @@ var navigationInit = function(element, callback) {
     var activeInput = parent.querySelectorAll(".activeInput")[0];
 
     if (activeInput) {
+        
         activeInput.classList.add("selectedNav", "selected");
         activeInput.classList.remove("activeInput");
     }
@@ -9120,14 +9175,15 @@ module.exports = function(k) {
     }
 
     function currentSelection() {
-        var currentSelection = document.querySelectorAll(".selectedNav");
 
         if (screen == 'Browser') {
+
+            var currentSelection = document.querySelectorAll(".selectedNav");
 
             window.clearTimeout(timeSync);
 
             memSelection = currentSelection[0];
-            timeSync = window.setTimeout(showSelection, 700);
+            timeSync = window.setTimeout(showSelection, 1000);
 
             currentSelection[0].scrollIntoView(false);
 
@@ -9290,12 +9346,12 @@ module.exports = function(k) {
 
                 i--;
 
-                var q = col.length;
-                q = q - 1;
+                var cont = sel[0].nextSibling;
 
-                if (i < q) {
+                if (cont) {
                     i++;
                 }
+
 
                 if (sel[0].parentNode.classList.contains("scroll-into-view")) {
                     // var d = document.querySelectorAll(".selectedNav");
@@ -9399,10 +9455,10 @@ module.exports = function(k) {
 
                 }
 
-                var q = col.length;
-                q = q - 1;
+                var cont = sel[0].previousSibling;
 
-                if (i - 1 != -1) {
+
+                if (cont) {
                     i--;
                 } else {
                     if (screen == 'browser') {
@@ -9424,6 +9480,7 @@ module.exports = function(k) {
         // Has Sub Navigation
         if (sub[0]) {
             col = sel[0].querySelectorAll(".subNavable");
+
             sel[0].classList.remove("selectedNav"); // Remove Parent Select
             sub[0].classList.add("selectedNav"); // Add sub nav Select Class
 
@@ -9871,7 +9928,12 @@ var events = {
             };
         });
 
-        api.emit('request', { request: 'gamesList', param: longname });
+        var Obj = {
+                platform: longname,
+                start: 0
+        }
+
+        api.emit('request', { request: 'gamesList', param: Obj });
 
     },
 

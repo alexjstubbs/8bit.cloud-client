@@ -310,7 +310,7 @@ function gameProfileSmall(nsp, game) {
 
         } else {
 
-            console.log("[!!!] Didn't Match in Database");
+            // console.log("[!!!] Didn't Match in Database");
 
             apicall(null, game, function(err, newDoc) {
                 if (err) {

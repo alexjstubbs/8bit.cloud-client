@@ -316,7 +316,12 @@ var events = {
             };
         });
 
-        api.emit('request', { request: 'gamesList', param: longname });
+        var Obj = {
+                platform: longname,
+                start: 0
+        }
+
+        api.emit('request', { request: 'gamesList', param: Obj });
 
     },
 

@@ -9,7 +9,20 @@ var fs          = require('fs-extra')
 
 /*  List Roms
 -------------------------------------------------- */
-function listRoms(nsp, platform) {
+function listRoms(nsp, Obj) {
+
+    var startrange = Obj.start;
+
+    if (!Obj.start) {
+        startrange = 0;
+    }
+
+    var platform = Obj.platform;
+
+    if (!platform) {
+        platform == "Nintendo";
+    }
+
 
     fs.readJson(appDir+'/config/config.json', function(err, packageObj) {
 
@@ -57,7 +70,12 @@ function listRoms(nsp, platform) {
 
                             });
 
-                            nsp.emit('api', {gamesList: listObj});
+                            startrange = parseInt(startrange);
+
+                            // Paging
+                            nsp.emit('api', {gamesList: listObj.slice(startrange, startrange+20)});
+
+                            console.log(startrange+20);
 
                         }
 

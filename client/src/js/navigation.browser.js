@@ -5,13 +5,13 @@ var getFirstChild       = require('./helpers.js').getFirstChild
 ,   removeBrackets      = require('./helpers.js').removeBrackets
 ,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation
 ,   database            = require('./database.helpers')
+,   api                 = require('socket.io-client')('/api')
 ,   events              = require('./events');
 
 /* Module Definitions
 -------------------------------------------------- */
 
 var browserNavigation = function(k) {
-
 
  // Podium = {};
  //
@@ -114,8 +114,23 @@ var browserNavigationEvents = function(g) {
     var actives = document.querySelectorAll(".active")[0];
     if (actives) { actives.classList.remove("active"); }
 
-    document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
+    if(/[^a-zA-Z0-9]/.test(alpha)) {
+        document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
+    }
 
+
+    // Pagiante
+    var i = g.getAttribute("data-snav");
+    if ((i % 19) == 0 || (i % 18) == 0) {
+
+        var Obj = {
+            platform: "Nintendo",
+            start: i
+        }
+
+        api.emit('request', { request: 'gamesList', param: Obj });
+
+    }
 
 };
 

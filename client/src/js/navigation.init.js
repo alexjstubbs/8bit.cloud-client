@@ -41,6 +41,7 @@ var navigationInit = function(element, callback) {
     var activeInput = parent.querySelectorAll(".activeInput")[0];
 
     if (activeInput) {
+        
         activeInput.classList.add("selectedNav", "selected");
         activeInput.classList.remove("activeInput");
     }

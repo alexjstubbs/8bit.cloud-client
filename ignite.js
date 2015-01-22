@@ -1,9 +1,9 @@
 /**
- * Ignition Client.
- * License: Q Public License 1.0 (QPL-1.0)
- * Copyright (c) Alexander Stubbs. All Rights Reserved.
- * BETA v0.91
- */
+* Ignition Client.
+* License: Q Public License 1.0 (QPL-1.0)
+* Copyright (c) Alexander Stubbs. All Rights Reserved.
+* BETA v0.91
+*/
 
 /* Dev. run enviorment
 -------------------------------------------------- */
@@ -35,7 +35,7 @@ global.__sessionFile        = appDir+"/config/profiles/Session.json";
 /* Initial Setup
 -------------------------------------------------- */
 var firstrun = false,
-    _location;
+_location;
 
 if (firstrun) {
     _location = 'http://127.0.0.1:1210/welcome';
@@ -96,26 +96,35 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
     api(__api);
 
+    // !OSX Env.
     if (process.platform != 'darwin') {
 
         var exec = require('child_process').exec;
 
-        var child = exec('setsid nice -12 qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url='+_location);
+        exec('killall qmlscene', function(stderr, stdout) {
 
-        // Remove Loader
-        exec('killall qmlscene', function(err, stdout, stderr) {});
+            var child = exec('setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url='+_location);
 
-        child.stdout.on('data', function(data) {
-            console.log('(stdout) | ' + data);
+            child.stdout.on('data', function(data) {
+                console.log('(stdout) | ' + data);
+            });
+
+            child.stderr.on('data', function(data) {
+                console.log('(stderr) | ' + data);
+            });
+
+            child.stderr.on('exit', function(code) {
+                // TODO: If crash, restart with dialog and dump.
+                console.log('(exitcode): ' + code);
+            });
+
+
+
         });
-        child.stderr.on('data', function(data) {
-            console.log('(stderr) | ' + data);
-        });
 
+        // Terminal Fork
+        var child = require('child_process').fork('ignition_modules/tty/terminal.js');
     }
-
-    // Terminal Fork
-    var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
 });
 

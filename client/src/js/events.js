@@ -12,8 +12,9 @@ var renderScreenComponents = function(screen) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 };
 
 /* Legacy Screen Transition
@@ -29,8 +30,9 @@ var screenTransition = function(screen, hidden, parent) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 };
 
 /* Change view of screen (to render child)
@@ -43,8 +45,9 @@ var changeView = function(view) {
 	    }
 	});
 
-	window.dispatchEvent(event);
-
+    if (event) {
+    	window.dispatchEvent(event);
+    }
 }
 
 /* Dialogs (circular hack)
@@ -58,8 +61,9 @@ var dialog = function(input, action) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 };
 
 /* UI Action Notification
@@ -72,8 +76,9 @@ var uiActionNotification = function(action) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 };
 
 /* Server Response
@@ -86,8 +91,9 @@ var serverResponse = function(response) {
         }
     });
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    }
 }
 
 /* Update Game
@@ -117,8 +123,9 @@ var updateGame = function(results, filepath, callback) {
 
     }
 
-    window.dispatchEvent(event);
-
+    if (event) {
+        window.dispatchEvent(event);
+    };
 }
 
 
@@ -130,8 +137,9 @@ var launchContext = function(context) {
         'detail': context
     });
 
-    document.dispatchEvent(event);
-
+    if (event) {
+        document.dispatchEvent(event);
+    }
 };
 
 
@@ -146,8 +154,9 @@ var selectBox = function(el, selected) {
         }
     });
 
-    document.dispatchEvent(event);
-
+    if (event) {
+        document.dispatchEvent(event);
+    }
 };
 
 
