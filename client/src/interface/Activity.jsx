@@ -37,7 +37,6 @@ module.exports = React.createClass({
 
         var time = moment(this.props.timestamp).format('YYYY-MM-DD hh:mm:ss');
 
-
         return (
 
         <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack}>

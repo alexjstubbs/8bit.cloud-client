@@ -53,9 +53,12 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             isOnline:       false,
-            ipInfo:         null,
+
+            ipInfo:         "",
+
             session:        {},
             eventSet:       {},
+
             messages:       []
         };
     },
@@ -107,7 +110,6 @@ module.exports = React.createClass({
 
         api.emit('request', { request: 'getSession'} );
         api.emit('request', { request: 'messages'});
-
 
         api.on('network-api', function(data) {
 

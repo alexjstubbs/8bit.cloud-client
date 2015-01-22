@@ -6,50 +6,42 @@
 
 var React       = require('react/addons')
 ,   helpers     = require('../js/helpers')
-,   api         = require('socket.io-client')('/api');
+,   api         = require('socket.io-client')('/api')
+,   mixins      = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({
 
-       getInitialState: function() {
-            return {
-                 community: [{
-                    title: null,
-                    Image: null,
-                    URL: null,
-                    rss: null,
-                    Styles: null,
-                    Description: null
-                }]
+    mixins: [mixins.listener],
+
+    getInitialState: function() {
+        return {
+            community: [{}]
         }
     },
 
     getDefaultProps: function() {
-    return {
-            navable: true,
-            navStack: 4,
-            icon: "ion-ios-people ",
-            functionCall: "moreCommunity",
-            classString: "slide col-xs-4",
-            title: "Community",
-            id: "panel_community",
-            imageStyles: null,
-            hidden: "hidden"
-        }
+        return {
+            id:             "panel_community",
+            icon:           "ion-ios-people ",
+            title:          "Community",
+            imageStyles:    "",
+            classString:    "slide col-xs-4",
+            functionCall:   "moreCommunity"
+            }
     },
 
     componentDidMount: function() {
 
         api.emit('request', { request: 'community'});
-        api.on('api', this.setState.bind(this));
 
     },
 
     render: function() {
 
-
         var imageStyles = this.state.community[0].Styles;
 
         var component = this;
+
         helpers.preloadImage(this.state.community[0].Image, function() {
             document.getElementById("community_image").classList.remove("hidden");
         });

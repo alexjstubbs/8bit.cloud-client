@@ -18,9 +18,9 @@ var ignite = function(req, res, next) {
 -------------------------------------------------- */
 var audio = function(req, res, next) {
 
-    var mp3 = fs.readFileSync("./client/src/audio/click2.mp3");
+    var mp3 = fs.readFileSync("./client/src/audio/b.wav");
 
-    res.writeHead(200, {'Content-Type': 'audio/mpeg' });
+    res.writeHead(200, {'Content-Type': 'audio/wav' });
     res.end(mp3, 'binary');
 
     console.log("ee")

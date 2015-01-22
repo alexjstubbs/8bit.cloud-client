@@ -108,6 +108,7 @@ var updateGame = function(results, filepath, callback) {
                     genre: results[0].genre,
                     id: results[0].id,
                     developer: results[0].developer,
+                    coverart: results[0].image,
                     image: "http://127.0.0.1:1210/games/"+results[0].system+"/"+results[0].title,
                     filepath: filepath
                 }

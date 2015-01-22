@@ -154,7 +154,7 @@ function gameLaunch(nsp, payload) {
 
         // Launch Emulator
 
-        execute('renice +10 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
+        execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
 
             execute("nice -19 " + results.expath +" "+ commandline.join(' ') + ' "'+payload.filepath+'"', function(error, stderr, stdout) {
 
@@ -223,7 +223,6 @@ function apicall(nsp, game, callback) {
                     if (newDocument) {
                         callback(null, newDocument);
                         // console.log("found and stored");
-
                         // nsp.emit('api', {updateGame: newDocument});
                     } else {
                         console.log("error: No New Document");

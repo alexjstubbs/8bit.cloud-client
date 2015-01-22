@@ -155,6 +155,8 @@ var show = function(parent, parameters, arg) {
 
     React.renderComponent(Modal(properties, Child), _div);
 
+    _div.classList.add("animateUp");
+
 }
 
 /* Close Modal

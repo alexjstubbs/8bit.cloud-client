@@ -253,15 +253,21 @@ textarea.textarea-height {
     left: 0;
     width:70vw;
     margin: 0 auto;
+
+
+/*     -webkit-animation-duration: 0.2s;
+animation-duration: 0.2s;
+-webkit-animation-name: bounceIn;
+animation-name: bounceIn; */
 }
 
 .ignition-modal-achievement {
     min-height: 0 !important;
     height:50px !important;
     width:40vw;
-    /* -moz-animation:fadeInOutFast 3.5s; */
-    /* -webkit-animation:fadeInOutFast 3.5s; */
-    /* animation:fadeInOutFast 3.5s; */
+    -moz-animation:fadeInOutFast 4.5s;
+    -webkit-animation:fadeInOutFast 4.5s;
+    animation:fadeInOutFast 4.5s;
 }
 
 .ignition-popup {
@@ -423,6 +429,16 @@ form .label-unselected {
 	font-size:4em;
 }
 
+@keyframes flashIn {
+    0% { transform: translate(0px,-50px); background:@black; }
+    100% { transform: translate(0px,0px); background:@black; }
+}
+
+@-webkit-keyframes flashIn {
+    0% { -webkit-transform: translate(0px,-20px); }
+    100% { -webkit-transform: translate(0px,0px); }
+}
+
 @keyframes fadeInOut {
 	0% { opacity:0; }
 	50% {
@@ -453,6 +469,41 @@ form .label-unselected {
 	100% { opacity:0; }
 }
 
+
+@keyframes fadeInFast {
+    0% { opacity:0.4; }
+    100% { opacity:1; }
+}
+
+@-webkit-keyframes fadeInFast {
+    0% { opacity:0.4; }
+    100% { opacity:1; }
+}
+
+@-webkit-keyframes bounceIn {
+    0% {
+        -webkit-transform: scale(0.4);
+        opacity: 0;
+    }
+    100% {
+        -webkit-transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.1);
+        /* opacity: 0; */
+    }
+    60% {
+        transform: scale(1.2);
+        /* opacity: 1; */
+    }
+    100% {
+        transform: scale(1);
+    }
+}
 
 .ball {
   width: 10px;
@@ -1487,6 +1538,14 @@ footer .progress {
     color:@white !important;
     border:1px solid @primary;
     font-size:1.4em;
+
+}
+
+.animateUp {
+/*     position:absolute;
+-moz-animation:flashIn 0.5s forwards;
+-webkit-animation:flashIn 0.5s forwards;
+animation:flashIn 0.5s forwards; */
 }
 
 .systemNotificationContent h1 {

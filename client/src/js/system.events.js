@@ -445,15 +445,15 @@ var events = {
             document.body.style.background = "transparent";
             _doc.style.display = "none";
 
-            // setTimeout(function() {
-            //
-            //     dialog.uiNotification();
-            //
-            //     setTimeout(function() {
-            //         dialog.close(null, null, "uiNotification");
-            //     }, 4500);
-            //
-            // }, 60000);
+            setTimeout(function() {
+
+                dialog.uiNotification();
+
+                setTimeout(function() {
+                    dialog.close(null, null, "uiNotification");
+                }, 4500);
+
+            }, 5000);
 
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }

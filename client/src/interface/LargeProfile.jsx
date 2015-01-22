@@ -12,30 +12,48 @@ var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   SaveStates      = require('./SaveStates.jsx')
 ,   AchievementList = require('./AchievementList.jsx')
+,   mixins          = require('./mixins/mixins.jsx')
 ,   launchContext   = {};
 
 module.exports = React.createClass({
 
-  getInitialState: function() {
+    mixins: [mixins.listener, mixins.screenMount],
+
+    getInitialState: function() {
 
         return {
 
-            "screen": "Profile",
-            "title": "Unknown Title",
-            "boxart": null,
-            "image": null,
-            "genre": "Action > Adventure",
-            "playtime": "Never Played",
-            "savestates": [
-                {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
-            ],
-            "crc32": null,
-            "developer": null,
-            "filepath": null,
-            "platform": null,
-            "favorite": false
+            "id":             "",
+            "title":          "",
+            "genre":          "",
+            "image":          "",
+            "filepath":       "",
+            "developer":      "",
+            "description":    "",
+            "boxart":         "",
+            "playtime":       "Never Played",
+
+            "rating":         {},
+            "gameInfo":       {},
+            "updateGame":     {},
+            "esrb_rating":    {},
+
+            "gamesList":      [],
+            "platforms":      [],
+
+            "savestates": [{"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}],
+
+            "crc32":          null,
+
+            "favorite":       false
 
         };
+    },
+
+    getDefaultProps: function() {
+        return {
+            "screen": "Profile"
+        }
     },
 
     screenMount: function() {
@@ -88,17 +106,6 @@ module.exports = React.createClass({
 
         });
 
-
-        api.on('api', this.setState.bind(this));
-
-        window.addEventListener("mountView", function(e) {
-
-            if (e.detail.screen == component.state.screen) {
-
-                component.screenMount();
-            }
-
-        });
 
      },
 

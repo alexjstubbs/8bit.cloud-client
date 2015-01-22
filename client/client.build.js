@@ -2012,7 +2012,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         var time = moment(this.props.timestamp).format('YYYY-MM-DD hh:mm:ss');
 
-
         return (
 
         React.DOM.tr({className: this.props.subNavable ? "subNavable" : "", 'data-snav': this.props.navStack}, 
@@ -2177,11 +2176,14 @@ var React               = require('react/addons')
 ,   PlatformList        = require('./PlatformList.jsx')
 ,   GamesList           = require('./GamesList.jsx')
 ,   SmallProfile        = require('./SmallProfile.jsx')
+,   mixins              = require('./mixins/mixins.jsx')
 ,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
 
 /* Components
 -------------------------------------------------- */
 module.exports = React.createClass({displayName: 'exports',
+
+    mixins: [mixins.listener, mixins.screenMount],
 
     getInitialState: function() {
         return {
@@ -2199,11 +2201,24 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-
         var component = this;
         window.addEventListener('screenTransition', function eventHandler(e) {
               component.screenTransition(e);
         });
+
+    },
+
+    screenMount: function() {
+
+        //switchEmulator
+        var short = document.querySelectorAll(".platform.selected"),
+        selectedNav = document.querySelectorAll(".selectedNav")[0];
+
+        if (short.length > 1) {
+            selectedNav.classList.remove("selectedNav");
+            _.first(short).classList.remove("selected");
+            _.last(short).classList.add("selectedNav");
+        }
 
     },
 
@@ -2224,7 +2239,7 @@ module.exports = React.createClass({displayName: 'exports',
             'container-fluid': true,
             'navable': false,
             'browser_header': true,
-          
+
         });
 
         return (
@@ -2239,7 +2254,7 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.div({id: "area", className: "col-xs-12"}, 
 
                         React.DOM.div({'data-screen': "list", className: "text-center col-xs-12 screen row-fluid up10"}, 
-              
+
                           React.DOM.ul({className: "pagination pagination-md", id: "browser_pagination"}, 
                             React.DOM.li({'data-alpha': "#"}, React.DOM.a({href: "#A"}, "#")), 
                             React.DOM.li({'data-alpha': "A"}, React.DOM.a({href: "#A"}, "A")), 
@@ -2273,27 +2288,27 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.div({className: "browser-list"}, 
 
                     GamesList({gamesList: this.props.gamesList}), 
-  
+
                   SmallProfile(null), 
-                       
+
 
             React.DOM.div({className: "clearfix"}), 
-            
+
             React.DOM.div({className: "hidden"}, 
 
                 React.DOM.div({className: "col-xs-12 alpha_list"}, 
 
                     React.DOM.table({className: "table table-striped", id: "list"}
-                    
+
                     )
 
 
                   )
-                                   
+
                 ), 
 
              React.DOM.div({className: "hidden", id: "working_params"}, this.props.params)
-             
+
 
             )
 
@@ -2302,7 +2317,8 @@ module.exports = React.createClass({displayName: 'exports',
         )
     }
 });
-},{"../js/navigation.browser.js":81,"./GamesList.jsx":18,"./PlatformList.jsx":34,"./SmallProfile.jsx":43,"lodash":93,"react/addons":95}],8:[function(require,module,exports){
+
+},{"../js/navigation.browser.js":81,"./GamesList.jsx":18,"./PlatformList.jsx":34,"./SmallProfile.jsx":43,"./mixins/mixins.jsx":57,"lodash":93,"react/addons":95}],8:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2311,50 +2327,42 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React       = require('react/addons')
 ,   helpers     = require('../js/helpers')
-,   api         = require('socket.io-client')('/api');
+,   api         = require('socket.io-client')('/api')
+,   mixins      = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
-       getInitialState: function() {
-            return {
-                 community: [{
-                    title: null,
-                    Image: null,
-                    URL: null,
-                    rss: null,
-                    Styles: null,
-                    Description: null
-                }]
+    mixins: [mixins.listener],
+
+    getInitialState: function() {
+        return {
+            community: [{}]
         }
     },
 
     getDefaultProps: function() {
-    return {
-            navable: true,
-            navStack: 4,
-            icon: "ion-ios-people ",
-            functionCall: "moreCommunity",
-            classString: "slide col-xs-4",
-            title: "Community",
-            id: "panel_community",
-            imageStyles: null,
-            hidden: "hidden"
-        }
+        return {
+            id:             "panel_community",
+            icon:           "ion-ios-people ",
+            title:          "Community",
+            imageStyles:    "",
+            classString:    "slide col-xs-4",
+            functionCall:   "moreCommunity"
+            }
     },
 
     componentDidMount: function() {
 
         api.emit('request', { request: 'community'});
-        api.on('api', this.setState.bind(this));
 
     },
 
     render: function() {
 
-
         var imageStyles = this.state.community[0].Styles;
 
         var component = this;
+
         helpers.preloadImage(this.state.community[0].Image, function() {
             document.getElementById("community_image").classList.remove("hidden");
         });
@@ -2402,7 +2410,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 //
 
-},{"../js/helpers":76,"react/addons":95,"socket.io-client":254}],9:[function(require,module,exports){
+},{"../js/helpers":76,"./mixins/mixins.jsx":57,"react/addons":95,"socket.io-client":254}],9:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -2412,9 +2420,12 @@ module.exports = React.createClass({displayName: 'exports',
 var React            = require('react/addons')
 ,   helpers          = require('../js/helpers')
 ,   api              = require('socket.io-client')('/api')
-,   navigationInit   = require('../js/navigation.init');
+,   navigationInit   = require('../js/navigation.init')
+,   mixins           = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
+
+    mixins: [mixins.listener],
 
     getInitialState: function() {
         return {
@@ -2434,14 +2445,12 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
 
         api.emit('request', { request: 'community'});
-        api.on('api', this.setState.bind(this));
 
         navigationInit.navigationInit();
 
     },
 
     render: function() {
-
 
         var ta = document.getElementById('community-info');
 
@@ -2486,7 +2495,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/helpers":76,"../js/navigation.init":84,"react/addons":95,"socket.io-client":254}],10:[function(require,module,exports){
+},{"../js/helpers":76,"../js/navigation.init":84,"./mixins/mixins.jsx":57,"react/addons":95,"socket.io-client":254}],10:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2542,9 +2551,12 @@ module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
             isOnline:       false,
-            ipInfo:         null,
+
+            ipInfo:         "",
+
             session:        {},
             eventSet:       {},
+
             messages:       []
         };
     },
@@ -2596,7 +2608,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         api.emit('request', { request: 'getSession'} );
         api.emit('request', { request: 'messages'});
-
 
         api.on('network-api', function(data) {
 
@@ -2672,7 +2683,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React = require('react/addons'),
     _ = require('lodash'),
-    actionString;
+    actionString,
+    eventString = ["ok"];
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -2681,7 +2693,7 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             subNavable: true,
             navStack: 1,
-            eventSet: [],
+            eventSet: null,
             eventType: "message",
             timestamp: null,
             classString: "icon large-icon-bg "
@@ -2690,26 +2702,20 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         if (this.props.eventType) {
-            var eventString = _.filter(this.props.eventSet, {"Type": this.props.eventType});
+            eventString = _.filter(this.props.eventSet, {"Type": this.props.eventType});
         }
 
         else {
-            var eventString = this.props.eventSet;
+            eventString = this.props.eventSet;
         }
+
 
         return (
 
         React.DOM.div({className: "col-xs-4"}, 
-            React.DOM.span(null, React.DOM.i({className: eventString ? this.props.classString + eventString[0].icon : this.props.classString}), React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
-            React.DOM.span({className: "muted left-adjust"}, eventString ? eventString[0].shortcut : " ", " to update")
+            React.DOM.span(null, React.DOM.i({className: eventString.length ? this.props.classString + eventString[0].icon : this.props.classString}), React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
+            React.DOM.span({className: "muted left-adjust"}, eventString.length ? eventString[0].shortcut : " ", " to update")
         )
-        
-        // <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack}>
-        //     <td className="td_square"><div className={classes +" "+ actionString[0].color}><i className={actionString[0].icon}></i></div></td>
-        //     <td><strong>{this.props.username}</strong><br /> 
-        //     {actionString[0].string} {this.props.game}</td>
-        //     <td className="text-right"> {this.props.timestamp}</td>
-        // </tr>
 
         );
     }
@@ -3466,29 +3472,24 @@ module.exports = React.createClass({displayName: 'exports',
 var React   = require('react/addons')
 ,   Event   = require('./Event.jsx')
 ,   api     = require('socket.io-client')('/api')
+,   mixins  = require('./mixins/mixins.jsx')
 ,   _       = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
 
-  getInitialState: function() {
-            return {
-                 events: [{
-                    Type: null,
-                    Append: null,
-                    Git: null,
-                    Hash: null
-                }],
+    mixins: [mixins.listener],
 
-                eventSet: [{
-
-                }]
+    getInitialState: function() {
+        return {
+            events: [{}],
+            eventSet: [{}]
         }
     },
+
     componentDidMount: function() {
 
         api.emit('request', { request: 'getSet', param: 'event'});
         api.emit('request', { request: 'events'});
-        api.on('api', this.setState.bind(this));
 
     },
 
@@ -3524,7 +3525,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"./Event.jsx":11,"lodash":93,"react/addons":95,"socket.io-client":254}],22:[function(require,module,exports){
+},{"./Event.jsx":11,"./mixins/mixins.jsx":57,"lodash":93,"react/addons":95,"socket.io-client":254}],22:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3645,30 +3646,48 @@ var React           = require('react/addons')
 ,   _               = require('lodash')
 ,   SaveStates      = require('./SaveStates.jsx')
 ,   AchievementList = require('./AchievementList.jsx')
+,   mixins          = require('./mixins/mixins.jsx')
 ,   launchContext   = {};
 
 module.exports = React.createClass({displayName: 'exports',
 
-  getInitialState: function() {
+    mixins: [mixins.listener, mixins.screenMount],
+
+    getInitialState: function() {
 
         return {
 
-            "screen": "Profile",
-            "title": "Unknown Title",
-            "boxart": null,
-            "image": null,
-            "genre": "Action > Adventure",
-            "playtime": "Never Played",
-            "savestates": [
-                {"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}
-            ],
-            "crc32": null,
-            "developer": null,
-            "filepath": null,
-            "platform": null,
-            "favorite": false
+            "id":             "",
+            "title":          "",
+            "genre":          "",
+            "image":          "",
+            "filepath":       "",
+            "developer":      "",
+            "description":    "",
+            "boxart":         "",
+            "playtime":       "Never Played",
+
+            "rating":         {},
+            "gameInfo":       {},
+            "updateGame":     {},
+            "esrb_rating":    {},
+
+            "gamesList":      [],
+            "platforms":      [],
+
+            "savestates": [{"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}],
+
+            "crc32":          null,
+
+            "favorite":       false
 
         };
+    },
+
+    getDefaultProps: function() {
+        return {
+            "screen": "Profile"
+        }
     },
 
     screenMount: function() {
@@ -3721,17 +3740,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         });
 
-
-        api.on('api', this.setState.bind(this));
-
-        window.addEventListener("mountView", function(e) {
-
-            if (e.detail.screen == component.state.screen) {
-
-                component.screenMount();
-            }
-
-        });
 
      },
 
@@ -3841,7 +3849,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"./AchievementList.jsx":2,"./SaveStates.jsx":40,"lodash":93,"react/addons":95,"socket.io-client":254}],25:[function(require,module,exports){
+},{"./AchievementList.jsx":2,"./SaveStates.jsx":40,"./mixins/mixins.jsx":57,"lodash":93,"react/addons":95,"socket.io-client":254}],25:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4335,11 +4343,10 @@ module.exports = React.createClass({displayName: 'exports',
         var _this = this;
 
         var recentInput = document.getElementsByClassName("activeInput")[0];
-        recentInput.scrollTop = recentInput.scrollHeight;
+            recentInput.scrollTop = recentInput.scrollHeight;
 
         var cursor = document.querySelectorAll(".cursor")[0];
-
-        cursor.scrollIntoView(true);
+            cursor.scrollIntoView(true);
 
         var kb = document.getElementById("KB");
 
@@ -4354,7 +4361,6 @@ module.exports = React.createClass({displayName: 'exports',
 
          window.addEventListener("updateKeyboard", function(e) {
 
-
             _this.setState({type: e.detail.type});
 
             kb.innerHTML = "";
@@ -4366,24 +4372,25 @@ module.exports = React.createClass({displayName: 'exports',
             else {
                 var Keyboard = new _keyboard.Keyboard(kb);
             }
-            
+
             navigationInit.navigationInit();
+
         });
 
-    
+
         navigationInit.navigationInit();
-       
+
         document.querySelectorAll(".input-keyboard")[0].focus();
-        document.querySelectorAll(".input-keyboard")[0].addEventListener("keypress", function(e) {
-             if (e.charCode) {
-                keyboardKeyEvents.keypress(e.key);
-            }
-        });
+
+        // document.querySelectorAll(".input-keyboard")[0].addEventListener("keypress", function(e) {
+        //      if (e.charCode) {
+        //         keyboardKeyEvents.keypress(e.key);
+        //     }
+        // });
 
     },
 
     render: function() {
-
 
         return (
 
@@ -4391,11 +4398,11 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.div({className: "container-fluid parent"}, 
                     React.DOM.div({className: "row-fluid"}, 
                         React.DOM.div({className: "col-xs-12"}, 
-                                    
+
                             React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
                             React.DOM.fieldset(null, 
-                                
+
                                 React.DOM.div({className: "form-group"}, 
 
                                     React.DOM.div({className: "form-control", 'data-keyboardtype': this.state.type, 'data-inputtype': this.props.input, contentEditable: "true", id: "placehold_input", name: "textual", rows: "10"}, 
@@ -4404,24 +4411,21 @@ module.exports = React.createClass({displayName: 'exports',
                                     )
 
                                 ), 
-                                
+
                               React.DOM.div({id: "KB"})
-            
+
                             )
                             )
-                              
-                              
+
+
                         )
                     )
                 )
-            )              
-         
+            )
+
         );
     }
 });
-
-
-
 
 },{"../js/navigation.init":84,"../js/navigation.keyboard":86,"../js/navigation.keyboardKeyEvents":87,"react/addons":95}],32:[function(require,module,exports){
 /**
@@ -5104,14 +5108,12 @@ var React           = require('react/addons')
 ,   mixins          = require('./mixins/mixins.jsx')
 ,   achievements;
 
-
 module.exports = React.createClass({displayName: 'exports',
 
-    mixins: [mixins.listener, mixins.screenMount],
+    mixins: [mixins.listener],
 
     getInitialState: function() {
         return {
-
             "id":             "",
             "title":          "",
             "genre":          "",
@@ -5129,7 +5131,6 @@ module.exports = React.createClass({displayName: 'exports',
             "platforms":      [],
 
             "crc32":          null
-
         };
     },
 
@@ -5139,19 +5140,6 @@ module.exports = React.createClass({displayName: 'exports',
         }
     },
 
-    screenMount: function() {
-
-        //switchEmulator
-        var short = document.querySelectorAll(".platform.selected"),
-            selectedNav = document.querySelectorAll(".selectedNav")[0];
-
-        if (short.length > 1) {
-            selectedNav.classList.remove("selectedNav");
-            _.first(short).classList.remove("selected");
-            _.last(short).classList.add("selectedNav");
-        }
-
-    },
 
     componentDidMount: function () {
 
@@ -5164,6 +5152,7 @@ module.exports = React.createClass({displayName: 'exports',
      },
 
     render: function() {
+
 
         var cx = React.addons.classSet;
         var classes = cx({
@@ -7287,6 +7276,8 @@ var show = function(parent, parameters, arg) {
 
     React.renderComponent(Modal(properties, Child), _div);
 
+    _div.classList.add("animateUp");
+
 }
 
 /* Close Modal
@@ -7565,6 +7556,7 @@ var updateGame = function(results, filepath, callback) {
                     genre: results[0].genre,
                     id: results[0].id,
                     developer: results[0].developer,
+                    coverart: results[0].image,
                     image: "http://127.0.0.1:1210/games/"+results[0].system+"/"+results[0].title,
                     filepath: filepath
                 }
@@ -8192,14 +8184,7 @@ module.exports = function() {
     -------------------------------------------------- */
     database.initLocalDatabase("games");
 
-    // setTimeout(function() {
-    //     // document.getElementById('__demo').play();
-    //     var audio = new Audio('http://127.0.0.1:1210/audio/doesntmatter');
-    //     console.log(audio);
-    //
-    //
-    // }, 5000);
-    
+
     // setTimeout(function() {
     //     document.body.classList.add("load-ui");
     // }, 10000);
@@ -10015,15 +10000,15 @@ var events = {
             document.body.style.background = "transparent";
             _doc.style.display = "none";
 
-            // setTimeout(function() {
-            //
-            //     dialog.uiNotification();
-            //
-            //     setTimeout(function() {
-            //         dialog.close(null, null, "uiNotification");
-            //     }, 4500);
-            //
-            // }, 60000);
+            setTimeout(function() {
+
+                dialog.uiNotification();
+
+                setTimeout(function() {
+                    dialog.close(null, null, "uiNotification");
+                }, 4500);
+
+            }, 5000);
 
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }

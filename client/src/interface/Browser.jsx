@@ -9,11 +9,14 @@ var React               = require('react/addons')
 ,   PlatformList        = require('./PlatformList.jsx')
 ,   GamesList           = require('./GamesList.jsx')
 ,   SmallProfile        = require('./SmallProfile.jsx')
+,   mixins              = require('./mixins/mixins.jsx')
 ,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
 
 /* Components
 -------------------------------------------------- */
 module.exports = React.createClass({
+
+    mixins: [mixins.listener, mixins.screenMount],
 
     getInitialState: function() {
         return {
@@ -31,11 +34,24 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-
         var component = this;
         window.addEventListener('screenTransition', function eventHandler(e) {
               component.screenTransition(e);
         });
+
+    },
+
+    screenMount: function() {
+
+        //switchEmulator
+        var short = document.querySelectorAll(".platform.selected"),
+        selectedNav = document.querySelectorAll(".selectedNav")[0];
+
+        if (short.length > 1) {
+            selectedNav.classList.remove("selectedNav");
+            _.first(short).classList.remove("selected");
+            _.last(short).classList.add("selectedNav");
+        }
 
     },
 
@@ -56,22 +72,22 @@ module.exports = React.createClass({
             'container-fluid': true,
             'navable': false,
             'browser_header': true,
-          
+
         });
 
         return (
 
              <div className="parent">
 
-             <div className={classes}> 
+             <div className={classes}>
 
              <PlatformList platforms={this.props.platforms} />
 
 
-                    <div id="area" className='col-xs-12'> 
+                    <div id="area" className='col-xs-12'>
 
-                        <div data-screen='list' className="text-center col-xs-12 screen row-fluid up10"> 
-              
+                        <div data-screen='list' className="text-center col-xs-12 screen row-fluid up10">
+
                           <ul className="pagination pagination-md" id="browser_pagination">
                             <li data-alpha='#'><a href="#A">#</a></li>
                             <li data-alpha='A'><a href="#A">A</a></li>
@@ -105,27 +121,27 @@ module.exports = React.createClass({
                     <div className="browser-list">
 
                     <GamesList gamesList={this.props.gamesList} />
-  
+
                   <SmallProfile />
-                       
+
 
             <div className="clearfix"></div>
-            
+
             <div className='hidden'>
 
-                <div className="col-xs-12 alpha_list"> 
+                <div className="col-xs-12 alpha_list">
 
                     <table className="table table-striped" id="list">
-                    
-                    </table>   
+
+                    </table>
 
 
-                  </div> 
-                                   
-                </div> 
+                  </div>
+
+                </div>
 
              <div className="hidden" id="working_params">{this.props.params}</div>
-             
+
 
             </div>
 

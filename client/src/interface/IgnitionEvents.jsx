@@ -7,29 +7,24 @@
 var React   = require('react/addons')
 ,   Event   = require('./Event.jsx')
 ,   api     = require('socket.io-client')('/api')
+,   mixins  = require('./mixins/mixins.jsx')
 ,   _       = require('lodash');
 
 module.exports = React.createClass({
 
-  getInitialState: function() {
-            return {
-                 events: [{
-                    Type: null,
-                    Append: null,
-                    Git: null,
-                    Hash: null
-                }],
+    mixins: [mixins.listener],
 
-                eventSet: [{
-
-                }]
+    getInitialState: function() {
+        return {
+            events: [{}],
+            eventSet: [{}]
         }
     },
+
     componentDidMount: function() {
 
         api.emit('request', { request: 'getSet', param: 'event'});
         api.emit('request', { request: 'events'});
-        api.on('api', this.setState.bind(this));
 
     },
 

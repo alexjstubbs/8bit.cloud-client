@@ -7,9 +7,12 @@
 var React            = require('react/addons')
 ,   helpers          = require('../js/helpers')
 ,   api              = require('socket.io-client')('/api')
-,   navigationInit   = require('../js/navigation.init');
+,   navigationInit   = require('../js/navigation.init')
+,   mixins           = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({
+
+    mixins: [mixins.listener],
 
     getInitialState: function() {
         return {
@@ -29,14 +32,12 @@ module.exports = React.createClass({
     componentDidMount: function() {
 
         api.emit('request', { request: 'community'});
-        api.on('api', this.setState.bind(this));
 
         navigationInit.navigationInit();
 
     },
 
     render: function() {
-
 
         var ta = document.getElementById('community-info');
 

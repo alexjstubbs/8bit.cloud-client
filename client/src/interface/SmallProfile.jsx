@@ -13,14 +13,12 @@ var React           = require('react/addons')
 ,   mixins          = require('./mixins/mixins.jsx')
 ,   achievements;
 
-
 module.exports = React.createClass({
 
-    mixins: [mixins.listener, mixins.screenMount],
+    mixins: [mixins.listener],
 
     getInitialState: function() {
         return {
-
             "id":             "",
             "title":          "",
             "genre":          "",
@@ -38,7 +36,6 @@ module.exports = React.createClass({
             "platforms":      [],
 
             "crc32":          null
-
         };
     },
 
@@ -48,19 +45,6 @@ module.exports = React.createClass({
         }
     },
 
-    screenMount: function() {
-
-        //switchEmulator
-        var short = document.querySelectorAll(".platform.selected"),
-            selectedNav = document.querySelectorAll(".selectedNav")[0];
-
-        if (short.length > 1) {
-            selectedNav.classList.remove("selectedNav");
-            _.first(short).classList.remove("selected");
-            _.last(short).classList.add("selectedNav");
-        }
-
-    },
 
     componentDidMount: function () {
 
@@ -73,6 +57,7 @@ module.exports = React.createClass({
      },
 
     render: function() {
+
 
         var cx = React.addons.classSet;
         var classes = cx({

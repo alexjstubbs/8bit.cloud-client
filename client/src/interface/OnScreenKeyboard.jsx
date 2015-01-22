@@ -32,11 +32,10 @@ module.exports = React.createClass({
         var _this = this;
 
         var recentInput = document.getElementsByClassName("activeInput")[0];
-        recentInput.scrollTop = recentInput.scrollHeight;
+            recentInput.scrollTop = recentInput.scrollHeight;
 
         var cursor = document.querySelectorAll(".cursor")[0];
-
-        cursor.scrollIntoView(true);
+            cursor.scrollIntoView(true);
 
         var kb = document.getElementById("KB");
 
@@ -51,7 +50,6 @@ module.exports = React.createClass({
 
          window.addEventListener("updateKeyboard", function(e) {
 
-
             _this.setState({type: e.detail.type});
 
             kb.innerHTML = "";
@@ -63,24 +61,25 @@ module.exports = React.createClass({
             else {
                 var Keyboard = new _keyboard.Keyboard(kb);
             }
-            
+
             navigationInit.navigationInit();
+
         });
 
-    
+
         navigationInit.navigationInit();
-       
+
         document.querySelectorAll(".input-keyboard")[0].focus();
-        document.querySelectorAll(".input-keyboard")[0].addEventListener("keypress", function(e) {
-             if (e.charCode) {
-                keyboardKeyEvents.keypress(e.key);
-            }
-        });
+
+        // document.querySelectorAll(".input-keyboard")[0].addEventListener("keypress", function(e) {
+        //      if (e.charCode) {
+        //         keyboardKeyEvents.keypress(e.key);
+        //     }
+        // });
 
     },
 
     render: function() {
-
 
         return (
 
@@ -88,34 +87,31 @@ module.exports = React.createClass({
                 <div className="container-fluid parent">
                     <div className="row-fluid">
                         <div className="col-xs-12">
-                                    
+
                             <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
 
                             <fieldset>
-                                
+
                                 <div className="form-group">
 
                                     <div className="form-control" data-keyboardtype={this.state.type} data-inputtype={this.props.input} contentEditable="true" id="placehold_input" name="textual" rows="10">
-                                        <span id="keyboard-input-area">{this.props.value}</span> 
+                                        <span id="keyboard-input-area">{this.props.value}</span>
                                         <i className="cursor">_</i>
-                                    </div> 
+                                    </div>
 
                                 </div>
-                                
-                              <div id="KB"></div> 
-            
+
+                              <div id="KB"></div>
+
                             </fieldset>
                             </form>
-                              
-                              
+
+
                         </div>
                     </div>
                 </div>
-            </div>              
-         
+            </div>
+
         );
     }
 });
-
-
-
