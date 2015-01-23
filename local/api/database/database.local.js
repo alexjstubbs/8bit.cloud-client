@@ -222,9 +222,6 @@ function findGame(document, callback) {
 
     db.games.find(document, function(err, docs) {
 
-        console.log("doc:")
-        console.log(docs);
-    
         if (docs.length) {
             // console.log("[!] found game");
             callback(docs)

@@ -1435,12 +1435,12 @@ module.exports = React.createClass({displayName: 'exports',
 
             if (object.gamesList) {
 
+
                 var a = object.gamesList,
                     b = component.state.gamesList,
-                    c = a.concat(b);
+                    c = b.concat(a);
 
                 component.setState({gamesList: _.rest(c)});
-
 
             }
 
@@ -1465,6 +1465,12 @@ module.exports = React.createClass({displayName: 'exports',
 
              alpha_list.push(alpha);
 
+             // Remove UI Alert
+
+             var _alert = (document.getElementById("ui-alert"));
+
+             if (_alert) _alert.remove();
+
         });
     },
 
@@ -1483,8 +1489,6 @@ module.exports = React.createClass({displayName: 'exports',
         var skipped;
 
         if (this.state.gamesList) {
-
-            console.log("welp");
 
             var listNodes = this.state.gamesList.map(function (game, i) {
 
@@ -3612,7 +3616,11 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
         return {
-            icon: "ion-close-circled"
+            id: "ui-alert",
+            classes: null,
+            icon: "ion-close-circled",
+            color: "red-bg",
+            effect: "fadeInOut",
         }
     },
 
@@ -3620,13 +3628,14 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-		React.DOM.div({className: "ui-alert"}, 
+		React.DOM.div({id: this.props.id, className: "ui-alert " + this.props.classes +  " " + this.props.effect}, 
 			React.DOM.i({className: this.props.icon})
 		)
-        
+
         );
     }
 });
+
 },{"react/addons":94}],46:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -5199,31 +5208,7 @@ String.prototype.hashCode = function() {
  * TODO: Speed Improvements.
 -------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
-
-    // TODO: Create wrapper for buffered collections. Ajax via platform and queries and load those results as pourover collections.
-    // [...] Large user DB's will crash the browser on the Pi if not.
-    //
-    // var path = 'http://127.0.0.1:1210/database/'+database;
-    //
-    //     var xmlhttp = new XMLHttpRequest();
-    //
-    //     xmlhttp.onreadystatechange=function() {
-    //         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-    //
-    //             var data = xmlhttp.responseText;
-    //
-    //             if (database == "games") {
-    //                 data = _.flatten(data.database, 'games'),
-    //                 data = _.flatten(data, 'game');
-    //                 collection[database] = new PourOver.PourOver.Collection(data);
-    //             }
-    //
-    //     }
-    // }
-    // xmlhttp.open("GET",path,true);
-    // xmlhttp.send();
-    //
-    // return;
+    return;
 }
 
 /* Filter Collection by Attribute
@@ -5242,66 +5227,6 @@ var filterByAttribute = function(database, query, callback) {
     }];
 
     callback(obj);
-
-    // PENDING REWRITE
-    //     var filter = [];
-    //
-    //     _(query).forEach(function(_query) {
-    //
-    //         if (_query['type']) {
-    //             var hash = JSON.stringify(_query).hashCode();
-    //             filters[hash] = PourOver.PourOver[_query['type']](_query['filter'], [_query['query']]);
-    //             collection[database].addFilters(filters[hash]);
-    //             var results = collection[database].filters[_query['filter']].getFn(_query['query']);
-    //             filter.push(results);
-    //         }
-    //     });
-    //
-    //     if (filter.length > 1) {
-    //
-    //         console.log("3");
-    //         var filtered = filter[0].and(filter[1]);
-    //
-    //         var filter_results = collection[database].get(filtered.cids);
-    //
-    //     }
-    //
-    //     else {
-    //
-    //         console.log("4");
-    //         var filtered = filter[0];
-    //         var filter_results = collection[database].get(filtered.cids);
-    //     }
-    //
-    //     if (filter_results.length && database == "games") {
-    //         callback(filter_results);
-    //     }
-    //
-    //     else {
-    //
-    //         console.log("5");
-    //
-    //         if (database == "games") {
-    //             var title = query.query.query;
-    //
-    //             api.emit('request', { request: 'lookupGame', param: title });
-    //
-    //             var obj = [{
-    //                 title: title,
-    //                 description: title+" the videogame"
-    //             }];
-    //             callback(obj);
-    //         }
-    //
-    //     }
-    //
-    // }
-    //
-    // else {
-    //     initLocalDatabase(database, function() {
-    //         filterByAttribute(database, query, callback);
-    //     })
-    // }
 
 }
 
@@ -5610,13 +5535,16 @@ window.addEventListener("dialog", function(e) {
 
 /* Blocked UI Action
 -------------------------------------------------- */
-
 window.addEventListener("uiActionNotification", function(e) {
 
   switch (e.detail.action) {
 
     case "blocked":
         uiNotification.blocked();
+        return;
+
+    case "loading":
+        uiNotification.loading();
         return;
   }
 
@@ -5798,6 +5726,7 @@ var selectBox = function(el, selected) {
         document.dispatchEvent(event);
     }
 };
+
 
 
 /* Exports
@@ -6682,37 +6611,19 @@ var browserNavigationEvents = function(g) {
     }
 
 
-    // Pagiante
-    var i = g.getAttribute("data-snav");
+    if (!g.nextSibling) {
 
-    if ((i % 19) == 0 || (i % 18) == 0) {
-
-        var path = 'http://127.0.0.1:1210/roms/Nintendo/'+i;
-
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange=function() {
-
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-                var data = xmlhttp.responseText;
-
-                var JSONified = JSON.parse(data);
-
-
-                var a = JSONified.gamesList,
-                b = component.state.gamesList,
-                c = b.concat(a);
-
-                component.setState({gamesList: _.rest(c)});
-
-            }
+        var Obj = {
+            platform: "Nintendo",
+            start: g.getAttribute("data-snav")
         }
 
-        xmlhttp.open("GET",path,true);
-        xmlhttp.send();
+        api.emit('request', { request: 'gamesList', param: Obj });
+
+        events.uiActionNotification('loading');
 
     }
+
 };
 
 /* Exports
@@ -7334,6 +7245,14 @@ var systemEvents        = require('./system.events.js')
 ,   timeSync;
 
 
+/*  Show Selection in Small Game Profile
+-------------------------------------------------- */
+function showSelection() {
+    navigationBrowse(memSelection);
+}
+
+var initialize = _.debounce(showSelection, 700);
+
 /* Exported Navigation Module (blackbox)
 -------------------------------------------------- */
 module.exports = function(k) {
@@ -7350,20 +7269,14 @@ module.exports = function(k) {
 
     var screen = document.getElementById("screen-active").classList[0];
 
-    function showSelection() {
-        navigationBrowse(memSelection);
-    }
-
     function currentSelection() {
 
         if (screen == 'Browser') {
 
             var currentSelection = document.querySelectorAll(".selectedNav");
-
-            window.clearTimeout(timeSync);
-
             memSelection = currentSelection[0];
-            timeSync = window.setTimeout(showSelection, 0);
+
+            initialize();
 
             currentSelection[0].scrollIntoView(false);
 
@@ -8399,18 +8312,35 @@ var React           = require('react/addons')
 -------------------------------------------------- */
 var blocked = function() {
 
-	var fragment = document.createDocumentFragment();
-    div = document.createElement("div");
+	var fragment 	= document.createDocumentFragment(),
+    	div 		= document.createElement("div");
+
     fragment.appendChild(div);
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-	React.renderComponent(UINotification({}), div);
+	React.renderComponent(UINotification({icon: "ion-close-circled", classes: "red-bg", effect: "fadein"}), div);
+}
+
+/*  Loading UI Action
+-------------------------------------------------- */
+var loading = function() {
+
+	var fragment = document.createDocumentFragment(),
+		div 	 = document.createElement("div");
+
+	fragment.appendChild(div);
+
+	document.body.insertBefore(fragment, document.body.firstChild);
+
+	React.renderComponent(UINotification({ classes: "ui-alert-alt", icon: "fa fa-spin ion-ios-loop-strong", effect: "no-fffect"}), div);
 }
 
 /* Exports
 -------------------------------------------------- */
 exports.blocked = blocked;
+exports.loading = loading;
+
 },{"../interface/UINotification.jsx":45,"react/addons":94}],92:[function(require,module,exports){
 (function (global){
 /**

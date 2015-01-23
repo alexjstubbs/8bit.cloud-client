@@ -8,15 +8,31 @@ var React           = require('react/addons')
 -------------------------------------------------- */
 var blocked = function() {
 
-	var fragment = document.createDocumentFragment();
-    div = document.createElement("div");
+	var fragment 	= document.createDocumentFragment(),
+    	div 		= document.createElement("div");
+
     fragment.appendChild(div);
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-	React.renderComponent(UINotification({}), div);
+	React.renderComponent(UINotification({icon: "ion-close-circled", classes: "red-bg", effect: "fadein"}), div);
+}
+
+/*  Loading UI Action
+-------------------------------------------------- */
+var loading = function() {
+
+	var fragment = document.createDocumentFragment(),
+		div 	 = document.createElement("div");
+
+	fragment.appendChild(div);
+
+	document.body.insertBefore(fragment, document.body.firstChild);
+
+	React.renderComponent(UINotification({ classes: "ui-alert-alt", icon: "fa fa-spin ion-ios-loop-strong", effect: "no-fffect"}), div);
 }
 
 /* Exports
 -------------------------------------------------- */
 exports.blocked = blocked;
+exports.loading = loading;

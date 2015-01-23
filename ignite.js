@@ -33,6 +33,7 @@ global.__io                 = require('socket.io').listen(http);
 global.__api                = __io.of('/api');
 global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
+
 /* Initial Setup
 -------------------------------------------------- */
 var firstrun = false,

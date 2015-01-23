@@ -30,13 +30,16 @@ window.addEventListener("dialog", function(e) {
 
 /* Blocked UI Action
 -------------------------------------------------- */
-
 window.addEventListener("uiActionNotification", function(e) {
 
   switch (e.detail.action) {
 
     case "blocked":
         uiNotification.blocked();
+        return;
+
+    case "loading":
+        uiNotification.loading();
         return;
   }
 

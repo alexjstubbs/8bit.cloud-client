@@ -10,7 +10,11 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
         return {
-            icon: "ion-close-circled"
+            id: "ui-alert",
+            classes: null,
+            icon: "ion-close-circled",
+            color: "red-bg",
+            effect: "fadeInOut",
         }
     },
 
@@ -18,10 +22,10 @@ module.exports = React.createClass({
 
         return (
 
-		<div className="ui-alert">
+		<div id={this.props.id} className={"ui-alert " + this.props.classes +  " " + this.props.effect}>
 			<i className={this.props.icon}></i>
 		</div>
-        
+
         );
     }
 });

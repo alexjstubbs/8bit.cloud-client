@@ -119,37 +119,19 @@ var browserNavigationEvents = function(g) {
     }
 
 
-    // Pagiante
-    var i = g.getAttribute("data-snav");
+    if (!g.nextSibling) {
 
-    if ((i % 19) == 0 || (i % 18) == 0) {
-
-        var path = 'http://127.0.0.1:1210/roms/Nintendo/'+i;
-
-        var xmlhttp = new XMLHttpRequest();
-
-        xmlhttp.onreadystatechange=function() {
-
-            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-
-                var data = xmlhttp.responseText;
-
-                var JSONified = JSON.parse(data);
-
-
-                var a = JSONified.gamesList,
-                b = component.state.gamesList,
-                c = b.concat(a);
-
-                component.setState({gamesList: _.rest(c)});
-
-            }
+        var Obj = {
+            platform: "Nintendo",
+            start: g.getAttribute("data-snav")
         }
 
-        xmlhttp.open("GET",path,true);
-        xmlhttp.send();
+        api.emit('request', { request: 'gamesList', param: Obj });
+
+        events.uiActionNotification('loading');
 
     }
+
 };
 
 /* Exports

@@ -11,6 +11,14 @@ var systemEvents        = require('./system.events.js')
 ,   timeSync;
 
 
+/*  Show Selection in Small Game Profile
+-------------------------------------------------- */
+function showSelection() {
+    navigationBrowse(memSelection);
+}
+
+var initialize = _.debounce(showSelection, 700);
+
 /* Exported Navigation Module (blackbox)
 -------------------------------------------------- */
 module.exports = function(k) {
@@ -27,20 +35,14 @@ module.exports = function(k) {
 
     var screen = document.getElementById("screen-active").classList[0];
 
-    function showSelection() {
-        navigationBrowse(memSelection);
-    }
-
     function currentSelection() {
 
         if (screen == 'Browser') {
 
             var currentSelection = document.querySelectorAll(".selectedNav");
-
-            window.clearTimeout(timeSync);
-
             memSelection = currentSelection[0];
-            timeSync = window.setTimeout(showSelection, 0);
+
+            initialize();
 
             currentSelection[0].scrollIntoView(false);
 

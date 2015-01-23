@@ -38,12 +38,12 @@ module.exports = React.createClass({
 
             if (object.gamesList) {
 
+
                 var a = object.gamesList,
                     b = component.state.gamesList,
-                    c = a.concat(b);
+                    c = b.concat(a);
 
                 component.setState({gamesList: _.rest(c)});
-
 
             }
 
@@ -68,6 +68,12 @@ module.exports = React.createClass({
 
              alpha_list.push(alpha);
 
+             // Remove UI Alert
+
+             var _alert = (document.getElementById("ui-alert"));
+
+             if (_alert) _alert.remove();
+
         });
     },
 
@@ -86,8 +92,6 @@ module.exports = React.createClass({
         var skipped;
 
         if (this.state.gamesList) {
-
-            console.log("welp");
 
             var listNodes = this.state.gamesList.map(function (game, i) {
 
