@@ -38,10 +38,12 @@ module.exports = React.createClass({
 
             if (object.gamesList) {
 
-
                 var a = object.gamesList,
-                    b = component.state.gamesList,
-                    c = b.concat(a);
+                    b = [];
+
+                object.page ? b = component.state.gamesList : b = [component.state.gamesList[0]];
+
+                var c = b.concat(a);
 
                 component.setState({gamesList: _.rest(c)});
 
@@ -67,8 +69,6 @@ module.exports = React.createClass({
                 }
 
              alpha_list.push(alpha);
-
-             // Remove UI Alert
 
              var _alert = (document.getElementById("ui-alert"));
 

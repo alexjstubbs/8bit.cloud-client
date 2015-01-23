@@ -63,7 +63,7 @@ function listRoms(nsp, obj) {
 
                             });
 
-                            nsp.emit('api', {gamesList: listObj});
+                            nsp.emit('api', {gamesList: listObj, page: start});
 
                         }
 

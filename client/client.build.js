@@ -1435,10 +1435,12 @@ module.exports = React.createClass({displayName: 'exports',
 
             if (object.gamesList) {
 
-
                 var a = object.gamesList,
-                    b = component.state.gamesList,
-                    c = b.concat(a);
+                    b = [];
+
+                object.page ? b = component.state.gamesList : b = [component.state.gamesList[0]];
+
+                var c = b.concat(a);
 
                 component.setState({gamesList: _.rest(c)});
 
@@ -1464,8 +1466,6 @@ module.exports = React.createClass({displayName: 'exports',
                 }
 
              alpha_list.push(alpha);
-
-             // Remove UI Alert
 
              var _alert = (document.getElementById("ui-alert"));
 
@@ -6577,6 +6577,7 @@ var browserNavigation = function(k) {
 var browserNavigationEvents = function(g) {
     //<tr data-reactid=".1.0.1.0.1.0.0.0.1" data-path="/Users/alexstubbs/roms/nes/Battle City.7z" data-title="Battle City" data-parameters="/Users/alexstubbs/roms/nes/Battle City.7z" data-function="largeProfile" data-snav="1" class="subNavable selectedNav">
 
+
     var shortname   = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
         game        = removeBrackets(g.getAttribute("data-title")),
         game        = game.replace(/\.[^/.]+$/, ""),
@@ -6614,7 +6615,7 @@ var browserNavigationEvents = function(g) {
     if (!g.nextSibling) {
 
         var Obj = {
-            platform: "Nintendo",
+            platform: document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
             start: g.getAttribute("data-snav")
         }
 
@@ -8021,12 +8022,14 @@ var events = {
             };
         });
 
+        console.log(longname);
+        
         var Obj = {
                 platform: longname,
                 start: 0
         }
 
-        // api.emit('request', { request: 'gamesList', param: Obj });
+        api.emit('request', { request: 'gamesList', param: Obj });
 
     },
 
