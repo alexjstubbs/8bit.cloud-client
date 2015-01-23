@@ -38,8 +38,8 @@ module.exports = function() {
     // document.onkeydown = navigationEvent;
 
     /* Get Games Database for ROM Browser
-    -------------------------------------------------- */
-    database.initLocalDatabase("games");
+    --pending---------------------------------------- */
+    // database.initLocalDatabase("games");
 
 
     // setTimeout(function() {

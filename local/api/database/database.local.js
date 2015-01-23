@@ -57,6 +57,14 @@ function compactDatabase(database, callback) {
     }
 }
 
+/*  Dedupe games
+-------------------------------------------------- */
+function dedupeDatabase() {
+    db.remove({ _id: 'id2' }, {}, function (err, numRemoved) {
+        // numRemoved = 1
+    });
+}
+
 /* Get Databases
 -------------------------------------------------- */
 function storeGet(nsp, database, callback) {
@@ -214,7 +222,9 @@ function findGame(document, callback) {
 
     db.games.find(document, function(err, docs) {
 
-
+        console.log("doc:")
+        console.log(docs);
+    
         if (docs.length) {
             // console.log("[!] found game");
             callback(docs)
@@ -230,14 +240,14 @@ function findGame(document, callback) {
 -------------------------------------------------- */
 function getGamesAjax(req, res) {
 
-    storeGet(null, req.params.database, function(err, result) {
+    var stream = storeGet(null, req.params.database, function(err, result) {
 
             if (err) {
                 res.send(err);
             }
 
             else {
-                res.send(result);
+                stream.pipe(oppressor(req)).pipe(res);
             }
     });
 

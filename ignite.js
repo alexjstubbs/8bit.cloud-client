@@ -25,6 +25,7 @@ global.appDir               = path.dirname(require.main.filename);
 var common                  = require('./local/common')
 ,   busboy                  = require('busboy')
 ,   methodOverride          = require('method-override')
+,   compress                = require('compression')
 ,   app                     = common.express()
 ,   http                    = require('http').createServer(app);
 
@@ -53,6 +54,7 @@ app.set('views', './local/render/');
 app.engine('mustache', common.mu2express.engine);
 app.set('view engine', 'mustache');
 
+app.use(compress());
 app.use(methodOverride());
 
 app.use(app.router);
@@ -79,8 +81,8 @@ app.get('/home/:username', common.render.ignite);
 app.get('/audio/:file', common.render.audio);
 
 app.get('/database/:database', common.databases.getGamesAjax);
+app.get('/roms/:platform/:start', common.listroms.listRoms);
 app.get('/games/:platform/:name', common.db.gameImage);
-
 
 
 /* Server Initialization
@@ -103,7 +105,7 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
         exec('killall qmlscene', function(stderr, stdout) {
 
-            var child = exec('setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --full-viewport-update --transparent --url='+_location);
+            var child = exec('setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --transparent --url='+_location);
 
             child.stdout.on('data', function(data) {
                 console.log('(stdout) | ' + data);
@@ -113,7 +115,7 @@ http.listen(1210, "127.0.0.1", function(err, result) {
                 console.log('(stderr) | ' + data);
             });
 
-            child.stderr.on('exit', function(code) {
+            child.on('close', function(code) {
                 // TODO: If crash, restart with dialog and dump.
                 console.log('(exitcode): ' + code);
             });
@@ -123,7 +125,7 @@ http.listen(1210, "127.0.0.1", function(err, result) {
         });
 
         // Terminal Fork
-        var child = require('child_process').fork('ignition_modules/tty/terminal.js');
+        // var child = require('child_process').fork('ignition_modules/tty/terminal.js');
     }
 
 });

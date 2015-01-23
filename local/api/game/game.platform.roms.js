@@ -9,84 +9,77 @@ var fs          = require('fs-extra')
 
 /*  List Roms
 -------------------------------------------------- */
-function listRoms(nsp, Obj) {
+function listRoms(req, res, callback) {
 
-    var startrange = Obj.start;
+    console.log(req.params.platform);
 
-    if (!Obj.start) {
-        startrange = 0;
-    }
+    if (req.params.platform) {
 
-    var platform = Obj.platform;
+        var platform = req.params.platform,
+            start    = req.params.start;
 
-    if (!platform) {
-        platform == "Nintendo";
-    }
+        fs.readJson(appDir+'/config/config.json', function(err, packageObj) {
 
+            if (!err) {
 
-    fs.readJson(appDir+'/config/config.json', function(err, packageObj) {
+                config = packageObj;
 
-        if (!err) {
+                fs.readJson(appDir+'/config/platforms.json', function(err, packageObj) {
 
-            config = packageObj;
+                    if (!err) {
 
-            fs.readJson(appDir+'/config/platforms.json', function(err, packageObj) {
+                        platforms = packageObj;
 
-                if (!err) {
+                        var listObj = [],
+                            list,
+                            _path;
 
-                    platforms = packageObj;
+                        var initDir = config.roms + platforms[platform].short;
 
-                    var listObj = [],
-                        list,
-                        _path;
+                        fs.readdir(initDir, function(err, list) {
 
-                    var initDir = config.roms + platforms[platform].short;
+                            if (err) {
 
-                    fs.readdir(initDir, function(err, list) {
+                                console.log(err);
 
-                        if (err) {
+                                res.status(500).json({gamesList: null})
 
-                            console.log(err);
+                            } else {
 
 
-                            nsp.emit('api', {gamesList: null});
+                                start = parseInt(start);
 
-                        } else {
+                                list = list.slice(start, start+20)
 
-                            _(list).forEach(function(filename) {
+                                _(list).forEach(function(filename) {
 
-                                // if (path.extname(filename) )
-                                // _.contains(collection, target, [fromIndex=0])
+                                    // if (path.extname(filename) )
+                                    // _.contains(collection, target, [fromIndex=0])
 
+                                    _path = path.join(initDir, filename);
 
-                                _path = path.join(initDir, filename);
+                                    listObj.push({
+                                        "filename": filename,
+                                        "path": _path,
+                                        "ext": path.extname(filename),
+                                        "title": filename
+                                    });
 
-                                listObj.push({
-                                    "filename": filename,
-                                    "path": _path,
-                                    "ext": path.extname(filename),
-                                    "title": filename
                                 });
 
-                            });
+                                res.status(200).json({gamesList: listObj})
 
-                            startrange = parseInt(startrange);
+                            }
 
-                            // Paging
-                            nsp.emit('api', {gamesList: listObj.slice(startrange, startrange+20)});
+                        });
 
-                            console.log(startrange+20);
+                    };
 
-                        }
+                })
 
-                    });
-
-                };
-
-            })
-
-        };
-    })
+            };
+        })
+    }
 
 }
 

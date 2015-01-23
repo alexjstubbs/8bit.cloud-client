@@ -40,9 +40,10 @@ module.exports = React.createClass({
 
                 var a = object.gamesList,
                     b = component.state.gamesList,
-                    c = b.concat(a);
+                    c = a.concat(b);
 
                 component.setState({gamesList: _.rest(c)});
+
 
             }
 
@@ -86,6 +87,8 @@ module.exports = React.createClass({
 
         if (this.state.gamesList) {
 
+            console.log("welp");
+
             var listNodes = this.state.gamesList.map(function (game, i) {
 
                 var gameTitle = removeBrackets(game.title);
@@ -119,7 +122,7 @@ module.exports = React.createClass({
 
                 <div className="col-xs-4 alpha_list navable" data-mute='true' data-function={this.props.functionCall} data-function-deprecated='launchGame' id="alpha_list">
                     <table className="table table-striped" id="list">
-                        <tbody id="alpha_list_tbody" className="infinite-scroll">
+                        <tbody id="alpha_list_tbody">
                             { listNodes }
                         </tbody>
                     </table>

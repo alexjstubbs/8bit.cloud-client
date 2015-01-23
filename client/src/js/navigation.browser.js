@@ -101,7 +101,7 @@ var browserNavigationEvents = function(g) {
             filter: "system",
             query: shortname.trim()
         },
-    }, function(result){
+    }, function(result) {
 
             events.updateGame(result, filepath);
 
@@ -121,17 +121,35 @@ var browserNavigationEvents = function(g) {
 
     // Pagiante
     var i = g.getAttribute("data-snav");
+
     if ((i % 19) == 0 || (i % 18) == 0) {
 
-        var Obj = {
-            platform: "Nintendo",
-            start: i
+        var path = 'http://127.0.0.1:1210/roms/Nintendo/'+i;
+
+        var xmlhttp = new XMLHttpRequest();
+
+        xmlhttp.onreadystatechange=function() {
+
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+                var data = xmlhttp.responseText;
+
+                var JSONified = JSON.parse(data);
+
+
+                var a = JSONified.gamesList,
+                b = component.state.gamesList,
+                c = b.concat(a);
+
+                component.setState({gamesList: _.rest(c)});
+
+            }
         }
 
-        api.emit('request', { request: 'gamesList', param: Obj });
+        xmlhttp.open("GET",path,true);
+        xmlhttp.send();
 
     }
-
 };
 
 /* Exports

@@ -321,7 +321,7 @@ var events = {
                 start: 0
         }
 
-        api.emit('request', { request: 'gamesList', param: Obj });
+        // api.emit('request', { request: 'gamesList', param: Obj });
 
     },
 
@@ -493,24 +493,24 @@ var events = {
 
         eventDispatcher.launchContext(JSONified);
 
+        // database.filterByAttribute("games", {
+        //     "query": {
+        //         type: "makeExactFilter",
+        //         filter: "title",
+        //         query: JSONified.longname
+        //     },
+        //     "subquery": {
+        //         type:"makeExactFilter",
+        //         filter: "system",
+        //         query: JSONified.shortname
+        //     },
+        // }, function(result){
+        //
+        //     eventDispatcher.updateGame(result, JSONified.filepath);
+        //
+        // }
 
-        database.filterByAttribute("games", {
-            "query": {
-                type: "makeExactFilter",
-                filter: "title",
-                query: JSONified.longname
-            },
-            "subquery": {
-                type:"makeExactFilter",
-                filter: "system",
-                query: JSONified.shortname
-            },
-        }, function(result){
-
-            eventDispatcher.updateGame(result, JSONified.filepath);
-
-        }
-    );
+    // );
 
         KeyEvent(221);
         KeyEvent(221);

@@ -257,19 +257,14 @@ function gameProfileSmall(nsp, game) {
 
     var research = new RegExp(game, "i");
 
-    database.compactDatabase("games");
-
     database.findGame({
         $or: [{
-            "games.game.title": {
-                $regex: research
-            }
+            "games.game.title": game
         }, {
-            "games.game.title": 'THE ' + {
-                $regex: research
-            }
+            "games.game.title": 'THE ' + game
         }]
     }, function(doc) {
+
 
         if (doc[0].timestamp) {
 
