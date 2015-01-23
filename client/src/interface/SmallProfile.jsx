@@ -58,7 +58,6 @@ module.exports = React.createClass({
 
     render: function() {
 
-
         var cx = React.addons.classSet;
         var classes = cx({
             'pull-left': true
@@ -96,7 +95,7 @@ module.exports = React.createClass({
 
                 <span className="col-xs-3 game_image">
 
-                    {this.state.image ? <img className="img-responsive" src={this.state.image} /> : null }
+                    {this.state.image ? <img className="img-responsive" src={"http://127.0.0.1:1210/games/nes/"+this.state.title} /> : null }
 
                 </span>
 

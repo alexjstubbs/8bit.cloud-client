@@ -34,6 +34,8 @@ var initLocalDatabase = function(database, callback) {
 -------------------------------------------------- */
 var filterByAttribute = function(database, query, callback) {
 
+    console.log(query);
+
     var obj = {};
 
     var title = query.query.query;
@@ -42,6 +44,7 @@ var filterByAttribute = function(database, query, callback) {
 
     obj = [{
         title: title,
+        system: query.subquery.query,
         description: title+" the videogame"
     }];
 

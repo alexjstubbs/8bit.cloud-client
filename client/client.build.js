@@ -3331,7 +3331,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-
         var cx = React.addons.classSet;
         var classes = cx({
             'pull-left': true
@@ -3369,7 +3368,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.span({className: "col-xs-3 game_image"}, 
 
-                    this.state.image ? React.DOM.img({className: "img-responsive", src: this.state.image}) : null
+                    this.state.image ? React.DOM.img({className: "img-responsive", src: "http://127.0.0.1:1210/games/nes/"+this.state.title}) : null
 
                 ), 
 
@@ -5215,6 +5214,8 @@ var initLocalDatabase = function(database, callback) {
 -------------------------------------------------- */
 var filterByAttribute = function(database, query, callback) {
 
+    console.log(query);
+
     var obj = {};
 
     var title = query.query.query;
@@ -5223,6 +5224,7 @@ var filterByAttribute = function(database, query, callback) {
 
     obj = [{
         title: title,
+        system: query.subquery.query,
         description: title+" the videogame"
     }];
 
@@ -6595,6 +6597,8 @@ var browserNavigationEvents = function(g) {
             query: shortname.trim()
         },
     }, function(result) {
+
+        console.log(result);
 
             events.updateGame(result, filepath);
 

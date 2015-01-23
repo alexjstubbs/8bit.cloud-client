@@ -235,7 +235,7 @@ function apicall(nsp, game, callback) {
 
         // Not JSON friendly DATA
         else {
-
+            console.log(data);
             console.log("error: not JSON data");
         }
 

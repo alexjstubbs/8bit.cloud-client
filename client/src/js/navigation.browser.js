@@ -104,6 +104,8 @@ var browserNavigationEvents = function(g) {
         },
     }, function(result) {
 
+        console.log(result);
+
             events.updateGame(result, filepath);
 
         }
