@@ -3284,7 +3284,8 @@ var React           = require('react/addons')
 ,   api             = require('socket.io-client')('/api')
 ,   _               = require('lodash')
 ,   mixins          = require('./mixins/mixins.jsx')
-,   achievements;
+,   achievements
+,   boxart;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3331,6 +3332,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        boxart = "http://127.0.0.1:1210/games/nes/"+this.state.title;
+
         var cx = React.addons.classSet;
         var classes = cx({
             'pull-left': true
@@ -3368,7 +3371,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.span({className: "col-xs-3 game_image"}, 
 
-                    this.state.image ? React.DOM.img({className: "img-responsive", src: "http://127.0.0.1:1210/games/nes/"+this.state.title}) : null
+                    this.state.image ? React.DOM.img({className: "img-responsive", src: boxart}) : null
 
                 ), 
 
@@ -4372,7 +4375,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 },{"../../js/navigation.init":83,"react/addons":94}],56:[function(require,module,exports){
-/*  Listeners for Prop and State specifics
+/*  Custom Mixins for ignition client
 -------------------------------------------------- */
 var api = require('socket.io-client')('/api')
 ,   _   = require('lodash');
@@ -5214,7 +5217,6 @@ var initLocalDatabase = function(database, callback) {
 -------------------------------------------------- */
 var filterByAttribute = function(database, query, callback) {
 
-    console.log(query);
 
     var obj = {};
 
@@ -6312,14 +6314,12 @@ module.exports = function() {
 
     // document.onkeydown = navigationEvent;
 
-    /* Get Games Database for ROM Browser
-    --pending---------------------------------------- */
-    // database.initLocalDatabase("games");
-
-
-    // setTimeout(function() {
-    //     document.body.classList.add("load-ui");
-    // }, 10000);
+    setTimeout(function() {
+        document.getElementsByTagName("html")[0].style.opacity = 1;
+        document.body.style.opacity = 1;
+        
+        api.api.emit('request', { request: 'killall', param: "qmlscene" });
+    }, 6000);
 
 }
 
@@ -6500,7 +6500,19 @@ var getFirstChild       = require('./helpers.js').getFirstChild
 ,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation
 ,   database            = require('./database.helpers')
 ,   api                 = require('socket.io-client')('/api')
-,   events              = require('./events');
+,   events              = require('./events')
+,   _                   = require('lodash');
+
+/*  Load Paging (Throttled);
+-------------------------------------------------- */
+var loadPaging = function(Obj) {
+
+    api.emit('request', { request: 'gamesList', param: Obj });
+
+    events.uiActionNotification('loading');
+}
+
+var loadPaging = _.debounce(loadPaging, 1000);
 
 /* Module Definitions
 -------------------------------------------------- */
@@ -6598,8 +6610,6 @@ var browserNavigationEvents = function(g) {
         },
     }, function(result) {
 
-        console.log(result);
-
             events.updateGame(result, filepath);
 
         }
@@ -6623,9 +6633,7 @@ var browserNavigationEvents = function(g) {
             start: g.getAttribute("data-snav")
         }
 
-        api.emit('request', { request: 'gamesList', param: Obj });
-
-        events.uiActionNotification('loading');
+        loadPaging(Obj);
 
     }
 
@@ -6637,7 +6645,7 @@ var browserNavigationEvents = function(g) {
 exports.browserNavigation       = browserNavigation;
 exports.browserNavigationEvents = browserNavigationEvents;
 
-},{"../js/navigation.browser.js":80,"./database.helpers":70,"./events":73,"./helpers.js":75,"socket.io-client":253}],81:[function(require,module,exports){
+},{"../js/navigation.browser.js":80,"./database.helpers":70,"./events":73,"./helpers.js":75,"lodash":92,"socket.io-client":253}],81:[function(require,module,exports){
  /*
  * @jsx React.DOM
  */
@@ -8026,8 +8034,6 @@ var events = {
             };
         });
 
-        console.log(longname);
-        
         var Obj = {
                 platform: longname,
                 start: 0
@@ -8162,15 +8168,15 @@ var events = {
             document.body.style.background = "transparent";
             _doc.style.display = "none";
 
-            setTimeout(function() {
-
-                dialog.uiNotification();
-
-                setTimeout(function() {
-                    dialog.close(null, null, "uiNotification");
-                }, 4500);
-
-            }, 5000);
+            // setTimeout(function() {
+            //
+            //     dialog.uiNotification();
+            //
+            //     setTimeout(function() {
+            //         dialog.close(null, null, "uiNotification");
+            //     }, 4500);
+            //
+            // }, 5000);
 
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }
@@ -8246,8 +8252,6 @@ var events = {
 	/*  Software Options
 	-------------------------------------------------- */
     softwareOptions: function(parameters) {
-
-        console.log(parameters);
 
         var options = JSON.parse(parameters);
 

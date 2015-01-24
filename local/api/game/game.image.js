@@ -1,6 +1,8 @@
 /* Game Image
 -------------------------------------------------- */
-var fs = require('fs-extra');
+var fs   = require('fs-extra')
+,   PATH = require('path')
+,   exec = require('child_process').exec;
 
 exports.gameImage = function(req, res, callback) {
 
@@ -8,7 +10,7 @@ exports.gameImage = function(req, res, callback) {
         name     = req.params.name;
         type     = req.params.type;
 
-        if (!type) type = 'front';
+        if (!type) type = 'box';
 
     var path = './databases/images/'+platform+'/'+name+'/'+type+'.png',
         img;
@@ -18,28 +20,33 @@ exports.gameImage = function(req, res, callback) {
         path = path.trim();
         path = path.replace(/\s{2,}/g, ' ');
 
-        console.log(path);
-
     if (fs.existsSync(path)) {
         img = fs.readFileSync(path);
     }
 
     else {
 
-        // var child = exec('find ./ -name \'*'+name+'*\'  -exec ls -lrt {} \;');
+        // Use 'find' to find alternates. (currently too slow)
+        // var child = exec('find ./ -name \'*'+name+'*\'');
+        //
+        // console.log('find ./ -name \'*'+name+'*\' -exec ls -lrt {} \\;');
         //
         // child.stdout.on('data', function(data) {
-        //     console.log('(stdout) | ' + data);
+        //     console.log('!!(stdout) | ' + data);
+        // });
+        //
+        // child.stderr.on('data', function(data) {
+        //     console.log('!!(stderr) | ' + data);
         // });
         //
         // child.on('close', function(code) {
         //     // TODO: If crash, restart with dialog and dump.
-        //     console.log('(exitcode): ' + code);
+        //     console.log('!!(exitcode): ' + code);
         // });
 
-        // find ./ -name '*dragon*'  -exec ls -lrt {} \;
-
         img = fs.readFileSync('./client/src/img/no-boxart.png');
+
+
     }
 
     res.writeHead(200, {'Content-Type': 'image/png' });

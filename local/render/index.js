@@ -18,12 +18,14 @@ var ignite = function(req, res, next) {
 -------------------------------------------------- */
 var audio = function(req, res, next) {
 
-    var mp3 = fs.readFileSync("./client/src/audio/b.wav");
+    var sound = req.params.file;
 
-    res.writeHead(200, {'Content-Type': 'audio/wav' });
+    var mp3 = fs.readFileSync("./client/src/audio/"+sound);
+
+    res.writeHead(200, {'Content-Type': 'audio/mp3' });
     res.end(mp3, 'binary');
 
-    console.log("ee")
+    console.log("Playing Audio: "+sound)
 }
 
 /* Wifi Config

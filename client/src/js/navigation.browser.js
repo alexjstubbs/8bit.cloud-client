@@ -6,7 +6,19 @@ var getFirstChild       = require('./helpers.js').getFirstChild
 ,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation
 ,   database            = require('./database.helpers')
 ,   api                 = require('socket.io-client')('/api')
-,   events              = require('./events');
+,   events              = require('./events')
+,   _                   = require('lodash');
+
+/*  Load Paging (Throttled);
+-------------------------------------------------- */
+var loadPaging = function(Obj) {
+
+    api.emit('request', { request: 'gamesList', param: Obj });
+
+    events.uiActionNotification('loading');
+}
+
+var loadPaging = _.debounce(loadPaging, 1000);
 
 /* Module Definitions
 -------------------------------------------------- */
@@ -104,8 +116,6 @@ var browserNavigationEvents = function(g) {
         },
     }, function(result) {
 
-        console.log(result);
-
             events.updateGame(result, filepath);
 
         }
@@ -129,9 +139,7 @@ var browserNavigationEvents = function(g) {
             start: g.getAttribute("data-snav")
         }
 
-        api.emit('request', { request: 'gamesList', param: Obj });
-
-        events.uiActionNotification('loading');
+        loadPaging(Obj);
 
     }
 

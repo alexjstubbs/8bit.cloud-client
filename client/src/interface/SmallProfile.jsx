@@ -11,7 +11,8 @@ var React           = require('react/addons')
 ,   api             = require('socket.io-client')('/api')
 ,   _               = require('lodash')
 ,   mixins          = require('./mixins/mixins.jsx')
-,   achievements;
+,   achievements
+,   boxart;
 
 module.exports = React.createClass({
 
@@ -58,6 +59,8 @@ module.exports = React.createClass({
 
     render: function() {
 
+        boxart = "http://127.0.0.1:1210/games/nes/"+this.state.title;
+
         var cx = React.addons.classSet;
         var classes = cx({
             'pull-left': true
@@ -95,7 +98,7 @@ module.exports = React.createClass({
 
                 <span className="col-xs-3 game_image">
 
-                    {this.state.image ? <img className="img-responsive" src={"http://127.0.0.1:1210/games/nes/"+this.state.title} /> : null }
+                    {this.state.image ? <img className="img-responsive" src={boxart} /> : null }
 
                 </span>
 

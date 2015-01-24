@@ -316,8 +316,6 @@ var events = {
             };
         });
 
-        console.log(longname);
-        
         var Obj = {
                 platform: longname,
                 start: 0
@@ -452,15 +450,15 @@ var events = {
             document.body.style.background = "transparent";
             _doc.style.display = "none";
 
-            setTimeout(function() {
-
-                dialog.uiNotification();
-
-                setTimeout(function() {
-                    dialog.close(null, null, "uiNotification");
-                }, 4500);
-
-            }, 5000);
+            // setTimeout(function() {
+            //
+            //     dialog.uiNotification();
+            //
+            //     setTimeout(function() {
+            //         dialog.close(null, null, "uiNotification");
+            //     }, 4500);
+            //
+            // }, 5000);
 
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }
@@ -536,8 +534,6 @@ var events = {
 	/*  Software Options
 	-------------------------------------------------- */
     softwareOptions: function(parameters) {
-
-        console.log(parameters);
 
         var options = JSON.parse(parameters);
 

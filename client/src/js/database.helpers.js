@@ -34,7 +34,6 @@ var initLocalDatabase = function(database, callback) {
 -------------------------------------------------- */
 var filterByAttribute = function(database, query, callback) {
 
-    console.log(query);
 
     var obj = {};
 

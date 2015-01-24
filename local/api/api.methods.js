@@ -3,6 +3,10 @@
 
 var api = {
 
+    killall: function(nsp, param){
+         common.process.killall(nsp, param);
+    },
+
     launchGame: function(nsp, param){
         common.game.gameLaunch(nsp, param);
     },

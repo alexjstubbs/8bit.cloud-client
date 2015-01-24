@@ -1,6 +1,7 @@
 /* Common Modules
 -------------------------------------------------- */
 common = {
+
        express:                    require('express')
 ,      http:                       require('http')
 ,      mu2express:                 require('mu2express')
@@ -20,6 +21,7 @@ common = {
 ,      systemWrite:                require('../local/system/system.write')
 ,      systemRead:                 require('../local/system/system.read')
 ,      wireless:                   require('../local/api/network/network.wireless')
+,      process:                    require("../local/system/system.process")
 
 };
 

@@ -1,4 +1,4 @@
-/*  Listeners for Prop and State specifics
+/*  Custom Mixins for ignition client
 -------------------------------------------------- */
 var api = require('socket.io-client')('/api')
 ,   _   = require('lodash');

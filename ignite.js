@@ -106,7 +106,7 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
         exec('killall qmlscene', function(stderr, stdout) {
 
-            var child = exec('setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --transparent --url='+_location);
+            var child = exec('setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --transparent --url='+_location + "| /usr/bin/qmlscene /boot/loading/loading-ui.qml");
 
             child.stdout.on('data', function(data) {
                 console.log('(stdout) | ' + data);
@@ -130,8 +130,5 @@ http.listen(1210, "127.0.0.1", function(err, result) {
     }
 
 });
-
-
-// var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
 // fs.openSync('/mnt/ramdisk/working.ram', 'w');

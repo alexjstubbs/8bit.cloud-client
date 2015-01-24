@@ -8,4 +8,6 @@ function execute(command, callback) {
     });
 };
 
+/*  exports
+-------------------------------------------------- */
 module.exports = execute;

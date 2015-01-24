@@ -37,13 +37,11 @@ module.exports = function() {
 
     // document.onkeydown = navigationEvent;
 
-    /* Get Games Database for ROM Browser
-    --pending---------------------------------------- */
-    // database.initLocalDatabase("games");
-
-
-    // setTimeout(function() {
-    //     document.body.classList.add("load-ui");
-    // }, 10000);
+    setTimeout(function() {
+        document.getElementsByTagName("html")[0].style.opacity = 1;
+        document.body.style.opacity = 1;
+        
+        api.api.emit('request', { request: 'killall', param: "qmlscene" });
+    }, 6000);
 
 }
