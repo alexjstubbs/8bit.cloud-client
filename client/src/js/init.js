@@ -37,11 +37,14 @@ module.exports = function() {
 
     // document.onkeydown = navigationEvent;
 
-    setTimeout(function() {
-        document.getElementsByTagName("html")[0].style.opacity = 1;
-        document.body.style.opacity = 1;
-        
-        api.api.emit('request', { request: 'killall', param: "qmlscene" });
-    }, 6000);
+    document.getElementsByTagName("html")[0].style.opacity = 1;
+    document.body.style.opacity = 1;
+
+    // setTimeout(function() {
+    //     document.getElementsByTagName("html")[0].style.opacity = 1;
+    //     document.body.style.opacity = 1;
+    //
+    //     api.api.emit('request', { request: 'killall', param: "qmlscene" });
+    // }, 6000);
 
 }

@@ -435,6 +435,13 @@ form .label-unselected {
     animation:fadeInOut 2.5s;
 }
 
+.fadeIn {
+    opacity:0;
+    -moz-animation:fadeIn 2.5s;
+    -webkit-animation:fadeIn 2.5s;
+    animation:fadeIn 2.5s;
+}
+
 .ui-alert {
 	color:@red;
 	position:absolute;
@@ -463,6 +470,16 @@ form .label-unselected {
 @-webkit-keyframes flashIn {
     0% { -webkit-transform: translate(0px,-20px); }
     100% { -webkit-transform: translate(0px,0px); }
+}
+
+@keyframes fadeIn {
+	0% { opacity:0; }
+	100% { opacity:1; }
+}
+
+@-webkit-keyframes fadeIn {
+	0% { opacity:0; }
+	100% { opacity:1; }
 }
 
 @keyframes fadeInOut {
@@ -669,6 +686,16 @@ form .label-unselected {
   left: .3em;
 }
 
+@keyframes slideInLeft {
+  0%  { transform:translateX(0px);}
+  100%{ transform: rotate(100px); }
+}
+
+@-webkit-keyframes slideInLeft {
+  0%  { transform:translateX(0vw);}
+  100%{ transform: rotate(14.4vw); }
+}
+
 @keyframes clockwise {
   0%  { transform: rotate(0deg); }
   100%{ transform: rotate(360deg); }
@@ -735,6 +762,53 @@ form .label-unselected {
 	animation-duration: 3s;
 	animation-direction: alternate;
 }
+
+/* User Space
+-------------------------------------------------- */
+.user-space-left {
+    width:14.4vw;
+    height:100vh;
+    background:@black;
+    position:fixed;
+    top:0;
+    left:0;
+    padding:10px;
+}
+
+.badge-player-number {
+    position:relative;
+    background:@black;
+    border:1px solid @red;
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    color:@white;
+    text-align:center;
+    overflow:hidden;
+    font-size:1.5em;
+    top:45px;
+    left:-18px;
+}
+
+.gold-trophy-block {
+    background:@yellow;
+    color:@white;
+    font-size:1.4em;
+    padding:10px;
+    text-align:center;
+}
+
+.achievement-count {
+    background:lighten(@gray-darker, 12%);
+    font-size:1.4em;
+    padding:10px;
+    text-align:right;
+}
+
+.user-space-player {
+    font-size:1.2em;
+}
+
 
 /* Misc.
 -------------------------------------------------- */

@@ -52,7 +52,9 @@ function getSession(nsp) {
 
             }
 
-            nsp.emit('api', sessionObject)
+            console.log(sessionObject);
+
+            nsp.emit('api', sessionObject);
         }
 
     });

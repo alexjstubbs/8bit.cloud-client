@@ -24,6 +24,7 @@ var systemNotify            = require('./notification.init.js')
 ,   navigationInit          = require("./navigation.init.js")
 ,   Keyboard                = require("../interface/OnScreenKeyboard.jsx")
 ,   GeneralDialog           = require("../interface/GeneralDialog.jsx")
+,   UserSpace               = require("../interface/UserSpace.jsx")
 ,   _                       = require('lodash');
 
 var _div;
@@ -238,7 +239,7 @@ var keyboard = function(input, callback) {
 
 }
 
-/* Show Keyboard
+/* Show Notification outside of Wrapper
 -------------------------------------------------- */
 var uiNotification = function(input, callback) {
 
@@ -254,6 +255,20 @@ var uiNotification = function(input, callback) {
 
 }
 
+/*  User Space (Sidebars, usually shown during gameplay)
+-------------------------------------------------- */
+var userSpace = function(input, callback) {
+
+
+    var div = document.createElement("div");
+    div.classList.add("user-space-left");
+
+    document.body.insertBefore(div,  document.getElementById("ui-notifications"));
+
+    React.renderComponent(UserSpace({}), div);
+
+}
+
 /* Exports
 -------------------------------------------------- */
 exports.prompt              = prompt;
@@ -263,3 +278,4 @@ exports.keyboard            = keyboard;
 exports.popup               = popup;
 exports.general             = general;
 exports.uiNotification      = uiNotification;
+exports.userSpace           = userSpace;

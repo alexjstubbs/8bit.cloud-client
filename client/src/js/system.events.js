@@ -450,6 +450,8 @@ var events = {
             document.body.style.background = "transparent";
             _doc.style.display = "none";
 
+            dialog.userSpace();
+
             // setTimeout(function() {
             //
             //     dialog.uiNotification();

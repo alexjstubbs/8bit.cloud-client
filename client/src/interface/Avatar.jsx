@@ -14,10 +14,8 @@ module.exports = React.createClass({
 
     getInitialState: function() {
 
-        throttled = _.once(this.updateAvatar, 1200);
-
         return {
-
+            session: [],
             profile: {
                 IP: null,
                 Online: false,
@@ -37,13 +35,22 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        throttled();
+        this.updateAvatar();
+
+        var _this = this;
+
+        api.on('api', function(data) {
+            if (data.session) {
+                _this.setState(data);
+
+            }
+        });
 
     },
 
     componentWillReceiveProps: function(props) {
 
-        throttled();
+        this.updateAvatar();
 
     },
 
@@ -53,7 +60,9 @@ module.exports = React.createClass({
 
         if (_this.props.Username) {
 
+
             if (_this.props.Username != "Guest") {
+
 
             api.emit('request', { request: 'getProfile', param: _this.props.Username});
 
@@ -79,7 +88,7 @@ module.exports = React.createClass({
 
         Avatar = true;
 
-        if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.state.profile.Avatar)) {
+        if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.state.session.Avatar)) {
             Avatar = true
         }
 
@@ -94,10 +103,12 @@ module.exports = React.createClass({
             'pull-left': true
         });
 
+
         return (
 
+
             <div className={classes}>
-                {Avatar ? <img src={this.state.profile.Avatar} className='img-responsive' /> : <i className='ion-person'></i>}
+                {Avatar ? <img src={this.state.session.Avatar} className='img-responsive' /> : <i className='ion-person'></i>}
             </div>
         );
     }
