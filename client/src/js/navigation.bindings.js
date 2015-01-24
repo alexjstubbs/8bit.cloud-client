@@ -34,7 +34,6 @@ module.exports = function(init) {
 
         var pauseNavigation = sessionStorage.getItem("navigationState");
 
-
         Mousetrap.bind('tab', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
@@ -93,36 +92,33 @@ module.exports = function(init) {
         });
 
         Mousetrap.bind('delete', function(e) {
+            // if (e) e.preventDefault();
             pauseNavigation = sessionStorage.getItem("navigationState");
-
-          if (e.preventDefault) {
-                e.preventDefault();
-            }
         });
 
         Mousetrap.bind('ctrl+k', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
             if (pauseNavigation != "pauseAll") {
-                e.preventDefault();
+                // if (e) e.preventDefault();
                 events.showTerminal();
             }
         });
 
-        Mousetrap.bind('s', function(e) {
+        Mousetrap.bind(']', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
             if (pauseNavigation != "pauseAll") {
-                e.preventDefault();
+                // if (e) e.preventDefault();
                 events.nextScreen();
             }
         });
 
-        Mousetrap.bind('a', function(e) {
+        Mousetrap.bind('[', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
             if (pauseNavigation != "pauseAll") {
-                e.preventDefault();
+                // if (e) e.preventDefault();
                 events.previousScreen();
             }
         });

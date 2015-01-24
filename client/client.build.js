@@ -3765,6 +3765,7 @@ var React               = require('react/addons')
 ,   Avatar              = require('./Avatar.jsx')
 ,   api                 = require('socket.io-client')('/api')
 ,   mixins              = require('./mixins/mixins.jsx')
+,   NetworkStatus       = require('./NetworkStatus.jsx')
 ,   Timer               = require('./Timer.jsx');
 
 /* Components
@@ -3800,11 +3801,12 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({id: this.props.id, className: "parent"}, 
                 React.DOM.div({clasName: "user-space-left container"}, 
 
-                    Avatar({Username: this.state.session.Username}), 
+                        Avatar({Username: this.state.session.Username}), 
 
-                    React.DOM.div({className: "badge-player-number"}, "1"), 
+                        React.DOM.div({className: "badge-player-number"}, "1"), 
 
-                    React.DOM.div({className: "clearfix"}), 
+                        React.DOM.div({className: "clearfix"}), 
+
 
                     React.DOM.hr(null), 
 
@@ -3825,12 +3827,32 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.hr(null), 
 
-                        React.DOM.div({className: "gold-trophy-block col-xs-3"}, 
+                        React.DOM.div({className: "gold-user-space-block col-xs-3"}, 
                             React.DOM.i({className: "ion-trophy"})
                         ), 
 
-                        React.DOM.div({className: "col-xs-9 achievement-count"}, 
+                        React.DOM.div({className: "col-xs-9 user-space-count"}, 
                             "3/21"
+                        ), 
+
+                        React.DOM.div({className: "clearfix"}), 
+
+                        React.DOM.div({className: "purple-user-space-block col-xs-3"}, 
+                            React.DOM.i({className: "ion-videocamera"})
+                        ), 
+
+                        React.DOM.div({className: "col-xs-9 user-space-count"}, 
+                            React.DOM.span({className: "mute"}, "off")
+                        ), 
+
+                        React.DOM.div({className: "clearfix"}), 
+
+                        React.DOM.div({className: "red-user-space-block col-xs-3"}, 
+                            React.DOM.i({className: "ion-ios-stopwatch-outline"})
+                        ), 
+
+                        React.DOM.div({className: "col-xs-9 user-space-count"}, 
+                            React.DOM.span({className: "mute"}, "off")
                         )
 
                 )
@@ -3841,7 +3863,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"./Avatar.jsx":4,"./Timer.jsx":45,"./mixins/mixins.jsx":58,"lodash":94,"react/addons":96,"socket.io-client":255}],49:[function(require,module,exports){
+},{"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./Timer.jsx":45,"./mixins/mixins.jsx":58,"lodash":94,"react/addons":96,"socket.io-client":255}],49:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -6158,13 +6180,16 @@ var gamepadSupport = {
                     // Mappings
 
                     if (button[5]) {
-                        // navigationKeyEvent(221);
-                        Mousetrap.trigger('a');
+                        console.log("a")
+                        navigationKeyEvent(221);
+                        // Mousetrap.trigger(']', null);
+
                     }
 
                     if (button[4]) {
-                        // navigationKeyEvent(219);
-                        Mousetrap.trigger('s');
+                        console.log("s")
+                        navigationKeyEvent(219);
+                        // Mousetrap.trigger('[', null);
                     }
 
                     if (button[8] || button[1] || button [3]) {
@@ -6263,19 +6288,15 @@ var gamepadSupport = {
                 // on the screen.
                 if (gamepadsChanged) {
 
+                    console.log("changed state");
+                    
                     // Event Change (ignition):
                     if (rawGamepads[0]) {
 
-
-                        // notify.log("<i class='icon ion-game-controller-a'></i> Gamepad Detected");
-
-                        // urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
-                        // var xmlhttpl = new XMLHttpRequest();
-                        // xmlhttpl.open("POST", urllaunch, true);
-                        // xmlhttpl.send("");
-
                         console.log("[gamepad]: Gamepad Connected!");
-                        // console.log(rawGamepads[0]);
+
+                        console.log(rawGamepads);
+                        console.log(rawGamepads[0]);
 
                         // sounds('notify_up.wav');
 
@@ -6464,15 +6485,15 @@ module.exports = function() {
 
     // document.onkeydown = navigationEvent;
 
-    document.getElementsByTagName("html")[0].style.opacity = 1;
-    document.body.style.opacity = 1;
+    // document.getElementsByTagName("html")[0].style.opacity = 1;
+    // document.body.style.opacity = 1;
 
-    // setTimeout(function() {
-    //     document.getElementsByTagName("html")[0].style.opacity = 1;
-    //     document.body.style.opacity = 1;
-    //
-    //     api.api.emit('request', { request: 'killall', param: "qmlscene" });
-    // }, 6000);
+    setTimeout(function() {
+        document.getElementsByTagName("html")[0].style.opacity = 1;
+        document.body.style.opacity = 1;
+
+        api.api.emit('request', { request: 'killall', param: "qmlscene" });
+    }, 6000);
 
 }
 
@@ -6542,7 +6563,6 @@ module.exports = function(init) {
 
         var pauseNavigation = sessionStorage.getItem("navigationState");
 
-
         Mousetrap.bind('tab', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
@@ -6601,36 +6621,33 @@ module.exports = function(init) {
         });
 
         Mousetrap.bind('delete', function(e) {
+            // if (e) e.preventDefault();
             pauseNavigation = sessionStorage.getItem("navigationState");
-
-          if (e.preventDefault) {
-                e.preventDefault();
-            }
         });
 
         Mousetrap.bind('ctrl+k', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
             if (pauseNavigation != "pauseAll") {
-                e.preventDefault();
+                // if (e) e.preventDefault();
                 events.showTerminal();
             }
         });
 
-        Mousetrap.bind('s', function(e) {
+        Mousetrap.bind(']', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
             if (pauseNavigation != "pauseAll") {
-                e.preventDefault();
+                // if (e) e.preventDefault();
                 events.nextScreen();
             }
         });
 
-        Mousetrap.bind('a', function(e) {
+        Mousetrap.bind('[', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
             if (pauseNavigation != "pauseAll") {
-                e.preventDefault();
+                // if (e) e.preventDefault();
                 events.previousScreen();
             }
         });

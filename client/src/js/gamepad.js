@@ -261,13 +261,16 @@ var gamepadSupport = {
                     // Mappings
 
                     if (button[5]) {
-                        // navigationKeyEvent(221);
-                        Mousetrap.trigger('a');
+                        console.log("a")
+                        navigationKeyEvent(221);
+                        // Mousetrap.trigger(']', null);
+
                     }
 
                     if (button[4]) {
-                        // navigationKeyEvent(219);
-                        Mousetrap.trigger('s');
+                        console.log("s")
+                        navigationKeyEvent(219);
+                        // Mousetrap.trigger('[', null);
                     }
 
                     if (button[8] || button[1] || button [3]) {
@@ -366,19 +369,15 @@ var gamepadSupport = {
                 // on the screen.
                 if (gamepadsChanged) {
 
+                    console.log("changed state");
+                    
                     // Event Change (ignition):
                     if (rawGamepads[0]) {
 
-
-                        // notify.log("<i class='icon ion-game-controller-a'></i> Gamepad Detected");
-
-                        // urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Detected";
-                        // var xmlhttpl = new XMLHttpRequest();
-                        // xmlhttpl.open("POST", urllaunch, true);
-                        // xmlhttpl.send("");
-
                         console.log("[gamepad]: Gamepad Connected!");
-                        // console.log(rawGamepads[0]);
+
+                        console.log(rawGamepads);
+                        console.log(rawGamepads[0]);
 
                         // sounds('notify_up.wav');
 
