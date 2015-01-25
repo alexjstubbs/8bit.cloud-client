@@ -15,7 +15,7 @@ var blocked = function() {
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-	React.renderComponent(UINotification({icon: "ion-close-circled", classes: "red-bg", effect: "fadein"}), div);
+	React.renderComponent(UINotification({icon: "ion-close-circled", effect: "fadeInOut"}), div);
 }
 
 /*  Loading UI Action

@@ -294,18 +294,23 @@ var gamepadSupport = {
                 if (!dt) {
 
                     if (axes[1] == 1) {
+                        // console.log("down");
                         Mousetrap.trigger('down');
 
                     }
                     if (axes[1] == -1) {
+                        // console.log("up");
                         Mousetrap.trigger('up');
                     }
 
                     if (axes[0] == 1) {
+                        // console.log("right");
                         // navigationKeyEvent(39);
                         Mousetrap.trigger('right');
                     }
                     if (axes[0] == -1) {
+
+                        // console.log("left");
                         // navigationKeyEvent(37);
                         Mousetrap.trigger('left');
                     }
@@ -361,7 +366,6 @@ var gamepadSupport = {
                     if (rawGamepads[i]) {
                         gamepadSupport.gamepads.push(rawGamepads[i]);
 
-
                     }
                 }
 
@@ -369,15 +373,16 @@ var gamepadSupport = {
                 // on the screen.
                 if (gamepadsChanged) {
 
-                    console.log("changed state");
-                    
                     // Event Change (ignition):
                     if (rawGamepads[0]) {
 
                         console.log("[gamepad]: Gamepad Connected!");
 
-                        console.log(rawGamepads);
                         console.log(rawGamepads[0]);
+
+                        // console.log(navigator.getGamepads());
+
+                        // console.log(rawGamepads[0]);
 
                         // sounds('notify_up.wav');
 

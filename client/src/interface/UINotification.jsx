@@ -13,7 +13,6 @@ module.exports = React.createClass({
             id: "ui-alert",
             classes: null,
             icon: "ion-close-circled",
-            color: "red-bg",
             effect: "fadeInOut",
         }
     },
