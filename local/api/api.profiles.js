@@ -52,8 +52,6 @@ function getSession(nsp) {
 
             }
 
-            console.log(sessionObject);
-
             nsp.emit('api', sessionObject);
         }
 

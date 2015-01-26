@@ -91,10 +91,10 @@ module.exports = function(init) {
             }
         });
 
-        Mousetrap.bind('delete', function(e) {
-            // if (e) e.preventDefault();
-            pauseNavigation = sessionStorage.getItem("navigationState");
-        });
+        // Mousetrap.bind('delete', function(e) {
+        //     // if (e) e.preventDefault();
+        //     pauseNavigation = sessionStorage.getItem("navigationState");
+        // });
 
         Mousetrap.bind('ctrl+k', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
@@ -104,25 +104,6 @@ module.exports = function(init) {
                 events.showTerminal();
             }
         });
-
-        Mousetrap.bind(']', function(e) {
-            pauseNavigation = sessionStorage.getItem("navigationState");
-
-            if (pauseNavigation != "pauseAll") {
-                // if (e) e.preventDefault();
-                events.nextScreen();
-            }
-        });
-
-        Mousetrap.bind('[', function(e) {
-            pauseNavigation = sessionStorage.getItem("navigationState");
-
-            if (pauseNavigation != "pauseAll") {
-                // if (e) e.preventDefault();
-                events.previousScreen();
-            }
-        });
-
 
         // if (e.preventDefault) {
         //     e.preventDefault();

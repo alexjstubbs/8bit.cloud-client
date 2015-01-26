@@ -25,6 +25,7 @@ var systemNotify            = require('./notification.init.js')
 ,   Keyboard                = require("../interface/OnScreenKeyboard.jsx")
 ,   GeneralDialog           = require("../interface/GeneralDialog.jsx")
 ,   UserSpace               = require("../interface/UserSpace.jsx")
+,   UserSpaceRight          = require("../interface/UserSpaceRight.jsx")
 ,   _                       = require('lodash');
 
 var _div;
@@ -266,6 +267,14 @@ var userSpace = function(input, callback) {
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
     React.renderComponent(UserSpace({}), div);
+
+    div = document.createElement("div");
+    div.classList.add("user-space-right");
+
+    document.body.insertBefore(div,  document.getElementById("ui-notifications"));
+
+
+    React.renderComponent(UserSpaceRight({}), div);
 
 }
 

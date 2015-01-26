@@ -17,7 +17,7 @@ function showSelection() {
     navigationBrowse(memSelection);
 }
 
-var initialize = _.debounce(showSelection, 700);
+var initialize = _.throttle(showSelection, 3000);
 
 /* Exported Navigation Module (blackbox)
 -------------------------------------------------- */

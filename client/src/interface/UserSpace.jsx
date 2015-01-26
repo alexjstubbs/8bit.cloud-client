@@ -99,6 +99,11 @@ module.exports = React.createClass({
                             <span className="mute">off</span>
                         </div>
 
+                        <div className="user-space-bottom">
+                            <small>
+                                <a className="btn btn-alt btn-sm navable mute"><i className="ion-close-round"></i> &nbsp; Exit Software</a>
+                            </small>
+                        </div>
                 </div>
 
             </div>
