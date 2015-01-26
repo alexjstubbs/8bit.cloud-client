@@ -6,7 +6,8 @@ var database            = require(appDir+'/local/api/database/database.local')
 ,   fs                  = require('fs-extra')
 ,   _                   = require('lodash')
 ,   listPlatforms       = require(appDir+'/local/api/api.platforms').listPlatforms
-,   readJSON            = require(appDir+'/local/system/system.read').readJSONFile;
+,   readJSON            = require(appDir+'/local/system/system.read').readJSONFile
+,   achievements        = require(appDir+'/local/system/achievements/achievement.loop');
 
 /* Check for valid JSON return
 -------------------------------------------------- */
@@ -153,6 +154,9 @@ function gameLaunch(nsp, payload) {
         // console.log("command: "+ results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"');
 
         // Launch Emulator
+
+        // Check Achievement Stream
+        achievements.dumpRetroRamInit();
 
         execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
 

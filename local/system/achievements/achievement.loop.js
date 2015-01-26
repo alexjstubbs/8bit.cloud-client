@@ -1,9 +1,9 @@
 /* Checks Achievements during gameplay
 -------------------------------------------------- */
-var fs          = require('fs')
-,   hex         = require(appDir+'/local/common').hex
+var fs          = require('fs-extra')
+,   hex         = require(appDir+'/local/system/achievements/achievement.hex.helper')
 ,   execute     = require(appDir+'/local/common').exec
-,   database    = require(appDir+'/local/common').databases;
+,   database    = require(appDir+'/local/api/database/database.local');
 
 var doubleCheck = false,
     stateSize = '',
@@ -30,22 +30,17 @@ var operators = {
 
 // SMB as test
 
-file = '/mnt/ramdisk/working.ram'; // rPi
+// file = '/mnt/ramdisk/working.ram'; // rPi
 
-// file = '/Users/alexstubbs/Desktop/working.ram'; // Mac Dev Env
+file = '/Users/alexstubbs/Desktop/working.ram'; // Mac Dev Env
 
 function dumpRetroRamInit() {
 
     // fs.writeFile(file, '', function() {});
 
     // command = 'sh /Users/alexstubbs/Projects/Samson/dev/delilah/helpers/command.sh'; // Mac Dev Env
-    command = 'bash /home/pi/ignition/helpers/command.sh'; // rPi
-    execute(command, function(stdout) {
-        console.log(stdout);
-    });
 
-
-    var testStore = require('../achievements/smb.json');
+    var testStore = require(appDir+'/databases/ignition-achievements/Official/smb.json');
 
     database.storeAchievement(testStore, function(gameAchievements) {
         gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
@@ -64,6 +59,7 @@ function dumpRetroRamInit() {
 /  Add Address' into array, pass array to checkhex
 -------------------------------------------------- */
 function achievementCheck(gameAchievements, callback) {
+
 
     var address = '',
         addresses = [];
@@ -111,20 +107,20 @@ function achievementCheck(gameAchievements, callback) {
                     // Achievement Unlocked!
                     if (result) {
                         // command = 'echo "ACHIEVEMENT_UNLOCKED" | nc -u 127.0.0.1 55355 | pkill nc';
-                        command = '/home/pi/fbtest_/openvg/client/test2/openvg/client/hellovg';
+                        // command = '/home/pi/fbtest_/openvg/client/test2/openvg/client/hellovg';
                         console.log("achievements unlocked");
                         // Remove Achievement
                         addresses.splice(i, 1);
                         delete gameAchievements.Achievements[key];
 
-                        execute(command, function(stdout) {
-                            // console.log("Achievement Unlocked!!");
-                        });
+                        // execute(command, function(stdout) {
+                        //     // console.log("Achievement Unlocked!!");
+                        // });
 
                         var refreshIntervalId = setInterval(function() {
-                            execute("pkill hellovg", function(stdout) {
-                                // console.log("Achievement Unlocked!!");
-                            });
+                            // execute("pkill hellovg", function(stdout) {
+                            //     // console.log("Achievement Unlocked!!");
+                            // });
                             clearInterval(refreshIntervalId);
                         }, 4000);
 
