@@ -22,10 +22,11 @@ var React 				= require('react/addons')
 -------------------------------------------------- */
 init();
 
+
 /* Set up Screens
 -------------------------------------------------- */
 var setupScreens = function(route) {
-	
+
 	var container = document.getElementById("screens");
 
 	if (route == "/home" || route == "/home/" || route == "Dashboard") {

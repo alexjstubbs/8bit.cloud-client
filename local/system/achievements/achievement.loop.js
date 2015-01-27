@@ -32,7 +32,7 @@ var operators = {
 
 // file = '/mnt/ramdisk/working.ram'; // rPi
 
-file = '/Users/alexstubbs/Desktop/working.ram'; // Mac Dev Env
+// file = '/Users/alexstubbs/Desktop/working.ram'; // Mac Dev Env
 
 function dumpRetroRamInit() {
 

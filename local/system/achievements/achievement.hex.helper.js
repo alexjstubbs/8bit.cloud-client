@@ -9,6 +9,10 @@ var fs          = require('fs-extra')
 // NES has 2kb of working RAM header. 13kb of state sizes (just under);
 
 // Hex pass must be in format: 0xA8 (NOT 00A8 or 00xA8 etc.)
+//
+// In mathematics and computing, hexadecimal (also base 16, or hex)
+// is a positional numeral system with a radix, or base, of 16. It uses sixteen distinct symbols, most often the symbols 0–9 to
+// represent values zero to nine, and A, B, C, D, E, F (or alternatively a–f) to represent values ten to fifteen.
 
 function checkHex(file, offset, bufflength, addresses, callback) {
 

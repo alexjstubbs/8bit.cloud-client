@@ -3,6 +3,7 @@
 var database            = require(appDir+'/local/api/database/database.local')
 ,   execute             = require(appDir+'/local/system/system.exec')
 ,   spawn               = require('child_process').spawn
+,   exec                = require('child_process').exec
 ,   fs                  = require('fs-extra')
 ,   _                   = require('lodash')
 ,   listPlatforms       = require(appDir+'/local/api/api.platforms').listPlatforms
@@ -121,7 +122,7 @@ function getCommandlineConfig(nsp, payload, callback) {
 
 /* Launch Game/Emulator
 -------------------------------------------------- */
-function gameLaunch(nsp, payload) {
+function _gameLaunch(nsp, payload) {
 
     getCommandlineConfig(null, payload, function(err, results) {
 
@@ -191,6 +192,79 @@ function gameLaunch(nsp, payload) {
     });
 
 
+
+}
+
+
+
+/* Launch Game/Emulator (alt/testing)
+-------------------------------------------------- */
+function gameLaunch(nsp, payload) {
+
+    getCommandlineConfig(null, payload, function(err, results) {
+
+        var selectedArgs = _.where(results.arguements, { 'ticked': true });
+        commandline  = [];
+
+        _.forEach(selectedArgs, function(option, i) {
+            commandline.push(option.arg, option.defaults);
+        });
+
+        // Path to executable
+        var expath = results.path;
+
+
+        //Retroarch is the selected emulator
+        if (results.cores) {
+
+            //No specified Core Selected
+            if (!_.contains(commandline, "-L")) {
+
+                var core = results.platforms[payload.shortname].cores[0];
+                commandline.push("-L", results.cores[core].path);
+
+            }
+
+        }
+
+        // console.log("command: "+ results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"');
+
+        // Launch Emulator
+
+        // Check Achievement Stream
+        // achievements.dumpRetroRamInit();
+
+        execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
+
+        });
+
+        var _child = exec(results.expath + " " + commandline.join(' ') + ' "'+payload.filepath+'"');
+
+        _child.stdin.on('data', function(data) {
+            console.log('(stdin) | ' + data);
+        });
+
+        _child.stdout.on('data', function(data) {
+            console.log('(stdout) | ' + data);
+        });
+
+        _child.stderr.on('data', function(data) {
+            console.log('(stderr) | ' + data);
+        });
+
+        // _child.on('close', function(code) {
+        //     // TODO: If crash, restart with dialog and dump.
+        //     console.log('(exitcode): ' + code);
+        // });
+
+        setTimeout(function() {
+            execute('echo -n SYSTEM_RAM >/dev/udp/localhost/55355', function(err, stderr, stdout) {
+                // console.log("STDSTDSTD: "+ stderr);
+                // console.log("STDSTDSTD: "+ stdout);
+            })
+        }, 1500);
+
+});
 
 }
 
