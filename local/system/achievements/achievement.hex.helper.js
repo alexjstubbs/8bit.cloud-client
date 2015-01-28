@@ -16,6 +16,8 @@ var fs          = require('fs-extra')
 
 function checkHex(stdin, offset, bufflength, addresses, callback) {
 
+    // TODO: Decide if we should parseInt(hexString, 16) or stay as hex. RA parses int.
+
     var hexArray = [];
         buffer = stdin;
 
@@ -26,13 +28,15 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
             var hex = buffer[nup];
             hex = hex.toString(16);
 
+
             if (hex.length < 2) {
                 hex = '0' + hex;
             }
 
-            hex = hex.toUpperCase();
+            // hex = hex.toUpperCase();
+            hex = parseInt(hex)
             hexArray.push(hex);
-        });
+        }).value();
 
         callback(hexArray);
 
@@ -41,7 +45,7 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
 
 /*  RAMDISK Version
 -------------------------------------------------- */
-function _checkHex(file, offset, bufflength, addresses, callback) {
+function checkHexRAMDISK(file, offset, bufflength, addresses, callback) {
 
 
     var hexArray = [];
@@ -69,7 +73,7 @@ function _checkHex(file, offset, bufflength, addresses, callback) {
 
                 hex = hex.toUpperCase();
                 hexArray.push(hex);
-            });
+            }).value();
 
             callback(hexArray);
 

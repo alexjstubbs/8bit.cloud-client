@@ -83,7 +83,7 @@ function listProfiles(nsp) {
 
                 }
 
-            });
+            }).value();
 
             nsp.emit('api', {profiles: listObj});
         }

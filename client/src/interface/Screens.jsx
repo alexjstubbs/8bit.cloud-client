@@ -18,6 +18,8 @@ var React 				= require('react/addons')
 ,   init 				= require('../js/init.js')
 ,   navigationInit  	= require('../js/navigation.init.js');
 
+require('lodash-migrate');
+
 /* Init Clientside
 -------------------------------------------------- */
 init();
@@ -52,7 +54,8 @@ var setupScreens = function(route) {
 
 	    React.renderComponent(screens[i], li);
 
-	});
+	}).value();
+
 
 	_.first(container.children).id = "screen-active";
 

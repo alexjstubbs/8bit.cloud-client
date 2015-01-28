@@ -234,6 +234,8 @@ function gameLaunch(nsp, payload) {
 
         // Launch Emulator
 
+        // TODO: Set up user defined timer for achievements.
+        // For testing use: watch -n 1 echo -n SYSTEM_RAM >/dev/udp/localhost/55355
         // Check Achievement Stream
         achievements.dumpRetroRamInit(function(listedAchievements) {
 
@@ -242,9 +244,7 @@ function gameLaunch(nsp, payload) {
                 stateSize     = 13000,
                 _achievements = listedAchievements;
 
-            execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
-
-            });
+            execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
 
             var _child = spawn(results.expath, commandline.concat(payload.filepath));
 
@@ -256,10 +256,8 @@ function gameLaunch(nsp, payload) {
 
             _child.stderr.on('data', function(data) {
                 if (data.length >= stateSize) {
-                    console.log("Checking Achievements...");
-
+                    // Achievement Check.
                     achievements.achievementCheck(_achievements, data, function(response) {
-
                     });
                 }
 
@@ -267,18 +265,6 @@ function gameLaunch(nsp, payload) {
                     console.log('(stderr) : ' + data);
                 }
             });
-
-            // _child.on('close', function(code) {
-            //     // TODO: If crash, restart with dialog and dump.
-            //     console.log('(exitcode): ' + code);
-            // });
-
-            // setTimeout(function() {
-            //     execute('echo -n SYSTEM_RAM >/dev/udp/localhost/55355', function(err, stderr, stdout) {
-            //         // console.log("STDSTDSTD: "+ stderr);
-            //         // console.log("STDSTDSTD: "+ stdout);
-            //     })
-            // }, 1500);
 
         });
 
@@ -331,7 +317,6 @@ function apicall(nsp, game, callback) {
 
         // Not JSON friendly DATA
         else {
-            console.log(data);
             console.log("error: not JSON data");
         }
 

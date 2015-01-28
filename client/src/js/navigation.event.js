@@ -37,7 +37,7 @@ module.exports = function(e) {
         _(otherParents).forEach(function(parent, i) {
           parent.classList.remove("parent");
           parent.classList.add("_parent");
-        });
+      }).value();
 
         // Toggle Renamed Parent Class
         var oldScreen = screens[currentScreenId].querySelectorAll("._parent")[0];
@@ -50,7 +50,7 @@ module.exports = function(e) {
         // Hide Other Screens
         _(otherScreens).forEach(function(screen, i) {
           screen.classList.add("hidden");
-        });
+      }).value();
 
         // Set up New Screen and Show
         screens[currentScreenId].id = "screen-active";
@@ -66,7 +66,7 @@ module.exports = function(e) {
             var event = new CustomEvent("mountView", {"detail":{"screen":_screen.classList[0]}});
             window.dispatchEvent(event);
           }
-        })
+      }).value();
 
       }
 

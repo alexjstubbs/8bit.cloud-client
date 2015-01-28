@@ -169,16 +169,14 @@ function storeAchievement(document, callback) {
         }
     }, function(err, doc) {
         if (doc[0]) {
-            console.log(doc[0]);
             // Exists already
             callback(doc);
         } else {
-            console.log("[i] creating...");
+            console.log("[i] found new achievements...");
 
             // Game Doesnt Have any DB Achievement Entries
             db.achievements.insert(document, function(err, doc) {
                 if (err) {
-                    console.log(err);
                     console.log("[!] error storing achievement: " + err);
                     callback();
                 } else {

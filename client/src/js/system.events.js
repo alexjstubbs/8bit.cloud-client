@@ -314,7 +314,7 @@ var events = {
                 item.classList.add("selected");
                 longname = item.textContent;
             };
-        });
+        }).value();
 
         var Obj = {
                 platform: longname,

@@ -26,7 +26,7 @@ var keypress = function(parameters) {
         _(keys).forEach(function(key, i) {
             key.classList.toggle("uppercase");
             key.classList.toggle("temp-uppercase");
-        });
+        }).value();
     }
 
 
@@ -136,7 +136,7 @@ var keypress = function(parameters) {
 
         _(keys).forEach(function(key, i) {
             key.classList.toggle("uppercase");
-        });
+        }).value();
 
         return;
 
@@ -146,7 +146,7 @@ var keypress = function(parameters) {
         _(keys).forEach(function(key, i) {
             key.classList.toggle("uppercase");
             key.classList.toggle("temp-uppercase");
-        });
+        }).value();
 
         return;
     }

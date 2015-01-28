@@ -25,20 +25,14 @@ var operators = {
     },
     '>=': function(a, b) {
         return a >= b
+    },
+    '<=': function(a, b) {
+        return a <= b
     }
 };
 
-// SMB as test
-
-// file = '/mnt/ramdisk/working.ram'; // rPi
-
-// file = '/Users/alexstubbs/Desktop/working.ram'; // Mac Dev Env
-
 function dumpRetroRamInit(callback) {
 
-    // fs.writeFile(file, '', function() {});
-
-    // command = 'sh /Users/alexstubbs/Projects/Samson/dev/delilah/helpers/command.sh'; // Mac Dev Env
 
     var testStore = require(appDir+'/databases/ignition-achievements/Official/NES/Super Mario Bros.json');
 
@@ -76,7 +70,7 @@ function achievementCheck(gameAchievements, stdin, callback) {
 
         hex.checkHex(stdin, offset, bufferSize, addresses, function(hex) {
 
-            console.log("got hex: " + hex);
+            console.log("got hex (to int): " + hex);
 
                 // Achievement Specific Checks
                 var i = -1;

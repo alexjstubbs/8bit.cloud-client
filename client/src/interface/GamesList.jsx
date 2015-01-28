@@ -74,7 +74,7 @@ module.exports = React.createClass({
 
              if (_alert) _alert.remove();
 
-        });
+        }).value();
     },
 
     getDefaultProps: function() {

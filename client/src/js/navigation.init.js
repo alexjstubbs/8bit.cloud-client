@@ -16,7 +16,7 @@ var navigationInit = function(element, callback) {
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
         el.classList.remove("selectedActive");
-    });
+    }).value();
 
     // (Default) if no element is specified, find the parent
     if (!element) {
@@ -33,7 +33,7 @@ var navigationInit = function(element, callback) {
     // Add navigation index based on position
     _(navables).forEach(function(el, i) {
         el.setAttribute("data-nav", i);
-    });
+    }).value();
 
     var defaultSelected = document.querySelectorAll(".default-navable")[0];
 
@@ -41,7 +41,7 @@ var navigationInit = function(element, callback) {
     var activeInput = parent.querySelectorAll(".activeInput")[0];
 
     if (activeInput) {
-        
+
         activeInput.classList.add("selectedNav", "selected");
         activeInput.classList.remove("activeInput");
     }
@@ -68,7 +68,7 @@ var navigationDeinit = function(element, callback) {
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
         el.classList.remove("selectedActive");
-    });
+    }).value();
 
 }
 

@@ -173,7 +173,7 @@ var close = function(modal, callback, exception) {
 
      _(opacits).forEach(function(el) {
             el.classList.remove("opacity-50");
-     });
+     }).value();
 
 
      if (_.first(opacits_)) {

@@ -38,7 +38,9 @@ function listRoms(nsp, obj) {
 
                             console.log(err);
 
-                            res.status(500).json({gamesList: null})
+                            nsp.emit('api', {gamesList: ""});
+
+
 
                         } else {
 
@@ -61,7 +63,7 @@ function listRoms(nsp, obj) {
                                     "title": filename
                                 });
 
-                            });
+                            }).value();
 
                             nsp.emit('api', {gamesList: listObj, page: start});
 

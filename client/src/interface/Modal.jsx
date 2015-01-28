@@ -33,7 +33,7 @@ module.exports = React.createClass({
             var modals = document.getElementsByClassName("ignition-modal-parent");
             _(modals).forEach(function(el) {
                 el.classList.add("opacity-0");
-            });
+            }).value();
 
             _.first(modals).classList.remove("opacity-0");
 
@@ -44,7 +44,7 @@ module.exports = React.createClass({
 
     render: function() {
 
-    
+
         return (
 
             <div>

@@ -27,7 +27,7 @@ function listPlatforms(nsp, callback) {
                              "ext": platform.ext,
                              "emulators": platforms.emulators
                         });
-                    });
+                    }).value();
 
                 if (nsp) {
                     nsp.emit('api', {platforms: listObj});
