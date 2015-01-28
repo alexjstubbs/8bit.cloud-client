@@ -74,24 +74,14 @@ function achievementCheck(gameAchievements, stdin, callback) {
         addresses.push(address);
     }
 
-    // hex.checkHex(file, offset, bufferSize, addresses, function(hex) {
-    //   console.log(hex);
-    // });
-
-
         hex.checkHex(stdin, offset, bufferSize, addresses, function(hex) {
 
             console.log("got hex: " + hex);
 
-            // NES Save: 13312 (13kb) console.log(stateSize);
-
-            // Make sure the file is both unempty, and consistant in size from last read
-            if (stateSize != 0 && stateSize == recentStateSize) {
-
                 // Achievement Specific Checks
                 var i = -1;
 
-                // for (var key in gameAchievements.Achievements) {
+                for (var key in gameAchievements.Achievements) {
 
                     i++;
 
@@ -101,23 +91,12 @@ function achievementCheck(gameAchievements, stdin, callback) {
 
                     // Achievement Unlocked!
                     if (result) {
-                        // command = 'echo "ACHIEVEMENT_UNLOCKED" | nc -u 127.0.0.1 55355 | pkill nc';
-                        // command = '/home/pi/fbtest_/openvg/client/test2/openvg/client/hellovg';
+
                         console.log("achievements unlocked");
+
                         // Remove Achievement
                         addresses.splice(i, 1);
                         delete gameAchievements.Achievements[key];
-
-                        // execute(command, function(stdout) {
-                        //     // console.log("Achievement Unlocked!!");
-                        // });
-
-                        var refreshIntervalId = setInterval(function() {
-                            // execute("pkill hellovg", function(stdout) {
-                            //     // console.log("Achievement Unlocked!!");
-                            // });
-                            clearInterval(refreshIntervalId);
-                        }, 4000);
 
                     }
 
@@ -126,14 +105,7 @@ function achievementCheck(gameAchievements, stdin, callback) {
                     //   doubleCheck = true;
                     // }
 
-                // }
-
-            }
-
-            // Set State Size for next Read
-            recentStateSize = stateSize;
-
-        // });
+                }
 
     })
 };

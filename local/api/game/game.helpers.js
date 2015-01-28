@@ -122,78 +122,78 @@ function getCommandlineConfig(nsp, payload, callback) {
 
 /* Launch Game/Emulator
 -------------------------------------------------- */
-function _gameLaunch(nsp, payload) {
-
-    getCommandlineConfig(null, payload, function(err, results) {
-
-
-        var selectedArgs = _.where(results.arguements, { 'ticked': true });
-            commandline  = [];
-
-
-        _.forEach(selectedArgs, function(option, i) {
-            commandline.push(option.arg, option.defaults);
-        });
-
-        // Path to executable
-        var expath = results.path;
-
-
-        //Retroarch is the selected emulator
-        if (results.cores) {
-
-            //No specified Core Selected
-            if (!_.contains(commandline, "-L")) {
-
-            var core = results.platforms[payload.shortname].cores[0];
-            commandline.push("-L " + results.cores[core].path);
-
-            }
-
-        }
-
-        // console.log("command: "+ results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"');
-
-        // Launch Emulator
-
-        // Check Achievement Stream
-        // achievements.dumpRetroRamInit();
-
-        execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
-
-            execute("nice -19 " + results.expath +" "+ commandline.join(' ') + ' "'+payload.filepath+'"', function(error, stderr, stdout) {
-
-                nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
-
-                    // if (error) {
-                    //     console.log("error: " + error);
-                    //     nsp.emit('messaging', {type: 0, body: error });
-                    // }
-
-                    if (stderr) {
-                        console.log("stderr: " + stderr);
-                        // nsp.emit('messaging', {type: 0, body: stderr });
-                    }
-
-                    if (stdout) {
-                        console.log("stdout: " + stdout);
-                        // nsp.emit('messaging', {type: 0, body: stdout });
-                    }
-
-
-                    execute('renice -12 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
-
-
-            });
-
-
-        });
-
-    });
-
-
-
-}
+// function _gameLaunch(nsp, payload) {
+//
+//     getCommandlineConfig(null, payload, function(err, results) {
+//
+//
+//         var selectedArgs = _.where(results.arguements, { 'ticked': true });
+//             commandline  = [];
+//
+//
+//         _.forEach(selectedArgs, function(option, i) {
+//             commandline.push(option.arg, option.defaults);
+//         });
+//
+//         // Path to executable
+//         var expath = results.path;
+//
+//
+//         //Retroarch is the selected emulator
+//         if (results.cores) {
+//
+//             //No specified Core Selected
+//             if (!_.contains(commandline, "-L")) {
+//
+//             var core = results.platforms[payload.shortname].cores[0];
+//             commandline.push("-L " + results.cores[core].path);
+//
+//             }
+//
+//         }
+//
+//         // console.log("command: "+ results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"');
+//
+//         // Launch Emulator
+//
+//         // Check Achievement Stream
+//         // achievements.dumpRetroRamInit();
+//
+//         execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
+//
+//             execute("nice -19 " + results.expath +" "+ commandline.join(' ') + ' "'+payload.filepath+'"', function(error, stderr, stdout) {
+//
+//                 nsp.emit('clientEvent', {command: "resumeClient", params: "null" });
+//
+//                     // if (error) {
+//                     //     console.log("error: " + error);
+//                     //     nsp.emit('messaging', {type: 0, body: error });
+//                     // }
+//
+//                     if (stderr) {
+//                         console.log("stderr: " + stderr);
+//                         // nsp.emit('messaging', {type: 0, body: stderr });
+//                     }
+//
+//                     if (stdout) {
+//                         console.log("stdout: " + stdout);
+//                         // nsp.emit('messaging', {type: 0, body: stdout });
+//                     }
+//
+//
+//                     execute('renice -12 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
+//
+//
+//             });
+//
+//
+//         });
+//
+//     });
+//
+//
+//
+// }
 
 
 
