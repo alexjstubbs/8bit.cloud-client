@@ -39,7 +39,7 @@ function initDatabases(callback) {
     });
 
     // TODO: Store all in the directory
-    var testStore = require('../../../databases/ignition-achievements/Official/smb.json');
+    var testStore = require(appDir+'/databases/ignition-achievements/Official/NES/Super Mario Bros.json');
 
     database.storeAchievement(testStore, function(gameAchievements) {
         gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
@@ -170,6 +170,7 @@ function storeAchievement(document, callback) {
     }, function(err, doc) {
         if (doc[0]) {
             // It Exists Already. Update Sub
+            console.log("achievements already exist");
             callback(doc);
         } else {
             console.log("[i] creating...");

@@ -146,7 +146,7 @@ function _gameLaunch(nsp, payload) {
             if (!_.contains(commandline, "-L")) {
 
             var core = results.platforms[payload.shortname].cores[0];
-            commandline.push("-L", results.cores[core].path);
+            commandline.push("-L " + results.cores[core].path);
 
             }
 
@@ -157,7 +157,7 @@ function _gameLaunch(nsp, payload) {
         // Launch Emulator
 
         // Check Achievement Stream
-        achievements.dumpRetroRamInit();
+        // achievements.dumpRetroRamInit();
 
         execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
 
@@ -172,12 +172,12 @@ function _gameLaunch(nsp, payload) {
 
                     if (stderr) {
                         console.log("stderr: " + stderr);
-                        nsp.emit('messaging', {type: 0, body: stderr });
+                        // nsp.emit('messaging', {type: 0, body: stderr });
                     }
 
                     if (stdout) {
                         console.log("stdout: " + stdout);
-                        nsp.emit('messaging', {type: 0, body: stdout });
+                        // nsp.emit('messaging', {type: 0, body: stdout });
                     }
 
 
@@ -200,6 +200,10 @@ function _gameLaunch(nsp, payload) {
 /* Launch Game/Emulator (alt/testing)
 -------------------------------------------------- */
 function gameLaunch(nsp, payload) {
+
+    // TODO: Set from JSON read in fn below
+    var bufferSize,
+        stateSize;
 
     getCommandlineConfig(null, payload, function(err, results) {
 
@@ -227,42 +231,56 @@ function gameLaunch(nsp, payload) {
 
         }
 
-        // console.log("command: "+ results.expath +" " + commandline.join(' ') + ' "'+payload.filepath+'"');
 
         // Launch Emulator
 
         // Check Achievement Stream
-        // achievements.dumpRetroRamInit();
+        achievements.dumpRetroRamInit(function(listedAchievements) {
 
-        execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
+            var offset        = 0x54,
+                bufferSize    = 4390,
+                stateSize     = 13000,
+                _achievements = listedAchievements;
+
+            execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {
+
+            });
+
+            var _child = spawn(results.expath, commandline.concat(payload.filepath));
+
+            // TODO: On exit, crash, return to ignition
+
+            _child.stdout.on('data', function(data) {
+                console.log('(stdout) : ' + data);
+            });
+
+            _child.stderr.on('data', function(data) {
+                if (data.length >= stateSize) {
+                    console.log("Checking Achievements...");
+
+                    achievements.achievementCheck(_achievements, data, function(response) {
+
+                    });
+                }
+
+                else {
+                    console.log('(stderr) : ' + data);
+                }
+            });
+
+            // _child.on('close', function(code) {
+            //     // TODO: If crash, restart with dialog and dump.
+            //     console.log('(exitcode): ' + code);
+            // });
+
+            // setTimeout(function() {
+            //     execute('echo -n SYSTEM_RAM >/dev/udp/localhost/55355', function(err, stderr, stdout) {
+            //         // console.log("STDSTDSTD: "+ stderr);
+            //         // console.log("STDSTDSTD: "+ stdout);
+            //     })
+            // }, 1500);
 
         });
-
-        var _child = exec(results.expath + " " + commandline.join(' ') + ' "'+payload.filepath+'"');
-
-        _child.stdin.on('data', function(data) {
-            console.log('(stdin) | ' + data);
-        });
-
-        _child.stdout.on('data', function(data) {
-            console.log('(stdout) | ' + data);
-        });
-
-        _child.stderr.on('data', function(data) {
-            console.log('(stderr) | ' + data);
-        });
-
-        // _child.on('close', function(code) {
-        //     // TODO: If crash, restart with dialog and dump.
-        //     console.log('(exitcode): ' + code);
-        // });
-
-        setTimeout(function() {
-            execute('echo -n SYSTEM_RAM >/dev/udp/localhost/55355', function(err, stderr, stdout) {
-                // console.log("STDSTDSTD: "+ stderr);
-                // console.log("STDSTDSTD: "+ stdout);
-            })
-        }, 1500);
 
 });
 

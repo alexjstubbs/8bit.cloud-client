@@ -14,7 +14,35 @@ var fs          = require('fs-extra')
 // is a positional numeral system with a radix, or base, of 16. It uses sixteen distinct symbols, most often the symbols 0–9 to
 // represent values zero to nine, and A, B, C, D, E, F (or alternatively a–f) to represent values ten to fifteen.
 
-function checkHex(file, offset, bufflength, addresses, callback) {
+function checkHex(stdin, offset, bufflength, addresses, callback) {
+
+    var hexArray = [];
+        buffer = stdin;
+
+        // Check each Hex in Achievement array
+        addresses.forEach(function(i) {
+
+            var nup = parseInt(i) + parseInt(offset);
+            var hex = buffer[nup];
+            hex = hex.toString(16);
+
+            if (hex.length < 2) {
+                hex = '0' + hex;
+            }
+
+            hex = hex.toUpperCase();
+            hexArray.push(hex);
+        });
+
+        callback(hexArray);
+
+
+};
+
+/*  RAMDISK Version
+-------------------------------------------------- */
+function _checkHex(file, offset, bufflength, addresses, callback) {
+
 
     var hexArray = [];
 

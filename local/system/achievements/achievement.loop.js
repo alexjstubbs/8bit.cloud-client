@@ -34,21 +34,23 @@ var operators = {
 
 // file = '/Users/alexstubbs/Desktop/working.ram'; // Mac Dev Env
 
-function dumpRetroRamInit() {
+function dumpRetroRamInit(callback) {
 
     // fs.writeFile(file, '', function() {});
 
     // command = 'sh /Users/alexstubbs/Projects/Samson/dev/delilah/helpers/command.sh'; // Mac Dev Env
 
-    var testStore = require(appDir+'/databases/ignition-achievements/Official/smb.json');
+    var testStore = require(appDir+'/databases/ignition-achievements/Official/NES/Super Mario Bros.json');
 
     database.storeAchievement(testStore, function(gameAchievements) {
         gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
         gameAchievements = gameAchievements[0];
 
-        setTimeout(function() {
-            achievementCheck(gameAchievements);
-        }, 1000);
+        // setTimeout(function() {
+        //     achievementCheck(gameAchievements);
+        // }, 1000);
+
+        callback(gameAchievements);
     });
 
 
@@ -58,11 +60,92 @@ function dumpRetroRamInit() {
 /* Load JSON of games acheivements
 /  Add Address' into array, pass array to checkhex
 -------------------------------------------------- */
-function achievementCheck(gameAchievements, callback) {
-
+function achievementCheck(gameAchievements, stdin, callback) {
 
     var address = '',
         addresses = [];
+
+    var offset = 0x54;
+    var bufferSize = 4390;
+
+    // Create Array of Addresses
+    for (var key in gameAchievements.Achievements) {
+        address = gameAchievements.Achievements[key].address;
+        addresses.push(address);
+    }
+
+    // hex.checkHex(file, offset, bufferSize, addresses, function(hex) {
+    //   console.log(hex);
+    // });
+
+
+        hex.checkHex(stdin, offset, bufferSize, addresses, function(hex) {
+
+            console.log("got hex: " + hex);
+
+            // NES Save: 13312 (13kb) console.log(stateSize);
+
+            // Make sure the file is both unempty, and consistant in size from last read
+            if (stateSize != 0 && stateSize == recentStateSize) {
+
+                // Achievement Specific Checks
+                var i = -1;
+
+                // for (var key in gameAchievements.Achievements) {
+
+                    i++;
+
+                    var op = gameAchievements.Achievements[key].operator,
+                        operand = gameAchievements.Achievements[key].operand,
+                        result = operators[op](hex[i], operand);
+
+                    // Achievement Unlocked!
+                    if (result) {
+                        // command = 'echo "ACHIEVEMENT_UNLOCKED" | nc -u 127.0.0.1 55355 | pkill nc';
+                        // command = '/home/pi/fbtest_/openvg/client/test2/openvg/client/hellovg';
+                        console.log("achievements unlocked");
+                        // Remove Achievement
+                        addresses.splice(i, 1);
+                        delete gameAchievements.Achievements[key];
+
+                        // execute(command, function(stdout) {
+                        //     // console.log("Achievement Unlocked!!");
+                        // });
+
+                        var refreshIntervalId = setInterval(function() {
+                            // execute("pkill hellovg", function(stdout) {
+                            //     // console.log("Achievement Unlocked!!");
+                            // });
+                            clearInterval(refreshIntervalId);
+                        }, 4000);
+
+                    }
+
+                    // Make Sure Value is Consistant between reads
+                    // if (result && doubleCheck == false) {
+                    //   doubleCheck = true;
+                    // }
+
+                // }
+
+            }
+
+            // Set State Size for next Read
+            recentStateSize = stateSize;
+
+        // });
+
+    })
+};
+
+
+/* RAMDISK Version
+-------------------------------------------------- */
+function achievementCheckBYRAMDISK(gameAchievements, callback) {
+
+
+    var address = '',
+    addresses = [];
 
     var offset = 0x54;
     var bufferSize = 4390;
@@ -101,8 +184,8 @@ function achievementCheck(gameAchievements, callback) {
                     i++;
 
                     var op = gameAchievements.Achievements[key].operator,
-                        operand = gameAchievements.Achievements[key].operand,
-                        result = operators[op](hex[i], operand);
+                    operand = gameAchievements.Achievements[key].operand,
+                    result = operators[op](hex[i], operand);
 
                     // Achievement Unlocked!
                     if (result) {

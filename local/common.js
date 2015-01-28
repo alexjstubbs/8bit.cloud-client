@@ -15,6 +15,7 @@ common = {
 ,      network:                    require('../local/api/network/network.online')
 ,      location:                   require('../local/api/network/network.location')
 ,      db:                         require('../local/api/game/game.image')
+,      hex:                        require("../local/system/achievements/achievement.hex.helper")
 ,      exec:                       require('../local/system/system.exec')
 ,      serverAPI:                  require('../local/api/server/server.api')
 ,      getSet:                     require('../local/api/api.sets')
