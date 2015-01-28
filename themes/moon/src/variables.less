@@ -2,10 +2,151 @@
 @gray-darker: #010101;
 @brand-success: @gray-darker;
 
-/* Section
+/* Specifics
 -------------------------------------------------- */
 
 hr.mute {
     border-color:@gray-darker !important;
     height:0.5px !important;
 }
+
+
+/* Font
+-------------------------------------------------- */
+@font-face {
+    font-family: 'ignition';
+    src: url('../fonts/ignition.eot?49906001');
+    src: url('../fonts/ignition.eot?49906001#iefix') format('embedded-opentype'),
+    url('../fonts/ignition.woff?49906001') format('woff'),
+    url('../fonts/ignition.ttf?49906001') format('truetype'),
+    url('../fonts/ignition.svg?49906001#ignition') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
+/* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
+/*
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+@font-face {
+font-family: 'ignition';
+src: url('../font/ignition.svg?49906001#ignition') format('svg');
+}
+}
+*/
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+    font-family: "ignition";
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+
+    display: inline-block;
+    text-decoration: inherit;
+    width: 1em;
+    margin-right: .2em;
+    text-align: center;
+    /* opacity: .8; */
+
+    /* For safety - reset parent styles, that can break glyph codes*/
+    font-variant: normal;
+    text-transform: none;
+
+    /* fix buttons height, for twitter bootstrap */
+    line-height: 1em;
+
+    /* Animation center compensation - margins should be symmetric */
+    /* remove if not needed */
+    margin-left: .2em;
+
+    /* you can be more comfortable with increased icons size */
+    /* font-size: 120%; */
+
+    /* Uncomment for 3D effect */
+    /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
+}
+
+.icon-ion-android-add:before { content: '\e800'; } /* '' */
+.icon-ion-alert-circled:before { content: '\e801'; } /* '' */
+.icon-ion-ios-game-controller-a-outline:before { content: '\e802'; } /* '' */
+.icon-ion-ios-game-controller-a:before { content: '\e803'; } /* '' */
+.icon-ion-android-textsms:before { content: '\e804'; } /* '' */
+.icon-ion-close:before { content: '\e805'; } /* '' */
+.icon-ion-close-round:before { content: '\e806'; } /* '' */
+.icon-ion-email:before { content: '\e807'; } /* '' */
+.icon-ion-email-unread:before { content: '\e808'; } /* '' */
+.icon-ion-earth:before { content: '\e809'; } /* '' */
+.icon-ion-fork-repo:before { content: '\e80a'; } /* '' */
+.icon-ion-gear-a:before { content: '\e80b'; } /* '' */
+.icon-ion-gear-b:before { content: '\e80c'; } /* '' */
+.icon-ion-heart-broken:before { content: '\e80d'; } /* '' */
+.icon-ion-heart:before { content: '\e80e'; } /* '' */
+.icon-ion-help-circled:before { content: '\e80f'; } /* '' */
+.icon-ion-help:before { content: '\e810'; } /* '' */
+.icon-ion-image:before { content: '\e811'; } /* '' */
+.icon-ion-ios-arrow-back:before { content: '\e812'; } /* '' */
+.icon-ion-ios-arrow-down:before { content: '\e813'; } /* '' */
+.icon-ion-ios-arrow-forward:before { content: '\e814'; } /* '' */
+.icon-ion-ios-arrow-left:before { content: '\e815'; } /* '' */
+.icon-ion-ios-arrow-right:before { content: '\e816'; } /* '' */
+.icon-ion-ios-checkmark-empty:before { content: '\e817'; } /* '' */
+.icon-ion-ios-checkmark-outline:before { content: '\e818'; } /* '' */
+.icon-ion-ios-checkmark:before { content: '\e819'; } /* '' */
+.icon-ion-ios-circle-filled:before { content: '\e81a'; } /* '' */
+.icon-ion-ios-circle-outline:before { content: '\e81b'; } /* '' */
+.icon-ion-ios-close-outline:before { content: '\e81c'; } /* '' */
+.icon-ion-ios-close:before { content: '\e81d'; } /* '' */
+.icon-ion-ios-game-controller-b-outline:before { content: '\e81e'; } /* '' */
+.icon-ion-ios-game-controller-b:before { content: '\e81f'; } /* '' */
+.icon-ion-ios-email:before { content: '\e820'; } /* '' */
+.icon-ion-ios-email-outline:before { content: '\e821'; } /* '' */
+.icon-ion-ios-mic-off:before { content: '\e822'; } /* '' */
+.icon-ion-ios-mic-outline:before { content: '\e823'; } /* '' */
+.icon-ion-ios-mic:before { content: '\e824'; } /* '' */
+.icon-ion-ios-information-outline:before { content: '\e825'; } /* '' */
+.icon-ion-ios-heart:before { content: '\e826'; } /* '' */
+.icon-ion-ios-heart-outline:before { content: '\e827'; } /* '' */
+.icon-ion-ios-plus:before { content: '\e828'; } /* '' */
+.icon-ion-ios-videocam:before { content: '\e829'; } /* '' */
+.icon-ion-ios-settings:before { content: '\e82a'; } /* '' */
+.icon-ion-location:before { content: '\e82b'; } /* '' */
+.icon-ion-social-tux:before { content: '\e82c'; } /* '' */
+.icon-ion-social-twitch-outline:before { content: '\e82d'; } /* '' */
+.icon-ion-playstation:before { content: '\e82e'; } /* '' */
+.icon-ion-xbox:before { content: '\e82f'; } /* '' */
+.icon-ion-usb:before { content: '\e830'; } /* '' */
+.icon-ion-trophy:before { content: '\e831'; } /* '' */
+.icon-picture:before { content: '\e832'; } /* '' */
+.icon-chat-empty:before { content: '\e833'; } /* '' */
+.icon-keyboard:before { content: '\e834'; } /* '' */
+.icon-angle-left:before { content: '\e835'; } /* '' */
+.icon-angle-right:before { content: '\e836'; } /* '' */
+.icon-angle-up:before { content: '\e837'; } /* '' */
+.icon-angle-down:before { content: '\e838'; } /* '' */
+.icon-magic:before { content: '\e839'; } /* '' */
+.icon-bug:before { content: '\e83a'; } /* '' */
+.icon-fork:before { content: '\e83b'; } /* '' */
+.icon-megaphone:before { content: '\e83c'; } /* '' */
+.icon-meh:before { content: '\e83d'; } /* '' */
+.icon-circle-thin:before { content: '\e83e'; } /* '' */
+.icon-circle:before { content: '\e83f'; } /* '' */
+.icon-frown:before { content: '\e840'; } /* '' */
+.icon-smile:before { content: '\e841'; } /* '' */
+.icon-terminal:before { content: '\e842'; } /* '' */
+.icon-trophy:before { content: '\e843'; } /* '' */
+.icon-megaphone-1:before { content: '\e844'; } /* '' */
+.icon-database:before { content: '\e845'; } /* '' */
+.icon-share:before { content: '\e846'; } /* '' */
+.icon-ion-ios-film-outline:before { content: '\e847'; } /* '' */
+.icon-ion-merge:before { content: '\e848'; } /* '' */
+.icon-ion-person:before { content: '\e849'; } /* '' */
+.icon-ion-person-stalker:before { content: '\e84a'; } /* '' */
+.icon-ion-person-add:before { content: '\e84b'; } /* '' */
+.icon-ion-paintbucket:before { content: '\e84c'; } /* '' */
+.icon-ion-outlet:before { content: '\e84d'; } /* '' */
+.icon-ion-sad:before { content: '\e84e'; } /* '' */
+.icon-ion-sad-outline:before { content: '\e84f'; } /* '' */
+.icon-ion-settings:before { content: '\e850'; } /* '' */
+.icon-ion-ribbon-b:before { content: '\e851'; } /* '' */
+.icon-ion-ribbon-a:before { content: '\e852'; } /* '' */
+.icon-ion-stats-bars:before { content: '\e853'; } /* '' */

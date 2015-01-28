@@ -5,11 +5,8 @@ var fs          = require('fs-extra')
 ,   execute     = require(appDir+'/local/common').exec
 ,   database    = require(appDir+'/local/api/database/database.local');
 
-var doubleCheck = false,
-    stateSize = '',
-    recentStateSize = '';
-
-// Set these as modules somewhere else for cleanliness
+/* Set JS Conditional Operators into an iterable Object.
+-------------------------------------------------- */
 var operators = {
     '+': function(a, b) {
         return a + b
@@ -31,8 +28,10 @@ var operators = {
     }
 };
 
+/*  Get all Achievements of selected game.
+/   Store any newly found achievements if they now exist.
+------------------------------------------------- */
 function dumpRetroRamInit(callback) {
-
 
     var testStore = require(appDir+'/databases/ignition-achievements/Official/NES/Super Mario Bros.json');
 
@@ -47,7 +46,6 @@ function dumpRetroRamInit(callback) {
         callback(gameAchievements);
     });
 
-
 }
 
 
@@ -56,11 +54,13 @@ function dumpRetroRamInit(callback) {
 -------------------------------------------------- */
 function achievementCheck(gameAchievements, stdin, callback) {
 
-    var address = '',
-        addresses = [];
+    var address     = '',
+        addresses   = [];
+        multiples   = gameAchievements.Achievements[key].multiple.length; //3
+        leading     = 0;
 
-    var offset = 0x54;
-    var bufferSize = 4390;
+    var offset      = 0x54;
+    var bufferSize  = 4390;
 
     // Create Array of Addresses
     for (var key in gameAchievements.Achievements) {
@@ -72,21 +72,48 @@ function achievementCheck(gameAchievements, stdin, callback) {
 
             console.log("got hex (to int): " + hex);
 
-                // Achievement Specific Checks
                 var i = -1;
-
+                
                 for (var key in gameAchievements.Achievements) {
 
                     i++;
 
-                    var op = gameAchievements.Achievements[key].operator,
+                    var op      = gameAchievements.Achievements[key].operator,
                         operand = gameAchievements.Achievements[key].operand,
-                        result = operators[op](hex[i], operand);
+                        result  = operators[op](hex[i], operand);
 
-                    // Achievement Unlocked!
+                    // (initial) Achievement Unlocked!
                     if (result) {
 
-                        console.log("achievements unlocked");
+                        leading++;
+
+                        // All Conditions Met. Unchievement Unlocked;
+                        if (leading == multiples) {
+                            console.log("Achievements Unlocked");
+                        }
+
+                        // More Conditions to be met. Let's check.
+                        else {
+
+                            console.log("One condition met... checking others");
+
+                            // var i = -1;
+                            //
+                            // for (var key in gameAchievements.Achievements) {
+                            //
+                            //     i++;
+                            //
+                            //     var op  = gameAchievements.Achievements.multiple[key].operator,
+                            //     operand = gameAchievements.Achievements.multiple[key].operand,
+                            //     result  = operators[op](hex[i], operand);
+                            //
+                            //     if (_result) {
+                            //         leading++;
+                            //     }
+
+                            // }
+
+                        }
 
                         // Remove Achievement
                         addresses.splice(i, 1);
@@ -99,9 +126,8 @@ function achievementCheck(gameAchievements, stdin, callback) {
                     //   doubleCheck = true;
                     // }
 
-                }
-
-    })
+        }
+    });
 };
 
 

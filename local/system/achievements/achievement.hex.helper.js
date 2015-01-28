@@ -16,18 +16,30 @@ var fs          = require('fs-extra')
 
 function checkHex(stdin, offset, bufflength, addresses, callback) {
 
-    // TODO: Decide if we should parseInt(hexString, 16) or stay as hex. RA parses int.
+
 
     var hexArray = [];
-        buffer = stdin;
+        buffer   = stdin;
+
+
+        // TODO: Use Multi D Array:
+        // function recursiveFunction(collection){
+        //     _.each(collection, function(model){
+        //         console.log(model);
+        //         if(model.pages.length > 0){
+        //             recursiveFunction(model.pages);
+        //         }
+        //     });
+        // };
+        //
+        // recursiveFunction(arrPages);
 
         // Check each Hex in Achievement array
         addresses.forEach(function(i) {
 
             var nup = parseInt(i) + parseInt(offset);
             var hex = buffer[nup];
-            hex = hex.toString(16);
-
+            hex     = hex.toString(16);
 
             if (hex.length < 2) {
                 hex = '0' + hex;
@@ -36,17 +48,16 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
             // hex = hex.toUpperCase();
             hex = parseInt(hex)
             hexArray.push(hex);
+
         }).value();
 
         callback(hexArray);
-
 
 };
 
 /*  RAMDISK Version
 -------------------------------------------------- */
 function checkHexRAMDISK(file, offset, bufflength, addresses, callback) {
-
 
     var hexArray = [];
 
@@ -65,7 +76,7 @@ function checkHexRAMDISK(file, offset, bufflength, addresses, callback) {
 
                 var nup = parseInt(i) + parseInt(offset);
                 var hex = buffer[nup];
-                hex = hex.toString(16);
+                hex     = hex.toString(16);
 
                 if (hex.length < 2) {
                     hex = '0' + hex;
