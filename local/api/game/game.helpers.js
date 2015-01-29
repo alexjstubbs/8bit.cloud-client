@@ -262,7 +262,7 @@ function gameLaunch(nsp, payload) {
                 }
 
                 else {
-                    console.log('(stderr) : ' + data);
+                    // console.log('(stderr) : ' + data);
                 }
             });
 

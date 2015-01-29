@@ -55,6 +55,7 @@ function dumpRetroRamInit(callback) {
 -------------------------------------------------- */
 function achievementCheck(gameAchievements, stdin, callback) {
 
+// TODO: Break these into simple functions.
 // TODO: Serious error handling and type checking here.
 
     var address     = '',
@@ -69,58 +70,76 @@ function achievementCheck(gameAchievements, stdin, callback) {
         addresses.push(address);
     }
 
-        hex.checkHex(stdin, offset, bufferSize, addresses, function(hex) {
+        hex.checkHex(stdin, offset, bufferSize, addresses, function(_hex) {
 
-            console.log("HEX:" + hex);
+            // console.log("HEX:" + hex);
 
-                var i = -1;
+                var i = -1,
+                    multiplier,
+                    flat,
+                    subaddresses;
 
+                // Loop Thru Each Master Address
                 for (var key in gameAchievements.Achievements) {
-
-                    var multiples   = 1,
-                        leading     = 0;
 
                     i++;
 
+                    multiplier = _.size(gameAchievements.Achievements[key].multiples); // 1
+
                     var op      = gameAchievements.Achievements[key].operator,
                         operand = gameAchievements.Achievements[key].operand,
-                        result  = operators[op](hex[i], operand);
+                        result  = operators[op](_hex[i], operand);
 
-                    // (initial) Achievement Unlocked!
-                    if (result) {
+                        // console.log("Multi for: " + operand + " : " +multiplier);
 
-                        leading++; // 1
+                    // (initial) Achievement Unlocked.
+                    if (result && multiplier >= 1) {
 
-                        multiples = _.size(gameAchievements.Achievements[key].multiples);
+                        console.log("Master Unlocked : " + multiplier);
 
-                        console.log(multiples+1);
+                        flat = _.flatten(gameAchievements.Achievements[key].multiples);
 
-                        // All Conditions Met. Unchievement Unlocked;
-                        if (leading == multiples+1) {
-                            console.log("Achievements Unlocked");
+                        subaddresses = _.pluck(flat, 'address');
 
-                            // Remove Achievement
-                            addresses.splice(i, 1);
-                            delete gameAchievements.Achievements[key];
+                        // loop thru these: gameAchievements.Achievements[key].multiples
 
-                        }
+                        hex.checkHex(stdin, offset, bufferSize, subaddresses, function(__hex) {
 
-                        // More Conditions to be met. Let's check.
-                        else {
+                            var multiplier_inc = 0;
 
-                            console.log("One condition met... checking others");
-                            console.log("leading: " + leading);
-                            console.log("multiples: " + multiples);
-                        }
+                            // for each return value from address
+                            _(__hex).forEach(function(n, _i) {
+
+                                var _op      = gameAchievements.Achievements[key].multiples[_i].operator,
+                                    _operand = gameAchievements.Achievements[key].multiples[_i].operand,
+                                    _result  = operators[_op](__hex[_i], _operand);
+
+                            if (_result) {
+                                multiplier_inc++;
+                                console.log("TRUE! : "+_result);
+                            }
+
+                            // Maybe inc a num for each true, then check against multples size here?
+
+                            }).value();
+
+                            if (multiplier_inc >= multiplier) {
+                                console.log("!!!Achievement Unlocked!!!")
+                                addresses.splice(i, 1);
+                                delete gameAchievements.Achievements[key];
+                            }
+
+                        });
 
                     }
 
-                    // Make Sure Value is Consistant between reads
-                    // if (result && doubleCheck == false) {
-                    //   doubleCheck = true;
-                    // }
+                    else if (result && multiplier == 0) {
+                        console.log("!!!Achievement Unlocked!!!")
+                        addresses.splice(i, 1);
+                        delete gameAchievements.Achievements[key];
+                    }
 
-        }
+            } // EOL
     });
 };
 

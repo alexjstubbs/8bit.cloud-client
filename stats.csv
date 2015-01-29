@@ -1,7 +1,7 @@
-files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=8.83 s (87.7 files/s, 26947.6 lines/s)"
-168,Javascript,17256,32585,63882
+files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=9.98 s (77.7 files/s, 23862.8 lines/s)"
+168,Javascript,17260,32572,63888
 181,HTML,4374,1935,34264
-229,LESS,5336,4376,22969
+229,LESS,5337,4376,22972
 112,ActionScript,1231,2593,16451
 27,CSS,1171,295,15109
 4,YAML,905,2,5316
