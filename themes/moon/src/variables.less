@@ -13,29 +13,43 @@ hr.mute {
 
 /* Font
 -------------------------------------------------- */
+@table-bg: #080808;
+@gray-darker: #010101;
+@brand-success: @gray-darker;
+
+/* Specifics
+-------------------------------------------------- */
+
+hr.mute {
+    border-color:@gray-darker !important;
+    height:0.5px !important;
+}
+
+
+/* Font
+-------------------------------------------------- */
 @font-face {
     font-family: 'ignition';
-    src: url('../src/fonts/ignition.eot?49906001');
-    src: url('../src/fonts/ignition.eot?49906001#iefix') format('embedded-opentype'),
-    url('../src/fonts/ignition.woff?49906001') format('woff'),
-    url('../src/fonts/ignition.ttf?49906001') format('truetype'),
-    url('../src/fonts/ignition.svg?49906001#ignition') format('svg');
+    src: url('../src/fonts/ignition.eot?45554131');
+    src: url('../src/fonts/ignition.eot?45554131#iefix') format('embedded-opentype'),
+    url('../src/fonts/ignition.woff?45554131') format('woff'),
+    url('../src/fonts/ignition.ttf?45554131') format('truetype'),
+    url('../src/fonts/ignition.svg?45554131#ignition') format('svg');
     font-weight: normal;
     font-style: normal;
 }
-
 /* Chrome hack: SVG is rendered more smooth in Windozze. 100% magic, uncomment if you need it. */
 /* Note, that will break hinting! In other OS-es font will be not as sharp as it could be */
 /*
 @media screen and (-webkit-min-device-pixel-ratio:0) {
 @font-face {
 font-family: 'ignition';
-src: url('../font/ignition.svg?49906001#ignition') format('svg');
+src: url('../font/ignition.svg?45554131#ignition') format('svg');
 }
 }
 */
 
-[class^=""]:before, [class*=" "]:before {
+[class^="ion-"]:before, [class*=" ion-"]:before {
     font-family: "ignition";
     font-style: normal;
     font-weight: normal;
@@ -66,87 +80,122 @@ src: url('../font/ignition.svg?49906001#ignition') format('svg');
     /* text-shadow: 1px 1px 1px rgba(127, 127, 127, 0.3); */
 }
 
-.ion-android-add:before { content: '\e800'; } /* '' */
-.ion-alert-circled:before { content: '\e801'; } /* '' */
-.ion-ios-game-controller-a-outline:before { content: '\e802'; } /* '' */
-.ion-ios-game-controller-a:before { content: '\e803'; } /* '' */
-.ion-android-textsms:before { content: '\e804'; } /* '' */
-.ion-close:before { content: '\e805'; } /* '' */
-.ion-close-round:before { content: '\e806'; } /* '' */
-.ion-email:before { content: '\e807'; } /* '' */
-.ion-email-unread:before { content: '\e808'; } /* '' */
-.ion-earth:before { content: '\e809'; } /* '' */
-.ion-fork-repo:before { content: '\e80a'; } /* '' */
-.ion-gear-a:before { content: '\e80b'; } /* '' */
-.ion-gear-b:before { content: '\e80c'; } /* '' */
-.ion-heart-broken:before { content: '\e80d'; } /* '' */
-.ion-heart:before { content: '\e80e'; } /* '' */
-.ion-help-circled:before { content: '\e80f'; } /* '' */
-.ion-help:before { content: '\e810'; } /* '' */
-.ion-image:before { content: '\e811'; } /* '' */
-.ion-ios-arrow-back:before { content: '\e812'; } /* '' */
-.ion-ios-arrow-down:before { content: '\e813'; } /* '' */
-.ion-ios-arrow-forward:before { content: '\e814'; } /* '' */
-.ion-ios-arrow-left:before { content: '\e815'; } /* '' */
-.ion-ios-arrow-right:before { content: '\e816'; } /* '' */
-.ion-ios-checkmark-empty:before { content: '\e817'; } /* '' */
-.ion-ios-checkmark-outline:before { content: '\e818'; } /* '' */
-.ion-ios-checkmark:before { content: '\e819'; } /* '' */
-.ion-ios-circle-filled:before { content: '\e81a'; } /* '' */
-.ion-ios-circle-outline:before { content: '\e81b'; } /* '' */
-.ion-ios-close-outline:before { content: '\e81c'; } /* '' */
-.ion-ios-close:before { content: '\e81d'; } /* '' */
-.ion-ios-game-controller-b-outline:before { content: '\e81e'; } /* '' */
-.ion-ios-game-controller-b:before { content: '\e81f'; } /* '' */
-.ion-ios-email:before { content: '\e820'; } /* '' */
-.ion-ios-email-outline:before { content: '\e821'; } /* '' */
-.ion-ios-mic-off:before { content: '\e822'; } /* '' */
-.ion-ios-mic-outline:before { content: '\e823'; } /* '' */
-.ion-ios-mic:before { content: '\e824'; } /* '' */
-.ion-ios-information-outline:before { content: '\e825'; } /* '' */
-.ion-ios-heart:before { content: '\e826'; } /* '' */
-.ion-ios-heart-outline:before { content: '\e827'; } /* '' */
-.ion-ios-plus:before { content: '\e828'; } /* '' */
-.ion-ios-videocam:before { content: '\e829'; } /* '' */
-.ion-ios-settings:before { content: '\e82a'; } /* '' */
-.ion-location:before { content: '\e82b'; } /* '' */
-.ion-social-tux:before { content: '\e82c'; } /* '' */
-.ion-social-twitch-outline:before { content: '\e82d'; } /* '' */
-.ion-playstation:before { content: '\e82e'; } /* '' */
-.ion-xbox:before { content: '\e82f'; } /* '' */
-.ion-usb:before { content: '\e830'; } /* '' */
-.ion-trophy:before { content: '\e831'; } /* '' */
-.picture:before { content: '\e832'; } /* '' */
-.chat-empty:before { content: '\e833'; } /* '' */
-.keyboard:before { content: '\e834'; } /* '' */
-.angle-left:before { content: '\e835'; } /* '' */
-.angle-right:before { content: '\e836'; } /* '' */
-.angle-up:before { content: '\e837'; } /* '' */
-.angle-down:before { content: '\e838'; } /* '' */
-.magic:before { content: '\e839'; } /* '' */
-.bug:before { content: '\e83a'; } /* '' */
-.fork:before { content: '\e83b'; } /* '' */
-.megaphone:before { content: '\e83c'; } /* '' */
-.meh:before { content: '\e83d'; } /* '' */
-.circle-thin:before { content: '\e83e'; } /* '' */
-.circle:before { content: '\e83f'; } /* '' */
-.frown:before { content: '\e840'; } /* '' */
-.smile:before { content: '\e841'; } /* '' */
-.terminal:before { content: '\e842'; } /* '' */
-.trophy:before { content: '\e843'; } /* '' */
-.megaphone-1:before { content: '\e844'; } /* '' */
-.database:before { content: '\e845'; } /* '' */
-.share:before { content: '\e846'; } /* '' */
-.ion-ios-film-outline:before { content: '\e847'; } /* '' */
-.ion-merge:before { content: '\e848'; } /* '' */
-.ion-person:before { content: '\e849'; } /* '' */
-.ion-person-stalker:before { content: '\e84a'; } /* '' */
-.ion-person-add:before { content: '\e84b'; } /* '' */
-.ion-paintbucket:before { content: '\e84c'; } /* '' */
-.ion-outlet:before { content: '\e84d'; } /* '' */
-.ion-sad:before { content: '\e84e'; } /* '' */
-.ion-sad-outline:before { content: '\e84f'; } /* '' */
-.ion-settings:before { content: '\e850'; } /* '' */
-.ion-ribbon-b:before { content: '\e851'; } /* '' */
-.ion-ribbon-a:before { content: '\e852'; } /* '' */
-.ion-stats-bars:before { content: '\e853'; } /* '' */
+.ion-xbox:before { content: '\e800'; } /* '' */
+.ion-wrench:before { content: '\e801'; } /* '' */
+.ion-usb:before { content: '\e802'; } /* '' */
+.ion-stats-bars:before { content: '\e803'; } /* '' */
+.ion-trophy:before { content: '\e804'; } /* '' */
+.ion-speakerphone:before { content: '\e805'; } /* '' */
+.ion-social-rss:before { content: '\e806'; } /* '' */
+.ion-social-twitch:before { content: '\e807'; } /* '' */
+.ion-social-twitch-outline:before { content: '\e808'; } /* '' */
+.ion-reply:before { content: '\e809'; } /* '' */
+.ion-ribbon-b:before { content: '\e80a'; } /* '' */
+.ion-sad-outline:before { content: '\e80b'; } /* '' */
+.ion-sad:before { content: '\e80c'; } /* '' */
+.ion-settings:before { content: '\e80d'; } /* '' */
+.ion-ios-loop-strong:before { content: '\e80e'; } /* '' */
+.ion-podium:before { content: '\e80f'; } /* '' */
+.ion-plus:before { content: '\e810'; } /* '' */
+.ion-plus-round:before { content: '\e811'; } /* '' */
+.ion-playstation:before { content: '\e812'; } /* '' */
+.ion-outlet:before { content: '\e813'; } /* '' */
+.ion-paintbucket:before { content: '\e814'; } /* '' */
+.ion-paper-airplane:before { content: '\e815'; } /* '' */
+.ion-person-add:before { content: '\e816'; } /* '' */
+.ion-person-stalker:before { content: '\e817'; } /* '' */
+.ion-person:before { content: '\e818'; } /* '' */
+.ion-more:before { content: '\e819'; } /* '' */
+.ion-merge:before { content: '\e81a'; } /* '' */
+.ion-loop:before { content: '\e81b'; } /* '' */
+.ion-location:before { content: '\e81c'; } /* '' */
+.ion-ios-videocam-outline:before { content: '\e81d'; } /* '' */
+.ion-ios-videocam:before { content: '\e81e'; } /* '' */
+.ion-ios-star-half:before { content: '\e81f'; } /* '' */
+.ion-ios-star-outline:before { content: '\e820'; } /* '' */
+.ion-ios-star:before { content: '\e821'; } /* '' */
+.ion-ios-search-strong:before { content: '\e822'; } /* '' */
+.ion-ios-search:before { content: '\e823'; } /* '' */
+.ion-ios-help-outline:before { content: '\e824'; } /* '' */
+.ion-ios-help:before { content: '\e825'; } /* '' */
+.ion-ios-information:before { content: '\e826'; } /* '' */
+.ion-ios-information-outline:before { content: '\e827'; } /* '' */
+.ion-ios-keypad:before { content: '\e828'; } /* '' */
+.ion-ios-keypad-outline:before { content: '\e829'; } /* '' */
+.ion-ios-heart:before { content: '\e82a'; } /* '' */
+.ion-ios-heart-outline:before { content: '\e82b'; } /* '' */
+.ion-ios-game-controller-b:before { content: '\e82c'; } /* '' */
+.ion-ios-game-controller-b-outline:before { content: '\e82d'; } /* '' */
+.ion-ios-game-controller-a:before { content: '\e82e'; } /* '' */
+.ion-ios-game-controller-a-outline:before { content: '\e82f'; } /* '' */
+.ion-heart-broken:before { content: '\e830'; } /* '' */
+.ion-heart:before { content: '\e831'; } /* '' */
+.ion-ios-email-outline:before { content: '\e832'; } /* '' */
+.ion-ios-email:before { content: '\e833'; } /* '' */
+.ion-ios-film-outline:before { content: '\e834'; } /* '' */
+.ion-ios-film:before { content: '\e835'; } /* '' */
+.ion-ios-flag-outline:before { content: '\e836'; } /* '' */
+.ion-ios-flag:before { content: '\e837'; } /* '' */
+.ion-ios-color-wand:before { content: '\e838'; } /* '' */
+.ion-ios-circle-filled:before { content: '\e839'; } /* '' */
+.ion-ios-circle-outline:before { content: '\e83a'; } /* '' */
+.ion-ios-close-outline:before { content: '\e83b'; } /* '' */
+.ion-ios-close:before { content: '\e83c'; } /* '' */
+.ion-ios-cloud-download-outline:before { content: '\e83d'; } /* '' */
+.ion-ios-arrow-back:before { content: '\e83e'; } /* '' */
+.ion-ios-arrow-down:before { content: '\e83f'; } /* '' */
+.ion-ios-arrow-forward:before { content: '\e840'; } /* '' */
+.ion-ios-arrow-left:before { content: '\e841'; } /* '' */
+.ion-ios-arrow-right:before { content: '\e842'; } /* '' */
+.ion-happy-outline:before { content: '\e843'; } /* '' */
+.ion-happy:before { content: '\e844'; } /* '' */
+.ion-erlenmeyer-flask:before { content: '\e845'; } /* '' */
+.ion-image:before { content: '\e846'; } /* '' */
+.ion-information-circled:before { content: '\e847'; } /* '' */
+.ion-gear-b:before { content: '\e848'; } /* '' */
+.ion-gear-a:before { content: '\e849'; } /* '' */
+.ion-flag:before { content: '\e84a'; } /* '' */
+.ion-earth:before { content: '\e84b'; } /* '' */
+.ion-edit:before { content: '\e84c'; } /* '' */
+.ion-email-unread:before { content: '\e84d'; } /* '' */
+.ion-email:before { content: '\e84e'; } /* '' */
+.ion-close:before { content: '\e84f'; } /* '' */
+.ion-close-round:before { content: '\e850'; } /* '' */
+.ion-close-circled:before { content: '\e851'; } /* '' */
+.ion-checkmark:before { content: '\e852'; } /* '' */
+.ion-checkmark-round:before { content: '\e853'; } /* '' */
+.ion-checkmark-circled:before { content: '\e854'; } /* '' */
+.ion-chatbubbles:before { content: '\e855'; } /* '' */
+.ion-chatbubble:before { content: '\e856'; } /* '' */
+.ion-chatbubble-working:before { content: '\e857'; } /* '' */
+.ion-bug:before { content: '\e858'; } /* '' */
+.ion-bookmark:before { content: '\e859'; } /* '' */
+.ion-bluetooth:before { content: '\e85a'; } /* '' */
+.ion-arrow-swap:before { content: '\e85b'; } /* '' */
+.ion-arrow-return-right:before { content: '\e85c'; } /* '' */
+.ion-arrow-return-left:before { content: '\e85d'; } /* '' */
+.ion-android-volume-off:before { content: '\e85e'; } /* '' */
+.ion-android-volume-up:before { content: '\e85f'; } /* '' */
+.ion-arrow-down-b:before { content: '\e860'; } /* '' */
+.ion-android-stopwatch:before { content: '\e861'; } /* '' */
+.ion-android-sync:before { content: '\e862'; } /* '' */
+.ion-android-share-alt:before { content: '\e863'; } /* '' */
+.ion-android-microphone:before { content: '\e864'; } /* '' */
+.ion-android-microphone-off:before { content: '\e865'; } /* '' */
+.ion-android-notifications:before { content: '\e866'; } /* '' */
+.ion-android-notifications-off:before { content: '\e867'; } /* '' */
+.ion-android-notifications-none:before { content: '\e868'; } /* '' */
+.ion-android-globe:before { content: '\e869'; } /* '' */
+.ion-android-color-palette:before { content: '\e86a'; } /* '' */
+.ion-android-close:before { content: '\e86b'; } /* '' */
+.ion-android-add-circle:before { content: '\e86c'; } /* '' */
+.ion-alert-circled:before { content: '\e86d'; } /* '' */
+.ion-alert:before { content: '\e86e'; } /* '' */
+.ion-android-alert:before { content: '\e86f'; } /* '' */
+.ion-android-add:before { content: '\e870'; } /* '' */
+.ion-android-arrow-dropdown:before { content: '\e871'; } /* '' */
+.ion-android-checkbox-blank:before { content: '\e872'; } /* '' */
+.ion-android-checkbox-outline-blank:before { content: '\e873'; } /* '' */
+.ion-android-cancel:before { content: '\e874'; } /* '' */
+.ion-android-create:before { content: '\e875'; } /* '' */
+.ion-android-delete:before { content: '\e876'; } /* '' */

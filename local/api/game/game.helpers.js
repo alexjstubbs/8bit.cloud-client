@@ -155,7 +155,7 @@ function gameLaunch(nsp, payload) {
 
                     offset      = results.cores[core].achievements.offset;
                     bufferSize  = results.cores[core].achievements.buffer_length;
-                    stateSize   = results.cores[core].achievements.stateSize;
+                    stateSize   = results.cores[core].achievements.state_size;
                     timing      = results.cores[core].achievements.default_timing;
                 }
 
@@ -170,7 +170,7 @@ function gameLaunch(nsp, payload) {
                     asupport    = true;
                     offset      = achievement_list.offset;
                     bufferSize  = achievement_list.buffer_length;
-                    stateSize   = achievement_list.stateSize;
+                    stateSize   = achievement_list.state_size;
                     timing      = achievement_list.default_timing;
                 }
             }
@@ -180,13 +180,18 @@ function gameLaunch(nsp, payload) {
         // Launch Emulator
         achievements.dumpRetroRamInit(function(listedAchievements) {
 
+
             if (!isJson) asupport = false;
             if (asupport && !timing) timing = 1;
             if (asupport && !atype)  atype = "UDP";
 
-            execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
+
+            execute('killall qmlscene | renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
 
             var _child = spawn(results.expath, commandline.concat(payload.filepath));
+
+            // Start Achievement Loop
+            asupport ? setTimeout(function() { achievements.achievementTimer(nsp, atype, timing)}, 10000) : null;
 
             // TODO: On exit, crash, return to ignition
 
@@ -202,17 +207,14 @@ function gameLaunch(nsp, payload) {
                     }
 
                     else {
-                        // console.log('(stderr) : ' + data);
+                        console.log('(stderr) : ' + data);
                     }
                 }
 
                 else {
-                    // console.log('(stderr) : ' + data);
+                    console.log('(stderr) : ' + data);
                 }
             });
-
-        // Start Achievement Loop
-        asupport ? achievements.achievementTimer(nsp, atype, timing) : null;
 
 
         });

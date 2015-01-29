@@ -2289,7 +2289,7 @@ table th[class*="span"],
 
 /* White icons with optional class, or on hover/focus/active states of certain elements */
 
-.icon-white,
+.white,
 .nav-pills > .active > a > [class^="icon-"],
 .nav-pills > .active > a > [class*=" icon-"],
 .nav-list > .active > a > [class^="icon-"],
@@ -2309,566 +2309,566 @@ table th[class*="span"],
   background-image: url("../img/glyphicons-halflings-white.png");
 }
 
-.icon-glass {
+.glass {
   background-position: 0      0;
 }
 
-.icon-music {
+.music {
   background-position: -24px 0;
 }
 
-.icon-search {
+.search {
   background-position: -48px 0;
 }
 
-.icon-envelope {
+.envelope {
   background-position: -72px 0;
 }
 
-.icon-heart {
+.heart {
   background-position: -96px 0;
 }
 
-.icon-star {
+.star {
   background-position: -120px 0;
 }
 
-.icon-star-empty {
+.star-empty {
   background-position: -144px 0;
 }
 
-.icon-user {
+.user {
   background-position: -168px 0;
 }
 
-.icon-film {
+.film {
   background-position: -192px 0;
 }
 
-.icon-th-large {
+.th-large {
   background-position: -216px 0;
 }
 
-.icon-th {
+.th {
   background-position: -240px 0;
 }
 
-.icon-th-list {
+.th-list {
   background-position: -264px 0;
 }
 
-.icon-ok {
+.ok {
   background-position: -288px 0;
 }
 
-.icon-remove {
+.remove {
   background-position: -312px 0;
 }
 
-.icon-zoom-in {
+.zoom-in {
   background-position: -336px 0;
 }
 
-.icon-zoom-out {
+.zoom-out {
   background-position: -360px 0;
 }
 
-.icon-off {
+.off {
   background-position: -384px 0;
 }
 
-.icon-signal {
+.signal {
   background-position: -408px 0;
 }
 
-.icon-cog {
+.cog {
   background-position: -432px 0;
 }
 
-.icon-trash {
+.trash {
   background-position: -456px 0;
 }
 
-.icon-home {
+.home {
   background-position: 0 -24px;
 }
 
-.icon-file {
+.file {
   background-position: -24px -24px;
 }
 
-.icon-time {
+.time {
   background-position: -48px -24px;
 }
 
-.icon-road {
+.road {
   background-position: -72px -24px;
 }
 
-.icon-download-alt {
+.download-alt {
   background-position: -96px -24px;
 }
 
-.icon-download {
+.download {
   background-position: -120px -24px;
 }
 
-.icon-upload {
+.upload {
   background-position: -144px -24px;
 }
 
-.icon-inbox {
+.inbox {
   background-position: -168px -24px;
 }
 
-.icon-play-circle {
+.play-circle {
   background-position: -192px -24px;
 }
 
-.icon-repeat {
+.repeat {
   background-position: -216px -24px;
 }
 
-.icon-refresh {
+.refresh {
   background-position: -240px -24px;
 }
 
-.icon-list-alt {
+.list-alt {
   background-position: -264px -24px;
 }
 
-.icon-lock {
+.lock {
   background-position: -287px -24px;
 }
 
-.icon-flag {
+.flag {
   background-position: -312px -24px;
 }
 
-.icon-headphones {
+.headphones {
   background-position: -336px -24px;
 }
 
-.icon-volume-off {
+.volume-off {
   background-position: -360px -24px;
 }
 
-.icon-volume-down {
+.volume-down {
   background-position: -384px -24px;
 }
 
-.icon-volume-up {
+.volume-up {
   background-position: -408px -24px;
 }
 
-.icon-qrcode {
+.qrcode {
   background-position: -432px -24px;
 }
 
-.icon-barcode {
+.barcode {
   background-position: -456px -24px;
 }
 
-.icon-tag {
+.tag {
   background-position: 0 -48px;
 }
 
-.icon-tags {
+.tags {
   background-position: -25px -48px;
 }
 
-.icon-book {
+.book {
   background-position: -48px -48px;
 }
 
-.icon-bookmark {
+.bookmark {
   background-position: -72px -48px;
 }
 
-.icon-print {
+.print {
   background-position: -96px -48px;
 }
 
-.icon-camera {
+.camera {
   background-position: -120px -48px;
 }
 
-.icon-font {
+.font {
   background-position: -144px -48px;
 }
 
-.icon-bold {
+.bold {
   background-position: -167px -48px;
 }
 
-.icon-italic {
+.italic {
   background-position: -192px -48px;
 }
 
-.icon-text-height {
+.text-height {
   background-position: -216px -48px;
 }
 
-.icon-text-width {
+.text-width {
   background-position: -240px -48px;
 }
 
-.icon-align-left {
+.align-left {
   background-position: -264px -48px;
 }
 
-.icon-align-center {
+.align-center {
   background-position: -288px -48px;
 }
 
-.icon-align-right {
+.align-right {
   background-position: -312px -48px;
 }
 
-.icon-align-justify {
+.align-justify {
   background-position: -336px -48px;
 }
 
-.icon-list {
+.list {
   background-position: -360px -48px;
 }
 
-.icon-indent-left {
+.indent-left {
   background-position: -384px -48px;
 }
 
-.icon-indent-right {
+.indent-right {
   background-position: -408px -48px;
 }
 
-.icon-facetime-video {
+.facetime-video {
   background-position: -432px -48px;
 }
 
-.icon-picture {
+.picture {
   background-position: -456px -48px;
 }
 
-.icon-pencil {
+.pencil {
   background-position: 0 -72px;
 }
 
-.icon-map-marker {
+.map-marker {
   background-position: -24px -72px;
 }
 
-.icon-adjust {
+.adjust {
   background-position: -48px -72px;
 }
 
-.icon-tint {
+.tint {
   background-position: -72px -72px;
 }
 
-.icon-edit {
+.edit {
   background-position: -96px -72px;
 }
 
-.icon-share {
+.share {
   background-position: -120px -72px;
 }
 
-.icon-check {
+.check {
   background-position: -144px -72px;
 }
 
-.icon-move {
+.move {
   background-position: -168px -72px;
 }
 
-.icon-step-backward {
+.step-backward {
   background-position: -192px -72px;
 }
 
-.icon-fast-backward {
+.fast-backward {
   background-position: -216px -72px;
 }
 
-.icon-backward {
+.backward {
   background-position: -240px -72px;
 }
 
-.icon-play {
+.play {
   background-position: -264px -72px;
 }
 
-.icon-pause {
+.pause {
   background-position: -288px -72px;
 }
 
-.icon-stop {
+.stop {
   background-position: -312px -72px;
 }
 
-.icon-forward {
+.forward {
   background-position: -336px -72px;
 }
 
-.icon-fast-forward {
+.fast-forward {
   background-position: -360px -72px;
 }
 
-.icon-step-forward {
+.step-forward {
   background-position: -384px -72px;
 }
 
-.icon-eject {
+.eject {
   background-position: -408px -72px;
 }
 
-.icon-chevron-left {
+.chevron-left {
   background-position: -432px -72px;
 }
 
-.icon-chevron-right {
+.chevron-right {
   background-position: -456px -72px;
 }
 
-.icon-plus-sign {
+.plus-sign {
   background-position: 0 -96px;
 }
 
-.icon-minus-sign {
+.minus-sign {
   background-position: -24px -96px;
 }
 
-.icon-remove-sign {
+.remove-sign {
   background-position: -48px -96px;
 }
 
-.icon-ok-sign {
+.ok-sign {
   background-position: -72px -96px;
 }
 
-.icon-question-sign {
+.question-sign {
   background-position: -96px -96px;
 }
 
-.icon-info-sign {
+.info-sign {
   background-position: -120px -96px;
 }
 
-.icon-screenshot {
+.screenshot {
   background-position: -144px -96px;
 }
 
-.icon-remove-circle {
+.remove-circle {
   background-position: -168px -96px;
 }
 
-.icon-ok-circle {
+.ok-circle {
   background-position: -192px -96px;
 }
 
-.icon-ban-circle {
+.ban-circle {
   background-position: -216px -96px;
 }
 
-.icon-arrow-left {
+.arrow-left {
   background-position: -240px -96px;
 }
 
-.icon-arrow-right {
+.arrow-right {
   background-position: -264px -96px;
 }
 
-.icon-arrow-up {
+.arrow-up {
   background-position: -289px -96px;
 }
 
-.icon-arrow-down {
+.arrow-down {
   background-position: -312px -96px;
 }
 
-.icon-share-alt {
+.share-alt {
   background-position: -336px -96px;
 }
 
-.icon-resize-full {
+.resize-full {
   background-position: -360px -96px;
 }
 
-.icon-resize-small {
+.resize-small {
   background-position: -384px -96px;
 }
 
-.icon-plus {
+.plus {
   background-position: -408px -96px;
 }
 
-.icon-minus {
+.minus {
   background-position: -433px -96px;
 }
 
-.icon-asterisk {
+.asterisk {
   background-position: -456px -96px;
 }
 
-.icon-exclamation-sign {
+.exclamation-sign {
   background-position: 0 -120px;
 }
 
-.icon-gift {
+.gift {
   background-position: -24px -120px;
 }
 
-.icon-leaf {
+.leaf {
   background-position: -48px -120px;
 }
 
-.icon-fire {
+.fire {
   background-position: -72px -120px;
 }
 
-.icon-eye-open {
+.eye-open {
   background-position: -96px -120px;
 }
 
-.icon-eye-close {
+.eye-close {
   background-position: -120px -120px;
 }
 
-.icon-warning-sign {
+.warning-sign {
   background-position: -144px -120px;
 }
 
-.icon-plane {
+.plane {
   background-position: -168px -120px;
 }
 
-.icon-calendar {
+.calendar {
   background-position: -192px -120px;
 }
 
-.icon-random {
+.random {
   width: 16px;
   background-position: -216px -120px;
 }
 
-.icon-comment {
+.comment {
   background-position: -240px -120px;
 }
 
-.icon-magnet {
+.magnet {
   background-position: -264px -120px;
 }
 
-.icon-chevron-up {
+.chevron-up {
   background-position: -288px -120px;
 }
 
-.icon-chevron-down {
+.chevron-down {
   background-position: -313px -119px;
 }
 
-.icon-retweet {
+.retweet {
   background-position: -336px -120px;
 }
 
-.icon-shopping-cart {
+.shopping-cart {
   background-position: -360px -120px;
 }
 
-.icon-folder-close {
+.folder-close {
   width: 16px;
   background-position: -384px -120px;
 }
 
-.icon-folder-open {
+.folder-open {
   width: 16px;
   background-position: -408px -120px;
 }
 
-.icon-resize-vertical {
+.resize-vertical {
   background-position: -432px -119px;
 }
 
-.icon-resize-horizontal {
+.resize-horizontal {
   background-position: -456px -118px;
 }
 
-.icon-hdd {
+.hdd {
   background-position: 0 -144px;
 }
 
-.icon-bullhorn {
+.bullhorn {
   background-position: -24px -144px;
 }
 
-.icon-bell {
+.bell {
   background-position: -48px -144px;
 }
 
-.icon-certificate {
+.certificate {
   background-position: -72px -144px;
 }
 
-.icon-thumbs-up {
+.thumbs-up {
   background-position: -96px -144px;
 }
 
-.icon-thumbs-down {
+.thumbs-down {
   background-position: -120px -144px;
 }
 
-.icon-hand-right {
+.hand-right {
   background-position: -144px -144px;
 }
 
-.icon-hand-left {
+.hand-left {
   background-position: -168px -144px;
 }
 
-.icon-hand-up {
+.hand-up {
   background-position: -192px -144px;
 }
 
-.icon-hand-down {
+.hand-down {
   background-position: -216px -144px;
 }
 
-.icon-circle-arrow-right {
+.circle-arrow-right {
   background-position: -240px -144px;
 }
 
-.icon-circle-arrow-left {
+.circle-arrow-left {
   background-position: -264px -144px;
 }
 
-.icon-circle-arrow-up {
+.circle-arrow-up {
   background-position: -288px -144px;
 }
 
-.icon-circle-arrow-down {
+.circle-arrow-down {
   background-position: -312px -144px;
 }
 
-.icon-globe {
+.globe {
   background-position: -336px -144px;
 }
 
-.icon-wrench {
+.wrench {
   background-position: -360px -144px;
 }
 
-.icon-tasks {
+.tasks {
   background-position: -384px -144px;
 }
 
-.icon-filter {
+.filter {
   background-position: -408px -144px;
 }
 
-.icon-briefcase {
+.briefcase {
   background-position: -432px -144px;
 }
 
-.icon-fullscreen {
+.fullscreen {
   background-position: -456px -144px;
 }
 
@@ -4681,7 +4681,7 @@ input[type="submit"].btn.btn-mini {
   background-color: #cccccc \9;
 }
 
-.navbar .btn-navbar .icon-bar {
+.navbar .btn-navbar .bar {
   display: block;
   width: 18px;
   height: 2px;
@@ -4694,7 +4694,7 @@ input[type="submit"].btn.btn-mini {
           box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
 }
 
-.btn-navbar .icon-bar + .icon-bar {
+.btn-navbar .bar + .bar {
   margin-top: 3px;
 }
 

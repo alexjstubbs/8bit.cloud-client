@@ -76,7 +76,7 @@ module.exports = React.createClass({
                 </div>
 
 
-                { noMsg ? <div className="well"><h3 className="text-center"><i className="ion-sad-outline"></i> &nbsp; You have no messages</h3></div> : null }
+                { noMsg ? <div className="well"><h3 className="text-center"><i className="ion-sad"></i> &nbsp; You have no messages</h3></div> : null }
 
 
                 <hr />

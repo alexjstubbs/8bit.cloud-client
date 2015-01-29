@@ -78,7 +78,7 @@
         "FCEUMM": {
             "path": "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
             "achievements": {
-                "state_size": "1650",
+                "state_size": "1000",
                 "offset": "0x54",
                 "buffer_length": "4390",
                 "default_timing": 1
@@ -128,7 +128,7 @@
             "defaults": "/opt/configs/all/retroarch.cfg",
             "subfield": true,
             "required": false,
-            "ticked": false
+            "ticked": true
         },
         "--appendconfig": {
             "arg": "--appendconfig",

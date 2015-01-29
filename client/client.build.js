@@ -1293,7 +1293,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "messages-list scroll-into-view"}, 
 
-                noFriends ? null : React.DOM.h3({className: "text-center"}, React.DOM.br(null), React.DOM.i({className: "ion-sad-outline"}), "   You currently have no friends online", React.DOM.br(null), React.DOM.br(null)), 
+                noFriends ? null : React.DOM.h3({className: "text-center"}, React.DOM.br(null), React.DOM.i({className: "ion-sad"}), "   You currently have no friends online", React.DOM.br(null), React.DOM.br(null)), 
 
                 friendsNodes
 
@@ -2362,7 +2362,7 @@ module.exports = React.createClass({displayName: 'exports',
                 ), 
 
 
-                 noMsg ? React.DOM.div({className: "well"}, React.DOM.h3({className: "text-center"}, React.DOM.i({className: "ion-sad-outline"}), "   You have no messages")) : null, 
+                 noMsg ? React.DOM.div({className: "well"}, React.DOM.h3({className: "text-center"}, React.DOM.i({className: "ion-sad"}), "   You have no messages")) : null, 
 
 
                 React.DOM.hr(null), 
@@ -2484,7 +2484,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         var cx = React.addons.classSet;
         var classes = cx({
-            'icon-ion-ios-circle-outline': true,
+            'ion-ios-circle-outline': true,
             'purple': true,
             'green': this.state.isOnline
         });
@@ -3276,8 +3276,8 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "launchBrowser", 'data-parameters': "http://ignition.io"}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "showTerminal"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-terminal"})), " Terminal"), 
                     React.DOM.li({className: "col-xs-2 navable"}, React.DOM.strong(null, React.DOM.i({className: "ion-gear-a"})), " Settings"), 
-                    React.DOM.li({className: "col-xs-2 navable", 'data-function': "logOut"}, React.DOM.strong(null, React.DOM.i({className: "ion-log-out"})), " Logout"), 
-                    React.DOM.li({className: "col-xs-2 navable"}, React.DOM.strong(null, React.DOM.i({className: "ion-power"})), " Shutdown")
+                    React.DOM.li({className: "col-xs-2 navable", 'data-function': "logOut"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-sign-out"})), " Logout"), 
+                    React.DOM.li({className: "col-xs-2 navable"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-power-off"})), " Shutdown")
                 )
 
             )
@@ -6560,15 +6560,15 @@ module.exports = function() {
 
     });
 
-    document.getElementsByTagName("html")[0].style.opacity = 1;
-    document.body.style.opacity = 1;
+    // document.getElementsByTagName("html")[0].style.opacity = 1;
+    // document.body.style.opacity = 1;
 
-    // setTimeout(function() {
-    //     document.getElementsByTagName("html")[0].style.opacity = 1;
-    //     document.body.style.opacity = 1;
-    //
-    //     api.api.emit('request', { request: 'killall', param: "qmlscene" });
-    // }, 3500);
+    setTimeout(function() {
+        document.getElementsByTagName("html")[0].style.opacity = 1;
+        document.body.style.opacity = 1;
+
+        api.api.emit('request', { request: 'killall', param: "qmlscene" });
+    }, 3500);
 
 }
 
@@ -8375,9 +8375,12 @@ var events = {
         dialog.show("AddFriend");
     },
 
+    /*  Achievement Unlocked
+    -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
-        dialog.uiNotification();
         
+        dialog.uiNotification();
+
         setTimeout(function() {
             dialog.close(null, null, "uiNotification");
         }, 4500);
@@ -8406,15 +8409,11 @@ var events = {
 
             dialog.userSpace();
 
-            // setTimeout(function() {
-            //
-            //     dialog.uiNotification();
-            //
-            //     setTimeout(function() {
-            //         dialog.close(null, null, "uiNotification");
-            //     }, 4500);
-            //
-            // }, 5000);
+            setTimeout(function() {
+
+                events.achievementUnlocked;
+
+            }, 1000);
 
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }
@@ -8434,7 +8433,7 @@ var events = {
             shortname: shortname
         }
 
-        eventDispatcher.launchContext(_launchContext);
+        event.Dispatcher.launchContext(_launchContext);
 
         KeyEvent(221);
 

@@ -431,9 +431,12 @@ var events = {
         dialog.show("AddFriend");
     },
 
+    /*  Achievement Unlocked
+    -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
-        dialog.uiNotification();
         
+        dialog.uiNotification();
+
         setTimeout(function() {
             dialog.close(null, null, "uiNotification");
         }, 4500);
@@ -462,15 +465,11 @@ var events = {
 
             dialog.userSpace();
 
-            // setTimeout(function() {
-            //
-            //     dialog.uiNotification();
-            //
-            //     setTimeout(function() {
-            //         dialog.close(null, null, "uiNotification");
-            //     }, 4500);
-            //
-            // }, 5000);
+            setTimeout(function() {
+
+                events.achievementUnlocked;
+
+            }, 1000);
 
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }
@@ -490,7 +489,7 @@ var events = {
             shortname: shortname
         }
 
-        eventDispatcher.launchContext(_launchContext);
+        event.Dispatcher.launchContext(_launchContext);
 
         KeyEvent(221);
 

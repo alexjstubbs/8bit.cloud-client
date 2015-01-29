@@ -37,7 +37,7 @@ module.exports = React.createClass({
 
         var cx = React.addons.classSet;
         var classes = cx({
-            'icon-ion-ios-circle-outline': true,
+            'ion-ios-circle-outline': true,
             'purple': true,
             'green': this.state.isOnline
         });

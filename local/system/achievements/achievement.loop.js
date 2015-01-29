@@ -3,7 +3,7 @@
 var fs          = require('fs-extra')
 ,   _           = require('lodash')
 ,   hex         = require(appDir+'/local/system/achievements/achievement.hex.helper')
-,   exec        = require(appDir+'/local/system/system.exec')
+,   exec        = require('child_process').exec
 ,   database    = require(appDir+'/local/api/database/database.local');
 
 /* Set JS Conditional Operators into an iterable Object.
@@ -53,7 +53,8 @@ function dumpRetroRamInit(callback) {
 -------------------------------------------------- */
 function achievementTimer(nsp, type, interval) {
 
-    var command;
+    var command,
+        errcount = 0;
 
     if (!interval) interval = 1;
 
@@ -67,13 +68,25 @@ function achievementTimer(nsp, type, interval) {
     }
 
     // Start Execution
-    exec(command, function(stderr, stdout) {
-        if (stderr) {
-            nsp.emit('messaging', {type: 0, body: stderr });
-            execute("killall watch", function(stderr, stdout) {});
+    var watch = exec(command);
+
+    watch.stderr.on('data', function(data) {
+        errcount++;
+        if (errcount > 20) {
+            console.log("Erroed Out");
+            exec("killall watch", function(stderr, stdout) {});
+            nsp.emit('messaging', {type: 0, body: "Could not start achievement client. Error: "+stderr});
         }
     });
 
+    watch.stdout.on('data', function(data) {
+        console.log(data);
+    });
+
+    watch.on('close', function(code) {
+        // TODO: If crash, restart with dialog and dump.
+        console.log('(exitcode): ' + code);
+    });
 }
 
 /* Load JSON of games acheivements
@@ -93,6 +106,8 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
         address = gameAchievements.Achievements[key].address;
         addresses.push(address);
     }
+
+    console.log(addresses);
 
         // Get values
         hex.checkHex(stdin, offset, bufferSize, addresses, function(_hex) {
@@ -145,7 +160,8 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
                                 debug ? console.log("[i] Multiplier: " + multiplier_inc) : null;
 
                             if (multiplier_inc >= multiplier) {
-                                nsp.emit('clientEvent', {command: "achievementUnlocked", params: null });
+                                console.log("!!!ACHIEVEMENT UNLOCKED!!!")
+                                // achievementUnlocked(nsp);
                                 debug ? console.log("[!!] Multiplier Achievement Unlocked!!!") : null;
 
                                 addresses.splice(i, 1);
@@ -157,7 +173,8 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
                     }
 
                     else if (result && multiplier == 0) {
-                        nsp.emit('clientEvent', {command: "achievementUnlocked", params: null });
+                        // achievementUnlocked(nsp);
+                        console.log("!!!ACHIEVEMENT UNLOCKED!!!")
                         debug ? console.log("[!!] Single Achievement Unlocked!!!") : null;
 
                         addresses.splice(i, 1);
@@ -168,8 +185,16 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
     });
 };
 
+
+/*  Achievement Unlocked Notification
+-------------------------------------------------- */
+function achievementUnlocked(nsp, title, desc, count, single, callback) {
+    nsp.emit('clientEvent', {command: "achievementUnlocked", params: null });
+}
+
 /*  Exports
 -------------------------------------------------- */
-exports.achievementCheck = achievementCheck;
-exports.dumpRetroRamInit = dumpRetroRamInit;
-exports.achievementTimer = achievementTimer;
+exports.achievementCheck    = achievementCheck;
+exports.dumpRetroRamInit    = dumpRetroRamInit;
+exports.achievementTimer    = achievementTimer;
+exports.achievementUnlocked = achievementUnlocked;
