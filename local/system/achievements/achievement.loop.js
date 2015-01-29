@@ -72,7 +72,7 @@ function achievementCheck(gameAchievements, stdin, callback) {
 
         hex.checkHex(stdin, offset, bufferSize, addresses, function(_hex) {
 
-            // console.log("HEX:" + hex);
+            console.log("CURRENT VALUES:" + _hex);
 
                 var i = -1,
                     multiplier,

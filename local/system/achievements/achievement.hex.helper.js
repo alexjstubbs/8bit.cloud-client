@@ -16,24 +16,8 @@ var fs          = require('fs-extra')
 
 function checkHex(stdin, offset, bufflength, addresses, callback) {
 
-
-
     var hexArray = [];
         buffer   = stdin;
-
-
-        // TODO: Use Multi D Array:
-        // function recursiveFunction(collection){
-        //     _.each(collection, function(model){
-        //         console.log(model);
-        //         if(model.pages.length > 0){
-        //             recursiveFunction(model.pages);
-        //         }
-        //     });
-        // };
-        //
-        // recursiveFunction(arrPages);
-
 
         console.log(addresses);
 
@@ -48,7 +32,6 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
                 hex = '0' + hex;
             }
 
-            // hex = hex.toUpperCase();
             hex = parseInt(hex)
             hexArray.push(hex);
 
