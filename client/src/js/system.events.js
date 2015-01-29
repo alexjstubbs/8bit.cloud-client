@@ -431,6 +431,16 @@ var events = {
         dialog.show("AddFriend");
     },
 
+    achievementUnlocked: function(parameters) {
+        dialog.uiNotification();
+        
+        setTimeout(function() {
+            dialog.close(null, null, "uiNotification");
+        }, 4500);
+
+    },
+
+
     /* Launch selected game
     -------------------------------------------------- */
     launchGame: function(parameters) {

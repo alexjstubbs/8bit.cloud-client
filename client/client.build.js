@@ -104,7 +104,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         React.DOM.div({className: "parent"}, 
 
-            React.DOM.i({className: "ion-trophy"}), " Achievement Unlocked!"
+            React.DOM.i({className: "trophy"}), " Achievement Unlocked!"
 
         )
 
@@ -3670,7 +3670,7 @@ module.exports = React.createClass({displayName: 'exports',
         return {
             id: "ui-alert",
             classes: null,
-            icon: "ion-close-circled",
+            icon: "trophy",
             effect: "fadeInOut",
         }
     },
@@ -5713,7 +5713,7 @@ var uiNotification = function(input, callback) {
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({message: "lorem"})), div);
+    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({message: "Achievement Unlocked!"})), div);
 
 }
 
@@ -8376,6 +8376,16 @@ var events = {
     addFriend: function(parameters) {
         dialog.show("AddFriend");
     },
+
+    achievementUnlocked: function(parameters) {
+        dialog.uiNotification();
+        
+        setTimeout(function() {
+            dialog.close(null, null, "uiNotification");
+        }, 4500);
+
+    },
+
 
     /* Launch selected game
     -------------------------------------------------- */

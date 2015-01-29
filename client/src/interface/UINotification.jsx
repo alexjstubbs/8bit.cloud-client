@@ -12,7 +12,7 @@ module.exports = React.createClass({
         return {
             id: "ui-alert",
             classes: null,
-            icon: "ion-close-circled",
+            icon: "trophy",
             effect: "fadeInOut",
         }
     },
@@ -22,7 +22,7 @@ module.exports = React.createClass({
         return (
 
 		<div id={this.props.id} className={"ui-alert " + this.props.classes +  " " + this.props.effect}>
-			<i className={this.props.icon}></i>
+			<i className={this.props.icon}></i> 
 		</div>
 
         );

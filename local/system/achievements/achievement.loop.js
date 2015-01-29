@@ -49,17 +49,43 @@ function dumpRetroRamInit(callback) {
 
 }
 
+/*  Achievement Timer
+-------------------------------------------------- */
+function achievementTimer(nsp, type, interval) {
+
+    var command;
+
+    if (!interval) interval = 1;
+
+    // Type of Achievement Check Method
+    switch (type) {
+        case "UDP":
+            command = "watch -n " + interval + " echo -n SYSTEM_RAM >/dev/udp/localhost/55355";
+        break;
+        default:
+            command = "watch -n " + interval + "echo -n SYSTEM_RAM >/dev/udp/localhost/55355";
+    }
+
+    // Start Execution
+    execute(command, function(stderr, stdout) {
+        if (stderr) {
+            nsp.emit('messaging', {type: 0, body: stderr });
+        }
+    });
+
+}
 
 /* Load JSON of games acheivements
 /  Add Address' into array, pass array to checkhex
 -------------------------------------------------- */
-function achievementCheck(gameAchievements, stdin, callback) {
+function achievementCheck(nsp, gameAchievements, stdin, callback) {
 
 // TODO: Break these into simple functions.
 // TODO: Serious error handling and type checking here.
 
     var address     = '',
-        addresses   = [];
+        addresses   = [],
+        debug       = true;
 
     var offset      = 0x54;
     var bufferSize  = 4390;
@@ -70,9 +96,10 @@ function achievementCheck(gameAchievements, stdin, callback) {
         addresses.push(address);
     }
 
+        // Get values
         hex.checkHex(stdin, offset, bufferSize, addresses, function(_hex) {
 
-            console.log("CURRENT VALUES:" + _hex);
+            debug ? console.log("[i] Current Values:" + _hex) : null;
 
                 var i = -1,
                     multiplier,
@@ -90,22 +117,18 @@ function achievementCheck(gameAchievements, stdin, callback) {
                         operand = gameAchievements.Achievements[key].operand,
                         result  = operators[op](_hex[i], operand);
 
-                        // console.log("Multi for: " + operand + " : " +multiplier);
-
-                    // (initial) Achievement Unlocked.
+                    // Master Achievement Unlocked.
                     if (result && multiplier >= 1) {
 
-                        console.log("Master Unlocked : " + multiplier);
+                        debug ? console.log("[!]: Master Unlocked : " + multiplier) : null;
 
-                        flat = _.flatten(gameAchievements.Achievements[key].multiples);
-
+                        flat = _.flatten(gameAchievements.Achievements[key].multiples),
                         subaddresses = _.pluck(flat, 'address');
-
-                        // loop thru these: gameAchievements.Achievements[key].multiples
 
                         hex.checkHex(stdin, offset, bufferSize, subaddresses, function(__hex) {
 
-                            console.log("SUB VALUES: "+__hex);
+                            debug ? console.log("[i] Sub Values: "+__hex) : null;
+
                             var multiplier_inc = 0;
 
                             // for each return value from address
@@ -119,14 +142,14 @@ function achievementCheck(gameAchievements, stdin, callback) {
                                     multiplier_inc++;
                                 }
 
-                                console.log("i for sub: " + _i);
-
                             }).value();
 
-                                console.log("multipliyer INC: " + multiplier_inc);
+                                debug ? console.log("[i] Multiplier: " + multiplier_inc) : null;
 
                             if (multiplier_inc >= multiplier) {
-                                console.log("!!!Achievement Unlocked!!!")
+                                nsp.emit('clientEvent', {command: "achievementUnlocked", params: null });
+                                debug ? console.log("[!!] Multiplier Achievement Unlocked!!!") : null;
+
                                 addresses.splice(i, 1);
                                 delete gameAchievements.Achievements[key];
                             }
@@ -136,101 +159,15 @@ function achievementCheck(gameAchievements, stdin, callback) {
                     }
 
                     else if (result && multiplier == 0) {
-                        console.log("!!!Achievement Unlocked!!!")
+                        nsp.emit('clientEvent', {command: "achievementUnlocked", params: null });
+                        debug ? console.log("[!!] Single Achievement Unlocked!!!") : null;
+
                         addresses.splice(i, 1);
                         delete gameAchievements.Achievements[key];
                     }
 
             } // EOL
     });
-};
-
-
-/* RAMDISK Version
--------------------------------------------------- */
-function achievementCheckBYRAMDISK(gameAchievements, callback) {
-
-
-    var address = '',
-    addresses = [];
-
-    var offset = 0x54;
-    var bufferSize = 4390;
-
-    // Create Array of Addresses
-    for (var key in gameAchievements.Achievements) {
-        address = gameAchievements.Achievements[key].address;
-        addresses.push(address);
-    }
-
-    // hex.checkHex(file, offset, bufferSize, addresses, function(hex) {
-    //   console.log(hex);
-    // });
-
-    fs.unwatchFile(file);
-    fs.watchFile(file, function(curr, prev) {
-
-        fs.stat(file, function(err, stats) {
-            stateSize = stats.size
-        });
-
-
-        hex.checkHex(file, offset, bufferSize, addresses, function(hex) {
-
-
-            // NES Save: 13312 (13kb) console.log(stateSize);
-
-            // Make sure the file is both unempty, and consistant in size from last read
-            if (stateSize != 0 && stateSize == recentStateSize) {
-
-                // Achievement Specific Checks
-                var i = -1;
-
-                for (var key in gameAchievements.Achievements) {
-
-                    i++;
-
-                    var op = gameAchievements.Achievements[key].operator,
-                    operand = gameAchievements.Achievements[key].operand,
-                    result = operators[op](hex[i], operand);
-
-                    // Achievement Unlocked!
-                    if (result) {
-                        // command = 'echo "ACHIEVEMENT_UNLOCKED" | nc -u 127.0.0.1 55355 | pkill nc';
-                        // command = '/home/pi/fbtest_/openvg/client/test2/openvg/client/hellovg';
-                        console.log("achievements unlocked");
-                        // Remove Achievement
-                        addresses.splice(i, 1);
-                        delete gameAchievements.Achievements[key];
-
-                        // execute(command, function(stdout) {
-                        //     // console.log("Achievement Unlocked!!");
-                        // });
-
-                        var refreshIntervalId = setInterval(function() {
-                            // execute("pkill hellovg", function(stdout) {
-                            //     // console.log("Achievement Unlocked!!");
-                            // });
-                            clearInterval(refreshIntervalId);
-                        }, 4000);
-
-                    }
-
-                    // Make Sure Value is Consistant between reads
-                    // if (result && doubleCheck == false) {
-                    //   doubleCheck = true;
-                    // }
-
-                }
-
-            }
-
-            // Set State Size for next Read
-            recentStateSize = stateSize;
-
-        });
-
-    })
 };
 
 /*  Exports

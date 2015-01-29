@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
         <div className="parent">
 
-            <i className="ion-trophy"></i> Achievement Unlocked!
+            <i className="trophy"></i> Achievement Unlocked!
 
         </div>
 
