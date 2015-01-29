@@ -123,14 +123,15 @@ function getCommandlineConfig(nsp, payload, callback) {
 -------------------------------------------------- */
 function gameLaunch(nsp, payload) {
 
-    // TODO: Set from JSON read in fn below
     var bufferSize,
-        stateSize;
+        stateSize,
+        atype,
+        asupport = false;
 
     getCommandlineConfig(null, payload, function(err, results) {
 
-        var selectedArgs = _.where(results.arguements, { 'ticked': true });
-        commandline  = [];
+        var selectedArgs = _.where(results.arguements, { 'ticked': true })
+            commandline  = [];
 
         _.forEach(selectedArgs, function(option, i) {
             commandline.push(option.arg, option.defaults);
@@ -139,7 +140,6 @@ function gameLaunch(nsp, payload) {
         // Path to executable
         var expath = results.path;
 
-
         //Retroarch is the selected emulator
         if (results.cores) {
 
@@ -147,25 +147,42 @@ function gameLaunch(nsp, payload) {
             if (!_.contains(commandline, "-L")) {
 
                 var core = results.platforms[payload.shortname].cores[0];
+
                 commandline.push("-L", results.cores[core].path);
 
+                if (results.cores[core].achievements) {
+                    asupport = true;
+
+                    offset      = results.cores[core].achievements.offset;
+                    bufferSize  = results.cores[core].achievements.buffer_length;
+                    stateSize   = results.cores[core].achievements.stateSize;
+                    timing      = results.cores[core].achievements.default_timing;
+                }
+
+            }
+
+            else {
+                var ind = _.indexOf(commandline, "-L");
+                ind++;
+                var achievement_list = _.pluck(_.where(commandline, { 'path': commandline[ind] }), 'achievements');
+
+                if (achievement_list) {
+                    asupport    = true;
+                    offset      = achievement_list.offset;
+                    bufferSize  = achievement_list.buffer_length;
+                    stateSize   = achievement_list.stateSize;
+                    timing      = achievement_list.default_timing;
+                }
             }
 
         }
 
-
         // Launch Emulator
-
-        // TODO: Set up user defined timer for achievements.
-        // For testing use: watch -n 1 echo -n SYSTEM_RAM >/dev/udp/localhost/55355
-        // Check Achievement Stream
-
         achievements.dumpRetroRamInit(function(listedAchievements) {
 
-            var offset        = 0x54,
-                bufferSize    = 4390,
-                stateSize     = 13000,
-                _achievements = listedAchievements;
+            if (!isJson) asupport = false;
+            if (asupport && !timing) timing = 1;
+            if (asupport && !atype)  atype = "UDP";
 
             execute('renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
 
@@ -179,15 +196,24 @@ function gameLaunch(nsp, payload) {
 
             _child.stderr.on('data', function(data) {
                 if (data.length >= stateSize) {
-                    // Achievement Check.
-                        achievements.achievementCheck(nsp, _achievements, data, function(response) {
-                    });
+
+                    if (asupport) {
+                        achievements.achievementCheck(nsp, listedAchievements, data, offset, bufferSize, function(response) {});
+                    }
+
+                    else {
+                        // console.log('(stderr) : ' + data);
+                    }
                 }
 
                 else {
                     // console.log('(stderr) : ' + data);
                 }
             });
+
+        // Start Achievement Loop
+        asupport ? achievements.achievementTimer(nsp, atype, timing) : null;
+
 
         });
 

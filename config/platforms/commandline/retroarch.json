@@ -78,9 +78,10 @@
         "FCEUMM": {
             "path": "/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so",
             "achievements": {
+                "state_size": "1650",
                 "offset": "0x54",
                 "buffer_length": "4390",
-                "default_timing": 1000
+                "default_timing": 1
             }
         },
         "Pocket SNES": {

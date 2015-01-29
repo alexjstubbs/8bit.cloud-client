@@ -3,7 +3,7 @@
 var fs          = require('fs-extra')
 ,   _           = require('lodash')
 ,   hex         = require(appDir+'/local/system/achievements/achievement.hex.helper')
-,   execute     = require(appDir+'/local/common').exec
+,   exec        = require(appDir+'/local/system/system.exec')
 ,   database    = require(appDir+'/local/api/database/database.local');
 
 /* Set JS Conditional Operators into an iterable Object.
@@ -67,9 +67,10 @@ function achievementTimer(nsp, type, interval) {
     }
 
     // Start Execution
-    execute(command, function(stderr, stdout) {
+    exec(command, function(stderr, stdout) {
         if (stderr) {
             nsp.emit('messaging', {type: 0, body: stderr });
+            execute("killall watch", function(stderr, stdout) {});
         }
     });
 
@@ -78,7 +79,7 @@ function achievementTimer(nsp, type, interval) {
 /* Load JSON of games acheivements
 /  Add Address' into array, pass array to checkhex
 -------------------------------------------------- */
-function achievementCheck(nsp, gameAchievements, stdin, callback) {
+function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, callback) {
 
 // TODO: Break these into simple functions.
 // TODO: Serious error handling and type checking here.
@@ -86,9 +87,6 @@ function achievementCheck(nsp, gameAchievements, stdin, callback) {
     var address     = '',
         addresses   = [],
         debug       = true;
-
-    var offset      = 0x54;
-    var bufferSize  = 4390;
 
     // Create Array of Addresses
     for (var key in gameAchievements.Achievements) {
@@ -174,3 +172,4 @@ function achievementCheck(nsp, gameAchievements, stdin, callback) {
 -------------------------------------------------- */
 exports.achievementCheck = achievementCheck;
 exports.dumpRetroRamInit = dumpRetroRamInit;
+exports.achievementTimer = achievementTimer;
