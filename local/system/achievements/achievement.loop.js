@@ -1,6 +1,7 @@
 /* Checks Achievements during gameplay
 -------------------------------------------------- */
 var fs          = require('fs-extra')
+,   _           = require('lodash')
 ,   hex         = require(appDir+'/local/system/achievements/achievement.hex.helper')
 ,   execute     = require(appDir+'/local/common').exec
 ,   database    = require(appDir+'/local/api/database/database.local');
@@ -54,10 +55,10 @@ function dumpRetroRamInit(callback) {
 -------------------------------------------------- */
 function achievementCheck(gameAchievements, stdin, callback) {
 
+// TODO: Serious error handling and type checking here.
+
     var address     = '',
         addresses   = [];
-        multiples   = gameAchievements.Achievements[key].multiple.length; //3
-        leading     = 0;
 
     var offset      = 0x54;
     var bufferSize  = 4390;
@@ -70,11 +71,14 @@ function achievementCheck(gameAchievements, stdin, callback) {
 
         hex.checkHex(stdin, offset, bufferSize, addresses, function(hex) {
 
-            console.log("got hex (to int): " + hex);
+            console.log("HEX:" + hex);
 
                 var i = -1;
-                
+
                 for (var key in gameAchievements.Achievements) {
+
+                    var multiples   = 1,
+                        leading     = 0;
 
                     i++;
 
@@ -85,39 +89,29 @@ function achievementCheck(gameAchievements, stdin, callback) {
                     // (initial) Achievement Unlocked!
                     if (result) {
 
-                        leading++;
+                        leading++; // 1
+
+                        multiples = _.size(gameAchievements.Achievements[key].multiples);
+
+                        console.log(multiples+1);
 
                         // All Conditions Met. Unchievement Unlocked;
-                        if (leading == multiples) {
+                        if (leading == multiples+1) {
                             console.log("Achievements Unlocked");
+
+                            // Remove Achievement
+                            addresses.splice(i, 1);
+                            delete gameAchievements.Achievements[key];
+
                         }
 
                         // More Conditions to be met. Let's check.
                         else {
 
                             console.log("One condition met... checking others");
-
-                            // var i = -1;
-                            //
-                            // for (var key in gameAchievements.Achievements) {
-                            //
-                            //     i++;
-                            //
-                            //     var op  = gameAchievements.Achievements.multiple[key].operator,
-                            //     operand = gameAchievements.Achievements.multiple[key].operand,
-                            //     result  = operators[op](hex[i], operand);
-                            //
-                            //     if (_result) {
-                            //         leading++;
-                            //     }
-
-                            // }
-
+                            console.log("leading: " + leading);
+                            console.log("multiples: " + multiples);
                         }
-
-                        // Remove Achievement
-                        addresses.splice(i, 1);
-                        delete gameAchievements.Achievements[key];
 
                     }
 

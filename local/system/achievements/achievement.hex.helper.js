@@ -34,6 +34,9 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
         //
         // recursiveFunction(arrPages);
 
+
+        console.log(addresses);
+
         // Check each Hex in Achievement array
         addresses.forEach(function(i) {
 
@@ -49,7 +52,7 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
             hex = parseInt(hex)
             hexArray.push(hex);
 
-        }).value();
+        });
 
         callback(hexArray);
 
