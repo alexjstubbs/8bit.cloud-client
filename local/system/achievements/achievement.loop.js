@@ -105,6 +105,7 @@ function achievementCheck(gameAchievements, stdin, callback) {
 
                         hex.checkHex(stdin, offset, bufferSize, subaddresses, function(__hex) {
 
+                            console.log("SUB VALUES: "+__hex);
                             var multiplier_inc = 0;
 
                             // for each return value from address
@@ -114,14 +115,15 @@ function achievementCheck(gameAchievements, stdin, callback) {
                                     _operand = gameAchievements.Achievements[key].multiples[_i].operand,
                                     _result  = operators[_op](__hex[_i], _operand);
 
-                            if (_result) {
-                                multiplier_inc++;
-                                console.log("TRUE! : "+_result);
-                            }
+                                if (_result) {
+                                    multiplier_inc++;
+                                }
 
-                            // Maybe inc a num for each true, then check against multples size here?
+                                console.log("i for sub: " + _i);
 
                             }).value();
+
+                                console.log("multipliyer INC: " + multiplier_inc);
 
                             if (multiplier_inc >= multiplier) {
                                 console.log("!!!Achievement Unlocked!!!")
