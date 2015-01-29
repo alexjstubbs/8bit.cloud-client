@@ -275,14 +275,45 @@ animation-name: bounceIn; */
 
 .ignition-modal-achievement {
     min-height: 0 !important;
-    height:20vh !important;
-    width:20vw;
-    background:#2d2d2d;
+    height:80px !important;
+    width:40vw;
+    background:#2d2d2d !important;
     color:#7C7C7C;
     border:none !important;
-/*     -moz-animation:fadeInOutFast 4.5s;
--webkit-animation:fadeInOutFast 4.5s;
-animation:fadeInOutFast 4.5s; */
+    padding:none;
+    position:absolute;
+    left:31.5vw;
+    top:40px;
+
+/*  -moz-animation:fadeInOutFast 4.5s;
+    -webkit-animation:fadeInOutFast 4.5s;
+    animation:fadeInOutFast 4.5s; */
+}
+
+.achievement-title-container {
+    position:relative;
+    top:-25px;
+}
+
+.achievement-title-container h3 {
+    padding-bottom:5px;
+    margin-bottom:0;
+    opacity:0.8;
+    font-size:1.5vw;
+}
+
+.icon-modal-container {
+    background:#EBBA2F;
+    height:80px;
+    font-size:2.7em;
+    position:relative;
+    top:-15px;
+    left:-15px;
+    text-align:center;
+}
+
+.modal-achievement-desc {
+    font-size:1.4vw;    
 }
 
 .ignition-popup {
@@ -1694,7 +1725,7 @@ footer .progress {
 -------------------------------------------------- */
 
 .systemNotificationContent {
-    background:@black !important;
+    background:@black;
     color:@white !important;
     border:1px solid @primary;
     font-size:1.4em;

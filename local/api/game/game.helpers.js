@@ -180,11 +180,9 @@ function gameLaunch(nsp, payload) {
         // Launch Emulator
         achievements.dumpRetroRamInit(function(listedAchievements) {
 
-
             if (!isJson) asupport = false;
             if (asupport && !timing) timing = 1;
             if (asupport && !atype)  atype = "UDP";
-
 
             execute('killall qmlscene | renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
 

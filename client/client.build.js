@@ -85,9 +85,9 @@ var React               = require('react/addons')
 
 module.exports = React.createClass({displayName: 'exports',
 
-    getInitialState: function() {
+    getDefaultProps: function() {
         return {
-            friends: []
+            achievement_description: "Lorem Ipsum..."
         }
     },
 
@@ -104,7 +104,15 @@ module.exports = React.createClass({displayName: 'exports',
 
         React.DOM.div({className: "parent"}, 
 
-            React.DOM.i({className: "trophy"}), " Achievement Unlocked!"
+            React.DOM.div({className: "icon-modal-container col-xs-3"}, 
+                React.DOM.i({className: "ion-trophy"})
+            ), 
+
+            React.DOM.div({className: "col-xs-9 achievement-title-container"}, 
+
+                React.DOM.h3(null, "Achievement Unlocked!"), 
+                React.DOM.span({className: "modal-achievement-desc"}, this.props.achievement_description)
+            )
 
         )
 
@@ -8378,15 +8386,14 @@ var events = {
     /*  Achievement Unlocked
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
-        
+
         dialog.uiNotification();
 
-        setTimeout(function() {
-            dialog.close(null, null, "uiNotification");
-        }, 4500);
+        // setTimeout(function() {
+        //     dialog.close(null, null, "uiNotification");
+        // }, 4500);
 
     },
-
 
     /* Launch selected game
     -------------------------------------------------- */
@@ -8411,7 +8418,7 @@ var events = {
 
             setTimeout(function() {
 
-                events.achievementUnlocked;
+                events.achievementUnlocked(null);
 
             }, 1000);
 
@@ -8433,7 +8440,7 @@ var events = {
             shortname: shortname
         }
 
-        event.Dispatcher.launchContext(_launchContext);
+        eventDispatcher.launchContext(_launchContext);
 
         KeyEvent(221);
 
@@ -8447,25 +8454,6 @@ var events = {
         var JSONified = JSON.parse(parameters);
 
         eventDispatcher.launchContext(JSONified);
-
-        // database.filterByAttribute("games", {
-        //     "query": {
-        //         type: "makeExactFilter",
-        //         filter: "title",
-        //         query: JSONified.longname
-        //     },
-        //     "subquery": {
-        //         type:"makeExactFilter",
-        //         filter: "system",
-        //         query: JSONified.shortname
-        //     },
-        // }, function(result){
-        //
-        //     eventDispatcher.updateGame(result, JSONified.filepath);
-        //
-        // }
-
-    // );
 
         KeyEvent(221);
         KeyEvent(221);

@@ -434,15 +434,14 @@ var events = {
     /*  Achievement Unlocked
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
-        
+
         dialog.uiNotification();
 
-        setTimeout(function() {
-            dialog.close(null, null, "uiNotification");
-        }, 4500);
+        // setTimeout(function() {
+        //     dialog.close(null, null, "uiNotification");
+        // }, 4500);
 
     },
-
 
     /* Launch selected game
     -------------------------------------------------- */
@@ -467,7 +466,7 @@ var events = {
 
             setTimeout(function() {
 
-                events.achievementUnlocked;
+                events.achievementUnlocked(null);
 
             }, 1000);
 
@@ -489,7 +488,7 @@ var events = {
             shortname: shortname
         }
 
-        event.Dispatcher.launchContext(_launchContext);
+        eventDispatcher.launchContext(_launchContext);
 
         KeyEvent(221);
 
@@ -503,25 +502,6 @@ var events = {
         var JSONified = JSON.parse(parameters);
 
         eventDispatcher.launchContext(JSONified);
-
-        // database.filterByAttribute("games", {
-        //     "query": {
-        //         type: "makeExactFilter",
-        //         filter: "title",
-        //         query: JSONified.longname
-        //     },
-        //     "subquery": {
-        //         type:"makeExactFilter",
-        //         filter: "system",
-        //         query: JSONified.shortname
-        //     },
-        // }, function(result){
-        //
-        //     eventDispatcher.updateGame(result, JSONified.filepath);
-        //
-        // }
-
-    // );
 
         KeyEvent(221);
         KeyEvent(221);

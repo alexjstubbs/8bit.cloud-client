@@ -86,7 +86,7 @@ app.get('/roms/:platform/:start', common.listroms.listRoms);
 app.get('/games/:platform/:name', common.db.gameImage);
 
 // Test endpoints for development
-app.get('/hex/:offset/:bufflength/:address', common.hex.readHex);
+// app.get('/hex/:offset/:bufflength/:address', common.hex.readHex);
 // app.get('/achievement', common.achievements.achievementCheck);
 // app.post('/hash', common.hash.getCRC32);
 //

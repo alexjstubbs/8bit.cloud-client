@@ -10,9 +10,9 @@ var React               = require('react/addons')
 
 module.exports = React.createClass({
 
-    getInitialState: function() {
+    getDefaultProps: function() {
         return {
-            friends: []
+            achievement_description: "Lorem Ipsum..."
         }
     },
 
@@ -29,7 +29,15 @@ module.exports = React.createClass({
 
         <div className="parent">
 
-            <i className="trophy"></i> Achievement Unlocked!
+            <div className="icon-modal-container col-xs-3">
+                <i className="ion-trophy"></i>
+            </div>
+
+            <div className="col-xs-9 achievement-title-container">
+
+                <h3>Achievement Unlocked!</h3>
+                <span className="modal-achievement-desc">{this.props.achievement_description}</span>
+            </div>
 
         </div>
 
