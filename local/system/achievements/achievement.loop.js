@@ -80,7 +80,7 @@ function achievementTimer(nsp, type, interval) {
     });
 
     watch.stdout.on('data', function(data) {
-        console.log(data);
+        // console.log(data);
     });
 
     watch.on('close', function(code) {
@@ -160,8 +160,7 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
                                 debug ? console.log("[i] Multiplier: " + multiplier_inc) : null;
 
                             if (multiplier_inc >= multiplier) {
-                                console.log("!!!ACHIEVEMENT UNLOCKED!!!")
-                                // achievementUnlocked(nsp);
+                                achievementUnlocked(nsp, gameAchievements.Achievements[key]);
                                 debug ? console.log("[!!] Multiplier Achievement Unlocked!!!") : null;
 
                                 addresses.splice(i, 1);
@@ -173,8 +172,7 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
                     }
 
                     else if (result && multiplier == 0) {
-                        // achievementUnlocked(nsp);
-                        console.log("!!!ACHIEVEMENT UNLOCKED!!!")
+                        achievementUnlocked(nsp, gameAchievements.Achievements[key]);
                         debug ? console.log("[!!] Single Achievement Unlocked!!!") : null;
 
                         addresses.splice(i, 1);
@@ -188,8 +186,11 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
 
 /*  Achievement Unlocked Notification
 -------------------------------------------------- */
-function achievementUnlocked(nsp, title, desc, count, single, callback) {
-    nsp.emit('clientEvent', {command: "achievementUnlocked", params: null });
+function achievementUnlocked(nsp, achievement, callback) {
+
+    console.log(achievement);
+
+    nsp.emit('clientEvent', {command: "achievementUnlocked", params: JSON.stringify(achievement) });
 }
 
 /*  Exports

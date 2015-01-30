@@ -87,7 +87,12 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
         return {
-            achievement_description: "Lorem Ipsum..."
+            achievement: {
+                title: "Sample Title",
+                description: "Sample Description",
+                count: false,
+                single: true
+            }
         }
     },
 
@@ -95,10 +100,11 @@ module.exports = React.createClass({displayName: 'exports',
         navigationInit.navigationDeinit();
     },
 
-
     render: function() {
 
         navigationInit.navigationDeinit();
+
+        console.log(this.props.achievement.title);
 
     return (
 
@@ -111,7 +117,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "col-xs-9 achievement-title-container"}, 
 
                 React.DOM.h3(null, "Achievement Unlocked!"), 
-                React.DOM.span({className: "modal-achievement-desc"}, this.props.achievement_description)
+                React.DOM.span({className: "modal-achievement-desc"}, this.props.achievement.title)
             )
 
         )
@@ -5711,8 +5717,10 @@ var keyboard = function(input, callback) {
 
 /* Show Notification outside of Wrapper
 -------------------------------------------------- */
-var uiNotification = function(input, callback) {
+var uiNotification = function(achievementObj, callback) {
 
+    if (achievementObj) achievementObj = JSON.parse(achievementObj);
+    
     var _index = document.querySelectorAll(".ignition-modal-");
 
     var div = document.createElement("div");
@@ -5721,7 +5729,7 @@ var uiNotification = function(input, callback) {
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({message: "Achievement Unlocked!"})), div);
+    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({achievement: achievementObj})), div);
 
 }
 
@@ -8387,11 +8395,14 @@ var events = {
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
 
-        dialog.uiNotification();
+        console.log("ACH:");
+        console.log(parameters);
+        
+        dialog.uiNotification(parameters);
 
-        // setTimeout(function() {
-        //     dialog.close(null, null, "uiNotification");
-        // }, 4500);
+        setTimeout(function() {
+            dialog.close(null, null, "uiNotification");
+        }, 4500);
 
     },
 
@@ -8415,12 +8426,6 @@ var events = {
             _doc.style.display = "none";
 
             dialog.userSpace();
-
-            setTimeout(function() {
-
-                events.achievementUnlocked(null);
-
-            }, 1000);
 
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }

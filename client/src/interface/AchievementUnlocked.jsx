@@ -12,7 +12,12 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
         return {
-            achievement_description: "Lorem Ipsum..."
+            achievement: {
+                title: "Sample Title",
+                description: "Sample Description",
+                count: false,
+                single: true
+            }
         }
     },
 
@@ -20,10 +25,11 @@ module.exports = React.createClass({
         navigationInit.navigationDeinit();
     },
 
-
     render: function() {
 
         navigationInit.navigationDeinit();
+
+        console.log(this.props.achievement.title);
 
     return (
 
@@ -36,7 +42,7 @@ module.exports = React.createClass({
             <div className="col-xs-9 achievement-title-container">
 
                 <h3>Achievement Unlocked!</h3>
-                <span className="modal-achievement-desc">{this.props.achievement_description}</span>
+                <span className="modal-achievement-desc">{this.props.achievement.title}</span>
             </div>
 
         </div>

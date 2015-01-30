@@ -242,8 +242,10 @@ var keyboard = function(input, callback) {
 
 /* Show Notification outside of Wrapper
 -------------------------------------------------- */
-var uiNotification = function(input, callback) {
+var uiNotification = function(achievementObj, callback) {
 
+    if (achievementObj) achievementObj = JSON.parse(achievementObj);
+    
     var _index = document.querySelectorAll(".ignition-modal-");
 
     var div = document.createElement("div");
@@ -252,7 +254,7 @@ var uiNotification = function(input, callback) {
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({message: "Achievement Unlocked!"})), div);
+    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({achievement: achievementObj})), div);
 
 }
 

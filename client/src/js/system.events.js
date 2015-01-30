@@ -435,11 +435,14 @@ var events = {
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
 
-        dialog.uiNotification();
+        console.log("ACH:");
+        console.log(parameters);
+        
+        dialog.uiNotification(parameters);
 
-        // setTimeout(function() {
-        //     dialog.close(null, null, "uiNotification");
-        // }, 4500);
+        setTimeout(function() {
+            dialog.close(null, null, "uiNotification");
+        }, 4500);
 
     },
 
@@ -463,12 +466,6 @@ var events = {
             _doc.style.display = "none";
 
             dialog.userSpace();
-
-            setTimeout(function() {
-
-                events.achievementUnlocked(null);
-
-            }, 1000);
 
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }
