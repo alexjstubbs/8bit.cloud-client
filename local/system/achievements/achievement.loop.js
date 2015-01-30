@@ -2,6 +2,7 @@
 -------------------------------------------------- */
 var fs          = require('fs-extra')
 ,   _           = require('lodash')
+,   crc         = require('crc')
 ,   hex         = require(appDir+'/local/system/achievements/achievement.hex.helper')
 ,   exec        = require('child_process').exec
 ,   helpers     = require(appDir+'/local/system/system.helpers')
@@ -33,18 +34,24 @@ var operators = {
 /*  Get all Achievements of selected game.
 /   Store any newly found achievements if they now exist.
 ------------------------------------------------- */
-function dumpRetroRamInit(callback) {
+function dumpRetroRamInit(filepath, callback) {
 
-    var testStore = require(appDir+'/databases/ignition-achievements/Official/NES/Super Mario Bros.json');
+    fs.readFile(filepath, function(err, data) {
 
-    database.storeAchievement(testStore, function(gameAchievements) {
+        if (!err) {
 
-        if (isJSON(gameAchievements)) {
-            gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
-            gameAchievements = gameAchievements[0];
+            var fileCRC32 = crc.crc32(data).toString(16);
+            console.log(fileCRC32);
+
+            database.findAchievements({CRC32: { $in: [fileCRC32.toString('hex')] }}, function(data) {
+                callback(data);
+            });
         }
-        
-        callback(gameAchievements);
+
+        else {
+            console.log("[error] No data read from ROM for crc check "+err);
+        }
+
     });
 
 }

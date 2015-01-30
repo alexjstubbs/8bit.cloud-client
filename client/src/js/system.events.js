@@ -435,9 +435,6 @@ var events = {
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
 
-        console.log("ACH:");
-        console.log(parameters);
-        
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
@@ -449,6 +446,7 @@ var events = {
     /* Launch selected game
     -------------------------------------------------- */
     launchGame: function(parameters) {
+
         // TODO:  via sockets and update server activity (so-and-so played game, 10 hours ago)
 
         if (parameters) {

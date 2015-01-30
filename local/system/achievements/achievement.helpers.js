@@ -57,14 +57,6 @@ var storeAchievementFiles = function(previousAchievements) {
 
 }
 
-// TODO: Store all in the directory
-// var testStore = require(appDir+'/databases/ignition-achievements/Official/NES/Super Mario Bros.json');
-//
-// database.storeAchievement(testStore, function(gameAchievements) {
-//     gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
-//     gameAchievements = gameAchievements[0];
-// });
-
 /*  Expots
 -------------------------------------------------- */
 exports.storeAchievementFiles = storeAchievementFiles;

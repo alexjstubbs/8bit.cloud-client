@@ -220,13 +220,14 @@ var getCommunity = function(nsp) {
         rejectUnauthorized: false
     }, function (error, response, body) {
 
-            if (helpers.isJson(body)) {
+            if (helpers.isJSON(body)) {
                 nsp.emit('api', {community: JSON.parse(body)})
 
             }
     });
 
 }
+
 
 /* Events Endpoint
 -------------------------------------------------- */
@@ -245,7 +246,7 @@ var getEvents = function(nsp) {
 
     }, function (error, response, body) {
 
-        if (helpers.isJson(body)) {
+        if (helpers.isJSON(body)) {
 
             nsp.emit('api', {events: JSON.parse(body)})
 
@@ -292,7 +293,7 @@ var getSession = function(nsp, callback) {
             rejectUnauthorized: false
         }, function (error, response, body) {
 
-            if (helpers.isJson(body)) {
+            if (helpers.isJSON(body)) {
 
                 // Got new token
 
@@ -400,7 +401,7 @@ var signUp = function(nsp, profile, callback) {
             rejectUnauthorized: false
         }, function (error, response, body) {
 
-            if (helpers.isJson(body)) {
+            if (helpers.isJSON(body)) {
 
 
                 var status = JSON.parse(body);
@@ -539,7 +540,7 @@ var leaveSession = function(nsp) {
             rejectUnauthorized: false,
             form: { Username: "Alex", validPassword: "469df27ea91ab84345e0051c81868535" }
         }, function (error, response, body) {
-            if (helpers.isJson(body)) {
+            if (helpers.isJSON(body)) {
 
                 // nsp.emit('api', {messages: JSON.parse(body)})
             }

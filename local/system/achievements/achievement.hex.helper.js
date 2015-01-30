@@ -2,8 +2,8 @@
 -------------------------------------------------- */
 var fs          = require('fs-extra')
 ,   Buffer      = require('buffer').Buffer
-,   crc32       = require('buffer-crc32')
-    database    = require(appDir+'/local/api/database/database.local');
+,   crc         = require('crc')
+,   database    = require(appDir+'/local/api/database/database.local');
 
 
 // NES has 2kb of working RAM header. 13kb of state sizes (just under);
@@ -82,8 +82,7 @@ function getCRC32(nsp, filepath, callback) {
         fs.readFile(filepath, function(err, data) {
 
             if (data) {
-
-                buffered = crc32(data);
+                buffered = crc.crc32(data).toString(16);
 
                 database.findAchievements({CRC32: { $in: [buffered.toString('hex')] }}, function(data) {
                 if (buffered) {
