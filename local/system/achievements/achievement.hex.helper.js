@@ -9,11 +9,6 @@ var fs          = require('fs-extra')
 // NES has 2kb of working RAM header. 13kb of state sizes (just under);
 
 // Hex pass must be in format: 0xA8 (NOT 00A8 or 00xA8 etc.)
-//
-// In mathematics and computing, hexadecimal (also base 16, or hex)
-// is a positional numeral system with a radix, or base, of 16. It uses sixteen distinct symbols, most often the symbols 0–9 to
-// represent values zero to nine, and A, B, C, D, E, F (or alternatively a–f) to represent values ten to fifteen.
-
 function checkHex(stdin, offset, bufflength, addresses, callback) {
 
     var hexArray = [];
@@ -41,44 +36,8 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
 
 };
 
-/*  RAMDISK Version
+/*  Read hex via post (debug)
 -------------------------------------------------- */
-function checkHexRAMDISK(file, offset, bufflength, addresses, callback) {
-
-    var hexArray = [];
-
-    fs.open(file, 'r', function(status, fd) {
-
-        if (status) {
-            console.log(status.message);
-            return;
-        }
-
-        var buffer = new Buffer(bufflength);
-        fs.read(fd, buffer, 0, bufflength, 0, function(err, num) {
-
-            // Check each Hex in Achievement array
-            addresses.forEach(function(i) {
-
-                var nup = parseInt(i) + parseInt(offset);
-                var hex = buffer[nup];
-                hex     = hex.toString(16);
-
-                if (hex.length < 2) {
-                    hex = '0' + hex;
-                }
-
-                hex = hex.toUpperCase();
-                hexArray.push(hex);
-            }).value();
-
-            callback(hexArray);
-
-        });
-    });
-
-};
-
 function readHex(req, res, callback) {
 
     var address = req.params.address;
@@ -114,30 +73,31 @@ function readHex(req, res, callback) {
 
 };
 
-
-function getCRC32(nsp, filepath) {
-
+/*  Get CRC32 Value of FILEPATH and match in Achievement DB
+-------------------------------------------------- */
+function getCRC32(nsp, filepath, callback) {
 
     if (filepath) {
+
         fs.readFile(filepath, function(err, data) {
+
             if (data) {
 
                 buffered = crc32(data);
 
-                database.findAchievements({
-                    CRC32: {
-                        $in: [buffered.toString('hex')]
-                    }
-                }, function(data) {
-                        if (buffered) {
-                             nsp.emit('api', {crc32: data});
-                        }
-                })
-            } else {
-                 nsp.emit('api', {crc32: null});
+                database.findAchievements({CRC32: { $in: [buffered.toString('hex')] }}, function(data) {
+                if (buffered) {
+                    if (nsp) nsp.emit('api', {crc32: data});
+                    if (callback) callback({crc32: data});
+                }});
             }
-                    // res.send(buffered.toString('hex'));
-                })
+
+            else {
+                if (nsp) nsp.emit('api', {crc32: null});
+                if (callback) callback({crc32: null});
+            }
+
+        });
     }
 
 }

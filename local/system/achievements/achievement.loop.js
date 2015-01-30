@@ -4,6 +4,7 @@ var fs          = require('fs-extra')
 ,   _           = require('lodash')
 ,   hex         = require(appDir+'/local/system/achievements/achievement.hex.helper')
 ,   exec        = require('child_process').exec
+,   helpers     = require(appDir+'/local/system/system.helpers')
 ,   database    = require(appDir+'/local/api/database/database.local');
 
 /* Set JS Conditional Operators into an iterable Object.
@@ -37,13 +38,12 @@ function dumpRetroRamInit(callback) {
     var testStore = require(appDir+'/databases/ignition-achievements/Official/NES/Super Mario Bros.json');
 
     database.storeAchievement(testStore, function(gameAchievements) {
-        gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
-        gameAchievements = gameAchievements[0];
 
-        // setTimeout(function() {
-        //     achievementCheck(gameAchievements);
-        // }, 1000);
-
+        if (isJSON(gameAchievements)) {
+            gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
+            gameAchievements = gameAchievements[0];
+        }
+        
         callback(gameAchievements);
     });
 
@@ -107,7 +107,7 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
         addresses.push(address);
     }
 
-    console.log(addresses);
+    debug ? console.log(addresses) : null;
 
         // Get values
         hex.checkHex(stdin, offset, bufferSize, addresses, function(_hex) {

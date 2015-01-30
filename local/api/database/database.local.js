@@ -1,7 +1,8 @@
 /* Local System Database
 -------------------------------------------------- */
-var Datastore   = require('nedb')
-,   _           = require('lodash');
+var Datastore          = require('nedb')
+,   _                  = require('lodash')
+,   achievementHelpers = require(appDir+'/local/system/achievements/achievement.helpers');
 
 /* Init Databases (called on profile creation?)
 -------------------------------------------------- */
@@ -38,13 +39,14 @@ function initDatabases(callback) {
         autoload: true
     });
 
-    // TODO: Store all in the directory
-    var testStore = require(appDir+'/databases/ignition-achievements/Official/NES/Super Mario Bros.json');
+    // Find and Merge all New Achievements
+    storeGet(null, "achievements", function(prevAchievements) {
+        if (prevAchievements) {
+            achievementHelpers.storeAchievementFiles(prevAchievements);
+        }
 
-    database.storeAchievement(testStore, function(gameAchievements) {
-        gameAchievements = JSON.parse(JSON.stringify(gameAchievements))
-        gameAchievements = gameAchievements[0];
     });
+
 }
 
 /* Compact Database
@@ -62,6 +64,14 @@ function compactDatabase(database, callback) {
 function dedupeDatabase() {
     db.remove({ _id: 'id2' }, {}, function (err, numRemoved) {
         // numRemoved = 1
+    });
+}
+
+/*  Remove Database Entries
+-------------------------------------------------- */
+function dropDatabase(nsp, database, callback) {
+    database.remove({}, {multi: true}, function (err, numRemoved) {
+        console.log("Records removed from Database: " + numRemoved);
     });
 }
 
@@ -255,6 +265,7 @@ function getGamesAjax(req, res) {
 -------------------------------------------------- */
 exports.storeGame           = storeGame;
 exports.findGame            = findGame;
+exports.dropDatabase        = dropDatabase;
 exports.storeAchievement    = storeAchievement;
 exports.findAchievements    = findAchievements;
 exports.initDatabases       = initDatabases;

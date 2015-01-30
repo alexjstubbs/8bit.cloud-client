@@ -39,6 +39,40 @@ var readJSONFile = function(nsp, file, callback) {
 };
 
 
+/*  Read Directory and Return JSON files
+-------------------------------------------------- */
+var findJSONFiles = function(path, callback) {
+
+    var results = [];
+
+    if (!path) {
+
+        callback ? callback("No Path Supplied: findJSONFiles", null) : null;
+
+    }
+
+    else {
+
+        fs.readdir(path, function(err, resultsObj) {
+
+            _(resultsObj).forEach(function(filename) {
+
+                if (path.extname(filename) == ".json") {
+                    results.push(filename);
+                }
+
+            }).value();
+
+                callback ? callback(null, results) : null;
+
+        });
+
+    }
+
+}
+
+
 /* Exports
 -------------------------------------------------- */
 exports.readJSONFile   = readJSONFile;
+exports.findJSONFiles  = findJSONFiles;
