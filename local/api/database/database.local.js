@@ -70,8 +70,8 @@ function dedupeDatabase() {
 /*  Remove Database Entries
 -------------------------------------------------- */
 function dropDatabase(nsp, database, callback) {
-    database.remove({}, {multi: true}, function (err, numRemoved) {
-        console.log("Records removed from Database: " + numRemoved);
+    db[database].remove({}, {multi: true}, function (err, numRemoved) {
+        callback ? callback(err, numRemoved) : null;
     });
 }
 
@@ -104,7 +104,7 @@ function storeData(database, doc, callback) {
 
         if (err) {
 
-            console.log("[!] Error storing data: "+err)
+            console.log("[error] Error storing data: "+err)
 
             if (callback) {
                 callback(err, null);
@@ -182,12 +182,10 @@ function storeAchievement(document, callback) {
             // Exists already
             callback(doc);
         } else {
-            console.log("[i] found new achievements...");
-
             // Game Doesnt Have any DB Achievement Entries
             db.achievements.insert(document, function(err, doc) {
                 if (err) {
-                    console.log("[!] error storing achievement: " + err);
+                    console.log("[error] error storing achievement: " + err);
                     callback();
                 } else {
                     callback(doc);
@@ -218,7 +216,7 @@ function findAchievements(criteria, callback) {
 function storeGame(document, callback) {
     db.games.insert(document, function(err, doc) {
         if (err) {
-            console.log("[!] error storing game: " + err)
+            console.log("[info] error storing game: " + err)
             callback();
         } else {
             callback(doc);

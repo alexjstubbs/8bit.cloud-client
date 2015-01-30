@@ -47,8 +47,11 @@ var storeAchievementFiles = function(previousAchievements) {
     }
 
     function endHandler() {
-        database.dropDatabase(null, "achievements", function() {
-            console.log(mergeArray);
+        database.dropDatabase(null, "achievements", function(err, numRemoved) {
+            if (!err) {
+                database.storeAchievement(mergeArray, function(){});
+                console.log("[info] Loaded All Achievements. Number removed: "+numRemoved);
+            }
         });
     }
 
