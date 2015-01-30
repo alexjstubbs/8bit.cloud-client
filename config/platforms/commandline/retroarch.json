@@ -91,7 +91,13 @@
             "path": "/opt/emulatorcores/gambatte-libretro/libgambatte/gambatte_libretro.so"
         },
         "Genesis Plus GX": {
-            "path": "/opt/emulatorcores/Genesis-Plus-GX/genesis_plus_gx_libretro.so"
+            "path": "/opt/emulatorcores/Genesis-Plus-GX/genesis_plus_gx_libretro.so",
+            "achievements": {
+                "state_size": "1000000",
+                "offset": "0xf",
+                "buffer_length": "4390",
+                "default_timing": 1
+            }
         },
         "PRBoom": {
             "path": "/opt/emulatorcores/libretro-prboom/prboom_libretro.so"

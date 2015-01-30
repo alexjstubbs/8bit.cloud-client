@@ -31,8 +31,7 @@ var operators = {
     }
 };
 
-/*  Get all Achievements of selected game.
-/   Store any newly found achievements if they now exist.
+/*  Get all Achievements of selected game for play session
 ------------------------------------------------- */
 function dumpRetroRamInit(filepath, callback) {
 
@@ -41,7 +40,7 @@ function dumpRetroRamInit(filepath, callback) {
         if (!err) {
 
             var fileCRC32 = crc.crc32(data).toString(16);
-            console.log(fileCRC32);
+            console.log("file CRC32: "+fileCRC32);
 
             database.findAchievements({CRC32: { $in: [fileCRC32.toString('hex')] }}, function(data) {
                 callback(data);
@@ -80,7 +79,6 @@ function achievementTimer(nsp, type, interval) {
     watch.stderr.on('data', function(data) {
         errcount++;
         if (errcount > 20) {
-            console.log("Erroed Out");
             exec("killall watch", function(stderr, stdout) {});
             nsp.emit('messaging', {type: 0, body: "Could not start achievement client. Error: "+stderr});
         }
@@ -194,9 +192,6 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
 /*  Achievement Unlocked Notification
 -------------------------------------------------- */
 function achievementUnlocked(nsp, achievement, callback) {
-
-    console.log(achievement);
-
     nsp.emit('clientEvent', {command: "achievementUnlocked", params: JSON.stringify(achievement) });
 }
 

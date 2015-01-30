@@ -177,8 +177,6 @@ function gameLaunch(nsp, payload) {
 
         }
 
-        //"{"platform":"Nintendo","filepath":"/Users/alexstubbs/roms/nes/10-Yard Fight (U) [!].nes","shortname":"nes"}"
-
         // Launch Emulator
         achievements.dumpRetroRamInit(payload.filepath, function(listedAchievements) {
 
