@@ -5,9 +5,6 @@ var fs          = require('fs-extra')
 ,   crc         = require('crc')
 ,   database    = require(appDir+'/local/api/database/database.local');
 
-
-// NES has 2kb of working RAM header. 13kb of state sizes (just under);
-
 // Hex pass must be in format: 0xA8 (NOT 00A8 or 00xA8 etc.)
 function checkHex(stdin, offset, bufflength, addresses, callback) {
 

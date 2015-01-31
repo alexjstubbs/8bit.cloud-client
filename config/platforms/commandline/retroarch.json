@@ -80,7 +80,6 @@
             "achievements": {
                 "state_size": "1000",
                 "offset": "0x54",
-                "buffer_length": "4390",
                 "default_timing": 1
             }
         },
@@ -95,8 +94,7 @@
             "achievements": {
                 "state_size": "1000000",
                 "offset": "0xf",
-                "buffer_length": "4390",
-                "default_timing": 1
+                "default_timing": 5
             }
         },
         "PRBoom": {

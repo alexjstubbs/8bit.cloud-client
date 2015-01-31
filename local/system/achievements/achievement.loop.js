@@ -42,7 +42,7 @@ function dumpRetroRamInit(filepath, callback) {
             var fileCRC32 = crc.crc32(data).toString(16);
             console.log("file CRC32: "+fileCRC32);
 
-            database.findAchievements({CRC32: { $in: [fileCRC32.toString('hex')] }}, function(data) {
+            database.findAchievements({CRC32: fileCRC32 }, function(data) {
                 callback(data);
             });
         }
@@ -85,7 +85,7 @@ function achievementTimer(nsp, type, interval) {
     });
 
     watch.stdout.on('data', function(data) {
-        // console.log(data);
+        console.log(data);
     });
 
     watch.on('close', function(code) {
@@ -98,6 +98,7 @@ function achievementTimer(nsp, type, interval) {
 /  Add Address' into array, pass array to checkhex
 -------------------------------------------------- */
 function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, callback) {
+
 
 // TODO: Break these into simple functions.
 // TODO: Serious error handling and type checking here.

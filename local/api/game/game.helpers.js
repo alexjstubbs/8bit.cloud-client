@@ -201,7 +201,7 @@ function gameLaunch(nsp, payload) {
                 if (data.length >= stateSize) {
 
                     if (asupport) {
-                        achievements.achievementCheck(nsp, listedAchievements, data, offset, bufferSize, function(response) {});
+                        achievements.achievementCheck(nsp, listedAchievements[0], data, offset, bufferSize, function(response) {});
                     }
 
                     else {
