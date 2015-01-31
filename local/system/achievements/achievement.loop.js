@@ -80,7 +80,7 @@ function achievementTimer(nsp, type, interval) {
         errcount++;
         if (errcount > 20) {
             exec("killall watch", function(stderr, stdout) {});
-            nsp.emit('messaging', {type: 0, body: "Could not start achievement client. Error: "+stderr});
+            nsp.emit('messaging', {type: 0, body: "Could not start achievement client. Error: "+data});
         }
     });
 

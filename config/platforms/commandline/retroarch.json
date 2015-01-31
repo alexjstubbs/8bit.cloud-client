@@ -35,14 +35,15 @@
         "genesis": {
             "title": "genesis",
             "cores": [
+                "Picodrive",
                 "Genesis Plus GX"
             ]
         },
         "sms": {
             "title": "sms",
             "cores": [
-                "Genesis Plus GX",
-                "Picodrive"
+                "Picodrive",
+                "Genesis Plus GX"
             ]
         },
         "doom": {
