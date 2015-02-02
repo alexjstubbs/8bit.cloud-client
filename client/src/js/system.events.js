@@ -461,7 +461,7 @@ var events = {
                 navigationEvent(e);
             });
 
-            // TODO: Ignire [ ], etc still
+            events.navigationState("pause");
             navigationBindings("init");
             dialog.userSpaceRight();
         }
@@ -551,10 +551,11 @@ var events = {
         var _doc = document.getElementById("main");
         document.body.style.background = "#000000";
         _doc.style.display = "block";
+
+        events.removeNavigationState();
         navigationInit.navigationInit();
 
         navigationBindings("init");
-
 
     },
 

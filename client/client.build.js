@@ -3831,9 +3831,9 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.hr(null), 
 
 
-                        React.DOM.div({className: "user-space-player"}, 
+                        React.DOM.div({className: "user-space-player col-xs-12"}, 
 
-                            React.DOM.div({className: "col-xs-10 text-left"}, 
+                            React.DOM.div({className: "col-xs-8 text-left"}, 
                                 this.state.session.Username
                             ), 
 
@@ -3858,7 +3858,7 @@ module.exports = React.createClass({displayName: 'exports',
                         React.DOM.div({className: "clearfix"}), 
 
                         React.DOM.div({className: "purple-user-space-block col-xs-3"}, 
-                            React.DOM.i({className: "ion-videocamera"})
+                            React.DOM.i({className: "ion-ios-videocam-outline"})
                         ), 
 
                         React.DOM.div({className: "col-xs-9 user-space-count"}, 
@@ -3868,7 +3868,7 @@ module.exports = React.createClass({displayName: 'exports',
                         React.DOM.div({className: "clearfix"}), 
 
                         React.DOM.div({className: "red-user-space-block col-xs-3"}, 
-                            React.DOM.i({className: "ion-ios-stopwatch-outline"})
+                            React.DOM.i({className: "ion-android-stopwatch"})
                         ), 
 
                         React.DOM.div({className: "col-xs-9 user-space-count"}, 
@@ -3876,7 +3876,7 @@ module.exports = React.createClass({displayName: 'exports',
                         ), 
 
                         React.DOM.div({className: "user-space-bottom"}
-                    
+
                         )
                 )
 
@@ -3915,7 +3915,6 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
-        
         navigationInit.navigationInit();
     },
 
@@ -3934,9 +3933,25 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.div({className: "clearfix"}), 
 
                     React.DOM.small(null, 
-                    React.DOM.a({className: "btn btn-alt btn-sm navable"}, React.DOM.i({className: "ion-videocamera"}), "   Record Movie"), 
-                    React.DOM.a({className: "btn btn-alt btn-sm navable"}, React.DOM.i({className: "ion-qr-scanner"}), "   Take Screenshot"), 
-                    React.DOM.a({className: "btn btn-alt btn-sm navable"}, React.DOM.i({className: "ion-qr-scanner"}), "   Take Screenshot")
+
+                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-ios-game-controller-b"}), "   Invite Friend"), 
+                        React.DOM.br(null), React.DOM.br(null), 
+                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-chatbubbles"}), "   Messages ", React.DOM.span({className: "badge badge-danger"}, "10")), 
+                        React.DOM.br(null), React.DOM.br(null), 
+                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-trophy"}), "   View Achievements"), 
+
+                        React.DOM.hr(null), 
+
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-image"}), "   Take Screenshot"), 
+                        React.DOM.br(null), React.DOM.br(null), 
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-ios-cloud-download-outline"}), "   Save State"), 
+                        React.DOM.br(null), React.DOM.br(null), 
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-more"}), "   Load State"), 
+
+                        React.DOM.hr(null), 
+
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-android-cancel"}), "   Quit Game")
+
                     )
 
 
@@ -8418,7 +8433,7 @@ var events = {
                 navigationEvent(e);
             });
 
-            // TODO: Ignire [ ], etc still
+            events.navigationState("pause");
             navigationBindings("init");
             dialog.userSpaceRight();
         }
@@ -8508,10 +8523,11 @@ var events = {
         var _doc = document.getElementById("main");
         document.body.style.background = "#000000";
         _doc.style.display = "block";
+
+        events.removeNavigationState();
         navigationInit.navigationInit();
 
         navigationBindings("init");
-
 
     },
 

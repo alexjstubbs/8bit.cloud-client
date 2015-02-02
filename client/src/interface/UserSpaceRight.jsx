@@ -26,7 +26,6 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        
         navigationInit.navigationInit();
     },
 
@@ -45,9 +44,25 @@ module.exports = React.createClass({
                     <div className="clearfix"></div>
 
                     <small>
-                    <a className="btn btn-alt btn-sm navable"><i className="ion-videocamera"></i> &nbsp; Record Movie</a>
-                    <a className="btn btn-alt btn-sm navable"><i className="ion-qr-scanner"></i> &nbsp; Take Screenshot</a>
-                    <a className="btn btn-alt btn-sm navable"><i className="ion-qr-scanner"></i> &nbsp; Take Screenshot</a>
+
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-ios-game-controller-b"></i> &nbsp; Invite Friend</a>
+                        <br /><br />
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-chatbubbles"></i> &nbsp; Messages <span className="badge badge-danger">10</span></a>
+                        <br /><br />
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-trophy"></i> &nbsp; View Achievements</a>
+
+                        <hr />
+
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-image"></i> &nbsp; Take Screenshot</a>
+                        <br /><br />
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-ios-cloud-download-outline"></i> &nbsp; Save State</a>
+                        <br /><br />
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-more"></i> &nbsp; Load State</a>
+
+                        <hr />
+
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-android-cancel"></i> &nbsp; Quit Game</a>
+
                     </small>
 
 

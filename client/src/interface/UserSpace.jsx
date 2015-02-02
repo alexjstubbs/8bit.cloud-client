@@ -55,9 +55,9 @@ module.exports = React.createClass({
                     <hr />
 
 
-                        <div className="user-space-player">
+                        <div className="user-space-player col-xs-12">
 
-                            <div className="col-xs-10 text-left">
+                            <div className="col-xs-8 text-left">
                                 {this.state.session.Username}
                             </div>
 
@@ -82,7 +82,7 @@ module.exports = React.createClass({
                         <div className="clearfix"></div>
 
                         <div className="purple-user-space-block col-xs-3">
-                            <i className="ion-videocamera"></i>
+                            <i className="ion-ios-videocam-outline"></i>
                         </div>
 
                         <div className="col-xs-9 user-space-count">
@@ -92,7 +92,7 @@ module.exports = React.createClass({
                         <div className="clearfix"></div>
 
                         <div className="red-user-space-block col-xs-3">
-                            <i className="ion-ios-stopwatch-outline"></i>
+                            <i className="ion-android-stopwatch"></i>
                         </div>
 
                         <div className="col-xs-9 user-space-count">
@@ -100,7 +100,7 @@ module.exports = React.createClass({
                         </div>
 
                         <div className="user-space-bottom">
-                    
+
                         </div>
                 </div>
 
