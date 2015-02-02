@@ -38,12 +38,17 @@ var navigationInit = function(element, callback) {
     var defaultSelected = document.querySelectorAll(".default-navable")[0];
 
     // Should i re-select an input on a form?
-    var activeInput = parent.querySelectorAll(".activeInput")[0];
+    var activeInput      = parent.querySelectorAll(".activeInput")[0];
+    var defaultSelection = parent.querySelectorAll(".defaultSelection")[0];
 
-    if (activeInput) {
+    if (defaultSelection) {
+        defaultSelection.classList.add("selectedNav", "selected");
+    }
 
+
+    else if (activeInput) {
         activeInput.classList.add("selectedNav", "selected");
-        // activeInput.classList.remove("activeInput");
+        activeInput.classList.remove("activeInput");
     }
 
     // Choose first child or Default if specified
