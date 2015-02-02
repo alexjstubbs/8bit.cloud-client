@@ -1,23 +1,22 @@
 /* Requested system events via client (usually button presses)
 -------------------------------------------------- */
 
-var systemNotify        	= require('./notification.init.js')
-,   KeyEvent                = require('./navigation.keyEvent')
-,   api                 	= require('socket.io-client')('/api')
-,   React               	= require('react/addons')
-,   Modal               	= require('../interface/Modal.jsx')
-,   Messages            	= require('../interface/Messages.jsx')
-,   navigationBindings  	= require("./navigation.bindings")
-,   database                = require('./database.helpers')
-,   navigationEvent     	= require("./navigation.event")
-,   _                   	= require('lodash')
-,   navigationInit      	= require("./navigation.init.js")
-,   dialog              	= require('./dialogs')
-,   eventDispatcher     	= require('./events')
-,   keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents')
-,   Screens             	= require('../interface/Screens.jsx')
-,   mousetrap           	= require("./mousetrap.min.js")
-,   navigationEvent     	= require("./navigation.event");
+var systemNotify        	= require('./notification.init.js'),
+    KeyEvent                = require('./navigation.keyEvent'),
+    api                 	= require('socket.io-client')('/api'),
+    React               	= require('react/addons'),
+    Modal               	= require('../interface/Modal.jsx'),
+    Messages            	= require('../interface/Messages.jsx'),
+    navigationBindings  	= require("./navigation.bindings"),
+    navigationEvent     	= require("./navigation.event"),
+    _                   	= require('lodash'),
+    navigationInit      	= require("./navigation.init.js"),
+    dialog              	= require('./dialogs'),
+    eventDispatcher     	= require('./events'),
+    keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
+    Screens             	= require('../interface/Screens.jsx'),
+    mousetrap           	= require("./mousetrap.min.js"),
+    navigationEvent     	= require("./navigation.event");
 
 
 var events = {
@@ -121,7 +120,7 @@ var events = {
 
         var form = document.forms[parameters].elements;
 
-        var obj = new Object;
+        var obj = {};
 
         _.each(form, function(input) {
             if (input.name && input.value) {
@@ -246,7 +245,7 @@ var events = {
             agree: "browserFocusAgree",
             disagree: "closeDialog",
             parameters: parameters
-        }
+        };
 
         dialog.show("Prompt", null, arg);
 
@@ -313,13 +312,13 @@ var events = {
             if (item.getAttribute("data-parameters") == parameters) {
                 item.classList.add("selected");
                 longname = item.textContent;
-            };
+            }
         }).value();
 
         var Obj = {
                 platform: longname,
                 start: 0
-        }
+        };
 
         api.emit('request', { request: 'gamesList', param: Obj });
 
@@ -337,7 +336,7 @@ var events = {
         var Obj = {
             database: "favorites",
             values: pObj
-        }
+        };
 
         api.emit('request', { request: 'storeData', param: Obj });
 
@@ -355,7 +354,7 @@ var events = {
         var Obj = {
             database: "favorites",
             values: pObj
-        }
+        };
 
         api.emit('request', { request: 'removeFavorite', param: Obj });
 
@@ -376,7 +375,7 @@ var events = {
             agree: "deleteMessageConfirmed",
             disagree: "closeDialog",
             parameters: parameters
-        }
+        };
 
         dialog.show("Prompt", null, arg);
 
@@ -481,7 +480,7 @@ var events = {
             platform: platform,
             filepath: parameters,
             shortname: shortname
-        }
+        };
 
         eventDispatcher.launchContext(_launchContext);
 
@@ -536,7 +535,7 @@ var events = {
 
         if (!doc.classList.contains("required")) {
             doc.classList.toggle("label-selected");
-            if (input) { input.classList.toggle("disabled") };
+            if (input) { input.classList.toggle("disabled"); }
         }
 
         eventDispatcher.selectBox(input, doc.classList.contains("label-selected"));
@@ -552,7 +551,7 @@ var events = {
 
             _.each(parent.childNodes, function(el) {
                 el.classList.remove("label-selected");
-            })
+            });
 
             doc.classList.add("label-selected");
 
@@ -560,7 +559,7 @@ var events = {
 
     },
 
-}
+};
 
 
 /* Exports

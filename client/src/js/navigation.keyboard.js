@@ -1,11 +1,11 @@
 /* OnScreen Keyboard
 -------------------------------------------------- */
-var navigationInit  = require('./navigation.init.js')
+var navigationInit  = require('./navigation.init.js');
 
 /* Symbols Keyboard
 -------------------------------------------------- */
 var symbolsKeyboard = function(elem) {
-  
+
     this.elem = elem;
     this.elem.className = "keyboard";
 
@@ -70,7 +70,7 @@ symbolsKeyboard.prototype.createKey = function(key) {
 
   if (!key.match(/^[0-9a-z]+$/)) {
       button.classList.add("key-dark");
-  };
+  }
 
   if (key == "<i class='ion-checkmark'></i>") {
       button.classList.add("key-dark");
@@ -111,7 +111,7 @@ Keyboard.prototype.createKey = function(key) {
 
   if (!key.match(/^[0-9a-z]+$/)) {
       button.classList.add("key-dark");
-  };
+  }
 
   if (key == "<i class='ion-checkmark'></i>") {
       button.classList.add("key-blue");

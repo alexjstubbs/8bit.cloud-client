@@ -1,10 +1,10 @@
 /* API Event Listeners
 -------------------------------------------------- */
-var api             = require('socket.io-client')('/api')
-,   events          = require('./events')
-,   _               = require('lodash')
-, 	dialog          = require('./dialogs')
-,   uiNotification  = require('./ui.notification');
+var api             = require('socket.io-client')('/api'),
+    events          = require('./events'),
+    _               = require('lodash'),
+    dialog          = require('./dialogs'),
+    uiNotification  = require('./ui.notification');
 
 /* TODO: Fix up to contain all detail
 -------------------------------------------------- */

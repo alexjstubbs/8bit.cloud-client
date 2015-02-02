@@ -1,34 +1,34 @@
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var systemNotify            = require('./notification.init.js')
-,   api                     = require('socket.io-client')('/api')
-,   events                  = require('./events.js')
-,   React                   = require('react/addons')
-,   Modal                   = require('../interface/Modal.jsx')
-,   Message                 = require('../interface/Message.jsx')
-,   Messages                = require('../interface/Messages.jsx')
-,   Friends                 = require('../interface/Friends.jsx')
-,   Friend                  = require('../interface/Friend.jsx')
-,   SoftwareOptions         = require('../interface/SoftwareOptions.jsx')
-,   AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx')
-,   FriendLarge             = require('../interface/FriendLarge.jsx')
-,   Popup                   = require('../interface/Popup.jsx')
-,   Prompt                  = require('../interface/Prompt.jsx')
-,   Terminal                = require('../interface/Terminal.jsx')
-,   WebBrowser              = require('../interface/WebBrowser.jsx')
-,   SignUp                  = require('../interface/forms/SignUp.jsx')
-,   AddFriend               = require('../interface/forms/AddFriend.jsx')
-,   PassMessage             = require('../interface/forms/PassMessage.jsx')
-,   CommunityInfo           = require('../interface/CommunityInfo.jsx')
-,   navigationInit          = require("./navigation.init.js")
-,   Keyboard                = require("../interface/OnScreenKeyboard.jsx")
-,   GeneralDialog           = require("../interface/GeneralDialog.jsx")
-,   UserSpace               = require("../interface/UserSpace.jsx")
-,   UserSpaceRight          = require("../interface/UserSpaceRight.jsx")
-,   _                       = require('lodash');
+var systemNotify            = require('./notification.init.js'),
+    api                     = require('socket.io-client')('/api'),
+    events                  = require('./events.js'),
+    React                   = require('react/addons'),
+    Modal                   = require('../interface/Modal.jsx'),
+    Message                 = require('../interface/Message.jsx'),
+    Messages                = require('../interface/Messages.jsx'),
+    Friends                 = require('../interface/Friends.jsx'),
+    Friend                  = require('../interface/Friend.jsx'),
+    SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
+    AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
+    FriendLarge             = require('../interface/FriendLarge.jsx'),
+    Popup                   = require('../interface/Popup.jsx'),
+    Prompt                  = require('../interface/Prompt.jsx'),
+    Terminal                = require('../interface/Terminal.jsx'),
+    WebBrowser              = require('../interface/WebBrowser.jsx'),
+    SignUp                  = require('../interface/forms/SignUp.jsx'),
+    AddFriend               = require('../interface/forms/AddFriend.jsx'),
+    PassMessage             = require('../interface/forms/PassMessage.jsx'),
+    CommunityInfo           = require('../interface/CommunityInfo.jsx'),
+    navigationInit          = require("./navigation.init.js"),
+    Keyboard                = require("../interface/OnScreenKeyboard.jsx"),
+    GeneralDialog           = require("../interface/GeneralDialog.jsx"),
+    UserSpace               = require("../interface/UserSpace.jsx"),
+    UserSpaceRight          = require("../interface/UserSpaceRight.jsx"),
+    _                       = require('lodash');
 
-var _div;
+    var _div;
 
 
 /* Prompt Dialog
@@ -41,7 +41,7 @@ var prompt = function(callback) {
 
     React.renderComponent(Modal({children: Prompt(null)}), div);
 
-}
+};
 
 /* General Message Dialog
 -------------------------------------------------- */
@@ -52,7 +52,7 @@ var popup = function(obj, callback) {
     document.body.appendChild(div);
 
     React.renderComponent(Modal({children: SignUp(null)}), div);
-}
+};
 
 /* Show General/Error Modal
 -------------------------------------------------- */
@@ -61,7 +61,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
-    if (!_type) { _type = 1 }
+    if (!_type) { _type = 1; }
 
     var _index = document.querySelectorAll(".ignition-modal");
 
@@ -78,7 +78,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
 
     React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body, dataFunction: dataFunction, dataParameters: dataParameters, button: button })}), _div);
 
-}
+};
 
 /* Show Content Modal
 -------------------------------------------------- */
@@ -89,7 +89,7 @@ var show = function(parent, parameters, arg) {
 
     var _index      = document.querySelectorAll(".ignition-modal"),
         fragment    = document.createDocumentFragment(),
-        properties  = {}
+        properties  = {};
 
     _div = document.createElement("div");
     _div.classList.add("ignition-modal-parent");
@@ -151,7 +151,9 @@ var show = function(parent, parameters, arg) {
             properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
             Child = CommunityInfo({});
             break;
-        default: Child = AddFriend({});
+        default:
+            Child = AddFriend({});
+            break;
     }
 
 
@@ -159,7 +161,7 @@ var show = function(parent, parameters, arg) {
 
     _div.classList.add("animateUp");
 
-}
+};
 
 /* Close Modal
 -------------------------------------------------- */
@@ -188,7 +190,7 @@ var close = function(modal, callback, exception) {
     //
     // }
 
-    var modal = document.querySelectorAll(".ignition-modal-parent");
+    modal = document.querySelectorAll(".ignition-modal-parent");
 
     // Re-render dashboard
     if (modal.length == 1) {
@@ -209,7 +211,7 @@ var close = function(modal, callback, exception) {
         callback();
     }
 
-}
+};
 
 
 /* Show Keyboard
@@ -238,14 +240,14 @@ var keyboard = function(input, callback) {
     // FIX ME: take styles from ignition modal, remov class name
     React.renderComponent(Modal({backdrop: true, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
-}
+};
 
 /* Show Notification outside of Wrapper
 -------------------------------------------------- */
 var uiNotification = function(achievementObj, callback) {
 
     if (achievementObj) achievementObj = JSON.parse(achievementObj);
-    
+
     var _index = document.querySelectorAll(".ignition-modal-");
 
     var div = document.createElement("div");
@@ -256,7 +258,7 @@ var uiNotification = function(achievementObj, callback) {
 
     React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({achievement: achievementObj})), div);
 
-}
+};
 
 /*  User Space (Sidebars, usually shown during gameplay)
 -------------------------------------------------- */
@@ -278,7 +280,7 @@ var userSpace = function(input, callback) {
 
     React.renderComponent(UserSpaceRight({}), div);
 
-}
+};
 
 /* Exports
 -------------------------------------------------- */

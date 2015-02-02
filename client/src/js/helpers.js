@@ -15,7 +15,7 @@ var getFirstChild = function(el) {
     else {
         return;
     }
-}
+};
 
 /* Remove general brackets and characters from filenames
 -------------------------------------------------- */
@@ -27,7 +27,7 @@ var removeBrackets = function(input) {
     .replace(/\(.*?\)\s?/g, "") // (*)
     .replace(", The", "") // ', The' alpha
     .replace(re, '');
-}
+};
 
 /* Preload images
 -------------------------------------------------- */
@@ -35,9 +35,9 @@ var preloadImage = function(url, callback) {
     var img = new Image();
     img.src = url;
     img.onload = function () {
-        callback(true)
+        callback(true);
     };
-}
+};
 
 /* Exports
 -------------------------------------------------- */

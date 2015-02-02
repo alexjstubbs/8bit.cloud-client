@@ -1,7 +1,7 @@
 /* On Screen Keyboard translations
 -------------------------------------------------- */
-var events = require("./events")
-,   _      = require("lodash");
+var events = require("./events"),
+    _      = require("lodash");
 
 var keypress = function(parameters) {
 
@@ -82,7 +82,7 @@ var keypress = function(parameters) {
 
         console.log(cursor[0].offsetLeft);
 
-        if (cursor[0].offsetRight != 0) {
+        if (cursor[0].offsetRight !== 0) {
 	        cursor[0].style.left = cursor[0].offsetLeft - 7 + "px";
         }
 
@@ -165,7 +165,7 @@ var keypress = function(parameters) {
         cursor[0].scrollIntoView(true);
         recentInput.scrollTop = cursor[0].offsetTop;
     }
-}
+};
 
 /* Exports
 -------------------------------------------------- */

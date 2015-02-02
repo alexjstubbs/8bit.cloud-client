@@ -42,7 +42,7 @@ module.exports = function(path, height, width, left, top) {
                     content.innerHTML = "<br /><img class='img-responsive' src='../img/demo/community.png'> <hr /><a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-nav='7' data-function='closeLightbox'><i class='ion-play'></i> &nbsp; Play Game</a><div class='pull-right'><a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-nav='7' data-function='closeLightbox'><i class='ion-ios7-help-outline'></i> &nbsp; About the Club</a> &nbsp; <a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable selectedNav' data-nav='7' data-function='closeLightbox'><i class='ion-ios7-chatboxes-outline'></i> &nbsp; Discuss</a></div>";
                 }
             }
-        }
+        };
 
         request.onreadystatechange = handleAjaxEvent;
         request.send();
@@ -99,7 +99,7 @@ module.exports = function(path, height, width, left, top) {
         var removeLightbox = function() {
             document.body.removeChild(backdrop);
             document.body.removeChild(content);
-        }
+        };
 
         // remove the lightbox when people click on the backdrop
         backdrop.addEventListener("click", removeLightbox);

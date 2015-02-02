@@ -1,14 +1,14 @@
 /* General Navigation Functions
 -------------------------------------------------- */
 
-var systemEvents        = require('./system.events.js')
-,   navigationHelpers   = require('./navigation.helpers.js')
-,   KeyEvent            = require('./navigation.keyEvent.js')
-,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents
-,   _                   = require('lodash')
-,   formInputs          = ['text', 'input', 'submit', 'password']
-,   memSelection
-,   timeSync;
+var systemEvents        = require('./system.events.js'),
+    navigationHelpers   = require('./navigation.helpers.js'),
+    KeyEvent            = require('./navigation.keyEvent.js'),
+    navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents,
+    _                   = require('lodash'),
+    formInputs          = ['text', 'input', 'submit', 'password'],
+    memSelection,
+    timeSync;
 
 
 /*  Show Selection in Small Game Profile
@@ -35,7 +35,7 @@ module.exports = function(k) {
 
     var screen = document.getElementById("screen-active").classList[0];
 
-    function currentSelection() {
+    function showCurrentSelection() {
 
         if (screen == 'Browser') {
 
@@ -105,7 +105,6 @@ module.exports = function(k) {
                 if (s.previousElementSibling) {
                     var d = s.previousElementSibling.previousElementSibling;
 
-
                     if (d) {
                         d.scrollIntoView(false);
                     }
@@ -158,16 +157,16 @@ module.exports = function(k) {
 
             if(_.contains(formInputs, sel[0].type)) {
                 KeyEvent(39);
-            };
+            }
 
             // Textarea/ScollingDiv Scrolling
             if (sel[0].nodeName == "TEXTAREA") {
                 sel[0].scrollTop = sel[0].scrollTop + 20;
-            };
+            }
 
             if (sel[0].classList.contains("scrollable-view")) {
                 sel[0].scrollTop = sel[0].scrollTop + 20;
-            };
+            }
 
             // Inside onScreen Keyboard
             if (sel[0].classList.contains("rowParent")) {
@@ -187,7 +186,7 @@ module.exports = function(k) {
 
                     if (nextRow.childNodes[elIndex]) {
 
-                        nextRow.childNodes[elIndex].classList.add("selectedNav");;
+                        nextRow.childNodes[elIndex].classList.add("selectedNav");
                     }
 
                     else {
@@ -233,7 +232,7 @@ module.exports = function(k) {
                 sel[0].classList.remove("selectedNav");
                 sel[0].parentNode.parentNode.querySelectorAll(".subNavable")[i].classList.add("selectedNav");
 
-                currentSelection();
+                showCurrentSelection();
 
             } else {
 
@@ -257,16 +256,16 @@ module.exports = function(k) {
             // is an Input
             if(_.contains(formInputs, sel[0].type)) {
                 KeyEvent(37);
-            };
+            }
 
             // Scrollable Textarea/Div
             if (sel[0].nodeName == "TEXTAREA") {
                 sel[0].scrollTop = sel[0].scrollTop - 20;
-            };
+            }
 
             if (sel[0].classList.contains("scrollable-view")) {
                 sel[0].scrollTop = sel[0].scrollTop - 20;
-            };
+            }
 
             // Inside onScreen Keyboard
             if (sel[0].classList.contains("rowParent")) {
@@ -330,7 +329,7 @@ module.exports = function(k) {
                 sel[0].classList.remove("selectedNav");
                 sel[0].parentNode.parentNode.querySelectorAll(".subNavable")[i].classList.add("selectedNav");
 
-                currentSelection();
+                showCurrentSelection();
             }
 
         }
@@ -345,7 +344,7 @@ module.exports = function(k) {
 
             navigationHelpers(sel[0].getAttribute('id'));
 
-            currentSelection();
+            showCurrentSelection();
 
         }
     }

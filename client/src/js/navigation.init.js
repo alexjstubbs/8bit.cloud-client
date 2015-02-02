@@ -53,7 +53,7 @@ var navigationInit = function(element, callback) {
 
     }
 
-}
+};
 
 /* General Navigation Assigns/Init
 -------------------------------------------------- */
@@ -70,7 +70,7 @@ var navigationDeinit = function(element, callback) {
         el.classList.remove("selectedActive");
     }).value();
 
-}
+};
 
 
 /* Highlight Selection
@@ -81,7 +81,7 @@ var highlight = function() {
     //   blink = setInterval(function() {
     //         document.querySelector('.selectedNav').classList.toggle('selectedActive');
     // }, 200);
-}
+};
 
 /* Exports
 -------------------------------------------------- */

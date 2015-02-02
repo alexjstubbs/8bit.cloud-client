@@ -1,9 +1,9 @@
 /* Clientside Database Helpers
 -------------------------------------------------- */
 
-var nsp         = require('socket.io-client')('/api')
-,   _           = require("lodash")
-,   api         = require('socket.io-client')('/api');
+var nsp         = require('socket.io-client')('/api'),
+    _           = require("lodash"),
+    api         = require('socket.io-client')('/api');
 
 /* Scoped Module Globals
 -------------------------------------------------- */
@@ -14,7 +14,7 @@ var collection = {},
 -------------------------------------------------- */
 String.prototype.hashCode = function() {
     var hash = 0, i, chr, len;
-    if (this.length == 0) return hash;
+    if (this.length === 0) return hash;
     for (i = 0, len = this.length; i < len; i++) {
       chr   = this.charCodeAt(i);
       hash  = ((hash << 5) - hash) + chr;
@@ -28,7 +28,7 @@ String.prototype.hashCode = function() {
 -------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
     return;
-}
+};
 
 /* Filter Collection by Attribute
 -------------------------------------------------- */
@@ -49,7 +49,7 @@ var filterByAttribute = function(database, query, callback) {
 
     callback(obj);
 
-}
+};
 
 /* Exports
 -------------------------------------------------- */

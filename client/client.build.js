@@ -5363,7 +5363,7 @@ module.exports = function() {
     return {
         username: username,
         avatar: "large"
-    }
+    };
 };
 
 },{}],72:[function(require,module,exports){
@@ -5417,9 +5417,9 @@ exports.api     = api;
 /* Clientside Database Helpers
 -------------------------------------------------- */
 
-var nsp         = require('socket.io-client')('/api')
-,   _           = require("lodash")
-,   api         = require('socket.io-client')('/api');
+var nsp         = require('socket.io-client')('/api'),
+    _           = require("lodash"),
+    api         = require('socket.io-client')('/api');
 
 /* Scoped Module Globals
 -------------------------------------------------- */
@@ -5430,7 +5430,7 @@ var collection = {},
 -------------------------------------------------- */
 String.prototype.hashCode = function() {
     var hash = 0, i, chr, len;
-    if (this.length == 0) return hash;
+    if (this.length === 0) return hash;
     for (i = 0, len = this.length; i < len; i++) {
       chr   = this.charCodeAt(i);
       hash  = ((hash << 5) - hash) + chr;
@@ -5444,7 +5444,7 @@ String.prototype.hashCode = function() {
 -------------------------------------------------- */
 var initLocalDatabase = function(database, callback) {
     return;
-}
+};
 
 /* Filter Collection by Attribute
 -------------------------------------------------- */
@@ -5465,7 +5465,7 @@ var filterByAttribute = function(database, query, callback) {
 
     callback(obj);
 
-}
+};
 
 /* Exports
 -------------------------------------------------- */
@@ -5476,34 +5476,34 @@ exports.initLocalDatabase = initLocalDatabase;
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var systemNotify            = require('./notification.init.js')
-,   api                     = require('socket.io-client')('/api')
-,   events                  = require('./events.js')
-,   React                   = require('react/addons')
-,   Modal                   = require('../interface/Modal.jsx')
-,   Message                 = require('../interface/Message.jsx')
-,   Messages                = require('../interface/Messages.jsx')
-,   Friends                 = require('../interface/Friends.jsx')
-,   Friend                  = require('../interface/Friend.jsx')
-,   SoftwareOptions         = require('../interface/SoftwareOptions.jsx')
-,   AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx')
-,   FriendLarge             = require('../interface/FriendLarge.jsx')
-,   Popup                   = require('../interface/Popup.jsx')
-,   Prompt                  = require('../interface/Prompt.jsx')
-,   Terminal                = require('../interface/Terminal.jsx')
-,   WebBrowser              = require('../interface/WebBrowser.jsx')
-,   SignUp                  = require('../interface/forms/SignUp.jsx')
-,   AddFriend               = require('../interface/forms/AddFriend.jsx')
-,   PassMessage             = require('../interface/forms/PassMessage.jsx')
-,   CommunityInfo           = require('../interface/CommunityInfo.jsx')
-,   navigationInit          = require("./navigation.init.js")
-,   Keyboard                = require("../interface/OnScreenKeyboard.jsx")
-,   GeneralDialog           = require("../interface/GeneralDialog.jsx")
-,   UserSpace               = require("../interface/UserSpace.jsx")
-,   UserSpaceRight          = require("../interface/UserSpaceRight.jsx")
-,   _                       = require('lodash');
+var systemNotify            = require('./notification.init.js'),
+    api                     = require('socket.io-client')('/api'),
+    events                  = require('./events.js'),
+    React                   = require('react/addons'),
+    Modal                   = require('../interface/Modal.jsx'),
+    Message                 = require('../interface/Message.jsx'),
+    Messages                = require('../interface/Messages.jsx'),
+    Friends                 = require('../interface/Friends.jsx'),
+    Friend                  = require('../interface/Friend.jsx'),
+    SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
+    AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
+    FriendLarge             = require('../interface/FriendLarge.jsx'),
+    Popup                   = require('../interface/Popup.jsx'),
+    Prompt                  = require('../interface/Prompt.jsx'),
+    Terminal                = require('../interface/Terminal.jsx'),
+    WebBrowser              = require('../interface/WebBrowser.jsx'),
+    SignUp                  = require('../interface/forms/SignUp.jsx'),
+    AddFriend               = require('../interface/forms/AddFriend.jsx'),
+    PassMessage             = require('../interface/forms/PassMessage.jsx'),
+    CommunityInfo           = require('../interface/CommunityInfo.jsx'),
+    navigationInit          = require("./navigation.init.js"),
+    Keyboard                = require("../interface/OnScreenKeyboard.jsx"),
+    GeneralDialog           = require("../interface/GeneralDialog.jsx"),
+    UserSpace               = require("../interface/UserSpace.jsx"),
+    UserSpaceRight          = require("../interface/UserSpaceRight.jsx"),
+    _                       = require('lodash');
 
-var _div;
+    var _div;
 
 
 /* Prompt Dialog
@@ -5516,7 +5516,7 @@ var prompt = function(callback) {
 
     React.renderComponent(Modal({children: Prompt(null)}), div);
 
-}
+};
 
 /* General Message Dialog
 -------------------------------------------------- */
@@ -5527,7 +5527,7 @@ var popup = function(obj, callback) {
     document.body.appendChild(div);
 
     React.renderComponent(Modal({children: SignUp(null)}), div);
-}
+};
 
 /* Show General/Error Modal
 -------------------------------------------------- */
@@ -5536,7 +5536,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
-    if (!_type) { _type = 1 }
+    if (!_type) { _type = 1; }
 
     var _index = document.querySelectorAll(".ignition-modal");
 
@@ -5553,7 +5553,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
 
     React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body, dataFunction: dataFunction, dataParameters: dataParameters, button: button })}), _div);
 
-}
+};
 
 /* Show Content Modal
 -------------------------------------------------- */
@@ -5564,7 +5564,7 @@ var show = function(parent, parameters, arg) {
 
     var _index      = document.querySelectorAll(".ignition-modal"),
         fragment    = document.createDocumentFragment(),
-        properties  = {}
+        properties  = {};
 
     _div = document.createElement("div");
     _div.classList.add("ignition-modal-parent");
@@ -5626,7 +5626,9 @@ var show = function(parent, parameters, arg) {
             properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
             Child = CommunityInfo({});
             break;
-        default: Child = AddFriend({});
+        default:
+            Child = AddFriend({});
+            break;
     }
 
 
@@ -5634,7 +5636,7 @@ var show = function(parent, parameters, arg) {
 
     _div.classList.add("animateUp");
 
-}
+};
 
 /* Close Modal
 -------------------------------------------------- */
@@ -5663,7 +5665,7 @@ var close = function(modal, callback, exception) {
     //
     // }
 
-    var modal = document.querySelectorAll(".ignition-modal-parent");
+    modal = document.querySelectorAll(".ignition-modal-parent");
 
     // Re-render dashboard
     if (modal.length == 1) {
@@ -5684,7 +5686,7 @@ var close = function(modal, callback, exception) {
         callback();
     }
 
-}
+};
 
 
 /* Show Keyboard
@@ -5713,14 +5715,14 @@ var keyboard = function(input, callback) {
     // FIX ME: take styles from ignition modal, remov class name
     React.renderComponent(Modal({backdrop: true, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
-}
+};
 
 /* Show Notification outside of Wrapper
 -------------------------------------------------- */
 var uiNotification = function(achievementObj, callback) {
 
     if (achievementObj) achievementObj = JSON.parse(achievementObj);
-    
+
     var _index = document.querySelectorAll(".ignition-modal-");
 
     var div = document.createElement("div");
@@ -5731,7 +5733,7 @@ var uiNotification = function(achievementObj, callback) {
 
     React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({achievement: achievementObj})), div);
 
-}
+};
 
 /*  User Space (Sidebars, usually shown during gameplay)
 -------------------------------------------------- */
@@ -5753,7 +5755,7 @@ var userSpace = function(input, callback) {
 
     React.renderComponent(UserSpaceRight({}), div);
 
-}
+};
 
 /* Exports
 -------------------------------------------------- */
@@ -5769,11 +5771,11 @@ exports.userSpace           = userSpace;
 },{"../interface/AchievementUnlocked.jsx":2,"../interface/CommunityInfo.jsx":8,"../interface/Friend.jsx":13,"../interface/FriendLarge.jsx":14,"../interface/Friends.jsx":15,"../interface/GeneralDialog.jsx":18,"../interface/Message.jsx":25,"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/OnScreenKeyboard.jsx":30,"../interface/Popup.jsx":34,"../interface/Prompt.jsx":37,"../interface/SoftwareOptions.jsx":43,"../interface/Terminal.jsx":44,"../interface/UserSpace.jsx":48,"../interface/UserSpaceRight.jsx":49,"../interface/WebBrowser.jsx":51,"../interface/forms/AddFriend.jsx":52,"../interface/forms/PassMessage.jsx":53,"../interface/forms/SignUp.jsx":54,"./events.js":76,"./navigation.init.js":86,"./notification.init.js":91,"lodash":101,"react/addons":103,"socket.io-client":262}],75:[function(require,module,exports){
 /* API Event Listeners
 -------------------------------------------------- */
-var api             = require('socket.io-client')('/api')
-,   events          = require('./events')
-,   _               = require('lodash')
-, 	dialog          = require('./dialogs')
-,   uiNotification  = require('./ui.notification');
+var api             = require('socket.io-client')('/api'),
+    events          = require('./events'),
+    _               = require('lodash'),
+    dialog          = require('./dialogs'),
+    uiNotification  = require('./ui.notification');
 
 /* TODO: Fix up to contain all detail
 -------------------------------------------------- */
@@ -5880,7 +5882,7 @@ var changeView = function(view) {
     if (event) {
     	window.dispatchEvent(event);
     }
-}
+};
 
 /* Dialogs (circular hack)
 -------------------------------------------------- */
@@ -5926,7 +5928,7 @@ var serverResponse = function(response) {
     if (event) {
         window.dispatchEvent(event);
     }
-}
+};
 
 /* Update Game
 -------------------------------------------------- */
@@ -5953,12 +5955,11 @@ var updateGame = function(results, filepath, callback) {
 
         });
 
+        if (event) {
+            window.dispatchEvent(event);
+        }
     }
-
-    if (event) {
-        window.dispatchEvent(event);
-    };
-}
+};
 
 
 /* Launch Context
@@ -6030,11 +6031,11 @@ exports.selectBox       	    = selectBox;
   *
 */
 
-var navigationKeyEvent      = require("./navigation.keyEvent.js")
-,   sounds                  = require("./system.sounds.js")
-,   mousetrap               = require("./mousetrap.min.js")
-,   _                       = require("lodash")
-,   buttonTimestamp         = {};
+var navigationKeyEvent      = require("./navigation.keyEvent.js"),
+    sounds                  = require("./system.sounds.js"),
+    mousetrap               = require("./mousetrap.min.js"),
+    _                       = require("lodash"),
+    buttonTimestamp         = {};
 
 var gamepadSupport = {
 
@@ -6253,7 +6254,7 @@ var gamepadSupport = {
                 buttonTimestamp = {
                     timestamp: Math.round(+new Date()/100),
                     button: button
-                }
+                };
 
             }
 
@@ -6268,14 +6269,14 @@ var gamepadSupport = {
                     // Mappings
 
                     if (button[5]) {
-                        console.log("a")
+                        console.log("a");
                         navigationKeyEvent(221);
                         // Mousetrap.trigger(']', null);
 
                     }
 
                     if (button[4]) {
-                        console.log("s")
+                        console.log("s");
                         navigationKeyEvent(219);
                         // Mousetrap.trigger('[', null);
                     }
@@ -6409,7 +6410,7 @@ var gamepadSupport = {
 
                             console.log("[gamepad]: Gamepad Disconnected!");
 
-                            gamepadSupport.STATE_CHANGE = 0
+                            gamepadSupport.STATE_CHANGE = 0;
                             // sounds('notify_down.wav');
 
                         }
@@ -6508,7 +6509,7 @@ var getFirstChild = function(el) {
     else {
         return;
     }
-}
+};
 
 /* Remove general brackets and characters from filenames
 -------------------------------------------------- */
@@ -6520,7 +6521,7 @@ var removeBrackets = function(input) {
     .replace(/\(.*?\)\s?/g, "") // (*)
     .replace(", The", "") // ', The' alpha
     .replace(re, '');
-}
+};
 
 /* Preload images
 -------------------------------------------------- */
@@ -6528,9 +6529,9 @@ var preloadImage = function(url, callback) {
     var img = new Image();
     img.src = url;
     img.onload = function () {
-        callback(true)
+        callback(true);
     };
-}
+};
 
 /* Exports
 -------------------------------------------------- */
@@ -6542,13 +6543,13 @@ exports.preloadImage = preloadImage;
 /* Init Modules - Entry point to clientside controllers
  -------------------------------------------------- */
 
-var gamepad 			     = require("./gamepad")
-,   navigationBindings       = require("./navigation.bindings")
-,   navigationEvent 	     = require("./navigation.event")
-,   api 				     = require("./api/connection")
-,   browserNavigation	     = require('../js/navigation.browser').browserNavigation
-,   database 			     = require('./database.helpers')
-,   sysEvents                = require('./system.events').events;
+var gamepad 			     = require("./gamepad"),
+    navigationBindings       = require("./navigation.bindings"),
+    navigationEvent 	     = require("./navigation.event"),
+    api 				     = require("./api/connection"),
+    browserNavigation	     = require('../js/navigation.browser').browserNavigation,
+    database 			     = require('./database.helpers'),
+    sysEvents                = require('./system.events').events;
 
 module.exports = function() {
 
@@ -6586,7 +6587,7 @@ module.exports = function() {
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
     }, 3500);
 
-}
+};
 
 },{"../js/navigation.browser":83,"./api/connection":72,"./database.helpers":73,"./gamepad":77,"./navigation.bindings":82,"./navigation.event":84,"./system.events":92}],80:[function(require,module,exports){
 /* Mixins
@@ -6621,9 +6622,9 @@ b[c[e].seq]=1,x(c[e].callback,d,c[e].combo,c[e].seq)):g||x(c[e].callback,d,c[e].
 /* Navigation Key Bindings
 -------------------------------------------------- */
 
-var mousetrap   = require('./mousetrap.min')
-,   navigate    = require('./navigation.navigate')
-,   events      = require('./system.events').events;
+var mousetrap   = require('./mousetrap.min'),
+    navigate    = require('./navigation.navigate'),
+    events      = require('./system.events').events;
 
 module.exports = function(init) {
 
@@ -6737,13 +6738,13 @@ module.exports = function(init) {
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
-var getFirstChild       = require('./helpers.js').getFirstChild
-,   removeBrackets      = require('./helpers.js').removeBrackets
-,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation
-,   database            = require('./database.helpers')
-,   api                 = require('socket.io-client')('/api')
-,   events              = require('./events')
-,   _                   = require('lodash');
+var getFirstChild       = require('./helpers.js').getFirstChild,
+    removeBrackets      = require('./helpers.js').removeBrackets,
+    browserNavigation   = require('../js/navigation.browser.js').browserNavigation,
+    database            = require('./database.helpers'),
+    api                 = require('socket.io-client')('/api'),
+    events              = require('./events'),
+    _                   = require('lodash');
 
 /*  Load Paging (Throttled);
 -------------------------------------------------- */
@@ -6752,7 +6753,7 @@ var loadPaging = function(Obj) {
     api.emit('request', { request: 'gamesList', param: Obj });
 
     events.uiActionNotification('loading');
-}
+};
 
 var loadPaging = _.debounce(loadPaging, 1000);
 
@@ -6873,7 +6874,7 @@ var browserNavigationEvents = function(g) {
         var Obj = {
             platform: document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
             start: g.getAttribute("data-snav")
-        }
+        };
 
         loadPaging(Obj);
 
@@ -6897,23 +6898,23 @@ exports.browserNavigationEvents = browserNavigationEvents;
 /* Section
 -------------------------------------------------- */
 
-var _               = require("lodash")
-,   account         = require("./account.js")
-,   helpers         = require("./helpers.js")
-,   navigationInit  = require("./navigation.init.js")
-,   events          = require("./events.js");
+var _               = require("lodash"),
+    account         = require("./account.js"),
+    helpers         = require("./helpers.js"),
+    navigationInit  = require("./navigation.init.js"),
+    events          = require("./events.js");
 
 /* Main Export
 -------------------------------------------------- */
 module.exports = function(e) {
 
 
-  var k                 = e.keyCode
-  ,   s                 = document.getElementById("main").getAttribute("data-screen")
-  ,   screens           = document.getElementById("screens").childNodes
-  ,   currentScreen     = document.getElementById("screen-active")
-  ,   currentScreenId   = _.indexOf(screens, currentScreen)
-  ,   pauseNavigation   = sessionStorage.getItem("navigationState");
+    var k                 = e.keyCode,
+        s                 = document.getElementById("main").getAttribute("data-screen"),
+        screens           = document.getElementById("screens").childNodes,
+        currentScreen     = document.getElementById("screen-active"),
+        currentScreenId   = _.indexOf(screens, currentScreen),
+        pauseNavigation   = sessionStorage.getItem("navigationState");
 
   /* Set Up Screen
   -------------------------------------------------- */
@@ -6993,7 +6994,7 @@ module.exports = function(e) {
 
       if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
-          if (currentScreenId != 0) {
+          if (currentScreenId !== 0) {
 
             currentScreenId--;
             currentScreen.id = null;
@@ -7009,7 +7010,7 @@ module.exports = function(e) {
   }
 
   else {
-      return
+      return;
   }
 
 
@@ -7034,7 +7035,7 @@ module.exports = function() {
 
                 elementList[1].classList.add("unselected");
                 elementList[2].classList.add("unselected");
-                break
+                break;
             case "panel_favorites":
                 elementList[0].classList.remove("unselected");
                 elementList[1].classList.remove("unselected");
@@ -7042,7 +7043,7 @@ module.exports = function() {
 
                 elementList[0].classList.add("unselected");
                 elementList[2].classList.add("unselected");
-                break
+                break;
             case "panel_community":
                 elementList[0].classList.remove("unselected");
                 elementList[1].classList.remove("unselected");
@@ -7050,7 +7051,7 @@ module.exports = function() {
 
                 elementList[0].classList.add("unselected");
                 elementList[1].classList.add("unselected");
-                break
+                break;
             default:
                 if (elementList[0]) {
                     elementList[0].classList.remove("unselected");
@@ -7059,9 +7060,10 @@ module.exports = function() {
                 }
         }
 
-    }
+    };
 
 };
+
 },{}],86:[function(require,module,exports){
 /* Navigation indexing and set up
 -------------------------------------------------- */
@@ -7118,7 +7120,7 @@ var navigationInit = function(element, callback) {
 
     }
 
-}
+};
 
 /* General Navigation Assigns/Init
 -------------------------------------------------- */
@@ -7135,7 +7137,7 @@ var navigationDeinit = function(element, callback) {
         el.classList.remove("selectedActive");
     }).value();
 
-}
+};
 
 
 /* Highlight Selection
@@ -7146,7 +7148,7 @@ var highlight = function() {
     //   blink = setInterval(function() {
     //         document.querySelector('.selectedNav').classList.toggle('selectedActive');
     // }, 200);
-}
+};
 
 /* Exports
 -------------------------------------------------- */
@@ -7170,19 +7172,20 @@ module.exports = function(k) {
     eventObj.keyCode = k;
     eventObj.which = k;
 
-    document.dispatchEvent ? document.dispatchEvent(eventObj) : document.fireEvent("onkeydown", eventObj);
+    if (document.dispatchEvent) { document.dispatchEvent(eventObj); }
+    else { document.fireEvent("onkeydown", eventObj); }
 
 };
 
 },{}],88:[function(require,module,exports){
 /* OnScreen Keyboard
 -------------------------------------------------- */
-var navigationInit  = require('./navigation.init.js')
+var navigationInit  = require('./navigation.init.js');
 
 /* Symbols Keyboard
 -------------------------------------------------- */
 var symbolsKeyboard = function(elem) {
-  
+
     this.elem = elem;
     this.elem.className = "keyboard";
 
@@ -7247,7 +7250,7 @@ symbolsKeyboard.prototype.createKey = function(key) {
 
   if (!key.match(/^[0-9a-z]+$/)) {
       button.classList.add("key-dark");
-  };
+  }
 
   if (key == "<i class='ion-checkmark'></i>") {
       button.classList.add("key-dark");
@@ -7288,7 +7291,7 @@ Keyboard.prototype.createKey = function(key) {
 
   if (!key.match(/^[0-9a-z]+$/)) {
       button.classList.add("key-dark");
-  };
+  }
 
   if (key == "<i class='ion-checkmark'></i>") {
       button.classList.add("key-blue");
@@ -7314,8 +7317,8 @@ exports.symbolsKeyboard  = symbolsKeyboard;
 },{"./navigation.init.js":86}],89:[function(require,module,exports){
 /* On Screen Keyboard translations
 -------------------------------------------------- */
-var events = require("./events")
-,   _      = require("lodash");
+var events = require("./events"),
+    _      = require("lodash");
 
 var keypress = function(parameters) {
 
@@ -7396,7 +7399,7 @@ var keypress = function(parameters) {
 
         console.log(cursor[0].offsetLeft);
 
-        if (cursor[0].offsetRight != 0) {
+        if (cursor[0].offsetRight !== 0) {
 	        cursor[0].style.left = cursor[0].offsetLeft - 7 + "px";
         }
 
@@ -7479,7 +7482,7 @@ var keypress = function(parameters) {
         cursor[0].scrollIntoView(true);
         recentInput.scrollTop = cursor[0].offsetTop;
     }
-}
+};
 
 /* Exports
 -------------------------------------------------- */
@@ -7490,14 +7493,14 @@ exports.keypress = keypress;
 /* General Navigation Functions
 -------------------------------------------------- */
 
-var systemEvents        = require('./system.events.js')
-,   navigationHelpers   = require('./navigation.helpers.js')
-,   KeyEvent            = require('./navigation.keyEvent.js')
-,   navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents
-,   _                   = require('lodash')
-,   formInputs          = ['text', 'input', 'submit', 'password']
-,   memSelection
-,   timeSync;
+var systemEvents        = require('./system.events.js'),
+    navigationHelpers   = require('./navigation.helpers.js'),
+    KeyEvent            = require('./navigation.keyEvent.js'),
+    navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents,
+    _                   = require('lodash'),
+    formInputs          = ['text', 'input', 'submit', 'password'],
+    memSelection,
+    timeSync;
 
 
 /*  Show Selection in Small Game Profile
@@ -7524,7 +7527,7 @@ module.exports = function(k) {
 
     var screen = document.getElementById("screen-active").classList[0];
 
-    function currentSelection() {
+    function showCurrentSelection() {
 
         if (screen == 'Browser') {
 
@@ -7594,7 +7597,6 @@ module.exports = function(k) {
                 if (s.previousElementSibling) {
                     var d = s.previousElementSibling.previousElementSibling;
 
-
                     if (d) {
                         d.scrollIntoView(false);
                     }
@@ -7647,16 +7649,16 @@ module.exports = function(k) {
 
             if(_.contains(formInputs, sel[0].type)) {
                 KeyEvent(39);
-            };
+            }
 
             // Textarea/ScollingDiv Scrolling
             if (sel[0].nodeName == "TEXTAREA") {
                 sel[0].scrollTop = sel[0].scrollTop + 20;
-            };
+            }
 
             if (sel[0].classList.contains("scrollable-view")) {
                 sel[0].scrollTop = sel[0].scrollTop + 20;
-            };
+            }
 
             // Inside onScreen Keyboard
             if (sel[0].classList.contains("rowParent")) {
@@ -7676,7 +7678,7 @@ module.exports = function(k) {
 
                     if (nextRow.childNodes[elIndex]) {
 
-                        nextRow.childNodes[elIndex].classList.add("selectedNav");;
+                        nextRow.childNodes[elIndex].classList.add("selectedNav");
                     }
 
                     else {
@@ -7722,7 +7724,7 @@ module.exports = function(k) {
                 sel[0].classList.remove("selectedNav");
                 sel[0].parentNode.parentNode.querySelectorAll(".subNavable")[i].classList.add("selectedNav");
 
-                currentSelection();
+                showCurrentSelection();
 
             } else {
 
@@ -7746,16 +7748,16 @@ module.exports = function(k) {
             // is an Input
             if(_.contains(formInputs, sel[0].type)) {
                 KeyEvent(37);
-            };
+            }
 
             // Scrollable Textarea/Div
             if (sel[0].nodeName == "TEXTAREA") {
                 sel[0].scrollTop = sel[0].scrollTop - 20;
-            };
+            }
 
             if (sel[0].classList.contains("scrollable-view")) {
                 sel[0].scrollTop = sel[0].scrollTop - 20;
-            };
+            }
 
             // Inside onScreen Keyboard
             if (sel[0].classList.contains("rowParent")) {
@@ -7819,7 +7821,7 @@ module.exports = function(k) {
                 sel[0].classList.remove("selectedNav");
                 sel[0].parentNode.parentNode.querySelectorAll(".subNavable")[i].classList.add("selectedNav");
 
-                currentSelection();
+                showCurrentSelection();
             }
 
         }
@@ -7834,7 +7836,7 @@ module.exports = function(k) {
 
             navigationHelpers(sel[0].getAttribute('id'));
 
-            currentSelection();
+            showCurrentSelection();
 
         }
     }
@@ -7893,7 +7895,7 @@ module.exports = function(path, height, width, left, top) {
                     content.innerHTML = "<br /><img class='img-responsive' src='../img/demo/community.png'> <hr /><a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-nav='7' data-function='closeLightbox'><i class='ion-play'></i> &nbsp; Play Game</a><div class='pull-right'><a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-nav='7' data-function='closeLightbox'><i class='ion-ios7-help-outline'></i> &nbsp; About the Club</a> &nbsp; <a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable selectedNav' data-nav='7' data-function='closeLightbox'><i class='ion-ios7-chatboxes-outline'></i> &nbsp; Discuss</a></div>";
                 }
             }
-        }
+        };
 
         request.onreadystatechange = handleAjaxEvent;
         request.send();
@@ -7950,34 +7952,34 @@ module.exports = function(path, height, width, left, top) {
         var removeLightbox = function() {
             document.body.removeChild(backdrop);
             document.body.removeChild(content);
-        }
+        };
 
         // remove the lightbox when people click on the backdrop
         backdrop.addEventListener("click", removeLightbox);
         // backdrop.addEventListener("keydown", removeLightbox);
 
 };
+
 },{}],92:[function(require,module,exports){
 /* Requested system events via client (usually button presses)
 -------------------------------------------------- */
 
-var systemNotify        	= require('./notification.init.js')
-,   KeyEvent                = require('./navigation.keyEvent')
-,   api                 	= require('socket.io-client')('/api')
-,   React               	= require('react/addons')
-,   Modal               	= require('../interface/Modal.jsx')
-,   Messages            	= require('../interface/Messages.jsx')
-,   navigationBindings  	= require("./navigation.bindings")
-,   database                = require('./database.helpers')
-,   navigationEvent     	= require("./navigation.event")
-,   _                   	= require('lodash')
-,   navigationInit      	= require("./navigation.init.js")
-,   dialog              	= require('./dialogs')
-,   eventDispatcher     	= require('./events')
-,   keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents')
-,   Screens             	= require('../interface/Screens.jsx')
-,   mousetrap           	= require("./mousetrap.min.js")
-,   navigationEvent     	= require("./navigation.event");
+var systemNotify        	= require('./notification.init.js'),
+    KeyEvent                = require('./navigation.keyEvent'),
+    api                 	= require('socket.io-client')('/api'),
+    React               	= require('react/addons'),
+    Modal               	= require('../interface/Modal.jsx'),
+    Messages            	= require('../interface/Messages.jsx'),
+    navigationBindings  	= require("./navigation.bindings"),
+    navigationEvent     	= require("./navigation.event"),
+    _                   	= require('lodash'),
+    navigationInit      	= require("./navigation.init.js"),
+    dialog              	= require('./dialogs'),
+    eventDispatcher     	= require('./events'),
+    keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
+    Screens             	= require('../interface/Screens.jsx'),
+    mousetrap           	= require("./mousetrap.min.js"),
+    navigationEvent     	= require("./navigation.event");
 
 
 var events = {
@@ -8081,7 +8083,7 @@ var events = {
 
         var form = document.forms[parameters].elements;
 
-        var obj = new Object;
+        var obj = {};
 
         _.each(form, function(input) {
             if (input.name && input.value) {
@@ -8206,7 +8208,7 @@ var events = {
             agree: "browserFocusAgree",
             disagree: "closeDialog",
             parameters: parameters
-        }
+        };
 
         dialog.show("Prompt", null, arg);
 
@@ -8273,13 +8275,13 @@ var events = {
             if (item.getAttribute("data-parameters") == parameters) {
                 item.classList.add("selected");
                 longname = item.textContent;
-            };
+            }
         }).value();
 
         var Obj = {
                 platform: longname,
                 start: 0
-        }
+        };
 
         api.emit('request', { request: 'gamesList', param: Obj });
 
@@ -8297,7 +8299,7 @@ var events = {
         var Obj = {
             database: "favorites",
             values: pObj
-        }
+        };
 
         api.emit('request', { request: 'storeData', param: Obj });
 
@@ -8315,7 +8317,7 @@ var events = {
         var Obj = {
             database: "favorites",
             values: pObj
-        }
+        };
 
         api.emit('request', { request: 'removeFavorite', param: Obj });
 
@@ -8336,7 +8338,7 @@ var events = {
             agree: "deleteMessageConfirmed",
             disagree: "closeDialog",
             parameters: parameters
-        }
+        };
 
         dialog.show("Prompt", null, arg);
 
@@ -8441,7 +8443,7 @@ var events = {
             platform: platform,
             filepath: parameters,
             shortname: shortname
-        }
+        };
 
         eventDispatcher.launchContext(_launchContext);
 
@@ -8496,7 +8498,7 @@ var events = {
 
         if (!doc.classList.contains("required")) {
             doc.classList.toggle("label-selected");
-            if (input) { input.classList.toggle("disabled") };
+            if (input) { input.classList.toggle("disabled"); }
         }
 
         eventDispatcher.selectBox(input, doc.classList.contains("label-selected"));
@@ -8512,7 +8514,7 @@ var events = {
 
             _.each(parent.childNodes, function(el) {
                 el.classList.remove("label-selected");
-            })
+            });
 
             doc.classList.add("label-selected");
 
@@ -8520,14 +8522,14 @@ var events = {
 
     },
 
-}
+};
 
 
 /* Exports
 -------------------------------------------------- */
 exports.events = events;
 
-},{"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/Screens.jsx":40,"./database.helpers":73,"./dialogs":74,"./events":76,"./mousetrap.min.js":81,"./navigation.bindings":82,"./navigation.event":84,"./navigation.init.js":86,"./navigation.keyEvent":87,"./navigation.keyboardKeyEvents":89,"./notification.init.js":91,"lodash":101,"react/addons":103,"socket.io-client":262}],93:[function(require,module,exports){
+},{"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/Screens.jsx":40,"./dialogs":74,"./events":76,"./mousetrap.min.js":81,"./navigation.bindings":82,"./navigation.event":84,"./navigation.init.js":86,"./navigation.keyEvent":87,"./navigation.keyboardKeyEvents":89,"./notification.init.js":91,"lodash":101,"react/addons":103,"socket.io-client":262}],93:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 
@@ -8544,8 +8546,8 @@ module.exports = function(){
 /* Simple UI-Only Notifications
 -------------------------------------------------- */
 
-var React           = require('react/addons')
-,	UINotification 	= require('../interface/UINotification.jsx');
+var React           = require('react/addons'),
+	UINotification 	= require('../interface/UINotification.jsx');
 
 /* Blocked UI Action
 -------------------------------------------------- */
@@ -8559,7 +8561,7 @@ var blocked = function() {
     document.body.insertBefore(fragment, document.body.firstChild);
 
 	React.renderComponent(UINotification({icon: "ion-close-circled", effect: "fadeInOut"}), div);
-}
+};
 
 /*  Loading UI Action
 -------------------------------------------------- */
@@ -8573,7 +8575,7 @@ var loading = function() {
 	document.body.insertBefore(fragment, document.body.firstChild);
 
 	React.renderComponent(UINotification({ classes: "ui-alert-alt", icon: "fa fa-spin ion-ios-loop-strong", effect: "no-fffect"}), div);
-}
+};
 
 /* Exports
 -------------------------------------------------- */

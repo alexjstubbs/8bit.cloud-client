@@ -15,7 +15,7 @@ module.exports = function() {
 
                 elementList[1].classList.add("unselected");
                 elementList[2].classList.add("unselected");
-                break
+                break;
             case "panel_favorites":
                 elementList[0].classList.remove("unselected");
                 elementList[1].classList.remove("unselected");
@@ -23,7 +23,7 @@ module.exports = function() {
 
                 elementList[0].classList.add("unselected");
                 elementList[2].classList.add("unselected");
-                break
+                break;
             case "panel_community":
                 elementList[0].classList.remove("unselected");
                 elementList[1].classList.remove("unselected");
@@ -31,7 +31,7 @@ module.exports = function() {
 
                 elementList[0].classList.add("unselected");
                 elementList[1].classList.add("unselected");
-                break
+                break;
             default:
                 if (elementList[0]) {
                     elementList[0].classList.remove("unselected");
@@ -40,6 +40,6 @@ module.exports = function() {
                 }
         }
 
-    }
+    };
 
 };

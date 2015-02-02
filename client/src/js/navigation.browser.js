@@ -1,13 +1,13 @@
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
-var getFirstChild       = require('./helpers.js').getFirstChild
-,   removeBrackets      = require('./helpers.js').removeBrackets
-,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation
-,   database            = require('./database.helpers')
-,   api                 = require('socket.io-client')('/api')
-,   events              = require('./events')
-,   _                   = require('lodash');
+var getFirstChild       = require('./helpers.js').getFirstChild,
+    removeBrackets      = require('./helpers.js').removeBrackets,
+    browserNavigation   = require('../js/navigation.browser.js').browserNavigation,
+    database            = require('./database.helpers'),
+    api                 = require('socket.io-client')('/api'),
+    events              = require('./events'),
+    _                   = require('lodash');
 
 /*  Load Paging (Throttled);
 -------------------------------------------------- */
@@ -16,7 +16,7 @@ var loadPaging = function(Obj) {
     api.emit('request', { request: 'gamesList', param: Obj });
 
     events.uiActionNotification('loading');
-}
+};
 
 var loadPaging = _.debounce(loadPaging, 1000);
 
@@ -137,7 +137,7 @@ var browserNavigationEvents = function(g) {
         var Obj = {
             platform: document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
             start: g.getAttribute("data-snav")
-        }
+        };
 
         loadPaging(Obj);
 

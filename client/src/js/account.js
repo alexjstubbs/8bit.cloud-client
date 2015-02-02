@@ -9,5 +9,5 @@ module.exports = function() {
     return {
         username: username,
         avatar: "large"
-    }
+    };
 };

@@ -48,7 +48,7 @@ var changeView = function(view) {
     if (event) {
     	window.dispatchEvent(event);
     }
-}
+};
 
 /* Dialogs (circular hack)
 -------------------------------------------------- */
@@ -94,7 +94,7 @@ var serverResponse = function(response) {
     if (event) {
         window.dispatchEvent(event);
     }
-}
+};
 
 /* Update Game
 -------------------------------------------------- */
@@ -121,12 +121,11 @@ var updateGame = function(results, filepath, callback) {
 
         });
 
+        if (event) {
+            window.dispatchEvent(event);
+        }
     }
-
-    if (event) {
-        window.dispatchEvent(event);
-    };
-}
+};
 
 
 /* Launch Context

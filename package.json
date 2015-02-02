@@ -37,6 +37,6 @@
     "jshintConfig": {
         "undef": true,
         "unused": true,
-        "predef": [ "appDir" ]
+        "predef": [ "appDir", "require", "window", "document" ]
     }
 }

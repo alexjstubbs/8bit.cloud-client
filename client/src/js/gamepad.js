@@ -23,11 +23,11 @@
   *
 */
 
-var navigationKeyEvent      = require("./navigation.keyEvent.js")
-,   sounds                  = require("./system.sounds.js")
-,   mousetrap               = require("./mousetrap.min.js")
-,   _                       = require("lodash")
-,   buttonTimestamp         = {};
+var navigationKeyEvent      = require("./navigation.keyEvent.js"),
+    sounds                  = require("./system.sounds.js"),
+    mousetrap               = require("./mousetrap.min.js"),
+    _                       = require("lodash"),
+    buttonTimestamp         = {};
 
 var gamepadSupport = {
 
@@ -246,7 +246,7 @@ var gamepadSupport = {
                 buttonTimestamp = {
                     timestamp: Math.round(+new Date()/100),
                     button: button
-                }
+                };
 
             }
 
@@ -261,14 +261,14 @@ var gamepadSupport = {
                     // Mappings
 
                     if (button[5]) {
-                        console.log("a")
+                        console.log("a");
                         navigationKeyEvent(221);
                         // Mousetrap.trigger(']', null);
 
                     }
 
                     if (button[4]) {
-                        console.log("s")
+                        console.log("s");
                         navigationKeyEvent(219);
                         // Mousetrap.trigger('[', null);
                     }
@@ -402,7 +402,7 @@ var gamepadSupport = {
 
                             console.log("[gamepad]: Gamepad Disconnected!");
 
-                            gamepadSupport.STATE_CHANGE = 0
+                            gamepadSupport.STATE_CHANGE = 0;
                             // sounds('notify_down.wav');
 
                         }

@@ -13,6 +13,7 @@ module.exports = function(k) {
     eventObj.keyCode = k;
     eventObj.which = k;
 
-    document.dispatchEvent ? document.dispatchEvent(eventObj) : document.fireEvent("onkeydown", eventObj);
+    if (document.dispatchEvent) { document.dispatchEvent(eventObj); }
+    else { document.fireEvent("onkeydown", eventObj); }
 
 };

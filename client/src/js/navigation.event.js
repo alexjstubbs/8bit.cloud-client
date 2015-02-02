@@ -7,23 +7,23 @@
 /* Section
 -------------------------------------------------- */
 
-var _               = require("lodash")
-,   account         = require("./account.js")
-,   helpers         = require("./helpers.js")
-,   navigationInit  = require("./navigation.init.js")
-,   events          = require("./events.js");
+var _               = require("lodash"),
+    account         = require("./account.js"),
+    helpers         = require("./helpers.js"),
+    navigationInit  = require("./navigation.init.js"),
+    events          = require("./events.js");
 
 /* Main Export
 -------------------------------------------------- */
 module.exports = function(e) {
 
 
-  var k                 = e.keyCode
-  ,   s                 = document.getElementById("main").getAttribute("data-screen")
-  ,   screens           = document.getElementById("screens").childNodes
-  ,   currentScreen     = document.getElementById("screen-active")
-  ,   currentScreenId   = _.indexOf(screens, currentScreen)
-  ,   pauseNavigation   = sessionStorage.getItem("navigationState");
+    var k                 = e.keyCode,
+        s                 = document.getElementById("main").getAttribute("data-screen"),
+        screens           = document.getElementById("screens").childNodes,
+        currentScreen     = document.getElementById("screen-active"),
+        currentScreenId   = _.indexOf(screens, currentScreen),
+        pauseNavigation   = sessionStorage.getItem("navigationState");
 
   /* Set Up Screen
   -------------------------------------------------- */
@@ -103,7 +103,7 @@ module.exports = function(e) {
 
       if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
-          if (currentScreenId != 0) {
+          if (currentScreenId !== 0) {
 
             currentScreenId--;
             currentScreen.id = null;
@@ -119,7 +119,7 @@ module.exports = function(e) {
   }
 
   else {
-      return
+      return;
   }
 
 

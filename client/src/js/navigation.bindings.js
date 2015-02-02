@@ -1,9 +1,9 @@
 /* Navigation Key Bindings
 -------------------------------------------------- */
 
-var mousetrap   = require('./mousetrap.min')
-,   navigate    = require('./navigation.navigate')
-,   events      = require('./system.events').events;
+var mousetrap   = require('./mousetrap.min'),
+    navigate    = require('./navigation.navigate'),
+    events      = require('./system.events').events;
 
 module.exports = function(init) {
 

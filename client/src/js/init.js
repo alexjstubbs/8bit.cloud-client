@@ -1,13 +1,13 @@
 /* Init Modules - Entry point to clientside controllers
  -------------------------------------------------- */
 
-var gamepad 			     = require("./gamepad")
-,   navigationBindings       = require("./navigation.bindings")
-,   navigationEvent 	     = require("./navigation.event")
-,   api 				     = require("./api/connection")
-,   browserNavigation	     = require('../js/navigation.browser').browserNavigation
-,   database 			     = require('./database.helpers')
-,   sysEvents                = require('./system.events').events;
+var gamepad 			     = require("./gamepad"),
+    navigationBindings       = require("./navigation.bindings"),
+    navigationEvent 	     = require("./navigation.event"),
+    api 				     = require("./api/connection"),
+    browserNavigation	     = require('../js/navigation.browser').browserNavigation,
+    database 			     = require('./database.helpers'),
+    sysEvents                = require('./system.events').events;
 
 module.exports = function() {
 
@@ -45,4 +45,4 @@ module.exports = function() {
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
     }, 3500);
 
-}
+};
