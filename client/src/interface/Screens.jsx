@@ -18,12 +18,9 @@ var React 				= require('react/addons'),
 	init 				= require('../js/init.js'),
 	navigationInit  	= require('../js/navigation.init.js');
 
-require('lodash-migrate');
-
 /* Init Clientside
 -------------------------------------------------- */
 init();
-
 
 /* Set up Screens
 -------------------------------------------------- */
@@ -57,6 +54,7 @@ var setupScreens = function(route) {
 	}).value();
 
 
+	// TODO: Get user defined screen to show at launch, do it here
 	_.first(container.children).id = "screen-active";
 
 	/* Init Navigation Controls
@@ -66,7 +64,6 @@ var setupScreens = function(route) {
 };
 
 setupScreens(window.location.pathname);
-
 
 /* Exports
 -------------------------------------------------- */

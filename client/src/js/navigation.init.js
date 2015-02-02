@@ -43,7 +43,7 @@ var navigationInit = function(element, callback) {
     if (activeInput) {
 
         activeInput.classList.add("selectedNav", "selected");
-        activeInput.classList.remove("activeInput");
+        // activeInput.classList.remove("activeInput");
     }
 
     // Choose first child or Default if specified

@@ -4,12 +4,13 @@
 
 'use strict';
 
-var React           = require('react/addons'),
-    _               = require('lodash'),
-    ListedGame      = require('./ListedGame.jsx'),
-    api             = require('socket.io-client')('/api'),
-    navigationInit  = require('../js/navigation.init'),
-    removeBrackets  = require('../js/helpers').removeBrackets;
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    ListedGame          = require('./ListedGame.jsx'),
+    api                 = require('socket.io-client')('/api'),
+    navigationInit      = require('../js/navigation.init'),
+    removeBrackets      = require('../js/helpers').removeBrackets,
+    browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
 
 module.exports = React.createClass({
 
@@ -59,6 +60,13 @@ module.exports = React.createClass({
 
     },
 
+    selectFirstNode: function() {
+
+        browserNavigation();
+
+    },
+
+
     componentDidUpdate: function() {
 
         var nodeList = document.querySelectorAll(".left_alpha");
@@ -81,6 +89,8 @@ module.exports = React.createClass({
              if (_alert) _alert.remove();
 
         }).value();
+
+        this.selectFirstNode();
     },
 
     getDefaultProps: function() {

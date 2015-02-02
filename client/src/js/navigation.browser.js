@@ -20,73 +20,27 @@ var loadPaging = function(Obj) {
 
 var loadPaging = _.debounce(loadPaging, 1000);
 
-/* Module Definitions
--------------------------------------------------- */
 
+/*  Select first game in list if available
+-------------------------------------------------- */
 var browserNavigation = function(k) {
 
- // Podium = {};
- //
- //    Podium.keydown = function(k) {
- //        var oEvent = document.createEvent('KeyboardEvent');
- //
- //        // Chromium Hack
- //        Object.defineProperty(oEvent, 'keyCode', {
- //            get: function() {
- //                return this.keyCodeVal;
- //            }
- //        });
- //        Object.defineProperty(oEvent, 'which', {
- //            get: function() {
- //                return this.keyCodeVal;
- //            }
- //        });
- //
- //        if (oEvent.initKeyboardEvent) {
- //            oEvent.initKeyboardEvent("keydown", true, true, document.defaultView, k, k, "", "", false, "");
- //        } else {
- //            oEvent.initKeyEvent("keydown", true, true, document.defaultView, false, false, false, false, k, 0);
- //        }
- //
- //        oEvent.keyCodeVal = k;
- //
- //        if (oEvent.keyCode !== k) {
- //            alert("keyCode mismatch " + oEvent.keyCode + "(" + oEvent.which + ")");
- //        }
- //
- //        document.dispatchEvent(oEvent);
- //
- //    }
- //
- //    Podium.keydown(40);
- //    Podium.keydown(40);
+    var pLength = document.querySelectorAll(".platform.navable.selected").length;
 
-    var td = document.getElementById('list');
-    td = getFirstChild(td);
-    td = getFirstChild(td);
-    td = getFirstChild(td);
-    td.classList.add('browser_hovered');
+    if (pLength === 0) {
 
-    var b;
-    [].forEach.call(
-        document.querySelectorAll('[data-tdalpha]'),
-        function(el) {
-            var a = el.textContent;
-            a = a.charAt(1);
+        var pEl = document.querySelectorAll(".platform.navable")[0].classList.toggle("selected");
 
-            el = el.childNodes[0];
+        if (pEl) {
+            var td = document.getElementById('list');
+            td = getFirstChild(td);
+            td = getFirstChild(td);
 
-            if (!isNaN(a)) {
-                a = "#";
+            if (td) {
+                browserNavigationEvents(td);
             }
-
-            if (b != a) {
-                el.innerHTML = a;
-            }
-
-            b = a;
-
-        });
+        }
+    }
 
 };
 

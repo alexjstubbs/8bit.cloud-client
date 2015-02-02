@@ -52,6 +52,8 @@ module.exports = function(k) {
     // Left & Right
     if (k == 'right' || k == 'left') {
 
+        var d;
+
         if (us[0]) {
             us[0].classList.toggle("unselected");
         }
@@ -72,10 +74,10 @@ module.exports = function(k) {
 
 
             if (s.parentNode.classList.contains("scroll-into-view")) {
-                // var d = document.querySelectorAll(".selectedNav");
+
 
                 if (s.nextElementSibling) {
-                    var d = s.nextElementSibling.nextElementSibling;
+                    d = s.nextElementSibling.nextElementSibling;
                 }
 
                 if (d) {
@@ -94,7 +96,7 @@ module.exports = function(k) {
 
             if (!i) {
                 i = s.parentNode.parentNode.getAttribute("data-nav");
-                i - 1;
+                i = i-1;
             }
             if (i - 1 != -1) {
                 i--;
@@ -103,7 +105,7 @@ module.exports = function(k) {
             if (s.parentNode.classList.contains("scroll-into-view")) {
 
                 if (s.previousElementSibling) {
-                    var d = s.previousElementSibling.previousElementSibling;
+                    d = s.previousElementSibling.previousElementSibling;
 
                     if (d) {
                         d.scrollIntoView(false);
@@ -200,7 +202,7 @@ module.exports = function(k) {
             // Inside Sub Navigation
             if (sel[0].classList.contains("subNavable")) {
 
-                var i = sel[0].getAttribute("data-snav");
+                i = sel[0].getAttribute("data-snav");
 
                 i--;
 
@@ -214,8 +216,10 @@ module.exports = function(k) {
                 if (sel[0].parentNode.classList.contains("scroll-into-view")) {
                     // var d = document.querySelectorAll(".selectedNav");
 
+                    var d;
+
                     if (sel[0].nextElementSibling) {
-                        var d = sel[0].nextElementSibling.nextElementSibling;
+                        d = sel[0].nextElementSibling.nextElementSibling;
                     }
 
                     if (d) {
@@ -275,7 +279,7 @@ module.exports = function(k) {
 
                 var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
 
-                if (curRow != 0) {
+                if (curRow !== 0) {
 
                     curRow--;
 
@@ -292,15 +296,17 @@ module.exports = function(k) {
             // Inside Sub Navigation
             if (sel[0].classList.contains("subNavable")) {
 
-                var i = sel[0].getAttribute("data-snav");
+                i = sel[0].getAttribute("data-snav");
 
                 i--;
 
                 if (sel[0].parentNode.classList.contains("scroll-into-view")) {
                     // var d = document.querySelectorAll(".selectedNav");
 
+                    var d;
+
                     if (sel[0].nextElementSibling) {
-                        var d = sel[0].nextElementSibling.nextElementSibling;
+                        d = sel[0].nextElementSibling.nextElementSibling;
                     }
 
                     if (d) {

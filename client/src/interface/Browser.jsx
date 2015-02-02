@@ -4,7 +4,7 @@
 
 'use strict';
 
-var React               = require('react/addons'),
+var React              = require('react/addons'),
    _                   = require('lodash'),
    PlatformList        = require('./PlatformList.jsx'),
    GamesList           = require('./GamesList.jsx'),
@@ -25,6 +25,7 @@ module.exports = React.createClass({
         };
     },
 
+
     screenTransition: function(e) {
         if (e.detail.screen === "Browser") {
             this.setProps(e.detail);
@@ -35,6 +36,7 @@ module.exports = React.createClass({
     componentDidMount: function() {
 
         var component = this;
+
         window.addEventListener('screenTransition', function eventHandler(e) {
               component.screenTransition(e);
         });
