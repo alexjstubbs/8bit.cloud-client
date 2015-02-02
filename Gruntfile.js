@@ -23,8 +23,8 @@ module.exports = function(grunt) {
             }
           },
           react: {
-                files: ['client/src/**/*.jsx', 'client/src/js/**/*.js'],
-                tasks: ['browserify']
+                files: ['client/src/**/*.jsx', 'client/src/js/**/*.js', 'local/**/*.js'],
+                tasks: ['browserify', 'uglify']
             },
         },
 
@@ -34,7 +34,7 @@ module.exports = function(grunt) {
                     expand: true,
                     cwd: 'local/',
                     src: '**/*.js',
-                    dest: 'dest/js'
+                    dest: 'production'
                 }]
             }
         },

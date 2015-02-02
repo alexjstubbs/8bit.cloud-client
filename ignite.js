@@ -23,7 +23,6 @@ global.appDir               = path.dirname(require.main.filename);
 /* Module dependencies
 -------------------------------------------------- */
 var common                  = require('./local/common'),
-    busboy                  = require('busboy'),
     methodOverride          = require('method-override'),
     compress                = require('compression'),
     app                     = common.express(),
