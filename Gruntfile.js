@@ -28,6 +28,17 @@ module.exports = function(grunt) {
             },
         },
 
+        uglify: {
+            my_target: {
+                files: [{
+                    expand: true,
+                    cwd: 'local/',
+                    src: '**/*.js',
+                    dest: 'dest/js'
+                }]
+            }
+        },
+
         browserify: {
                 options: {
                     transform: [ require('grunt-react').browserify ]
@@ -41,7 +52,7 @@ module.exports = function(grunt) {
         });
 
         grunt.loadNpmTasks('grunt-browserify');
-
+        grunt.loadNpmTasks('grunt-contrib-uglify');
         grunt.loadNpmTasks('grunt-contrib-less');
         grunt.loadNpmTasks('grunt-contrib-watch');
 
