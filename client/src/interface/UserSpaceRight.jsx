@@ -10,6 +10,7 @@ var React               = require('react/addons'),
     api                 = require('socket.io-client')('/api'),
     mixins              = require('./mixins/mixins.jsx'),
     NetworkStatus       = require('./NetworkStatus.jsx'),
+    navigationInit      = require('../js/navigation.init'),
     Timer               = require('./Timer.jsx');
 
 /* Components
@@ -22,6 +23,11 @@ module.exports = React.createClass({
             id: "userspace-right"
 
         };
+    },
+
+    componentDidMount: function() {
+        
+        navigationInit.navigationInit();
     },
 
     render: function() {
@@ -39,9 +45,9 @@ module.exports = React.createClass({
                     <div className="clearfix"></div>
 
                     <small>
-                    <a className="btn btn-alt btn-sm navable mute"><i className="ion-videocamera"></i> &nbsp; Record Movie</a>
-                    <a className="btn btn-alt btn-sm navable mute"><i className="ion-qr-scanner"></i> &nbsp; Take Screenshot</a>
-                    <a className="btn btn-alt btn-sm navable mute"><i className="ion-qr-scanner"></i> &nbsp; Take Screenshot</a>
+                    <a className="btn btn-alt btn-sm navable"><i className="ion-videocamera"></i> &nbsp; Record Movie</a>
+                    <a className="btn btn-alt btn-sm navable"><i className="ion-qr-scanner"></i> &nbsp; Take Screenshot</a>
+                    <a className="btn btn-alt btn-sm navable"><i className="ion-qr-scanner"></i> &nbsp; Take Screenshot</a>
                     </small>
 
 

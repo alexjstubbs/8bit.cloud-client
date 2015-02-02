@@ -3875,10 +3875,8 @@ module.exports = React.createClass({displayName: 'exports',
                             React.DOM.span({className: "mute"}, "off")
                         ), 
 
-                        React.DOM.div({className: "user-space-bottom"}, 
-                            React.DOM.small(null, 
-                                React.DOM.a({className: "btn btn-alt btn-sm navable mute"}, React.DOM.i({className: "ion-close-round"}), "   Exit Software")
-                            )
+                        React.DOM.div({className: "user-space-bottom"}
+                    
                         )
                 )
 
@@ -3901,6 +3899,7 @@ var React               = require('react/addons'),
     api                 = require('socket.io-client')('/api'),
     mixins              = require('./mixins/mixins.jsx'),
     NetworkStatus       = require('./NetworkStatus.jsx'),
+    navigationInit      = require('../js/navigation.init'),
     Timer               = require('./Timer.jsx');
 
 /* Components
@@ -3913,6 +3912,11 @@ module.exports = React.createClass({displayName: 'exports',
             id: "userspace-right"
 
         };
+    },
+
+    componentDidMount: function() {
+        
+        navigationInit.navigationInit();
     },
 
     render: function() {
@@ -3930,9 +3934,9 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.div({className: "clearfix"}), 
 
                     React.DOM.small(null, 
-                    React.DOM.a({className: "btn btn-alt btn-sm navable mute"}, React.DOM.i({className: "ion-videocamera"}), "   Record Movie"), 
-                    React.DOM.a({className: "btn btn-alt btn-sm navable mute"}, React.DOM.i({className: "ion-qr-scanner"}), "   Take Screenshot"), 
-                    React.DOM.a({className: "btn btn-alt btn-sm navable mute"}, React.DOM.i({className: "ion-qr-scanner"}), "   Take Screenshot")
+                    React.DOM.a({className: "btn btn-alt btn-sm navable"}, React.DOM.i({className: "ion-videocamera"}), "   Record Movie"), 
+                    React.DOM.a({className: "btn btn-alt btn-sm navable"}, React.DOM.i({className: "ion-qr-scanner"}), "   Take Screenshot"), 
+                    React.DOM.a({className: "btn btn-alt btn-sm navable"}, React.DOM.i({className: "ion-qr-scanner"}), "   Take Screenshot")
                     )
 
 
@@ -3943,7 +3947,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./Timer.jsx":45,"./mixins/mixins.jsx":59,"lodash":95,"react/addons":97,"socket.io-client":256}],50:[function(require,module,exports){
+},{"../js/navigation.init":86,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./Timer.jsx":45,"./mixins/mixins.jsx":59,"lodash":95,"react/addons":97,"socket.io-client":256}],50:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -5750,13 +5754,27 @@ var userSpace = function(input, callback) {
 
     React.renderComponent(UserSpace({}), div);
 
+    // div = document.createElement("div");
+    // div.classList.add("user-space-right");
+    //
+    // document.body.insertBefore(div,  document.getElementById("ui-notifications"));
+    //
+    //
+    // React.renderComponent(UserSpaceRight({}), div);
+
+};
+
+/*  User Space Right (Right Menu Sidebar, usually shown during gameplay)
+-------------------------------------------------- */
+var userSpaceRight = function(input, callback) {
+
     div = document.createElement("div");
     div.classList.add("user-space-right");
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-
     React.renderComponent(UserSpaceRight({}), div);
+    
 
 };
 
@@ -5770,6 +5788,7 @@ exports.popup               = popup;
 exports.general             = general;
 exports.uiNotification      = uiNotification;
 exports.userSpace           = userSpace;
+exports.userSpaceRight      = userSpaceRight;
 
 },{"../interface/AchievementUnlocked.jsx":2,"../interface/CommunityInfo.jsx":8,"../interface/Friend.jsx":13,"../interface/FriendLarge.jsx":14,"../interface/Friends.jsx":15,"../interface/GeneralDialog.jsx":18,"../interface/Message.jsx":25,"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/OnScreenKeyboard.jsx":30,"../interface/Popup.jsx":34,"../interface/Prompt.jsx":37,"../interface/SoftwareOptions.jsx":43,"../interface/Terminal.jsx":44,"../interface/UserSpace.jsx":48,"../interface/UserSpaceRight.jsx":49,"../interface/WebBrowser.jsx":51,"../interface/forms/AddFriend.jsx":52,"../interface/forms/PassMessage.jsx":53,"../interface/forms/SignUp.jsx":54,"./events.js":76,"./navigation.init.js":86,"./notification.init.js":91,"lodash":95,"react/addons":97,"socket.io-client":256}],75:[function(require,module,exports){
 /* API Event Listeners
@@ -7092,11 +7111,18 @@ var navigationDeinit = function(element, callback) {
     var navables = document.querySelectorAll('.navable, .subNavable'),
     parent;
 
+    var parents = document.querySelectorAll(".parent");
+
     // Remove all indexing and selections
     _(navables).forEach(function(el, i) {
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
         el.classList.remove("selectedActive");
+    }).value();
+
+    _(parents).forEach(function(el, i) {
+        el.classList.remove("parent");
+        console.log(el);
     }).value();
 
 };
@@ -8361,7 +8387,7 @@ var events = {
         dialog.show("AddFriend");
     },
 
-    /*  Achievement Unlocked
+    /* Achievement Unlocked
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
 
@@ -8370,6 +8396,39 @@ var events = {
         setTimeout(function() {
             dialog.close(null, null, "uiNotification");
         }, 4500);
+
+    },
+
+    /* Toggle Right Sidebar in in-game UserSpace
+    -------------------------------------------------- */
+    toggleUserSpaceSidebar: function(parameters) {
+
+        var userSpaceExists = document.querySelectorAll(".user-space-right");
+
+        if (!userSpaceExists.length) {
+
+            navigationInit.navigationDeinit();
+
+            window.removeEventListener("keydown", function(e) {
+                e.stopPropagation();
+                return;
+            });
+
+            window.addEventListener('keydown', function (e) {
+                navigationEvent(e);
+            });
+
+            // TODO: Ignire [ ], etc still
+            navigationBindings("init");
+            dialog.userSpaceRight();
+        }
+
+        else {
+            userSpaceExists[0].remove();
+
+            navigationBindings("deinit");
+            navigationInit.navigationDeinit();
+        }
 
     },
 
@@ -8384,6 +8443,15 @@ var events = {
             navigationBindings("deinit");
 
             window.removeEventListener("keydown", function(e) {
+                e.stopPropagation();
+                return;
+            });
+
+            window.addEventListener("keydown", function(e) {
+                if (e.keyCode === 76) { //L
+                    events.toggleUserSpaceSidebar();
+                }
+
                 e.stopPropagation();
                 return;
             });

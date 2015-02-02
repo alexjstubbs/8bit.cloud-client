@@ -6,7 +6,7 @@ function execute(command, callback) {
     exec(command, function(error, stdout, stderr) {
         callback(error, stdout, stderr);
     });
-};
+}
 
 /*  exports
 -------------------------------------------------- */

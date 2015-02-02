@@ -1,10 +1,10 @@
 /*  General Achievement Helper Functions
 -------------------------------------------------- */
-var fs       = require('fs-extra')
-,   path     = require('path')
-,   walk     = require('walk')
-,   _        = require('lodash')
-,   database = require(appDir+'/local/api/database/database.local')
+var fs       = require('fs-extra'),
+    path     = require('path'),
+    walk     = require('walk'),
+    _        = require('lodash'),
+    database = require(appDir+'/local/api/database/database.local');
 
 /*  Load all/new Achievement Files into DB
 -------------------------------------------------- */
@@ -40,7 +40,7 @@ var storeAchievementFiles = function(previousAchievements) {
 
     function errorsHandler(root, nodeStatsArray, next) {
         nodeStatsArray.forEach(function (n) {
-            console.error("[ERROR] " + n.name)
+            console.error("[ERROR] " + n.name);
             console.error(n.error.message || (n.error.code + ": " + n.error.path));
         });
         next();
@@ -55,7 +55,7 @@ var storeAchievementFiles = function(previousAchievements) {
         });
     }
 
-}
+};
 
 /*  Expots
 -------------------------------------------------- */

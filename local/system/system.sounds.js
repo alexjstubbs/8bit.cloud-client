@@ -1,9 +1,9 @@
-/* System API: Sounds 
+/* System API: Sounds
 -------------------------------------------------- */
 var execute = require(appDir+'/local/common').exec;
 
 exports.play = function(req, res) {
-  
+
     event = req.params.event;
     res.send('null');
 
@@ -13,4 +13,4 @@ exports.play = function(req, res) {
       console.log(stdout);
     });
 
-}
+};

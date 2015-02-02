@@ -430,7 +430,7 @@ var events = {
         dialog.show("AddFriend");
     },
 
-    /*  Achievement Unlocked
+    /* Achievement Unlocked
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
 
@@ -439,6 +439,39 @@ var events = {
         setTimeout(function() {
             dialog.close(null, null, "uiNotification");
         }, 4500);
+
+    },
+
+    /* Toggle Right Sidebar in in-game UserSpace
+    -------------------------------------------------- */
+    toggleUserSpaceSidebar: function(parameters) {
+
+        var userSpaceExists = document.querySelectorAll(".user-space-right");
+
+        if (!userSpaceExists.length) {
+
+            navigationInit.navigationDeinit();
+
+            window.removeEventListener("keydown", function(e) {
+                e.stopPropagation();
+                return;
+            });
+
+            window.addEventListener('keydown', function (e) {
+                navigationEvent(e);
+            });
+
+            // TODO: Ignire [ ], etc still
+            navigationBindings("init");
+            dialog.userSpaceRight();
+        }
+
+        else {
+            userSpaceExists[0].remove();
+
+            navigationBindings("deinit");
+            navigationInit.navigationDeinit();
+        }
 
     },
 
@@ -453,6 +486,15 @@ var events = {
             navigationBindings("deinit");
 
             window.removeEventListener("keydown", function(e) {
+                e.stopPropagation();
+                return;
+            });
+
+            window.addEventListener("keydown", function(e) {
+                if (e.keyCode === 76) { //L
+                    events.toggleUserSpaceSidebar();
+                }
+
                 e.stopPropagation();
                 return;
             });

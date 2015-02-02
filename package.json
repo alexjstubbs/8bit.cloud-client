@@ -37,6 +37,6 @@
     "jshintConfig": {
         "undef": true,
         "unused": true,
-        "predef": [ "appDir", "require", "window", "document" ]
+        "predef": [ "appDir", "require", "window", "document", "console" ]
     }
 }

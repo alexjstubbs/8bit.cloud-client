@@ -68,11 +68,18 @@ var navigationDeinit = function(element, callback) {
     var navables = document.querySelectorAll('.navable, .subNavable'),
     parent;
 
+    var parents = document.querySelectorAll(".parent");
+
     // Remove all indexing and selections
     _(navables).forEach(function(el, i) {
         el.removeAttribute("data-nav");
         el.classList.remove("selectedNav");
         el.classList.remove("selectedActive");
+    }).value();
+
+    _(parents).forEach(function(el, i) {
+        el.classList.remove("parent");
+        console.log(el);
     }).value();
 
 };

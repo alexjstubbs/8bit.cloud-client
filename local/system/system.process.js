@@ -9,15 +9,15 @@ var killall = function(nsp, params, callback) {
     exec('killall '+params, function(stderr, stdout) {
 
         if (nsp) {
-            nsp.emit({stdout: stderr, stderr: stderr})
+            nsp.emit({stdout: stderr, stderr: stderr});
         }
 
         if (callback) {
             callback(stderr, stdout);
         }
-        
+
     });
-}
+};
 
 /*  Exports
 -------------------------------------------------- */

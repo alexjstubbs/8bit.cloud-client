@@ -1,9 +1,9 @@
 /* Writing / Reading filesystem
 -------------------------------------------------- */
 
-var fs   = require('fs-extra')
-,   read = require('./system.read')
-,   _    = require('lodash');
+var fs   = require('fs-extra'),
+    read = require('./system.read'),
+    _    = require('lodash');
 
 
 /*  Remove a file
@@ -11,7 +11,7 @@ var fs   = require('fs-extra')
 var removeFile = function(nsp, file, callback) {
 
     file = appDir + file;
-    
+
     fs.unlink(file, function (err) {
         if (err) {
 
@@ -35,7 +35,7 @@ var removeFile = function(nsp, file, callback) {
 
     });
 
-}
+};
 
 /* Copy a file
 -------------------------------------------------- */
@@ -61,7 +61,7 @@ var copyFile = function(nsp, src, dest, callback) {
 
         }
 
-    })
+    });
 
 };
 
@@ -71,15 +71,17 @@ var copyFile = function(nsp, src, dest, callback) {
 
 var writeJSONSync = function(nsp, data, callback) {
 
+    var file;
+
     if (data.path) {
 
-        var file = appDir + data.path + "/" + data.filename;
+        file = appDir + data.path + "/" + data.filename;
 
     }
 
     else {
 
-         var file = data.filename;
+         file = data.filename;
 
     }
 
@@ -104,7 +106,7 @@ var writeJSONSync = function(nsp, data, callback) {
                         writeFile();
                     }
 
-                })
+                });
             }
 
         });
@@ -169,22 +171,24 @@ var writeJSONSync = function(nsp, data, callback) {
 
     }
 
-}
+};
 
 /* Write/Overwrite a new json File
 -------------------------------------------------- */
 
 var writeJSON = function(nsp, data, callback) {
 
+    var file;
+
     if (data.path) {
 
-        var file = appDir + data.path + "/" + data.filename;
+        file = appDir + data.path + "/" + data.filename;
 
     }
 
     else {
 
-         var file = data.filename;
+         file = data.filename;
 
     }
 
@@ -212,7 +216,7 @@ var writeJSON = function(nsp, data, callback) {
 
     });
 
-}
+};
 
 /*  Unique Advanced Config Files
 -------------------------------------------------- */
@@ -268,7 +272,7 @@ var writeAdvancedConfig = function(nsp, data, callback) {
                         nsp.emit('messaging', {type: 0, body: error });
                     }
 
-                })
+                });
 
             }
 
@@ -277,13 +281,13 @@ var writeAdvancedConfig = function(nsp, data, callback) {
     }
 
 
-}
+};
 
 /* Write Text file
 -------------------------------------------------- */
 var writeTextSync = function(nsp, data, callback) {
 
-}
+};
 
 /* Exports
 -------------------------------------------------- */

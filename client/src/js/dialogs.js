@@ -272,13 +272,27 @@ var userSpace = function(input, callback) {
 
     React.renderComponent(UserSpace({}), div);
 
+    // div = document.createElement("div");
+    // div.classList.add("user-space-right");
+    //
+    // document.body.insertBefore(div,  document.getElementById("ui-notifications"));
+    //
+    //
+    // React.renderComponent(UserSpaceRight({}), div);
+
+};
+
+/*  User Space Right (Right Menu Sidebar, usually shown during gameplay)
+-------------------------------------------------- */
+var userSpaceRight = function(input, callback) {
+
     div = document.createElement("div");
     div.classList.add("user-space-right");
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-
     React.renderComponent(UserSpaceRight({}), div);
+    
 
 };
 
@@ -292,3 +306,4 @@ exports.popup               = popup;
 exports.general             = general;
 exports.uiNotification      = uiNotification;
 exports.userSpace           = userSpace;
+exports.userSpaceRight      = userSpaceRight;

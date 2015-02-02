@@ -1,9 +1,9 @@
 /* State and RAM reading helper.
 -------------------------------------------------- */
-var fs          = require('fs-extra')
-,   Buffer      = require('buffer').Buffer
-,   crc         = require('crc')
-,   database    = require(appDir+'/local/api/database/database.local');
+var fs          = require('fs-extra'),
+    Buffer      = require('buffer').Buffer,
+    crc         = require('crc'),
+    database    = require(appDir+'/local/api/database/database.local');
 
 // Hex pass must be in format: 0xA8 (NOT 00A8 or 00xA8 etc.)
 function checkHex(stdin, offset, bufflength, addresses, callback) {
@@ -16,28 +16,36 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
         // Check each Hex in Achievement array
         addresses.forEach(function(i) {
 
+            console.log("i: "+i);
+            console.log("offset: "+offset);
+
             var nup = parseInt(i) + parseInt(offset);
-            var hex = buffer[nup];
+
+
+            console.log("nup: "+nup);
+
+            var hex = buffer[nup]; // sometimes null on gen
 
             if (!hex) {
                 console.log(nup);
                 console.log(buffer[nup]);
             }
 
-            hex ? hex = hex.toString(16) : hex = 00;
+            if (hex) { hex = hex.toString(16); }
+                else { hex = 0; }
 
             if (hex.length < 2) {
                 hex = '0' + hex;
             }
 
-            hex = parseInt(hex)
+            hex = parseInt(hex);
             hexArray.push(hex);
 
         });
 
         callback(hexArray);
 
-};
+}
 
 /*  Read hex via post (debug)
 -------------------------------------------------- */
@@ -74,7 +82,7 @@ function readHex(req, res, callback) {
     });
 
 
-};
+}
 
 /*  Get CRC32 Value of FILEPATH and match in Achievement DB
 -------------------------------------------------- */
