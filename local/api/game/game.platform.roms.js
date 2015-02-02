@@ -1,10 +1,10 @@
 /* List Roms by System
 -------------------------------------------------- */
-var fs          = require('fs-extra')
-,   path        = require('path')
-,   _           = require('lodash')
-,   platforms
-,   config;
+var fs          = require('fs-extra'),
+    path        = require('path'),
+    _           = require('lodash'),
+    platforms,
+    config;
 
 
 /*  List Roms
@@ -47,7 +47,7 @@ function listRoms(nsp, obj) {
 
                             start = parseInt(start);
 
-                            list = list.slice(start, start+20)
+                            list = list.slice(start, start+20);
 
                             _(list).forEach(function(filename) {
 
@@ -71,12 +71,12 @@ function listRoms(nsp, obj) {
 
                     });
 
-                };
+                }
 
-            })
+            });
 
-        };
-    })
+        }
+    });
 
 }
 

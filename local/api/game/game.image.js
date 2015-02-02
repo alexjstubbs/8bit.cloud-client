@@ -1,8 +1,8 @@
 /* Game Image
 -------------------------------------------------- */
-var fs   = require('fs-extra')
-,   PATH = require('path')
-,   exec = require('child_process').exec;
+var fs   = require('fs-extra'),
+    PATH = require('path'),
+    exec = require('child_process').exec;
 
 exports.gameImage = function(req, res, callback) {
 
@@ -52,5 +52,4 @@ exports.gameImage = function(req, res, callback) {
     res.writeHead(200, {'Content-Type': 'image/png' });
     res.end(img, 'binary');
 
-
-}
+};

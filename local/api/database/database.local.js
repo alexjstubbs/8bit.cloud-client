@@ -1,8 +1,8 @@
 /* Local System Database
 -------------------------------------------------- */
-var Datastore          = require('nedb')
-,   _                  = require('lodash')
-,   achievementHelpers = require(appDir+'/local/system/achievements/achievement.helpers');
+var Datastore          = require('nedb'),
+    _                  = require('lodash'),
+    achievementHelpers = require(appDir+'/local/system/achievements/achievement.helpers');
 
 /* Init Databases (called on profile creation?)
 -------------------------------------------------- */
@@ -71,7 +71,7 @@ function dedupeDatabase() {
 -------------------------------------------------- */
 function dropDatabase(nsp, database, callback) {
     db[database].remove({}, {multi: true}, function (err, numRemoved) {
-        callback ? callback(err, numRemoved) : null;
+        if (callback)  { callback(err, numRemoved); }
     });
 }
 
@@ -104,7 +104,7 @@ function storeData(database, doc, callback) {
 
         if (err) {
 
-            console.log("[error] Error storing data: "+err)
+            console.log("[error] Error storing data: "+err);
 
             if (callback) {
                 callback(err, null);
@@ -157,7 +157,7 @@ function storeActivity(nsp, activity) {
     db.activities.insert(doc, function(err, doc){
 
         if (err) {
-            console.log("[!] Error storing activity: "+err)
+            console.log("[!] Error storing activity: "+err);
         }
 
         else {
@@ -203,7 +203,7 @@ function findAchievements(criteria, callback) {
 
     db.achievements.find(criteria, function(err, docs) {
         if (docs[0]) {
-            callback(docs)
+            callback(docs);
         } else {
             callback(null);
         }
@@ -216,7 +216,7 @@ function findAchievements(criteria, callback) {
 function storeGame(document, callback) {
     db.games.insert(document, function(err, doc) {
         if (err) {
-            console.log("[info] error storing game: " + err)
+            console.log("[info] error storing game: " + err);
             callback();
         } else {
             callback(doc);
@@ -233,7 +233,7 @@ function findGame(document, callback) {
 
         if (docs.length) {
             // console.log("[!] found game");
-            callback(docs)
+            callback(docs);
         } else {
             // console.log("[!] Couldn't Find Game.")
             callback("null");
@@ -269,6 +269,6 @@ exports.findAchievements    = findAchievements;
 exports.initDatabases       = initDatabases;
 exports.storeGet            = storeGet;
 exports.storeData           = storeData;
-exports.removeFavorite      = removeFavorite
+exports.removeFavorite      = removeFavorite;
 exports.compactDatabase     = compactDatabase;
 exports.getGamesAjax        = getGamesAjax;

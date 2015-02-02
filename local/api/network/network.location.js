@@ -1,7 +1,7 @@
 /*  Location Information
 -------------------------------------------------- */
-var request     = require('request')
-,   helpers     = require('../../system/system.helpers');
+var request     = require('request'),
+    helpers     = require('../../system/system.helpers');
 
 /*  Get local IP and info
 -------------------------------------------------- */
@@ -20,7 +20,7 @@ function ipLocation(nsp, ip) {
 
     if (ip) {
 
-        var path = "http://ipinfo.io/"+ip+"/json"
+        var path = "http://ipinfo.io/"+ip+"/json";
 
         request.get({
             uri: path,
@@ -29,7 +29,7 @@ function ipLocation(nsp, ip) {
 
             if (helpers.isJson(body)) {
 
-                nsp.emit('api', {requestedIpLocation: JSON.parse(body)})
+                nsp.emit('api', {requestedIpLocation: JSON.parse(body)});
 
             }
         });

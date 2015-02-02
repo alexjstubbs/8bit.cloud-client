@@ -1,14 +1,14 @@
 /* Game Helpers
 -------------------------------------------------- */
-var database            = require(appDir+'/local/api/database/database.local')
-,   execute             = require(appDir+'/local/system/system.exec')
-,   spawn               = require('child_process').spawn
-,   exec                = require('child_process').exec
-,   fs                  = require('fs-extra')
-,   _                   = require('lodash')
-,   listPlatforms       = require(appDir+'/local/api/api.platforms').listPlatforms
-,   readJSON            = require(appDir+'/local/system/system.read').readJSONFile
-,   achievements        = require(appDir+'/local/system/achievements/achievement.loop');
+var database            = require(appDir+'/local/api/database/database.local'),
+    execute             = require(appDir+'/local/system/system.exec'),
+    spawn               = require('child_process').spawn,
+    exec                = require('child_process').exec,
+    fs                  = require('fs-extra'),
+    _                   = require('lodash'),
+    listPlatforms       = require(appDir+'/local/api/api.platforms').listPlatforms,
+    readJSON            = require(appDir+'/local/system/system.read').readJSONFile,
+    achievements        = require(appDir+'/local/system/achievements/achievement.loop');
 
 /* Check for valid JSON return
 -------------------------------------------------- */
@@ -50,16 +50,16 @@ function getSpecificCommandLineConfig(nsp, software, callback) {
 
             if (nsp) {
                 nsp.emit('api', {commandlineConfig: results});
-            };
+            }
 
             if (callback) {
                 callback(null, results);
-            };
+            }
         }
 
-    })
+    });
 
-};
+}
 
 
 /*  Get Default Commandline Options
@@ -74,7 +74,7 @@ function getCommandlineConfig(nsp, payload, callback) {
 
         listPlatforms(null, function(listobj) {
 
-            var platform = listobj[payload.platform]
+            var platform = listobj[payload.platform];
 
             readJSON(null, pFile, function(err, results) {
 
@@ -98,7 +98,7 @@ function getCommandlineConfig(nsp, payload, callback) {
 
         listPlatforms(null, function(listobj) {
 
-            var platform = listobj[payload.platform]
+            var platform = listobj[payload.platform];
 
             readJSON(null, appDir+"/config/platforms/commandline/"+platform.emulators[0]+".json", function(err, results) {
 
@@ -106,13 +106,13 @@ function getCommandlineConfig(nsp, payload, callback) {
                 if (nsp) {
                     nsp.emit('api', {commandlineConfig: results});
                     nsp.emit('api', {softwareChoices: platform.emulators});
-                };
+                }
 
                 if (callback) {
                     callback(null, results);
-                };
+                }
 
-            })
+            });
 
         });
     }
@@ -130,7 +130,7 @@ function gameLaunch(nsp, payload) {
 
     getCommandlineConfig(null, payload, function(err, results) {
 
-        var selectedArgs = _.where(results.arguements, { 'ticked': true })
+        var selectedArgs = _.where(results.arguements, { 'ticked': true });
             commandline  = [];
 
         _.forEach(selectedArgs, function(option, i) {
@@ -189,7 +189,7 @@ function gameLaunch(nsp, payload) {
             var _child = spawn(results.expath, commandline.concat(payload.filepath));
 
             // Start Achievement Loop
-            asupport ? setTimeout(function() { achievements.achievementTimer(nsp, atype, timing)}, 10000) : null;
+            if (asupport) { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing);}, 10000); }
 
             // TODO: On exit, crash, return to ignition
 
@@ -197,7 +197,12 @@ function gameLaunch(nsp, payload) {
                 console.log('(stdout) : ' + data);
             });
 
+
+            console.log(asupport);
+
+
             _child.stderr.on('data', function(data) {
+
                 if (data.length >= stateSize) {
 
                     if (asupport) {
@@ -242,7 +247,7 @@ function apicall(nsp, game, callback) {
         var isjson = isJson(data);
 
         // JSON Friendly Data
-        if (isjson == true) {
+        if (isjson === true) {
 
             data = JSON.parse(data); // Errors
 
@@ -284,6 +289,7 @@ function apicall(nsp, game, callback) {
 function gameProfileSmall(nsp, game) {
 
     game = game.trim();
+    var recordTitle;
 
     var research = new RegExp(game, "i");
 
@@ -306,10 +312,10 @@ function gameProfileSmall(nsp, game) {
             var gameTitle = game.toUpperCase();
 
             if (doc.games.game[0]) {
-                var recordTitle = doc.games.game[0].title.toUpperCase()
+                recordTitle = doc.games.game[0].title.toUpperCase();
             } else {
-                var recordTitle = doc.games.game.title.toUpperCase()
-            };
+                recordTitle = doc.games.game.title.toUpperCase();
+            }
 
             if (gameTitle == recordTitle || gameTitleThe == recordTitle) {
 
@@ -318,7 +324,7 @@ function gameProfileSmall(nsp, game) {
                 nsp.emit('api', {updateGame: doc});
 
             } else {
-                for (key in doc.games.game) {
+                for (var key in doc.games.game) {
                     if (doc.games.game[key].title) {
                         if (doc.games.game[key].title.toUpperCase() == gameTitle || gameTitleThe == doc.games.game[key].title.toUpperCase()) {
                             doc.games.game[0] = doc.games.game[key];

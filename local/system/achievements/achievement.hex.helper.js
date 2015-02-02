@@ -18,7 +18,13 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
 
             var nup = parseInt(i) + parseInt(offset);
             var hex = buffer[nup];
-            hex     = hex.toString(16);
+
+            if (!hex) {
+                console.log(nup);
+                console.log(buffer[nup]);
+            }
+
+            hex ? hex = hex.toString(16) : hex = 00;
 
             if (hex.length < 2) {
                 hex = '0' + hex;

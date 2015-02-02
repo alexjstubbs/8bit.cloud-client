@@ -22,12 +22,12 @@ global.appDir               = path.dirname(require.main.filename);
 
 /* Module dependencies
 -------------------------------------------------- */
-var common                  = require('./local/common')
-,   busboy                  = require('busboy')
-,   methodOverride          = require('method-override')
-,   compress                = require('compression')
-,   app                     = common.express()
-,   http                    = require('http').createServer(app);
+var common                  = require('./local/common'),
+    busboy                  = require('busboy'),
+    methodOverride          = require('method-override'),
+    compress                = require('compression'),
+    app                     = common.express(),
+    http                    = require('http').createServer(app);
 
 global.__io                 = require('socket.io').listen(http);
 global.__api                = __io.of('/api');

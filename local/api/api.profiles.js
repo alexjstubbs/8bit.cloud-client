@@ -1,12 +1,12 @@
 /* List Profiles
 -------------------------------------------------- */
 
-var fs       = require('fs-extra')
-,   path     = require('path')
-,   _        = require('lodash')
-,   server   = require('./server/server.api')
-,   sysRead  = require('../system/system.read')
-,   sysWrite = require('../system/system.write');
+var fs       = require('fs-extra'),
+    path     = require('path'),
+    _        = require('lodash'),
+    server   = require('./server/server.api'),
+    sysRead  = require('../system/system.read'),
+    sysWrite = require('../system/system.write');
 
 
 /* Create Session
@@ -46,11 +46,11 @@ function getSession(nsp) {
 
         else {
 
-            var sessionObject = {
+            sessionObject = {
 
                 session: sessionObject
 
-            }
+            };
 
             nsp.emit('api', sessionObject);
         }
@@ -88,7 +88,7 @@ function listProfiles(nsp) {
             nsp.emit('api', {profiles: listObj});
         }
 
-    })
+    });
 
 }
 
@@ -152,14 +152,14 @@ function newProfile(nsp, data) {
 
             case "password_notmatched":
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Re-enter my password" });
-                break
+                break;
 
             default:
                 nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "preloadDashboard", dataParameters: null, button: "Load Dashboard Anyway" });
                 break;
 
         }
-    };
+    }
 
     // Validate Form
     server.validateForm(nsp, data, function(err) {

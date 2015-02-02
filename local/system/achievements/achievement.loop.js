@@ -1,33 +1,35 @@
 /* Checks Achievements during gameplay
 -------------------------------------------------- */
-var fs          = require('fs-extra')
-,   _           = require('lodash')
-,   crc         = require('crc')
-,   hex         = require(appDir+'/local/system/achievements/achievement.hex.helper')
-,   exec        = require('child_process').exec
-,   helpers     = require(appDir+'/local/system/system.helpers')
-,   database    = require(appDir+'/local/api/database/database.local');
+'use strict';
+
+var fs          = require('fs-extra'),
+    _           = require('lodash'),
+    crc         = require('crc'),
+    hex         = require(appDir+'/local/system/achievements/achievement.hex.helper'),
+    exec        = require('child_process').exec,
+    helpers     = require(appDir+'/local/system/system.helpers'),
+    database    = require(appDir+'/local/api/database/database.local');
 
 /* Set JS Conditional Operators into an iterable Object.
 -------------------------------------------------- */
 var operators = {
     '+': function(a, b) {
-        return a + b
+        return a + b;
     },
     '<': function(a, b) {
-        return a < b
+        return a < b;
     },
     '==': function(a, b) {
-        return a == b
+        return a == b;
     },
     '!=': function(a, b) {
-        return a != b
+        return a != b;
     },
     '>=': function(a, b) {
-        return a >= b
+        return a >= b;
     },
     '<=': function(a, b) {
-        return a <= b
+        return a <= b;
     }
 };
 
@@ -40,7 +42,7 @@ function dumpRetroRamInit(filepath, callback) {
         if (!err) {
 
             var fileCRC32 = crc.crc32(data).toString(16);
-            console.log("file CRC32: "+fileCRC32);
+            console.log('file CRC32: '+fileCRC32);
 
             database.findAchievements({CRC32: fileCRC32 }, function(data) {
                 callback(data);
@@ -48,7 +50,7 @@ function dumpRetroRamInit(filepath, callback) {
         }
 
         else {
-            console.log("[error] No data read from ROM for crc check "+err);
+            console.log('[error] No data read from ROM for crc check '+err);
         }
 
     });
@@ -62,15 +64,15 @@ function achievementTimer(nsp, type, interval) {
     var command,
         errcount = 0;
 
-    if (!interval) interval = 1;
+    if (!interval) { interval = 1; }
 
     // Type of Achievement Check Method
     switch (type) {
-        case "UDP":
-            command = "watch -n " + interval + " echo -n SYSTEM_RAM >/dev/udp/localhost/55355";
+        case 'UDP':
+            command = 'watch -n ' + interval + ' echo -n SYSTEM_RAM >/dev/udp/localhost/55355';
         break;
         default:
-            command = "watch -n " + interval + "echo -n SYSTEM_RAM >/dev/udp/localhost/55355";
+            command = 'watch -n ' + interval + 'echo -n SYSTEM_RAM >/dev/udp/localhost/55355';
     }
 
     // Start Execution
@@ -79,8 +81,8 @@ function achievementTimer(nsp, type, interval) {
     watch.stderr.on('data', function(data) {
         errcount++;
         if (errcount > 20) {
-            exec("killall watch", function(stderr, stdout) {});
-            nsp.emit('messaging', {type: 0, body: "Could not start achievement client. Error: "+data});
+            exec('killall watch', function() {});
+            nsp.emit('messaging', {type: 0, body: 'Could not start achievement client. Error: '+data});
         }
     });
 
@@ -97,7 +99,7 @@ function achievementTimer(nsp, type, interval) {
 /* Load JSON of games acheivements
 /  Add Address' into array, pass array to checkhex
 -------------------------------------------------- */
-function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, callback) {
+function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize) {
 
 
 // TODO: Break these into simple functions.
@@ -113,12 +115,12 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
         addresses.push(address);
     }
 
-    debug ? console.log(addresses) : null;
+    if (debug) { console.log(addresses); }
 
         // Get values
         hex.checkHex(stdin, offset, bufferSize, addresses, function(_hex) {
 
-            debug ? console.log("[i] Current Values:" + _hex) : null;
+            if (debug) { console.log('[i] Current Values:' + _hex); }
 
                 var i = -1,
                     multiplier,
@@ -139,16 +141,16 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
                     // Master Achievement Unlocked.
                     if (result && multiplier >= 1) {
 
-                        debug ? console.log("[!]: Master Unlocked : " + multiplier) : null;
+                        if (debug) { console.log('[!]: Master Unlocked : ' + multiplier); }
 
-                        flat = _.flatten(gameAchievements.Achievements[key].multiples),
+                        flat = _.flatten(gameAchievements.Achievements[key].multiples);
                         subaddresses = _.pluck(flat, 'address');
 
                         hex.checkHex(stdin, offset, bufferSize, subaddresses, function(__hex) {
 
-                            debug ? console.log("[i] Sub Values: "+__hex) : null;
+                            if (debug) { console.log('[i] Sub Values: '+__hex); }
 
-                            var multiplier_inc = 0;
+                            var multiplierInc = 0;
 
                             // for each return value from address
                             _(__hex).forEach(function(n, _i) {
@@ -158,16 +160,16 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
                                     _result  = operators[_op](__hex[_i], _operand);
 
                                 if (_result) {
-                                    multiplier_inc++;
+                                    multiplierInc++;
                                 }
 
                             }).value();
 
-                                debug ? console.log("[i] Multiplier: " + multiplier_inc) : null;
+                            if (debug) { console.log('[i] Multiplier: ' + multiplierInc); }
 
-                            if (multiplier_inc >= multiplier) {
+                            if (multiplierInc >= multiplier) {
                                 achievementUnlocked(nsp, gameAchievements.Achievements[key]);
-                                debug ? console.log("[!!] Multiplier Achievement Unlocked!!!") : null;
+                                if (debug) { console.log('[!!] Multiplier Achievement Unlocked!!!'); }
 
                                 addresses.splice(i, 1);
                                 delete gameAchievements.Achievements[key];
@@ -179,7 +181,7 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
 
                     else if (result && multiplier == 0) {
                         achievementUnlocked(nsp, gameAchievements.Achievements[key]);
-                        debug ? console.log("[!!] Single Achievement Unlocked!!!") : null;
+                        if (debug) { console.log('[!!] Single Achievement Unlocked!!!'); }
 
                         addresses.splice(i, 1);
                         delete gameAchievements.Achievements[key];
@@ -187,13 +189,12 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize, call
 
             } // EOL
     });
-};
-
+}
 
 /*  Achievement Unlocked Notification
 -------------------------------------------------- */
-function achievementUnlocked(nsp, achievement, callback) {
-    nsp.emit('clientEvent', {command: "achievementUnlocked", params: JSON.stringify(achievement) });
+function achievementUnlocked(nsp, achievement) {
+    nsp.emit('clientEvent', {command: 'achievementUnlocked', params: JSON.stringify(achievement) });
 }
 
 /*  Exports

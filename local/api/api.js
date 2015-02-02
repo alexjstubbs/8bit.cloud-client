@@ -18,7 +18,7 @@ var api = function(nsp) {
         methods.apiMethod[method](nsp, param);
 
         });
-        
+
     });
 
 
@@ -27,7 +27,7 @@ var api = function(nsp) {
 
     });
 
-}
+};
 
 /* Exports
 -------------------------------------------------- */

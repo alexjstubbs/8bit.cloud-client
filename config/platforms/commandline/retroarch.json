@@ -93,7 +93,7 @@
         "Genesis Plus GX": {
             "path": "/opt/emulatorcores/Genesis-Plus-GX/genesis_plus_gx_libretro.so",
             "achievements": {
-                "state_size": "1000000",
+                "state_size": "3000",
                 "offset": "0xf",
                 "default_timing": 5
             }
@@ -114,7 +114,12 @@
             "path": "/opt/emulatorcores/pcsx_rearmed/libretro.so"
         },
         "Picodrive": {
-            "path": "/opt/emulatorcores/picodrive/picodrive_libretro.so"
+            "path": "/opt/emulatorcores/picodrive/picodrive_libretro.so",
+            "achievements": {
+                "state_size": "3400",
+                "offset": "0x76",
+                "default_timing": 1
+            }
         },
         "Stella": {
             "path": "/opt/emulatorcores/stella-libretro/stella_libretro.so"

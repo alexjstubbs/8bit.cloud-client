@@ -3,8 +3,8 @@
  * No need to edit file.
 -------------------------------------------------- */
 
-var _validate      = require("validate.js")
-,   _              = require("lodash");
+var _validate      = require("validate.js"),
+    _              = require("lodash");
 
 /* Matching
 -------------------------------------------------- */
@@ -22,7 +22,7 @@ var addFriend_constraints = {
         presence: true
     }
 
-}
+};
 
 /* signUp Validation Constraints
 -------------------------------------------------- */
@@ -96,13 +96,13 @@ var validate = function(data, callback) {
         }
     }
 
-}
+};
 
 /* General save Form
 -------------------------------------------------- */
 var save = function(nsp, data, callback) {
     console.log({cmd: data.formTitle, data: data});
-}
+};
 
 /* Exports
 -------------------------------------------------- */

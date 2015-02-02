@@ -1,8 +1,8 @@
 /* Network.isOnline
 -------------------------------------------------- */
-var fs 				= require('fs-extra')
-,	Wireless		= require('wireless')
-,   _ 				= require('lodash');
+var fs 				= require('fs-extra'),
+    Wireless		= require('wireless'),
+    _ 				= require('lodash');
 
 /* Options
 -------------------------------------------------- */

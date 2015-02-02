@@ -1,9 +1,9 @@
 /* List Roms by System
 -------------------------------------------------- */
-var fs              = require('fs-extra')
-,   path            = require('path')
-,   _               = require('lodash')
-,   platforms;
+var fs              = require('fs-extra'),
+    path            = require('path'),
+    _               = require('lodash'),
+    platforms;
 
 
 /*  List Platforms / Software

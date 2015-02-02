@@ -1,14 +1,14 @@
 /* List Roms by System
 -------------------------------------------------- */
 
-var fs      = require('fs-extra')
-,   path    = require('path');
+var fs      = require('fs-extra'),
+    path    = require('path');
 
 /*  Get Set
 -------------------------------------------------- */
 function getSet(nsp, set) {
 
-    var _path = path.join('./config',set + ".set.json")
+    var _path = path.join('./config',set + ".set.json");
 
     fs.readJson(_path, function(err, eventPackage) {
 
