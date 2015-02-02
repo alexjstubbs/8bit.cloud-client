@@ -2,23 +2,23 @@
 * @jsx React.DOM
 */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx')
-,   UserStatus      = require('./UserStatus.jsx')
-,   api             = require('socket.io-client')('/api')
-,   moment          = require('moment')
-,   parsedLocation
-,   throttled;
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    navigationInit  = require('../js/navigation.init'),
+    UserAvatar      = require('./Avatar.jsx'),
+    UserStatus      = require('./UserStatus.jsx'),
+    api             = require('socket.io-client')('/api'),
+    moment          = require('moment'),
+    parsedLocation,
+    throttled;
 
 module.exports = React.createClass({
 
     getInitialState: function() {
             return {
                 requestedIpLocation: null
-            }
+            };
     },
 
     componentDidMount: function() {
@@ -46,10 +46,8 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
         return {
-
             Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
-            Location: <span className="mute">Somewhere on earth</span>,
-
+            Location: <span className="mute">Somewhere on earth</span>
         }
     },
 

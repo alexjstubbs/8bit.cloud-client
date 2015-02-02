@@ -2,23 +2,23 @@
 * @jsx React.DOM
 */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../js/navigation.init')
-,   OptionNode      = require('./OptionNode.jsx')
-,   navable
-,   optionNodes
-,   selected
-,   _package
-,   launchContext   = {};
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    api             = require('socket.io-client')('/api'),
+    navigationInit  = require('../js/navigation.init'),
+    OptionNode      = require('./OptionNode.jsx'),
+    navable,
+    optionNodes,
+    selected,
+    _package,
+    launchContext   = {};
 
 module.exports = React.createClass({
 
     getInitialState: function() {
         return {
 
-        }
+        };
     },
 
     getDefaultProps: function() {
@@ -30,9 +30,8 @@ module.exports = React.createClass({
             path: '/config/platforms/commandline/user',
             ensureExists: true,
             backdrop: true,
-            server: "false",
             classList: 'col-xs-12'
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -56,7 +55,7 @@ module.exports = React.createClass({
                     e.detail.el.value = '';
                 }
                 else if (!e.detail.el.value) {
-                    e.detail.el.value = 'true'
+                    e.detail.el.value = 'true';
                 }
 
             }
@@ -67,7 +66,7 @@ module.exports = React.createClass({
 
             if (Object.keys(state.commandlineConfig.arguements).length >= 5) {
                 navable = "scroll-into-view scrollable-view";
-            };
+            }
 
             var idPre = state.commandlineConfig.package;
 

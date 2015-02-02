@@ -24,7 +24,7 @@ module.exports = React.createClass({
             id: "panel_favorites",
             title: "My Favorites",
             items: [],
-        }
+        };
     },
 
     render: function() {

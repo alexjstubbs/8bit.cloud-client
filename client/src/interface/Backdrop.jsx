@@ -4,8 +4,8 @@
 
 'use strict';
 
-var React   = require('react/addons')
-,   _       = require('lodash');
+var React   = require('react/addons'),
+    _       = require('lodash');
 
 
 module.exports = React.createClass({
@@ -14,7 +14,7 @@ module.exports = React.createClass({
             navable: false,
             id: "backdrop",
             classList: "systemNotificationContentBackdrop"
-        }
+        };
     },
     render: function() {
 
@@ -26,6 +26,3 @@ module.exports = React.createClass({
         );
     }
 });
-
-
-

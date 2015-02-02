@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React               = require('react/addons')
-,   Backdrop            = require('./Backdrop.jsx')
-,   OnScreenKeyboard    = require('./OnScreenKeyboard.jsx')
-,   navigationInit      = require('../js/navigation.init')
-,   _                   = require('lodash');
+var React               = require('react/addons'),
+    Backdrop            = require('./Backdrop.jsx'),
+    OnScreenKeyboard    = require('./OnScreenKeyboard.jsx'),
+    navigationInit      = require('../js/navigation.init'),
+    _                   = require('lodash');
 
 
 module.exports = React.createClass({
@@ -20,7 +20,7 @@ module.exports = React.createClass({
             children: [],
             input: null,
             columns: "col-xs-12"
-        }
+        };
     },
 
     componentDidMount: function() {

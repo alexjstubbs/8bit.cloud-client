@@ -4,16 +4,16 @@
 
 'use strict';
 
-var React            = require('react/addons')
-,   navigationInit   = require('../js/navigation.init')
-,   io               = require('socket.io-client');
+var React            = require('react/addons'),
+    navigationInit   = require('../js/navigation.init'),
+    io               = require('socket.io-client');
 
 module.exports = React.createClass({
 
     getDefaultProps: function() {
         return {
             url: "http://127.0.0.1:8080"
-        }
+        };
     },
 
     componentDidMount: function() {

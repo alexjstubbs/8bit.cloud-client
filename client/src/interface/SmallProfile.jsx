@@ -7,12 +7,12 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   _               = require('lodash')
-,   mixins          = require('./mixins/mixins.jsx')
-,   achievements
-,   boxart;
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),
+    _               = require('lodash'),
+    mixins          = require('./mixins/mixins.jsx'),
+    achievements,
+    boxart;
 
 module.exports = React.createClass({
 
@@ -43,7 +43,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
         return {
             screen: "Browser"
-        }
+        };
     },
 
 

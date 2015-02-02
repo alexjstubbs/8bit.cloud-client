@@ -4,13 +4,13 @@
 
 'use strict';
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   PlatformList        = require('./PlatformList.jsx')
-,   GamesList           = require('./GamesList.jsx')
-,   SmallProfile        = require('./SmallProfile.jsx')
-,   mixins              = require('./mixins/mixins.jsx')
-,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
+var React               = require('react/addons'),
+   _                   = require('lodash'),
+   PlatformList        = require('./PlatformList.jsx'),
+   GamesList           = require('./GamesList.jsx'),
+   SmallProfile        = require('./SmallProfile.jsx'),
+   mixins              = require('./mixins/mixins.jsx'),
+   browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
 
 /* Components
 -------------------------------------------------- */
@@ -27,7 +27,7 @@ module.exports = React.createClass({
 
     screenTransition: function(e) {
         if (e.detail.screen === "Browser") {
-            this.setProps(e.detail)
+            this.setProps(e.detail);
             document.getElementById("main").setAttribute("data-screen", "browser");
         }
     },
@@ -62,7 +62,7 @@ module.exports = React.createClass({
             params: "",
             navable: true,
             dataNav: 0
-        }
+        };
     },
 
     render: function() {

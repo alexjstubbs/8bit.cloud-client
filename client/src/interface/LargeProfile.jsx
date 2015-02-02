@@ -7,13 +7,13 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   _               = require('lodash')
-,   SaveStates      = require('./SaveStates.jsx')
-,   AchievementList = require('./AchievementList.jsx')
-,   mixins          = require('./mixins/mixins.jsx')
-,   launchContext   = {};
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),
+    _               = require('lodash'),
+    SaveStates      = require('./SaveStates.jsx'),
+    AchievementList = require('./AchievementList.jsx'),
+    mixins          = require('./mixins/mixins.jsx'),
+    launchContext   = {};
 
 module.exports = React.createClass({
 
@@ -53,7 +53,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
         return {
             "screen": "Profile"
-        }
+        };
     },
 
     screenMount: function() {
@@ -95,7 +95,7 @@ module.exports = React.createClass({
                         }
 
                     }
-                }
+                };
 
                 xmlhttp.open("GET",path,true);
                 xmlhttp.send();

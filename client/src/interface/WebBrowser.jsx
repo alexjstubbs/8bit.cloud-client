@@ -4,8 +4,8 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   navigationInit   = require('../js/navigation.init');
+var React           = require('react/addons'),
+    navigationInit   = require('../js/navigation.init');
 
 module.exports = React.createClass({
 
@@ -13,7 +13,7 @@ module.exports = React.createClass({
         return {
                 url: "http://ignition.io",
                 id: "web-frame"
-            }
+            };
     },
 
     componentDidMount: function() {

@@ -4,9 +4,9 @@
 
 'use strict';
 
-var React   = require('react/addons')
-,   _       = require('lodash')
-,   navigationInit = require('../js/navigation.init');
+var React   = require('react/addons'),
+    _       = require('lodash'),
+    navigationInit = require('../js/navigation.init');
 
 module.exports = React.createClass({
     getDefaultProps: function() {
@@ -14,7 +14,7 @@ module.exports = React.createClass({
             navable: false,
             subNavable: true,
             username: null
-        }
+        };
     },
 
     componentDidMount: function() {

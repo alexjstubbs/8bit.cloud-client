@@ -2,10 +2,10 @@
 * @jsx React.DOM
 */
 
-var React            = require('react/addons')
-,   navigationInit   = require('../js/navigation.init')
-,   subfield
-,   _default;
+var React            = require('react/addons'),
+    navigationInit   = require('../js/navigation.init'),
+    subfield,
+    _default;
 
 module.exports = React.createClass({
 
@@ -18,7 +18,7 @@ module.exports = React.createClass({
             defaults: null,
             require: false
 
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -27,7 +27,7 @@ module.exports = React.createClass({
 
         if (!this.props.subfield) {
 
-            document.getElementById("input-"+this.props.id).classList.add("no-sub-field")
+            document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
             document.getElementById("input-"+this.props.id).classList.remove("navable");
             document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault");
 

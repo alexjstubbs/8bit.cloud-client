@@ -17,7 +17,7 @@ module.exports = React.createClass({
             functionCall: "switchEmulator",
             platform: null,
             classList: "platform navable"
-        }
+        };
     },
 
     render: function() {
@@ -26,4 +26,3 @@ module.exports = React.createClass({
         )
     }
 });
-

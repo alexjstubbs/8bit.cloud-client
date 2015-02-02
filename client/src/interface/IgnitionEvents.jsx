@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React   = require('react/addons')
-,   Event   = require('./Event.jsx')
-,   api     = require('socket.io-client')('/api')
-,   mixins  = require('./mixins/mixins.jsx')
-,   _       = require('lodash');
+var React   = require('react/addons'),
+    Event   = require('./Event.jsx'),
+    api     = require('socket.io-client')('/api'),
+    mixins  = require('./mixins/mixins.jsx'),
+    _       = require('lodash');
 
 module.exports = React.createClass({
 
@@ -18,7 +18,7 @@ module.exports = React.createClass({
         return {
             events: [{}],
             eventSet: [{}]
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -36,7 +36,7 @@ module.exports = React.createClass({
             eventSet: [],
             id: "events",
             eventType: "",
-        }
+        };
     },
     render: function() {
 

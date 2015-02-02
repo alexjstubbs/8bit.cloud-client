@@ -2,12 +2,12 @@
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx')
-,   moment          = require('moment');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    navigationInit  = require('../js/navigation.init'),
+    UserAvatar      = require('./Avatar.jsx'),
+    moment          = require('moment');
 
 module.exports = React.createClass({
 

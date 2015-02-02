@@ -4,10 +4,10 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   UserAvatar      = require('./Avatar.jsx')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   api             = require('socket.io-client')('/api');
+var React           = require('react/addons'),
+    UserAvatar      = require('./Avatar.jsx'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    api             = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
 
@@ -16,14 +16,14 @@ module.exports = React.createClass({
             session: {
                 Username: "Guest"
             }
-        }
+        };
     },
 
     getDefaultProps: function() {
 
     return {
             id: "avatar"
-        }
+        };
     },
 
     componentDidMount: function() {

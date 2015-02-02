@@ -17,10 +17,10 @@ module.exports = React.createClass({
             myMessages: [],
             unread: null
 
-        }
+        };
     },
 
-    
+
     render: function() {
 
         return (

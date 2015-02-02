@@ -4,12 +4,12 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   ListedGame      = require('./ListedGame.jsx')
-,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../js/navigation.init')
-,   removeBrackets  = require('../js/helpers').removeBrackets;
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    ListedGame      = require('./ListedGame.jsx'),
+    api             = require('socket.io-client')('/api'),
+    navigationInit  = require('../js/navigation.init'),
+    removeBrackets  = require('../js/helpers').removeBrackets;
 
 module.exports = React.createClass({
 
@@ -27,7 +27,7 @@ module.exports = React.createClass({
          var Obj = {
              platform: "Nintendo",
              start: 0
-         }
+         };
 
         api.emit('request', { request: 'gamesList', param: Obj });
 
@@ -41,7 +41,13 @@ module.exports = React.createClass({
                 var a = object.gamesList,
                     b = [];
 
-                object.page ? b = component.state.gamesList : b = [component.state.gamesList[0]];
+                if (object.page)  {
+                    b = component.state.gamesList;
+                }
+
+                else {
+                    b = [component.state.gamesList[0]];
+                }
 
                 var c = b.concat(a);
 
@@ -64,7 +70,7 @@ module.exports = React.createClass({
 
             var alpha = _char.filename.charAt(0);
 
-                if (nodeList[index] && _.contains(alpha_list, alpha) == false) {
+                if (nodeList[index] && _.contains(alpha_list, alpha) === false) {
                     nodeList[index].innerHTML = alpha;
                 }
 
@@ -84,7 +90,7 @@ module.exports = React.createClass({
             navStack: 2,
             functionCall: "largeProfile",
             functionParams: ""
-        }
+        };
     },
 
     render: function() {
@@ -99,7 +105,7 @@ module.exports = React.createClass({
 
                 if (gameTitle) {
 
-                    if (skipped == true) {
+                    if (skipped === true) {
                         return <ListedGame key={i.id} navStack={i} game={gameTitle} filename={game.filename} path={game.path} />
                         skipped = false;
                     }

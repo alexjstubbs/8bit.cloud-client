@@ -8,9 +8,9 @@
 
 'use strict';
 
-var React   = require('react/addons')
-,   api     = require('socket.io-client')('/api')
-,   _       = require('lodash');
+var React   = require('react/addons'),
+    api     = require('socket.io-client')('/api'),
+    _       = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -25,9 +25,9 @@ module.exports = React.createClass({displayName: 'exports',
                "title": "",
                "description": "",
                "achievedClass": "fa-stack sub fa-lg "
-            }
+           };
     },
-    
+
     render: function() {
 
         var cx = React.addons.classSet;
@@ -39,13 +39,13 @@ module.exports = React.createClass({displayName: 'exports',
             'fa-trophy': true
         });
 
-      
+
         return (
 
             React.DOM.li({className: "col-xs-3"}, 
-               
+
                React.DOM.div({className: "col-xs-4 pull-left trophy-icon"}, 
-                  
+
                   React.DOM.span({className: "trophy"}, 
 
                      React.DOM.i({className: classes}), 
@@ -59,29 +59,30 @@ module.exports = React.createClass({displayName: 'exports',
                   )
 
                ), 
-               
+
                React.DOM.span({className: "pull-right col-xs-8 offset-md-2 trophy-info"}, 
-           
+
                   React.DOM.h5({className: "achievement-title no-padding no-margin"}, this.props.title), 
                   React.DOM.span({className: "achievement-description"}, this.props.description)
-           
+
                )
-           
+
             )
 
       )
     }
 });
+
 },{"lodash":101,"react/addons":103,"socket.io-client":262}],2:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   moment              = require('moment')
-,   api                 = require('socket.io-client')('/api')
-,   navigationInit      = require('../js/navigation.init');
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    moment              = require('moment'),
+    api                 = require('socket.io-client')('/api'),
+    navigationInit      = require('../js/navigation.init');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -93,7 +94,7 @@ module.exports = React.createClass({displayName: 'exports',
                 count: false,
                 single: true
             }
-        }
+        };
     },
 
     componentDidMount: function () {
@@ -134,11 +135,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   moment          = require('moment')
-,   api             = require('socket.io-client')('/api')
-,   actionString;
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    moment          = require('moment'),
+    api             = require('socket.io-client')('/api'),
+    actionString;
 
 module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
@@ -154,7 +155,7 @@ module.exports = React.createClass({displayName: 'exports',
             actionSet: [],
             actionString: "recently played",
             timestamp: null
-        }
+        };
     },
     render: function() {
 
@@ -187,11 +188,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   api             = require('socket.io-client')('/api')
-,   _               = require('lodash')
-,   throttled;
+var React           = require('react/addons'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    api             = require('socket.io-client')('/api'),
+    _               = require('lodash'),
+    throttled;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -304,8 +305,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React   = require('react/addons')
-,   _       = require('lodash');
+var React   = require('react/addons'),
+    _       = require('lodash');
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -314,7 +315,7 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             id: "backdrop",
             classList: "systemNotificationContentBackdrop"
-        }
+        };
     },
     render: function() {
 
@@ -327,9 +328,6 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-
-
-
 },{"lodash":101,"react/addons":103}],6:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -337,13 +335,13 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   PlatformList        = require('./PlatformList.jsx')
-,   GamesList           = require('./GamesList.jsx')
-,   SmallProfile        = require('./SmallProfile.jsx')
-,   mixins              = require('./mixins/mixins.jsx')
-,   browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
+var React               = require('react/addons'),
+   _                   = require('lodash'),
+   PlatformList        = require('./PlatformList.jsx'),
+   GamesList           = require('./GamesList.jsx'),
+   SmallProfile        = require('./SmallProfile.jsx'),
+   mixins              = require('./mixins/mixins.jsx'),
+   browserNavigation   = require('../js/navigation.browser.js').browserNavigation;
 
 /* Components
 -------------------------------------------------- */
@@ -360,7 +358,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     screenTransition: function(e) {
         if (e.detail.screen === "Browser") {
-            this.setProps(e.detail)
+            this.setProps(e.detail);
             document.getElementById("main").setAttribute("data-screen", "browser");
         }
     },
@@ -395,7 +393,7 @@ module.exports = React.createClass({displayName: 'exports',
             params: "",
             navable: true,
             dataNav: 0
-        }
+        };
     },
 
     render: function() {
@@ -491,10 +489,10 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React       = require('react/addons')
-,   helpers     = require('../js/helpers')
-,   api         = require('socket.io-client')('/api')
-,   mixins      = require('./mixins/mixins.jsx');
+var React       = require('react/addons'),
+    helpers     = require('../js/helpers'),
+    api         = require('socket.io-client')('/api'),
+    mixins      = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -503,7 +501,7 @@ module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
             community: [{}]
-        }
+        };
     },
 
     getDefaultProps: function() {
@@ -514,7 +512,7 @@ module.exports = React.createClass({displayName: 'exports',
             imageStyles:    "",
             classString:    "slide col-xs-4",
             functionCall:   "moreCommunity"
-            }
+        };
     },
 
     componentDidMount: function() {
@@ -583,11 +581,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React            = require('react/addons')
-,   helpers          = require('../js/helpers')
-,   api              = require('socket.io-client')('/api')
-,   navigationInit   = require('../js/navigation.init')
-,   mixins           = require('./mixins/mixins.jsx');
+var React            = require('react/addons'),
+    helpers          = require('../js/helpers'),
+    api              = require('socket.io-client')('/api'),
+    navigationInit   = require('../js/navigation.init'),
+    mixins           = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -605,7 +603,7 @@ module.exports = React.createClass({displayName: 'exports',
             }],
             url: "http://www.racketboy.com/forum/viewtopic.php?f=33&t=47942",
             about: "http://www.racketboy.com/retro/racketboy-game-club-together-retro-intro"
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -668,20 +666,20 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   UserProfile     = require('./UserProfile.jsx')
-,   HeaderGroup     = require('./HeaderGroup.jsx')
-,   FriendsBox      = require('./FriendsBox.jsx')
-,   RecentActivity  = require('./RecentActivity.jsx')
-,   api             = require('socket.io-client')('/api')
-,   Favorites       = require('./Favorites.jsx')
-,   Community       = require('./Community.jsx')
-,   IgnitionEvents  = require('./IgnitionEvents.jsx')
-,   ShortcutBar     = require('./ShortcutBar.jsx')
-,   mixins          = require('./mixins/mixins.jsx')
-,   unreadMessages
-,   favorites       = [];
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    UserProfile     = require('./UserProfile.jsx'),
+    HeaderGroup     = require('./HeaderGroup.jsx'),
+    FriendsBox      = require('./FriendsBox.jsx'),
+    RecentActivity  = require('./RecentActivity.jsx'),
+    api             = require('socket.io-client')('/api'),
+    Favorites       = require('./Favorites.jsx'),
+    Community       = require('./Community.jsx'),
+    IgnitionEvents  = require('./IgnitionEvents.jsx'),
+    ShortcutBar     = require('./ShortcutBar.jsx'),
+      mixins          = require('./mixins/mixins.jsx'),
+    unreadMessages,
+    favorites       = [];
 
 
 // ,   watch           = ["isOnline", "ipInfo", "session", "eventSet", "messages"]
@@ -731,7 +729,7 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
         return {
             screen: "Dashboard"
-        }
+        };
     },
 
     screenMount: function() {
@@ -757,7 +755,7 @@ module.exports = React.createClass({displayName: 'exports',
                     component.forceUpdate();
 
                 }
-            }
+            };
 
             xmlhttp.open("GET",path,true);
             xmlhttp.send();
@@ -863,7 +861,7 @@ module.exports = React.createClass({displayName: 'exports',
             eventType: "message",
             timestamp: null,
             classString: "icon large-icon-bg "
-        }
+        };
     },
     render: function() {
 
@@ -912,7 +910,7 @@ module.exports = React.createClass({displayName: 'exports',
             game: null,
             system: 'Super Nintendo',
             timestamp: null
-        }
+        };
     },
     render: function() {
 
@@ -921,7 +919,7 @@ module.exports = React.createClass({displayName: 'exports',
             filepath: this.props.filepath,
             shortname: this.props.shortname,
             longname: this.props.game
-        }
+        };
 
         launchContext = JSON.stringify(launchContext);
 
@@ -982,7 +980,7 @@ module.exports = React.createClass({displayName: 'exports',
             id: "panel_favorites",
             title: "My Favorites",
             items: [],
-        }
+        };
     },
 
     render: function() {
@@ -1027,18 +1025,18 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   UserStatus      = require('./UserStatus.jsx')
-,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    UserStatus      = require('./UserStatus.jsx'),
+    navigationInit  = require('../js/navigation.init'),
+    UserAvatar      = require('./Avatar.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
             friends: []
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -1050,7 +1048,7 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
         return {
-            Avatar: React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
+            Avatar: React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"}))
         }
     },
 
@@ -1120,23 +1118,23 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx')
-,   UserStatus      = require('./UserStatus.jsx')
-,   api             = require('socket.io-client')('/api')
-,   moment          = require('moment')
-,   parsedLocation
-,   throttled;
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    navigationInit  = require('../js/navigation.init'),
+    UserAvatar      = require('./Avatar.jsx'),
+    UserStatus      = require('./UserStatus.jsx'),
+    api             = require('socket.io-client')('/api'),
+    moment          = require('moment'),
+    parsedLocation,
+    throttled;
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
             return {
                 requestedIpLocation: null
-            }
+            };
     },
 
     componentDidMount: function() {
@@ -1164,10 +1162,8 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
         return {
-
             Avatar: React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
-            Location: React.DOM.span({className: "mute"}, "Somewhere on earth"),
-
+            Location: React.DOM.span({className: "mute"}, "Somewhere on earth")
         }
     },
 
@@ -1236,17 +1232,17 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   moment              = require('moment')
-,   FriendNode          = require('./Friend.jsx')
-,   api                 = require('socket.io-client')('/api')
-,   navigationInit      = require('../js/navigation.init')
-,   UserAvatar          = require('./Avatar.jsx')
-,   Avatar
-,   noFriends
-,   noFriendsOnline
-,   hasFriends;
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    moment              = require('moment'),
+    FriendNode          = require('./Friend.jsx'),
+    api                 = require('socket.io-client')('/api'),
+    navigationInit      = require('../js/navigation.init'),
+    UserAvatar          = require('./Avatar.jsx'),
+    Avatar,
+    noFriends,
+    noFriendsOnline,
+    hasFriends;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1254,7 +1250,7 @@ module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
             friends: []
-        }
+        };
     },
 
     componentDidMount: function () {
@@ -1284,7 +1280,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return {
             navable: true
-        }
+        };
     },
 
     render: function() {
@@ -1338,18 +1334,18 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   api             = require('socket.io-client')('/api')
-,   onlineFriends
-,   plural;
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    api             = require('socket.io-client')('/api'),
+    onlineFriends,
+    plural;
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
             onlineFriends: 0
-        }
+        };
     },
 
     getDefaultProps: function() {
@@ -1362,7 +1358,7 @@ module.exports = React.createClass({displayName: 'exports',
             functionCall: "viewFriends",
             classString: 'col-xs-3 pull-left square dark-gray',
             id: "friendsBox"
-        }
+        };
     },
 
 
@@ -1397,8 +1393,8 @@ module.exports = React.createClass({displayName: 'exports',
             'purple': onlineFriends,
         });
 
-        if (onlineFriends > 1) { plural = "Friends" }
-        else { plural = "Friend" }
+        if (onlineFriends > 1) { plural = "Friends"; }
+        else { plural = "Friend"; }
 
         return (
 
@@ -1426,12 +1422,12 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   ListedGame      = require('./ListedGame.jsx')
-,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../js/navigation.init')
-,   removeBrackets  = require('../js/helpers').removeBrackets;
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    ListedGame      = require('./ListedGame.jsx'),
+    api             = require('socket.io-client')('/api'),
+    navigationInit  = require('../js/navigation.init'),
+    removeBrackets  = require('../js/helpers').removeBrackets;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1449,7 +1445,7 @@ module.exports = React.createClass({displayName: 'exports',
          var Obj = {
              platform: "Nintendo",
              start: 0
-         }
+         };
 
         api.emit('request', { request: 'gamesList', param: Obj });
 
@@ -1463,7 +1459,13 @@ module.exports = React.createClass({displayName: 'exports',
                 var a = object.gamesList,
                     b = [];
 
-                object.page ? b = component.state.gamesList : b = [component.state.gamesList[0]];
+                if (object.page)  {
+                    b = component.state.gamesList;
+                }
+
+                else {
+                    b = [component.state.gamesList[0]];
+                }
 
                 var c = b.concat(a);
 
@@ -1486,7 +1488,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             var alpha = _char.filename.charAt(0);
 
-                if (nodeList[index] && _.contains(alpha_list, alpha) == false) {
+                if (nodeList[index] && _.contains(alpha_list, alpha) === false) {
                     nodeList[index].innerHTML = alpha;
                 }
 
@@ -1506,7 +1508,7 @@ module.exports = React.createClass({displayName: 'exports',
             navStack: 2,
             functionCall: "largeProfile",
             functionParams: ""
-        }
+        };
     },
 
     render: function() {
@@ -1521,7 +1523,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 if (gameTitle) {
 
-                    if (skipped == true) {
+                    if (skipped === true) {
                         return ListedGame({key: i.id, navStack: i, game: gameTitle, filename: game.filename, path: game.path})
                         skipped = false;
                     }
@@ -1563,9 +1565,9 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   navigationInit  = require('../js/navigation.init')
-,   _               = require('lodash');
+var React           = require('react/addons'),
+    navigationInit  = require('../js/navigation.init'),
+    _               = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1579,7 +1581,7 @@ module.exports = React.createClass({displayName: 'exports',
             body: "(001): A General Unspecified Error Occured. Refer to log file for more information.",
             button: "Close Dialog",
             url: "http://ignition.io/help"
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -1605,9 +1607,9 @@ module.exports = React.createClass({displayName: 'exports',
             2: function() {
                 return {icon: "ion-alert", text: "Warning!" };
             }
-        }
+        };
 
-        var type = type[this.props.type]();
+        type = type[this.props.type]();
 
         return (
 
@@ -1650,10 +1652,10 @@ module.exports = React.createClass({displayName: 'exports',
             myMessages: [],
             unread: null
 
-        }
+        };
     },
 
-    
+
     render: function() {
 
         return (
@@ -1672,11 +1674,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React   = require('react/addons')
-,   Event   = require('./Event.jsx')
-,   api     = require('socket.io-client')('/api')
-,   mixins  = require('./mixins/mixins.jsx')
-,   _       = require('lodash');
+var React   = require('react/addons'),
+    Event   = require('./Event.jsx'),
+    api     = require('socket.io-client')('/api'),
+    mixins  = require('./mixins/mixins.jsx'),
+    _       = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1686,7 +1688,7 @@ module.exports = React.createClass({displayName: 'exports',
         return {
             events: [{}],
             eventSet: [{}]
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -1704,7 +1706,7 @@ module.exports = React.createClass({displayName: 'exports',
             eventSet: [],
             id: "events",
             eventType: "",
-        }
+        };
     },
     render: function() {
 
@@ -1735,10 +1737,10 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   newMessages
-,   icon            = "ion-email ";
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    newMessages,
+    icon            = "ion-email ";
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1754,7 +1756,7 @@ module.exports = React.createClass({displayName: 'exports',
             classString: "col-xs-3 pull-left square dark-gray",
             id: "inbox",
             unread: null
-        }
+        };
     },
     render: function() {
 
@@ -1790,9 +1792,9 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   navigationInit  = require('../js/navigation.init')
-,   miniKeyboard    = require('../js/navigation.keyboard');
+var React           = require('react/addons'),
+    navigationInit  = require('../js/navigation.init'),
+    miniKeyboard    = require('../js/navigation.keyboard');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1803,7 +1805,7 @@ module.exports = React.createClass({displayName: 'exports',
             navStack: 2,
             input: null,
             form: 'onScreenKeyboard'
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -1815,7 +1817,7 @@ module.exports = React.createClass({displayName: 'exports',
         var Keyboard = new miniKeyboard.miniKeyboard(kb);
 
         navigationInit.navigationInit();
-       
+
 
     },
 
@@ -1824,15 +1826,12 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
             React.DOM.div(null
-          
-            )              
-         
+
+            )
+
         );
     }
 });
-
-
-
 
 },{"../js/navigation.init":86,"../js/navigation.keyboard":88,"react/addons":103}],23:[function(require,module,exports){
 /**
@@ -1844,13 +1843,13 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   _               = require('lodash')
-,   SaveStates      = require('./SaveStates.jsx')
-,   AchievementList = require('./AchievementList.jsx')
-,   mixins          = require('./mixins/mixins.jsx')
-,   launchContext   = {};
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),
+    _               = require('lodash'),
+    SaveStates      = require('./SaveStates.jsx'),
+    AchievementList = require('./AchievementList.jsx'),
+    mixins          = require('./mixins/mixins.jsx'),
+    launchContext   = {};
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1890,7 +1889,7 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
         return {
             "screen": "Profile"
-        }
+        };
     },
 
     screenMount: function() {
@@ -1932,7 +1931,7 @@ module.exports = React.createClass({displayName: 'exports',
                         }
 
                     }
-                }
+                };
 
                 xmlhttp.open("GET",path,true);
                 xmlhttp.send();
@@ -2059,8 +2058,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons')
-,   _     = require('lodash');
+var React = require('react/addons'),
+    _     = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2095,20 +2094,20 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx')
-,   UserStatus      = require('./UserStatus.jsx')
-,   moment          = require('moment');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    navigationInit  = require('../js/navigation.init'),
+    UserAvatar      = require('./Avatar.jsx'),
+    UserStatus      = require('./UserStatus.jsx'),
+    moment          = require('moment');
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
             message: null
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -2201,12 +2200,12 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx')
-,   moment          = require('moment');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    navigationInit  = require('../js/navigation.init'),
+    UserAvatar      = require('./Avatar.jsx'),
+    moment          = require('moment');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2302,16 +2301,16 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   moment              = require('moment')
-,   MessagePreview      = require('./MessagePreview.jsx')
-,   api                 = require('socket.io-client')('/api')
-,   navigationInit      = require('../js/navigation.init')
-,   UserAvatar          = require('./Avatar.jsx')
-,   Avatar
-,   noMessages
-,   noMsg;
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    moment              = require('moment'),
+    MessagePreview      = require('./MessagePreview.jsx'),
+    api                 = require('socket.io-client')('/api'),
+    navigationInit      = require('../js/navigation.init'),
+    UserAvatar          = require('./Avatar.jsx'),
+    Avatar,
+    noMessages,
+    noMsg;
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -2320,7 +2319,7 @@ module.exports = React.createClass({displayName: 'exports',
     getInitialState: function() {
         return {
             messages: []
-        }
+        };
     },
 
     componentDidMount: function () {
@@ -2347,14 +2346,14 @@ module.exports = React.createClass({displayName: 'exports',
 
     return {
             navable: true
-        }
+        };
     },
 
     render: function() {
 
         noMsg = true;
 
-        if (this.state.messages.length != 0) {
+        if (this.state.messages.length !== 0) {
             noMsg = false;
         }
 
@@ -2404,11 +2403,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React               = require('react/addons')
-,   Backdrop            = require('./Backdrop.jsx')
-,   OnScreenKeyboard    = require('./OnScreenKeyboard.jsx')
-,   navigationInit      = require('../js/navigation.init')
-,   _                   = require('lodash');
+var React               = require('react/addons'),
+    Backdrop            = require('./Backdrop.jsx'),
+    OnScreenKeyboard    = require('./OnScreenKeyboard.jsx'),
+    navigationInit      = require('../js/navigation.init'),
+    _                   = require('lodash');
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -2420,7 +2419,7 @@ module.exports = React.createClass({displayName: 'exports',
             children: [],
             input: null,
             columns: "col-xs-12"
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -2465,8 +2464,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons')
-,   api = require('socket.io-client')('/api');
+var React = require('react/addons'),
+    api = require('socket.io-client')('/api');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2516,10 +2515,10 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React               = require('react/addons')
-,   navigationInit      = require('../js/navigation.init')
-,   _keyboard           = require('../js/navigation.keyboard')
-,   keyboardKeyEvents   = require('../js/navigation.keyboardKeyEvents');
+var React               = require('react/addons'),
+    navigationInit      = require('../js/navigation.init'),
+    _keyboard           = require('../js/navigation.keyboard'),
+    keyboardKeyEvents   = require('../js/navigation.keyboardKeyEvents');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2527,7 +2526,7 @@ module.exports = React.createClass({displayName: 'exports',
         return {
             type:       "alpha",
             tabIndex:   1999
-        }
+        };
     },
 
     getDefaultProps: function() {
@@ -2535,15 +2534,15 @@ module.exports = React.createClass({displayName: 'exports',
         return {
                 navable:    true,
                 navStack:   2,
-                input:      null,
                 form:       'onScreenKeyboard',
                 input:      "text"
-            }
+            };
     },
 
     componentDidMount: function() {
 
-        var _this = this;
+        var _this = this,
+            Keyboard;
 
         var recentInput = document.getElementsByClassName("activeInput")[0];
             recentInput.scrollTop = recentInput.scrollHeight;
@@ -2554,11 +2553,11 @@ module.exports = React.createClass({displayName: 'exports',
         var kb = document.getElementById("KB");
 
         if (this.state.type == "symbols") {
-            var Keyboard = new _keyboard.symbolsKeyboard(kb);
+            Keyboard = new _keyboard.symbolsKeyboard(kb);
         }
 
         else {
-            var Keyboard = new _keyboard.Keyboard(kb);
+            Keyboard = new _keyboard.Keyboard(kb);
 
         }
 
@@ -2635,10 +2634,10 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React            = require('react/addons')
-,   navigationInit   = require('../js/navigation.init')
-,   subfield
-,   _default;
+var React            = require('react/addons'),
+    navigationInit   = require('../js/navigation.init'),
+    subfield,
+    _default;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2651,7 +2650,7 @@ module.exports = React.createClass({displayName: 'exports',
             defaults: null,
             require: false
 
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -2660,7 +2659,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         if (!this.props.subfield) {
 
-            document.getElementById("input-"+this.props.id).classList.add("no-sub-field")
+            document.getElementById("input-"+this.props.id).classList.add("no-sub-field");
             document.getElementById("input-"+this.props.id).classList.remove("navable");
             document.getElementById("input-"+this.props.id).setAttribute("data-function", "preventDefault");
 
@@ -2731,7 +2730,7 @@ module.exports = React.createClass({displayName: 'exports',
             functionCall: "switchEmulator",
             platform: null,
             classList: "platform navable"
-        }
+        };
     },
 
     render: function() {
@@ -2741,7 +2740,6 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-
 },{"lodash":101,"react/addons":103}],33:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -2749,11 +2747,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   Platform        = require('./Platform.jsx')
-,   getFirstChild   = require('../js/helpers.js').getFirstChild
-,   api             = require('socket.io-client')('/api');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    Platform        = require('./Platform.jsx'),
+    getFirstChild   = require('../js/helpers.js').getFirstChild,
+    api             = require('socket.io-client')('/api');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2779,7 +2777,7 @@ module.exports = React.createClass({displayName: 'exports',
             defautSelect: true,
             navable: true,
             navStack: 0
-        }
+        };
     },
 
     render: function() {
@@ -2847,15 +2845,15 @@ module.exports = React.createClass({displayName: 'exports',
             id: "ignition-popup",
             title: "Alert",
             message: "No error supplied?"
-        }
+        };
     },
-    
+
     render: function() {
 
         var backdrop;
 
         if (this.props.backdrop) {
-            backdrop = Backdrop(null) 
+            backdrop = Backdrop(null)
         }
 
         return (
@@ -2867,20 +2865,20 @@ module.exports = React.createClass({displayName: 'exports',
                  React.DOM.div({className: "container-fluid parent"}, 
                     React.DOM.div({className: "row-fluid"}, 
                         React.DOM.div({className: "col-xs-12"}, 
-                                    
+
                             React.DOM.h2(null, 
                                 React.DOM.span({className: "col-xs-11"}, 
                                 this.props.title
                                 ), 
-                                
+
                                 React.DOM.span({className: "col-xs-1"}, 
                                 React.DOM.i({className: "ion-alert"}))
                                 ), 
-                            
+
                             React.DOM.div({className: "clearfix"}), 
-                            
+
                             React.DOM.hr(null), 
-                            
+
                             React.DOM.p(null, 
                                 this.props.message
                             ), 
@@ -2896,9 +2894,6 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-
-
-
 },{"./Backdrop.jsx":5,"lodash":101,"react/addons":103}],35:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -2906,9 +2901,9 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React   = require('react/addons')
-,   _       = require('lodash')
-,   navigationInit = require('../js/navigation.init');
+var React   = require('react/addons'),
+    _       = require('lodash'),
+    navigationInit = require('../js/navigation.init');
 
 module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
@@ -2916,7 +2911,7 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             subNavable: true,
             username: null
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -2950,11 +2945,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,    _              = require('lodash')
-,   Profile         = require('./Profile.jsx')
-,   navigationInit  = require('../js/navigation.init');
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),
+    _              = require('lodash'),
+    Profile         = require('./Profile.jsx'),
+    navigationInit  = require('../js/navigation.init');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2963,7 +2958,7 @@ module.exports = React.createClass({displayName: 'exports',
         profiles: [
                   {}
                 ]
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -2994,7 +2989,7 @@ module.exports = React.createClass({displayName: 'exports',
                         profileNodes, 
 
                      React.DOM.li({className: "no-show"}, "     ")
-                     
+
                 )
 
             )
@@ -3010,8 +3005,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   navigationInit  = require('../js/navigation.init');
+var React           = require('react/addons'),
+    navigationInit  = require('../js/navigation.init');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3021,7 +3016,7 @@ module.exports = React.createClass({displayName: 'exports',
             agree: "closeDialog",
             disagree: "closeDialog",
             parameters: null
-        }
+        };
     },
 
 
@@ -3056,11 +3051,11 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React       = require('react/addons')
-,   Activity    = require('./Activity.jsx')
-,   _           = require('lodash')
-,   moment      = require('moment')
-,   api         = require('socket.io-client')('/api');
+var React       = require('react/addons'),
+    Activity    = require('./Activity.jsx'),
+    _           = require('lodash'),
+    moment      = require('moment'),
+    api         = require('socket.io-client')('/api');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3089,7 +3084,7 @@ module.exports = React.createClass({displayName: 'exports',
             id: "recent_activity",
             title: "Recent Activity",
             items: [],
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -3204,19 +3199,19 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React 				= require('react/addons')
-,   _ 					= require('lodash')
-,   Dashboard 			= require('./Dashboard.jsx')
-, 	UserAgreement 		= require('./forms/UserAgreement.jsx')
-, 	Welcome 			= require('./onboarding/Welcome.jsx')
-, 	NetworkSetup 		= require('./onboarding/NetworkSetup.jsx')
-, 	NewProfile	 		= require('./onboarding/NewProfile.jsx')
-, 	LoadingIgnition	 	= require('./onboarding/LoadingIgnition.jsx')
-,   Browser 			= require('./Browser.jsx')
-,   LargeProfile 		= require('./LargeProfile.jsx')
-,   Profiles 			= require('./Profiles.jsx')
-,   init 				= require('../js/init.js')
-,   navigationInit  	= require('../js/navigation.init.js');
+var React 				= require('react/addons'),
+	_ 					= require('lodash'),
+	Dashboard 			= require('./Dashboard.jsx'),
+	UserAgreement 		= require('./forms/UserAgreement.jsx'),
+	Welcome 			= require('./onboarding/Welcome.jsx'),
+	NetworkSetup 		= require('./onboarding/NetworkSetup.jsx'),
+	NewProfile	 		= require('./onboarding/NewProfile.jsx'),
+	LoadingIgnition	 	= require('./onboarding/LoadingIgnition.jsx'),
+	Browser 			= require('./Browser.jsx'),
+	LargeProfile 		= require('./LargeProfile.jsx'),
+	Profiles 			= require('./Profiles.jsx'),
+	init 				= require('../js/init.js'),
+	navigationInit  	= require('../js/navigation.init.js');
 
 require('lodash-migrate');
 
@@ -3263,7 +3258,7 @@ var setupScreens = function(route) {
 	-------------------------------------------------- */
 	navigationInit.navigationInit();
 
-}
+};
 
 setupScreens(window.location.pathname);
 
@@ -3309,12 +3304,12 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   _               = require('lodash')
-,   mixins          = require('./mixins/mixins.jsx')
-,   achievements
-,   boxart;
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),
+    _               = require('lodash'),
+    mixins          = require('./mixins/mixins.jsx'),
+    achievements,
+    boxart;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3345,7 +3340,7 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
         return {
             screen: "Browser"
-        }
+        };
     },
 
 
@@ -3417,23 +3412,23 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../js/navigation.init')
-,   OptionNode      = require('./OptionNode.jsx')
-,   navable
-,   optionNodes
-,   selected
-,   _package
-,   launchContext   = {};
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    api             = require('socket.io-client')('/api'),
+    navigationInit  = require('../js/navigation.init'),
+    OptionNode      = require('./OptionNode.jsx'),
+    navable,
+    optionNodes,
+    selected,
+    _package,
+    launchContext   = {};
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
 
-        }
+        };
     },
 
     getDefaultProps: function() {
@@ -3445,9 +3440,8 @@ module.exports = React.createClass({displayName: 'exports',
             path: '/config/platforms/commandline/user',
             ensureExists: true,
             backdrop: true,
-            server: "false",
             classList: 'col-xs-12'
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -3471,7 +3465,7 @@ module.exports = React.createClass({displayName: 'exports',
                     e.detail.el.value = '';
                 }
                 else if (!e.detail.el.value) {
-                    e.detail.el.value = 'true'
+                    e.detail.el.value = 'true';
                 }
 
             }
@@ -3482,7 +3476,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             if (Object.keys(state.commandlineConfig.arguements).length >= 5) {
                 navable = "scroll-into-view scrollable-view";
-            };
+            }
 
             var idPre = state.commandlineConfig.package;
 
@@ -3602,16 +3596,16 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React            = require('react/addons')
-,   navigationInit   = require('../js/navigation.init')
-,   io               = require('socket.io-client');
+var React            = require('react/addons'),
+    navigationInit   = require('../js/navigation.init'),
+    io               = require('socket.io-client');
 
 module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
         return {
             url: "http://127.0.0.1:8080"
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -3686,7 +3680,7 @@ module.exports = React.createClass({displayName: 'exports',
             classes: null,
             icon: "trophy",
             effect: "fadeInOut",
-        }
+        };
     },
 
     render: function() {
@@ -3708,10 +3702,10 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   UserAvatar      = require('./Avatar.jsx')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   api             = require('socket.io-client')('/api');
+var React           = require('react/addons'),
+    UserAvatar      = require('./Avatar.jsx'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    api             = require('socket.io-client')('/api');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3720,14 +3714,14 @@ module.exports = React.createClass({displayName: 'exports',
             session: {
                 Username: "Guest"
             }
-        }
+        };
     },
 
     getDefaultProps: function() {
 
     return {
             id: "avatar"
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -3777,13 +3771,13 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   Avatar              = require('./Avatar.jsx')
-,   api                 = require('socket.io-client')('/api')
-,   mixins              = require('./mixins/mixins.jsx')
-,   NetworkStatus       = require('./NetworkStatus.jsx')
-,   Timer               = require('./Timer.jsx');
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    Avatar              = require('./Avatar.jsx'),
+    api                 = require('socket.io-client')('/api'),
+    mixins              = require('./mixins/mixins.jsx'),
+    NetworkStatus       = require('./NetworkStatus.jsx'),
+    Timer               = require('./Timer.jsx');
 
 /* Components
 -------------------------------------------------- */
@@ -3796,7 +3790,7 @@ module.exports = React.createClass({displayName: 'exports',
             session: {
                 Username: "Guest"
             }
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -3808,7 +3802,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             id: "userspace"
 
-        }
+        };
     },
 
     render: function() {
@@ -3892,13 +3886,13 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   Avatar              = require('./Avatar.jsx')
-,   api                 = require('socket.io-client')('/api')
-,   mixins              = require('./mixins/mixins.jsx')
-,   NetworkStatus       = require('./NetworkStatus.jsx')
-,   Timer               = require('./Timer.jsx');
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    Avatar              = require('./Avatar.jsx'),
+    api                 = require('socket.io-client')('/api'),
+    mixins              = require('./mixins/mixins.jsx'),
+    NetworkStatus       = require('./NetworkStatus.jsx'),
+    Timer               = require('./Timer.jsx');
 
 /* Components
 -------------------------------------------------- */
@@ -3909,7 +3903,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             id: "userspace-right"
 
-        }
+        };
     },
 
     render: function() {
@@ -3947,10 +3941,10 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React   = require('react/addons')
-,   api     = require('socket.io-client')('/api')
-,   _       = require('lodash')
-,   profile;
+var React   = require('react/addons'),
+    api     = require('socket.io-client')('/api'),
+    _       = require('lodash'),
+    profile;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -3974,7 +3968,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             return {
                 Username: "Alex"
-            }
+            };
 
     },
 
@@ -4028,8 +4022,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   navigationInit   = require('../js/navigation.init');
+var React           = require('react/addons'),
+    navigationInit   = require('../js/navigation.init');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -4037,7 +4031,7 @@ module.exports = React.createClass({displayName: 'exports',
         return {
                 url: "http://ignition.io",
                 id: "web-frame"
-            }
+            };
     },
 
     componentDidMount: function() {

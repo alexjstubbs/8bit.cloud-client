@@ -4,10 +4,10 @@
 
 'use strict';
 
-var React       = require('react/addons')
-,   helpers     = require('../js/helpers')
-,   api         = require('socket.io-client')('/api')
-,   mixins      = require('./mixins/mixins.jsx');
+var React       = require('react/addons'),
+    helpers     = require('../js/helpers'),
+    api         = require('socket.io-client')('/api'),
+    mixins      = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({
 
@@ -16,7 +16,7 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             community: [{}]
-        }
+        };
     },
 
     getDefaultProps: function() {
@@ -27,7 +27,7 @@ module.exports = React.createClass({
             imageStyles:    "",
             classString:    "slide col-xs-4",
             functionCall:   "moreCommunity"
-            }
+        };
     },
 
     componentDidMount: function() {

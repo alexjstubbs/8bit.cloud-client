@@ -2,10 +2,10 @@
  * @jsx React.DOM
  */
 
-var React               = require('react/addons')
-,   navigationInit      = require('../js/navigation.init')
-,   _keyboard           = require('../js/navigation.keyboard')
-,   keyboardKeyEvents   = require('../js/navigation.keyboardKeyEvents');
+var React               = require('react/addons'),
+    navigationInit      = require('../js/navigation.init'),
+    _keyboard           = require('../js/navigation.keyboard'),
+    keyboardKeyEvents   = require('../js/navigation.keyboardKeyEvents');
 
 module.exports = React.createClass({
 
@@ -13,7 +13,7 @@ module.exports = React.createClass({
         return {
             type:       "alpha",
             tabIndex:   1999
-        }
+        };
     },
 
     getDefaultProps: function() {
@@ -21,15 +21,15 @@ module.exports = React.createClass({
         return {
                 navable:    true,
                 navStack:   2,
-                input:      null,
                 form:       'onScreenKeyboard',
                 input:      "text"
-            }
+            };
     },
 
     componentDidMount: function() {
 
-        var _this = this;
+        var _this = this,
+            Keyboard;
 
         var recentInput = document.getElementsByClassName("activeInput")[0];
             recentInput.scrollTop = recentInput.scrollHeight;
@@ -40,11 +40,11 @@ module.exports = React.createClass({
         var kb = document.getElementById("KB");
 
         if (this.state.type == "symbols") {
-            var Keyboard = new _keyboard.symbolsKeyboard(kb);
+            Keyboard = new _keyboard.symbolsKeyboard(kb);
         }
 
         else {
-            var Keyboard = new _keyboard.Keyboard(kb);
+            Keyboard = new _keyboard.Keyboard(kb);
 
         }
 

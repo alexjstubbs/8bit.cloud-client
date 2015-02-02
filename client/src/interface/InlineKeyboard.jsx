@@ -2,9 +2,9 @@
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   navigationInit  = require('../js/navigation.init')
-,   miniKeyboard    = require('../js/navigation.keyboard');
+var React           = require('react/addons'),
+    navigationInit  = require('../js/navigation.init'),
+    miniKeyboard    = require('../js/navigation.keyboard');
 
 module.exports = React.createClass({
 
@@ -15,7 +15,7 @@ module.exports = React.createClass({
             navStack: 2,
             input: null,
             form: 'onScreenKeyboard'
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -27,7 +27,7 @@ module.exports = React.createClass({
         var Keyboard = new miniKeyboard.miniKeyboard(kb);
 
         navigationInit.navigationInit();
-       
+
 
     },
 
@@ -36,12 +36,9 @@ module.exports = React.createClass({
         return (
 
             <div>
-          
-            </div>              
-         
+
+            </div>
+
         );
     }
 });
-
-
-

@@ -4,20 +4,20 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   UserProfile     = require('./UserProfile.jsx')
-,   HeaderGroup     = require('./HeaderGroup.jsx')
-,   FriendsBox      = require('./FriendsBox.jsx')
-,   RecentActivity  = require('./RecentActivity.jsx')
-,   api             = require('socket.io-client')('/api')
-,   Favorites       = require('./Favorites.jsx')
-,   Community       = require('./Community.jsx')
-,   IgnitionEvents  = require('./IgnitionEvents.jsx')
-,   ShortcutBar     = require('./ShortcutBar.jsx')
-,   mixins          = require('./mixins/mixins.jsx')
-,   unreadMessages
-,   favorites       = [];
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    UserProfile     = require('./UserProfile.jsx'),
+    HeaderGroup     = require('./HeaderGroup.jsx'),
+    FriendsBox      = require('./FriendsBox.jsx'),
+    RecentActivity  = require('./RecentActivity.jsx'),
+    api             = require('socket.io-client')('/api'),
+    Favorites       = require('./Favorites.jsx'),
+    Community       = require('./Community.jsx'),
+    IgnitionEvents  = require('./IgnitionEvents.jsx'),
+    ShortcutBar     = require('./ShortcutBar.jsx'),
+      mixins          = require('./mixins/mixins.jsx'),
+    unreadMessages,
+    favorites       = [];
 
 
 // ,   watch           = ["isOnline", "ipInfo", "session", "eventSet", "messages"]
@@ -67,7 +67,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
         return {
             screen: "Dashboard"
-        }
+        };
     },
 
     screenMount: function() {
@@ -93,7 +93,7 @@ module.exports = React.createClass({
                     component.forceUpdate();
 
                 }
-            }
+            };
 
             xmlhttp.open("GET",path,true);
             xmlhttp.send();

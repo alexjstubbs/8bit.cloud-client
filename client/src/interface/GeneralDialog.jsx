@@ -2,9 +2,9 @@
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   navigationInit  = require('../js/navigation.init')
-,   _               = require('lodash');
+var React           = require('react/addons'),
+    navigationInit  = require('../js/navigation.init'),
+    _               = require('lodash');
 
 module.exports = React.createClass({
 
@@ -18,7 +18,7 @@ module.exports = React.createClass({
             body: "(001): A General Unspecified Error Occured. Refer to log file for more information.",
             button: "Close Dialog",
             url: "http://ignition.io/help"
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -44,9 +44,9 @@ module.exports = React.createClass({
             2: function() {
                 return {icon: "ion-alert", text: "Warning!" };
             }
-        }
+        };
 
-        var type = type[this.props.type]();
+        type = type[this.props.type]();
 
         return (
 

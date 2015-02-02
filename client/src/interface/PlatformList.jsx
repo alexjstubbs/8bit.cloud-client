@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   Platform        = require('./Platform.jsx')
-,   getFirstChild   = require('../js/helpers.js').getFirstChild
-,   api             = require('socket.io-client')('/api');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    Platform        = require('./Platform.jsx'),
+    getFirstChild   = require('../js/helpers.js').getFirstChild,
+    api             = require('socket.io-client')('/api');
 
 module.exports = React.createClass({
 
@@ -34,7 +34,7 @@ module.exports = React.createClass({
             defautSelect: true,
             navable: true,
             navStack: 0
-        }
+        };
     },
 
     render: function() {

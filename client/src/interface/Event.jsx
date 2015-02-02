@@ -20,7 +20,7 @@ module.exports = React.createClass({
             eventType: "message",
             timestamp: null,
             classString: "icon large-icon-bg "
-        }
+        };
     },
     render: function() {
 

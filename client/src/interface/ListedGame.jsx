@@ -4,8 +4,8 @@
 
 'use strict';
 
-var React = require('react/addons')
-,   _     = require('lodash');
+var React = require('react/addons'),
+    _     = require('lodash');
 
 module.exports = React.createClass({
 

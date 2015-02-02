@@ -2,18 +2,18 @@
 * @jsx React.DOM
 */
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   UserStatus      = require('./UserStatus.jsx')
-,   navigationInit  = require('../js/navigation.init')
-,   UserAvatar      = require('./Avatar.jsx');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    UserStatus      = require('./UserStatus.jsx'),
+    navigationInit  = require('../js/navigation.init'),
+    UserAvatar      = require('./Avatar.jsx');
 
 module.exports = React.createClass({
 
     getInitialState: function() {
         return {
             friends: []
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -25,7 +25,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
         return {
-            Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
+            Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>
         }
     },
 

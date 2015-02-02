@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   NetworkStatus   = require('./NetworkStatus.jsx')
-,   api             = require('socket.io-client')('/api')
-,   _               = require('lodash')
-,   throttled;
+var React           = require('react/addons'),
+    NetworkStatus   = require('./NetworkStatus.jsx'),
+    api             = require('socket.io-client')('/api'),
+    _               = require('lodash'),
+    throttled;
 
 module.exports = React.createClass({
 

@@ -2,17 +2,17 @@
 * @jsx React.DOM
 */
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   moment              = require('moment')
-,   FriendNode          = require('./Friend.jsx')
-,   api                 = require('socket.io-client')('/api')
-,   navigationInit      = require('../js/navigation.init')
-,   UserAvatar          = require('./Avatar.jsx')
-,   Avatar
-,   noFriends
-,   noFriendsOnline
-,   hasFriends;
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    moment              = require('moment'),
+    FriendNode          = require('./Friend.jsx'),
+    api                 = require('socket.io-client')('/api'),
+    navigationInit      = require('../js/navigation.init'),
+    UserAvatar          = require('./Avatar.jsx'),
+    Avatar,
+    noFriends,
+    noFriendsOnline,
+    hasFriends;
 
 module.exports = React.createClass({
 
@@ -20,7 +20,7 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             friends: []
-        }
+        };
     },
 
     componentDidMount: function () {
@@ -50,7 +50,7 @@ module.exports = React.createClass({
 
         return {
             navable: true
-        }
+        };
     },
 
     render: function() {

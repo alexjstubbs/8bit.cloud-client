@@ -7,9 +7,9 @@
 
 'use strict';
 
-var React   = require('react/addons')
-,   api     = require('socket.io-client')('/api')
-,   _       = require('lodash');
+var React   = require('react/addons'),
+    api     = require('socket.io-client')('/api'),
+    _       = require('lodash');
 
 module.exports = React.createClass({
 
@@ -24,9 +24,9 @@ module.exports = React.createClass({
                "title": "",
                "description": "",
                "achievedClass": "fa-stack sub fa-lg "
-            }
+           };
     },
-    
+
     render: function() {
 
         var cx = React.addons.classSet;
@@ -38,13 +38,13 @@ module.exports = React.createClass({
             'fa-trophy': true
         });
 
-      
+
         return (
 
             <li className='col-xs-3'>
-               
+
                <div className="col-xs-4 pull-left trophy-icon">
-                  
+
                   <span className='trophy'>
 
                      <i className={classes}></i>
@@ -58,14 +58,14 @@ module.exports = React.createClass({
                   </span>
 
                </div>
-               
+
                <span className='pull-right col-xs-8 offset-md-2 trophy-info'>
-           
+
                   <h5 className='achievement-title no-padding no-margin'>{this.props.title}</h5>
                   <span className='achievement-description'>{this.props.description}</span>
-           
+
                </span>
-           
+
             </li>
 
       )

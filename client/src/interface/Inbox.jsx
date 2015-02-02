@@ -4,10 +4,10 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   newMessages
-,   icon            = "ion-email ";
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    newMessages,
+    icon            = "ion-email ";
 
 module.exports = React.createClass({
 
@@ -23,7 +23,7 @@ module.exports = React.createClass({
             classString: "col-xs-3 pull-left square dark-gray",
             id: "inbox",
             unread: null
-        }
+        };
     },
     render: function() {
 

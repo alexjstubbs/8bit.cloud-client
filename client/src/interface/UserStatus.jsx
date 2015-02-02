@@ -4,10 +4,10 @@
 
 'use strict';
 
-var React   = require('react/addons')
-,   api     = require('socket.io-client')('/api')
-,   _       = require('lodash')
-,   profile;
+var React   = require('react/addons'),
+    api     = require('socket.io-client')('/api'),
+    _       = require('lodash'),
+    profile;
 
 module.exports = React.createClass({
 
@@ -31,7 +31,7 @@ module.exports = React.createClass({
 
             return {
                 Username: "Alex"
-            }
+            };
 
     },
 

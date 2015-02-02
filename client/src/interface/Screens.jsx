@@ -4,19 +4,19 @@
 
 'use strict';
 
-var React 				= require('react/addons')
-,   _ 					= require('lodash')
-,   Dashboard 			= require('./Dashboard.jsx')
-, 	UserAgreement 		= require('./forms/UserAgreement.jsx')
-, 	Welcome 			= require('./onboarding/Welcome.jsx')
-, 	NetworkSetup 		= require('./onboarding/NetworkSetup.jsx')
-, 	NewProfile	 		= require('./onboarding/NewProfile.jsx')
-, 	LoadingIgnition	 	= require('./onboarding/LoadingIgnition.jsx')
-,   Browser 			= require('./Browser.jsx')
-,   LargeProfile 		= require('./LargeProfile.jsx')
-,   Profiles 			= require('./Profiles.jsx')
-,   init 				= require('../js/init.js')
-,   navigationInit  	= require('../js/navigation.init.js');
+var React 				= require('react/addons'),
+	_ 					= require('lodash'),
+	Dashboard 			= require('./Dashboard.jsx'),
+	UserAgreement 		= require('./forms/UserAgreement.jsx'),
+	Welcome 			= require('./onboarding/Welcome.jsx'),
+	NetworkSetup 		= require('./onboarding/NetworkSetup.jsx'),
+	NewProfile	 		= require('./onboarding/NewProfile.jsx'),
+	LoadingIgnition	 	= require('./onboarding/LoadingIgnition.jsx'),
+	Browser 			= require('./Browser.jsx'),
+	LargeProfile 		= require('./LargeProfile.jsx'),
+	Profiles 			= require('./Profiles.jsx'),
+	init 				= require('../js/init.js'),
+	navigationInit  	= require('../js/navigation.init.js');
 
 require('lodash-migrate');
 
@@ -63,7 +63,7 @@ var setupScreens = function(route) {
 	-------------------------------------------------- */
 	navigationInit.navigationInit();
 
-}
+};
 
 setupScreens(window.location.pathname);
 

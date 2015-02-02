@@ -4,18 +4,18 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   api             = require('socket.io-client')('/api')
-,   onlineFriends
-,   plural;
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    api             = require('socket.io-client')('/api'),
+    onlineFriends,
+    plural;
 
 module.exports = React.createClass({
 
     getInitialState: function() {
         return {
             onlineFriends: 0
-        }
+        };
     },
 
     getDefaultProps: function() {
@@ -28,7 +28,7 @@ module.exports = React.createClass({
             functionCall: "viewFriends",
             classString: 'col-xs-3 pull-left square dark-gray',
             id: "friendsBox"
-        }
+        };
     },
 
 
@@ -63,8 +63,8 @@ module.exports = React.createClass({
             'purple': onlineFriends,
         });
 
-        if (onlineFriends > 1) { plural = "Friends" }
-        else { plural = "Friend" }
+        if (onlineFriends > 1) { plural = "Friends"; }
+        else { plural = "Friend"; }
 
         return (
 

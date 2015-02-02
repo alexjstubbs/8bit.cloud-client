@@ -4,13 +4,13 @@
 
 'use strict';
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   Avatar              = require('./Avatar.jsx')
-,   api                 = require('socket.io-client')('/api')
-,   mixins              = require('./mixins/mixins.jsx')
-,   NetworkStatus       = require('./NetworkStatus.jsx')
-,   Timer               = require('./Timer.jsx');
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    Avatar              = require('./Avatar.jsx'),
+    api                 = require('socket.io-client')('/api'),
+    mixins              = require('./mixins/mixins.jsx'),
+    NetworkStatus       = require('./NetworkStatus.jsx'),
+    Timer               = require('./Timer.jsx');
 
 /* Components
 -------------------------------------------------- */
@@ -21,7 +21,7 @@ module.exports = React.createClass({
 
             id: "userspace-right"
 
-        }
+        };
     },
 
     render: function() {

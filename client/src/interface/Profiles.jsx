@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,    _              = require('lodash')
-,   Profile         = require('./Profile.jsx')
-,   navigationInit  = require('../js/navigation.init');
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),
+    _              = require('lodash'),
+    Profile         = require('./Profile.jsx'),
+    navigationInit  = require('../js/navigation.init');
 
 module.exports = React.createClass({
 
@@ -17,7 +17,7 @@ module.exports = React.createClass({
         profiles: [
                   {}
                 ]
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -48,7 +48,7 @@ module.exports = React.createClass({
                         {profileNodes}
 
                      <li className="no-show"> &nbsp; &nbsp; </li>
-                     
+
                 </ul>
 
             </div>

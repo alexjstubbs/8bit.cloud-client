@@ -2,16 +2,16 @@
  * @jsx React.DOM
  */
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   moment              = require('moment')
-,   MessagePreview      = require('./MessagePreview.jsx')
-,   api                 = require('socket.io-client')('/api')
-,   navigationInit      = require('../js/navigation.init')
-,   UserAvatar          = require('./Avatar.jsx')
-,   Avatar
-,   noMessages
-,   noMsg;
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    moment              = require('moment'),
+    MessagePreview      = require('./MessagePreview.jsx'),
+    api                 = require('socket.io-client')('/api'),
+    navigationInit      = require('../js/navigation.init'),
+    UserAvatar          = require('./Avatar.jsx'),
+    Avatar,
+    noMessages,
+    noMsg;
 
 
 module.exports = React.createClass({
@@ -20,7 +20,7 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
             messages: []
-        }
+        };
     },
 
     componentDidMount: function () {
@@ -47,14 +47,14 @@ module.exports = React.createClass({
 
     return {
             navable: true
-        }
+        };
     },
 
     render: function() {
 
         noMsg = true;
 
-        if (this.state.messages.length != 0) {
+        if (this.state.messages.length !== 0) {
             noMsg = false;
         }
 

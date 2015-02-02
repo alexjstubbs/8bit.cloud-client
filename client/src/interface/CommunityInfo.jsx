@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React            = require('react/addons')
-,   helpers          = require('../js/helpers')
-,   api              = require('socket.io-client')('/api')
-,   navigationInit   = require('../js/navigation.init')
-,   mixins           = require('./mixins/mixins.jsx');
+var React            = require('react/addons'),
+    helpers          = require('../js/helpers'),
+    api              = require('socket.io-client')('/api'),
+    navigationInit   = require('../js/navigation.init'),
+    mixins           = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({
 
@@ -26,7 +26,7 @@ module.exports = React.createClass({
             }],
             url: "http://www.racketboy.com/forum/viewtopic.php?f=33&t=47942",
             about: "http://www.racketboy.com/retro/racketboy-game-club-together-retro-intro"
-        }
+        };
     },
 
     componentDidMount: function() {

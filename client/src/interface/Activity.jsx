@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   moment          = require('moment')
-,   api             = require('socket.io-client')('/api')
-,   actionString;
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    moment          = require('moment'),
+    api             = require('socket.io-client')('/api'),
+    actionString;
 
 module.exports = React.createClass({
     getDefaultProps: function() {
@@ -24,7 +24,7 @@ module.exports = React.createClass({
             actionSet: [],
             actionString: "recently played",
             timestamp: null
-        }
+        };
     },
     render: function() {
 

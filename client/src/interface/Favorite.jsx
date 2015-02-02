@@ -22,7 +22,7 @@ module.exports = React.createClass({
             game: null,
             system: 'Super Nintendo',
             timestamp: null
-        }
+        };
     },
     render: function() {
 
@@ -31,7 +31,7 @@ module.exports = React.createClass({
             filepath: this.props.filepath,
             shortname: this.props.shortname,
             longname: this.props.game
-        }
+        };
 
         launchContext = JSON.stringify(launchContext);
 

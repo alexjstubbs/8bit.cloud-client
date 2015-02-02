@@ -17,15 +17,15 @@ module.exports = React.createClass({
             id: "ignition-popup",
             title: "Alert",
             message: "No error supplied?"
-        }
+        };
     },
-    
+
     render: function() {
 
         var backdrop;
 
         if (this.props.backdrop) {
-            backdrop = <Backdrop /> 
+            backdrop = <Backdrop />
         }
 
         return (
@@ -37,20 +37,20 @@ module.exports = React.createClass({
                  <div className="container-fluid parent">
                     <div className="row-fluid">
                         <div className="col-xs-12">
-                                    
+
                             <h2>
                                 <span className='col-xs-11'>
                                 {this.props.title}
                                 </span>
-                                
+
                                 <span className='col-xs-1'>
                                 <i className='ion-alert'></i></span>
                                 </h2>
-                            
+
                             <div className='clearfix'></div>
-                            
+
                             <hr />
-                            
+
                             <p>
                                 {this.props.message}
                             </p>
@@ -65,6 +65,3 @@ module.exports = React.createClass({
         );
     }
 });
-
-
-
