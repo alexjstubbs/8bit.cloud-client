@@ -42,7 +42,7 @@ module.exports = React.createClass({
 
         return (
 
-            <div id={this.props.id} className="parent">
+            <div id={this.props.id}>
                 <div clasName="user-space-left container">
 
                         <Avatar Username={this.state.session.Username} />

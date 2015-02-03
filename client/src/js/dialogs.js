@@ -1,8 +1,7 @@
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var systemNotify            = require('./notification.init.js'),
-    api                     = require('socket.io-client')('/api'),
+var api                     = require('socket.io-client')('/api'),
     events                  = require('./events.js'),
     React                   = require('react/addons'),
     Modal                   = require('../interface/Modal.jsx'),
@@ -285,7 +284,6 @@ var userSpaceRight = function() {
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
     React.renderComponent(UserSpaceRight({}), div);
-
 
 };
 

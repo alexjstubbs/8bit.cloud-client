@@ -53,7 +53,6 @@ var navigationInit = function(element, callback) {
 
     // Choose first child or Default if specified
     else {
-
          _.first(navables).classList.add("selectedNav", "selected");
 
     }
@@ -70,6 +69,12 @@ var navigationDeinit = function(element, callback) {
 
     var parents = document.querySelectorAll(".parent");
 
+        _(parents).forEach(function(el, i) {
+            el.classList.remove("parent");
+            console.log(el);
+        }).value();
+
+
     // Remove all indexing and selections
     _(navables).forEach(function(el, i) {
         el.removeAttribute("data-nav");
@@ -81,6 +86,10 @@ var navigationDeinit = function(element, callback) {
         el.classList.remove("parent");
         console.log(el);
     }).value();
+
+    if (callback) {
+        callback();
+    }
 
 };
 

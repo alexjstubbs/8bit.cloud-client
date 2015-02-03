@@ -128,7 +128,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 });
 
-},{"../js/navigation.init":86,"lodash":95,"moment":96,"react/addons":97,"socket.io-client":256}],3:[function(require,module,exports){
+},{"../js/navigation.init":87,"lodash":95,"moment":96,"react/addons":97,"socket.io-client":256}],3:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -661,7 +661,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/helpers":78,"../js/navigation.init":86,"./mixins/mixins.jsx":59,"react/addons":97,"socket.io-client":256}],9:[function(require,module,exports){
+},{"../js/helpers":78,"../js/navigation.init":87,"./mixins/mixins.jsx":59,"react/addons":97,"socket.io-client":256}],9:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1115,7 +1115,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Avatar.jsx":4,"./UserStatus.jsx":50,"lodash":95,"react/addons":97}],14:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Avatar.jsx":4,"./UserStatus.jsx":50,"lodash":95,"react/addons":97}],14:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -1229,7 +1229,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./UserStatus.jsx":50,"lodash":95,"moment":96,"react/addons":97,"socket.io-client":256}],15:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./UserStatus.jsx":50,"lodash":95,"moment":96,"react/addons":97,"socket.io-client":256}],15:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -1329,7 +1329,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Avatar.jsx":4,"./Friend.jsx":13,"lodash":95,"moment":96,"react/addons":97,"socket.io-client":256}],16:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Avatar.jsx":4,"./Friend.jsx":13,"lodash":95,"moment":96,"react/addons":97,"socket.io-client":256}],16:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1572,7 +1572,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/helpers":78,"../js/navigation.browser.js":83,"../js/navigation.init":86,"./ListedGame.jsx":24,"lodash":95,"react/addons":97,"socket.io-client":256}],18:[function(require,module,exports){
+},{"../js/helpers":78,"../js/navigation.browser.js":83,"../js/navigation.init":87,"./ListedGame.jsx":24,"lodash":95,"react/addons":97,"socket.io-client":256}],18:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1644,7 +1644,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"lodash":95,"react/addons":97}],19:[function(require,module,exports){
+},{"../js/navigation.init":87,"lodash":95,"react/addons":97}],19:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -1845,7 +1845,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"../js/navigation.keyboard":88,"react/addons":97}],23:[function(require,module,exports){
+},{"../js/navigation.init":87,"../js/navigation.keyboard":89,"react/addons":97}],23:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2207,7 +2207,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./UserStatus.jsx":50,"lodash":95,"moment":96,"react/addons":97}],26:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./UserStatus.jsx":50,"lodash":95,"moment":96,"react/addons":97}],26:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2308,7 +2308,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"lodash":95,"moment":96,"react/addons":97}],27:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"lodash":95,"moment":96,"react/addons":97}],27:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2408,7 +2408,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Avatar.jsx":4,"./MessagePreview.jsx":26,"lodash":95,"moment":96,"react/addons":97,"socket.io-client":256}],28:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Avatar.jsx":4,"./MessagePreview.jsx":26,"lodash":95,"moment":96,"react/addons":97,"socket.io-client":256}],28:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2469,7 +2469,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Backdrop.jsx":5,"./OnScreenKeyboard.jsx":30,"lodash":95,"react/addons":97}],29:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Backdrop.jsx":5,"./OnScreenKeyboard.jsx":30,"lodash":95,"react/addons":97}],29:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2641,7 +2641,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"../js/navigation.keyboard":88,"../js/navigation.keyboardKeyEvents":89,"react/addons":97}],31:[function(require,module,exports){
+},{"../js/navigation.init":87,"../js/navigation.keyboard":89,"../js/navigation.keyboardKeyEvents":90,"react/addons":97}],31:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -2722,7 +2722,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"react/addons":97}],32:[function(require,module,exports){
+},{"../js/navigation.init":87,"react/addons":97}],32:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -2950,7 +2950,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"lodash":95,"react/addons":97}],36:[function(require,module,exports){
+},{"../js/navigation.init":87,"lodash":95,"react/addons":97}],36:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3010,7 +3010,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Profile.jsx":35,"lodash":95,"react/addons":97,"socket.io-client":256}],37:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Profile.jsx":35,"lodash":95,"react/addons":97,"socket.io-client":256}],37:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -3058,7 +3058,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"react/addons":97}],38:[function(require,module,exports){
+},{"../js/navigation.init":87,"react/addons":97}],38:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3277,7 +3277,7 @@ setupScreens(window.location.pathname);
 -------------------------------------------------- */
 exports.setupScreens = setupScreens;
 
-},{"../js/init.js":79,"../js/navigation.init.js":86,"./Browser.jsx":6,"./Dashboard.jsx":9,"./LargeProfile.jsx":23,"./Profiles.jsx":36,"./forms/UserAgreement.jsx":56,"./onboarding/LoadingIgnition.jsx":61,"./onboarding/NetworkSetup.jsx":62,"./onboarding/NewProfile.jsx":64,"./onboarding/Welcome.jsx":67,"lodash":95,"react/addons":97}],41:[function(require,module,exports){
+},{"../js/init.js":79,"../js/navigation.init.js":87,"./Browser.jsx":6,"./Dashboard.jsx":9,"./LargeProfile.jsx":23,"./Profiles.jsx":36,"./forms/UserAgreement.jsx":56,"./onboarding/LoadingIgnition.jsx":61,"./onboarding/NetworkSetup.jsx":62,"./onboarding/NewProfile.jsx":64,"./onboarding/Welcome.jsx":67,"lodash":95,"react/addons":97}],41:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3599,7 +3599,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./OptionNode.jsx":31,"lodash":95,"react/addons":97,"socket.io-client":256}],44:[function(require,module,exports){
+},{"../js/navigation.init":87,"./OptionNode.jsx":31,"lodash":95,"react/addons":97,"socket.io-client":256}],44:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -3638,7 +3638,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"react/addons":97,"socket.io-client":256}],45:[function(require,module,exports){
+},{"../js/navigation.init":87,"react/addons":97,"socket.io-client":256}],45:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -3819,7 +3819,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-            React.DOM.div({id: this.props.id, className: "parent"}, 
+            React.DOM.div({id: this.props.id}, 
                 React.DOM.div({clasName: "user-space-left container"}, 
 
                         Avatar({Username: this.state.session.Username}), 
@@ -3963,7 +3963,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./Timer.jsx":45,"./mixins/mixins.jsx":59,"lodash":95,"react/addons":97,"socket.io-client":256}],50:[function(require,module,exports){
+},{"../js/navigation.init":87,"./Avatar.jsx":4,"./NetworkStatus.jsx":29,"./Timer.jsx":45,"./mixins/mixins.jsx":59,"lodash":95,"react/addons":97,"socket.io-client":256}],50:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4100,7 +4100,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":86,"react/addons":97}],52:[function(require,module,exports){
+},{"../js/navigation.init":87,"react/addons":97}],52:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -4179,7 +4179,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../js/navigation.init":86,"react/addons":97}],53:[function(require,module,exports){
+},{"../../js/navigation.init":87,"react/addons":97}],53:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -4259,7 +4259,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../js/navigation.init":86,"../Avatar.jsx":4,"react/addons":97}],54:[function(require,module,exports){
+},{"../../js/navigation.init":87,"../Avatar.jsx":4,"react/addons":97}],54:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4338,9 +4338,9 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../js/navigation.init":86,"react/addons":97}],55:[function(require,module,exports){
+},{"../../js/navigation.init":87,"react/addons":97}],55:[function(require,module,exports){
 module.exports=require(54)
-},{"../../js/navigation.init":86,"react/addons":97}],56:[function(require,module,exports){
+},{"../../js/navigation.init":87,"react/addons":97}],56:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4448,7 +4448,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"../../js/navigation.init":86,"../../js/system.events":92,"react/addons":97,"socket.io-client":256}],57:[function(require,module,exports){
+},{"../../js/navigation.init":87,"../../js/system.events":92,"react/addons":97,"socket.io-client":256}],57:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4544,7 +4544,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"../../js/navigation.init":86,"react/addons":97,"socket.io-client":256}],58:[function(require,module,exports){
+},{"../../js/navigation.init":87,"react/addons":97,"socket.io-client":256}],58:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -4630,7 +4630,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
 
-},{"../../js/navigation.init":86,"react/addons":97}],59:[function(require,module,exports){
+},{"../../js/navigation.init":87,"react/addons":97}],59:[function(require,module,exports){
 /*  Custom Mixins for ignition client
 -------------------------------------------------- */
 var api = require('socket.io-client')('/api')
@@ -5507,8 +5507,7 @@ exports.initLocalDatabase = initLocalDatabase;
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var systemNotify            = require('./notification.init.js'),
-    api                     = require('socket.io-client')('/api'),
+var api                     = require('socket.io-client')('/api'),
     events                  = require('./events.js'),
     React                   = require('react/addons'),
     Modal                   = require('../interface/Modal.jsx'),
@@ -5792,7 +5791,6 @@ var userSpaceRight = function() {
 
     React.renderComponent(UserSpaceRight({}), div);
 
-
 };
 
 /* Exports
@@ -5808,14 +5806,14 @@ exports.uiNotification      = uiNotification;
 exports.userSpace           = userSpace;
 exports.userSpaceRight      = userSpaceRight;
 
-},{"../interface/AchievementUnlocked.jsx":2,"../interface/CommunityInfo.jsx":8,"../interface/FriendLarge.jsx":14,"../interface/Friends.jsx":15,"../interface/GeneralDialog.jsx":18,"../interface/Message.jsx":25,"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/OnScreenKeyboard.jsx":30,"../interface/Prompt.jsx":37,"../interface/SoftwareOptions.jsx":43,"../interface/Terminal.jsx":44,"../interface/UserSpace.jsx":48,"../interface/UserSpaceRight.jsx":49,"../interface/WebBrowser.jsx":51,"../interface/forms/AddFriend.jsx":52,"../interface/forms/PassMessage.jsx":53,"../interface/forms/SignUp.jsx":54,"./events.js":76,"./navigation.init.js":86,"./notification.init.js":91,"lodash":95,"react/addons":97,"socket.io-client":256}],75:[function(require,module,exports){
+},{"../interface/AchievementUnlocked.jsx":2,"../interface/CommunityInfo.jsx":8,"../interface/FriendLarge.jsx":14,"../interface/Friends.jsx":15,"../interface/GeneralDialog.jsx":18,"../interface/Message.jsx":25,"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/OnScreenKeyboard.jsx":30,"../interface/Prompt.jsx":37,"../interface/SoftwareOptions.jsx":43,"../interface/Terminal.jsx":44,"../interface/UserSpace.jsx":48,"../interface/UserSpaceRight.jsx":49,"../interface/WebBrowser.jsx":51,"../interface/forms/AddFriend.jsx":52,"../interface/forms/PassMessage.jsx":53,"../interface/forms/SignUp.jsx":54,"./events.js":76,"./navigation.init.js":87,"lodash":95,"react/addons":97,"socket.io-client":256}],75:[function(require,module,exports){
 /* API Event Listeners
 -------------------------------------------------- */
-var api             = require('socket.io-client')('/api'),
-    events          = require('./events'),
-    _               = require('lodash'),
-    dialog          = require('./dialogs'),
-    uiNotification  = require('./ui.notification');
+var api                 = require('socket.io-client')('/api'),
+    events              = require('./events'),
+    _                   = require('lodash'),
+    dialog              = require('./dialogs'),
+    uiNotification      = require('./ui.notification');
 
 /* TODO: Fix up to contain all detail
 -------------------------------------------------- */
@@ -6531,7 +6529,7 @@ var gamepadSupport = {
 
 exports.gamepadSupport = gamepadSupport;
 
-},{"./mousetrap.min.js":81,"./navigation.keyEvent.js":87,"./system.sounds.js":93,"lodash":95}],78:[function(require,module,exports){
+},{"./mousetrap.min.js":81,"./navigation.keyEvent.js":88,"./system.sounds.js":93,"lodash":95}],78:[function(require,module,exports){
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
@@ -6589,6 +6587,8 @@ var gamepad 			     = require("./gamepad"),
     api 				     = require("./api/connection"),
     browserNavigation	     = require('../js/navigation.browser').browserNavigation,
     database 			     = require('./database.helpers'),
+    navigationEventBinds     = require('./navigation.eventListeners'),
+
     sysEvents                = require('./system.events').events;
 
 module.exports = function() {
@@ -6611,11 +6611,7 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     sysEvents.removeNavigationState();
 
-    window.addEventListener('keydown', function (e) {
-
-        navigationEvent(e);
-
-    });
+    navigationEventBinds.navigationEventListeners.bindEventNavigation();
 
     // document.getElementsByTagName("html")[0].style.opacity = 1;
     // document.body.style.opacity = 1;
@@ -6629,7 +6625,7 @@ module.exports = function() {
 
 };
 
-},{"../js/navigation.browser":83,"./api/connection":72,"./database.helpers":73,"./gamepad":77,"./navigation.bindings":82,"./navigation.event":84,"./system.events":92}],80:[function(require,module,exports){
+},{"../js/navigation.browser":83,"./api/connection":72,"./database.helpers":73,"./gamepad":77,"./navigation.bindings":82,"./navigation.event":84,"./navigation.eventListeners":85,"./system.events":92}],80:[function(require,module,exports){
 /* Mixins
 -------------------------------------------------- */
 
@@ -6774,7 +6770,7 @@ module.exports = function(init) {
 
 };
 
-},{"./mousetrap.min":81,"./navigation.navigate":90,"./system.events":92}],83:[function(require,module,exports){
+},{"./mousetrap.min":81,"./navigation.navigate":91,"./system.events":92}],83:[function(require,module,exports){
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
@@ -7011,7 +7007,55 @@ module.exports = function(e) {
 
 };
 
-},{"./account.js":71,"./events.js":76,"./helpers.js":78,"./navigation.init.js":86,"lodash":95}],85:[function(require,module,exports){
+},{"./account.js":71,"./events.js":76,"./helpers.js":78,"./navigation.init.js":87,"lodash":95}],85:[function(require,module,exports){
+/*  Exposed Navigation Event Listener(s)
+-------------------------------------------------- */
+var navigationEvent = require('./navigation.event'),
+    systemEvents    = require('./system.events');
+
+
+var navigationEventListeners = {
+
+    /*  Key Bindings
+    -------------------------------------------------- */
+    bindEventNavigation: function() {
+
+        window.addEventListener("keydown", navigationEventListeners.passKeyEvent);
+
+    },
+
+    passKeyEvent: function(e) {
+        if (e) {
+            navigationEvent(e);
+        }
+    },
+
+    /*  Bind Play Session Navigation
+    -------------------------------------------------- */
+    bindPlaySessionNavigation: function() {
+
+        window.addEventListener("keydown", navigationEventListeners.passSessionKeyEvent);
+
+    },
+
+    passSessionKeyEvent: function(e) {
+
+        if (e.keyCode === 76) { //L
+            systemEvents.events.toggleUserSpaceSidebar();
+        }
+
+        e.stopPropagation();
+            return;
+        }
+
+};
+
+
+/*  Exports
+-------------------------------------------------- */
+exports.navigationEventListeners = navigationEventListeners;
+
+},{"./navigation.event":84,"./system.events":92}],86:[function(require,module,exports){
 /* UI Helper Functions
 -------------------------------------------------- */
 
@@ -7058,7 +7102,7 @@ module.exports = function() {
 
 };
 
-},{}],86:[function(require,module,exports){
+},{}],87:[function(require,module,exports){
 /* Navigation indexing and set up
 -------------------------------------------------- */
 var _   = require('lodash'),
@@ -7114,7 +7158,6 @@ var navigationInit = function(element, callback) {
 
     // Choose first child or Default if specified
     else {
-
          _.first(navables).classList.add("selectedNav", "selected");
 
     }
@@ -7131,6 +7174,12 @@ var navigationDeinit = function(element, callback) {
 
     var parents = document.querySelectorAll(".parent");
 
+        _(parents).forEach(function(el, i) {
+            el.classList.remove("parent");
+            console.log(el);
+        }).value();
+
+
     // Remove all indexing and selections
     _(navables).forEach(function(el, i) {
         el.removeAttribute("data-nav");
@@ -7142,6 +7191,10 @@ var navigationDeinit = function(element, callback) {
         el.classList.remove("parent");
         console.log(el);
     }).value();
+
+    if (callback) {
+        callback();
+    }
 
 };
 
@@ -7162,7 +7215,7 @@ exports.highlight           = highlight;
 exports.navigationInit      = navigationInit;
 exports.navigationDeinit    = navigationDeinit;
 
-},{"lodash":95}],87:[function(require,module,exports){
+},{"lodash":95}],88:[function(require,module,exports){
 /* Translates Gamepad button events into keyboard events
 -------------------------------------------------- */
 
@@ -7183,7 +7236,7 @@ module.exports = function(k) {
 
 };
 
-},{}],88:[function(require,module,exports){
+},{}],89:[function(require,module,exports){
 /* OnScreen Keyboard
 -------------------------------------------------- */
 var navigationInit  = require('./navigation.init.js');
@@ -7320,7 +7373,7 @@ Keyboard.prototype.onKeypress = function(key, event) {
 exports.Keyboard         = Keyboard;
 exports.symbolsKeyboard  = symbolsKeyboard;
 
-},{"./navigation.init.js":86}],89:[function(require,module,exports){
+},{"./navigation.init.js":87}],90:[function(require,module,exports){
 /* On Screen Keyboard translations
 -------------------------------------------------- */
 var events = require("./events"),
@@ -7495,7 +7548,7 @@ var keypress = function(parameters) {
 
 exports.keypress = keypress;
 
-},{"./events":76,"lodash":95}],90:[function(require,module,exports){
+},{"./events":76,"lodash":95}],91:[function(require,module,exports){
 /* General Navigation Functions
 -------------------------------------------------- */
 
@@ -7862,117 +7915,7 @@ module.exports = function(k) {
 
 };
 
-},{"./navigation.browser.js":83,"./navigation.helpers.js":85,"./navigation.keyEvent.js":87,"./system.events.js":92,"lodash":95}],91:[function(require,module,exports){
-module.exports = function(path, height, width, left, top) {
-
-
-        // fetches content from a specified path and displays it in a lightbox
-
-        var backdrop = document.createElement("div");
-        var content = document.createElement("div");
-
-        // use AJAX to load the content from the page
-        var request = new XMLHttpRequest();
-
-        console.log(path);
-        request.open("GET", path, false);
-
-        var handleAjaxEvent = function() {
-            if (request.readyState == 4) {
-
-                console.log(request.responseText);
-                // content.innerHTML = request.responseText;
-                document.querySelector('.selectedNav').classList.remove('selectedNav');
-                if (request.responseText == "1") {
-                    content.innerHTML = "<br /><img src='../img/demo/mail1.png' class='img-responsive navable selectedNav' data-nav='5'><br /> <img data-function='demoMsg' data-parameters='close' class='navable img-responsive' src='../img/demo/mail2.png' data-nav='6'><br /> <img class='img-responsive navable' src='../img/demo/mail3.png' data-nav='7'> <br /><img class='navable img-responsive' src='../img/demo/mail4.png' data-nav='8'><br /><hr /><div class='pull-right'><a data-nav='9' class='btn-alt navable' style='font-size:1em !important;font-weight:100 !important'><i class='ion-paper-airplane'></i> &nbsp; Create New Message</a> &nbsp; <a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-function='closeLightbox'><i class='ion-close'></i> &nbsp; Close Messages</a>";
-                }
-                if (request.responseText == "2") {
-
-                    var currentSelection = document.querySelectorAll(".systemNotificationContent");
-                    var currentBackdrop = document.querySelectorAll(".systemNotificationContentBackdrop");
-                    currentSelection[0].style.opacity = "0";
-                    currentBackdrop[0].style.opacity = "0";
-                    content.innerHTML = "<img class='img-responsive' src='../img/invitedemo.png'><hr /><div class='pull-right'><a class='btn-alt navable' style='font-size:1em !important;font-weight:100 !important' data-function='closeLightbox' data-parameters='close'><i class='ion-close'></i> &nbsp; Decline Invitation</a> &nbsp; <a data-nav='1' class='btn-alt navable' style='font-size:1em !important;font-weight:100 !important'><i class='ion-arrow-return-left'></i> &nbsp; Reply with Message</a> &nbsp; <a style='font-size:1em !important;font-weight:100 !important' data-function='closeLightbox' class='btn-alt navable selectedNav' data-nav='12'><i class='ion-ios7-play'></i> &nbsp; Accept & Play</a></div>";
-                }
-
-                if (request.responseText == "3") {
-                    content.innerHTML = "<img src='../img/demo/gameplay.png' class='img-responsive navable' data-nav='5'><hr /><div class='pull-right'><a data-nav='9' class='btn-alt navable' style='font-size:1em !important;font-weight:100 !important'><i class='ion-person-add'></i> &nbsp; Invite for Multiplayer</a> &nbsp; <a data-nav='9' class='btn-alt navable' style='font-size:1em !important;font-weight:100 !important'><i class='ion-loading-c'></i> &nbsp; Resume Game</a> &nbsp; <a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable selectedNav' data-function='closeLightbox'><i class='ion-play'></i> &nbsp; Play Game</a></div>";
-                }
-
-                if (request.responseText == "4") {
-                    content.innerHTML = "<h2 class='pull-left' style='font-weight:100;'> <i class='ion-person-stalker'></i> &nbsp;Online <span class='badge badge-purple hidden' style='position:relative;top:-10px;left:-5px;'>2</span></h2> <h2 style='font-weight:100;margin-left:10px;position:relative;right:330px' class='pull-right mute'> <i class='fa fa-meh-o'></i> &nbsp;Offline</h2><br /><br /><br /><div class='clearfix'></div>  <div class='pull-left'><img src='../img/demo/friend1.png' class='img-responsive navable selectedNav' data-nav='5'><img src='../img/demo/friend2.png' img-responsive navable' data-nav='5'></div>  <div class='pull-right'><img src='../img/demo/friend1.png' class='img-responsive mute' data-nav='5'><img src='../img/demo/friend2.png' class='img-responsive  mute' data-nav='6'><img src='../img/demo/friend2.png' class='img-responsive  mute' data-nav='6'><img src='../img/demo/friend2.png' class='img-responsive  mute' data-nav='6'></div><div class='clearfix'></div><hr /></div><div class='pull-right'><a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-nav='7'>Add a Friend</a> &nbsp; <a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-nav='7' data-function='closeLightbox'>Close</a></div></div>";
-                }
-
-                if (request.responseText == "5") {
-                    content.innerHTML = "<br /><img class='img-responsive' src='../img/demo/community.png'> <hr /><a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-nav='7' data-function='closeLightbox'><i class='ion-play'></i> &nbsp; Play Game</a><div class='pull-right'><a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable' data-nav='7' data-function='closeLightbox'><i class='ion-ios7-help-outline'></i> &nbsp; About the Club</a> &nbsp; <a style='font-size:1em !important;font-weight:100 !important' class='btn-alt navable selectedNav' data-nav='7' data-function='closeLightbox'><i class='ion-ios7-chatboxes-outline'></i> &nbsp; Discuss</a></div>";
-                }
-            }
-        };
-
-        request.onreadystatechange = handleAjaxEvent;
-        request.send();
-
-        backdrop.setAttribute("id", "backdrop");
-        backdrop.style.position = "fixed";
-        backdrop.style.top = 0;
-        backdrop.style.height = "100%";
-        backdrop.style.left = 0;
-        backdrop.style.width = "100%";
-        backdrop.style.zIndex = 500;
-        backdrop.style.background = "black";
-        backdrop.style.opacity = 0.8;
-        backdrop.className = "systemNotificationContentBackdrop";
-        content.style.position = "fixed";
-        content.style.top = "10%";
-        content.style.left = "10%";
-        content.style.width = "80%";
-        content.style.zIndex = 600;
-        content.style.border = "none";
-        content.style.overflow = "hidden";
-        content.style.background = "white";
-        content.className = "systemNotificationContent animated bounceInDown";
-        content.setAttribute("id", "lightbox");
-
-
-        if (width) {
-            content.style.width = width + "%";
-        } else {
-            content.style.width = "80%";
-        }
-
-        if (height) {
-            content.style.height = height + "%";
-        } else {
-            content.style.height = "80%";
-        }
-
-        if (left) {
-            content.style.left = left + "%";
-        } else {
-            content.style.left = "10%";
-        }
-
-        if (top) {
-            content.style.top = top + "%";
-        } else {
-            content.style.top = "10%";
-        }
-
-        document.body.appendChild(backdrop);
-        document.body.appendChild(content);
-
-        var removeLightbox = function() {
-            document.body.removeChild(backdrop);
-            document.body.removeChild(content);
-        };
-
-        // remove the lightbox when people click on the backdrop
-        backdrop.addEventListener("click", removeLightbox);
-        // backdrop.addEventListener("keydown", removeLightbox);
-
-};
-
-},{}],92:[function(require,module,exports){
+},{"./navigation.browser.js":83,"./navigation.helpers.js":86,"./navigation.keyEvent.js":88,"./system.events.js":92,"lodash":95}],92:[function(require,module,exports){
 /* Requested system events via client (usually button presses)
 -------------------------------------------------- */
 
@@ -7984,6 +7927,7 @@ var KeyEvent                = require('./navigation.keyEvent'),
     dialog              	= require('./dialogs'),
     eventDispatcher     	= require('./events'),
     keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
+    navigationEventBinds    = require('./navigation.eventListeners'),
     Screens             	= require('../interface/Screens.jsx');
 
 
@@ -8005,32 +7949,29 @@ var events = {
     -------------------------------------------------- */
     pauseSessionNavigation: function() {
 
+        // UnBind Mousetrap Bindings
         navigationBindings("deinit");
 
-        window.removeEventListener("keydown", function(e) {
-            e.stopPropagation();
-            return;
-        });
-
-        window.addEventListener("keydown", function(e) {
-
-            if (e.keyCode === 76) { //L
-                events.toggleUserSpaceSidebar();
-            }
-
-            e.stopPropagation();
-            return;
-
-        });
+        // Remove Global Event Listener
+        window.removeEventListener('keydown', navigationEventBinds.navigationEventListeners.passKeyEvent);
 
     },
-
 
     /*  Resume Navigation post Play Session
     -------------------------------------------------- */
     resumeSessionNavigation: function() {
 
+        // Resume/Add Global Event Listener
+        navigationEventBinds.navigationEventListeners.bindEventNavigation();
+
+        // (re)Bind Mousetrap Bindings
+        navigationBindings("init");
+
+        // ReStart Ignition UI Navigation
+        navigationInit.navigationInit();
+
     },
+
 
     /* Trigger New Screen Set
     -------------------------------------------------- */
@@ -8093,6 +8034,7 @@ var events = {
 
         if (parameters) {
 
+            // Setup Object for Create Session
             var src  = "config/profiles/" + parameters + ".json";
             var dest = "config/profiles/Session.json";
 
@@ -8101,6 +8043,7 @@ var events = {
             copyObject.src = src;
             copyObject.dest = dest;
 
+            // Pass "Session" Object
             api.emit('request', { request: 'createSession', param: copyObject});
 
         }
@@ -8137,18 +8080,21 @@ var events = {
     -------------------------------------------------- */
     submitForm: function(parameters) {
 
-        var form = document.forms[parameters].elements;
+        // Find Form
+        var form = document.forms[parameters].elements,
+            obj = {};
 
-        var obj = {};
-
+        // Iterate over Form Inputs for JSON
         _.each(form, function(input) {
             if (input.name && input.value) {
                obj[input.name] = input.value;
             }
         });
 
+        // Construct Object
         obj.formTitle = parameters;
 
+        // Parse server Input field (hidden field)
         switch(obj.server) {
 
             case "true": {
@@ -8177,26 +8123,33 @@ var events = {
     -------------------------------------------------- */
     writeAdvancedConfig: function(parameters) {
 
+        // Find Form
         var form = document.forms[parameters].elements,
             formObj = {};
 
+        // Iterate over Form Inputs for JSON
         _.each(form, function(input) {
             if (input.name && input.value) {
                 formObj[input.name] = input.value;
             }
         });
 
+        // Build SelectList
         var selects = document.querySelectorAll("span[data-identifier='selectBoxConfig']"),
             selectList = [];
 
+        // Iterare over List
         _.each(selects, function(select) {
             selectList.push(select.classList.contains("label-selected"));
         });
 
+        // Build Object
         formObj.selectList = selectList;
 
+        // Send Request to Node to write Config File
         api.emit('request', { request: 'writeAdvancedConfig', param: formObj});
 
+        // Close the Dialog
         dialog.close();
 
     },
@@ -8205,9 +8158,13 @@ var events = {
     -------------------------------------------------- */
     restoreAdvancedConfig: function(parameters) {
 
+        // Build Path
         var path = "/config/platforms/commandline/user/"+parameters+".json";
+
+        // Send Request to Node to Remove Users File
         api.emit('request', { request: 'removeFile', param: path});
 
+        // Close the Dialog
         dialog.close();
     },
 
@@ -8239,6 +8196,7 @@ var events = {
     -------------------------------------------------- */
     browserFocus: function(parameters) {
 
+        // Build Prompt Message Object
         var arg = {
             message: "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?",
             agree: "browserFocusAgree",
@@ -8246,6 +8204,7 @@ var events = {
             parameters: parameters
         };
 
+        // Show Dialog
         dialog.show("Prompt", null, arg);
 
     },
@@ -8253,29 +8212,38 @@ var events = {
     /* Focus Agreement
     -------------------------------------------------- */
     browserFocusAgree: function() {
+
+        // Enable Mouse Control
         events.mouseControlEnable();
+
+        // Close the Dialog
         dialog.close();
+
+        // Focus (hack delay) the iFrame
         setTimeout(function() {
             document.getElementsByTagName("iframe")[0].focus();
         }, 500);
     },
 
-    /*     Terminal
+    /* Terminal
     -------------------------------------------------- */
     showTerminal: function() {
         dialog.show("Terminal");
     },
 
-    /*     Go to URL (web browser)
+    /* Go to URL (web browser)
     -------------------------------------------------- */
     gotoUrl: function() {
 
+        // Construct URL from Input
         var url = document.getElementById("url-bar").value;
+
+        // Pass the SRC to the iFrame
         document.getElementsByTagName("iframe")[0].src = url;
 
     },
 
-    /*     Disable Mouse, Close Agreement
+    /* Disable Mouse, Close Agreement
     -------------------------------------------------- */
     closeDialogDisableMouse: function() {
 
@@ -8284,13 +8252,13 @@ var events = {
 
     },
 
-    /*     Enable Mouse
+    /* Enable Mouse
     -------------------------------------------------- */
     mouseControlEnable: function() {
         document.body.classList.add("mouse");
     },
 
-    /*     Disable Mouse
+    /* Disable Mouse
     -------------------------------------------------- */
     mouseControlDisable: function() {
         document.body.classList.remove("mouse");
@@ -8303,9 +8271,11 @@ var events = {
 
         // document.getElementById("alpha_list_tbody").innerHTML = "";
 
+        // Find all listed Platforms
         var longname,
             list = document.querySelectorAll(".platform");
 
+        // Iterate over List, remove all selected attributes from classlist unless actually selected
         _(list).forEach(function(item) {
             item.classList.remove("selected");
             if (item.getAttribute("data-parameters") == parameters) {
@@ -8314,11 +8284,13 @@ var events = {
             }
         }).value();
 
+        // Consturct Object to pass Paging
         var Obj = {
                 platform: longname,
                 start: 0
         };
 
+        // Send Request to Node to get Start of Paging List
         api.emit('request', { request: 'gamesList', param: Obj });
 
     },
@@ -8445,39 +8417,52 @@ var events = {
     -------------------------------------------------- */
     toggleUserSpaceSidebar: function() {
 
+        // Get nodeList of user-space-right class(es)
         var userSpaceExists = document.querySelectorAll(".user-space-right");
 
+        // Get SessionStorage for current running process
         var processObj = sessionStorage.getItem("processStorage");
 
         processObj = JSON.parse(processObj);
 
-
-
+        // If there is no user-space-right window open
         if (!userSpaceExists.length) {
+
+            // Constuct Object to pause process
             processObj = {
                 processname: processObj.name,
                 pid: processObj.pid,
                 signal: "SIGNSTOP"
             };
 
+            // Send a Request to Node to Pause Process
             api.emit('request', { request: 'processSignal', param: processObj });
 
+            // Open Window
             dialog.userSpaceRight();
+
             events.resumeSessionNavigation();
+
+
         }
 
+        // if there IS a user-space-right window open
         else {
+
+            events.pauseSessionNavigation();
+
+            // Constuct Object to resume process
             processObj = {
                 processname: processObj.name,
                 pid: processObj.pid,
                 signal: "SIGCONT"
             };
 
+            // Send a Request to Node to Resume Process
             api.emit('request', { request: 'processSignal', param: processObj });
 
-
+            // Close the Window
             userSpaceExists[0].remove();
-            events.pauseSessionNavigation();
         }
 
     },
@@ -8490,15 +8475,25 @@ var events = {
 
         if (parameters) {
 
+            // Pause all UI Navigation
             events.pauseSessionNavigation();
 
+            // Hide the UI
             var _doc = document.getElementById("main");
-
             document.body.style.background = "transparent";
             _doc.style.display = "none";
 
+            // Remove Navigational Hooks
+            navigationInit.navigationDeinit(function() {});
+
+            // Open User Space
             dialog.userSpace();
 
+            // Bind Navigation
+            navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
+
+
+            // Emit to Launc Game
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }
 
@@ -8541,25 +8536,40 @@ var events = {
 	-------------------------------------------------- */
     resumeClient: function() {
 
+        // Show the UI
         var _doc = document.getElementById("main");
         document.body.style.background = "#000000";
         _doc.style.display = "block";
 
+        // Close User Space
         dialog.closeAll(function() {
 
+            // Get Process Object
+            var processObj = sessionStorage.getItem("processStorage");
+                processObj = JSON.parse(processObj);
 
-            api.emit('request', { request: 'killall', param: "retroarch" });
+            processObj = {
+                processname: processObj.name,
+                pid: processObj.pid,
+                signal: "SIGTERM"
+            };
 
+            // Exit the Process
+            api.emit('request', { request: 'processSignal', param: processObj });
+
+            // Add needed navigation hooks
             var _ndoc = document.getElementById("Profile");
                 _ndoc.classList.add("parent");
 
-            events.removeNavigationState();
+            // ReBind UI Navigation
+            events.resumeSessionNavigation();
 
-            navigationBindings("init");
+            // UnBind Navigation for Play Session
+            window.removeEventListener('keydown', navigationEventBinds.navigationEventListeners.passSessionKeyEvent);
 
-            navigationInit.navigationInit();
 
         });
+
 
     },
 
@@ -8613,7 +8623,7 @@ var events = {
 -------------------------------------------------- */
 exports.events = events;
 
-},{"../interface/Screens.jsx":40,"./dialogs":74,"./events":76,"./navigation.bindings":82,"./navigation.init.js":86,"./navigation.keyEvent":87,"./navigation.keyboardKeyEvents":89,"lodash":95,"socket.io-client":256}],93:[function(require,module,exports){
+},{"../interface/Screens.jsx":40,"./dialogs":74,"./events":76,"./navigation.bindings":82,"./navigation.eventListeners":85,"./navigation.init.js":87,"./navigation.keyEvent":88,"./navigation.keyboardKeyEvents":90,"lodash":95,"socket.io-client":256}],93:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

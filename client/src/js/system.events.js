@@ -9,6 +9,7 @@ var KeyEvent                = require('./navigation.keyEvent'),
     dialog              	= require('./dialogs'),
     eventDispatcher     	= require('./events'),
     keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
+    navigationEventBinds    = require('./navigation.eventListeners'),
     Screens             	= require('../interface/Screens.jsx');
 
 
@@ -30,32 +31,29 @@ var events = {
     -------------------------------------------------- */
     pauseSessionNavigation: function() {
 
+        // UnBind Mousetrap Bindings
         navigationBindings("deinit");
 
-        window.removeEventListener("keydown", function(e) {
-            e.stopPropagation();
-            return;
-        });
-
-        window.addEventListener("keydown", function(e) {
-
-            if (e.keyCode === 76) { //L
-                events.toggleUserSpaceSidebar();
-            }
-
-            e.stopPropagation();
-            return;
-
-        });
+        // Remove Global Event Listener
+        window.removeEventListener('keydown', navigationEventBinds.navigationEventListeners.passKeyEvent);
 
     },
-
 
     /*  Resume Navigation post Play Session
     -------------------------------------------------- */
     resumeSessionNavigation: function() {
 
+        // Resume/Add Global Event Listener
+        navigationEventBinds.navigationEventListeners.bindEventNavigation();
+
+        // (re)Bind Mousetrap Bindings
+        navigationBindings("init");
+
+        // ReStart Ignition UI Navigation
+        navigationInit.navigationInit();
+
     },
+
 
     /* Trigger New Screen Set
     -------------------------------------------------- */
@@ -118,6 +116,7 @@ var events = {
 
         if (parameters) {
 
+            // Setup Object for Create Session
             var src  = "config/profiles/" + parameters + ".json";
             var dest = "config/profiles/Session.json";
 
@@ -126,6 +125,7 @@ var events = {
             copyObject.src = src;
             copyObject.dest = dest;
 
+            // Pass "Session" Object
             api.emit('request', { request: 'createSession', param: copyObject});
 
         }
@@ -162,18 +162,21 @@ var events = {
     -------------------------------------------------- */
     submitForm: function(parameters) {
 
-        var form = document.forms[parameters].elements;
+        // Find Form
+        var form = document.forms[parameters].elements,
+            obj = {};
 
-        var obj = {};
-
+        // Iterate over Form Inputs for JSON
         _.each(form, function(input) {
             if (input.name && input.value) {
                obj[input.name] = input.value;
             }
         });
 
+        // Construct Object
         obj.formTitle = parameters;
 
+        // Parse server Input field (hidden field)
         switch(obj.server) {
 
             case "true": {
@@ -202,26 +205,33 @@ var events = {
     -------------------------------------------------- */
     writeAdvancedConfig: function(parameters) {
 
+        // Find Form
         var form = document.forms[parameters].elements,
             formObj = {};
 
+        // Iterate over Form Inputs for JSON
         _.each(form, function(input) {
             if (input.name && input.value) {
                 formObj[input.name] = input.value;
             }
         });
 
+        // Build SelectList
         var selects = document.querySelectorAll("span[data-identifier='selectBoxConfig']"),
             selectList = [];
 
+        // Iterare over List
         _.each(selects, function(select) {
             selectList.push(select.classList.contains("label-selected"));
         });
 
+        // Build Object
         formObj.selectList = selectList;
 
+        // Send Request to Node to write Config File
         api.emit('request', { request: 'writeAdvancedConfig', param: formObj});
 
+        // Close the Dialog
         dialog.close();
 
     },
@@ -230,9 +240,13 @@ var events = {
     -------------------------------------------------- */
     restoreAdvancedConfig: function(parameters) {
 
+        // Build Path
         var path = "/config/platforms/commandline/user/"+parameters+".json";
+
+        // Send Request to Node to Remove Users File
         api.emit('request', { request: 'removeFile', param: path});
 
+        // Close the Dialog
         dialog.close();
     },
 
@@ -264,6 +278,7 @@ var events = {
     -------------------------------------------------- */
     browserFocus: function(parameters) {
 
+        // Build Prompt Message Object
         var arg = {
             message: "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?",
             agree: "browserFocusAgree",
@@ -271,6 +286,7 @@ var events = {
             parameters: parameters
         };
 
+        // Show Dialog
         dialog.show("Prompt", null, arg);
 
     },
@@ -278,29 +294,38 @@ var events = {
     /* Focus Agreement
     -------------------------------------------------- */
     browserFocusAgree: function() {
+
+        // Enable Mouse Control
         events.mouseControlEnable();
+
+        // Close the Dialog
         dialog.close();
+
+        // Focus (hack delay) the iFrame
         setTimeout(function() {
             document.getElementsByTagName("iframe")[0].focus();
         }, 500);
     },
 
-    /*     Terminal
+    /* Terminal
     -------------------------------------------------- */
     showTerminal: function() {
         dialog.show("Terminal");
     },
 
-    /*     Go to URL (web browser)
+    /* Go to URL (web browser)
     -------------------------------------------------- */
     gotoUrl: function() {
 
+        // Construct URL from Input
         var url = document.getElementById("url-bar").value;
+
+        // Pass the SRC to the iFrame
         document.getElementsByTagName("iframe")[0].src = url;
 
     },
 
-    /*     Disable Mouse, Close Agreement
+    /* Disable Mouse, Close Agreement
     -------------------------------------------------- */
     closeDialogDisableMouse: function() {
 
@@ -309,13 +334,13 @@ var events = {
 
     },
 
-    /*     Enable Mouse
+    /* Enable Mouse
     -------------------------------------------------- */
     mouseControlEnable: function() {
         document.body.classList.add("mouse");
     },
 
-    /*     Disable Mouse
+    /* Disable Mouse
     -------------------------------------------------- */
     mouseControlDisable: function() {
         document.body.classList.remove("mouse");
@@ -328,9 +353,11 @@ var events = {
 
         // document.getElementById("alpha_list_tbody").innerHTML = "";
 
+        // Find all listed Platforms
         var longname,
             list = document.querySelectorAll(".platform");
 
+        // Iterate over List, remove all selected attributes from classlist unless actually selected
         _(list).forEach(function(item) {
             item.classList.remove("selected");
             if (item.getAttribute("data-parameters") == parameters) {
@@ -339,11 +366,13 @@ var events = {
             }
         }).value();
 
+        // Consturct Object to pass Paging
         var Obj = {
                 platform: longname,
                 start: 0
         };
 
+        // Send Request to Node to get Start of Paging List
         api.emit('request', { request: 'gamesList', param: Obj });
 
     },
@@ -470,39 +499,52 @@ var events = {
     -------------------------------------------------- */
     toggleUserSpaceSidebar: function() {
 
+        // Get nodeList of user-space-right class(es)
         var userSpaceExists = document.querySelectorAll(".user-space-right");
 
+        // Get SessionStorage for current running process
         var processObj = sessionStorage.getItem("processStorage");
 
         processObj = JSON.parse(processObj);
 
-
-
+        // If there is no user-space-right window open
         if (!userSpaceExists.length) {
+
+            // Constuct Object to pause process
             processObj = {
                 processname: processObj.name,
                 pid: processObj.pid,
                 signal: "SIGNSTOP"
             };
 
+            // Send a Request to Node to Pause Process
             api.emit('request', { request: 'processSignal', param: processObj });
 
+            // Open Window
             dialog.userSpaceRight();
+
             events.resumeSessionNavigation();
+
+
         }
 
+        // if there IS a user-space-right window open
         else {
+
+            events.pauseSessionNavigation();
+
+            // Constuct Object to resume process
             processObj = {
                 processname: processObj.name,
                 pid: processObj.pid,
                 signal: "SIGCONT"
             };
 
+            // Send a Request to Node to Resume Process
             api.emit('request', { request: 'processSignal', param: processObj });
 
-
+            // Close the Window
             userSpaceExists[0].remove();
-            events.pauseSessionNavigation();
         }
 
     },
@@ -515,15 +557,25 @@ var events = {
 
         if (parameters) {
 
+            // Pause all UI Navigation
             events.pauseSessionNavigation();
 
+            // Hide the UI
             var _doc = document.getElementById("main");
-
             document.body.style.background = "transparent";
             _doc.style.display = "none";
 
+            // Remove Navigational Hooks
+            navigationInit.navigationDeinit(function() {});
+
+            // Open User Space
             dialog.userSpace();
 
+            // Bind Navigation
+            navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
+
+
+            // Emit to Launc Game
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
         }
 
@@ -566,25 +618,40 @@ var events = {
 	-------------------------------------------------- */
     resumeClient: function() {
 
+        // Show the UI
         var _doc = document.getElementById("main");
         document.body.style.background = "#000000";
         _doc.style.display = "block";
 
+        // Close User Space
         dialog.closeAll(function() {
 
+            // Get Process Object
+            var processObj = sessionStorage.getItem("processStorage");
+                processObj = JSON.parse(processObj);
 
-            api.emit('request', { request: 'killall', param: "retroarch" });
+            processObj = {
+                processname: processObj.name,
+                pid: processObj.pid,
+                signal: "SIGTERM"
+            };
 
+            // Exit the Process
+            api.emit('request', { request: 'processSignal', param: processObj });
+
+            // Add needed navigation hooks
             var _ndoc = document.getElementById("Profile");
                 _ndoc.classList.add("parent");
 
-            events.removeNavigationState();
+            // ReBind UI Navigation
+            events.resumeSessionNavigation();
 
-            navigationBindings("init");
+            // UnBind Navigation for Play Session
+            window.removeEventListener('keydown', navigationEventBinds.navigationEventListeners.passSessionKeyEvent);
 
-            navigationInit.navigationInit();
 
         });
+
 
     },
 

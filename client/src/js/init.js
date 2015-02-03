@@ -7,6 +7,8 @@ var gamepad 			     = require("./gamepad"),
     api 				     = require("./api/connection"),
     browserNavigation	     = require('../js/navigation.browser').browserNavigation,
     database 			     = require('./database.helpers'),
+    navigationEventBinds     = require('./navigation.eventListeners'),
+
     sysEvents                = require('./system.events').events;
 
 module.exports = function() {
@@ -29,11 +31,7 @@ module.exports = function() {
     gamepad.gamepadSupport.init();
     sysEvents.removeNavigationState();
 
-    window.addEventListener('keydown', function (e) {
-
-        navigationEvent(e);
-
-    });
+    navigationEventBinds.navigationEventListeners.bindEventNavigation();
 
     // document.getElementsByTagName("html")[0].style.opacity = 1;
     // document.body.style.opacity = 1;
