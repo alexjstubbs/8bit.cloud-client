@@ -41,13 +41,13 @@ var events = {
 
     /* Trigger Next Screen
     -------------------------------------------------- */
-    nextScreen: function(parameters) {
+    nextScreen: function() {
         KeyEvent(221);
     },
 
     /* Trigger Previous Screen
     -------------------------------------------------- */
-    previousScreen: function(parameters) {
+    previousScreen: function() {
         KeyEvent(219);
     },
 
@@ -59,14 +59,14 @@ var events = {
 
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
-    inputFocus: function(parameters) {
+    inputFocus: function() {
         var input = document.getElementsByClassName("selectedNav")[0];
         dialog.keyboard(input);
     },
 
     /* Close current Dialog
     -------------------------------------------------- */
-    closeDialog: function(el) {
+    closeDialog: function() {
         dialog.close();
     },
 
@@ -84,7 +84,7 @@ var events = {
 
     /* Prevent any action
     -------------------------------------------------- */
-    preventDefault: function(parameters) {
+    preventDefault: function() {
         return 0;
     },
 
@@ -110,7 +110,7 @@ var events = {
 
     /*  Log Out
     -------------------------------------------------- */
-    logOut: function(parameters) {
+    logOut: function() {
         window.location = 'http://127.0.0.1:1210/profiles';
     },
 
@@ -214,7 +214,7 @@ var events = {
 
     /* Load Dashboard
     -------------------------------------------------- */
-    preloadDashboard: function(parameters) {
+    preloadDashboard: function() {
 
         // Load new QTBrowser window and use on complete to close this instance?
         // if (document.readyState === "complete") { init(); }
@@ -226,7 +226,7 @@ var events = {
 
     /* Get Community Info
     -------------------------------------------------- */
-    moreCommunity: function(parameters) {
+    moreCommunity: function() {
         dialog.show("Community");
     },
 
@@ -253,7 +253,7 @@ var events = {
 
     /* Focus Agreement
     -------------------------------------------------- */
-    browserFocusAgree: function(parameters) {
+    browserFocusAgree: function() {
         events.mouseControlEnable();
         dialog.close();
         setTimeout(function() {
@@ -263,13 +263,13 @@ var events = {
 
     /*     Terminal
     -------------------------------------------------- */
-    showTerminal: function(parameters) {
+    showTerminal: function() {
         dialog.show("Terminal");
     },
 
     /*     Go to URL (web browser)
     -------------------------------------------------- */
-    gotoUrl: function(parameters) {
+    gotoUrl: function() {
 
         var url = document.getElementById("url-bar").value;
         document.getElementsByTagName("iframe")[0].src = url;
@@ -278,7 +278,7 @@ var events = {
 
     /*     Disable Mouse, Close Agreement
     -------------------------------------------------- */
-    closeDialogDisableMouse: function(parameters) {
+    closeDialogDisableMouse: function() {
 
         document.body.classList.remove("mouse");
         dialog.close();
@@ -287,13 +287,13 @@ var events = {
 
     /*     Enable Mouse
     -------------------------------------------------- */
-    mouseControlEnable: function(parameters) {
+    mouseControlEnable: function() {
         document.body.classList.add("mouse");
     },
 
     /*     Disable Mouse
     -------------------------------------------------- */
-    mouseControlDisable: function(parameters) {
+    mouseControlDisable: function() {
         document.body.classList.remove("mouse");
         dialog.close();
     },
@@ -362,7 +362,7 @@ var events = {
 
     /* Drop navigation on sub-panels on Action button/keypress
     -------------------------------------------------- */
-    highlightPanel: function(parameters) {
+    highlightPanel: function() {
         KeyEvent(40);
     },
 
@@ -395,7 +395,7 @@ var events = {
 
     /* View Messages event
     -------------------------------------------------- */
-    viewMessages: function(parameters) {
+    viewMessages: function() {
         dialog.show("Messages");
     },
 
@@ -414,7 +414,7 @@ var events = {
 
     /* View Friends
     -------------------------------------------------- */
-    viewFriends: function(parameters) {
+    viewFriends: function() {
         dialog.show("Friends");
     },
 
@@ -426,7 +426,7 @@ var events = {
 
     /* Add a Friend(Request)
     -------------------------------------------------- */
-    addFriend: function(parameters) {
+    addFriend: function() {
         dialog.show("AddFriend");
     },
 
@@ -444,7 +444,7 @@ var events = {
 
     /* Toggle Right Sidebar in in-game UserSpace
     -------------------------------------------------- */
-    toggleUserSpaceSidebar: function(parameters) {
+    toggleUserSpaceSidebar: function() {
 
         var userSpaceExists = document.querySelectorAll(".user-space-right");
 
@@ -546,16 +546,24 @@ var events = {
 
 	/*  Resume Client
 	-------------------------------------------------- */
-    resumeClient: function(parameters) {
+    resumeClient: function() {
 
-        var _doc = document.getElementById("main");
-        document.body.style.background = "#000000";
-        _doc.style.display = "block";
+        dialog.closeAll(function() {
 
-        events.removeNavigationState();
-        navigationInit.navigationInit();
+            var _doc = document.getElementById("main");
+            document.body.style.background = "#000000";
+            _doc.style.display = "block";
 
-        navigationBindings("init");
+            var _ndoc = document.getElementById("Profile");
+                _ndoc.classList.add("parent");
+
+            events.removeNavigationState();
+
+            navigationBindings("init");
+
+            navigationInit.navigationInit();
+
+        });
 
     },
 

@@ -61,7 +61,7 @@ module.exports = React.createClass({
 
                         <hr />
 
-                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-android-cancel"></i> &nbsp; Quit Game</a>
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable" data-function="resumeClient"><i className="ion-android-cancel"></i> &nbsp; Quit Game</a>
 
                     </small>
 

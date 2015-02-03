@@ -29,3 +29,6 @@ databases/images
 
 #production
 production
+
+#profiles
+config/profiles

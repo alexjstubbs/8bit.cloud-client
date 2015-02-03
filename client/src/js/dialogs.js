@@ -31,9 +31,19 @@ var systemNotify            = require('./notification.init.js'),
     var _div;
 
 
+/*  Close all Dialogs
+-------------------------------------------------- */
+var closeAll = function(callback) {
+
+        var allDialogs = document.querySelectorAll(".ui-window");
+        _(allDialogs).forEach(function(el) { el.remove(); }).value();
+
+        callback();
+};
+
 /* Prompt Dialog
 -------------------------------------------------- */
-var prompt = function(callback) {
+var prompt = function() {
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-popup");
@@ -45,7 +55,7 @@ var prompt = function(callback) {
 
 /* General Message Dialog
 -------------------------------------------------- */
-var popup = function(obj, callback) {
+var popup = function() {
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-popup");
@@ -95,7 +105,7 @@ var show = function(parent, parameters, arg) {
     _div.classList.add("ignition-modal-parent");
 
     _notification = document.createElement("div");
-    _notification.classList.add("ignition-modal-notification");
+    _notification.classList.add("ignition-modal-notification", "ui-window");
     fragment.appendChild(_notification);
 
 
@@ -182,13 +192,6 @@ var close = function(modal, callback, exception) {
          _.first(opacits_).classList.remove("opacity-0");
      }
 
-    // if (!modal) {
-    //
-    //     var modal = document.querySelectorAll(".ignition-modal");
-    //
-    //     modal = _.first(modal);
-    //
-    // }
 
     modal = document.querySelectorAll(".ignition-modal-parent");
 
@@ -216,7 +219,7 @@ var close = function(modal, callback, exception) {
 
 /* Show Keyboard
 -------------------------------------------------- */
-var keyboard = function(input, callback) {
+var keyboard = function(input) {
 
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
@@ -224,7 +227,7 @@ var keyboard = function(input, callback) {
     var _index = document.querySelectorAll(".ignition-modal-");
 
     var div = document.createElement("div");
-    div.classList.add("ignition-modal-parent", "ignition-keyboard");
+    div.classList.add("ignition-modal-parent", "ignition-keyboard", "ui-window");
     div.style.zIndex = _index.length+150;
 
     document.body.insertBefore(div,  document.body.firstChild);
@@ -244,7 +247,7 @@ var keyboard = function(input, callback) {
 
 /* Show Notification outside of Wrapper
 -------------------------------------------------- */
-var uiNotification = function(achievementObj, callback) {
+var uiNotification = function(achievementObj) {
 
     if (achievementObj) achievementObj = JSON.parse(achievementObj);
 
@@ -252,6 +255,7 @@ var uiNotification = function(achievementObj, callback) {
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent");
+    div.classList.add("ui-window");
     div.style.zIndex = _index.length+250;
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
@@ -262,42 +266,34 @@ var uiNotification = function(achievementObj, callback) {
 
 /*  User Space (Sidebars, usually shown during gameplay)
 -------------------------------------------------- */
-var userSpace = function(input, callback) {
+var userSpace = function() {
 
 
     var div = document.createElement("div");
-    div.classList.add("user-space-left");
-
+    div.classList.add("user-space-left", "ui-window");
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
     React.renderComponent(UserSpace({}), div);
-
-    // div = document.createElement("div");
-    // div.classList.add("user-space-right");
-    //
-    // document.body.insertBefore(div,  document.getElementById("ui-notifications"));
-    //
-    //
-    // React.renderComponent(UserSpaceRight({}), div);
 
 };
 
 /*  User Space Right (Right Menu Sidebar, usually shown during gameplay)
 -------------------------------------------------- */
-var userSpaceRight = function(input, callback) {
+var userSpaceRight = function() {
 
-    div = document.createElement("div");
-    div.classList.add("user-space-right");
+    var div = document.createElement("div");
+    div.classList.add("user-space-right", "ui-window");
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
     React.renderComponent(UserSpaceRight({}), div);
-    
+
 
 };
 
 /* Exports
 -------------------------------------------------- */
+exports.closeAll            = closeAll;
 exports.prompt              = prompt;
 exports.show                = show;
 exports.close               = close;

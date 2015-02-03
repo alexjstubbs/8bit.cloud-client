@@ -3950,7 +3950,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.hr(null), 
 
-                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-android-cancel"}), "   Quit Game")
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable", 'data-function': "resumeClient"}, React.DOM.i({className: "ion-android-cancel"}), "   Quit Game")
 
                     )
 
@@ -5528,9 +5528,19 @@ var systemNotify            = require('./notification.init.js'),
     var _div;
 
 
+/*  Close all Dialogs
+-------------------------------------------------- */
+var closeAll = function(callback) {
+
+        var allDialogs = document.querySelectorAll(".ui-window");
+        _(allDialogs).forEach(function(el) { el.remove(); }).value();
+
+        callback();
+};
+
 /* Prompt Dialog
 -------------------------------------------------- */
-var prompt = function(callback) {
+var prompt = function() {
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-popup");
@@ -5542,7 +5552,7 @@ var prompt = function(callback) {
 
 /* General Message Dialog
 -------------------------------------------------- */
-var popup = function(obj, callback) {
+var popup = function() {
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal", "ignition-popup");
@@ -5592,7 +5602,7 @@ var show = function(parent, parameters, arg) {
     _div.classList.add("ignition-modal-parent");
 
     _notification = document.createElement("div");
-    _notification.classList.add("ignition-modal-notification");
+    _notification.classList.add("ignition-modal-notification", "ui-window");
     fragment.appendChild(_notification);
 
 
@@ -5679,13 +5689,6 @@ var close = function(modal, callback, exception) {
          _.first(opacits_).classList.remove("opacity-0");
      }
 
-    // if (!modal) {
-    //
-    //     var modal = document.querySelectorAll(".ignition-modal");
-    //
-    //     modal = _.first(modal);
-    //
-    // }
 
     modal = document.querySelectorAll(".ignition-modal-parent");
 
@@ -5713,7 +5716,7 @@ var close = function(modal, callback, exception) {
 
 /* Show Keyboard
 -------------------------------------------------- */
-var keyboard = function(input, callback) {
+var keyboard = function(input) {
 
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
@@ -5721,7 +5724,7 @@ var keyboard = function(input, callback) {
     var _index = document.querySelectorAll(".ignition-modal-");
 
     var div = document.createElement("div");
-    div.classList.add("ignition-modal-parent", "ignition-keyboard");
+    div.classList.add("ignition-modal-parent", "ignition-keyboard", "ui-window");
     div.style.zIndex = _index.length+150;
 
     document.body.insertBefore(div,  document.body.firstChild);
@@ -5741,7 +5744,7 @@ var keyboard = function(input, callback) {
 
 /* Show Notification outside of Wrapper
 -------------------------------------------------- */
-var uiNotification = function(achievementObj, callback) {
+var uiNotification = function(achievementObj) {
 
     if (achievementObj) achievementObj = JSON.parse(achievementObj);
 
@@ -5749,6 +5752,7 @@ var uiNotification = function(achievementObj, callback) {
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent");
+    div.classList.add("ui-window");
     div.style.zIndex = _index.length+250;
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
@@ -5759,42 +5763,34 @@ var uiNotification = function(achievementObj, callback) {
 
 /*  User Space (Sidebars, usually shown during gameplay)
 -------------------------------------------------- */
-var userSpace = function(input, callback) {
+var userSpace = function() {
 
 
     var div = document.createElement("div");
-    div.classList.add("user-space-left");
-
+    div.classList.add("user-space-left", "ui-window");
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
     React.renderComponent(UserSpace({}), div);
-
-    // div = document.createElement("div");
-    // div.classList.add("user-space-right");
-    //
-    // document.body.insertBefore(div,  document.getElementById("ui-notifications"));
-    //
-    //
-    // React.renderComponent(UserSpaceRight({}), div);
 
 };
 
 /*  User Space Right (Right Menu Sidebar, usually shown during gameplay)
 -------------------------------------------------- */
-var userSpaceRight = function(input, callback) {
+var userSpaceRight = function() {
 
-    div = document.createElement("div");
-    div.classList.add("user-space-right");
+    var div = document.createElement("div");
+    div.classList.add("user-space-right", "ui-window");
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
     React.renderComponent(UserSpaceRight({}), div);
-    
+
 
 };
 
 /* Exports
 -------------------------------------------------- */
+exports.closeAll            = closeAll;
 exports.prompt              = prompt;
 exports.show                = show;
 exports.close               = close;
@@ -8013,13 +8009,13 @@ var events = {
 
     /* Trigger Next Screen
     -------------------------------------------------- */
-    nextScreen: function(parameters) {
+    nextScreen: function() {
         KeyEvent(221);
     },
 
     /* Trigger Previous Screen
     -------------------------------------------------- */
-    previousScreen: function(parameters) {
+    previousScreen: function() {
         KeyEvent(219);
     },
 
@@ -8031,14 +8027,14 @@ var events = {
 
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
-    inputFocus: function(parameters) {
+    inputFocus: function() {
         var input = document.getElementsByClassName("selectedNav")[0];
         dialog.keyboard(input);
     },
 
     /* Close current Dialog
     -------------------------------------------------- */
-    closeDialog: function(el) {
+    closeDialog: function() {
         dialog.close();
     },
 
@@ -8056,7 +8052,7 @@ var events = {
 
     /* Prevent any action
     -------------------------------------------------- */
-    preventDefault: function(parameters) {
+    preventDefault: function() {
         return 0;
     },
 
@@ -8082,7 +8078,7 @@ var events = {
 
     /*  Log Out
     -------------------------------------------------- */
-    logOut: function(parameters) {
+    logOut: function() {
         window.location = 'http://127.0.0.1:1210/profiles';
     },
 
@@ -8186,7 +8182,7 @@ var events = {
 
     /* Load Dashboard
     -------------------------------------------------- */
-    preloadDashboard: function(parameters) {
+    preloadDashboard: function() {
 
         // Load new QTBrowser window and use on complete to close this instance?
         // if (document.readyState === "complete") { init(); }
@@ -8198,7 +8194,7 @@ var events = {
 
     /* Get Community Info
     -------------------------------------------------- */
-    moreCommunity: function(parameters) {
+    moreCommunity: function() {
         dialog.show("Community");
     },
 
@@ -8225,7 +8221,7 @@ var events = {
 
     /* Focus Agreement
     -------------------------------------------------- */
-    browserFocusAgree: function(parameters) {
+    browserFocusAgree: function() {
         events.mouseControlEnable();
         dialog.close();
         setTimeout(function() {
@@ -8235,13 +8231,13 @@ var events = {
 
     /*     Terminal
     -------------------------------------------------- */
-    showTerminal: function(parameters) {
+    showTerminal: function() {
         dialog.show("Terminal");
     },
 
     /*     Go to URL (web browser)
     -------------------------------------------------- */
-    gotoUrl: function(parameters) {
+    gotoUrl: function() {
 
         var url = document.getElementById("url-bar").value;
         document.getElementsByTagName("iframe")[0].src = url;
@@ -8250,7 +8246,7 @@ var events = {
 
     /*     Disable Mouse, Close Agreement
     -------------------------------------------------- */
-    closeDialogDisableMouse: function(parameters) {
+    closeDialogDisableMouse: function() {
 
         document.body.classList.remove("mouse");
         dialog.close();
@@ -8259,13 +8255,13 @@ var events = {
 
     /*     Enable Mouse
     -------------------------------------------------- */
-    mouseControlEnable: function(parameters) {
+    mouseControlEnable: function() {
         document.body.classList.add("mouse");
     },
 
     /*     Disable Mouse
     -------------------------------------------------- */
-    mouseControlDisable: function(parameters) {
+    mouseControlDisable: function() {
         document.body.classList.remove("mouse");
         dialog.close();
     },
@@ -8334,7 +8330,7 @@ var events = {
 
     /* Drop navigation on sub-panels on Action button/keypress
     -------------------------------------------------- */
-    highlightPanel: function(parameters) {
+    highlightPanel: function() {
         KeyEvent(40);
     },
 
@@ -8367,7 +8363,7 @@ var events = {
 
     /* View Messages event
     -------------------------------------------------- */
-    viewMessages: function(parameters) {
+    viewMessages: function() {
         dialog.show("Messages");
     },
 
@@ -8386,7 +8382,7 @@ var events = {
 
     /* View Friends
     -------------------------------------------------- */
-    viewFriends: function(parameters) {
+    viewFriends: function() {
         dialog.show("Friends");
     },
 
@@ -8398,7 +8394,7 @@ var events = {
 
     /* Add a Friend(Request)
     -------------------------------------------------- */
-    addFriend: function(parameters) {
+    addFriend: function() {
         dialog.show("AddFriend");
     },
 
@@ -8416,7 +8412,7 @@ var events = {
 
     /* Toggle Right Sidebar in in-game UserSpace
     -------------------------------------------------- */
-    toggleUserSpaceSidebar: function(parameters) {
+    toggleUserSpaceSidebar: function() {
 
         var userSpaceExists = document.querySelectorAll(".user-space-right");
 
@@ -8518,16 +8514,24 @@ var events = {
 
 	/*  Resume Client
 	-------------------------------------------------- */
-    resumeClient: function(parameters) {
+    resumeClient: function() {
 
-        var _doc = document.getElementById("main");
-        document.body.style.background = "#000000";
-        _doc.style.display = "block";
+        dialog.closeAll(function() {
 
-        events.removeNavigationState();
-        navigationInit.navigationInit();
+            var _doc = document.getElementById("main");
+            document.body.style.background = "#000000";
+            _doc.style.display = "block";
 
-        navigationBindings("init");
+            var _ndoc = document.getElementById("Profile");
+                _ndoc.classList.add("parent");
+
+            events.removeNavigationState();
+
+            navigationBindings("init");
+
+            navigationInit.navigationInit();
+
+        });
 
     },
 
