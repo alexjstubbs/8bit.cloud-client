@@ -7,6 +7,10 @@ var api = {
          common.process.killall(nsp, param);
     },
 
+    processSignal: function(nsp, param) {
+         common.process.signal(nsp, param);
+    },
+
     launchGame: function(nsp, param){
         common.game.gameLaunch(nsp, param);
     },
@@ -166,7 +170,7 @@ var api = {
 
     sessionProfile: function(nsp) {
          common.profiles.getSession(nsp);
-    },
+    }
 
 
 

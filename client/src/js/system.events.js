@@ -472,12 +472,35 @@ var events = {
 
         var userSpaceExists = document.querySelectorAll(".user-space-right");
 
+        var processObj = sessionStorage.getItem("processStorage");
+
+        processObj = JSON.parse(processObj);
+
+
+
         if (!userSpaceExists.length) {
+            processObj = {
+                processname: processObj.name,
+                pid: processObj.pid,
+                signal: "SIGNSTOP"
+            };
+
+            api.emit('request', { request: 'processSignal', param: processObj });
+
             dialog.userSpaceRight();
             events.resumeSessionNavigation();
         }
 
         else {
+            processObj = {
+                processname: processObj.name,
+                pid: processObj.pid,
+                signal: "SIGCONT"
+            };
+
+            api.emit('request', { request: 'processSignal', param: processObj });
+
+
             userSpaceExists[0].remove();
             events.pauseSessionNavigation();
         }

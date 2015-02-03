@@ -40,7 +40,9 @@ var connect = function() {
   /*  Process Storage for Play Sessions
   -------------------------------------------------- */
   api.on('processStorage', function(data) {
-      sessionStorage.setItem("processStorage", data);
+
+      sessionStorage.setItem("processStorage", JSON.stringify(data));
+      
   });
 
 };

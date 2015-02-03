@@ -5432,7 +5432,9 @@ var connect = function() {
   /*  Process Storage for Play Sessions
   -------------------------------------------------- */
   api.on('processStorage', function(data) {
-      sessionStorage.setItem("processStorage", data);
+
+      sessionStorage.setItem("processStorage", JSON.stringify(data));
+      
   });
 
 };
@@ -8445,13 +8447,37 @@ var events = {
 
         var userSpaceExists = document.querySelectorAll(".user-space-right");
 
+        var processObj = sessionStorage.getItem("processStorage");
+
+        processObj = JSON.parse(processObj);
+
+
+
         if (!userSpaceExists.length) {
+            processObj = {
+                processname: processObj.name,
+                pid: processObj.pid,
+                signal: "SIGNSTOP"
+            };
+
+            api.emit('request', { request: 'processSignal', param: processObj });
+
             dialog.userSpaceRight();
-            //
+            events.resumeSessionNavigation();
         }
 
         else {
+            processObj = {
+                processname: processObj.name,
+                pid: processObj.pid,
+                signal: "SIGCONT"
+            };
+
+            api.emit('request', { request: 'processSignal', param: processObj });
+
+
             userSpaceExists[0].remove();
+            events.pauseSessionNavigation();
         }
 
     },
@@ -8464,21 +8490,7 @@ var events = {
 
         if (parameters) {
 
-            navigationBindings("deinit");
-
-            window.removeEventListener("keydown", function(e) {
-                e.stopPropagation();
-                return;
-            });
-
-            window.addEventListener("keydown", function(e) {
-                if (e.keyCode === 76) { //L
-                    events.toggleUserSpaceSidebar();
-                }
-
-                e.stopPropagation();
-                return;
-            });
+            events.pauseSessionNavigation();
 
             var _doc = document.getElementById("main");
 

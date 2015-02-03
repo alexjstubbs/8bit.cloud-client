@@ -30,8 +30,10 @@ module.exports = function(grunt) {
 
         uglify: {
             options: {
-                banner: '/*! Ignition - v<%= pkg.version %> - \n* <%= pkg.license %> \n* ' +
-                       '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+                banner: '/*! Ignition - v<%= pkg.version %>' +
+                        '\n* Copyright (c) Alexander Stubbs (http://ignition.io)' +
+                        '\n* License:  <%= pkg.license %>' +
+                        '\n* Modified: <%= grunt.template.today("yyyy-mm-dd") %> */\n'
             },
             my_target: {
                 files: [{

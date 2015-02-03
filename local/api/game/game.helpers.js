@@ -191,7 +191,9 @@ function gameLaunch(nsp, payload) {
                 pid: _child.pid
             };
 
-            nsp.emit('api', { processStorage: processObj });
+            console.log(processObj);
+            
+            nsp.emit('processStorage', { processStorage: processObj });
 
             // Start Achievement Loop
             if (asupport) { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing);}, 10000); }
