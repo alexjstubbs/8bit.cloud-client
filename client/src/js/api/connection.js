@@ -22,7 +22,7 @@ var connect = function() {
 
   /* Server to Client Notification
   -------------------------------------------------- */
-  api.on('messaging', function(data, sock) {
+  api.on('messaging', function(data) {
 
 		  dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
 
@@ -31,10 +31,16 @@ var connect = function() {
 
   /* Server to Client Communication
   -------------------------------------------------- */
-  api.on('clientEvent', function(data, sock) {
+  api.on('clientEvent', function(data) {
 
       events[data.command](data.params);
 
+  });
+
+  /*  Process Storage for Play Sessions
+  -------------------------------------------------- */
+  api.on('processStorage', function(data) {
+      sessionStorage.setItem("processStorage", data);
   });
 
 };

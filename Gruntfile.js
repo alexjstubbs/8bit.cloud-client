@@ -29,6 +29,10 @@ module.exports = function(grunt) {
         },
 
         uglify: {
+            options: {
+                banner: '/*! Ignition - v<%= pkg.version %> - \n* <%= pkg.license %> \n* ' +
+                       '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
+            },
             my_target: {
                 files: [{
                     expand: true,

@@ -1,22 +1,15 @@
 /* Requested system events via client (usually button presses)
 -------------------------------------------------- */
 
-var systemNotify        	= require('./notification.init.js'),
-    KeyEvent                = require('./navigation.keyEvent'),
+var KeyEvent                = require('./navigation.keyEvent'),
     api                 	= require('socket.io-client')('/api'),
-    React               	= require('react/addons'),
-    Modal               	= require('../interface/Modal.jsx'),
-    Messages            	= require('../interface/Messages.jsx'),
     navigationBindings  	= require("./navigation.bindings"),
-    navigationEvent     	= require("./navigation.event"),
     _                   	= require('lodash'),
     navigationInit      	= require("./navigation.init.js"),
     dialog              	= require('./dialogs'),
     eventDispatcher     	= require('./events'),
     keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
-    Screens             	= require('../interface/Screens.jsx'),
-    mousetrap           	= require("./mousetrap.min.js"),
-    navigationEvent     	= require("./navigation.event");
+    Screens             	= require('../interface/Screens.jsx');
 
 
 var events = {
@@ -31,6 +24,37 @@ var events = {
     -------------------------------------------------- */
     removeNavigationState: function() {
         sessionStorage.removeItem("navigationState");
+    },
+
+    /*  Restrict Navigation on Play Session
+    -------------------------------------------------- */
+    pauseSessionNavigation: function() {
+
+        navigationBindings("deinit");
+
+        window.removeEventListener("keydown", function(e) {
+            e.stopPropagation();
+            return;
+        });
+
+        window.addEventListener("keydown", function(e) {
+
+            if (e.keyCode === 76) { //L
+                events.toggleUserSpaceSidebar();
+            }
+
+            e.stopPropagation();
+            return;
+
+        });
+
+    },
+
+
+    /*  Resume Navigation post Play Session
+    -------------------------------------------------- */
+    resumeSessionNavigation: function() {
+
     },
 
     /* Trigger New Screen Set
@@ -449,28 +473,13 @@ var events = {
         var userSpaceExists = document.querySelectorAll(".user-space-right");
 
         if (!userSpaceExists.length) {
-
-            navigationInit.navigationDeinit();
-
-            window.removeEventListener("keydown", function(e) {
-                e.stopPropagation();
-                return;
-            });
-
-            window.addEventListener('keydown', function (e) {
-                navigationEvent(e);
-            });
-
-            events.navigationState("pause");
-            navigationBindings("init");
             dialog.userSpaceRight();
+            events.resumeSessionNavigation();
         }
 
         else {
             userSpaceExists[0].remove();
-
-            navigationBindings("deinit");
-            navigationInit.navigationDeinit();
+            events.pauseSessionNavigation();
         }
 
     },
@@ -483,21 +492,7 @@ var events = {
 
         if (parameters) {
 
-            navigationBindings("deinit");
-
-            window.removeEventListener("keydown", function(e) {
-                e.stopPropagation();
-                return;
-            });
-
-            window.addEventListener("keydown", function(e) {
-                if (e.keyCode === 76) { //L
-                    events.toggleUserSpaceSidebar();
-                }
-
-                e.stopPropagation();
-                return;
-            });
+            events.pauseSessionNavigation();
 
             var _doc = document.getElementById("main");
 
@@ -548,11 +543,14 @@ var events = {
 	-------------------------------------------------- */
     resumeClient: function() {
 
+        var _doc = document.getElementById("main");
+        document.body.style.background = "#000000";
+        _doc.style.display = "block";
+
         dialog.closeAll(function() {
 
-            var _doc = document.getElementById("main");
-            document.body.style.background = "#000000";
-            _doc.style.display = "block";
+
+            api.emit('request', { request: 'killall', param: "retroarch" });
 
             var _ndoc = document.getElementById("Profile");
                 _ndoc.classList.add("parent");

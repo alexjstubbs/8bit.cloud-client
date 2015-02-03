@@ -1,8 +1,9 @@
 {
   "name": "ignition-client",
+  "license": "Apache-2.0",
   "main": "ignite.html",
   "node-main": "ignite.js",
-  "version": "0.0.1",
+  "version": "0.0.15",
   "private": true,
   "scripts": {
     "start": "node ignite"
@@ -44,7 +45,10 @@
       "require",
       "window",
       "document",
-      "console"
+      "console",
+      "sessionStorage",
+      "localStorage",
+      "setTimeout"
     ]
   }
 }

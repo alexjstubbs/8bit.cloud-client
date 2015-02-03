@@ -19,6 +19,25 @@ var killall = function(nsp, params, callback) {
     });
 };
 
+/*  Send Signal
+-------------------------------------------------- */
+var signal = function(nsp, params, callback) {
+
+    exec('killall -s '+params.signal+' '+params.processname+'', function(stderr, stdout) {
+
+        if (nsp) {
+            nsp.emit({stdout: stderr, stderr: stderr});
+        }
+
+        if (callback) {
+            callback(stderr, stdout);
+        }
+
+    });
+};
+
+
 /*  Exports
 -------------------------------------------------- */
 exports.killall = killall;
+exports.signal  = signal;

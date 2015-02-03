@@ -3170,40 +3170,41 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function () {
 
      },
-    
+
     render: function() {
-      
+
         return (
 
              React.DOM.div({className: "col-xs-5 pull-left", id: "profile-saves"}, 
                React.DOM.div({className: "row"}, 
                   React.DOM.div({className: "col-xs-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios-download"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-ios-game-controller-b-outline"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 1"), 
                      "06/27/2014 @ 5:58pm"
                   ), 
                   React.DOM.div({className: "col-xs-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios-download"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-ios-game-controller-b-outline"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 2"), 
                      "01/21/2013 @ 2:01pm"
                   ), 
                   React.DOM.div({className: "col-xs-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable", 'data-nav': "5"}, React.DOM.i({className: "icon ion-ios-download"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-ios-game-controller-b-outline"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 3"), 
                      "06/27/2014 @ 5:58pm"
                   )
                )
             )
-       
+
         )
     }
 });
+
 },{"lodash":95,"react/addons":97,"socket.io-client":256}],40:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -5413,7 +5414,7 @@ var connect = function() {
 
   /* Server to Client Notification
   -------------------------------------------------- */
-  api.on('messaging', function(data, sock) {
+  api.on('messaging', function(data) {
 
 		  dialog.general(null, data.type, data.body, data.dataFunction, data.dataParameters, data.button);
 
@@ -5422,10 +5423,16 @@ var connect = function() {
 
   /* Server to Client Communication
   -------------------------------------------------- */
-  api.on('clientEvent', function(data, sock) {
+  api.on('clientEvent', function(data) {
 
       events[data.command](data.params);
 
+  });
+
+  /*  Process Storage for Play Sessions
+  -------------------------------------------------- */
+  api.on('processStorage', function(data) {
+      sessionStorage.setItem("processStorage", data);
   });
 
 };
@@ -5506,11 +5513,9 @@ var systemNotify            = require('./notification.init.js'),
     Message                 = require('../interface/Message.jsx'),
     Messages                = require('../interface/Messages.jsx'),
     Friends                 = require('../interface/Friends.jsx'),
-    Friend                  = require('../interface/Friend.jsx'),
     SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
     AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
     FriendLarge             = require('../interface/FriendLarge.jsx'),
-    Popup                   = require('../interface/Popup.jsx'),
     Prompt                  = require('../interface/Prompt.jsx'),
     Terminal                = require('../interface/Terminal.jsx'),
     WebBrowser              = require('../interface/WebBrowser.jsx'),
@@ -5801,7 +5806,7 @@ exports.uiNotification      = uiNotification;
 exports.userSpace           = userSpace;
 exports.userSpaceRight      = userSpaceRight;
 
-},{"../interface/AchievementUnlocked.jsx":2,"../interface/CommunityInfo.jsx":8,"../interface/Friend.jsx":13,"../interface/FriendLarge.jsx":14,"../interface/Friends.jsx":15,"../interface/GeneralDialog.jsx":18,"../interface/Message.jsx":25,"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/OnScreenKeyboard.jsx":30,"../interface/Popup.jsx":34,"../interface/Prompt.jsx":37,"../interface/SoftwareOptions.jsx":43,"../interface/Terminal.jsx":44,"../interface/UserSpace.jsx":48,"../interface/UserSpaceRight.jsx":49,"../interface/WebBrowser.jsx":51,"../interface/forms/AddFriend.jsx":52,"../interface/forms/PassMessage.jsx":53,"../interface/forms/SignUp.jsx":54,"./events.js":76,"./navigation.init.js":86,"./notification.init.js":91,"lodash":95,"react/addons":97,"socket.io-client":256}],75:[function(require,module,exports){
+},{"../interface/AchievementUnlocked.jsx":2,"../interface/CommunityInfo.jsx":8,"../interface/FriendLarge.jsx":14,"../interface/Friends.jsx":15,"../interface/GeneralDialog.jsx":18,"../interface/Message.jsx":25,"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/OnScreenKeyboard.jsx":30,"../interface/Prompt.jsx":37,"../interface/SoftwareOptions.jsx":43,"../interface/Terminal.jsx":44,"../interface/UserSpace.jsx":48,"../interface/UserSpaceRight.jsx":49,"../interface/WebBrowser.jsx":51,"../interface/forms/AddFriend.jsx":52,"../interface/forms/PassMessage.jsx":53,"../interface/forms/SignUp.jsx":54,"./events.js":76,"./navigation.init.js":86,"./notification.init.js":91,"lodash":95,"react/addons":97,"socket.io-client":256}],75:[function(require,module,exports){
 /* API Event Listeners
 -------------------------------------------------- */
 var api             = require('socket.io-client')('/api'),
@@ -7969,22 +7974,15 @@ module.exports = function(path, height, width, left, top) {
 /* Requested system events via client (usually button presses)
 -------------------------------------------------- */
 
-var systemNotify        	= require('./notification.init.js'),
-    KeyEvent                = require('./navigation.keyEvent'),
+var KeyEvent                = require('./navigation.keyEvent'),
     api                 	= require('socket.io-client')('/api'),
-    React               	= require('react/addons'),
-    Modal               	= require('../interface/Modal.jsx'),
-    Messages            	= require('../interface/Messages.jsx'),
     navigationBindings  	= require("./navigation.bindings"),
-    navigationEvent     	= require("./navigation.event"),
     _                   	= require('lodash'),
     navigationInit      	= require("./navigation.init.js"),
     dialog              	= require('./dialogs'),
     eventDispatcher     	= require('./events'),
     keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
-    Screens             	= require('../interface/Screens.jsx'),
-    mousetrap           	= require("./mousetrap.min.js"),
-    navigationEvent     	= require("./navigation.event");
+    Screens             	= require('../interface/Screens.jsx');
 
 
 var events = {
@@ -7999,6 +7997,37 @@ var events = {
     -------------------------------------------------- */
     removeNavigationState: function() {
         sessionStorage.removeItem("navigationState");
+    },
+
+    /*  Restrict Navigation on Play Session
+    -------------------------------------------------- */
+    pauseSessionNavigation: function() {
+
+        navigationBindings("deinit");
+
+        window.removeEventListener("keydown", function(e) {
+            e.stopPropagation();
+            return;
+        });
+
+        window.addEventListener("keydown", function(e) {
+
+            if (e.keyCode === 76) { //L
+                events.toggleUserSpaceSidebar();
+            }
+
+            e.stopPropagation();
+            return;
+
+        });
+
+    },
+
+
+    /*  Resume Navigation post Play Session
+    -------------------------------------------------- */
+    resumeSessionNavigation: function() {
+
     },
 
     /* Trigger New Screen Set
@@ -8417,28 +8446,12 @@ var events = {
         var userSpaceExists = document.querySelectorAll(".user-space-right");
 
         if (!userSpaceExists.length) {
-
-            navigationInit.navigationDeinit();
-
-            window.removeEventListener("keydown", function(e) {
-                e.stopPropagation();
-                return;
-            });
-
-            window.addEventListener('keydown', function (e) {
-                navigationEvent(e);
-            });
-
-            events.navigationState("pause");
-            navigationBindings("init");
             dialog.userSpaceRight();
+            //
         }
 
         else {
             userSpaceExists[0].remove();
-
-            navigationBindings("deinit");
-            navigationInit.navigationDeinit();
         }
 
     },
@@ -8516,11 +8529,14 @@ var events = {
 	-------------------------------------------------- */
     resumeClient: function() {
 
+        var _doc = document.getElementById("main");
+        document.body.style.background = "#000000";
+        _doc.style.display = "block";
+
         dialog.closeAll(function() {
 
-            var _doc = document.getElementById("main");
-            document.body.style.background = "#000000";
-            _doc.style.display = "block";
+
+            api.emit('request', { request: 'killall', param: "retroarch" });
 
             var _ndoc = document.getElementById("Profile");
                 _ndoc.classList.add("parent");
@@ -8585,7 +8601,7 @@ var events = {
 -------------------------------------------------- */
 exports.events = events;
 
-},{"../interface/Messages.jsx":27,"../interface/Modal.jsx":28,"../interface/Screens.jsx":40,"./dialogs":74,"./events":76,"./mousetrap.min.js":81,"./navigation.bindings":82,"./navigation.event":84,"./navigation.init.js":86,"./navigation.keyEvent":87,"./navigation.keyboardKeyEvents":89,"./notification.init.js":91,"lodash":95,"react/addons":97,"socket.io-client":256}],93:[function(require,module,exports){
+},{"../interface/Screens.jsx":40,"./dialogs":74,"./events":76,"./navigation.bindings":82,"./navigation.init.js":86,"./navigation.keyEvent":87,"./navigation.keyboardKeyEvents":89,"lodash":95,"socket.io-client":256}],93:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

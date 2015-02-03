@@ -3,7 +3,6 @@
 var database            = require(appDir+'/local/api/database/database.local'),
     execute             = require(appDir+'/local/system/system.exec'),
     spawn               = require('child_process').spawn,
-    exec                = require('child_process').exec,
     fs                  = require('fs-extra'),
     _                   = require('lodash'),
     listPlatforms       = require(appDir+'/local/api/api.platforms').listPlatforms,
@@ -126,19 +125,18 @@ function gameLaunch(nsp, payload) {
     var bufferSize,
         stateSize,
         atype,
+        offset,
+        timing,
         asupport = false;
 
     getCommandlineConfig(null, payload, function(err, results) {
 
         var selectedArgs = _.where(results.arguements, { 'ticked': true });
-            commandline  = [];
+        var commandline  = [];
 
         _.forEach(selectedArgs, function(option, i) {
             commandline.push(option.arg, option.defaults);
         });
-
-        // Path to executable
-        var expath = results.path;
 
         //Retroarch is the selected emulator
         if (results.cores) {
@@ -151,12 +149,12 @@ function gameLaunch(nsp, payload) {
                 commandline.push("-L", results.cores[core].path);
 
                 if (results.cores[core].achievements) {
-                    asupport = true;
 
-                    offset      = results.cores[core].achievements.offset;
-                    bufferSize  = results.cores[core].achievements.buffer_length;
-                    stateSize   = results.cores[core].achievements.state_size;
-                    timing      = results.cores[core].achievements.default_timing;
+                    asupport        = true;
+                    offset          = results.cores[core].achievements.offset;
+                    timing          = results.cores[core].achievements.default_timing;
+                    bufferSize      = results.cores[core].achievements.buffer_length;
+                    stateSize       = results.cores[core].achievements.state_size;
                 }
 
             }
@@ -188,6 +186,13 @@ function gameLaunch(nsp, payload) {
 
             var _child = spawn(results.expath, commandline.concat(payload.filepath));
 
+            var processObj = {
+                name: results.package,
+                pid: _child.pid
+            };
+
+            nsp.emit('api', { processStorage: processObj });
+
             // Start Achievement Loop
             if (asupport) { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing);}, 10000); }
 
@@ -198,15 +203,12 @@ function gameLaunch(nsp, payload) {
             });
 
 
-            console.log(asupport);
-
-
             _child.stderr.on('data', function(data) {
 
                 if (data.length >= stateSize) {
 
                     if (asupport) {
-                        achievements.achievementCheck(nsp, listedAchievements[0], data, offset, bufferSize, function(response) {});
+                        achievements.achievementCheck(nsp, listedAchievements[0], data, offset, bufferSize, function() {});
                     }
 
                     else {
@@ -239,7 +241,7 @@ function apicall(nsp, game, callback) {
         data += buffer;
     });
 
-    vg.stdout.on('end', function(err) {
+    vg.stdout.on('end', function() {
 
         data = data.toString('utf8');
 
@@ -251,7 +253,7 @@ function apicall(nsp, game, callback) {
 
             data = JSON.parse(data); // Errors
 
-            _document = data;
+            var _document = data;
 
             if (rLength > 50) {
 
@@ -291,7 +293,7 @@ function gameProfileSmall(nsp, game) {
     game = game.trim();
     var recordTitle;
 
-    var research = new RegExp(game, "i");
+    // var research = new RegExp(game, "i");
 
     database.findGame({
         $or: [{
