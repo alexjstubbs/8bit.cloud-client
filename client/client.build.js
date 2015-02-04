@@ -3947,7 +3947,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-ios-game-controller-b"}), "   Invite Friend"), 
                         React.DOM.br(null), React.DOM.br(null), 
-                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "viewMessages"}, React.DOM.i({className: "ion-chatbubbles"}), "   Messages ", React.DOM.span({className: "badge badge-danger"}, "10")), 
+                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "viewMessages"}, React.DOM.i({className: "ion-chatbubbles"}), "   Messages"), 
                         React.DOM.br(null), React.DOM.br(null), 
                     React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-trophy"}), "   View Achievements"), 
 
@@ -8009,6 +8009,9 @@ var events = {
         // ReStart Ignition UI Navigation
         navigationInit.navigationInit();
 
+        // Remove all possible navigational breaks
+        events.removeNavigationState();
+
     },
 
 
@@ -8482,6 +8485,7 @@ var events = {
 
             events.resumeSessionNavigation();
 
+            events.navigationState("pause");
 
         }
 

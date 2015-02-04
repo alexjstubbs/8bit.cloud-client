@@ -52,6 +52,9 @@ var events = {
         // ReStart Ignition UI Navigation
         navigationInit.navigationInit();
 
+        // Remove all possible navigational breaks
+        events.removeNavigationState();
+
     },
 
 
@@ -525,6 +528,7 @@ var events = {
 
             events.resumeSessionNavigation();
 
+            events.navigationState("pause");
 
         }
 

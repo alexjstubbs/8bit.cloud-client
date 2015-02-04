@@ -47,7 +47,7 @@ module.exports = React.createClass({
 
                     <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-ios-game-controller-b"></i> &nbsp; Invite Friend</a>
                         <br /><br />
-                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="viewMessages"><i className="ion-chatbubbles"></i> &nbsp; Messages <span className="badge badge-danger">10</span></a>
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="viewMessages"><i className="ion-chatbubbles"></i> &nbsp; Messages</a>
                         <br /><br />
                     <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-trophy"></i> &nbsp; View Achievements</a>
 
