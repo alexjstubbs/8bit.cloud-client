@@ -72,7 +72,7 @@ module.exports = React.createClass({
 
                 <div className="game_info_header" id="profile_header">
 
-                    <div className={this.state.crc32 ? classes : classes + " hidden"} data-achievements={this.props.crc32} id="achievement_display"><i className='icon ion-ios-star yellow'></i>  Achievements Available</div>
+                    <div className={this.state.crc32 != "null" ? classes : classes + " hidden"} data-achievements={this.props.crc32} id="achievement_display"><i className='icon ion-ios-star yellow'></i>  Achievements Available</div>
                     <div className="pull-right"><strong>Game Profile  <i className='ion-ios-arrow-thin-right'></i></strong></div>
 
                 </div>

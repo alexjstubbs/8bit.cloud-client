@@ -97,14 +97,21 @@ function getCRC32(nsp, filepath, callback) {
 
                 database.findAchievements({CRC32: { $in: [buffered.toString('hex')] }}, function(data) {
                 if (buffered) {
-                    if (nsp) nsp.emit('api', {crc32: data});
-                    if (callback) callback({crc32: data});
+                    if (data) {
+                        if (nsp) nsp.emit('api', {crc32: data});
+                        if (callback) callback({crc32: data});
+                    }
+
+                    else {
+                        if (nsp) nsp.emit('api', {crc32: "null"});
+                        if (callback) callback({crc32: "null"});
+                    }
                 }});
             }
 
             else {
-                if (nsp) nsp.emit('api', {crc32: null});
-                if (callback) callback({crc32: null});
+                if (nsp) nsp.emit('api', {crc32: "null"});
+                if (callback) callback({crc32: "null"});
             }
 
         });

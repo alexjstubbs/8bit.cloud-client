@@ -192,7 +192,7 @@ function gameLaunch(nsp, payload) {
             };
 
             console.log(processObj);
-            
+
             nsp.emit('processStorage', { processStorage: processObj });
 
             // Start Achievement Loop

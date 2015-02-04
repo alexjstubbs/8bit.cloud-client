@@ -3389,7 +3389,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.div({className: "game_info_header", id: "profile_header"}, 
 
-                    React.DOM.div({className: this.state.crc32 ? classes : classes + " hidden", 'data-achievements': this.props.crc32, id: "achievement_display"}, React.DOM.i({className: "icon ion-ios-star yellow"}), "  Achievements Available"), 
+                    React.DOM.div({className: this.state.crc32 != "null" ? classes : classes + " hidden", 'data-achievements': this.props.crc32, id: "achievement_display"}, React.DOM.i({className: "icon ion-ios-star yellow"}), "  Achievements Available"), 
                     React.DOM.div({className: "pull-right"}, React.DOM.strong(null, "Game Profile  ", React.DOM.i({className: "ion-ios-arrow-thin-right"})))
 
                 ), 
