@@ -7,8 +7,7 @@ var systemEvents        = require('./system.events.js'),
     navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents,
     _                   = require('lodash'),
     formInputs          = ['text', 'input', 'submit', 'password'],
-    memSelection,
-    timeSync;
+    memSelection;
 
 
 /*  Show Selection in Small Game Profile
@@ -23,8 +22,10 @@ var initialize = _.throttle(showSelection, 3000);
 -------------------------------------------------- */
 module.exports = function(k) {
 
-    var s = document.getElementsByClassName("selectedNav")[0];
-    var i = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");
+
+    var s       = document.getElementsByClassName("selectedNav")[0];
+    var i       = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");
+    var selRows = document.querySelectorAll(".navable-row");
 
     s.classList.remove('selectedActive');
 
@@ -151,11 +152,15 @@ module.exports = function(k) {
     // Up & Down
     if (k == 'up' || k == 'down') {
 
-        var sel = document.querySelectorAll(".selectedNav");
-        var sub = sel[0].querySelectorAll(".subNavable");
+
+        var sel     = document.querySelectorAll(".selectedNav");
+        var sub     = sel[0].querySelectorAll(".subNavable");
+        var selNum  = sel[0].getAttribute("data-nav");
+
 
         // Down
         if (k == 'down') {
+
 
             if(_.contains(formInputs, sel[0].type)) {
                 KeyEvent(39);
@@ -200,7 +205,7 @@ module.exports = function(k) {
             }
 
             // Inside Sub Navigation
-            if (sel[0].classList.contains("subNavable")) {
+            else if (sel[0].classList.contains("subNavable")) {
 
                 i = sel[0].getAttribute("data-snav");
 
@@ -238,18 +243,25 @@ module.exports = function(k) {
 
                 showCurrentSelection();
 
-            } else {
+            }
 
-                if (screen == 'Browser') {
+            else {
 
-                    if (!sub[0]) {
-                        // If on System Selection, but not on game selection, down goes to game selection.
+                if (selRows[0] && !sub[0]) {
+
+                    var indexed = _.findIndex(selRows, function(chr) {
+                        return selNum < chr.getAttribute("data-nav");
+                        });
+
+
+                    if (selRows[indexed]) {
                         sel[0].classList.remove("selectedNav");
-
-                        document.getElementById("alpha_list").classList.add("selectedNav");
-
+                        selRows[indexed].classList.add("selectedNav");
                     }
+
                 }
+
+
             }
 
         }
@@ -294,7 +306,7 @@ module.exports = function(k) {
             }
 
             // Inside Sub Navigation
-            if (sel[0].classList.contains("subNavable")) {
+            else if (sel[0].classList.contains("subNavable")) {
 
                 i = sel[0].getAttribute("data-snav");
 
@@ -321,7 +333,6 @@ module.exports = function(k) {
 
                 var cont = sel[0].previousSibling;
 
-
                 if (cont) {
                     i--;
                 } else {
@@ -336,6 +347,24 @@ module.exports = function(k) {
                 sel[0].parentNode.parentNode.querySelectorAll(".subNavable")[i].classList.add("selectedNav");
 
                 showCurrentSelection();
+            }
+
+            else {
+
+                if (selRows[0] && !sub[0]) {
+
+                    var indexed = _.findLastIndex(selRows, function(chr) {
+                        return selNum > chr.getAttribute("data-nav");
+                        });
+
+
+                    if (selRows[indexed]) {
+                        sel[0].classList.remove("selectedNav");
+                        selRows[indexed].classList.add("selectedNav");
+                    }
+
+                }
+
             }
 
         }

@@ -71,7 +71,6 @@ var navigationDeinit = function(element, callback) {
 
         _(parents).forEach(function(el, i) {
             el.classList.remove("parent");
-            console.log(el);
         }).value();
 
 
@@ -84,7 +83,6 @@ var navigationDeinit = function(element, callback) {
 
     _(parents).forEach(function(el, i) {
         el.classList.remove("parent");
-        console.log(el);
     }).value();
 
     if (callback) {

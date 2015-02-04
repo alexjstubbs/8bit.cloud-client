@@ -45,23 +45,23 @@ module.exports = React.createClass({
 
                     <small>
 
-                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-ios-game-controller-b"></i> &nbsp; Invite Friend</a>
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-ios-game-controller-b"></i> &nbsp; Invite Friend</a>
                         <br /><br />
-                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-chatbubbles"></i> &nbsp; Messages <span className="badge badge-danger">10</span></a>
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="viewMessages"><i className="ion-chatbubbles"></i> &nbsp; Messages <span className="badge badge-danger">10</span></a>
                         <br /><br />
-                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-trophy"></i> &nbsp; View Achievements</a>
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-trophy"></i> &nbsp; View Achievements</a>
 
                         <hr />
 
-                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-image"></i> &nbsp; Take Screenshot</a>
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-image"></i> &nbsp; Take Screenshot</a>
                         <br /><br />
-                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-ios-cloud-download-outline"></i> &nbsp; Save State</a>
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-ios-cloud-download-outline"></i> &nbsp; Save State</a>
                         <br /><br />
-                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable"><i className="ion-more"></i> &nbsp; Load State</a>
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-more"></i> &nbsp; Load State</a>
 
                         <hr />
 
-                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable" data-function="resumeClient"><i className="ion-android-cancel"></i> &nbsp; Quit Game</a>
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="resumeClient"><i className="ion-android-cancel"></i> &nbsp; Quit Game</a>
 
                     </small>
 

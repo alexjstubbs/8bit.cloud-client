@@ -61,7 +61,7 @@ module.exports = React.createClass({
         return (
 
             <div className={this.props.classString} id={this.props.id}>
-                <table className="table navable" data-function={this.props.functionCall} data-parameters={this.props.functionParams} id="panel_activity">
+                <table className="table navable navable-row" data-function={this.props.functionCall} data-parameters={this.props.functionParams} id="panel_activity">
                     <thead>
                         <th>
                             <h4> <i className={this.props.icon}></i></h4>

@@ -1786,7 +1786,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
         React.DOM.div({id: this.props.id, className: "col-xs-6 pull-left"}, 
-            React.DOM.div({className: this.props.navable ? 'navable '+this.props.classString : this.props.classString, 'data-function': this.props.functionCall, 'data-parameters': this.props.myMessages}, 
+            React.DOM.div({className: this.props.navable ? 'navable navable-row '+this.props.classString : this.props.classString, 'data-function': this.props.functionCall, 'data-parameters': this.props.myMessages}, 
                 React.DOM.i({className: icon + classes})
             ), 
             React.DOM.div({className: "hello col-xs-7 pad_h_5"}, 
@@ -2745,6 +2745,14 @@ module.exports = React.createClass({displayName: 'exports',
         };
     },
 
+    componentDidMount: function() {
+        var component = this;
+
+        if (this.props.navStack == 1) {
+            component.props.classList = "platform navable navable-row";
+        }
+    },
+
     render: function() {
         return (
               React.DOM.li({className: this.props.classList, 'data-emulators': this.props.emulators, 'data-ext': this.props.ext, 'data-function': this.props.functionCall, 'data-parameters': this.props.short, 'data-order': this.props.navStack, 'data-title': this.props.platform}, this.props.platform)
@@ -3122,7 +3130,7 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
             React.DOM.div({className: this.props.classString, id: this.props.id}, 
-                React.DOM.table({className: "table navable", 'data-function': this.props.functionCall, 'data-parameters': this.props.functionParams, id: "panel_activity"}, 
+                React.DOM.table({className: "table navable navable-row", 'data-function': this.props.functionCall, 'data-parameters': this.props.functionParams, id: "panel_activity"}, 
                     React.DOM.thead(null, 
                         React.DOM.th(null, 
                             React.DOM.h4(null, " ", React.DOM.i({className: this.props.icon}))
@@ -3292,7 +3300,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "dashboard-tools well home_well col-xs-12"}, 
                 React.DOM.ul(null, 
                     React.DOM.li({className: "col-xs-1"}), 
-                    React.DOM.li({className: "col-xs-2 navable", 'data-function': "launchBrowser", 'data-parameters': "http://ignition.io"}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
+                    React.DOM.li({className: "col-xs-2 navable navable-row", 'data-function': "launchBrowser", 'data-parameters': "http://ignition.io"}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "showTerminal"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-terminal"})), " Terminal"), 
                     React.DOM.li({className: "col-xs-2 navable"}, React.DOM.strong(null, React.DOM.i({className: "ion-gear-a"})), " Settings"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "logOut"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-sign-out"})), " Logout"), 
@@ -3935,23 +3943,23 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.small(null, 
 
-                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-ios-game-controller-b"}), "   Invite Friend"), 
+                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-ios-game-controller-b"}), "   Invite Friend"), 
                         React.DOM.br(null), React.DOM.br(null), 
-                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-chatbubbles"}), "   Messages ", React.DOM.span({className: "badge badge-danger"}, "10")), 
+                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "viewMessages"}, React.DOM.i({className: "ion-chatbubbles"}), "   Messages ", React.DOM.span({className: "badge badge-danger"}, "10")), 
                         React.DOM.br(null), React.DOM.br(null), 
-                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-trophy"}), "   View Achievements"), 
+                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-trophy"}), "   View Achievements"), 
 
                         React.DOM.hr(null), 
 
-                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-image"}), "   Take Screenshot"), 
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-image"}), "   Take Screenshot"), 
                         React.DOM.br(null), React.DOM.br(null), 
-                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-ios-cloud-download-outline"}), "   Save State"), 
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-ios-cloud-download-outline"}), "   Save State"), 
                         React.DOM.br(null), React.DOM.br(null), 
-                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable"}, React.DOM.i({className: "ion-more"}), "   Load State"), 
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-more"}), "   Load State"), 
 
                         React.DOM.hr(null), 
 
-                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable", 'data-function': "resumeClient"}, React.DOM.i({className: "ion-android-cancel"}), "   Quit Game")
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "resumeClient"}, React.DOM.i({className: "ion-android-cancel"}), "   Quit Game")
 
                     )
 
@@ -7176,7 +7184,6 @@ var navigationDeinit = function(element, callback) {
 
         _(parents).forEach(function(el, i) {
             el.classList.remove("parent");
-            console.log(el);
         }).value();
 
 
@@ -7189,7 +7196,6 @@ var navigationDeinit = function(element, callback) {
 
     _(parents).forEach(function(el, i) {
         el.classList.remove("parent");
-        console.log(el);
     }).value();
 
     if (callback) {
@@ -7558,8 +7564,7 @@ var systemEvents        = require('./system.events.js'),
     navigationBrowse    = require('./navigation.browser.js').browserNavigationEvents,
     _                   = require('lodash'),
     formInputs          = ['text', 'input', 'submit', 'password'],
-    memSelection,
-    timeSync;
+    memSelection;
 
 
 /*  Show Selection in Small Game Profile
@@ -7574,8 +7579,10 @@ var initialize = _.throttle(showSelection, 3000);
 -------------------------------------------------- */
 module.exports = function(k) {
 
-    var s = document.getElementsByClassName("selectedNav")[0];
-    var i = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");
+
+    var s       = document.getElementsByClassName("selectedNav")[0];
+    var i       = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");
+    var selRows = document.querySelectorAll(".navable-row");
 
     s.classList.remove('selectedActive');
 
@@ -7702,11 +7709,15 @@ module.exports = function(k) {
     // Up & Down
     if (k == 'up' || k == 'down') {
 
-        var sel = document.querySelectorAll(".selectedNav");
-        var sub = sel[0].querySelectorAll(".subNavable");
+
+        var sel     = document.querySelectorAll(".selectedNav");
+        var sub     = sel[0].querySelectorAll(".subNavable");
+        var selNum  = sel[0].getAttribute("data-nav");
+
 
         // Down
         if (k == 'down') {
+
 
             if(_.contains(formInputs, sel[0].type)) {
                 KeyEvent(39);
@@ -7751,7 +7762,7 @@ module.exports = function(k) {
             }
 
             // Inside Sub Navigation
-            if (sel[0].classList.contains("subNavable")) {
+            else if (sel[0].classList.contains("subNavable")) {
 
                 i = sel[0].getAttribute("data-snav");
 
@@ -7789,18 +7800,25 @@ module.exports = function(k) {
 
                 showCurrentSelection();
 
-            } else {
+            }
 
-                if (screen == 'Browser') {
+            else {
 
-                    if (!sub[0]) {
-                        // If on System Selection, but not on game selection, down goes to game selection.
+                if (selRows[0] && !sub[0]) {
+
+                    var indexed = _.findIndex(selRows, function(chr) {
+                        return selNum < chr.getAttribute("data-nav");
+                        });
+
+
+                    if (selRows[indexed]) {
                         sel[0].classList.remove("selectedNav");
-
-                        document.getElementById("alpha_list").classList.add("selectedNav");
-
+                        selRows[indexed].classList.add("selectedNav");
                     }
+
                 }
+
+
             }
 
         }
@@ -7845,7 +7863,7 @@ module.exports = function(k) {
             }
 
             // Inside Sub Navigation
-            if (sel[0].classList.contains("subNavable")) {
+            else if (sel[0].classList.contains("subNavable")) {
 
                 i = sel[0].getAttribute("data-snav");
 
@@ -7872,7 +7890,6 @@ module.exports = function(k) {
 
                 var cont = sel[0].previousSibling;
 
-
                 if (cont) {
                     i--;
                 } else {
@@ -7887,6 +7904,24 @@ module.exports = function(k) {
                 sel[0].parentNode.parentNode.querySelectorAll(".subNavable")[i].classList.add("selectedNav");
 
                 showCurrentSelection();
+            }
+
+            else {
+
+                if (selRows[0] && !sub[0]) {
+
+                    var indexed = _.findLastIndex(selRows, function(chr) {
+                        return selNum > chr.getAttribute("data-nav");
+                        });
+
+
+                    if (selRows[indexed]) {
+                        sel[0].classList.remove("selectedNav");
+                        selRows[indexed].classList.add("selectedNav");
+                    }
+
+                }
+
             }
 
         }

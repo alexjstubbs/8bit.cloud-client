@@ -41,7 +41,7 @@ module.exports = React.createClass({
 
         return (
         <div id={this.props.id} className="col-xs-6 pull-left">
-            <div className={this.props.navable ? 'navable '+this.props.classString : this.props.classString} data-function={this.props.functionCall} data-parameters={this.props.myMessages}>
+            <div className={this.props.navable ? 'navable navable-row '+this.props.classString : this.props.classString} data-function={this.props.functionCall} data-parameters={this.props.myMessages}>
                 <i className={icon + classes}></i>
             </div>
             <div className="hello col-xs-7 pad_h_5">
