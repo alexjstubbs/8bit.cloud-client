@@ -25,11 +25,13 @@ module.exports = function(k) {
 
     var s       = document.getElementsByClassName("selectedNav")[0];
     var i       = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");
-    var selRows = document.querySelectorAll(".navable-row");
 
     s.classList.remove('selectedActive');
 
     var _parent = _.first(document.querySelectorAll(".parent"));
+
+    var selRows = _parent.querySelectorAll(".navable-row");
+
 
     var q = _parent.querySelectorAll(".navable");
     var us = document.querySelectorAll(".unselected");

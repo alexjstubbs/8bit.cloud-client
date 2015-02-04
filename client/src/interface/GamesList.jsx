@@ -14,7 +14,6 @@ var React               = require('react/addons'),
 
 module.exports = React.createClass({
 
-
      getInitialState: function() {
         return {
             gamesList: [
@@ -37,22 +36,29 @@ module.exports = React.createClass({
 
         api.on('api', function(object) {
 
+
             if (object.gamesList) {
 
-                var a = object.gamesList,
-                    b = [];
+                if (object.gamesList != "null") {
+                    var a = object.gamesList,
+                        b = [];
 
-                if (object.page)  {
-                    b = component.state.gamesList;
+                    if (object.page)  {
+                        b = component.state.gamesList;
+                    }
+
+                    else {
+                        b = [component.state.gamesList[0]];
+                    }
+
+                    var c = b.concat(a);
+
+                    component.setState({gamesList: _.rest(c)});
                 }
 
                 else {
-                    b = [component.state.gamesList[0]];
+                    component.setState({gamesList: [{"filename":"","ext":"","title":"","CRC32":"","achievements":""}]});
                 }
-
-                var c = b.concat(a);
-
-                component.setState({gamesList: _.rest(c)});
 
             }
 
@@ -140,7 +146,7 @@ module.exports = React.createClass({
 
         return (
 
-                <div className="col-xs-4 alpha_list navable" data-mute='true' data-function={this.props.functionCall} data-function-deprecated='launchGame' id="alpha_list">
+                <div className="col-xs-4 alpha_list navable navable-row" data-mute='true' data-function={this.props.functionCall} data-function-deprecated='launchGame' id="alpha_list">
                     <table className="table table-striped" id="list">
                         <tbody id="alpha_list_tbody">
                             { listNodes }

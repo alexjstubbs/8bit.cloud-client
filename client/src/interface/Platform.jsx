@@ -20,13 +20,6 @@ module.exports = React.createClass({
         };
     },
 
-    componentDidMount: function() {
-        var component = this;
-
-        if (this.props.navStack == 1) {
-            component.props.classList = "platform navable navable-row";
-        }
-    },
 
     render: function() {
         return (

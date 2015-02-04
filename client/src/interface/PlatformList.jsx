@@ -39,8 +39,11 @@ module.exports = React.createClass({
 
     render: function() {
 
+        var classList = "platform navable";
          var platformNodes = this.state.platforms.map(function (platform, i) {
-            return <Platform platform={platform.long} short={platform.short} emulators={platform.emulators} navStack={i+1} />
+             if (i === 0) { classList = "platform navable navable-row"; }
+             else { classList = "platform navable"; }
+            return <Platform classList={classList} platform={platform.long} short={platform.short} emulators={platform.emulators} navStack={i+1} />
         });
 
         return (

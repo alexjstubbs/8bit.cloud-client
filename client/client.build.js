@@ -1434,7 +1434,6 @@ var React               = require('react/addons'),
 
 module.exports = React.createClass({displayName: 'exports',
 
-
      getInitialState: function() {
         return {
             gamesList: [
@@ -1457,22 +1456,29 @@ module.exports = React.createClass({displayName: 'exports',
 
         api.on('api', function(object) {
 
+
             if (object.gamesList) {
 
-                var a = object.gamesList,
-                    b = [];
+                if (object.gamesList != "null") {
+                    var a = object.gamesList,
+                        b = [];
 
-                if (object.page)  {
-                    b = component.state.gamesList;
+                    if (object.page)  {
+                        b = component.state.gamesList;
+                    }
+
+                    else {
+                        b = [component.state.gamesList[0]];
+                    }
+
+                    var c = b.concat(a);
+
+                    component.setState({gamesList: _.rest(c)});
                 }
 
                 else {
-                    b = [component.state.gamesList[0]];
+                    component.setState({gamesList: [{"filename":"","ext":"","title":"","CRC32":"","achievements":""}]});
                 }
-
-                var c = b.concat(a);
-
-                component.setState({gamesList: _.rest(c)});
 
             }
 
@@ -1560,7 +1566,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-                React.DOM.div({className: "col-xs-4 alpha_list navable", 'data-mute': "true", 'data-function': this.props.functionCall, 'data-function-deprecated': "launchGame", id: "alpha_list"}, 
+                React.DOM.div({className: "col-xs-4 alpha_list navable navable-row", 'data-mute': "true", 'data-function': this.props.functionCall, 'data-function-deprecated': "launchGame", id: "alpha_list"}, 
                     React.DOM.table({className: "table table-striped", id: "list"}, 
                         React.DOM.tbody({id: "alpha_list_tbody"}, 
                             listNodes 
@@ -2745,13 +2751,6 @@ module.exports = React.createClass({displayName: 'exports',
         };
     },
 
-    componentDidMount: function() {
-        var component = this;
-
-        if (this.props.navStack == 1) {
-            component.props.classList = "platform navable navable-row";
-        }
-    },
 
     render: function() {
         return (
@@ -2802,8 +2801,11 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        var classList = "platform navable";
          var platformNodes = this.state.platforms.map(function (platform, i) {
-            return Platform({platform: platform.long, short: platform.short, emulators: platform.emulators, navStack: i+1})
+             if (i === 0) { classList = "platform navable navable-row"; }
+             else { classList = "platform navable"; }
+            return Platform({classList: classList, platform: platform.long, short: platform.short, emulators: platform.emulators, navStack: i+1})
         });
 
         return (
@@ -7582,11 +7584,13 @@ module.exports = function(k) {
 
     var s       = document.getElementsByClassName("selectedNav")[0];
     var i       = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");
-    var selRows = document.querySelectorAll(".navable-row");
 
     s.classList.remove('selectedActive');
 
     var _parent = _.first(document.querySelectorAll(".parent"));
+
+    var selRows = _parent.querySelectorAll(".navable-row");
+
 
     var q = _parent.querySelectorAll(".navable");
     var us = document.querySelectorAll(".unselected");

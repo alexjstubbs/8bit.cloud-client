@@ -38,7 +38,7 @@ function listRoms(nsp, obj) {
 
                             console.log(err);
 
-                            nsp.emit('api', {gamesList: ""});
+                            nsp.emit('api', {gamesList: "null"});
 
 
 
