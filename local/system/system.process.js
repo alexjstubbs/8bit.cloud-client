@@ -6,7 +6,7 @@ var exec = require('child_process').exec;
 -------------------------------------------------- */
 var killall = function(nsp, params, callback) {
 
-    exec('killall '+params, function(stderr, stdout) {
+    exec('killall -w '+params, function(stderr, stdout) {
 
         if (nsp) {
             nsp.emit({stdout: stderr, stderr: stderr});
@@ -38,8 +38,25 @@ var signal = function(nsp, params, callback) {
     });
 };
 
+/*  Kill
+-------------------------------------------------- */
+var kill = function(nsp, params, callback) {
+
+    exec('kill '+params, function(stderr, stdout) {
+
+        if (nsp) {
+            nsp.emit({stdout: stderr, stderr: stderr});
+        }
+
+        if (callback) {
+            callback(stderr, stdout);
+        }
+
+    });
+};
 
 /*  Exports
 -------------------------------------------------- */
 exports.killall = killall;
 exports.signal  = signal;
+exports.kill    = kill;

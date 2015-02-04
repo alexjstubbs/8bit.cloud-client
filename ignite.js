@@ -1,8 +1,7 @@
 /**
 * Ignition Client.
-* License: Q Public License 1.0 (QPL-1.0)
+* License: Apache License 2.0 (Apache-2.0)
 * Copyright (c) Alexander Stubbs. All Rights Reserved.
-* BETA v0.91
 */
 
 /* Dev. run enviorment
@@ -26,25 +25,13 @@ var common                  = require('./local/common'),
     methodOverride          = require('method-override'),
     compress                = require('compression'),
     app                     = common.express(),
+    fs                      = require('fs-extra'),
     http                    = require('http').createServer(app);
 
 global.__io                 = require('socket.io').listen(http);
 global.__api                = __io.of('/api');
 global.__sessionFile        = appDir+"/config/profiles/Session.json";
 
-
-/* Initial Setup
--------------------------------------------------- */
-var firstrun = false,
-_location;
-
-if (firstrun) {
-    _location = 'http://127.0.0.1:1210/welcome';
-}
-
-else {
-    _location = 'http://127.0.0.1:1210/home';
-}
 
 /* Server Configurtation
 -------------------------------------------------- */
@@ -92,6 +79,8 @@ app.get('/games/:platform/:name', common.db.gameImage);
 
 /* Server Initialization
 -------------------------------------------------- */
+var firstrun = true,
+    _location;
 
 http.listen(1210, "127.0.0.1", function(err, result) {
 
@@ -110,27 +99,51 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
         exec('killall qmlscene', function(stderr, stdout) {
 
-            var child = exec('setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --transparent --url='+_location + "| /usr/bin/qmlscene /boot/loading/loading-ui.qml");
 
-            child.stdout.on('data', function(data) {
-                console.log('(stdout) | ' + data);
+            fs.readdir('config/profiles', function(err, files) {
+
+                if (!err) {
+                    if (files.length !== 0)  {
+                        firstrun = false;
+                    }
+                }
+
+                else {
+                    firstrun = true;
+                }
+
+
+                    if (firstrun) {
+                        _location = 'http://127.0.0.1:1210/welcome';
+                    }
+
+                    else {
+                        _location = 'http://127.0.0.1:1210/home';
+                    }
+
+                    var child = exec('setsid qtbrowser --webkit=1 --missing-image=no --inspector=9945 --validate-ca=off --transparent --url='+_location + "| /usr/bin/qmlscene /boot/loading/loading-ui.qml");
+
+                    child.stdout.on('data', function(data) {
+                        console.log('(stdout) | ' + data);
+                    });
+
+                    child.stderr.on('data', function(data) {
+                        console.log('(stderr) | ' + data);
+                    });
+
+                    child.on('close', function(code) {
+                        // TODO: If crash, restart with dialog and dump.
+                        console.log('(exitcode): ' + code);
+                    });
+
             });
 
-            child.stderr.on('data', function(data) {
-                console.log('(stderr) | ' + data);
-            });
-
-            child.on('close', function(code) {
-                // TODO: If crash, restart with dialog and dump.
-                console.log('(exitcode): ' + code);
-            });
-
-
+            // Terminal Fork
+            var child = require('child_process').fork('ignition_modules/tty/terminal.js');
 
         });
 
-        // Terminal Fork
-        // var child = require('child_process').fork('ignition_modules/tty/terminal.js');
+
     }
 
 });

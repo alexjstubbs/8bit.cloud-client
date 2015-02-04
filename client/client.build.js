@@ -8595,14 +8595,13 @@ var events = {
             var processObj = sessionStorage.getItem("processStorage");
                 processObj = JSON.parse(processObj);
 
-            processObj = {
-                processname: processObj.name,
-                pid: processObj.pid,
-                signal: "SIGTERM"
-            };
+                processObj = processObj.processStorage;
+
 
             // Exit the Process
-            api.emit('request', { request: 'processSignal', param: processObj });
+            api.emit('request', { request: 'kill', param: processObj.pid });
+
+
 
             // Add needed navigation hooks
             var _ndoc = document.getElementById("Profile");
