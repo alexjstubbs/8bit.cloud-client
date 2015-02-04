@@ -510,15 +510,19 @@ var events = {
 
         processObj = JSON.parse(processObj);
 
+        processObj = processObj.processStorage;
+
         // If there is no user-space-right window open
         if (!userSpaceExists.length) {
+
 
             // Constuct Object to pause process
             processObj = {
                 processname: processObj.name,
                 pid: processObj.pid,
-                signal: "SIGNSTOP"
+                signal: "SIGSTOP"
             };
+
 
             // Send a Request to Node to Pause Process
             api.emit('request', { request: 'processSignal', param: processObj });

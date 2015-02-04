@@ -23,6 +23,8 @@ var killall = function(nsp, params, callback) {
 -------------------------------------------------- */
 var signal = function(nsp, params, callback) {
 
+    console.log(params);
+
     exec('killall -s '+params.signal+' '+params.processname+'', function(stderr, stdout) {
 
         if (nsp) {

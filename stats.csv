@@ -1,5 +1,5 @@
-files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=8.82 s (90.9 files/s, 25484.9 lines/s)"
-196,Javascript,16462,26000,58033
+files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=8.73 s (91.6 files/s, 25735.2 lines/s)"
+195,Javascript,16455,26001,57996
 181,HTML,4374,1935,34264
 229,LESS,5347,4383,23048
 112,ActionScript,1231,2593,16451
@@ -9,7 +9,7 @@ files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=8.82 s 
 2,C,87,119,2260
 4,make,53,29,140
 2,Ruby,49,18,121
-4,Python,11,19,28
+3,Python,6,7,24
 1,Perl,6,0,23
 4,Bourne Shell,4,3,18
 2,Cython,2,0,12
