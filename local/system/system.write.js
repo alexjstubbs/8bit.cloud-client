@@ -1,10 +1,11 @@
 /* Writing / Reading filesystem
 -------------------------------------------------- */
 
-var fs   = require('fs-extra'),
-    read = require('./system.read'),
-    exec = require('child_process').exec,
-    _    = require('lodash');
+var fs      = require('fs-extra'),
+    read    = require('./system.read'),
+    exec    = require('child_process').exec,
+    network = require('child_process').exec,
+    _       = require('lodash');
 
 
 /*  Remove a file
@@ -334,10 +335,24 @@ var writeWifiConfig = function(nsp, data, callback) {
                         else {
                             // nsp.emit('clientEvent', {command: "toggleAnimateElement", params: "tester-spin" });
                             exec('wpa_supplicant -B -i interface -c /etc/wpa_supplicant/example.conf', function(err, stderr, stdout) {
-                        
+
                                 if (!err && !stderr) {
-                                    nsp.emit('clientEvent', {command: "toggleAnimateElement", params: "tester-spin" });
-                                    nsp.emit('messaging', {type: 1, body: "You are connected!" });
+
+                                    network.isOnline(null, function(online) {
+
+                                        // Test Suceeded
+                                        if (online) {
+                                            nsp.emit('clientEvent', {command: "toggleAnimateElement", params: "tester-spin" });
+                                            nsp.emit('messaging', {type: 1, body: "This configuration is valid! You may now create an online profile." });
+                                        }
+
+                                        // Test Failed
+                                        else {
+                                            nsp.emit('clientEvent', {command: "toggleAnimateElement", params: "tester-spin" });
+                                            nsp.emit('messaging', {type: 0, body: "No connection could be established with this configuration." });
+                                        }
+
+                                    });
                                 }
                                 else {
                                     nsp.emit('clientEvent', {command: "toggleAnimateElement", params: "tester-spin" });

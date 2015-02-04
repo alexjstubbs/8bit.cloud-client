@@ -40,12 +40,12 @@ function sysGetNetwork(nsp, callback) {
 }
 
 
-function sysIsOnline(nsp) {
+function sysIsOnline(nsp, callback) {
 
 
     var timeout = false;
 
-     
+
     // setTimeout(function() {
     //     console.log(timeout);
     //     if (!timeout) {
@@ -59,14 +59,14 @@ function sysIsOnline(nsp) {
 
       if (err) {
           timeout = true;
-          nsp.emit('api', {internetConnected: "disconnected"});
-
+          if (nsp) { nsp.emit('api', {internetConnected: "disconnected"}); }
+          if (callback) { callback(false); }
       }
 
       else {
           timeout = true;
-          nsp.emit('api', {internetConnected: "connected"});
-
+          if (nsp) { nsp.emit('api', {internetConnected: "connected"}); }
+          if (callback) { callback(true); }
       }
 
     });

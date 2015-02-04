@@ -1,12 +1,14 @@
 /* Navigation Key Bindings
 -------------------------------------------------- */
 
-var mousetrap   = require('./mousetrap.min'),
-    navigate    = require('./navigation.navigate'),
-    events      = require('./system.events').events;
+var mousetrap       = require('./mousetrap.min'),
+    navigate        = require('./navigation.navigate'),
+    sysEvents       = require('./system.events').events;
+
 
 module.exports = function(init) {
 
+    console.log(sysEvents);
 
     if (init != "init") {
         Mousetrap.unbind("tab");
