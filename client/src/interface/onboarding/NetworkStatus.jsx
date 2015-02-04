@@ -35,17 +35,19 @@ module.exports = React.createClass({
 
         var states = {
             0: function() {
-                return {icon: "ion-looping purple", text: "Checking Internet Connection...", button: null};
+                return {icon: "ion-android-sync animate-spin purple", text: "Checking Internet Connection...", button: null};
             },
 
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
                 return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
+                // return {functionCall: "nextScreen", functionParameters: "NewProfile", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
             },
 
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings..."};
+                document.getElementById("network-skip").classList.remove("hidden");
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings"};
             }
         }
 
@@ -57,7 +59,7 @@ module.exports = React.createClass({
 
 	        <div>
 
-                <WizardHeader title="Welcome" icon="ion-wifi" subtitle="Network Setup" active="1" steps="4" />
+                <WizardHeader title="Welcome" icon="ion-outlet" subtitle="Network Setup" active="1" steps="4" />
 
 	        	<div className="welcome-internet">
 
@@ -69,7 +71,8 @@ module.exports = React.createClass({
 
 				<br />
 
-				<button id="network-next" data-function={status.functionCall} data-parameters={status.functionParameters} className="hidden navable btn pull-right btn-lg btn-alt">{status.button} &nbsp; <i className="ion-arrow-right-c"></i></button>
+				<button id="network-skip" data-function="changeView" data-parameters="WifiConfiguration" className="hidden navable btn pull-left btn-lg btn-alt">Continue Offline &nbsp; <i className="ion-ios-arrow-forward"></i></button>
+				<button id="network-next" data-function={status.functionCall} data-parameters={status.functionParameters} className="hidden navable btn pull-right btn-lg btn-alt defaultSelection">{status.button} &nbsp; <i className="ion-ios-arrow-forward"></i></button>
 
 			</div>
 

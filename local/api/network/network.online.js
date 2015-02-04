@@ -42,21 +42,35 @@ function sysGetNetwork(nsp, callback) {
 
 function sysIsOnline(nsp) {
 
+
+    var timeout = false;
+
+     
+    // setTimeout(function() {
+    //     console.log(timeout);
+    //     if (!timeout) {
+    //         nsp.emit('api', {internetConnected: "disconnected"});
+    //     }
+    //
+    // }, 15000);
+
+
     require('dns').resolve('www.google.com', function(err) {
 
       if (err) {
-
+          timeout = true;
           nsp.emit('api', {internetConnected: "disconnected"});
 
       }
 
       else {
-
+          timeout = true;
           nsp.emit('api', {internetConnected: "connected"});
 
       }
 
     });
+
 
 }
 

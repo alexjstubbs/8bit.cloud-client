@@ -4570,7 +4570,7 @@ module.exports = React.createClass({displayName: 'exports',
             navable: false,
             navStack: 2,
             form: 'Wifi.json',
-            path: '/config',
+            path: 'config',
             // /etc/wpa_supplicant/wpa_supplicant.conf
             server: false,
             classList: 'col-xs-12'
@@ -4580,7 +4580,7 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
 
         navigationInit.navigationInit();
-      
+
     },
 
     render: function() {
@@ -4591,54 +4591,50 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.div({className: "row-fluid "}, 
                         React.DOM.div({className: "col-xs-12"}, 
-                                    
+
                             React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
 
                                 React.DOM.fieldset(null, 
-                                    
+
                                     React.DOM.div({className: "form-group"}, 
-                                    
-                                        React.DOM.input({id: "wifi-adapter", className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "wlan0", name: "wifi-adapter", type: "text"})
-                                     
-                                        
+
+                                        React.DOM.input({id: "wifi-adapter", className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "wlan0", value: "wlan0", name: "wifi-adapter", type: "text"})
+
                                     ), 
 
                                     React.DOM.div({className: "form-group"}, 
-                                        
+
                                         React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "SSID", name: "ssid", type: "ssid"}), 
                                         React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Password/Passphrase", name: "passphrase", type: "passphrase"})
-                                   
+
                                     ), 
-                               
-                                
-                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-wifi green pull-right"}), "   Save Wireless Configuration"), 
+
+
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "writeWifiConfig", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-wifi green pull-right"}), "   Save Wireless Configuration"), 
                                 React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "openDialog", 'data-parameters': type}, React.DOM.i({className: "ion-close-circled red pull-right"}), "   Continue Offline"), 
 
                                 React.DOM.br(null), 
                                 React.DOM.br(null), 
 
                                 React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "saveWifi", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-settings red pull-right"}), "   Advanced Set Up"), 
-               
+
 
                                 React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 
                                 React.DOM.input({type: "hidden", name: "filename", value: this.props.filename})
 
                             )
                             )
-                              
+
 
                         )
                     )
-           
-                  
-         
+
+
+
         );
     }
 });
-
-
-
 
 },{"../../js/navigation.init":87,"react/addons":97}],59:[function(require,module,exports){
 /*  Custom Mixins for ignition client
@@ -4829,12 +4825,12 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   api                 = require('socket.io-client')('/api')
-,   NetworkStatus       = require('./NetworkStatus.jsx')
-,   WifiConfiguration   = require('./WifiConfiguration.jsx')
-,   WifiAdvanced        = require('./WifiAdvanced.jsx');
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    api                 = require('socket.io-client')('/api'),
+    NetworkStatus       = require('./NetworkStatus.jsx'),
+    WifiConfiguration   = require('./WifiConfiguration.jsx'),
+    WifiAdvanced        = require('./WifiAdvanced.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -4858,7 +4854,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     screenMount: function() {
         api.emit('request', { request: 'sysIsOnline'});
-
+        
         // api.emit('request', { request: 'sysGetNetwork'});
     },
 
@@ -4867,19 +4863,18 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
- 
 
         api.on('api', this.setProps.bind(this));
 
         var _this = this;
 
-        window.addEventListener("mountView", function(e) { 
+        window.addEventListener("mountView", function(e) {
             if (e.detail.screen == _this.props.screen) {
                 _this.screenMount();
             };
         });
 
-        window.addEventListener("changeView", function(e) { 
+        window.addEventListener("changeView", function(e) {
                 _this.changeView(e.detail.view);
         });
 
@@ -4912,14 +4907,14 @@ module.exports = React.createClass({displayName: 'exports',
 
 
         switch (this.state.view) {
-         
+
             case "NetworkStatus":
                 ChildNode = NetworkStatus({status: this.state.status})
                 break;
-            
+
             case "WifiConfiguration":
                 ChildNode = WifiConfiguration(null)
-                break; 
+                break;
 
             case "WifiAdvanced":
                 ChildNode = WifiAdvanced(null)
@@ -4930,7 +4925,7 @@ module.exports = React.createClass({displayName: 'exports',
         }
 
         return (
-      
+
             React.DOM.div({className: "container parent", id: "network-settings"}, 
 
                 ChildNode
@@ -4940,6 +4935,7 @@ module.exports = React.createClass({displayName: 'exports',
         );
     }
 });
+
 },{"./NetworkStatus.jsx":63,"./WifiAdvanced.jsx":68,"./WifiConfiguration.jsx":69,"lodash":95,"react/addons":97,"socket.io-client":256}],63:[function(require,module,exports){
 /**
  * @jsx React.DOM
@@ -4978,17 +4974,19 @@ module.exports = React.createClass({displayName: 'exports',
 
         var states = {
             0: function() {
-                return {icon: "ion-looping purple", text: "Checking Internet Connection...", button: null};
+                return {icon: "ion-android-sync animate-spin purple", text: "Checking Internet Connection...", button: null};
             },
 
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
                 return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
+                // return {functionCall: "nextScreen", functionParameters: "NewProfile", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
             },
 
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings..."};
+                document.getElementById("network-skip").classList.remove("hidden");
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings"};
             }
         }
 
@@ -5000,7 +4998,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 	        React.DOM.div(null, 
 
-                WizardHeader({title: "Welcome", icon: "ion-wifi", subtitle: "Network Setup", active: "1", steps: "4"}), 
+                WizardHeader({title: "Welcome", icon: "ion-outlet", subtitle: "Network Setup", active: "1", steps: "4"}), 
 
 	        	React.DOM.div({className: "welcome-internet"}, 
 
@@ -5012,7 +5010,8 @@ module.exports = React.createClass({displayName: 'exports',
 
 				React.DOM.br(null), 
 
-				React.DOM.button({id: "network-next", 'data-function': status.functionCall, 'data-parameters': status.functionParameters, className: "hidden navable btn pull-right btn-lg btn-alt"}, status.button, "   ", React.DOM.i({className: "ion-arrow-right-c"}))
+				React.DOM.button({id: "network-skip", 'data-function': "changeView", 'data-parameters': "WifiConfiguration", className: "hidden navable btn pull-left btn-lg btn-alt"}, "Continue Offline   ", React.DOM.i({className: "ion-ios-arrow-forward"})), 
+				React.DOM.button({id: "network-next", 'data-function': status.functionCall, 'data-parameters': status.functionParameters, className: "hidden navable btn pull-right btn-lg btn-alt defaultSelection"}, status.button, "   ", React.DOM.i({className: "ion-ios-arrow-forward"}))
 
 			)
 
@@ -5027,12 +5026,12 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   api             = require('socket.io-client')('/api')
-,   clientEvents    = require('../../js/system.events').events
-,   WizardHeader    = require('./WizardHeader.jsx')
-,   Signup          = require('../forms/Signup.jsx');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    api             = require('socket.io-client')('/api'),
+    clientEvents    = require('../../js/system.events').events,
+    WizardHeader    = require('./WizardHeader.jsx'),
+    Signup          = require('../forms/Signup.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -5222,7 +5221,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.br(null), React.DOM.br(null), 
 
-                React.DOM.button({'data-function': "nextScreen", 'data-parameters': "", className: "navable btn btn-lg btn-alt pull-right"}, "Continue   ", React.DOM.i({className: "ion-arrow-right-c"}))
+                React.DOM.button({'data-function': "nextScreen", 'data-parameters': "", className: "navable btn btn-lg btn-alt pull-right"}, "Continue   ", React.DOM.i({className: "ion-ios-arrow-forward"}))
 
             )
 
@@ -5286,11 +5285,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   WizardHeader    = require('./WizardHeader.jsx')
-,   api             = require('socket.io-client')('/api')
-,   WifiSetup       = require('../forms/WifiSetup.jsx');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    WizardHeader    = require('./WizardHeader.jsx'),
+    api             = require('socket.io-client')('/api'),
+    WifiSetup       = require('../forms/WifiSetup.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -8100,7 +8099,7 @@ var events = {
 
     /* Save Wifi Config
     -------------------------------------------------- */
-	saveWifiConfig: function(parameters) {
+	writeWifiConfig: function(parameters) {
 
         var form = document.forms[parameters].elements;
 
@@ -8114,9 +8113,10 @@ var events = {
 
         obj.formTitle = parameters;
 
-        api.emit('request', { request: 'writeTextSync', param: obj });
+        api.emit('request', { request: 'writeWifiConfig', param: obj });
 
     },
+
 
     /* Submit form on Action button/keypress
     -------------------------------------------------- */

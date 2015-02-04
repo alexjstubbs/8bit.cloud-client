@@ -4,12 +4,12 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   api             = require('socket.io-client')('/api')
-,   clientEvents    = require('../../js/system.events').events
-,   WizardHeader    = require('./WizardHeader.jsx')
-,   Signup          = require('../forms/Signup.jsx');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    api             = require('socket.io-client')('/api'),
+    clientEvents    = require('../../js/system.events').events,
+    WizardHeader    = require('./WizardHeader.jsx'),
+    Signup          = require('../forms/Signup.jsx');
 
 module.exports = React.createClass({
 

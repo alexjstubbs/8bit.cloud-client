@@ -4,12 +4,12 @@
 
 'use strict';
 
-var React               = require('react/addons')
-,   _                   = require('lodash')
-,   api                 = require('socket.io-client')('/api')
-,   NetworkStatus       = require('./NetworkStatus.jsx')
-,   WifiConfiguration   = require('./WifiConfiguration.jsx')
-,   WifiAdvanced        = require('./WifiAdvanced.jsx');
+var React               = require('react/addons'),
+    _                   = require('lodash'),
+    api                 = require('socket.io-client')('/api'),
+    NetworkStatus       = require('./NetworkStatus.jsx'),
+    WifiConfiguration   = require('./WifiConfiguration.jsx'),
+    WifiAdvanced        = require('./WifiAdvanced.jsx');
 
 module.exports = React.createClass({
 
@@ -33,7 +33,7 @@ module.exports = React.createClass({
 
     screenMount: function() {
         api.emit('request', { request: 'sysIsOnline'});
-
+        
         // api.emit('request', { request: 'sysGetNetwork'});
     },
 
@@ -42,19 +42,18 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
- 
 
         api.on('api', this.setProps.bind(this));
 
         var _this = this;
 
-        window.addEventListener("mountView", function(e) { 
+        window.addEventListener("mountView", function(e) {
             if (e.detail.screen == _this.props.screen) {
                 _this.screenMount();
             };
         });
 
-        window.addEventListener("changeView", function(e) { 
+        window.addEventListener("changeView", function(e) {
                 _this.changeView(e.detail.view);
         });
 
@@ -87,14 +86,14 @@ module.exports = React.createClass({
 
 
         switch (this.state.view) {
-         
+
             case "NetworkStatus":
                 ChildNode = <NetworkStatus status={this.state.status} />
                 break;
-            
+
             case "WifiConfiguration":
                 ChildNode = <WifiConfiguration />
-                break; 
+                break;
 
             case "WifiAdvanced":
                 ChildNode = <WifiAdvanced />
@@ -105,7 +104,7 @@ module.exports = React.createClass({
         }
 
         return (
-      
+
             <div className="container parent" id="network-settings">
 
                 {ChildNode}

@@ -4,11 +4,11 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   _               = require('lodash')
-,   WizardHeader    = require('./WizardHeader.jsx')
-,   api             = require('socket.io-client')('/api')
-,   WifiSetup       = require('../forms/WifiSetup.jsx');
+var React           = require('react/addons'),
+    _               = require('lodash'),
+    WizardHeader    = require('./WizardHeader.jsx'),
+    api             = require('socket.io-client')('/api'),
+    WifiSetup       = require('../forms/WifiSetup.jsx');
 
 module.exports = React.createClass({
 

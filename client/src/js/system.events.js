@@ -143,7 +143,7 @@ var events = {
 
     /* Save Wifi Config
     -------------------------------------------------- */
-	saveWifiConfig: function(parameters) {
+	writeWifiConfig: function(parameters) {
 
         var form = document.forms[parameters].elements;
 
@@ -157,9 +157,10 @@ var events = {
 
         obj.formTitle = parameters;
 
-        api.emit('request', { request: 'writeTextSync', param: obj });
+        api.emit('request', { request: 'writeWifiConfig', param: obj });
 
     },
+
 
     /* Submit form on Action button/keypress
     -------------------------------------------------- */

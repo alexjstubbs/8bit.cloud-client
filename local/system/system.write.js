@@ -283,6 +283,14 @@ var writeAdvancedConfig = function(nsp, data, callback) {
 
 };
 
+
+/*  Write Simple Wifi Config
+-------------------------------------------------- */
+var writeWifiConfig = function(nsp, data, callback) {
+    console.log(data);
+};
+
+
 /* Write Text file
 -------------------------------------------------- */
 var writeTextSync = function(nsp, data, callback) {
@@ -296,4 +304,5 @@ exports.writeJSONSync           = writeJSONSync;
 exports.writeJSON               = writeJSON;
 exports.writeTextync            = writeTextSync;
 exports.copyFile                = copyFile;
+exports.writeWifiConfig         = writeWifiConfig;
 exports.writeAdvancedConfig     = writeAdvancedConfig;

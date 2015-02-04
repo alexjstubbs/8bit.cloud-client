@@ -31,6 +31,10 @@ var api = {
         common.systemWrite.writeAdvancedConfig(nsp, payload, null);
     },
 
+    writeWifiConfig: function(nsp, payload) {
+        common.systemWrite.writeWifiConfig(nsp, payload, null);
+    },
+
     removeFile: function(nsp, path) {
         common.systemWrite.removeFile(nsp, path, null);
     },
