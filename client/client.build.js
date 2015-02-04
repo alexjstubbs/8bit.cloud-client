@@ -4599,25 +4599,28 @@ module.exports = React.createClass({displayName: 'exports',
 
                                     React.DOM.div({className: "form-group"}, 
 
-                                        React.DOM.input({id: "wifi-adapter", className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "wlan0", value: "wlan0", name: "wifi-adapter", type: "text"})
+                                        React.DOM.input({id: "wifi-adapter", className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "wlan0", value: "wlan0", name: "wifi-adapter", type: "text"}), 
+                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "WPA-PSK", value: "WPA-PSK", name: "key_mgmt", type: "text"})
 
                                     ), 
+
+                                    React.DOM.hr(null), 
 
                                     React.DOM.div({className: "form-group"}, 
 
-                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "SSID", name: "ssid", type: "ssid"}), 
-                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Password/Passphrase", name: "passphrase", type: "passphrase"})
+                                        React.DOM.input({className: "form-control input-lg navable defaultSelection", 'data-function': "inputFocus", placeholder: "Enter your SSID", name: "ssid", type: "text"}), 
+                                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Enter your Password/Passphrase", name: "passphrase", type: "text"})
 
                                     ), 
 
 
-                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "writeWifiConfig", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-wifi green pull-right"}), "   Save Wireless Configuration"), 
-                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "openDialog", 'data-parameters': type}, React.DOM.i({className: "ion-close-circled red pull-right"}), "   Continue Offline"), 
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "writeWifiConfig", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-android-sync green pull-left"}), "   Test Wireless Configuration"), 
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "openDialog", 'data-parameters': type}, React.DOM.i({className: "ion-close-circled red pull-left"}), "   Continue Offline"), 
 
                                 React.DOM.br(null), 
                                 React.DOM.br(null), 
 
-                                React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "saveWifi", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-settings red pull-right"}), "   Advanced Set Up"), 
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "saveWifi", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-settings red pull-left"}), "   Advanced Set Up"), 
 
 
                                 React.DOM.input({type: "hidden", name: "server", value: this.props.server}), 

@@ -287,7 +287,61 @@ var writeAdvancedConfig = function(nsp, data, callback) {
 /*  Write Simple Wifi Config
 -------------------------------------------------- */
 var writeWifiConfig = function(nsp, data, callback) {
-    console.log(data);
+
+    if (!data.ssid || !data.passphrase) {
+        nsp.emit('messaging', {type: 0, body: "A required field is missing" });
+    }
+
+    // var file = '/etc/wpa_supplicant/wpa_supplicant.conf';
+    var file = '/Users/alexstubbs/_wpa_supplicant.conf';
+
+    delete data.formTitle;
+    delete data.server;
+
+    var contents = 'ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev\n' +
+                    'update_config=1\n' +
+                    '\n' +
+                    'network={\n' +
+                    '   ssid="'+data.ssid+'"\n' +
+                    '   psk="'+data.passphrase+'"\n' +
+                    '   key_mgmt="'+data.key_mgmt+'"\n' +
+                    '}\n';
+
+
+    console.log(contents);
+
+    // Ensure file exists
+    fs.ensureFile(file, function(err) {
+        if (err) {
+            nsp.emit('messaging', {type: 0, body: err });
+        }
+
+            // Make Backup
+            copyFile(nsp, file, "~"+file, function(err) {
+                if (err) {
+                    nsp.emit('messaging', {type: 0, body: err });
+                }
+
+                // Write new Config
+                else {
+                    fs.outputFile(file, contents, function(err) {
+                        if (err) {
+                            nsp.emit('messaging', {type: 0, body: err });
+                        }
+
+                        // Test Configuration
+                        else {
+                            // test config
+                            nsp.emit('messaging', {type: 1, body: "You are connected!" });
+                        }
+                    });
+
+                }
+            });
+
+    });
+
+
 };
 
 
