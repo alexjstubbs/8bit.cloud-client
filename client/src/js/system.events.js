@@ -141,9 +141,24 @@ var events = {
         window.location = 'http://127.0.0.1:1210/profiles';
     },
 
+    /*  Add an animation to element
+    -------------------------------------------------- */
+    toggleAnimateElement: function(parameters) {
+
+        var possibleSpin = document.getElementById(parameters);
+
+        if (possibleSpin) {
+            possibleSpin.classList.toggle("animate-spin");
+        }
+
+    },
+
+
     /* Save Wifi Config
     -------------------------------------------------- */
 	writeWifiConfig: function(parameters) {
+
+        events.toggleAnimateElement("tester-spin");
 
         var form = document.forms[parameters].elements;
 

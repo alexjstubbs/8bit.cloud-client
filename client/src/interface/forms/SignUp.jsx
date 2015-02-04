@@ -20,10 +20,11 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        var _this = this;
         navigationInit.navigationInit();
-        
+
     },
+
+
 
     render: function() {
 

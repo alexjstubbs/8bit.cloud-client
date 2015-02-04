@@ -3,6 +3,7 @@
 
 var fs   = require('fs-extra'),
     read = require('./system.read'),
+    exec = require('child_process').exec,
     _    = require('lodash');
 
 
@@ -331,8 +332,19 @@ var writeWifiConfig = function(nsp, data, callback) {
 
                         // Test Configuration
                         else {
+                            // nsp.emit('clientEvent', {command: "toggleAnimateElement", params: "tester-spin" });
+                            exec('wpa_supplicant -B -i interface -c /etc/wpa_supplicant/example.conf', function(err, stderr, stdout) {
+                        
+                                if (!err && !stderr) {
+                                    nsp.emit('clientEvent', {command: "toggleAnimateElement", params: "tester-spin" });
+                                    nsp.emit('messaging', {type: 1, body: "You are connected!" });
+                                }
+                                else {
+                                    nsp.emit('clientEvent', {command: "toggleAnimateElement", params: "tester-spin" });
+                                    nsp.emit('messaging', {type: 0, body: err + "\n" + stderr });
+                                }
+                            });
                             // test config
-                            nsp.emit('messaging', {type: 1, body: "You are connected!" });
                         }
                     });
 

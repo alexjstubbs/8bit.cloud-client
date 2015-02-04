@@ -2,10 +2,17 @@
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   navigationInit  = require('../../js/navigation.init');
+var React           = require('react/addons'),
+    api                 = require('socket.io-client')('/api'),
+    navigationInit  = require('../../js/navigation.init');
 
 module.exports = React.createClass({
+
+    getInitialState: function() {
+        return {
+            status: 0
+        }
+    },
 
     getDefaultProps: function() {
 
@@ -22,13 +29,36 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
+        api.emit('request', { request: 'sysIsOnline'});
+
+        api.on('api', this.setState.bind(this));
+
         navigationInit.navigationInit();
 
     },
 
+    componentWillUpdate: function(props, state) {
+        if (state.internetConnected == 'connected') {
+            this.state.status = 1;
+        }
+
+        if (state.internetConnected == 'disconnected') {
+            this.setstate.status = 2;
+        }
+    },
+
     render: function() {
 
-        var type = 1;
+        var type = 1,
+            nextButton;
+
+        if (this.state.internetConnected == "connected") {
+            nextButton = <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='nextScreen' data-parameters={type}><i className="ion-person-add green pull-left"></i> &nbsp; Setup new Profile</button>;
+        }
+
+        else {
+            nextButton = <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='openDialog' data-parameters={type}><i className="ion-close-circled red pull-left"></i> &nbsp; Continue Offline</button>
+        }
 
         return (
 
@@ -57,17 +87,14 @@ module.exports = React.createClass({
                                     </div>
 
 
-                                <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='writeWifiConfig' data-parameters={this.props.form}><i className="ion-android-sync green pull-left"></i> &nbsp; Test Wireless Configuration</button>
-                                <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='openDialog' data-parameters={type}><i className="ion-close-circled red pull-left"></i> &nbsp; Continue Offline</button>
-
-                                <br />
-                                <br />
-
+                                <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='writeWifiConfig' data-parameters={this.props.form}><i id="tester-spin" className="ion-android-sync green pull-left"></i> &nbsp; Test Wireless Configuration</button>
                                 <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='saveWifi' data-parameters={this.props.form}><i className="ion-settings red pull-left"></i> &nbsp; Advanced Set Up</button>
 
 
-                                <input type="hidden" name="server" value={this.props.server} />
-                                <input type="hidden" name="filename" value={this.props.filename} />
+                                <br />
+                                <br />
+
+                                {nextButton}
 
                             </fieldset>
                             </form>
