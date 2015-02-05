@@ -3,12 +3,10 @@
 
 var mousetrap       = require('./mousetrap.min'),
     navigate        = require('./navigation.navigate'),
-    sysEvents       = require('./system.events').events;
+    sysEvents       = require('./system.events');
 
 
 module.exports = function(init) {
-
-    console.log(sysEvents);
 
     if (init != "init") {
         Mousetrap.unbind("tab");
@@ -103,7 +101,7 @@ module.exports = function(init) {
 
             if (pauseNavigation != "pauseAll") {
                 // if (e) e.preventDefault();
-                events.showTerminal();
+                sysEvents.events.showTerminal();
             }
         });
 

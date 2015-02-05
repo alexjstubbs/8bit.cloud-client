@@ -4646,7 +4646,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
                                 React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "writeWifiConfig", 'data-parameters': this.props.form}, React.DOM.i({id: "tester-spin", className: "ion-android-sync green pull-left"}), "   Test Wireless Configuration"), 
-                                React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "saveWifi", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-settings red pull-left"}), "   Advanced Set Up"), 
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "showTerminal", 'data-parameters': this.props.form}, React.DOM.i({className: "fa fa-terminal red pull-left"}), "   Open a Terminal ", React.DOM.span({className: "mute pull-right"}, "(CTRL+K)")), 
 
 
                                 React.DOM.br(null), 
@@ -4770,7 +4770,7 @@ module.exports = React.createClass({displayName: 'exports',
 'use strict';
 
 var React     = require('react/addons')
-,   api             = require('socket.io-client')('/api')
+,   api       = require('socket.io-client')('/api')
 ,   events    = require('../../js/system.events').events;
 
 module.exports = React.createClass({displayName: 'exports',
@@ -6628,12 +6628,9 @@ var gamepad 			     = require("./gamepad"),
     browserNavigation	     = require('../js/navigation.browser').browserNavigation,
     database 			     = require('./database.helpers'),
     navigationEventBinds     = require('./navigation.eventListeners'),
-
     sysEvents                = require('./system.events').events;
 
 module.exports = function() {
-
-    console.log(sysEvents);
 
     /*  Clear local Storage
     -------------------------------------------------- */
@@ -6683,12 +6680,10 @@ b[c[e].seq]=1,x(c[e].callback,d,c[e].combo,c[e].seq)):g||x(c[e].callback,d,c[e].
 
 var mousetrap       = require('./mousetrap.min'),
     navigate        = require('./navigation.navigate'),
-    sysEvents       = require('./system.events').events;
+    sysEvents       = require('./system.events');
 
 
 module.exports = function(init) {
-
-    console.log(sysEvents);
 
     if (init != "init") {
         Mousetrap.unbind("tab");
@@ -6783,7 +6778,7 @@ module.exports = function(init) {
 
             if (pauseNavigation != "pauseAll") {
                 // if (e) e.preventDefault();
-                events.showTerminal();
+                sysEvents.events.showTerminal();
             }
         });
 

@@ -8,12 +8,9 @@ var gamepad 			     = require("./gamepad"),
     browserNavigation	     = require('../js/navigation.browser').browserNavigation,
     database 			     = require('./database.helpers'),
     navigationEventBinds     = require('./navigation.eventListeners'),
-
     sysEvents                = require('./system.events').events;
 
 module.exports = function() {
-
-    console.log(sysEvents);
 
     /*  Clear local Storage
     -------------------------------------------------- */
