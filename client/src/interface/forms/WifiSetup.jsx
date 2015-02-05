@@ -88,7 +88,7 @@ module.exports = React.createClass({
 
 
                                 <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='writeWifiConfig' data-parameters={this.props.form}><i id="tester-spin" className="ion-android-sync green pull-left"></i> &nbsp; Test Wireless Configuration</button>
-                                <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='showTerminal' data-parameters={this.props.form}><i className="fa fa-terminal red pull-left"></i> &nbsp; Open a Terminal <span className="mute pull-right">(CTRL+K)</span></button>
+                                <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='showTerminal' data-parameters={this.props.form}><i className="fa fa-terminal pull-left"></i> &nbsp; Open a Terminal</button>
 
 
                                 <br />

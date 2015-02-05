@@ -4464,9 +4464,9 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../../js/navigation.init');
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),
+    navigationInit  = require('../../js/navigation.init');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -4479,7 +4479,7 @@ module.exports = React.createClass({displayName: 'exports',
             server: false,
             filename: '/Wifi-TEMP.json',
             classList: 'col-xs-12'
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -4490,7 +4490,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         /* EULA Ajax Call
         -------------------------------------------------- */
-        
+
         request = new XMLHttpRequest();
         request.open('GET', 'http://127.0.0.1:1210/WifiConfig', true);
 
@@ -4522,20 +4522,20 @@ module.exports = React.createClass({displayName: 'exports',
                    React.DOM.div({className: "row-fluid "}, 
 
                         React.DOM.div({className: "col-xs-12"}, 
-                                    
+
                             React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
 
                             React.DOM.fieldset(null, 
-                            
-                                
+
+
                                 React.DOM.div({className: "form-group"}, 
-                                    
+
                                       React.DOM.textarea({id: "EULA", className: "form-control navable", 'data-function': "inputFocus"}
                                       )
-                               
+
                                 ), 
-                           
+
                                 React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, "Save Configuration File"), 
                                 React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, "Cancel"), 
 
@@ -4544,16 +4544,13 @@ module.exports = React.createClass({displayName: 'exports',
 
                             )
                             )
-                              
+
                 )
-            )              
-         
+            )
+
         );
     }
 });
-
-
-
 
 },{"../../js/navigation.init":86,"react/addons":96,"socket.io-client":255}],58:[function(require,module,exports){
 /**
@@ -4646,7 +4643,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
                                 React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "writeWifiConfig", 'data-parameters': this.props.form}, React.DOM.i({id: "tester-spin", className: "ion-android-sync green pull-left"}), "   Test Wireless Configuration"), 
-                                React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "showTerminal", 'data-parameters': this.props.form}, React.DOM.i({className: "fa fa-terminal red pull-left"}), "   Open a Terminal ", React.DOM.span({className: "mute pull-right"}, "(CTRL+K)")), 
+                                React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "showTerminal", 'data-parameters': this.props.form}, React.DOM.i({className: "fa fa-terminal pull-left"}), "   Open a Terminal"), 
 
 
                                 React.DOM.br(null), 

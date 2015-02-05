@@ -294,8 +294,8 @@ var writeWifiConfig = function(nsp, data, callback) {
         nsp.emit('messaging', {type: 0, body: "A required field is missing" });
     }
 
-    // var file = '/etc/wpa_supplicant/wpa_supplicant.conf';
-    var file = '/Users/alexstubbs/_wpa_supplicant.conf';
+    var file = '/etc/wpa_supplicant/wpa_supplicant.conf';
+    // var file = '/Users/alexstubbs/_wpa_supplicant.conf';
 
     delete data.formTitle;
     delete data.server;
@@ -309,9 +309,6 @@ var writeWifiConfig = function(nsp, data, callback) {
                     '   key_mgmt="'+data.key_mgmt+'"\n' +
                     '}\n';
 
-
-    console.log(contents);
-
     // Ensure file exists
     fs.ensureFile(file, function(err) {
         if (err) {
@@ -319,7 +316,7 @@ var writeWifiConfig = function(nsp, data, callback) {
         }
 
             // Make Backup
-            copyFile(nsp, file, "~"+file, function(err) {
+            copyFile(nsp, file, file + "~backup", function(err) {
                 if (err) {
                     nsp.emit('messaging', {type: 0, body: err });
                 }
@@ -359,7 +356,6 @@ var writeWifiConfig = function(nsp, data, callback) {
                                     nsp.emit('messaging', {type: 0, body: err + "\n" + stderr });
                                 }
                             });
-                            // test config
                         }
                     });
 

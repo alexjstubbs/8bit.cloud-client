@@ -1,18 +1,19 @@
 /* Ignition Server API
 -------------------------------------------------- */
-var fs          = require('fs-extra')
-,   path        = require('path')
-,   request     = require('request')
-,   sockets     = require('./server.sockets')
-,   database    = require('../../api/database/database.local')
-,   helpers     = require('../../system/system.helpers')
-,   network     = require('../../api/network/network.online')
-,   forms       = require('../../api/api.forms')
-,   bcrypt      = require('bcrypt')
-,   profiles    = require('../../api/api.profiles')
-,   fileFunc    = require('../../system/system.write')
-,   fileRead    = require('../../system/system.read')
-,   serverapi;
+var fs          = require('fs-extra'),
+    path        = require('path'),
+    request     = require('request'),
+    sockets     = require('./server.sockets'),
+    database    = require('../../api/database/database.local'),
+    helpers     = require('../../system/system.helpers'),
+    network     = require('../../api/network/network.online'),
+    forms       = require('../../api/api.forms'),
+    bcrypt      = require('bcrypt'),
+    profiles    = require('../../api/api.profiles'),
+    fileFunc    = require('../../system/system.write'),
+    fileRead    = require('../../system/system.read'),
+    _           = require('lodash'),
+    serverapi;
 
 /* Set up
 -------------------------------------------------- */

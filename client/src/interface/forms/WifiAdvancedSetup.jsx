@@ -2,9 +2,9 @@
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   navigationInit  = require('../../js/navigation.init');
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),
+    navigationInit  = require('../../js/navigation.init');
 
 module.exports = React.createClass({
 
@@ -17,7 +17,7 @@ module.exports = React.createClass({
             server: false,
             filename: '/Wifi-TEMP.json',
             classList: 'col-xs-12'
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -28,7 +28,7 @@ module.exports = React.createClass({
 
         /* EULA Ajax Call
         -------------------------------------------------- */
-        
+
         request = new XMLHttpRequest();
         request.open('GET', 'http://127.0.0.1:1210/WifiConfig', true);
 
@@ -60,20 +60,20 @@ module.exports = React.createClass({
                    <div className="row-fluid ">
 
                         <div className="col-xs-12">
-                                    
+
                             <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
 
 
                             <fieldset>
-                            
-                                
+
+
                                 <div className="form-group">
-                                    
+
                                       <textarea id="EULA" className="form-control navable" data-function='inputFocus'>
                                       </textarea>
-                               
+
                                 </div>
-                           
+
                                 <button className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}>Save Configuration File</button>
                                 <button className="btn btn-lg btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}>Cancel</button>
 
@@ -82,13 +82,10 @@ module.exports = React.createClass({
 
                             </fieldset>
                             </form>
-                              
+
                 </div>
-            </div>              
-         
+            </div>
+
         );
     }
 });
-
-
-
