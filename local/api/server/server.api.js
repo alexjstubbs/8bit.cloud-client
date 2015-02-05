@@ -4,16 +4,12 @@ var fs          = require('fs-extra'),
     path        = require('path'),
     request     = require('request'),
     sockets     = require('./server.sockets'),
-    database    = require('../../api/database/database.local'),
     helpers     = require('../../system/system.helpers'),
-    network     = require('../../api/network/network.online'),
     forms       = require('../../api/api.forms'),
     bcrypt      = require('bcrypt'),
     profiles    = require('../../api/api.profiles'),
     fileFunc    = require('../../system/system.write'),
-    fileRead    = require('../../system/system.read'),
-    _           = require('lodash'),
-    serverapi;
+    _           = require('lodash');
 
 /* Set up
 -------------------------------------------------- */
@@ -42,7 +38,7 @@ var passHash = function(input, callback) {
         bcrypt.hash("SEGA", salt, function(err, hash) {
 
             if (err) {
-                nsp.emit('messaging', {type: 0, body: err });
+                // nsp.emit('messaging', {type: 0, body: err });
             }
 
             else {
@@ -52,43 +48,43 @@ var passHash = function(input, callback) {
         });
     });
 
-}
+};
 
 /* Get User Profile
 -------------------------------------------------- */
 var getProfile = function(nsp, username) {
     sockets.networkInterface(nsp, { cmd: 'getProfile', parameters: username});
-}
+};
 
 /* Add a Friend Endpoint
 -------------------------------------------------- */
 var addFriend = function(nsp, data) {
     sockets.networkInterface(nsp, { cmd: 'addFriend', parameters: data});
-}
+};
 
 /* Friends Endpoint
 -------------------------------------------------- */
 var getFriends = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getFriends' });
-}
+};
 
 /* Activities Endpoint
 -------------------------------------------------- */
 var getActivities = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getActivities' });
-}
+};
 
 /* Messages Endpoint
 -------------------------------------------------- */
 var getMessages = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getMessages' });
-}
+};
 
 /* Delete Message
 -------------------------------------------------- */
 var deleteMessage = function(nsp, message) {
     sockets.networkInterface(nsp, { cmd: 'deleteMessage', parameters: message });
-}
+};
 
 /*  Send Message
 -------------------------------------------------- */
@@ -99,12 +95,12 @@ var passMessage = function(nsp, data) {
     }
 
     else {
-        _data = {
+        var _data = {
             To: data.To,
             Type: data.Type,
             Attachment: false,
             Body: data.Body
-        }
+        };
 
         sockets.networkInterface(nsp, { cmd: 'passMessage', parameters: _data });
 
@@ -112,7 +108,7 @@ var passMessage = function(nsp, data) {
     }
 
 
-}
+};
 
 /* Submit Cache Form (offline/online store)
 -------------------------------------------------- */
@@ -129,7 +125,7 @@ var submitCache = function(nsp, data, callback) {
 
     }
 
-}
+};
 
 
 /* Submit Dynamic Form
@@ -139,7 +135,7 @@ var validateForm = function(nsp, data, callback) {
     // Validate form then run network command based on form name. Done!
     forms.validate(data, function(validation) {
 
-        if (validation == undefined) {
+        if (validation === undefined) {
 
             if (callback || typeof callback == "function") {
                 callback(null, null);
@@ -154,7 +150,7 @@ var validateForm = function(nsp, data, callback) {
 
     });
 
-}
+};
 
 /* Submit Dynamic Form
 -------------------------------------------------- */
@@ -163,7 +159,7 @@ var submitForm = function(nsp, data, callback) {
     // Validate form then run network command based on form name. Done!
     forms.validate(data, function(validation) {
 
-        if (validation == undefined) {
+        if (validation === undefined) {
 
             var forms = {
 
@@ -172,7 +168,7 @@ var submitForm = function(nsp, data, callback) {
                     },
 
                     addFriend: function() {
-                        addFriend(nsp, data)
+                        addFriend(nsp, data);
                         // TODO: Add loopback
                         nsp.emit('clientEvent', {command: "closeDialog", params: null });
 
@@ -182,7 +178,7 @@ var submitForm = function(nsp, data, callback) {
                     passMessage: function() {
                         passMessage(nsp, data);
                     }
-                }
+                };
 
             var form = forms[data.formTitle];
 
@@ -202,11 +198,7 @@ var submitForm = function(nsp, data, callback) {
     });
 
     // sockets.networkInterface(nsp, {cmd: data.formTitle, data: data});
-}
-
-var saveForm = function(nsp, data) {
-    console.log({cmd: data.formTitle, data: data});
-}
+};
 
 /* Community Endpoint
 -------------------------------------------------- */
@@ -214,7 +206,7 @@ var saveForm = function(nsp, data) {
 var getCommunity = function(nsp) {
 
     var app = "Communities";
-    _path = "https://" + path.join(server, "api", v, app);
+    var _path = "https://" + path.join(server, "api", v, app);
 
    request.get({
         uri: _path,
@@ -222,12 +214,12 @@ var getCommunity = function(nsp) {
     }, function (error, response, body) {
 
             if (helpers.isJSON(body)) {
-                nsp.emit('api', {community: JSON.parse(body)})
+                nsp.emit('api', {community: JSON.parse(body)});
 
             }
     });
 
-}
+};
 
 
 /* Events Endpoint
@@ -237,7 +229,7 @@ var getEvents = function(nsp) {
 
     var app = "Events";
 
-    _path = "https://" + path.join(server, "api", v, app);
+    var _path = "https://" + path.join(server, "api", v, app);
 
    request.get({
 
@@ -249,13 +241,13 @@ var getEvents = function(nsp) {
 
         if (helpers.isJSON(body)) {
 
-            nsp.emit('api', {events: JSON.parse(body)})
+            nsp.emit('api', {events: JSON.parse(body)});
 
         }
 
     });
 
-}
+};
 
 /* Login
 -------------------------------------------------- */
@@ -273,7 +265,7 @@ var getSession = function(nsp, callback) {
 
     var app = "login";
 
-    _path = "https://" + path.join(server, app);
+    var _path = "https://" + path.join(server, app);
 
     fs.readJson(__sessionFile, function(err, userProfile) {
 
@@ -326,7 +318,7 @@ var getSession = function(nsp, callback) {
                        });
 
                     }
-            })
+            });
 
         }
 
@@ -334,7 +326,7 @@ var getSession = function(nsp, callback) {
         else {
 
             if (!error) {
-                var error = {};
+                error = {};
                 error.code = "default";
             }
 
@@ -347,7 +339,7 @@ var getSession = function(nsp, callback) {
                     // TODO: Findout if user is offline or server is offline. Notify if user is online but server is not, do not notify the other way around (offline mode).
 
                      nsp.emit('clientEvent', {command: "preloadDashboard", params: null });
-
+                     break;
                 }
 
                 default: {
@@ -367,7 +359,7 @@ var getSession = function(nsp, callback) {
 
     });
 
-}
+};
 
 /* Signup
 -------------------------------------------------- */
@@ -384,8 +376,7 @@ var signUp = function(nsp, profile, callback) {
      }
 
     var app = "signup";
-
-    _path = "https://" + path.join(server, app);
+    var _path = "https://" + path.join(server, app);
 
     var password = passHash(profile.username, function(hashed) {
 
@@ -404,16 +395,13 @@ var signUp = function(nsp, profile, callback) {
 
             if (helpers.isJSON(body)) {
 
-
                 var status = JSON.parse(body);
-
 
                 if (status.error) {
                      fnLog(status.error, null);
                 }
 
                 else {
-
 
                     var file = appDir+'/config/profiles/' + status.profile.Username + '.json';
 
@@ -425,13 +413,10 @@ var signUp = function(nsp, profile, callback) {
                         fileFunc.writeJSON(nsp, status.profile, function(err) {
 
                             if (err) {
-
-                                console.log(err)
-
+                                console.log(err);
                             }
 
                             else {
-
 
                                 fileFunc.copyFile(nsp, file, __sessionFile, function(err) {
 
@@ -467,7 +452,7 @@ var signUp = function(nsp, profile, callback) {
 
                     else {
 
-                        fnLog(status, null);
+                    fnLog(status, null);
 
                     // nsp.emit('messaging', {type: 0, body: status.message  });
                     }
@@ -497,7 +482,7 @@ var signUp = function(nsp, profile, callback) {
 
      });
 
-}
+};
 
 
 /* Socket Connection
@@ -505,12 +490,8 @@ var signUp = function(nsp, profile, callback) {
 
 var getSockets = function(nsp, token) {
 
-    var app = "sockets"
-        _path = "https://" + path.join(server, app)
-
-        var query = {
-            Token: token
-        };
+    var app = "sockets";
+    var _path = "https://" + path.join(server, app);
 
        request.post({
             uri: _path,
@@ -518,10 +499,9 @@ var getSockets = function(nsp, token) {
             form: {token: token.token }
         }, function (error, response, body) {
             sockets.networkConnection(token.token, nsp);
-            console.log("SOCK: "+body);
         });
 
-}
+};
 
 /* Logout
 -------------------------------------------------- */
@@ -529,12 +509,7 @@ var getSockets = function(nsp, token) {
 var leaveSession = function(nsp) {
 
     var app = "logout";
-        _path = "https://" + path.join(server, app);
-
-        var query = {
-            Username: 'Alex',
-            validPassword: 'Pass'
-        };
+    var _path = "https://" + path.join(server, app);
 
        request.post({
             uri: _path,
@@ -547,7 +522,7 @@ var leaveSession = function(nsp) {
             }
         });
 
-}
+};
 
 /* Exports
 -------------------------------------------------- */

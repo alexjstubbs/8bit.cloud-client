@@ -1,21 +1,19 @@
 /* Server socket API
 -------------------------------------------------- */
-var fs 							= require('fs-extra')
-,   database 					= require('../../api/database/database.local')
-,   networkMethod 				= require('./server.methods').networkMethod
-, 	io 							= require('socket.io-client')
-, 	_ 							= require('lodash')
-, 	async 						= require('async')
-, 	_await 						= false
-,   network
-,   issuedToken;
+var fs 							= require('fs-extra'),
+	networkMethod 				= require('./server.methods').networkMethod,
+	io 							= require('socket.io-client'),
+	async 						= require('async'),
+	_await 						= false,
+	network,
+	issuedToken;
 
 
 /*  Remove Issued Token
 -------------------------------------------------- */
 var removeToken = function() {
 	issuedToken = '';
-}
+};
 
 /*  Remove Dead Connections
 -------------------------------------------------- */
@@ -24,7 +22,7 @@ var removeConnection = function() {
 		network.disconnect();
 		console.log("removed previous socket...");
 	}
-}
+};
 
 
 /* Get Network Status
@@ -52,7 +50,7 @@ var networkStatus = function(callback) {
 		callback(null, network.connected);
 
 	}
-}
+};
 
 /* Get issued Token (if available)
 -------------------------------------------------- */
@@ -84,26 +82,33 @@ var issueToken = function(callback) {
                 callback({error: "No token supplied"});
             }
 
-      })
+      });
 };
 
 /* Initialize Network Connection
 -------------------------------------------------- */
 var networkConnection = function(token, ansp, callback) {
 
+	// var nsp;
    /* Connect to /Network (i.io) namespace/network
    -------------------------------------------------- */
+	var nsp = io.connect('http://ignition.io:6052/network', {
+		'query': 'token=' + token,
+		secure: true
+	});
 
-	if (!network) {
-		nsp = io.connect('http://ignition.io:6052/network', {
-	        'query': 'token=' + token,
-	        secure: true
-	    });
-	}
+	// if (!network) {
+	// 	nsp = io.connect('http://ignition.io:6052/network', {
+	//         'query': 'token=' + token,
+	//         secure: true
+	//     });
+	// }
 
-	else {
-		callback(null, network);
-	}
+	// else {
+	// 	if (callback) {
+	// 		callback(null, network);
+	// 	}
+	// }
 
     /* Connection "" successfull
     -------------------------------------------------- */
@@ -140,14 +145,14 @@ var networkConnection = function(token, ansp, callback) {
 				__api.emit('network-api', data);
 			}
 
-    })
+    });
 
     /* Could not connect, or auth. General Error. (Invalid Token?).
     -------------------------------------------------- */
     nsp.on("error", function(error) {
 
       // ||Client Box||: Your server token is invalid
-      console.log(error)
+      console.log(error);
 
       if (callback) {
           callback(error, null);
@@ -155,7 +160,7 @@ var networkConnection = function(token, ansp, callback) {
 
     });
 
-}
+};
 
 /* Check i.io Connection (needs work)
 -------------------------------------------------- */
@@ -170,7 +175,7 @@ var networkCheckConnection = function(callback) {
 		});
 
 	}
-}
+};
 
 /* Network Interfacing (!!)
 -------------------------------------------------- */
@@ -200,7 +205,7 @@ var networkInterface = function(ansp, json) {
         networkCommand(ansp, json);
     }
 
-}
+};
 
 
 /* Send Command to Network
@@ -218,7 +223,7 @@ var networkCommand = function(ansp, json) {
     -------------------------------------------------- */
     if (!network) {
 
-		if (_await != true) {
+		if (_await !== true) {
 
 			_await = true;
 
@@ -231,7 +236,6 @@ var networkCommand = function(ansp, json) {
 
 				else {
 					network.emit('cmd', json);
-					openNetwork = true;
 				}
 
 			});
@@ -247,7 +251,7 @@ var networkCommand = function(ansp, json) {
 				function (callback) {
 					setTimeout(callback, 1000);
 				},
-				function (err) {
+				function () {
 					network.emit('cmd', json);
 				}
 			);
@@ -261,7 +265,7 @@ var networkCommand = function(ansp, json) {
 		network.emit('cmd', json);
 	}
 
-}
+};
 
 /* Exports
 -------------------------------------------------- */
