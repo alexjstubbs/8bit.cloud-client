@@ -16,12 +16,11 @@ function showSelection() {
     navigationBrowse(memSelection);
 }
 
-var initialize = _.throttle(showSelection, 3000);
+var initialize = _.throttle(showSelection, 1000);
 
 /* Exported Navigation Module (blackbox)
 -------------------------------------------------- */
 module.exports = function(k) {
-
 
     var s       = document.getElementsByClassName("selectedNav")[0];
     var i       = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");

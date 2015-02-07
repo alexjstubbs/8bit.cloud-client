@@ -2405,7 +2405,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.span({className: "pull-right"}, 
                     React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "passMessage"}, 
-                    React.DOM.i({className: "ion-paper-airplane green"}), "   New Message")
+                    React.DOM.i({className: "ion-email-unread green"}), "   New Message")
                 )
 
             )
@@ -7288,8 +7288,8 @@ Keyboard.rows = [
   [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
   [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
-  [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-  [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "<i class='ion-ios-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
+  [ "<i class='ion-android-more-horizontal'></i>",".", ",", "@", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-backspace'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 symbolsKeyboard.rows = [
@@ -7425,7 +7425,7 @@ var keypress = function(parameters) {
     switch (parameters) {
 
 	// Symbols
-	case "<i class='ion-code-working'></i>":
+	case "<i class='ion-android-more-horizontal'></i>":
 
 		if (kbType == 'alpha') {
 			var event = new CustomEvent('updateKeyboard', {
@@ -7495,7 +7495,7 @@ var keypress = function(parameters) {
         return;
 
     // @
-    case "<i class='ion-at'></i>":
+    case "@":
         activeInput.innerHTML += "@";
 
         cursor[0].scrollIntoView(true);
@@ -7582,12 +7582,11 @@ function showSelection() {
     navigationBrowse(memSelection);
 }
 
-var initialize = _.throttle(showSelection, 3000);
+var initialize = _.throttle(showSelection, 1000);
 
 /* Exported Navigation Module (blackbox)
 -------------------------------------------------- */
 module.exports = function(k) {
-
 
     var s       = document.getElementsByClassName("selectedNav")[0];
     var i       = document.getElementsByClassName("selectedNav")[0].getAttribute("data-nav");

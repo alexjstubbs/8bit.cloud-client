@@ -88,7 +88,7 @@ module.exports = React.createClass({
 
                 <span className="pull-right">
                     <button className="navable btn btn-alt btn-alt-size" data-function="passMessage">
-                    <i className='ion-paper-airplane green'></i> &nbsp; New Message</button>
+                    <i className='ion-email-unread green'></i> &nbsp; New Message</button>
                 </span>
 
             </div>

@@ -34,8 +34,8 @@ Keyboard.rows = [
   [ "1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
   [ "q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   [ "a", "s", "d", "f", "g", "h", "j", "k", "l", "z"],
-  [ "<i class='ion-ios7-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
-  [ "<i class='ion-code-working'></i>",".", ",", "<i class='ion-at'></i>", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "<i class='ion-ios-arrow-thin-up'></i>", "<i class='ion-arrow-up-a'></i>", "x", "c", "v", "b", "n", "m", "'", "?"],
+  [ "<i class='ion-android-more-horizontal'></i>",".", ",", "@", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-backspace'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 symbolsKeyboard.rows = [

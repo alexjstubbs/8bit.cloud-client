@@ -34,7 +34,7 @@ var keypress = function(parameters) {
     switch (parameters) {
 
 	// Symbols
-	case "<i class='ion-code-working'></i>":
+	case "<i class='ion-android-more-horizontal'></i>":
 
 		if (kbType == 'alpha') {
 			var event = new CustomEvent('updateKeyboard', {
@@ -104,7 +104,7 @@ var keypress = function(parameters) {
         return;
 
     // @
-    case "<i class='ion-at'></i>":
+    case "@":
         activeInput.innerHTML += "@";
 
         cursor[0].scrollIntoView(true);
