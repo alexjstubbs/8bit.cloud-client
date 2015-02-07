@@ -7296,8 +7296,8 @@ symbolsKeyboard.rows = [
   [ "~", "!", "#", "$", "%", "^", "&", "*", "(", ")"],
   [ "{", "}", "\\", "|", "/", "\"", ":", ";", "<", ">"],
   [ "[", "]", "=", "+", "@", "_", "-", "`", ",", "."],
-  [ "W3", "://", " ", " ", " ", " ", " ", ".Co", ".Ne", ".Or"],
-  [ "<i class='ion-code-working'></i>"," ", " ", " ", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "w3", "://", " ", " ", " ", " ", " ", ".co", ".ne", ".or"],
+  [ "<i class='ion-android-more-horizontal'></i>"," ", " ", " ", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-backspace'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 
@@ -7400,7 +7400,6 @@ var keypress = function(parameters) {
         keys 			= document.getElementsByClassName("_key"),
         activeInput 	= document.getElementById("keyboard-input-area"),
         recentInput 	= document.getElementsByClassName("activeInput")[0],
-        _value 			= activeInput.value,
         type 			= document.querySelectorAll("[data-inputtype]")[0].getAttribute("data-inputtype"),
         kbType 			= document.querySelectorAll("[data-keyboardtype]")[0].getAttribute("data-keyboardtype"),
         cursor 			= document.querySelectorAll(".cursor");
@@ -7471,11 +7470,11 @@ var keypress = function(parameters) {
     // Cursor Right
     case "<i class='ion-arrow-right-b opacity-20'></i>":
 
-        console.log(cursor[0].offsetLeft);
-
-        if (cursor[0].offsetRight !== 0) {
-	        cursor[0].style.left = cursor[0].offsetLeft - 7 + "px";
-        }
+        // console.log(cursor[0].offsetLeft);
+        //
+        // if (cursor[0].offsetRight !== 0) {
+	    //     cursor[0].style.left = cursor[0].offsetLeft - 7 + "px";
+        // }
 
         return;
 
@@ -7516,10 +7515,46 @@ var keypress = function(parameters) {
         return;
 
     // Delete
-    case "<i class='ion-arrow-left-a'></i>":
+    case "<i class='ion-backspace'></i>":
         activeInput.innerHTML = activeInput.innerHTML.slice(0,-1);
         recentInput.value = activeInput.innerHTML;
 
+        return;
+
+    // .co
+    case ".ne":
+
+        activeInput.innerHTML += ".net";
+
+        cursor[0].scrollIntoView(true);
+        recentInput.scrollTop = cursor[0].offsetTop;
+        return;
+
+    // .co
+    case ".or":
+
+        activeInput.innerHTML += ".org";
+
+        cursor[0].scrollIntoView(true);
+        recentInput.scrollTop = cursor[0].offsetTop;
+        return;
+
+    // .co
+    case ".co":
+
+        activeInput.innerHTML += ".com";
+
+        cursor[0].scrollIntoView(true);
+        recentInput.scrollTop = cursor[0].offsetTop;
+        return;
+
+    // http://www.
+    case "w3":
+
+        activeInput.innerHTML += "http://www.";
+
+        cursor[0].scrollIntoView(true);
+        recentInput.scrollTop = cursor[0].offsetTop;
         return;
 
     // Caps
@@ -7532,7 +7567,7 @@ var keypress = function(parameters) {
         return;
 
     // Shift (Temp Caps)
-    case "<i class='ion-ios7-arrow-thin-up'></i>": {
+    case "<i class='ion-ios-arrow-thin-up'></i>": {
 
         _(keys).forEach(function(key, i) {
             key.classList.toggle("uppercase");
@@ -7853,7 +7888,7 @@ module.exports = function(k) {
             // Inside onScreen Keyboard
             if (sel[0].classList.contains("rowParent")) {
 
-                var allRows = document.querySelectorAll("[data-row]").length;
+
                 var curRow = sel[0].parentNode.getAttribute("data-row");
 
                 var elIndex = Array.prototype.indexOf.call(sel[0].parentNode.childNodes, sel[0]);
@@ -7862,11 +7897,13 @@ module.exports = function(k) {
 
                     curRow--;
 
-                    sel[0].classList.remove("selectedNav");
-
                     var nextRow = document.querySelectorAll("[data-row]")[curRow];
 
-                    nextRow.childNodes[elIndex].classList.add("selectedNav");;
+                    if (nextRow) {
+                        sel[0].classList.remove("selectedNav");
+                        nextRow.childNodes[elIndex].classList.add("selectedNav");
+                    }
+
 
                 }
 

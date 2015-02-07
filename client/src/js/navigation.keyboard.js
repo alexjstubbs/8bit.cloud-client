@@ -42,8 +42,8 @@ symbolsKeyboard.rows = [
   [ "~", "!", "#", "$", "%", "^", "&", "*", "(", ")"],
   [ "{", "}", "\\", "|", "/", "\"", ":", ";", "<", ">"],
   [ "[", "]", "=", "+", "@", "_", "-", "`", ",", "."],
-  [ "W3", "://", " ", " ", " ", " ", " ", ".Co", ".Ne", ".Or"],
-  [ "<i class='ion-code-working'></i>"," ", " ", " ", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-arrow-left-a'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
+  [ "w3", "://", " ", " ", " ", " ", " ", ".co", ".ne", ".or"],
+  [ "<i class='ion-android-more-horizontal'></i>"," ", " ", " ", "__", "<i class='ion-arrow-left-b opacity-20'></i>", "<i class='ion-arrow-right-b opacity-20'></i>", "<i class='ion-backspace'></i>", "<i class='ion-arrow-return-left'></i>", "<i class='ion-checkmark'></i>" ],
 ];
 
 
