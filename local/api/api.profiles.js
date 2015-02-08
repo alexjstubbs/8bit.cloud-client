@@ -155,7 +155,7 @@ function newProfile(nsp, data) {
                 break;
 
             default:
-                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "preloadDashboard", dataParameters: null, button: "Load Dashboard Anyway" });
+                nsp.emit('messaging', {type: 0, body: "Connection could not be established with the server.", dataFunction: "preloadDashboard", dataParameters: null, button: "Load Offline Dashboard" });
                 break;
 
         }

@@ -2,8 +2,8 @@
  * @jsx React.DOM
  */
 
-var React           = require('react/addons')
-,   navigationInit  = require('../../js/navigation.init');
+var React           = require('react/addons'),
+    navigationInit  = require('../../js/navigation.init');
 
 module.exports = React.createClass({
 
@@ -15,7 +15,7 @@ module.exports = React.createClass({
             form: 'signUp',
             server: "cache",
             classList: 'col-xs-12'
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -23,8 +23,6 @@ module.exports = React.createClass({
         navigationInit.navigationInit();
 
     },
-
-
 
     render: function() {
 
@@ -62,8 +60,8 @@ module.exports = React.createClass({
                             </div>
 
 
-                        <button className="btn btn-lg btn-left-align btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add green pull-left"></i> &nbsp; Create new Profile</button>
-                        <button className="btn btn-lg btn-left-align btn-alt btn-block navable" data-function='' data-parameters={this.props.form}><i className="ion-person green pull-left"></i> &nbsp; Use Existing Profile</button>
+                        <button className="btn btn-lg btn-blue btn-alt btn-block navable" data-function='signUpSubmit' data-parameters={this.props.form}><i className="ion-person-add pull-left"></i> &nbsp; Create new Profile</button>
+                        <button className="btn btn-lg btn-gray btn-alt btn-block navable" data-function='' data-parameters={this.props.form}><i className="ion-person pull-left"></i> &nbsp; Use Existing Profile</button>
 
                         <input type="hidden" name="server" value={this.props.server} />
 

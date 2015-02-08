@@ -1,8 +1,7 @@
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var api                     = require('socket.io-client')('/api'),
-    events                  = require('./events.js'),
+var events                  = require('./events.js'),
     React                   = require('react/addons'),
     Modal                   = require('../interface/Modal.jsx'),
     Message                 = require('../interface/Message.jsx'),
@@ -15,6 +14,7 @@ var api                     = require('socket.io-client')('/api'),
     Terminal                = require('../interface/Terminal.jsx'),
     WebBrowser              = require('../interface/WebBrowser.jsx'),
     SignUp                  = require('../interface/forms/SignUp.jsx'),
+    SignUpSync              = require('../interface/SignUpSync.jsx'),
     AddFriend               = require('../interface/forms/AddFriend.jsx'),
     PassMessage             = require('../interface/forms/PassMessage.jsx'),
     CommunityInfo           = require('../interface/CommunityInfo.jsx'),
@@ -91,6 +91,8 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
 -------------------------------------------------- */
 var show = function(parent, parameters, arg) {
 
+    var Child;
+
      // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
@@ -128,6 +130,9 @@ var show = function(parent, parameters, arg) {
             break;
         case "SignUp":
             Child = SignUp({});
+            break;
+        case "SignUpSync":
+            Child = SignUpSync({});
             break;
         case "Friends":
             Child = Friends({});

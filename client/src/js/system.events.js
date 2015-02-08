@@ -176,6 +176,15 @@ var events = {
 
     },
 
+    /*  Sign Up Dialog
+    -------------------------------------------------- */
+    signUpSubmit: function(parameters) {
+            // Show Dialog
+            dialog.show("SignUpSync");
+
+            // Submit Form
+            events.submitForm(parameters);
+    },
 
     /* Submit form on Action button/keypress
     -------------------------------------------------- */
@@ -597,7 +606,7 @@ var events = {
 
             // Bind Navigation
             navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
-            
+
 
             // Emit to Launc Game
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
