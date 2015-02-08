@@ -17,7 +17,7 @@ module.exports = React.createClass({
         //serverEvent
         api.on('api', function(e) {
             if (e.serverEvent) {
-                clientEvents.nextScreen();
+                // clientEvents.nextScreen();
             }
         });
     },

@@ -27,7 +27,7 @@ module.exports = React.createClass({
 
         // RPI1: Skip
 
-        
+
         // if (this.props.backdrop) {
         //
         //     var main = document.getElementById("main");
@@ -47,12 +47,17 @@ module.exports = React.createClass({
 
     render: function() {
 
+        var _index  = document.querySelectorAll(".ignition-modal");
 
+
+        var divStyle = {
+          zIndex: _index.length+150
+        };
         return (
 
             <div>
 
-                <div className={this.props.classList} id={this.props.id}>
+                <div className={this.props.classList} id={this.props.id} style={divStyle}>
                     {this.props.children}
                 </div>
 

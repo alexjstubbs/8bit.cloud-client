@@ -28,7 +28,6 @@ var fs          = require('fs-extra'),
 var server = "ignition.io:3000",
     v = "v1";
 
-
 /* Password Hash Test
 -------------------------------------------------- */
 var passHash = function(input, callback) {
@@ -304,7 +303,7 @@ var getSession = function(nsp, callback) {
                     if (!err) {
 
                         // Copy succeeded session file to profile file
-                       fileFunc.copyFile(nsp, __sessionFile, appDir + '/config/profiles/' + userProfile.Username + '.json', function(err) {
+                       fileFunc.copyFile(nsp, __sessionFile, __appdirectory + '/config/profiles/' + userProfile.Username + '.json', function(err) {
 
                             if (err) console.log({erroree: err});
 
@@ -403,12 +402,13 @@ var signUp = function(nsp, profile, callback) {
 
                 else {
 
-                    var file = appDir+'/config/profiles/' + status.profile.Username + '.json';
+                    var file = __appdirectory + '/config/profiles/' + status.profile.Username + '.json';
 
                     if (status.profile.Username) {
 
                         status.profile.validPassword = hashed;
                         status.profile.filename = file;
+
 
                         fileFunc.writeJSON(nsp, status.profile, function(err) {
 
@@ -452,6 +452,7 @@ var signUp = function(nsp, profile, callback) {
 
                     else {
 
+
                     fnLog(status, null);
 
                     // nsp.emit('messaging', {type: 0, body: status.message  });
@@ -467,7 +468,12 @@ var signUp = function(nsp, profile, callback) {
             // Currupt or undefined return
             else {
                 // nsp.emit('messaging', {type: 0, body: "Server returned an error." });
-                 fnLog("Server Returned an Error", null);
+
+                //  fnLog("Server Returned an Error", null);
+
+                offlineSignUp(nsp, query, function() {
+                    fnLog("Server Returned an Error", null);
+                });
 
             }
 
@@ -484,6 +490,52 @@ var signUp = function(nsp, profile, callback) {
 
 };
 
+/*  Offline SignUp
+-------------------------------------------------- */
+var offlineSignUp = function(nsp, passedProfile, callback) {
+
+    var profile = {
+        Username:       passedProfile.Username,
+        Email:          passedProfile.Email,
+        Avatar:         passedProfile.Avatar
+    };
+
+    var file = __appdirectory + '/config/profiles/' + profile.Username + '.json';
+
+    profile.filename = file;
+
+    if (profile.Username) {
+
+        fileFunc.writeJSON(nsp, profile, function(err) {
+
+            if (err) {
+                console.log(err);
+            }
+
+            else {
+
+                fs.ensureFile(__sessionFile, function(err) {
+
+                    if (!err) {
+                        fileFunc.copyFile(nsp, file, __sessionFile, function(err) {
+                              if (err) {
+                                  console.error(err);
+                              }
+
+                              else {
+                                  callback();
+                              }
+
+                            });
+                        }
+                        });
+
+            }
+
+        });
+
+    }
+};
 
 /* Socket Connection
 -------------------------------------------------- */
@@ -514,7 +566,7 @@ var leaveSession = function(nsp) {
        request.post({
             uri: _path,
             rejectUnauthorized: false,
-            form: { Username: "Alex", validPassword: "469df27ea91ab84345e0051c81868535" }
+            form: { Username: "", validPassword: "" }
         }, function (error, response, body) {
             if (helpers.isJSON(body)) {
 
@@ -537,6 +589,7 @@ exports.leaveSession    = leaveSession;
 exports.getFriends      = getFriends;
 exports.getActivities   = getActivities;
 exports.signUp          = signUp;
+exports.offlineSignUp   = offlineSignUp;
 exports.submitForm      = submitForm;
 exports.submitCache     = submitCache;
 exports.validateForm    = validateForm;

@@ -1,5 +1,5 @@
 ({
-  appDir: 'www',
+  __appdirectory: 'www',
   dir: 'www-built',
   baseUrl: '.',
   fileExclusionRegExp: /(^example)|(.git)$/,

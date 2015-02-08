@@ -679,7 +679,7 @@ var React           = require('react/addons'),
     Community       = require('./Community.jsx'),
     IgnitionEvents  = require('./IgnitionEvents.jsx'),
     ShortcutBar     = require('./ShortcutBar.jsx'),
-      mixins          = require('./mixins/mixins.jsx'),
+    mixins          = require('./mixins/mixins.jsx'),
     unreadMessages,
     favorites       = [];
 
@@ -781,8 +781,8 @@ module.exports = React.createClass({displayName: 'exports',
 
             if (data.messages) {
 
-            var allMessages = _.flatten(data.messages, '_id');
-            var readMessages = localStorage.getItem("read_messages");
+                var allMessages = _.flatten(data.messages, '_id');
+                var readMessages = localStorage.getItem("read_messages");
 
             if (readMessages) {
                 readMessages = readMessages.split(",");
@@ -791,7 +791,6 @@ module.exports = React.createClass({displayName: 'exports',
             unreadMessages = _.difference(allMessages, readMessages).length;
 
             component.forceUpdate();
-
 
             }
 
@@ -2446,7 +2445,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         // RPI1: Skip
 
-        
+
         // if (this.props.backdrop) {
         //
         //     var main = document.getElementById("main");
@@ -2466,12 +2465,17 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        var _index  = document.querySelectorAll(".ignition-modal");
 
+
+        var divStyle = {
+          zIndex: _index.length+150
+        };
         return (
 
             React.DOM.div(null, 
 
-                React.DOM.div({className: this.props.classList, id: this.props.id}, 
+                React.DOM.div({className: this.props.classList, id: this.props.id, style: divStyle}, 
                     this.props.children
                 )
 
@@ -5120,7 +5124,7 @@ module.exports = React.createClass({displayName: 'exports',
         //serverEvent
         api.on('api', function(e) {
             if (e.serverEvent) {
-                clientEvents.nextScreen();
+                // clientEvents.nextScreen();
             }
         });
     },
@@ -5707,6 +5711,9 @@ var show = function(parent, parameters, arg) {
 
 
     _div.style.zIndex = _index.length+150;
+
+    console.log(_div);
+    console.log(_index.length+150);
 
     fragment.appendChild(_div);
 
@@ -8244,8 +8251,8 @@ var events = {
     -------------------------------------------------- */
     signUpSubmit: function(parameters) {
             // Show Dialog
-            dialog.show("SignUpSync");
-
+            // dialog.show("SignUpSync");
+            
             // Submit Form
             events.submitForm(parameters);
     },
@@ -8344,14 +8351,15 @@ var events = {
 
     /* Load Dashboard
     -------------------------------------------------- */
-    preloadDashboard: function() {
+    preloadDashboard: function(parameters) {
 
-        // Load new QTBrowser window and use on complete to close this instance?
-        // if (document.readyState === "complete") { init(); }
+        if (parameters === "offline") {
+            window.location = "http://127.0.0.1:1210/home/";
+        }
 
-        window.location = "http://127.0.0.1:1210/home/";
-
-
+        else {
+            window.location = "http://127.0.0.1:1210/home/";
+        }
     },
 
     /* Get Community Info

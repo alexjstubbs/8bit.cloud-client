@@ -180,8 +180,8 @@ var events = {
     -------------------------------------------------- */
     signUpSubmit: function(parameters) {
             // Show Dialog
-            dialog.show("SignUpSync");
-
+            // dialog.show("SignUpSync");
+            
             // Submit Form
             events.submitForm(parameters);
     },
@@ -280,14 +280,15 @@ var events = {
 
     /* Load Dashboard
     -------------------------------------------------- */
-    preloadDashboard: function() {
+    preloadDashboard: function(parameters) {
 
-        // Load new QTBrowser window and use on complete to close this instance?
-        // if (document.readyState === "complete") { init(); }
+        if (parameters === "offline") {
+            window.location = "http://127.0.0.1:1210/home/";
+        }
 
-        window.location = "http://127.0.0.1:1210/home/";
-
-
+        else {
+            window.location = "http://127.0.0.1:1210/home/";
+        }
     },
 
     /* Get Community Info

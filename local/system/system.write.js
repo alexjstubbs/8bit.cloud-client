@@ -12,7 +12,7 @@ var fs      = require('fs-extra'),
 -------------------------------------------------- */
 var removeFile = function(nsp, file, callback) {
 
-    file = appDir + file;
+    file = __appdirectory + file;
 
     fs.unlink(file, function (err) {
         if (err) {
@@ -77,7 +77,7 @@ var writeJSONSync = function(nsp, data, callback) {
 
     if (data.path) {
 
-        file = appDir + data.path + "/" + data.filename;
+        file = __appdirectory + data.path + "/" + data.filename;
 
     }
 
@@ -184,7 +184,7 @@ var writeJSON = function(nsp, data, callback) {
 
     if (data.path) {
 
-        file = appDir + data.path + "/" + data.filename;
+        file = __appdirectory + data.path + "/" + data.filename;
 
     }
 
@@ -231,7 +231,7 @@ var writeAdvancedConfig = function(nsp, data, callback) {
 
     else {
 
-        var file = appDir + "/config/platforms/commandline/" + data.package + ".json";
+        var file = __appdirectory + "/config/platforms/commandline/" + data.package + ".json";
 
         read.readJSONFile(null, file, function(err, results) {
 

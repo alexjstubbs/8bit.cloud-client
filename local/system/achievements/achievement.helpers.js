@@ -17,7 +17,7 @@ var storeAchievementFiles = function(previousAchievements) {
         filters: [".git"]
     };
 
-    var walker = walk.walk(appDir+'/databases/ignition-achievements', options);
+    var walker = walk.walk(__appdirectory+'/databases/ignition-achievements', options);
 
     walker.on("file", fileHandler);
     walker.on("errors", errorsHandler);

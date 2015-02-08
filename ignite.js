@@ -6,14 +6,14 @@
 
 /* Working Enviorment
 -------------------------------------------------- */
-var igniteEnviorment = "production";
+var iEnviorment = "development";
 
-if (igniteEnviorment === "production") {
+if (iEnviorment === "production") {
     global.__base = __dirname + '/production/';
 }
 
 else {
-    global.__base = __dirname + '/';
+    global.__base = __dirname + '/local/';
 }
 
 /*  Platform Enviorment
@@ -26,10 +26,10 @@ else {
     process.env.NODE_ENV    = 'pi';
 }
 
-global.config               = require('konfig')();
-
 var path                    = require('path');
-global.appDir               = path.dirname(require.main.filename);
+
+global.config               = require('konfig')();
+global.__appdirectory               = path.dirname(require.main.filename);
 
 
 console.log(__base);
@@ -45,7 +45,7 @@ var common                  = require(__base + 'common'),
 
 global.__io                 = require('socket.io').listen(http);
 global.__api                = __io.of('/api');
-global.__sessionFile        = appDir+"/config/profiles/Session.json";
+global.__sessionFile        = __appdirectory+"/config/profiles/Session.json";
 
 
 /* Server Configurtation
@@ -101,7 +101,7 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
     console.log("[info]: Ignition Client Launched.");
 
-    var api = require('./local/api/api');
+    var api = require(__base + 'api/api');
 
     common.databases.initDatabases();
 
@@ -112,8 +112,7 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
         var exec = require('child_process').exec;
 
-        exec('killall qmlscene', function(stderr, stdout) { // Kill First Loading Screen
-
+        exec('killall qmlscene', function(stderr, stdout) {
 
             fs.readdir('config/profiles', function(err, files) {
 
@@ -162,5 +161,3 @@ http.listen(1210, "127.0.0.1", function(err, result) {
     }
 
 });
-
-// fs.openSync('/mnt/ramdisk/working.ram', 'w');

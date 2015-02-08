@@ -39,7 +39,7 @@ function toCap(str) {
 -------------------------------------------------- */
 function getSpecificCommandLineConfig(nsp, software, callback) {
 
-    readJSON(null, appDir+"/config/platforms/commandline/"+software+".json", function(err, results) {
+    readJSON(null, __appdirectory+"/config/platforms/commandline/"+software+".json", function(err, results) {
 
         if (err) {
             console.log(err);
@@ -66,7 +66,7 @@ function getSpecificCommandLineConfig(nsp, software, callback) {
 function getCommandlineConfig(nsp, payload, callback) {
 
     // Possible User Config File String
-    var pFile = appDir+"/config/platforms/commandline/user/"+payload.shortname+".json";
+    var pFile = __appdirectory+"/config/platforms/commandline/user/"+payload.shortname+".json";
 
     // User Has Specific Config
     if (fs.existsSync(pFile)) {
@@ -99,7 +99,7 @@ function getCommandlineConfig(nsp, payload, callback) {
 
             var platform = listobj[payload.platform];
 
-            readJSON(null, appDir+"/config/platforms/commandline/"+platform.emulators[0]+".json", function(err, results) {
+            readJSON(null, __appdirectory+"/config/platforms/commandline/"+platform.emulators[0]+".json", function(err, results) {
 
 
                 if (nsp) {

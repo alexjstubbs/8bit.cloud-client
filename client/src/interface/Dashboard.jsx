@@ -15,7 +15,7 @@ var React           = require('react/addons'),
     Community       = require('./Community.jsx'),
     IgnitionEvents  = require('./IgnitionEvents.jsx'),
     ShortcutBar     = require('./ShortcutBar.jsx'),
-      mixins          = require('./mixins/mixins.jsx'),
+    mixins          = require('./mixins/mixins.jsx'),
     unreadMessages,
     favorites       = [];
 
@@ -117,8 +117,8 @@ module.exports = React.createClass({
 
             if (data.messages) {
 
-            var allMessages = _.flatten(data.messages, '_id');
-            var readMessages = localStorage.getItem("read_messages");
+                var allMessages = _.flatten(data.messages, '_id');
+                var readMessages = localStorage.getItem("read_messages");
 
             if (readMessages) {
                 readMessages = readMessages.split(",");
@@ -127,7 +127,6 @@ module.exports = React.createClass({
             unreadMessages = _.difference(allMessages, readMessages).length;
 
             component.forceUpdate();
-
 
             }
 

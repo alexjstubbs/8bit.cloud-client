@@ -10,7 +10,7 @@ var fs              = require('fs-extra'),
 -------------------------------------------------- */
 function listPlatforms(nsp, callback) {
 
-    fs.readJson(appDir+'/config/platforms.json', function(err, packageObj) {
+    fs.readJson(__appdirectory+'/config/platforms.json', function(err, packageObj) {
 
         if (!err) {
 

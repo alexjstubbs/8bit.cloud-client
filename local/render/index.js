@@ -31,7 +31,7 @@ var audio = function(req, res, next) {
 /* Wifi Config
 -------------------------------------------------- */
 var WifiConfig = function(req, res, next) {
-    var path = appDir+'/.WifiConfig';
+    var path = __appdirectory+'/.WifiConfig';
 
     if (fs.existsSync(path)) {
         _eula = fs.readFileSync(path);

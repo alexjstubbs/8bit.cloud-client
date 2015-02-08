@@ -41,7 +41,7 @@
     "undef": true,
     "unused": true,
     "predef": [
-      "appDir",
+      "__appdirectory",
       "require",
       "window",
       "document",

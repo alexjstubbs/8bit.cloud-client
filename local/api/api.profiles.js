@@ -63,7 +63,7 @@ function getSession(nsp) {
 -------------------------------------------------- */
 function listProfiles(nsp) {
 
-    var loc = appDir+"/config/profiles";
+    var loc = __appdirectory+"/config/profiles";
     var listObj = [],
         list;
 
@@ -155,7 +155,7 @@ function newProfile(nsp, data) {
                 break;
 
             default:
-                nsp.emit('messaging', {type: 0, body: "Connection could not be established with the server.", dataFunction: "preloadDashboard", dataParameters: null, button: "Load Offline Dashboard" });
+                nsp.emit('messaging', {type: 0, body: "Connection could not be established with the server.", dataFunction: "preloadDashboard", dataParameters: "offline", button: "Continue Offline" });
                 break;
 
         }
@@ -174,7 +174,7 @@ function newProfile(nsp, data) {
         else {
 
             // Server Signup
-            server.signUp(nsp, data, function(err, msg) {
+            server.signUp(nsp, data, function(err) {
 
                 if (err) {
 

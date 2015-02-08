@@ -110,6 +110,9 @@ var show = function(parent, parameters, arg) {
 
     _div.style.zIndex = _index.length+150;
 
+    console.log(_div);
+    console.log(_index.length+150);
+
     fragment.appendChild(_div);
 
     document.body.insertBefore(fragment, document.body.firstChild);

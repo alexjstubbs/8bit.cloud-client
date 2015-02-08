@@ -14,13 +14,13 @@ function listRoms(nsp, obj) {
     var platform = obj.platform,
         start    = obj.start;
 
-    fs.readJson(appDir+'/config/config.json', function(err, packageObj) {
+    fs.readJson(__appdirectory+'/config/config.json', function(err, packageObj) {
 
         if (!err) {
 
             config = packageObj;
 
-            fs.readJson(appDir+'/config/platforms.json', function(err, packageObj) {
+            fs.readJson(__appdirectory+'/config/platforms.json', function(err, packageObj) {
 
                 if (!err) {
 
