@@ -597,7 +597,7 @@ var events = {
 
             // Bind Navigation
             navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
-
+            
 
             // Emit to Launc Game
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
@@ -660,7 +660,15 @@ var events = {
             // Exit the Process
             api.emit('request', { request: 'kill', param: processObj.pid });
 
+            // Constuct Object to resume process
+            processObj = {
+                processname: processObj.name,
+                pid: processObj.pid,
+                signal: "SIGCONT"
+            };
 
+            // Send a Request to Node to Resume Process
+            api.emit('request', { request: 'processSignal', param: processObj });
 
             // Add needed navigation hooks
             var _ndoc = document.getElementById("Profile");

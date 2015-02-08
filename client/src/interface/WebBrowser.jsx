@@ -23,6 +23,8 @@ module.exports = React.createClass({
         // document.getElementsByTagName("iframe")[0].focus();
     },
 
+
+
     render: function() {
 
         return (
@@ -33,7 +35,7 @@ module.exports = React.createClass({
                     <input id="url-bar" type="text" className="input-lg navable form-control" data-function="inputFocus" value={this.props.url} />
                 </div>
 
-                <button className="up5 btn-alt btn col-xs-1 btn-alt-font btn-alt-size navable" data-function="gotoUrl"><i className="ion-arrow-right-c"></i></button>
+                <button className="up5 btn-alt btn col-xs-1 btn-alt-font btn-alt-size navable" data-function="gotoUrl">GO  <i className="ion-angle-right"></i></button>
             </form>
 
             <div className="clearfix"></div>

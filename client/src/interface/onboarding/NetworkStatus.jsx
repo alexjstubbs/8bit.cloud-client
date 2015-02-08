@@ -40,14 +40,14 @@ module.exports = React.createClass({
 
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-ios-checkmark green", text: "You are connected to the internet!", button: "Create a New Profile"};
                 // return {functionCall: "nextScreen", functionParameters: "NewProfile", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
             },
 
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
                 document.getElementById("network-skip").classList.remove("hidden");
-                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings"};
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-android-cancel red", text: "Cannot establish internet connection...", button: "Configure Network Settings"};
             }
         }
 

@@ -6,7 +6,7 @@ var exec = require('child_process').exec;
 -------------------------------------------------- */
 var killall = function(nsp, params, callback) {
 
-    exec('killall -w '+params, function(stderr, stdout) {
+    exec('killall '+params, function(stderr, stdout) {
 
         if (nsp) {
             nsp.emit({stdout: stderr, stderr: stderr});

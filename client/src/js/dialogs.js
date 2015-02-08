@@ -227,7 +227,7 @@ var keyboard = function(input) {
     div.classList.add("ignition-modal-parent", "ignition-keyboard", "ui-window");
     div.style.zIndex = _index.length+150;
 
-    document.body.insertBefore(div,  document.body.firstChild);
+    document.body.insertBefore(div, document.body.firstChild);
 
     var activeInputs = document.querySelectorAll(".activeInput")[0];
 
@@ -238,7 +238,7 @@ var keyboard = function(input) {
     input.classList.add("activeInput");
 
     // FIX ME: take styles from ignition modal, remov class name
-    React.renderComponent(Modal({backdrop: true, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
+    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
 };
 

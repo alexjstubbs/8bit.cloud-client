@@ -15,7 +15,7 @@ module.exports = React.createClass({
     getDefaultProps: function() {
     return {
             navable: false,
-            backdrop: true,
+            backdrop: false,
             classList: "container ignition-modal systemNotificationContent",
             children: [],
             input: null,
@@ -25,19 +25,22 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        if (this.props.backdrop) {
+        // RPI1: Skip
 
-            var main = document.getElementById("main");
-            main.classList.add("opacity-50");
-
-            var modals = document.getElementsByClassName("ignition-modal-parent");
-            _(modals).forEach(function(el) {
-                el.classList.add("opacity-0");
-            }).value();
-
-            _.first(modals).classList.remove("opacity-0");
-
-        }
+        
+        // if (this.props.backdrop) {
+        //
+        //     var main = document.getElementById("main");
+        //     main.classList.add("opacity-50");
+        //
+        //     var modals = document.getElementsByClassName("ignition-modal-parent");
+        //     _(modals).forEach(function(el) {
+        //         el.classList.add("opacity-0");
+        //     }).value();
+        //
+        //     _.first(modals).classList.remove("opacity-0");
+        //
+        // }
 
         navigationInit.navigationInit();
     },

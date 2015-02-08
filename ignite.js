@@ -97,13 +97,13 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
         var exec = require('child_process').exec;
 
-        exec('killall qmlscene', function(stderr, stdout) {
+        exec('killall qmlscene', function(stderr, stdout) { // Kill First Loading Screen
 
 
             fs.readdir('config/profiles', function(err, files) {
 
                 if (!err) {
-                    if (files.length !== 0)  {
+                    if (files.length !== 1)  {
                         firstrun = false;
                     }
                 }

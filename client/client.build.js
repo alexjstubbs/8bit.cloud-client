@@ -879,7 +879,7 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
         React.DOM.div({className: "col-xs-4"}, 
-            React.DOM.span(null, React.DOM.i({className: eventString.length ? this.props.classString + eventString[0].icon : this.props.classString}), React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
+            React.DOM.span(null, React.DOM.i({className: eventString.length ? this.props.classString + eventString[0].icon : this.props.classString}), "   ", React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
             React.DOM.span({className: "muted left-adjust"}, eventString.length ? eventString[0].shortcut : " ", " to update")
         )
 
@@ -2432,7 +2432,7 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
     return {
             navable: false,
-            backdrop: true,
+            backdrop: false,
             classList: "container ignition-modal systemNotificationContent",
             children: [],
             input: null,
@@ -2442,19 +2442,22 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-        if (this.props.backdrop) {
+        // RPI1: Skip
 
-            var main = document.getElementById("main");
-            main.classList.add("opacity-50");
-
-            var modals = document.getElementsByClassName("ignition-modal-parent");
-            _(modals).forEach(function(el) {
-                el.classList.add("opacity-0");
-            }).value();
-
-            _.first(modals).classList.remove("opacity-0");
-
-        }
+        
+        // if (this.props.backdrop) {
+        //
+        //     var main = document.getElementById("main");
+        //     main.classList.add("opacity-50");
+        //
+        //     var modals = document.getElementsByClassName("ignition-modal-parent");
+        //     _(modals).forEach(function(el) {
+        //         el.classList.add("opacity-0");
+        //     }).value();
+        //
+        //     _.first(modals).classList.remove("opacity-0");
+        //
+        // }
 
         navigationInit.navigationInit();
     },
@@ -4080,6 +4083,8 @@ module.exports = React.createClass({displayName: 'exports',
         // document.getElementsByTagName("iframe")[0].focus();
     },
 
+
+
     render: function() {
 
         return (
@@ -4090,7 +4095,7 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.input({id: "url-bar", type: "text", className: "input-lg navable form-control", 'data-function': "inputFocus", value: this.props.url})
                 ), 
 
-                React.DOM.button({className: "up5 btn-alt btn col-xs-1 btn-alt-font btn-alt-size navable", 'data-function': "gotoUrl"}, React.DOM.i({className: "ion-arrow-right-c"}))
+                React.DOM.button({className: "up5 btn-alt btn col-xs-1 btn-alt-font btn-alt-size navable", 'data-function': "gotoUrl"}, "GO  ", React.DOM.i({className: "ion-angle-right"}))
             ), 
 
             React.DOM.div({className: "clearfix"}), 
@@ -4334,7 +4339,8 @@ module.exports = React.createClass({displayName: 'exports',
                             ), 
 
 
-                        React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add green pull-right"}), "   Create new Profile"), 
+                        React.DOM.button({className: "btn btn-lg btn-left-align btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add green pull-left"}), "   Create new Profile"), 
+                        React.DOM.button({className: "btn btn-lg btn-left-align btn-alt btn-block navable", 'data-function': "", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person green pull-left"}), "   Use Existing Profile"), 
 
                         React.DOM.input({type: "hidden", name: "server", value: this.props.server})
 
@@ -5007,14 +5013,14 @@ module.exports = React.createClass({displayName: 'exports',
 
             1: function() {
                 document.getElementById("network-next").classList.remove("hidden");
-                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-ios-checkmark green", text: "You are connected to the internet!", button: "Create a New Profile"};
                 // return {functionCall: "nextScreen", functionParameters: "NewProfile", icon: "ion-checkmark-circled green", text: "You are connected to the internet!", button: "Create a New Profile"};
             },
 
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
                 document.getElementById("network-skip").classList.remove("hidden");
-                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-close-circled red", text: "Cannot establish internet connection...", button: "Configure Network Settings"};
+                return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-android-cancel red", text: "Cannot establish internet connection...", button: "Configure Network Settings"};
             }
         }
 
@@ -5770,7 +5776,7 @@ var keyboard = function(input) {
     div.classList.add("ignition-modal-parent", "ignition-keyboard", "ui-window");
     div.style.zIndex = _index.length+150;
 
-    document.body.insertBefore(div,  document.body.firstChild);
+    document.body.insertBefore(div, document.body.firstChild);
 
     var activeInputs = document.querySelectorAll(".activeInput")[0];
 
@@ -5781,7 +5787,7 @@ var keyboard = function(input) {
     input.classList.add("activeInput");
 
     // FIX ME: take styles from ignition modal, remov class name
-    React.renderComponent(Modal({backdrop: true, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
+    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
 };
 
@@ -8597,7 +8603,7 @@ var events = {
 
             // Bind Navigation
             navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
-
+            
 
             // Emit to Launc Game
             api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
@@ -8660,7 +8666,15 @@ var events = {
             // Exit the Process
             api.emit('request', { request: 'kill', param: processObj.pid });
 
+            // Constuct Object to resume process
+            processObj = {
+                processname: processObj.name,
+                pid: processObj.pid,
+                signal: "SIGCONT"
+            };
 
+            // Send a Request to Node to Resume Process
+            api.emit('request', { request: 'processSignal', param: processObj });
 
             // Add needed navigation hooks
             var _ndoc = document.getElementById("Profile");
