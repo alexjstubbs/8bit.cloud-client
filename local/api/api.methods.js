@@ -8,6 +8,7 @@ var api = {
     },
 
     killall: function(nsp, param){
+        console.log(param);
          common.process.killall(nsp, param);
     },
 

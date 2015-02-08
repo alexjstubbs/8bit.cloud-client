@@ -13,6 +13,8 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
+        document.getElementById("main").setAttribute("data-screen", "Welcome");
+
        var controllerImg    = document.getElementById("controller-ui")
        ,   keyboardImg      = document.getElementById("keyboard-ui");
 

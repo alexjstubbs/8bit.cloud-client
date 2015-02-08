@@ -72,6 +72,8 @@ module.exports = React.createClass({
 
     screenMount: function() {
 
+        document.getElementById("main").setAttribute("data-screen", "Dashboard");
+
         var component = this;
 
         setTimeout(function() {

@@ -174,26 +174,30 @@ var show = function(parent, parameters, arg) {
 -------------------------------------------------- */
 var close = function(modal, callback, exception) {
 
+    var container = document.getElementById("main");
+
     // UnPause screen switching in background
     sessionStorage.setItem("navigationState", "");
 
-     var opacits = document.querySelectorAll(".opacity-50");
-     var opacits_ = document.querySelectorAll(".opacity-0");
-
-     _(opacits).forEach(function(el) {
-            el.classList.remove("opacity-50");
-     }).value();
-
-
-     if (_.first(opacits_)) {
-         _.first(opacits_).classList.remove("opacity-0");
-     }
+    // Rpi1 runs out of memory:
+    //  var opacits = document.querySelectorAll(".opacity-50");
+    //  var opacits_ = document.querySelectorAll(".opacity-0");
+     //
+    //  _(opacits).forEach(function(el) {
+    //         el.classList.remove("opacity-50");
+    //  }).value();
+     //
+     //
+    //  if (_.first(opacits_)) {
+    //      _.first(opacits_).classList.remove("opacity-0");
+    //  }
 
 
     modal = document.querySelectorAll(".ignition-modal-parent");
 
     // Re-render dashboard
-    if (modal.length == 1) {
+    if (modal.length == 1 && container.getAttribute("data-screen") == "Dashboard") {
+
 
         events.renderScreenComponents("Dashboard");
 
