@@ -48,7 +48,9 @@
       "console",
       "sessionStorage",
       "localStorage",
-      "setTimeout"
+      "setTimeout",
+      "__base",
+      "global"
     ]
   }
 }

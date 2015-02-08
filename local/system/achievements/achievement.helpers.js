@@ -4,7 +4,7 @@ var fs       = require('fs-extra'),
     path     = require('path'),
     walk     = require('walk'),
     _        = require('lodash'),
-    database = require(appDir+'/local/api/database/database.local');
+    database = require(__base + 'api/database/database.local');
 
 /*  Load all/new Achievement Files into DB
 -------------------------------------------------- */

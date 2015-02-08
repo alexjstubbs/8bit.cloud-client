@@ -5,10 +5,10 @@
 var fs          = require('fs-extra'),
     _           = require('lodash'),
     crc         = require('crc'),
-    hex         = require(appDir+'/local/system/achievements/achievement.hex.helper'),
     exec        = require('child_process').exec,
-    helpers     = require(appDir+'/local/system/system.helpers'),
-    database    = require(appDir+'/local/api/database/database.local');
+    hex         = require(__base + 'system/achievements/achievement.hex.helper'),
+    helpers     = require(__base + 'system/system.helpers'),
+    database    = require(__base + 'api/database/database.local');
 
 /* Set JS Conditional Operators into an iterable Object.
 -------------------------------------------------- */

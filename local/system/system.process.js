@@ -4,7 +4,7 @@ var exec = require('child_process').exec;
 
 /*  Kill All
 -------------------------------------------------- */
-var killall = function(nsp, p
+var killall = function(nsp, params, callback) {
 
     exec('killall '+params, function(stderr, stdout) {
 

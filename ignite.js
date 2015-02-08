@@ -33,6 +33,7 @@ global.appDir               = path.dirname(require.main.filename);
 
 
 console.log(__base);
+
 /* Module dependencies
 -------------------------------------------------- */
 var common                  = require(__base + 'common'),

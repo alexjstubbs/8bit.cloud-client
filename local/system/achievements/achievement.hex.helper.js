@@ -3,7 +3,7 @@
 var fs          = require('fs-extra'),
     Buffer      = require('buffer').Buffer,
     crc         = require('crc'),
-    database    = require(appDir+'/local/api/database/database.local');
+    database    = require(__base + 'api/database/database.local');
 
 // Hex pass must be in format: 0xA8 (NOT 00A8 or 00xA8 etc.)
 function checkHex(stdin, offset, bufflength, addresses, callback) {
