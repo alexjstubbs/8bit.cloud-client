@@ -1,13 +1,13 @@
 /* Game Helpers
 -------------------------------------------------- */
-var database            = require(appDir+'/local/api/database/database.local'),
-    execute             = require(appDir+'/local/system/system.exec'),
-    spawn               = require('child_process').spawn,
+var spawn               = require('child_process').spawn,
     fs                  = require('fs-extra'),
     _                   = require('lodash'),
-    listPlatforms       = require(appDir+'/local/api/api.platforms').listPlatforms,
-    readJSON            = require(appDir+'/local/system/system.read').readJSONFile,
-    achievements        = require(appDir+'/local/system/achievements/achievement.loop');
+    database            = require(__base + 'api/database/database.local'),
+    listPlatforms       = require(__base + 'api/api.platforms').listPlatforms,
+    execute             = require(__base + 'system/system.exec'),
+    readJSON            = require(__base + 'system/system.read').readJSONFile,
+    achievements        = require(__base + 'system/achievements/achievement.loop');
 
 /* Check for valid JSON return
 -------------------------------------------------- */

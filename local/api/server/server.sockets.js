@@ -1,27 +1,27 @@
 /* Server socket API
 -------------------------------------------------- */
-var fs 							= require('fs-extra'),
-	networkMethod 				= require('./server.methods').networkMethod,
-	io 							= require('socket.io-client'),
-	async 						= require('async'),
-	_await 						= false,
-	network,
-	issuedToken;
+var fs              = require('fs-extra'),
+    io              = require('socket.io-client'),
+    async           = require('async'),
+    networkMethod   = require(__base + 'api/server/server.methods').networkMethod,
+    _await          = false,
+    network,
+    issuedToken;
 
 
 /*  Remove Issued Token
 -------------------------------------------------- */
 var removeToken = function() {
-	issuedToken = '';
+    issuedToken = '';
 };
 
 /*  Remove Dead Connections
 -------------------------------------------------- */
 var removeConnection = function() {
-	if (network) {
-		network.disconnect();
-		console.log("removed previous socket...");
-	}
+    if (network) {
+        network.disconnect();
+        console.log("removed previous socket...");
+    }
 };
 
 
@@ -29,27 +29,27 @@ var removeConnection = function() {
 -------------------------------------------------- */
 var networkStatus = function(callback) {
 
-	if (!network) {
+    if (!network) {
 
-		setTimeout(function() {
+        setTimeout(function() {
 
-			if (!network) {
-				callback(null, false);
-			}
+            if (!network) {
+                callback(null, false);
+            }
 
-			else {
-				callback(null, network.connected);
-			}
+            else {
+                callback(null, network.connected);
+            }
 
-		}, 1);
+        }, 1);
 
-	}
+    }
 
-	else {
+    else {
 
-		callback(null, network.connected);
+        callback(null, network.connected);
 
-	}
+    }
 };
 
 /* Get issued Token (if available)
@@ -89,32 +89,32 @@ var issueToken = function(callback) {
 -------------------------------------------------- */
 var networkConnection = function(token, ansp, callback) {
 
-	// var nsp;
+    // var nsp;
    /* Connect to /Network (i.io) namespace/network
    -------------------------------------------------- */
-	var nsp = io.connect('http://ignition.io:6052/network', {
-		'query': 'token=' + token,
-		secure: true
-	});
+    var nsp = io.connect('http://ignition.io:6052/network', {
+        'query': 'token=' + token,
+        secure: true
+    });
 
-	// if (!network) {
-	// 	nsp = io.connect('http://ignition.io:6052/network', {
-	//         'query': 'token=' + token,
-	//         secure: true
-	//     });
-	// }
+    // if (!network) {
+    //     nsp = io.connect('http://ignition.io:6052/network', {
+    //         'query': 'token=' + token,
+    //         secure: true
+    //     });
+    // }
 
-	// else {
-	// 	if (callback) {
-	// 		callback(null, network);
-	// 	}
-	// }
+    // else {
+    //     if (callback) {
+    //         callback(null, network);
+    //     }
+    // }
 
     /* Connection "" successfull
     -------------------------------------------------- */
     nsp.on('connect', function (socket, sock) {
 
-		ansp.emit('api', { isOnline: true });
+        ansp.emit('api', { isOnline: true });
 
         network = nsp;
 
@@ -126,7 +126,7 @@ var networkConnection = function(token, ansp, callback) {
    -------------------------------------------------- */
     }).on('disconnect', function () {
 
-		ansp.emit('api', { isOnline: false });
+        ansp.emit('api', { isOnline: false });
 
     });
 
@@ -134,16 +134,16 @@ var networkConnection = function(token, ansp, callback) {
     -------------------------------------------------- */
     nsp.on('network', function(data, sock) {
 
-		switch(data) {
-			case data.error:
-				__api.emit('messaging', {type: 1, body: data });
-				break;
-			case data.result:
-				networkMethod[data.result.id](data);
-				break;
-			default:
-				__api.emit('network-api', data);
-			}
+        switch(data) {
+            case data.error:
+                __api.emit('messaging', {type: 1, body: data });
+                break;
+            case data.result:
+                networkMethod[data.result.id](data);
+                break;
+            default:
+                __api.emit('network-api', data);
+            }
 
     });
 
@@ -166,23 +166,23 @@ var networkConnection = function(token, ansp, callback) {
 -------------------------------------------------- */
 var networkCheckConnection = function(callback) {
 
-	if (callback || typeof callback == "function") {
+    if (callback || typeof callback == "function") {
 
-		networkConnection(null, null, function(result) {
+        networkConnection(null, null, function(result) {
 
-			callback(network);
+            callback(network);
 
-		});
+        });
 
-	}
+    }
 };
 
 /* Network Interfacing (!!)
 -------------------------------------------------- */
 var networkInterface = function(ansp, json) {
 
-	/* Check if Issued Token Exists
-	-------------------------------------------------- */
+    /* Check if Issued Token Exists
+    -------------------------------------------------- */
 
     if (!issuedToken) {
         issueToken(function(err, token) {
@@ -212,8 +212,8 @@ var networkInterface = function(ansp, json) {
 -------------------------------------------------- */
 var networkCommand = function(ansp, json) {
 
-	/* Token was removed manually by user. Error out.
-	-------------------------------------------------- */
+    /* Token was removed manually by user. Error out.
+    -------------------------------------------------- */
     if (!json.token) {
         console.log("[!] No Token Supplied");
         // issueToken here as well...
@@ -223,56 +223,56 @@ var networkCommand = function(ansp, json) {
     -------------------------------------------------- */
     if (!network) {
 
-		if (_await !== true) {
+        if (_await !== true) {
 
-			_await = true;
+            _await = true;
 
-			networkConnection(issuedToken, ansp, function(err, network) {
+            networkConnection(issuedToken, ansp, function(err, network) {
 
-				if (err) {
-					// ||Client Box||: You are not connected to the server interface
-					console.log("[!] Network Authentication Error: "+err);
-				}
+                if (err) {
+                    // ||Client Box||: You are not connected to the server interface
+                    console.log("[!] Network Authentication Error: "+err);
+                }
 
-				else {
-					network.emit('cmd', json);
-				}
+                else {
+                    network.emit('cmd', json);
+                }
 
-			});
+            });
 
-		}
+        }
 
-	else {
+    else {
 
-		/*  Wait till network is up to send awaiting commands...
-		-------------------------------------------------- */
-		async.until(
-				function () { return network; },
-				function (callback) {
-					setTimeout(callback, 1000);
-				},
-				function () {
-					network.emit('cmd', json);
-				}
-			);
-		}
-	}
+        /*  Wait till network is up to send awaiting commands...
+        -------------------------------------------------- */
+        async.until(
+                function () { return network; },
+                function (callback) {
+                    setTimeout(callback, 1000);
+                },
+                function () {
+                    network.emit('cmd', json);
+                }
+            );
+        }
+    }
 
 
-	/* All is well. Send Command
-	-------------------------------------------------- */
-	else {
-		network.emit('cmd', json);
-	}
+    /* All is well. Send Command
+    -------------------------------------------------- */
+    else {
+        network.emit('cmd', json);
+    }
 
 };
 
 /* Exports
 -------------------------------------------------- */
-exports.removeToken		   		= removeToken;
-exports.removeConnection  		= removeConnection;
-exports.networkStatus   		= networkStatus;
-exports.networkConnection   	= networkConnection;
-exports.networkInterface    	= networkInterface;
-exports.networkCommand      	= networkCommand;
+exports.removeToken                   = removeToken;
+exports.removeConnection          = removeConnection;
+exports.networkStatus           = networkStatus;
+exports.networkConnection       = networkConnection;
+exports.networkInterface        = networkInterface;
+exports.networkCommand          = networkCommand;
 exports.networkCheckConnection  = networkCheckConnection;

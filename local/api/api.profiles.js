@@ -4,9 +4,9 @@
 var fs       = require('fs-extra'),
     path     = require('path'),
     _        = require('lodash'),
-    server   = require('./server/server.api'),
-    sysRead  = require('../system/system.read'),
-    sysWrite = require('../system/system.write');
+    server   = require(__base + 'api/server/server.api'),
+    sysRead  = require(__base + 'system/system.read'),
+    sysWrite = require(__base + 'system/system.write');
 
 
 /* Create Session

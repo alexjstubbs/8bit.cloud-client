@@ -1,6 +1,6 @@
 /* System API: Sounds
 -------------------------------------------------- */
-var execute = require(appDir+'/local/common').exec;
+var execute = require(__base + 'common').exec;
 
 exports.play = function(req, res) {
 

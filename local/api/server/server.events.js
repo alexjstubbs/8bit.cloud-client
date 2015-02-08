@@ -1,6 +1,6 @@
 /* Server Events
 -------------------------------------------------- */
-var api = require('../api');
+var api = require(__base + 'api/api');
 
 /*  Entry Point for Network
 -------------------------------------------------- */

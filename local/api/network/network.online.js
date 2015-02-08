@@ -1,7 +1,7 @@
 /* Network.isOnline
 -------------------------------------------------- */
 var _             = require('lodash'),
-    sockets       = require('../server/server.sockets');
+    sockets       = require(__base + 'api/server/server.sockets');
 
 
 /* Connected to the Internet

@@ -1,6 +1,6 @@
 /* Socket Server Client API
 -------------------------------------------------- */
-var methods = require('./api.methods.js');
+var methods = require(__base + 'api/api.methods.js');
 
 /* Sockets.io
 -------------------------------------------------- */

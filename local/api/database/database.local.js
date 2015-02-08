@@ -1,8 +1,8 @@
 /* Local System Database
 -------------------------------------------------- */
-var Datastore          = require('nedb'),
-    _                  = require('lodash'),
-    achievementHelpers = require(appDir+'/local/system/achievements/achievement.helpers');
+var achievementHelpers = require(__base + 'system/achievements/achievement.helpers'),
+    Datastore          = require('nedb'),
+    _                  = require('lodash');
 
 /* Init Databases (called on profile creation?)
 -------------------------------------------------- */
@@ -261,12 +261,12 @@ function getGamesAjax(req, res) {
 
 /*  Exports
 -------------------------------------------------- */
+exports.initDatabases       = initDatabases;
 exports.storeGame           = storeGame;
 exports.findGame            = findGame;
 exports.dropDatabase        = dropDatabase;
 exports.storeAchievement    = storeAchievement;
 exports.findAchievements    = findAchievements;
-exports.initDatabases       = initDatabases;
 exports.storeGet            = storeGet;
 exports.storeData           = storeData;
 exports.removeFavorite      = removeFavorite;

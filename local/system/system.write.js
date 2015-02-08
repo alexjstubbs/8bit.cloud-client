@@ -2,10 +2,10 @@
 -------------------------------------------------- */
 
 var fs      = require('fs-extra'),
-    read    = require('./system.read'),
     exec    = require('child_process').exec,
     network = require('child_process').exec,
-    _       = require('lodash');
+    _       = require('lodash'),
+    read    = require(__base + 'system/system.read');
 
 
 /*  Remove a file

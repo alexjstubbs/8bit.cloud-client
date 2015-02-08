@@ -1,7 +1,7 @@
 /*  Location Information
 -------------------------------------------------- */
 var request     = require('request'),
-    helpers     = require('../../system/system.helpers');
+    helpers     = require(__base + 'system/system.helpers');
 
 /*  Get local IP and info
 -------------------------------------------------- */

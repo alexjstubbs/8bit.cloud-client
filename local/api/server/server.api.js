@@ -3,13 +3,13 @@
 var fs          = require('fs-extra'),
     path        = require('path'),
     request     = require('request'),
-    sockets     = require('./server.sockets'),
-    helpers     = require('../../system/system.helpers'),
-    forms       = require('../../api/api.forms'),
     bcrypt      = require('bcrypt'),
-    profiles    = require('../../api/api.profiles'),
-    fileFunc    = require('../../system/system.write'),
-    _           = require('lodash');
+    sockets     = require(__base + 'api/server/server.sockets'),
+    helpers     = require(__base + 'system/system.helpers'),
+    forms       = require(__base + 'api/api.forms'),
+    profiles    = require(__base + 'api/api.profiles'),
+    fileFunc    = require(__base + 'system/system.write');
+
 
 /* Set up
 -------------------------------------------------- */
@@ -29,10 +29,10 @@ var server = "ignition.io:3000",
     v = "v1";
 
 
-/* Password Hash
+/* Password Hash Test
 -------------------------------------------------- */
 var passHash = function(input, callback) {
-    var rand  = _.random(0, 1024);
+    // var rand  = _.random(0, 1024);
 
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash("SEGA", salt, function(err, hash) {

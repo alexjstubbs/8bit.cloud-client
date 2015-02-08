@@ -4,7 +4,19 @@
 * Copyright (c) Alexander Stubbs. All Rights Reserved.
 */
 
-/* Dev. run enviorment
+/* Working Enviorment
+-------------------------------------------------- */
+var igniteEnviorment = "production";
+
+if (igniteEnviorment === "production") {
+    global.__base = __dirname + '/production/';
+}
+
+else {
+    global.__base = __dirname + '/';
+}
+
+/*  Platform Enviorment
 -------------------------------------------------- */
 if (process.platform == 'darwin') {
     process.env.NODE_ENV    = 'osx';
@@ -19,9 +31,11 @@ global.config               = require('konfig')();
 var path                    = require('path');
 global.appDir               = path.dirname(require.main.filename);
 
+
+console.log(__base);
 /* Module dependencies
 -------------------------------------------------- */
-var common                  = require('./local/common'),
+var common                  = require(__base + 'common'),
     methodOverride          = require('method-override'),
     compress                = require('compression'),
     app                     = common.express(),
