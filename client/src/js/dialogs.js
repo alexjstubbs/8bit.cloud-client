@@ -93,7 +93,7 @@ var show = function(parent, parameters, arg) {
 
     var Child;
 
-     // Pase screen switching in background
+     // Pause screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
     var _index      = document.querySelectorAll(".ignition-modal"),
@@ -107,11 +107,7 @@ var show = function(parent, parameters, arg) {
     _notification.classList.add("ignition-modal-notification", "ui-window");
     fragment.appendChild(_notification);
 
-
     _div.style.zIndex = _index.length+150;
-
-    console.log(_div);
-    console.log(_index.length+150);
 
     fragment.appendChild(_div);
 

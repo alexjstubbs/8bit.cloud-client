@@ -176,19 +176,34 @@ var events = {
 
     },
 
+    /*  Sign Up Status Window
+    -------------------------------------------------- */
+    signUpStatus: function(parameters) {
+
+        var el       = document.getElementById("signup-status");
+        var elIcon   = document.getElementById("signup-status-icon");
+        var elButton = document.getElementById("signup-status-button");
+
+        el.innerHTML       = parameters.message;
+        elIcon.innerHTML   = parameters.icon;
+        elButton.innerHTML = parameters.buttonText;
+
+        elButton.setAttribute("data-function", parameters.buttonAction);
+
+    },
+
     /*  Sign Up Dialog
     -------------------------------------------------- */
     signUpSubmit: function(parameters) {
-            // Show Dialog
-            // dialog.show("SignUpSync");
-            
-            // Submit Form
-            events.submitForm(parameters);
+
+        // Show Dialog
+        dialog.show("SignUpSync");
+
     },
 
     /* Submit form on Action button/keypress
     -------------------------------------------------- */
-    submitForm: function(parameters) {
+    submitForm: function(parameters, callback) {
 
         // Find Form
         var form = document.forms[parameters].elements,
@@ -209,16 +224,19 @@ var events = {
 
             case "true": {
                 api.emit('request', { request: 'submitForm', param: obj });
+                if (callback) { callback(); }
                 break;
             }
 
             case "false": {
                 api.emit('request', { request: 'writeJSONSync', param: obj });
+                if (callback) { callback(); }
                 break;
             }
 
             case "cache": {
                  api.emit('request', { request: "cacheForm", param: obj });
+                 if (callback) { callback(); }
                 break;
             }
 

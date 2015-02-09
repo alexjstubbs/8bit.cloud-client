@@ -3355,16 +3355,17 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-            React.DOM.div({className: "parent"}, 
+            React.DOM.div({className: "parent", id: "signup-status-window"}, 
 
-                React.DOM.p({className: "center-notice"}, React.DOM.i({className: "animate-spin ion-android-sync"}), " Setting up new profile..."), 
+                React.DOM.p({id: "signup-status", className: "center-notice"}, "Setting up new profile..."), 
 
-                    React.DOM.hr(null), 
+                React.DOM.h1({id: "signup-status-icon", className: "text-center"}, 
+                    React.DOM.i({className: "animate-spin ion-android-sync"})
+                ), 
 
-                    React.DOM.button({className: "navable btn-alt btn btn-lg btn-block", 'data-function': "closeDialog"}, "Cancel")
+                React.DOM.button({id: "signup-status-button", className: "navable btn btn-alt btn-block", 'data-function': "closeDialog"}, "Cancel")
 
             )
-
 
         );
     }
@@ -4390,7 +4391,7 @@ module.exports = React.createClass({displayName: 'exports',
                             ), 
 
 
-                        React.DOM.button({className: "btn btn-lg btn-blue btn-alt btn-block navable", 'data-function': "signUpSubmit", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add pull-left"}), "   Create new Profile"), 
+                        React.DOM.button({className: "btn btn-lg btn-blue btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add pull-left"}), "   Create new Profile"), 
                         React.DOM.button({className: "btn btn-lg btn-gray btn-alt btn-block navable", 'data-function': "", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person pull-left"}), "   Use Existing Profile"), 
 
                         React.DOM.input({type: "hidden", name: "server", value: this.props.server})
@@ -5695,7 +5696,7 @@ var show = function(parent, parameters, arg) {
 
     var Child;
 
-     // Pase screen switching in background
+     // Pause screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
     var _index      = document.querySelectorAll(".ignition-modal"),
@@ -5709,11 +5710,7 @@ var show = function(parent, parameters, arg) {
     _notification.classList.add("ignition-modal-notification", "ui-window");
     fragment.appendChild(_notification);
 
-
     _div.style.zIndex = _index.length+150;
-
-    console.log(_div);
-    console.log(_index.length+150);
 
     fragment.appendChild(_div);
 
@@ -8247,19 +8244,34 @@ var events = {
 
     },
 
+    /*  Sign Up Status Window
+    -------------------------------------------------- */
+    signUpStatus: function(parameters) {
+
+        var el       = document.getElementById("signup-status");
+        var elIcon   = document.getElementById("signup-status-icon");
+        var elButton = document.getElementById("signup-status-button");
+
+        el.innerHTML       = parameters.message;
+        elIcon.innerHTML   = parameters.icon;
+        elButton.innerHTML = parameters.buttonText;
+
+        elButton.setAttribute("data-function", parameters.buttonAction);
+
+    },
+
     /*  Sign Up Dialog
     -------------------------------------------------- */
     signUpSubmit: function(parameters) {
-            // Show Dialog
-            // dialog.show("SignUpSync");
-            
-            // Submit Form
-            events.submitForm(parameters);
+
+        // Show Dialog
+        dialog.show("SignUpSync");
+
     },
 
     /* Submit form on Action button/keypress
     -------------------------------------------------- */
-    submitForm: function(parameters) {
+    submitForm: function(parameters, callback) {
 
         // Find Form
         var form = document.forms[parameters].elements,
@@ -8280,16 +8292,19 @@ var events = {
 
             case "true": {
                 api.emit('request', { request: 'submitForm', param: obj });
+                if (callback) { callback(); }
                 break;
             }
 
             case "false": {
                 api.emit('request', { request: 'writeJSONSync', param: obj });
+                if (callback) { callback(); }
                 break;
             }
 
             case "cache": {
                  api.emit('request', { request: "cacheForm", param: obj });
+                 if (callback) { callback(); }
                 break;
             }
 

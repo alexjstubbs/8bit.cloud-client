@@ -29,16 +29,17 @@ module.exports = React.createClass({
 
         return (
 
-            <div className="parent">
+            <div className="parent" id="signup-status-window">
 
-                <p className="center-notice"><i className="animate-spin ion-android-sync"></i> Setting up new profile...</p>
+                <p id="signup-status" className="center-notice">Setting up new profile...</p>
 
-                    <hr />
+                <h1 id="signup-status-icon" className="text-center">
+                    <i className="animate-spin ion-android-sync"></i>
+                </h1>
 
-                    <button className="navable btn-alt btn btn-lg btn-block" data-function="closeDialog">Cancel</button>
+                <button id="signup-status-button" className="navable btn btn-alt btn-block" data-function="closeDialog">Cancel</button>
 
             </div>
-
 
         );
     }

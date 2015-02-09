@@ -365,6 +365,9 @@ var getSession = function(nsp, callback) {
 
 var signUp = function(nsp, profile, callback) {
 
+
+    nsp.emit('clientEvent', {command: "signUpSubmit", params: null });
+
     // Callback Sync
     function fnLog(err, msg) {
         if (callback || typeof callback == "function") {

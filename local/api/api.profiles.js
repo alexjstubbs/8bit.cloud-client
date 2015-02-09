@@ -137,25 +137,59 @@ function profileLogin(nsp) {
 -------------------------------------------------- */
 function newProfile(nsp, data) {
 
+    var params;
     // Error Handeling
     function profileError(err) {
 
         switch(err.id) {
 
             case "username_taken":
-                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Choose another Username" });
+                params = {
+                    message: err.message,
+                    icon: "<i class='ion-alert-circled red'></i>",
+                    buttonText: "Re-enter my password",
+                    buttonAction: "closeDialog"
+                };
+
+                nsp.emit('clientEvent', {command: "signUpStatus", params: params });
+                // nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Choose another Username" });
                 break;
 
             case "email_taken":
-                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "profileScreen", dataParameters: null, button: "Login" });
+                params = {
+                    message: err.message,
+                    icon: "<i class='ion-alert-circled red'></i>",
+                    buttonText: "Re-enter my password",
+                    buttonAction: "closeDialog"
+                };
+
+                nsp.emit('clientEvent', {command: "signUpStatus", params: params });
+                // nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "profileScreen", dataParameters: null, button: "Login" });
                 break;
 
             case "password_notmatched":
-                nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Re-enter my password" });
+                params = {
+                    message: err.message,
+                    icon: "<i class='ion-alert-circled red'></i>",
+                    buttonText: "Re-enter my password",
+                    buttonAction: "closeDialog"
+                };
+
+                nsp.emit('clientEvent', {command: "signUpStatus", params: params });
+                // nsp.emit('messaging', {type: 0, body: err.message, dataFunction: "closeDialog", dataParameters: null, button: "Re-enter my password" });
                 break;
 
             default:
-                nsp.emit('messaging', {type: 0, body: "Connection could not be established with the server.", dataFunction: "preloadDashboard", dataParameters: "offline", button: "Continue Offline" });
+                params = {
+                    message: "Connection could not be established",
+                    icon: "<i class='ion-alert-circled red'></i>",
+                    buttonText: "Continue Offline",
+                    buttonAction: "preloadDashboard"
+                };
+
+                nsp.emit('clientEvent', {command: "signUpStatus", params: params });
+
+                // nsp.emit('messaging', {type: 0, body: "Connection could not be established with the server.", dataFunction: "preloadDashboard", dataParameters: "offline", button: "Continue Offline" });
                 break;
 
         }
