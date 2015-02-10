@@ -4,16 +4,16 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   navigationInit  = require('../../js/navigation.init')
-,   Avatar          = require('../Avatar.jsx');
+var React           = require('react/addons'),
+    navigationInit  = require('../../js/navigation.init'),
+    Avatar          = require('../Avatar.jsx');
 
 module.exports = React.createClass({
 
     getInitialState: function() {
             return {
                 type: "message"
-            }
+            };
     },
 
     getDefaultProps: function() {
@@ -24,7 +24,7 @@ module.exports = React.createClass({
             backdrop: true,
             server: "true",
             classList: 'col-xs-12'
-        }
+        };
     },
 
     componentDidMount: function() {

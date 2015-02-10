@@ -1243,9 +1243,7 @@ var React               = require('react/addons'),
     navigationInit      = require('../js/navigation.init'),
     UserAvatar          = require('./Avatar.jsx'),
     Avatar,
-    noFriends,
-    noFriendsOnline,
-    hasFriends;
+    noFriends;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1270,7 +1268,6 @@ module.exports = React.createClass({displayName: 'exports',
                 _this.forceUpdate();
                 navigationInit.navigationInit();
 
-                noFriends = true;
             }
 
         });
@@ -1288,6 +1285,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        var noFriends_ = document.getElementById("noFriends");
 
         var friendsNodes = this.state.friends.map(function (friend, i) {
 
@@ -1299,6 +1297,13 @@ module.exports = React.createClass({displayName: 'exports',
 
         friendsNodes.reverse();
 
+        if (friendsNodes.length) {
+            noFriends = "hidden text-center";
+        }
+
+        else {
+            noFriends = "";
+        }
 
         return (
 
@@ -1306,7 +1311,8 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "messages-list scroll-into-view"}, 
 
-                noFriends ? null : React.DOM.h3({className: "text-center"}, React.DOM.br(null), React.DOM.i({className: "ion-sad"}), "   You currently have no friends online", React.DOM.br(null), React.DOM.br(null)), 
+
+         React.DOM.h3({id: "noFriends", className: noFriends}, React.DOM.br(null), React.DOM.i({className: "ion-sad"}), "   You currently have no friends online", React.DOM.br(null), React.DOM.br(null)), 
 
                 friendsNodes
 
@@ -3198,21 +3204,21 @@ module.exports = React.createClass({displayName: 'exports',
                React.DOM.div({className: "row"}, 
                   React.DOM.div({className: "col-xs-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-ios-game-controller-b-outline"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-android-image"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 1"), 
                      "06/27/2014 @ 5:58pm"
                   ), 
                   React.DOM.div({className: "col-xs-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-ios-game-controller-b-outline"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-android-image"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 2"), 
                      "01/21/2013 @ 2:01pm"
                   ), 
                   React.DOM.div({className: "col-xs-4"}, 
                      React.DOM.a({href: "#"}, 
-                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-ios-game-controller-b-outline"}))
+                     React.DOM.div({className: "no-screenshot save-slot navable"}, React.DOM.i({className: "mute icon ion-android-image"}))
                      ), 
                      React.DOM.div({className: "slot-number"}, "Slot 3"), 
                      "06/27/2014 @ 5:58pm"
@@ -3362,6 +3368,8 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.h1({id: "signup-status-icon", className: "text-center"}, 
                     React.DOM.i({className: "animate-spin ion-android-sync"})
                 ), 
+
+                React.DOM.br(null), 
 
                 React.DOM.button({id: "signup-status-button", className: "navable btn btn-alt btn-block", 'data-function': "closeDialog"}, "Cancel")
 
@@ -4236,7 +4244,7 @@ module.exports = React.createClass({displayName: 'exports',
                     ), 
 
                     React.DOM.div({className: "pull-right"}, 
-                        React.DOM.button({className: "btn btn-lg btn-alt btn-alt-size navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "fa fa-circle-o-notch fa-spin"}), "   Add as a Friend")
+                        React.DOM.button({className: "btn btn-lg btn-alt btn-alt-size navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, React.DOM.i({className: "ion-person-add"}), "   Add as a Friend")
                     ), 
 
                     React.DOM.input({type: "hidden", name: "server", value: this.props.server})
@@ -4255,16 +4263,16 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   navigationInit  = require('../../js/navigation.init')
-,   Avatar          = require('../Avatar.jsx');
+var React           = require('react/addons'),
+    navigationInit  = require('../../js/navigation.init'),
+    Avatar          = require('../Avatar.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
             return {
                 type: "message"
-            }
+            };
     },
 
     getDefaultProps: function() {
@@ -4275,7 +4283,7 @@ module.exports = React.createClass({displayName: 'exports',
             backdrop: true,
             server: "true",
             classList: 'col-xs-12'
-        }
+        };
     },
 
     componentDidMount: function() {
@@ -5800,17 +5808,12 @@ var close = function(modal, callback, exception) {
     //  }
 
 
-    modal = document.querySelectorAll(".ignition-modal-parent");
+    modal = document.querySelectorAll(".ignition-modal-parent")[0];
 
     // Re-render dashboard
     if (modal.length == 1 && container.getAttribute("data-screen") == "Dashboard") {
-
-
         events.renderScreenComponents("Dashboard");
-
     }
-
-    modal = _.first(modal);
 
     modal.parentNode.removeChild(modal);
 
@@ -7919,9 +7922,10 @@ module.exports = function(k) {
 
                 if (selRows[0] && !sub[0]) {
 
+
                     var indexed = _.findIndex(selRows, function(chr) {
-                        return selNum < chr.getAttribute("data-nav");
-                        });
+                        return parseInt(selNum) < parseInt(chr.getAttribute("data-nav"));
+                    });
 
 
                     if (selRows[indexed]) {
@@ -8605,6 +8609,7 @@ var events = {
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
+            // var achievement = querySelectorAll(".ignition-modal-achievement")[0];
             dialog.close(null, null, "uiNotification");
         }, 4500);
 

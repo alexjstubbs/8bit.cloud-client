@@ -197,17 +197,12 @@ var close = function(modal, callback, exception) {
     //  }
 
 
-    modal = document.querySelectorAll(".ignition-modal-parent");
+    modal = document.querySelectorAll(".ignition-modal-parent")[0];
 
     // Re-render dashboard
     if (modal.length == 1 && container.getAttribute("data-screen") == "Dashboard") {
-
-
         events.renderScreenComponents("Dashboard");
-
     }
-
-    modal = _.first(modal);
 
     modal.parentNode.removeChild(modal);
 

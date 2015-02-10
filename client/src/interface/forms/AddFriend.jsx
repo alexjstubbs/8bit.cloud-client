@@ -64,7 +64,7 @@ module.exports = React.createClass({
                     </div>
 
                     <div className="pull-right">
-                        <button className="btn btn-lg btn-alt btn-alt-size navable" data-function='submitForm' data-parameters={this.props.form}><i className="fa fa-circle-o-notch fa-spin"></i> &nbsp; Add as a Friend</button>
+                        <button className="btn btn-lg btn-alt btn-alt-size navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add"></i> &nbsp; Add as a Friend</button>
                     </div>
 
                     <input type="hidden" name="server" value={this.props.server} />

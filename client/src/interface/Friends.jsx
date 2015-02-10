@@ -10,9 +10,7 @@ var React               = require('react/addons'),
     navigationInit      = require('../js/navigation.init'),
     UserAvatar          = require('./Avatar.jsx'),
     Avatar,
-    noFriends,
-    noFriendsOnline,
-    hasFriends;
+    noFriends;
 
 module.exports = React.createClass({
 
@@ -37,7 +35,6 @@ module.exports = React.createClass({
                 _this.forceUpdate();
                 navigationInit.navigationInit();
 
-                noFriends = true;
             }
 
         });
@@ -55,6 +52,7 @@ module.exports = React.createClass({
 
     render: function() {
 
+        var noFriends_ = document.getElementById("noFriends");
 
         var friendsNodes = this.state.friends.map(function (friend, i) {
 
@@ -66,6 +64,13 @@ module.exports = React.createClass({
 
         friendsNodes.reverse();
 
+        if (friendsNodes.length) {
+            noFriends = "hidden text-center";
+        }
+
+        else {
+            noFriends = "";
+        }
 
         return (
 
@@ -73,7 +78,8 @@ module.exports = React.createClass({
 
             <div className="messages-list scroll-into-view">
 
-                {noFriends ? null : <h3 className="text-center"><br /><i className="ion-sad"></i> &nbsp; You currently have no friends online<br /><br /></h3>}
+
+         <h3 id="noFriends" className={noFriends}><br /><i className="ion-sad"></i> &nbsp; You currently have no friends online<br /><br /></h3>
 
                 {friendsNodes}
 

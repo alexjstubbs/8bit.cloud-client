@@ -537,6 +537,7 @@ var events = {
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
+            // var achievement = querySelectorAll(".ignition-modal-achievement")[0];
             dialog.close(null, null, "uiNotification");
         }, 4500);
 

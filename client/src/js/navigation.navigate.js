@@ -250,9 +250,10 @@ module.exports = function(k) {
 
                 if (selRows[0] && !sub[0]) {
 
+
                     var indexed = _.findIndex(selRows, function(chr) {
-                        return selNum < chr.getAttribute("data-nav");
-                        });
+                        return parseInt(selNum) < parseInt(chr.getAttribute("data-nav"));
+                    });
 
 
                     if (selRows[indexed]) {

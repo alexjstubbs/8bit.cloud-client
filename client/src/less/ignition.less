@@ -253,6 +253,7 @@ textarea.textarea-height {
 
 
 .ignition-modal {
+    display:none;
     // position:fixed;
     // top:20%;
     // left:10%;
@@ -272,13 +273,18 @@ textarea.textarea-height {
     margin: 0 auto;
 
     /* box-shadow:0px 20px 35px 10px rgba(0, 0, 0, 0.5); */
-    box-shadow: 0px 0px 150px 150px rgba(0, 0, 0, 0.5)
+    /* box-shadow: 0px 0px 150px 150px rgba(0, 0, 0, 0.5)
 
 
-/*     -webkit-animation-duration: 0.2s;
-animation-duration: 0.2s;
--webkit-animation-name: bounceIn;
-animation-name: bounceIn; */
+    -webkit-animation-duration: 0.2s;
+    animation-duration: 0.2s;
+    -webkit-animation-name: bounceIn;
+    animation-name: bounceIn; */
+}
+
+
+.ignition-modal:last-child {
+    display:block;
 }
 
 .ignition-modal-achievement {
@@ -416,11 +422,11 @@ form .label-unselected {
 }
 
 #panel_activity tbody td h2 {
-    text-align:center;
+    /* text-align:center; */
 }
 
 #panel_activity tbody td {
-    vertical-align: inherit !important;
+    /* vertical-align: inherit !important; */
 }
 
 #panel_activity, #panel_community {
@@ -1805,7 +1811,7 @@ animation:flashIn 0.5s forwards; */
 
 .no-screenshot i {
   position: relative;
-  top: 50%;
+  top: 20%;
   -webkit-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);

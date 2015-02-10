@@ -37,6 +37,8 @@ module.exports = React.createClass({
                     <i className="animate-spin ion-android-sync"></i>
                 </h1>
 
+                <br />
+
                 <button id="signup-status-button" className="navable btn btn-alt btn-block" data-function="closeDialog">Cancel</button>
 
             </div>
