@@ -48,7 +48,6 @@ function listRoms(nsp, obj) {
 
                             _(list).forEach(function(filename) {
 
-                                console.log(path.extname(filename));
                                 if (!helpers.isUnixHiddenPath(filename) && path.extname(filename) !== '') {
 
                                     // if (path.extname(filename) )

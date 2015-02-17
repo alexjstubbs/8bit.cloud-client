@@ -6959,7 +6959,7 @@ var browserNavigationEvents = function(g) {
         document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
     }
 
-    if (!g.nextSibling && navPos == total) {
+    if (!g.nextSibling && navPos != total) {
 
         var Obj = {
             platform: document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
