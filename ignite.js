@@ -6,7 +6,7 @@
 
 /* Working Enviorment
 -------------------------------------------------- */
-var iEnviorment = "development";
+var iEnviorment = "production";
 
 if (iEnviorment === "production") {
     global.__base = __dirname + '/production/';
@@ -24,15 +24,20 @@ if (process.platform == 'darwin') {
 
 else {
     process.env.NODE_ENV    = 'pi';
+
 }
 
 var path                    = require('path');
 
+
 global.config               = require('konfig')();
-global.__appdirectory               = path.dirname(require.main.filename);
+global.__appdirectory       = path.dirname(require.main.filename);
 
 
-console.log(__base);
+// Global Error Handler
+process.on('uncaughtException', function (err) {
+  console.log(err.stack);
+});
 
 /* Module dependencies
 -------------------------------------------------- */

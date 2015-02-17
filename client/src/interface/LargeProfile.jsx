@@ -116,7 +116,7 @@ module.exports = React.createClass({
             return <SaveStates filename={state.filename} image={state.image} slot={state.slot} navStack={i+1} />
         });
 
-        if (this.state.crc32) {
+        if (this.state.crc32 && this.state.crc32 != "null") {
 
             var achievementNodes = this.state.crc32[0].Achievements.map(function (achievement, i) {
                 return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />

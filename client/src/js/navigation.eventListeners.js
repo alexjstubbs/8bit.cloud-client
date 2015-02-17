@@ -30,7 +30,7 @@ var navigationEventListeners = {
 
     passSessionKeyEvent: function(e) {
 
-        if (e.keyCode === 76) { //L
+        if (e.keyCode === 27) { //esc
             systemEvents.events.toggleUserSpaceSidebar();
         }
 

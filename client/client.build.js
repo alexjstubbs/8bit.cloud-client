@@ -105,8 +105,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         navigationInit.navigationDeinit();
 
-        console.log(this.props.achievement.title);
-
     return (
 
         React.DOM.div({className: "parent"}, 
@@ -1977,7 +1975,7 @@ module.exports = React.createClass({displayName: 'exports',
             return SaveStates({filename: state.filename, image: state.image, slot: state.slot, navStack: i+1})
         });
 
-        if (this.state.crc32) {
+        if (this.state.crc32 && this.state.crc32 != "null") {
 
             var achievementNodes = this.state.crc32[0].Achievements.map(function (achievement, i) {
                 return AchievementList({title: achievement.title, description: achievement.description, navStack: i+1})
@@ -4678,7 +4676,7 @@ module.exports = React.createClass({displayName: 'exports',
         }
 
         else {
-            nextButton = React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "openDialog", 'data-parameters': type}, React.DOM.i({className: "ion-close-circled red pull-left"}), "   Continue Offline")
+            nextButton = React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "nextScreen", 'data-parameters': type}, React.DOM.i({className: "ion-close-circled red pull-left"}), "   Continue Offline")
         }
 
         return (
@@ -5037,9 +5035,9 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   WizardHeader    = require('./WizardHeader.jsx');
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),   
+    WizardHeader    = require('./WizardHeader.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -5047,7 +5045,7 @@ module.exports = React.createClass({displayName: 'exports',
         return {
             status: 0,
             button: "Create Your Profile"
-        }
+        };
     },
 
 
@@ -5059,7 +5057,7 @@ module.exports = React.createClass({displayName: 'exports',
 			networkInfo: [],
 			status: 0
 
-        }
+        };
     },
 
     render: function() {
@@ -5711,6 +5709,9 @@ var show = function(parent, parameters, arg) {
         fragment    = document.createDocumentFragment(),
         properties  = {};
 
+        // var lastWindow = _.last(_index);
+        // if (lastWindow) { lastWindow.classList.add("opacity-50") }
+
     _div = document.createElement("div");
     _div.classList.add("ignition-modal-parent");
 
@@ -5794,6 +5795,7 @@ var close = function(modal, callback, exception) {
     // UnPause screen switching in background
     sessionStorage.setItem("navigationState", "");
 
+
     // Rpi1 runs out of memory:
     //  var opacits = document.querySelectorAll(".opacity-50");
     //  var opacits_ = document.querySelectorAll(".opacity-0");
@@ -5807,6 +5809,12 @@ var close = function(modal, callback, exception) {
     //      _.first(opacits_).classList.remove("opacity-0");
     //  }
 
+    var _index      = document.querySelectorAll(".ignition-modal");
+
+    // var lastWindow = _.last(_index);
+    // if (lastWindow) { lastWindow.classList.remove("opacity-50") }
+    //
+    // console.log(lastWindow);
 
     modal = document.querySelectorAll(".ignition-modal-parent")[0];
 
@@ -5835,7 +5843,8 @@ var keyboard = function(input) {
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
-    var _index = document.querySelectorAll(".ignition-modal-");
+    var _index = document.querySelectorAll(".ui-window");
+
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent", "ignition-keyboard", "ui-window");
@@ -7128,7 +7137,7 @@ var navigationEventListeners = {
 
     passSessionKeyEvent: function(e) {
 
-        if (e.keyCode === 76) { //L
+        if (e.keyCode === 27) { //esc
             systemEvents.events.toggleUserSpaceSidebar();
         }
 
@@ -8609,8 +8618,9 @@ var events = {
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
-            // var achievement = querySelectorAll(".ignition-modal-achievement")[0];
-            dialog.close(null, null, "uiNotification");
+            var achievement = document.querySelectorAll(".ignition-modal-achievement")[0];
+            // dialog.close(null, null, "uiNotification");
+            achievement.remove();
         }, 4500);
 
     },
@@ -8625,26 +8635,33 @@ var events = {
         // Get SessionStorage for current running process
         var processObj = sessionStorage.getItem("processStorage");
 
-        processObj = JSON.parse(processObj);
+        console.log(processObj);
 
-        processObj = processObj.processStorage;
+        if (processObj) {
+            processObj = JSON.parse(processObj);
+
+            processObj = processObj.processStorage;
+        }
 
         // If there is no user-space-right window open
         if (!userSpaceExists.length) {
 
 
-            // Constuct Object to pause process
-            processObj = {
-                processname: processObj.name,
-                pid: processObj.pid,
-                signal: "SIGSTOP"
-            };
+            if (processObj) {
+                // Constuct Object to pause process
+                processObj = {
+                    processname: processObj.name,
+                    pid: processObj.pid,
+                    signal: "SIGSTOP"
+                };
+
+                // Send a Request to Node to Pause Process
+                api.emit('request', { request: 'processSignal', param: processObj });
+
+            }
 
 
-            // Send a Request to Node to Pause Process
-            api.emit('request', { request: 'processSignal', param: processObj });
-
-            // Open Window
+        // Open Window
             dialog.userSpaceRight();
 
             events.resumeSessionNavigation();
@@ -8659,14 +8676,18 @@ var events = {
             events.pauseSessionNavigation();
 
             // Constuct Object to resume process
-            processObj = {
-                processname: processObj.name,
-                pid: processObj.pid,
-                signal: "SIGCONT"
-            };
+            if (processObj) {
+                processObj = {
+                    processname: processObj.name,
+                    pid: processObj.pid,
+                    signal: "SIGCONT"
+                };
 
-            // Send a Request to Node to Resume Process
-            api.emit('request', { request: 'processSignal', param: processObj });
+                // Send a Request to Node to Resume Process
+                api.emit('request', { request: 'processSignal', param: processObj });
+
+            }
+
 
             // Close the Window
             userSpaceExists[0].remove();
@@ -8753,23 +8774,26 @@ var events = {
 
             // Get Process Object
             var processObj = sessionStorage.getItem("processStorage");
-                processObj = JSON.parse(processObj);
 
-                processObj = processObj.processStorage;
+                if (processObj) {
+                    processObj = JSON.parse(processObj);
+
+                    processObj = processObj.processStorage;
+
+                    // Exit the Process
+                    api.emit('request', { request: 'kill', param: processObj.pid });
 
 
-            // Exit the Process
-            api.emit('request', { request: 'kill', param: processObj.pid });
+                    // Constuct Object to resume process
+                    processObj = {
+                        processname: processObj.name,
+                        pid: processObj.pid,
+                        signal: "SIGCONT"
+                    };
 
-            // Constuct Object to resume process
-            processObj = {
-                processname: processObj.name,
-                pid: processObj.pid,
-                signal: "SIGCONT"
-            };
-
-            // Send a Request to Node to Resume Process
-            api.emit('request', { request: 'processSignal', param: processObj });
+                // Send a Request to Node to Resume Process
+                api.emit('request', { request: 'processSignal', param: processObj });
+            }
 
             // Add needed navigation hooks
             var _ndoc = document.getElementById("Profile");

@@ -537,8 +537,9 @@ var events = {
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
-            // var achievement = querySelectorAll(".ignition-modal-achievement")[0];
-            dialog.close(null, null, "uiNotification");
+            var achievement = document.querySelectorAll(".ignition-modal-achievement")[0];
+            // dialog.close(null, null, "uiNotification");
+            achievement.remove();
         }, 4500);
 
     },
@@ -553,26 +554,33 @@ var events = {
         // Get SessionStorage for current running process
         var processObj = sessionStorage.getItem("processStorage");
 
-        processObj = JSON.parse(processObj);
+        console.log(processObj);
 
-        processObj = processObj.processStorage;
+        if (processObj) {
+            processObj = JSON.parse(processObj);
+
+            processObj = processObj.processStorage;
+        }
 
         // If there is no user-space-right window open
         if (!userSpaceExists.length) {
 
 
-            // Constuct Object to pause process
-            processObj = {
-                processname: processObj.name,
-                pid: processObj.pid,
-                signal: "SIGSTOP"
-            };
+            if (processObj) {
+                // Constuct Object to pause process
+                processObj = {
+                    processname: processObj.name,
+                    pid: processObj.pid,
+                    signal: "SIGSTOP"
+                };
+
+                // Send a Request to Node to Pause Process
+                api.emit('request', { request: 'processSignal', param: processObj });
+
+            }
 
 
-            // Send a Request to Node to Pause Process
-            api.emit('request', { request: 'processSignal', param: processObj });
-
-            // Open Window
+        // Open Window
             dialog.userSpaceRight();
 
             events.resumeSessionNavigation();
@@ -587,14 +595,18 @@ var events = {
             events.pauseSessionNavigation();
 
             // Constuct Object to resume process
-            processObj = {
-                processname: processObj.name,
-                pid: processObj.pid,
-                signal: "SIGCONT"
-            };
+            if (processObj) {
+                processObj = {
+                    processname: processObj.name,
+                    pid: processObj.pid,
+                    signal: "SIGCONT"
+                };
 
-            // Send a Request to Node to Resume Process
-            api.emit('request', { request: 'processSignal', param: processObj });
+                // Send a Request to Node to Resume Process
+                api.emit('request', { request: 'processSignal', param: processObj });
+
+            }
+
 
             // Close the Window
             userSpaceExists[0].remove();
@@ -681,23 +693,26 @@ var events = {
 
             // Get Process Object
             var processObj = sessionStorage.getItem("processStorage");
-                processObj = JSON.parse(processObj);
 
-                processObj = processObj.processStorage;
+                if (processObj) {
+                    processObj = JSON.parse(processObj);
+
+                    processObj = processObj.processStorage;
+
+                    // Exit the Process
+                    api.emit('request', { request: 'kill', param: processObj.pid });
 
 
-            // Exit the Process
-            api.emit('request', { request: 'kill', param: processObj.pid });
+                    // Constuct Object to resume process
+                    processObj = {
+                        processname: processObj.name,
+                        pid: processObj.pid,
+                        signal: "SIGCONT"
+                    };
 
-            // Constuct Object to resume process
-            processObj = {
-                processname: processObj.name,
-                pid: processObj.pid,
-                signal: "SIGCONT"
-            };
-
-            // Send a Request to Node to Resume Process
-            api.emit('request', { request: 'processSignal', param: processObj });
+                // Send a Request to Node to Resume Process
+                api.emit('request', { request: 'processSignal', param: processObj });
+            }
 
             // Add needed navigation hooks
             var _ndoc = document.getElementById("Profile");

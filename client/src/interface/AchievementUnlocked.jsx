@@ -29,8 +29,6 @@ module.exports = React.createClass({
 
         navigationInit.navigationDeinit();
 
-        console.log(this.props.achievement.title);
-
     return (
 
         <div className="parent">

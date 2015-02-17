@@ -4,9 +4,9 @@
 
 'use strict';
 
-var React           = require('react/addons')
-,   api             = require('socket.io-client')('/api')
-,   WizardHeader    = require('./WizardHeader.jsx');
+var React           = require('react/addons'),
+    api             = require('socket.io-client')('/api'),   
+    WizardHeader    = require('./WizardHeader.jsx');
 
 module.exports = React.createClass({
 
@@ -14,7 +14,7 @@ module.exports = React.createClass({
         return {
             status: 0,
             button: "Create Your Profile"
-        }
+        };
     },
 
 
@@ -26,7 +26,7 @@ module.exports = React.createClass({
 			networkInfo: [],
 			status: 0
 
-        }
+        };
     },
 
     render: function() {

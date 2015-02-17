@@ -100,6 +100,9 @@ var show = function(parent, parameters, arg) {
         fragment    = document.createDocumentFragment(),
         properties  = {};
 
+        // var lastWindow = _.last(_index);
+        // if (lastWindow) { lastWindow.classList.add("opacity-50") }
+
     _div = document.createElement("div");
     _div.classList.add("ignition-modal-parent");
 
@@ -183,6 +186,7 @@ var close = function(modal, callback, exception) {
     // UnPause screen switching in background
     sessionStorage.setItem("navigationState", "");
 
+
     // Rpi1 runs out of memory:
     //  var opacits = document.querySelectorAll(".opacity-50");
     //  var opacits_ = document.querySelectorAll(".opacity-0");
@@ -196,6 +200,12 @@ var close = function(modal, callback, exception) {
     //      _.first(opacits_).classList.remove("opacity-0");
     //  }
 
+    var _index      = document.querySelectorAll(".ignition-modal");
+
+    // var lastWindow = _.last(_index);
+    // if (lastWindow) { lastWindow.classList.remove("opacity-50") }
+    //
+    // console.log(lastWindow);
 
     modal = document.querySelectorAll(".ignition-modal-parent")[0];
 
@@ -224,7 +234,8 @@ var keyboard = function(input) {
     // Pase screen switching in background
     sessionStorage.setItem("navigationState", "pause");
 
-    var _index = document.querySelectorAll(".ignition-modal-");
+    var _index = document.querySelectorAll(".ui-window");
+
 
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent", "ignition-keyboard", "ui-window");
