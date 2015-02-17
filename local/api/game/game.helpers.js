@@ -129,104 +129,121 @@ function gameLaunch(nsp, payload) {
         timing,
         asupport = false;
 
+
     getCommandlineConfig(null, payload, function(err, results) {
 
-        var selectedArgs = _.where(results.arguements, { 'ticked': true });
-        var commandline  = [];
+        // Emulator has a setup
+        if (results) {
 
-        _.forEach(selectedArgs, function(option, i) {
-            commandline.push(option.arg, option.defaults);
-        });
+            var selectedArgs = _.where(results.arguements, { 'ticked': true });
+            var commandline  = [];
 
-        //Retroarch is the selected emulator
-        if (results.cores) {
-
-            //No specified Core Selected
-            if (!_.contains(commandline, "-L")) {
-
-                var core = results.platforms[payload.shortname].cores[0];
-
-                commandline.push("-L", results.cores[core].path);
-
-                if (results.cores[core].achievements) {
-
-                    asupport        = true;
-                    offset          = results.cores[core].achievements.offset;
-                    timing          = results.cores[core].achievements.default_timing;
-                    bufferSize      = results.cores[core].achievements.buffer_length;
-                    stateSize       = results.cores[core].achievements.state_size;
-                }
-
-            }
-
-            else {
-                var ind = _.indexOf(commandline, "-L");
-                ind++;
-                var achievement_list = _.pluck(_.where(commandline, { 'path': commandline[ind] }), 'achievements');
-
-                if (achievement_list) {
-                    asupport    = true;
-                    offset      = achievement_list.offset;
-                    bufferSize  = achievement_list.buffer_length;
-                    stateSize   = achievement_list.state_size;
-                    timing      = achievement_list.default_timing;
-                }
-            }
-
-        }
-
-        // Launch Emulator
-        achievements.dumpRetroRamInit(payload.filepath, function(listedAchievements) {
-
-            if (!isJson) asupport = false;
-            if (asupport && !timing) timing = 1;
-            if (asupport && !atype)  atype = "UDP";
-
-            execute('killall qmlscene | renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
-
-            var _child = spawn(results.expath, commandline.concat(payload.filepath));
-
-            var processObj = {
-                name: results.package,
-                pid: _child.pid
-            };
-
-            console.log(processObj);
-
-            nsp.emit('processStorage', { processStorage: processObj });
-
-            // Start Achievement Loop
-            if (asupport) { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing);}, 10000); }
-
-            // TODO: On exit, crash, return to ignition
-
-            _child.stdout.on('data', function(data) {
-                console.log('(stdout) : ' + data);
+            _.forEach(selectedArgs, function(option) {
+                commandline.push(option.arg, option.defaults);
             });
 
+            //Retroarch is the selected emulator
+            if (results.cores) {
 
-            _child.stderr.on('data', function(data) {
+                //No specified Core Selected
+                if (!_.contains(commandline, "-L")) {
 
-                if (data.length >= stateSize) {
+                    var core = results.platforms[payload.shortname].cores[0];
 
-                    if (asupport) {
-                        achievements.achievementCheck(nsp, listedAchievements[0], data, offset, bufferSize, function() {});
+                    commandline.push("-L", results.cores[core].path);
+
+                    if (results.cores[core].achievements) {
+
+                        asupport        = true;
+                        offset          = results.cores[core].achievements.offset;
+                        timing          = results.cores[core].achievements.default_timing;
+                        bufferSize      = results.cores[core].achievements.buffer_length;
+                        stateSize       = results.cores[core].achievements.state_size;
+                    }
+
+                }
+
+                else {
+                    var ind = _.indexOf(commandline, "-L");
+                    ind++;
+                    var achievement_list = _.pluck(_.where(commandline, { 'path': commandline[ind] }), 'achievements');
+
+                    if (achievement_list) {
+                        asupport    = true;
+                        offset      = achievement_list.offset;
+                        bufferSize  = achievement_list.buffer_length;
+                        stateSize   = achievement_list.state_size;
+                        timing      = achievement_list.default_timing;
+                    }
+                }
+
+            }
+
+            // Launch Emulator
+            achievements.dumpRetroRamInit(payload.filepath, function(listedAchievements) {
+
+                if (!isJson) asupport = false;
+                if (asupport && !timing) timing = 1;
+                if (asupport && !atype)  atype = "UDP";
+
+                execute('killall qmlscene | renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
+
+                var _child = spawn(results.expath, commandline.concat(payload.filepath));
+
+                var processObj = {
+                    name: results.package,
+                    pid: _child.pid
+                };
+
+                console.log(processObj);
+
+                nsp.emit('processStorage', { processStorage: processObj });
+
+                // Start Achievement Loop
+                if (asupport) { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing);}, 10000); }
+
+                // TODO: On exit, crash, return to ignition
+
+                _child.stdout.on('data', function(data) {
+                    console.log('(stdout) : ' + data);
+                });
+
+
+                _child.stderr.on('data', function(data) {
+
+                    if (data.length >= stateSize) {
+
+                        if (asupport && listedAchievements) {
+                            achievements.achievementCheck(nsp, listedAchievements[0], data, offset, bufferSize, function() {});
+                        }
+
+                        else {
+                            // console.log('(stderr) : ' + data);
+                        }
                     }
 
                     else {
                         // console.log('(stderr) : ' + data);
                     }
-                }
+                });
 
-                else {
-                    // console.log('(stderr) : ' + data);
-                }
+
             });
 
+        }
 
-        });
+        // No Emulator has been Configured
+        else {
 
-});
+            nsp.emit('clientEvent', {command: "resumeClient", params: null });
+
+            var err = "No software has been configured for this payload."
+            nsp.emit('messaging', {type: 0, body: err });
+
+        }
+
+    });
+
 
 }
 

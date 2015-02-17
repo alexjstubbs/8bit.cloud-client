@@ -6,7 +6,7 @@
 
 /* Working Enviorment
 -------------------------------------------------- */
-var iEnviorment = "production";
+var iEnviorment = "Alpha";
 
 if (iEnviorment === "production") {
     global.__base = __dirname + '/production/';
