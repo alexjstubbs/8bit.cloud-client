@@ -55,7 +55,9 @@ var browserNavigationEvents = function(g) {
     var shortname   = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
         game        = removeBrackets(g.getAttribute("data-title")),
         game        = game.replace(/\.[^/.]+$/, ""),
-        filepath    = g.getAttribute("data-path");
+        filepath    = g.getAttribute("data-path"),
+        navPos      = g.getAttribute("data-snav"),
+        total       = g.getAttribute("data-total");
 
     database.filterByAttribute("games", {
         "query": {
@@ -85,12 +87,11 @@ var browserNavigationEvents = function(g) {
         document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
     }
 
-
-    if (!g.nextSibling) {
+    if (!g.nextSibling && navPos == total) {
 
         var Obj = {
             platform: document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
-            start: g.getAttribute("data-snav")
+            start: navPos
         };
 
         loadPaging(Obj);

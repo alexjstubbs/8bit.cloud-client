@@ -3,16 +3,17 @@
 var fs          = require('fs-extra'),
     path        = require('path'),
     _           = require('lodash'),
+    helpers     = require(__base + 'system/system.helpers'),
     platforms,
     config;
-
 
 /*  List Roms
 -------------------------------------------------- */
 function listRoms(nsp, obj) {
 
     var platform = obj.platform,
-        start    = obj.start;
+        start    = obj.start,
+        end;
 
     fs.readJson(__appdirectory+'/config/config.json', function(err, packageObj) {
 
@@ -36,36 +37,41 @@ function listRoms(nsp, obj) {
 
                         if (err) {
 
-                            console.log(err);
-
-                            nsp.emit('api', {gamesList: "null"});
-
-
+                            nsp.emit('api', {gamesList: "null", end: 0});
 
                         } else {
-
-
                             start = parseInt(start);
+
+                            end = list.length;
 
                             list = list.slice(start, start+20);
 
                             _(list).forEach(function(filename) {
 
-                                // if (path.extname(filename) )
-                                // _.contains(collection, target, [fromIndex=0])
+                                console.log(path.extname(filename));
+                                if (!helpers.isUnixHiddenPath(filename) && path.extname(filename) !== '') {
 
-                                _path = path.join(initDir, filename);
+                                    // if (path.extname(filename) )
+                                    // _.contains(collection, target, [fromIndex=0])
 
-                                listObj.push({
-                                    "filename": filename,
-                                    "path": _path,
-                                    "ext": path.extname(filename),
-                                    "title": filename
-                                });
+                                    _path = path.join(initDir, filename);
+
+                                    listObj.push({
+                                        "filename": filename,
+                                        "path": _path,
+                                        "ext": path.extname(filename),
+                                        "title": filename
+                                    });
+
+                                }
+
+                                else {
+                                    end--;
+                                }
 
                             }).value();
 
-                            nsp.emit('api', {gamesList: listObj, page: start});
+                            nsp.emit('api', {gamesList: listObj, page: start, end: end});
 
                         }
 

@@ -18,7 +18,8 @@ module.exports = React.createClass({
         return {
             gamesList: [
                 {"filename":"","ext":"","title":"","CRC32":"","achievements":""}
-             ]
+             ],
+             total: 0
         };
     },
 
@@ -36,12 +37,12 @@ module.exports = React.createClass({
 
         api.on('api', function(object) {
 
-
             if (object.gamesList) {
 
                 if (object.gamesList != "null") {
                     var a = object.gamesList,
-                        b = [];
+                        b = [],
+                        total;
 
                     if (object.page)  {
                         b = component.state.gamesList;
@@ -53,7 +54,7 @@ module.exports = React.createClass({
 
                     var c = b.concat(a);
 
-                    component.setState({gamesList: _.rest(c)});
+                    component.setState({gamesList: _.rest(c), total: object.end});
                 }
 
                 else {
@@ -112,6 +113,7 @@ module.exports = React.createClass({
     render: function() {
 
         var skipped;
+        var component = this;
 
         if (this.state.gamesList) {
 
@@ -122,12 +124,12 @@ module.exports = React.createClass({
                 if (gameTitle) {
 
                     if (skipped === true) {
-                        return <ListedGame key={i.id} navStack={i} game={gameTitle} filename={game.filename} path={game.path} />
+                        return <ListedGame key={i.id} navStack={i} game={gameTitle} filename={game.filename} path={game.path} total={component.state.total} />
                         skipped = false;
                     }
 
                     else {
-                        return <ListedGame key={i.id} navStack={i+1} game={gameTitle} filename={game.filename} path={game.path} />
+                        return <ListedGame key={i.id} navStack={i+1} game={gameTitle} filename={game.filename} path={game.path} total={component.state.total}  />
                     }
 
                 }

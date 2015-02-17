@@ -129,7 +129,6 @@ function gameLaunch(nsp, payload) {
         timing,
         asupport = false;
 
-
     getCommandlineConfig(null, payload, function(err, results) {
 
         // Emulator has a setup
@@ -237,13 +236,12 @@ function gameLaunch(nsp, payload) {
 
             nsp.emit('clientEvent', {command: "resumeClient", params: null });
 
-            var err = "No software has been configured for this payload."
+            var err = "No software has been configured for this specific package.";
             nsp.emit('messaging', {type: 0, body: err });
 
         }
 
     });
-
 
 }
 
@@ -292,7 +290,7 @@ function apicall(nsp, game, callback) {
 
         // Not JSON friendly DATA
         else {
-            console.log("error: not JSON data");
+            // console.log("error: not JSON data");
         }
 
     });

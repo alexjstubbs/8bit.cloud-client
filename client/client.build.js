@@ -1443,7 +1443,8 @@ module.exports = React.createClass({displayName: 'exports',
         return {
             gamesList: [
                 {"filename":"","ext":"","title":"","CRC32":"","achievements":""}
-             ]
+             ],
+             total: 0
         };
     },
 
@@ -1461,12 +1462,12 @@ module.exports = React.createClass({displayName: 'exports',
 
         api.on('api', function(object) {
 
-
             if (object.gamesList) {
 
                 if (object.gamesList != "null") {
                     var a = object.gamesList,
-                        b = [];
+                        b = [],
+                        total;
 
                     if (object.page)  {
                         b = component.state.gamesList;
@@ -1478,7 +1479,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                     var c = b.concat(a);
 
-                    component.setState({gamesList: _.rest(c)});
+                    component.setState({gamesList: _.rest(c), total: object.end});
                 }
 
                 else {
@@ -1537,6 +1538,7 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         var skipped;
+        var component = this;
 
         if (this.state.gamesList) {
 
@@ -1547,12 +1549,12 @@ module.exports = React.createClass({displayName: 'exports',
                 if (gameTitle) {
 
                     if (skipped === true) {
-                        return ListedGame({key: i.id, navStack: i, game: gameTitle, filename: game.filename, path: game.path})
+                        return ListedGame({key: i.id, navStack: i, game: gameTitle, filename: game.filename, path: game.path, total: component.state.total})
                         skipped = false;
                     }
 
                     else {
-                        return ListedGame({key: i.id, navStack: i+1, game: gameTitle, filename: game.filename, path: game.path})
+                        return ListedGame({key: i.id, navStack: i+1, game: gameTitle, filename: game.filename, path: game.path, total: component.state.total})
                     }
 
                 }
@@ -2102,7 +2104,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-                React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.path, 'data-title': this.props.game, 'data-path': this.props.path}, 
+                React.DOM.tr({className: "subNavable", 'data-snav': this.props.navStack, 'data-function': this.props.functionCall, 'data-parameters': this.props.path, 'data-title': this.props.game, 'data-path': this.props.path, 'data-total': this.props.total}, 
                     React.DOM.td({'data-tdalpha': "alpha_selection"}, 
                         React.DOM.div({className: "left_alpha pull-left"}, this.props.alpha), 
                         React.DOM.a({className: "launch", 'data-ref': this.props.navStack, 'data-game': this.props.game, href: "#"}, this.props.game)
@@ -6925,7 +6927,9 @@ var browserNavigationEvents = function(g) {
     var shortname   = document.querySelectorAll(".platform.navable.selected")[0].getAttribute("data-parameters"),
         game        = removeBrackets(g.getAttribute("data-title")),
         game        = game.replace(/\.[^/.]+$/, ""),
-        filepath    = g.getAttribute("data-path");
+        filepath    = g.getAttribute("data-path"),
+        navPos      = g.getAttribute("data-snav"),
+        total       = g.getAttribute("data-total");
 
     database.filterByAttribute("games", {
         "query": {
@@ -6955,12 +6959,11 @@ var browserNavigationEvents = function(g) {
         document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
     }
 
-
-    if (!g.nextSibling) {
+    if (!g.nextSibling && navPos == total) {
 
         var Obj = {
             platform: document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
-            start: g.getAttribute("data-snav")
+            start: navPos
         };
 
         loadPaging(Obj);

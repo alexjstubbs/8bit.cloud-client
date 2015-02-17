@@ -12,6 +12,12 @@ function isJSON(data) {
     return true;
 }
 
+/*  Is UNIX hidden file
+-------------------------------------------------- */
+var isUnixHiddenPath = function (path) {
+    return (/(^|.\/)\.+[^\/\.]/g).test(path);
+};
+
 /* Check For Sequels etc.
 -------------------------------------------------- */
 function hasNumbers(string) {
@@ -30,6 +36,7 @@ function toCap(str) {
 
 /*  Exports
 -------------------------------------------------- */
-exports.isJSON      = isJSON;
-exports.hasNumbers  = hasNumbers;
-exports.toCap       = toCap;
+exports.isJSON              = isJSON;
+exports.isUnixHiddenPath    = isUnixHiddenPath;
+exports.hasNumbers          = hasNumbers;
+exports.toCap               = toCap;
