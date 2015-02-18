@@ -11,12 +11,19 @@ var _               = require("lodash"),
     account         = require("./account.js"),
     helpers         = require("./helpers.js"),
     navigationInit  = require("./navigation.init.js"),
+    keyboard        = require("./navigation.keyboardKeyEvents.js"),
     events          = require("./events.js");
 
 /* Main Export
 -------------------------------------------------- */
 module.exports = function(e) {
 
+    // OnScreen Keyboard
+    var placeholder = document.getElementById("placehold_input");
+
+    if (placeholder && e.key.length === 1) {
+        keyboard.keypress(e.key);
+    }
 
     var k                 = e.keyCode,
         s                 = document.getElementById("main").getAttribute("data-screen"),

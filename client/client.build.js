@@ -7063,12 +7063,19 @@ var _               = require("lodash"),
     account         = require("./account.js"),
     helpers         = require("./helpers.js"),
     navigationInit  = require("./navigation.init.js"),
+    keyboard        = require("./navigation.keyboardKeyEvents.js"),
     events          = require("./events.js");
 
 /* Main Export
 -------------------------------------------------- */
 module.exports = function(e) {
 
+    // OnScreen Keyboard
+    var placeholder = document.getElementById("placehold_input");
+
+    if (placeholder && e.key.length === 1) {
+        keyboard.keypress(e.key);
+    }
 
     var k                 = e.keyCode,
         s                 = document.getElementById("main").getAttribute("data-screen"),
@@ -7178,7 +7185,7 @@ module.exports = function(e) {
 
 };
 
-},{"./account.js":73,"./events.js":78,"./helpers.js":80,"./navigation.init.js":88,"lodash":96}],86:[function(require,module,exports){
+},{"./account.js":73,"./events.js":78,"./helpers.js":80,"./navigation.init.js":88,"./navigation.keyboardKeyEvents.js":91,"lodash":96}],86:[function(require,module,exports){
 /*  Exposed Navigation Event Listener(s)
 -------------------------------------------------- */
 var navigationEvent = require('./navigation.event'),
