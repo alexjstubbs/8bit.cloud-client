@@ -3,7 +3,6 @@
 var fs          = require('fs-extra'),
     path        = require('path'),
     request     = require('request'),
-    bcrypt      = require('bcrypt'),
     sockets     = require(__base + 'api/server/server.sockets'),
     helpers     = require(__base + 'system/system.helpers'),
     forms       = require(__base + 'api/api.forms'),
@@ -28,26 +27,6 @@ var fs          = require('fs-extra'),
 var server = "ignition.io:3000",
     v = "v1";
 
-/* Password Hash Test
--------------------------------------------------- */
-var passHash = function(input, callback) {
-    // var rand  = _.random(0, 1024);
-
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash("SEGA", salt, function(err, hash) {
-
-            if (err) {
-                // nsp.emit('messaging', {type: 0, body: err });
-            }
-
-            else {
-                callback(hash);
-            }
-
-        });
-    });
-
-};
 
 /* Get User Profile
 -------------------------------------------------- */
@@ -392,9 +371,6 @@ var signUp = function(nsp, profile, callback) {
     var app = "signup";
     var _path = "https://" + path.join(server, app);
 
-    // var password = passHash(profile.password, function(hashed) {
-
-
         var query = {
             Username: profile.username,
             Email: profile.email,
@@ -500,9 +476,7 @@ var signUp = function(nsp, profile, callback) {
 
             }
 
-        });
-
-    //  });
+    });
 
 };
 
