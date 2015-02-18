@@ -61,7 +61,7 @@ module.exports = React.createClass({
 
 
                         <button className="btn btn-lg btn-blue btn-alt btn-block navable" data-function='submitForm' data-parameters={this.props.form}><i className="ion-person-add pull-left"></i> &nbsp; Create new Profile</button>
-                        <button className="btn btn-lg btn-gray btn-alt btn-block navable" data-function='' data-parameters={this.props.form}><i className="ion-person pull-left"></i> &nbsp; Use Existing Profile</button>
+                        <button className="btn btn-lg btn-gray btn-alt btn-block navable" data-function='logInDialog'><i className="ion-person pull-left"></i> &nbsp; Use Existing Profile</button>
 
                         <input type="hidden" name="server" value={this.props.server} />
 

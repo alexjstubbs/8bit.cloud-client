@@ -119,7 +119,20 @@ var submitCache = function(nsp, data, callback) {
         case "signUp": {
 
             profiles.newProfile(nsp, data);
+            break;
+        }
 
+        case "logIn": {
+
+            offlineSignUp(nsp, data, function() {
+                profiles.profileLogin(nsp);
+            });
+
+            break;
+        }
+
+        default: {
+            return;
         }
 
     }
@@ -170,7 +183,6 @@ var submitForm = function(nsp, data, callback) {
                         addFriend(nsp, data);
                         // TODO: Add loopback
                         nsp.emit('clientEvent', {command: "closeDialog", params: null });
-
 
                     },
 
@@ -380,12 +392,13 @@ var signUp = function(nsp, profile, callback) {
     var app = "signup";
     var _path = "https://" + path.join(server, app);
 
-    var password = passHash(profile.username, function(hashed) {
+    // var password = passHash(profile.password, function(hashed) {
+
 
         var query = {
             Username: profile.username,
             Email: profile.email,
-            validPassword: hashed,
+            validPassword: profile.password,
             Avatar: profile.avatar
         };
 
@@ -409,7 +422,7 @@ var signUp = function(nsp, profile, callback) {
 
                     if (status.profile.Username) {
 
-                        status.profile.validPassword = hashed;
+                        status.profile.validPassword = profile.password;
                         status.profile.filename = file;
 
 
@@ -489,49 +502,50 @@ var signUp = function(nsp, profile, callback) {
 
         });
 
-     });
+    //  });
 
 };
 
 /*  Offline SignUp
+ *  TODO: Move this to profiles. Break everything into smaller functions
 -------------------------------------------------- */
 var offlineSignUp = function(nsp, passedProfile, callback) {
 
-    var profile = {
-        Username:       passedProfile.Username,
-        Email:          passedProfile.Email,
-        Avatar:         passedProfile.Avatar
-    };
+        var profile = {
+            Username:       passedProfile.username,
+            validPassword:  passedProfile.password
+        };
 
-    var file = __appdirectory + '/config/profiles/' + profile.Username + '.json';
 
-    profile.filename = file;
+        var file = __appdirectory + '/config/profiles/' + profile.Username + '.json';
 
-    if (profile.Username) {
+        profile.filename = file;
 
-        fileFunc.writeJSON(nsp, profile, function(err) {
+        if (profile.Username) {
 
-            if (err) {
-                console.log(err);
-            }
+            fileFunc.writeJSON(nsp, profile, function(err) {
 
-            else {
+                if (err) {
+                    console.log(err);
+                }
 
-                fs.ensureFile(__sessionFile, function(err) {
+                else {
 
-                    if (!err) {
-                        fileFunc.copyFile(nsp, file, __sessionFile, function(err) {
-                              if (err) {
-                                  console.error(err);
-                              }
+                    fs.ensureFile(__sessionFile, function(err) {
 
-                              else {
-                                  callback();
-                              }
+                        if (!err) {
+                            fileFunc.copyFile(nsp, file, __sessionFile, function(err) {
+                                  if (err) {
+                                      console.error(err);
+                                  }
 
-                            });
+                                  else {
+                                      callback();
+                                  }
+
+                                });
                         }
-                        });
+                });
 
             }
 

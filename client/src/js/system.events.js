@@ -201,6 +201,15 @@ var events = {
 
     },
 
+    /*  Log In Dialog
+    -------------------------------------------------- */
+    logInDialog: function(parameters) {
+
+        // Show Dialog
+        dialog.show("LogIn");
+
+    },
+
     /* Submit form on Action button/keypress
     -------------------------------------------------- */
     submitForm: function(parameters, callback) {

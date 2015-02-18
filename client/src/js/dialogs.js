@@ -14,6 +14,7 @@ var events                  = require('./events.js'),
     Terminal                = require('../interface/Terminal.jsx'),
     WebBrowser              = require('../interface/WebBrowser.jsx'),
     SignUp                  = require('../interface/forms/SignUp.jsx'),
+    LogIn                   = require('../interface/forms/LogIn.jsx'),
     SignUpSync              = require('../interface/SignUpSync.jsx'),
     AddFriend               = require('../interface/forms/AddFriend.jsx'),
     PassMessage             = require('../interface/forms/PassMessage.jsx'),
@@ -132,6 +133,9 @@ var show = function(parent, parameters, arg) {
             break;
         case "SignUp":
             Child = SignUp({});
+            break;
+        case "LogIn":
+            Child = LogIn({});
             break;
         case "SignUpSync":
             Child = SignUpSync({});
