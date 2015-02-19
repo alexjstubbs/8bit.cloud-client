@@ -57,6 +57,39 @@ module.exports = React.createClass({
     },
 
     screenMount: function() {
+        this.favoriteCheck();
+    },
+
+    favoriteCheck: function(obj) {
+
+        var component = this;
+
+        var path = 'http://127.0.0.1:1210/database/favorites';
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+                var data      = xmlhttp.responseText;
+                var favorites = JSON.parse(data);
+
+                if (_.where(favorites, { 'long': component.state.title}).length) {
+                    component.setState({'favorite': true});
+                    component.forceUpdate();
+                }
+
+                else {
+                    component.setState({'favorite': false});
+                    component.forceUpdate();
+                }
+
+            }
+        };
+
+        xmlhttp.open("GET",path,true);
+        xmlhttp.send();
+
+        return;
     },
 
     componentDidMount: function () {
@@ -65,6 +98,10 @@ module.exports = React.createClass({
 
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail);
+        });
+
+        document.addEventListener('toggleFavorite', function eventHandler(e) {
+            component.favoriteCheck(e.detail);
         });
 
         document.addEventListener('launchContext', function eventHandler(e) {
@@ -110,7 +147,6 @@ module.exports = React.createClass({
      },
 
     render: function() {
-
 
         var saveNodes = this.state.savestates.map(function (state, i) {
             return <SaveStates filename={state.filename} image={state.image} slot={state.slot} navStack={i+1} />

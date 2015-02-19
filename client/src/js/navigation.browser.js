@@ -71,7 +71,7 @@ var browserNavigationEvents = function(g) {
             query: shortname.trim()
         },
     }, function(result) {
-
+        
             events.updateGame(result, filepath);
 
         }

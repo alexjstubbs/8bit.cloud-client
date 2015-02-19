@@ -449,6 +449,8 @@ var events = {
 
         api.emit('request', { request: 'storeData', param: Obj });
 
+        eventDispatcher.toggleFavorite(parameters);
+
     },
 
     /*  Remove Favorite
@@ -466,6 +468,8 @@ var events = {
         };
 
         api.emit('request', { request: 'removeFavorite', param: Obj });
+
+        eventDispatcher.toggleFavorite(parameters);
 
     },
 

@@ -24,6 +24,7 @@ module.exports = React.createClass({
             timestamp: null
         };
     },
+
     render: function() {
 
         var launchContext = {

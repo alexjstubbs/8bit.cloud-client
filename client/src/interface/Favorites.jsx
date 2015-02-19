@@ -2,10 +2,10 @@
  * @jsx React.DOM
  */
 
-var React = require('react/addons'),
-    Favorite = require('./Favorite.jsx'),
-    _ = require('lodash'),
-    moment = require('moment');
+var React       = require('react/addons'),
+    Favorite    = require('./Favorite.jsx'),
+    _           = require('lodash'),
+    moment      = require('moment');
 
 
 module.exports = React.createClass({
@@ -35,7 +35,6 @@ module.exports = React.createClass({
 
         var nodes = favoriteNodes.length;
         // favoriteNodes = favoriteNodes.reverse();
-
 
         return (
 

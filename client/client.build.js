@@ -913,6 +913,7 @@ module.exports = React.createClass({displayName: 'exports',
             timestamp: null
         };
     },
+
     render: function() {
 
         var launchContext = {
@@ -959,10 +960,10 @@ module.exports = React.createClass({displayName: 'exports',
  * @jsx React.DOM
  */
 
-var React = require('react/addons'),
-    Favorite = require('./Favorite.jsx'),
-    _ = require('lodash'),
-    moment = require('moment');
+var React       = require('react/addons'),
+    Favorite    = require('./Favorite.jsx'),
+    _           = require('lodash'),
+    moment      = require('moment');
 
 
 module.exports = React.createClass({displayName: 'exports',
@@ -992,7 +993,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         var nodes = favoriteNodes.length;
         // favoriteNodes = favoriteNodes.reverse();
-
 
         return (
 
@@ -1918,6 +1918,39 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     screenMount: function() {
+        this.favoriteCheck();
+    },
+
+    favoriteCheck: function(obj) {
+
+        var component = this;
+
+        var path = 'http://127.0.0.1:1210/database/favorites';
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange=function() {
+
+            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+                var data      = xmlhttp.responseText;
+                var favorites = JSON.parse(data);
+
+                if (_.where(favorites, { 'long': component.state.title}).length) {
+                    component.setState({'favorite': true});
+                    component.forceUpdate();
+                }
+
+                else {
+                    component.setState({'favorite': false});
+                    component.forceUpdate();
+                }
+
+            }
+        };
+
+        xmlhttp.open("GET",path,true);
+        xmlhttp.send();
+
+        return;
     },
 
     componentDidMount: function () {
@@ -1926,6 +1959,10 @@ module.exports = React.createClass({displayName: 'exports',
 
         window.addEventListener('updateGame', function eventHandler(e) {
             component.setState(e.detail);
+        });
+
+        document.addEventListener('toggleFavorite', function eventHandler(e) {
+            component.favoriteCheck(e.detail);
         });
 
         document.addEventListener('launchContext', function eventHandler(e) {
@@ -1971,7 +2008,6 @@ module.exports = React.createClass({displayName: 'exports',
      },
 
     render: function() {
-
 
         var saveNodes = this.state.savestates.map(function (state, i) {
             return SaveStates({filename: state.filename, image: state.image, slot: state.slot, navStack: i+1})
@@ -6220,6 +6256,21 @@ var selectBox = function(el, selected) {
     }
 };
 
+/* Favorite Box
+-------------------------------------------------- */
+var toggleFavorite = function(obj) {
+
+    var event = new CustomEvent('toggleFavorite', {
+        'detail':{
+            object: obj
+        }
+    });
+
+    if (event) {
+        document.dispatchEvent(event);
+    }
+};
+
 
 
 /* Exports
@@ -6232,6 +6283,7 @@ exports.changeView 		 		= changeView;
 exports.uiActionNotification 	= uiActionNotification;
 exports.launchContext       	= launchContext;
 exports.selectBox       	    = selectBox;
+exports.toggleFavorite    	    = toggleFavorite;
 
 },{"socket.io-client":257}],79:[function(require,module,exports){
 /**
@@ -7014,7 +7066,7 @@ var browserNavigationEvents = function(g) {
             query: shortname.trim()
         },
     }, function(result) {
-
+        
             events.updateGame(result, filepath);
 
         }
@@ -8611,6 +8663,8 @@ var events = {
 
         api.emit('request', { request: 'storeData', param: Obj });
 
+        eventDispatcher.toggleFavorite(parameters);
+
     },
 
     /*  Remove Favorite
@@ -8628,6 +8682,8 @@ var events = {
         };
 
         api.emit('request', { request: 'removeFavorite', param: Obj });
+
+        eventDispatcher.toggleFavorite(parameters);
 
     },
 

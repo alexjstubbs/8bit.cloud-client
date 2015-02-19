@@ -158,6 +158,21 @@ var selectBox = function(el, selected) {
     }
 };
 
+/* Favorite Box
+-------------------------------------------------- */
+var toggleFavorite = function(obj) {
+
+    var event = new CustomEvent('toggleFavorite', {
+        'detail':{
+            object: obj
+        }
+    });
+
+    if (event) {
+        document.dispatchEvent(event);
+    }
+};
+
 
 
 /* Exports
@@ -170,3 +185,4 @@ exports.changeView 		 		= changeView;
 exports.uiActionNotification 	= uiActionNotification;
 exports.launchContext       	= launchContext;
 exports.selectBox       	    = selectBox;
+exports.toggleFavorite    	    = toggleFavorite;
