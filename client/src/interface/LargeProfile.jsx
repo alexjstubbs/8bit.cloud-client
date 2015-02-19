@@ -106,7 +106,11 @@ module.exports = React.createClass({
 
         document.addEventListener('launchContext', function eventHandler(e) {
 
-            launchContext = JSON.stringify(e.detail);
+            launchContext = e.detail;
+            launchContext.title = component.state.title;
+
+            launchContext = JSON.stringify(launchContext);
+
             component.forceUpdate();
 
             setTimeout(function() {

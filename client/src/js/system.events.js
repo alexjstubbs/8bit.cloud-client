@@ -547,6 +547,24 @@ var events = {
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
 
+        console.log(parameters);
+
+        var ltime = new Date();
+
+        var aObj = {
+            Software: JSON.parse(parameters).title,
+            Type: "Achievement",
+            Local: ltime.getTime()
+        };
+
+        var Obj = {
+            database: "activities",
+            values: aObj
+        };
+
+        api.emit('request', { request: 'storeData', param: Obj });
+        api.emit('request', { request: 'storeActivity', param: Obj.values });
+
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
@@ -631,7 +649,24 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        // TODO:  via sockets and update server activity (so-and-so played game, 10 hours ago)
+        // api.emit('request', { request: 'storeActivity', param: null });
+        // api.emit('request', { request: 'storeActivity', param: null });
+
+        var ltime = new Date();
+
+        var aObj = {
+            Software: JSON.parse(parameters).title,
+            Type: "Gameplay",
+            Local: ltime.getTime()
+        };
+
+        var Obj = {
+            database: "activities",
+            values: aObj
+        };
+
+        api.emit('request', { request: 'storeData', param: Obj });
+        api.emit('request', { request: 'storeActivity', param: Obj.values });
 
         if (parameters) {
 

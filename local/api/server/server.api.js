@@ -52,6 +52,13 @@ var getActivities = function(nsp) {
     sockets.networkInterface(nsp, { cmd: 'getActivities' });
 };
 
+/*  Store Activity
+-------------------------------------------------- */
+var storeActivity = function(nsp, activity) {
+    sockets.networkInterface(nsp, {cmd: 'storeActivity', parameters: activity});
+};
+
+
 /* Messages Endpoint
 -------------------------------------------------- */
 var getMessages = function(nsp) {
@@ -579,6 +586,7 @@ exports.getSession      = getSession;
 exports.leaveSession    = leaveSession;
 exports.getFriends      = getFriends;
 exports.getActivities   = getActivities;
+exports.storeActivity   = storeActivity;
 exports.signUp          = signUp;
 exports.offlineSignUp   = offlineSignUp;
 exports.submitForm      = submitForm;

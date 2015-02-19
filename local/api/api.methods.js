@@ -117,6 +117,10 @@ var api = {
         common.serverAPI.getActivities(nsp);
     },
 
+    storeActivity: function(nsp, activityObj) {
+        common.serverAPI.storeActivity(nsp, activityObj);
+    },
+
     newProfile: function(nsp, profile) {
         common.serverAPI.signUp(nsp, profile);
     },

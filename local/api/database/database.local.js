@@ -112,6 +112,7 @@ function storeData(database, doc, callback) {
         }
 
         else {
+
             if (callback) {
                 callback(null, doc);
             }

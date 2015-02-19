@@ -280,11 +280,11 @@ function apicall(nsp, game, callback) {
                         // console.log("found and stored");
                         // nsp.emit('api', {updateGame: newDocument});
                     } else {
-                        console.log("error: No New Document");
+                        // console.log("error: No New Document");
                     }
                 });
             } else {
-                console.log("error: Document was Shorter than 50 chars so assuming empty.");
+                // console.log("error: Document was Shorter than 50 chars so assuming empty.");
             }
         }
 
