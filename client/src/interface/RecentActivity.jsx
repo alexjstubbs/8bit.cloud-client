@@ -38,6 +38,26 @@ module.exports = React.createClass({
         };
     },
 
+    reverseOrder: function() {
+
+        // Reverse navigation 
+        var docs = document.querySelectorAll("#recent_activity [data-snav]");
+
+        if (docs.length > 1) {
+
+            _.forEach(docs, function (item, i) {
+                i++;
+                item.setAttribute("data-snav", i);
+            });
+
+        }
+
+    },
+
+    componentDidUpdate: function() {
+        this.reverseOrder();
+    },
+
     componentDidMount: function() {
 
 
@@ -57,6 +77,9 @@ module.exports = React.createClass({
         });
 
         nodes = activityNodes.length;
+
+        activityNodes.reverse();
+
 
         return (
 

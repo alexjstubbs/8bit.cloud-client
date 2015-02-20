@@ -3165,6 +3165,26 @@ module.exports = React.createClass({displayName: 'exports',
         };
     },
 
+    reverseOrder: function() {
+
+        // Reverse navigation 
+        var docs = document.querySelectorAll("#recent_activity [data-snav]");
+
+        if (docs.length > 1) {
+
+            _.forEach(docs, function (item, i) {
+                i++;
+                item.setAttribute("data-snav", i);
+            });
+
+        }
+
+    },
+
+    componentDidUpdate: function() {
+        this.reverseOrder();
+    },
+
     componentDidMount: function() {
 
 
@@ -3184,6 +3204,9 @@ module.exports = React.createClass({displayName: 'exports',
         });
 
         nodes = activityNodes.length;
+
+        activityNodes.reverse();
+
 
         return (
 
@@ -8869,13 +8892,14 @@ var events = {
 
         // api.emit('request', { request: 'storeActivity', param: null });
         // api.emit('request', { request: 'storeActivity', param: null });
-
-        var ltime = new Date();
+        
+        var _ltime = new Date().valueOf();
 
         var aObj = {
             Software: JSON.parse(parameters).title,
             Type: "Gameplay",
-            Local: ltime.getTime()
+            Info: null,
+            Local: _ltime
         };
 
         var Obj = {

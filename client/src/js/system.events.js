@@ -650,13 +650,14 @@ var events = {
 
         // api.emit('request', { request: 'storeActivity', param: null });
         // api.emit('request', { request: 'storeActivity', param: null });
-
-        var ltime = new Date();
+        
+        var _ltime = new Date().valueOf();
 
         var aObj = {
             Software: JSON.parse(parameters).title,
             Type: "Gameplay",
-            Local: ltime.getTime()
+            Info: null,
+            Local: _ltime
         };
 
         var Obj = {
