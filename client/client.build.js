@@ -491,10 +491,11 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React       = require('react/addons'),
-    helpers     = require('../js/helpers'),
-    api         = require('socket.io-client')('/api'),
-    mixins      = require('./mixins/mixins.jsx');
+var React           = require('react/addons'),
+    helpers         = require('../js/helpers'),
+    api             = require('socket.io-client')('/api'),
+    navigationInit  = require('../js/navigation.init'),
+    mixins          = require('./mixins/mixins.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -520,6 +521,8 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
 
         api.emit('request', { request: 'community'});
+        
+        navigationInit.navigationInit();
 
     },
 
@@ -576,7 +579,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 //
 
-},{"../js/helpers":80,"./mixins/mixins.jsx":61,"react/addons":98,"socket.io-client":257}],8:[function(require,module,exports){
+},{"../js/helpers":80,"../js/navigation.init":88,"./mixins/mixins.jsx":61,"react/addons":98,"socket.io-client":257}],8:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
