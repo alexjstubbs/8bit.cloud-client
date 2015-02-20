@@ -1,5 +1,6 @@
 /* Ignition Server Messaging Methods
 -------------------------------------------------- */
+var io = require('socket.io-client')('/api');
 
 var methods = {
 

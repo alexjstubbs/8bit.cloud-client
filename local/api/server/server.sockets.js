@@ -57,9 +57,7 @@ var networkStatus = function(callback) {
 -------------------------------------------------- */
 var issueToken = function(callback) {
 
-
       fs.readJson(__sessionFile, function(err, userProfile) {
-
 
             if (err) {
                 console.log("Token Error: " + err);
@@ -98,26 +96,11 @@ var networkConnection = function(token, ansp, callback) {
         secure: true
     });
 
-    // if (!network) {
-    //     nsp = io.connect('http://ignition.io:6052/network', {
-    //         'query': 'token=' + token,
-    //         secure: true
-    //     });
-    // }
-
-    // else {
-    //     if (callback) {
-    //         callback(null, network);
-    //     }
-    // }
-
     /* Connection "" successfull
     -------------------------------------------------- */
     nsp.on('connect', function (socket, sock) {
 
         ansp.emit('api', { isOnline: true });
-
-        console.log(ansp);
 
         network = nsp;
 

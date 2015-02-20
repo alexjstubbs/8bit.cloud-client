@@ -8,6 +8,7 @@ var events                  = require('./events.js'),
     Messages                = require('../interface/Messages.jsx'),
     Friends                 = require('../interface/Friends.jsx'),
     SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
+    friendNotification      = require('../interface/FriendNotification.jsx'),
     AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
     FriendLarge             = require('../interface/FriendLarge.jsx'),
     Prompt                  = require('../interface/Prompt.jsx'),
@@ -262,6 +263,25 @@ var keyboard = function(input) {
 
 /* Show Notification outside of Wrapper
 -------------------------------------------------- */
+var friendNotification = function(friendObj) {
+
+    if (achievementObj) achievementObj = JSON.parse(friendObj);
+
+    var _index = document.querySelectorAll(".ignition-modal-");
+
+    var div = document.createElement("div");
+    div.classList.add("ignition-modal-parent");
+    div.classList.add("ui-window");
+    div.style.zIndex = _index.length+250;
+
+    document.body.insertBefore(div,  document.getElementById("ui-notifications"));
+
+    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-friendNotification systemNotificationContent"}, FriendNotification({friend: friendObj})), div);
+
+};
+
+/* Show Notification outside of Wrapper
+-------------------------------------------------- */
 var uiNotification = function(achievementObj) {
 
     if (achievementObj) achievementObj = JSON.parse(achievementObj);
@@ -314,6 +334,7 @@ exports.close               = close;
 exports.keyboard            = keyboard;
 exports.popup               = popup;
 exports.general             = general;
+exports.friendNotification  = friendNotification;
 exports.uiNotification      = uiNotification;
 exports.userSpace           = userSpace;
 exports.userSpaceRight      = userSpaceRight;

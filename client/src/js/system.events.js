@@ -543,6 +543,20 @@ var events = {
         dialog.show("AddFriend");
     },
 
+    /* Friend Online
+    -------------------------------------------------- */
+    friendNotification: function(parameters) {
+
+        dialog.uiNotification(parameters);
+
+        setTimeout(function() {
+            var notification = document.querySelectorAll(".ignition-modal-friendNotification")[0];
+            dialog.close(null, null, "uiNotification");
+            notification.remove();
+        }, 4500);
+
+    },
+
     /* Achievement Unlocked
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
@@ -567,9 +581,9 @@ var events = {
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
-            var achievement = document.querySelectorAll(".ignition-modal-achievement")[0];
-            // dialog.close(null, null, "uiNotification");
-            achievement.remove();
+            var notification = document.querySelectorAll(".ignition-modal-achievement")[0];
+            dialog.close(null, null, "uiNotification");
+            notification.remove();
         }, 4500);
 
     },
@@ -648,9 +662,6 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        // api.emit('request', { request: 'storeActivity', param: null });
-        // api.emit('request', { request: 'storeActivity', param: null });
-        
         var _ltime = new Date().valueOf();
 
         var aObj = {
