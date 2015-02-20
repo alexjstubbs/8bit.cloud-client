@@ -148,7 +148,7 @@ module.exports = React.createClass({displayName: 'exports',
             icon: "ion-ios-game-controller-a-outline ",
             functionCall: "viewMessages",
             username: "Unkown",
-            action: "gameplay",
+            action: "Gameplay",
             game: null,
             actionSet: [],
             actionString: "recently played",
@@ -159,12 +159,14 @@ module.exports = React.createClass({displayName: 'exports',
 
         var actionString = _.filter(this.props.actionSet, {"type": this.props.action});
 
+
         var cx = React.addons.classSet;
         var classes = cx({
             'square': true
         });
 
-        var time = moment(this.props.timestamp).format('YYYY-MM-DD hh:mm:ss');
+
+        var time = moment(this.props.timestamp).fromNow();
 
         return (
 
@@ -693,16 +695,12 @@ var actionSet = [
     {"type": "Gameplay", "string": "recently played", "icon": "ion-ios-game-controller-a", "color": "red-bg"}
 ];
 
-var ignitionEvents = [
-    {'Type': 'Update', 'copy': 'Ignition 1.0 released!', 'username': ''},
-    {'Type': 'message', 'copy': 'Hey Whats Up?', 'username': "Roman"},
-    {'Type': 'file', 'copy': 'Sent you a save file', 'username': "Andie"},
-];
+var ignitionEvents = [];
 
 var eventSet = [
-    {"Type": "Update", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
-    {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios-chatboxes", "shortcut": "F6"},
-    {"Type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
+    {"Type": "Update", "string": null, "icon": "ion-fork-repo", "shortcut": "F5"},
+    {"Type": "message", "string": null, "icon": "ion-ios-chatboxes", "shortcut": "F6"},
+    {"Type": "file", "string": null, "icon": "ion-paper-airplane", "shortcut": "F6"},
 ];
 
 /* Components
@@ -3179,7 +3177,7 @@ module.exports = React.createClass({displayName: 'exports',
         var actionSet = this.props.actionSet;
 
         var activityNodes = this.state.activities.map(function (activity, i) {
-          return Activity({actionSet: actionSet, key: i.id, navStack: i+1, username: activity.username, action: activity.activity, game: activity.game, timestamp:  activity.Timestamp})
+          return Activity({actionSet: actionSet, key: i.id, navStack: i+1, username: activity.Username, action: activity.Type, game: activity.Software, timestamp:  activity.Timestamp})
         });
 
         nodes = activityNodes.length;
@@ -8765,14 +8763,13 @@ var events = {
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
 
-        console.log(parameters);
-
-        var ltime = new Date();
+        var _ltime = new Date().valueOf();
 
         var aObj = {
             Software: JSON.parse(parameters).title,
             Type: "Achievement",
-            Local: ltime.getTime()
+            Info: null,
+            Local: _ltime
         };
 
         var Obj = {

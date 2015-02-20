@@ -53,7 +53,7 @@ module.exports = React.createClass({
         var actionSet = this.props.actionSet;
 
         var activityNodes = this.state.activities.map(function (activity, i) {
-          return <Activity actionSet={actionSet} key={i.id} navStack={i+1} username={activity.username} action={activity.activity} game={activity.game} timestamp={ activity.Timestamp } />
+          return <Activity actionSet={actionSet} key={i.id} navStack={i+1} username={activity.Username} action={activity.Type} game={activity.Software} timestamp={ activity.Timestamp } />
         });
 
         nodes = activityNodes.length;

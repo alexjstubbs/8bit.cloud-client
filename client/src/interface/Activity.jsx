@@ -19,7 +19,7 @@ module.exports = React.createClass({
             icon: "ion-ios-game-controller-a-outline ",
             functionCall: "viewMessages",
             username: "Unkown",
-            action: "gameplay",
+            action: "Gameplay",
             game: null,
             actionSet: [],
             actionString: "recently played",
@@ -30,12 +30,14 @@ module.exports = React.createClass({
 
         var actionString = _.filter(this.props.actionSet, {"type": this.props.action});
 
+
         var cx = React.addons.classSet;
         var classes = cx({
             'square': true
         });
 
-        var time = moment(this.props.timestamp).format('YYYY-MM-DD hh:mm:ss');
+
+        var time = moment(this.props.timestamp).fromNow();
 
         return (
 

@@ -31,16 +31,12 @@ var actionSet = [
     {"type": "Gameplay", "string": "recently played", "icon": "ion-ios-game-controller-a", "color": "red-bg"}
 ];
 
-var ignitionEvents = [
-    {'Type': 'Update', 'copy': 'Ignition 1.0 released!', 'username': ''},
-    {'Type': 'message', 'copy': 'Hey Whats Up?', 'username': "Roman"},
-    {'Type': 'file', 'copy': 'Sent you a save file', 'username': "Andie"},
-];
+var ignitionEvents = [];
 
 var eventSet = [
-    {"Type": "Update", "string": ignitionEvents[0].copy, "icon": "ion-fork-repo", "shortcut": "F5"},
-    {"Type": "message", "string": ignitionEvents[1].copy, "icon": "ion-ios-chatboxes", "shortcut": "F6"},
-    {"Type": "file", "string": ignitionEvents[2].copy, "icon": "ion-paper-airplane", "shortcut": "F6"},
+    {"Type": "Update", "string": null, "icon": "ion-fork-repo", "shortcut": "F5"},
+    {"Type": "message", "string": null, "icon": "ion-ios-chatboxes", "shortcut": "F6"},
+    {"Type": "file", "string": null, "icon": "ion-paper-airplane", "shortcut": "F6"},
 ];
 
 /* Components

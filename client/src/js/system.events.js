@@ -547,14 +547,13 @@ var events = {
     -------------------------------------------------- */
     achievementUnlocked: function(parameters) {
 
-        console.log(parameters);
-
-        var ltime = new Date();
+        var _ltime = new Date().valueOf();
 
         var aObj = {
             Software: JSON.parse(parameters).title,
             Type: "Achievement",
-            Local: ltime.getTime()
+            Info: null,
+            Local: _ltime
         };
 
         var Obj = {
