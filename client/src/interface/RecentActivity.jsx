@@ -40,15 +40,22 @@ module.exports = React.createClass({
 
     reverseOrder: function() {
 
-        // Reverse navigation 
+        // Reverse navigation
         var docs = document.querySelectorAll("#recent_activity [data-snav]");
 
         if (docs.length > 1) {
+
+            // var d;
+            // var sorted = _.sortBy(docs, function(arrayElement) {
+            //     d = new Date(arrayElement.getAttribute("data-timestamp"));
+            //     return d.getTime();
+            // });
 
             _.forEach(docs, function (item, i) {
                 i++;
                 item.setAttribute("data-snav", i);
             });
+
 
         }
 
@@ -59,7 +66,6 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-
 
         api.emit('request', { request: 'getActivities'});
         // api.on('api', this.setState.bind(this));
@@ -78,7 +84,22 @@ module.exports = React.createClass({
 
         nodes = activityNodes.length;
 
-        activityNodes.reverse();
+
+        if (activityNodes.length > 1) {
+
+            var d;
+            var sorted = _.sortBy(activityNodes, function(arrayElement) {
+                d = new Date(arrayElement.props.timestamp);
+                return d.getTime();
+            });
+
+            activityNodes = sorted;
+
+            activityNodes.reverse();
+
+            activityNodes = _.slice(activityNodes, 0, 4);
+
+        }
 
 
         return (

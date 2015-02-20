@@ -30,7 +30,6 @@ module.exports = React.createClass({
 
         var actionString = _.filter(this.props.actionSet, {"type": this.props.action});
 
-
         var cx = React.addons.classSet;
         var classes = cx({
             'square': true
@@ -41,7 +40,7 @@ module.exports = React.createClass({
 
         return (
 
-        <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack}>
+        <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack} data-timestamp={this.props.timestamp}>
             <td className="td_square"><div className={classes +" "+ actionString[0].color}><i className={actionString[0].icon}></i></div></td>
             <td><strong>{this.props.username}</strong><br />
             {actionString[0].string} {this.props.game}</td>

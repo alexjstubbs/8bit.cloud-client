@@ -159,7 +159,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         var actionString = _.filter(this.props.actionSet, {"type": this.props.action});
 
-
         var cx = React.addons.classSet;
         var classes = cx({
             'square': true
@@ -170,7 +169,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-        React.DOM.tr({className: this.props.subNavable ? "subNavable" : "", 'data-snav': this.props.navStack}, 
+        React.DOM.tr({className: this.props.subNavable ? "subNavable" : "", 'data-snav': this.props.navStack, 'data-timestamp': this.props.timestamp}, 
             React.DOM.td({className: "td_square"}, React.DOM.div({className: classes +" "+ actionString[0].color}, React.DOM.i({className: actionString[0].icon}))), 
             React.DOM.td(null, React.DOM.strong(null, this.props.username), React.DOM.br(null), 
             actionString[0].string, " ", this.props.game), 
@@ -3167,15 +3166,22 @@ module.exports = React.createClass({displayName: 'exports',
 
     reverseOrder: function() {
 
-        // Reverse navigation 
+        // Reverse navigation
         var docs = document.querySelectorAll("#recent_activity [data-snav]");
 
         if (docs.length > 1) {
+
+            // var d;
+            // var sorted = _.sortBy(docs, function(arrayElement) {
+            //     d = new Date(arrayElement.getAttribute("data-timestamp"));
+            //     return d.getTime();
+            // });
 
             _.forEach(docs, function (item, i) {
                 i++;
                 item.setAttribute("data-snav", i);
             });
+
 
         }
 
@@ -3186,7 +3192,6 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
-
 
         api.emit('request', { request: 'getActivities'});
         // api.on('api', this.setState.bind(this));
@@ -3205,7 +3210,22 @@ module.exports = React.createClass({displayName: 'exports',
 
         nodes = activityNodes.length;
 
-        activityNodes.reverse();
+
+        if (activityNodes.length > 1) {
+
+            var d;
+            var sorted = _.sortBy(activityNodes, function(arrayElement) {
+                d = new Date(arrayElement.props.timestamp);
+                return d.getTime();
+            });
+
+            activityNodes = sorted;
+
+            activityNodes.reverse();
+
+            activityNodes = _.slice(activityNodes, 0, 4);
+
+        }
 
 
         return (
