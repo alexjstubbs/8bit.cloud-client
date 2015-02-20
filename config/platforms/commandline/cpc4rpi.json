@@ -1,0 +1,19 @@
+{
+    "package": "cpc4rpi",
+    "expath": "/opt/emulators/cpc4rpi-1.1/cpc4rpi",
+    "platforms": {
+        "cpc": {
+            "title": "cpc"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

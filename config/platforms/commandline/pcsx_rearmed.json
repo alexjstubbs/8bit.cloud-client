@@ -1,0 +1,19 @@
+{
+    "package": "pcsx_rearmed",
+    "expath": "/opt/emulators/pcsx_rearmed/pcsx",
+    "platforms": {
+        "psx": {
+            "title": "psx"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}
