@@ -117,6 +117,10 @@ var api = {
         common.serverAPI.getActivities(nsp);
     },
 
+    getOfflineActivities: function(nsp) {
+        common.databases.getOfflineActivities(nsp);
+    },
+
     storeActivity: function(nsp, activityObj) {
         common.serverAPI.storeActivity(nsp, activityObj);
     },

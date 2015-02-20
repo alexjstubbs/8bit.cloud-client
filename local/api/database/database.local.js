@@ -260,16 +260,36 @@ function getGamesAjax(req, res) {
 
 }
 
+/*  Get Offline Activity DB
+-------------------------------------------------- */
+function getOfflineActivities(nsp, callback) {
+    storeGet(null, "activities", function(results) {
+
+        if (results) {
+            if (nsp) {
+                nsp.emit('api', {activities: results});
+            }
+
+            if (callback) {
+                callback(null, results);
+            }
+        }
+
+    });
+
+}
+
 /*  Exports
 -------------------------------------------------- */
-exports.initDatabases       = initDatabases;
-exports.storeGame           = storeGame;
-exports.findGame            = findGame;
-exports.dropDatabase        = dropDatabase;
-exports.storeAchievement    = storeAchievement;
-exports.findAchievements    = findAchievements;
-exports.storeGet            = storeGet;
-exports.storeData           = storeData;
-exports.removeFavorite      = removeFavorite;
-exports.compactDatabase     = compactDatabase;
-exports.getGamesAjax        = getGamesAjax;
+exports.initDatabases           = initDatabases;
+exports.storeGame               = storeGame;
+exports.findGame                = findGame;
+exports.dropDatabase            = dropDatabase;
+exports.storeAchievement        = storeAchievement;
+exports.findAchievements        = findAchievements;
+exports.storeGet                = storeGet;
+exports.storeData               = storeData;
+exports.removeFavorite          = removeFavorite;
+exports.compactDatabase         = compactDatabase;
+exports.getGamesAjax            = getGamesAjax;
+exports.getOfflineActivities    = getOfflineActivities;

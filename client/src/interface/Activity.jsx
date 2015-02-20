@@ -38,13 +38,23 @@ module.exports = React.createClass({
 
         var time = moment(this.props.timestamp).fromNow();
 
+
         return (
 
         <tr className={this.props.subNavable ? "subNavable" : ""} data-snav={this.props.navStack} data-timestamp={this.props.timestamp}>
-            <td className="td_square"><div className={classes +" "+ actionString[0].color}><i className={actionString[0].icon}></i></div></td>
-            <td><strong>{this.props.username}</strong><br />
-            {actionString[0].string} {this.props.game}</td>
+
+            <td className="td_square">
+                <div className={classes +" "+ actionString[0].color}><i className={actionString[0].icon}></i></div>
+                </td>
+
+            <td>
+                <strong>{this.props.username == "Unkown" ? "You" : this.props.username}</strong>
+                <br />
+                {actionString[0].string} {this.props.game}
+            </td>
+
             <td className="text-right"> {time}</td>
+
         </tr>
 
         );

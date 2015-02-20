@@ -167,13 +167,23 @@ module.exports = React.createClass({displayName: 'exports',
 
         var time = moment(this.props.timestamp).fromNow();
 
+
         return (
 
         React.DOM.tr({className: this.props.subNavable ? "subNavable" : "", 'data-snav': this.props.navStack, 'data-timestamp': this.props.timestamp}, 
-            React.DOM.td({className: "td_square"}, React.DOM.div({className: classes +" "+ actionString[0].color}, React.DOM.i({className: actionString[0].icon}))), 
-            React.DOM.td(null, React.DOM.strong(null, this.props.username), React.DOM.br(null), 
-            actionString[0].string, " ", this.props.game), 
+
+            React.DOM.td({className: "td_square"}, 
+                React.DOM.div({className: classes +" "+ actionString[0].color}, React.DOM.i({className: actionString[0].icon}))
+                ), 
+
+            React.DOM.td(null, 
+                React.DOM.strong(null, this.props.username == "Unkown" ? "You" : this.props.username), 
+                React.DOM.br(null), 
+                actionString[0].string, " ", this.props.game
+            ), 
+
             React.DOM.td({className: "text-right"}, " ", time)
+
         )
 
         );
@@ -685,9 +695,6 @@ var React           = require('react/addons'),
     unreadMessages,
     favorites       = [];
 
-
-// ,   watch           = ["isOnline", "ipInfo", "session", "eventSet", "messages"]
-
 /* Sample Data for Development
 -------------------------------------------------- */
 
@@ -725,6 +732,11 @@ module.exports = React.createClass({displayName: 'exports',
         };
     },
 
+
+    componentWillUpdate: function(props, state) {
+            // console.log(props);
+            console.log(state.isOnline);
+    },
 
     getDefaultProps: function() {
         return {
@@ -766,6 +778,20 @@ module.exports = React.createClass({displayName: 'exports',
 
         }, 500);
 
+        this.updateDashboard();
+
+    },
+
+    updateDashboard: function() {
+
+        if (this.state.isOnline) {
+            api.emit('request', { request: 'getActivities'});
+        }
+
+        else {
+            api.emit('request', { request: 'getOfflineActivities'});
+        }
+
     },
 
     componentDidMount: function() {
@@ -798,6 +824,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        this.updateDashboard();
+
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
@@ -818,11 +846,10 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.div({className: "container-fluid", id: "area"}, 
                 React.DOM.div({'data-screen': "home", className: "screen"}, 
 
-                    RecentActivity({actionSet: actionSet}), 
+                    RecentActivity({actionSet: actionSet, onlineStatus: this.state.isOnline}), 
                     Favorites({favorites: favorites}), 
 
                      this.state.isOnline ? Community(null) :  React.DOM.span(null, React.DOM.br(null), React.DOM.br(null), React.DOM.img({src: "../src/img/offline-community.jpg", className: "col-xs-4 img-responsive"}))
-
 
                 )
                 ), 
@@ -3129,6 +3156,7 @@ module.exports = React.createClass({displayName: 'exports',
  */
 
 var React       = require('react/addons'),
+    mixins      = require('./mixins/mixins.jsx'),
     Activity    = require('./Activity.jsx'),
     _           = require('lodash'),
     moment      = require('moment'),
@@ -3136,13 +3164,11 @@ var React       = require('react/addons'),
 
 module.exports = React.createClass({displayName: 'exports',
 
+    mixins: [mixins.listener],
+
     getInitialState: function() {
         return {
-
-            activities: [
-
-            ]
-
+            activities: []
         };
     },
 
@@ -3160,9 +3186,10 @@ module.exports = React.createClass({displayName: 'exports',
             actionSet: [],
             id: "recent_activity",
             title: "Recent Activity",
-            items: [],
+            items: []
         };
     },
+
 
     reverseOrder: function() {
 
@@ -3171,17 +3198,10 @@ module.exports = React.createClass({displayName: 'exports',
 
         if (docs.length > 1) {
 
-            // var d;
-            // var sorted = _.sortBy(docs, function(arrayElement) {
-            //     d = new Date(arrayElement.getAttribute("data-timestamp"));
-            //     return d.getTime();
-            // });
-
             _.forEach(docs, function (item, i) {
                 i++;
                 item.setAttribute("data-snav", i);
             });
-
 
         }
 
@@ -3193,9 +3213,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
 
-        api.emit('request', { request: 'getActivities'});
-        // api.on('api', this.setState.bind(this));
-
         api.on('network-api', this.setState.bind(this));
 
     },
@@ -3205,11 +3222,11 @@ module.exports = React.createClass({displayName: 'exports',
         var actionSet = this.props.actionSet;
 
         var activityNodes = this.state.activities.map(function (activity, i) {
+
           return Activity({actionSet: actionSet, key: i.id, navStack: i+1, username: activity.Username, action: activity.Type, game: activity.Software, timestamp:  activity.Timestamp})
         });
 
         nodes = activityNodes.length;
-
 
         if (activityNodes.length > 1) {
 
@@ -3247,14 +3264,14 @@ module.exports = React.createClass({displayName: 'exports',
                      nodes ? activityNodes : React.DOM.td({colSpan: "2"}, React.DOM.h2(null, "No Recent Activity"))
 
                    )
-                    )
                 )
+            )
 
         );
     }
 });
 
-},{"./Activity.jsx":3,"lodash":96,"moment":97,"react/addons":98,"socket.io-client":257}],39:[function(require,module,exports){
+},{"./Activity.jsx":3,"./mixins/mixins.jsx":61,"lodash":96,"moment":97,"react/addons":98,"socket.io-client":257}],39:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */

@@ -19,9 +19,6 @@ var React           = require('react/addons'),
     unreadMessages,
     favorites       = [];
 
-
-// ,   watch           = ["isOnline", "ipInfo", "session", "eventSet", "messages"]
-
 /* Sample Data for Development
 -------------------------------------------------- */
 
@@ -59,6 +56,11 @@ module.exports = React.createClass({
         };
     },
 
+
+    componentWillUpdate: function(props, state) {
+            // console.log(props);
+            console.log(state.isOnline);
+    },
 
     getDefaultProps: function() {
         return {
@@ -100,6 +102,20 @@ module.exports = React.createClass({
 
         }, 500);
 
+        this.updateDashboard();
+
+    },
+
+    updateDashboard: function() {
+
+        if (this.state.isOnline) {
+            api.emit('request', { request: 'getActivities'});
+        }
+
+        else {
+            api.emit('request', { request: 'getOfflineActivities'});
+        }
+
     },
 
     componentDidMount: function() {
@@ -132,6 +148,8 @@ module.exports = React.createClass({
 
     render: function() {
 
+        this.updateDashboard();
+
         var cx = React.addons.classSet;
         var classes = cx({
             'container-fluid': true,
@@ -152,11 +170,10 @@ module.exports = React.createClass({
                 <div className="container-fluid" id="area">
                 <div data-screen='home' className="screen">
 
-                    <RecentActivity actionSet={actionSet} />
+                    <RecentActivity actionSet={actionSet} onlineStatus={this.state.isOnline} />
                     <Favorites favorites={favorites} />
 
                     { this.state.isOnline ? <Community /> :  <span><br /><br /><img src="../src/img/offline-community.jpg" className="col-xs-4 img-responsive" /></span> }
-
 
                 </div>
                 </div>

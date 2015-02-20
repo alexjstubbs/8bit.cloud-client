@@ -3,6 +3,7 @@
 var fs              = require('fs-extra'),
     io              = require('socket.io-client'),
     async           = require('async'),
+    _               = require('lodash'),
     networkMethod   = require(__base + 'api/server/server.methods').networkMethod,
     _await          = false,
     network,
@@ -116,6 +117,8 @@ var networkConnection = function(token, ansp, callback) {
 
         ansp.emit('api', { isOnline: true });
 
+        console.log(ansp);
+
         network = nsp;
 
         if (callback) {
@@ -207,6 +210,13 @@ var networkInterface = function(ansp, json) {
 
 };
 
+/*  Throttled Command
+-------------------------------------------------- */
+var tNetworkCommand = function(json) {
+    network.emit('cmd', json);
+};
+
+var throttleNetworkCmd = _.throttle(tNetworkCommand, 500);
 
 /* Send Command to Network
 -------------------------------------------------- */
@@ -235,7 +245,7 @@ var networkCommand = function(ansp, json) {
                 }
 
                 else {
-                    network.emit('cmd', json);
+                    throttleNetworkCmd(json);
                 }
 
             });
@@ -243,6 +253,7 @@ var networkCommand = function(ansp, json) {
         }
 
     else {
+
 
         /*  Wait till network is up to send awaiting commands...
         -------------------------------------------------- */
@@ -252,7 +263,7 @@ var networkCommand = function(ansp, json) {
                     setTimeout(callback, 1000);
                 },
                 function () {
-                    network.emit('cmd', json);
+                    throttleNetworkCmd(json);
                 }
             );
         }

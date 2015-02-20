@@ -3,6 +3,7 @@
  */
 
 var React       = require('react/addons'),
+    mixins      = require('./mixins/mixins.jsx'),
     Activity    = require('./Activity.jsx'),
     _           = require('lodash'),
     moment      = require('moment'),
@@ -10,13 +11,11 @@ var React       = require('react/addons'),
 
 module.exports = React.createClass({
 
+    mixins: [mixins.listener],
+
     getInitialState: function() {
         return {
-
-            activities: [
-
-            ]
-
+            activities: []
         };
     },
 
@@ -34,9 +33,10 @@ module.exports = React.createClass({
             actionSet: [],
             id: "recent_activity",
             title: "Recent Activity",
-            items: [],
+            items: []
         };
     },
+
 
     reverseOrder: function() {
 
@@ -45,17 +45,10 @@ module.exports = React.createClass({
 
         if (docs.length > 1) {
 
-            // var d;
-            // var sorted = _.sortBy(docs, function(arrayElement) {
-            //     d = new Date(arrayElement.getAttribute("data-timestamp"));
-            //     return d.getTime();
-            // });
-
             _.forEach(docs, function (item, i) {
                 i++;
                 item.setAttribute("data-snav", i);
             });
-
 
         }
 
@@ -67,9 +60,6 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
 
-        api.emit('request', { request: 'getActivities'});
-        // api.on('api', this.setState.bind(this));
-
         api.on('network-api', this.setState.bind(this));
 
     },
@@ -79,11 +69,11 @@ module.exports = React.createClass({
         var actionSet = this.props.actionSet;
 
         var activityNodes = this.state.activities.map(function (activity, i) {
+
           return <Activity actionSet={actionSet} key={i.id} navStack={i+1} username={activity.Username} action={activity.Type} game={activity.Software} timestamp={ activity.Timestamp } />
         });
 
         nodes = activityNodes.length;
-
 
         if (activityNodes.length > 1) {
 
@@ -121,8 +111,8 @@ module.exports = React.createClass({
                     { nodes ? activityNodes : <td colSpan="2"><h2>No Recent Activity</h2></td> }
 
                    </tbody>
-                    </table>
-                </div>
+                </table>
+            </div>
 
         );
     }
