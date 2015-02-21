@@ -29,10 +29,11 @@
 <script>
 ;(function() {
   window.onload = function() {
+
+      // . ~/.bashrc
     var socket = io.connect();
     socket.on('connect', function() {
       var term = new Terminal({
-
               "termName": "xterm",
               "geometry": [120, 24],
               "scrollback": 1000,
@@ -63,6 +64,7 @@
 
       term.on('data', function(data) {
         socket.emit('data', data);
+
       });
 
       term.on('title', function(title) {
@@ -72,7 +74,7 @@
       term.open(document.body);
 
       term.write('\x1b[31mIgnition Console Module v0.12.\x1b[m\r\n');
-      term.write('\x1b[31mUse command: \'quit\' to exit\x1b[m\r\n');
+      term.write('\x1b[31mPress: \'CTRL + Q\' to exit\x1b[m\r\n');
 
 
       socket.on('data', function(data) {
@@ -82,6 +84,7 @@
       socket.on('disconnect', function() {
         term.destroy();
       });
+
     });
   };
 }).call(this);

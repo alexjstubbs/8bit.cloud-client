@@ -25,7 +25,7 @@ module.exports = React.createClass({
     render: function() {
 
         return (
-            <div className="parent">
+            <div className="parent" id="terminal-window">
 
                 <iframe id={this.props.id} src={this.props.url} className="browser-frame" data-function="browserFocus" data-parameters={this.props.id}></iframe>
 

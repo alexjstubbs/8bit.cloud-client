@@ -3856,7 +3856,7 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         return (
-            React.DOM.div({className: "parent"}, 
+            React.DOM.div({className: "parent", id: "terminal-window"}, 
 
                 React.DOM.iframe({id: this.props.id, src: this.props.url, className: "browser-frame", 'data-function': "browserFocus", 'data-parameters': this.props.id})
 

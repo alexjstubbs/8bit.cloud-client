@@ -7,7 +7,8 @@ var http = require('http')
   , express = require('express')
   , io = require('socket.io')
   , pty = require('pty.js')
-  , terminal = require('../../node_modules/term.js/index.js');
+  , terminal = require('../../node_modules/term.js/index.js')
+  , api;
 
 /**
  * term.js
@@ -99,6 +100,7 @@ server.on('connection', function(socket) {
   }
 });
 
+
 /**
  * Sockets
  */
@@ -111,8 +113,12 @@ io.sockets.on('connection', function(sock) {
   socket = sock;
 
   socket.on('data', function(data) {
-      console.log(data);
     if (stream) stream.write('IN: ' + data + '\n-\n');
+
+    if (JSON.stringify(data) == '"\\u0011"') {
+        process.send({cmd: "closeWindow"});
+    }
+
     term.write(data);
   });
 
