@@ -82,6 +82,41 @@ var events = {
         eventDispatcher.changeView(parameters);
     },
 
+    /*  Trigger Dialog (via api)
+    -------------------------------------------------- */
+    dialogShow: function(parameters) {
+        dialog.show(parameters);
+    },
+
+    /*  Prompt Show (via api)
+    -------------------------------------------------- */
+    promptShow: function(parameters) {
+
+        var json = JSON.parse(parameters);
+
+        var arg = {
+            message: json.message,
+            agree: json.agree,
+            disagree: json.disagree,
+            parameters: json.parameters
+        };
+
+        // Show Dialog
+        dialog.show("Prompt", null, arg);
+
+    },
+
+    /*  Confirm Show (via api)
+    -------------------------------------------------- */
+    confirmShow: function(parameters) {
+
+        console.log(parameters);
+        
+        // Show Dialog
+        dialog.show("Confirm", null, parameters);
+
+    },
+
     /* Focus form inputs on Action button/keypress
     -------------------------------------------------- */
     inputFocus: function() {

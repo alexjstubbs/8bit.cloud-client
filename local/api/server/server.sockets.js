@@ -121,7 +121,13 @@ var networkConnection = function(token, ansp, callback) {
     nsp.on('network', function(data, sock) {
 
         if (data.result) {
-            networkMethod[data.result.id](data);
+
+            try {
+                networkMethod[data.result.id](data);
+            } catch (e) {
+                return false;
+            }
+
         }
 
         else if (data.error) {
@@ -200,7 +206,7 @@ var tNetworkCommand = function(json) {
     network.emit('cmd', json);
 };
 
-var throttleNetworkCmd = _.throttle(tNetworkCommand, 500);
+var throttleNetworkCmd = _.debounce(tNetworkCommand, 500);
 
 /* Send Command to Network
 -------------------------------------------------- */

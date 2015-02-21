@@ -12,6 +12,7 @@ var events                  = require('./events.js'),
     AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
     FriendLarge             = require('../interface/FriendLarge.jsx'),
     Prompt                  = require('../interface/Prompt.jsx'),
+    Confirm                 = require('../interface/Confirm.jsx'),
     Terminal                = require('../interface/Terminal.jsx'),
     WebBrowser              = require('../interface/WebBrowser.jsx'),
     SignUp                  = require('../interface/forms/SignUp.jsx'),
@@ -131,6 +132,10 @@ var show = function(parent, parameters, arg) {
         case "Prompt":
             properties = {backdrop: true};
             Child = Prompt({message: arg.message, agree: arg.agree, disagree: arg.disagree, parameters: arg.parameters});
+            break;
+        case "Confirm":
+            properties = {backdrop: true};
+            Child = Confirm({message: arg});
             break;
         case "SignUp":
             Child = SignUp({});
