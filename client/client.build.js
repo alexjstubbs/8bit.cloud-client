@@ -1270,35 +1270,29 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
         return {
-            achievement: {
-                title: "Sample Title",
-                description: "Sample Description",
-                count: false,
-                single: true
-            }
         };
     },
 
     componentDidMount: function () {
-        navigationInit.navigationDeinit();
+        // navigationInit.navigationDeinit();
     },
 
     render: function() {
 
-        navigationInit.navigationDeinit();
+        // navigationInit.navigationDeinit();
 
     return (
 
         React.DOM.div({className: "parent"}, 
 
-            React.DOM.div({className: "icon-modal-container col-xs-3"}, 
+            React.DOM.div({className: "icon-modal-container-primary col-xs-3"}, 
                 React.DOM.i({className: "ion-person"})
             ), 
 
             React.DOM.div({className: "col-xs-9 achievement-title-container"}, 
 
-                React.DOM.h3(null, "Friend Online!"), 
-                React.DOM.span({className: "modal-achievement-desc"}, "F9 to invite to game")
+                React.DOM.h3(null, this.props.friend.object.Username, " is online!"), 
+                React.DOM.span({className: "modal-achievement-desc"}, "F9 to invite to a game")
             )
 
         )
@@ -3848,8 +3842,6 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
-
-
         navigationInit.navigationInit();
     },
 
@@ -5840,7 +5832,7 @@ var events                  = require('./events.js'),
     Messages                = require('../interface/Messages.jsx'),
     Friends                 = require('../interface/Friends.jsx'),
     SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
-    friendNotification      = require('../interface/FriendNotification.jsx'),
+    FriendNotification      = require('../interface/FriendNotification.jsx'),
     AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
     FriendLarge             = require('../interface/FriendLarge.jsx'),
     Prompt                  = require('../interface/Prompt.jsx'),
@@ -6097,7 +6089,7 @@ var keyboard = function(input) {
 -------------------------------------------------- */
 var friendNotification = function(friendObj) {
 
-    if (achievementObj) achievementObj = JSON.parse(friendObj);
+    if (friendObj) friendObj = JSON.parse(friendObj);
 
     var _index = document.querySelectorAll(".ignition-modal-");
 
@@ -8900,12 +8892,11 @@ var events = {
     -------------------------------------------------- */
     friendNotification: function(parameters) {
 
-        dialog.uiNotification(parameters);
+        dialog.friendNotification(parameters);
 
         setTimeout(function() {
             var notification = document.querySelectorAll(".ignition-modal-friendNotification")[0];
-            dialog.close(null, null, "uiNotification");
-            notification.remove();
+            notification.parentElement.removeChild(notification);
         }, 4500);
 
     },
@@ -8935,9 +8926,8 @@ var events = {
 
         setTimeout(function() {
             var notification = document.querySelectorAll(".ignition-modal-achievement")[0];
-            dialog.close(null, null, "uiNotification");
-            notification.remove();
-        }, 4500);
+            notification.parentElement.removeChild(notification);
+        }, 3500);
 
     },
 

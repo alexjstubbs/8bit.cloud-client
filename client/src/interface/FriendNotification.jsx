@@ -12,35 +12,29 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
         return {
-            achievement: {
-                title: "Sample Title",
-                description: "Sample Description",
-                count: false,
-                single: true
-            }
         };
     },
 
     componentDidMount: function () {
-        navigationInit.navigationDeinit();
+        // navigationInit.navigationDeinit();
     },
 
     render: function() {
 
-        navigationInit.navigationDeinit();
+        // navigationInit.navigationDeinit();
 
     return (
 
         <div className="parent">
 
-            <div className="icon-modal-container col-xs-3">
+            <div className="icon-modal-container-primary col-xs-3">
                 <i className="ion-person"></i>
             </div>
 
             <div className="col-xs-9 achievement-title-container">
 
-                <h3>Friend Online!</h3>
-                <span className="modal-achievement-desc">F9 to invite to game</span>
+                <h3>{this.props.friend.object.Username} is online!</h3>
+                <span className="modal-achievement-desc">F9 to invite to a game</span>
             </div>
 
         </div>

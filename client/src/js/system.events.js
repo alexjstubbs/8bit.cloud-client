@@ -547,12 +547,11 @@ var events = {
     -------------------------------------------------- */
     friendNotification: function(parameters) {
 
-        dialog.uiNotification(parameters);
+        dialog.friendNotification(parameters);
 
         setTimeout(function() {
             var notification = document.querySelectorAll(".ignition-modal-friendNotification")[0];
-            dialog.close(null, null, "uiNotification");
-            notification.remove();
+            notification.parentElement.removeChild(notification);
         }, 4500);
 
     },
@@ -582,9 +581,8 @@ var events = {
 
         setTimeout(function() {
             var notification = document.querySelectorAll(".ignition-modal-achievement")[0];
-            dialog.close(null, null, "uiNotification");
-            notification.remove();
-        }, 4500);
+            notification.parentElement.removeChild(notification);
+        }, 3500);
 
     },
 

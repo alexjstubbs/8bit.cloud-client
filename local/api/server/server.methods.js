@@ -6,7 +6,7 @@ var methods = {
 
     friend_online: function(object){
         console.log("A FRIEND ONLINE!");
-        console.log(object);
+        __api.emit('clientEvent', {command: "friendNotification", params: JSON.stringify(object) });
     },
 
     friend_offline: function(object){

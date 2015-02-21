@@ -8,7 +8,7 @@ var events                  = require('./events.js'),
     Messages                = require('../interface/Messages.jsx'),
     Friends                 = require('../interface/Friends.jsx'),
     SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
-    friendNotification      = require('../interface/FriendNotification.jsx'),
+    FriendNotification      = require('../interface/FriendNotification.jsx'),
     AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
     FriendLarge             = require('../interface/FriendLarge.jsx'),
     Prompt                  = require('../interface/Prompt.jsx'),
@@ -265,7 +265,7 @@ var keyboard = function(input) {
 -------------------------------------------------- */
 var friendNotification = function(friendObj) {
 
-    if (achievementObj) achievementObj = JSON.parse(friendObj);
+    if (friendObj) friendObj = JSON.parse(friendObj);
 
     var _index = document.querySelectorAll(".ignition-modal-");
 

@@ -159,7 +159,11 @@ http.listen(1210, "127.0.0.1", function(err, result) {
 
             // Terminal Fork
             var child = require('child_process').fork('ignition_modules/tty/terminal.js');
-
+            child.on('message', function(response) {
+              if (response.cmd) {
+                  __api.emit('clientEvent', {command: "closeDialog", params: null });
+              }
+          });
         });
 
 

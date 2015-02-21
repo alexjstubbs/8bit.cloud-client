@@ -120,16 +120,17 @@ var networkConnection = function(token, ansp, callback) {
     -------------------------------------------------- */
     nsp.on('network', function(data, sock) {
 
-        switch(data) {
-            case data.error:
-                __api.emit('messaging', {type: 1, body: data });
-                break;
-            case data.result:
-                networkMethod[data.result.id](data);
-                break;
-            default:
-                __api.emit('network-api', data);
-            }
+        if (data.result) {
+            networkMethod[data.result.id](data);
+        }
+
+        else if (data.error) {
+            __api.emit('messaging', {type: 1, body: data });
+        }
+
+        else {
+            __api.emit('network-api', data);
+        }
 
     });
 

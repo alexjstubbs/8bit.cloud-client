@@ -17,8 +17,6 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-
-
         navigationInit.navigationInit();
     },
 
