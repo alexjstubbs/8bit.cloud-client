@@ -1619,17 +1619,23 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidUpdate: function() {
 
+
         var nodeList = document.querySelectorAll(".left_alpha");
 
         var alpha_list = [];
         _(this.state.gamesList).forEach(function(_char, index) {
 
-            index--;
 
             var alpha = _char.filename.charAt(0);
 
+
                 if (nodeList[index] && _.contains(alpha_list, alpha) === false) {
-                    nodeList[index].innerHTML = alpha;
+                    nodeList[index].innerHTML = alpha.toUpperCase();
+
+                }
+
+                else {
+                    nodeList[index].innerHTML = ".";
                 }
 
              alpha_list.push(alpha);
@@ -1638,9 +1644,12 @@ module.exports = React.createClass({displayName: 'exports',
 
              if (_alert) _alert.remove();
 
+
+                         index--;
         }).value();
 
         this.selectFirstNode();
+
     },
 
     getDefaultProps: function() {
@@ -7246,20 +7255,27 @@ var browserNavigationEvents = function(g) {
             query: shortname.trim()
         },
     }, function(result) {
-        
+
             events.updateGame(result, filepath);
 
         }
     );
 
     var alpha = game.charAt(0);
+
     var pagination = document.getElementById("browser_pagination");
 
     var actives = document.querySelectorAll(".active")[0];
+
     if (actives) { actives.classList.remove("active"); }
 
-    if(/[^a-zA-Z0-9]/.test(alpha)) {
+
+    if(/^[a-zA-Z()]+$/.test(alpha)) {
         document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
+    }
+
+    else {
+        document.querySelectorAll("[data-alpha='#']")[0].classList.add("active");
     }
 
     if (!g.nextSibling && navPos != total) {

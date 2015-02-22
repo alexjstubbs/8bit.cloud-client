@@ -71,20 +71,27 @@ var browserNavigationEvents = function(g) {
             query: shortname.trim()
         },
     }, function(result) {
-        
+
             events.updateGame(result, filepath);
 
         }
     );
 
     var alpha = game.charAt(0);
+
     var pagination = document.getElementById("browser_pagination");
 
     var actives = document.querySelectorAll(".active")[0];
+
     if (actives) { actives.classList.remove("active"); }
 
-    if(/[^a-zA-Z0-9]/.test(alpha)) {
+
+    if(/^[a-zA-Z()]+$/.test(alpha)) {
         document.querySelectorAll("[data-alpha="+alpha+"]")[0].classList.add("active");
+    }
+
+    else {
+        document.querySelectorAll("[data-alpha='#']")[0].classList.add("active");
     }
 
     if (!g.nextSibling && navPos != total) {

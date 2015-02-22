@@ -76,17 +76,23 @@ module.exports = React.createClass({
 
     componentDidUpdate: function() {
 
+
         var nodeList = document.querySelectorAll(".left_alpha");
 
         var alpha_list = [];
         _(this.state.gamesList).forEach(function(_char, index) {
 
-            index--;
 
             var alpha = _char.filename.charAt(0);
 
+
                 if (nodeList[index] && _.contains(alpha_list, alpha) === false) {
-                    nodeList[index].innerHTML = alpha;
+                    nodeList[index].innerHTML = alpha.toUpperCase();
+
+                }
+
+                else {
+                    nodeList[index].innerHTML = ".";
                 }
 
              alpha_list.push(alpha);
@@ -95,9 +101,12 @@ module.exports = React.createClass({
 
              if (_alert) _alert.remove();
 
+
+                         index--;
         }).value();
 
         this.selectFirstNode();
+
     },
 
     getDefaultProps: function() {

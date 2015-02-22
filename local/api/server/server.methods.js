@@ -18,10 +18,11 @@ var methods = {
     message_sent: function(object){
         console.log(object);
         __api.emit('clientEvent', {command: "confirmShow", params: object.result.message });
+    },
 
     new_message: function(object){
         console.log(object);
-    },
+    }
 
 };
 
