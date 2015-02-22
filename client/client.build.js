@@ -779,7 +779,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentWillUpdate: function(props, state) {
             // console.log(props);
-            console.log(state.isOnline);
     },
 
     getDefaultProps: function() {
@@ -6523,6 +6522,13 @@ var navigationKeyEvent      = require("./navigation.keyEvent.js"),
     _                       = require("lodash"),
     buttonTimestamp         = {};
 
+
+    // This is a dirty way to re-poll gamepads on script haulting error(s);
+    window.onerror = function() {
+        gamepadSupport.ticking = false;
+        gamepadSupport.startPolling();
+    };
+
 var gamepadSupport = {
 
         STATE_CHANGE: 0,
@@ -6595,7 +6601,7 @@ var gamepadSupport = {
             gamepadSupport.gamepads.push(event.gamepad);
 
             // Ask the tester to update the screen to show more gamepads.
-            tester.updateGamepads(gamepadSupport.gamepads);
+            // tester.updateGamepads(gamepadSupport.gamepads);
 
             // Start the polling loop to monitor button changes.
             gamepadSupport.startPolling();
@@ -6748,6 +6754,8 @@ var gamepadSupport = {
 
         buttonPressed: function(button) {
 
+            // console.log(button);
+
             gamepadSupport.doubleTap(button, function(dt) {
 
                 if (!dt) {
@@ -6788,25 +6796,25 @@ var gamepadSupport = {
                 if (!dt) {
 
                     if (axes[1] == 1) {
-                        // console.log("down");
+                        console.log("down");
                         Mousetrap.trigger('down');
 
                     }
                     if (axes[1] == -1) {
-                        // console.log("up");
+                        console.log("up");
                         Mousetrap.trigger('up');
                     }
 
                     if (axes[0] == 1) {
-                        // console.log("right");
-                        // navigationKeyEvent(39);
-                        Mousetrap.trigger('right');
+                        console.log("right");
+                        navigationKeyEvent(39);
+                        // Mousetrap.trigger('right');
                     }
                     if (axes[0] == -1) {
 
-                        // console.log("left");
-                        // navigationKeyEvent(37);
-                        Mousetrap.trigger('left');
+                        console.log("left");
+                        navigationKeyEvent(37);
+                        // Mousetrap.trigger('left');
                     }
                 }
 
@@ -8538,7 +8546,7 @@ var events = {
     confirmShow: function(parameters) {
 
         console.log(parameters);
-        
+
         // Show Dialog
         dialog.show("Confirm", null, parameters);
 
@@ -9122,45 +9130,52 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        var _ltime = new Date().valueOf();
-
-        var aObj = {
-            Software: JSON.parse(parameters).title,
-            Type: "Gameplay",
-            Info: null,
-            Local: _ltime
-        };
-
-        var Obj = {
-            database: "activities",
-            values: aObj
-        };
-
-        api.emit('request', { request: 'storeData', param: Obj });
-        api.emit('request', { request: 'storeActivity', param: Obj.values });
-
         if (parameters) {
+            var _ltime = new Date().valueOf();
 
-            // Pause all UI Navigation
-            events.pauseSessionNavigation();
+            var aObj = {
+                Software: JSON.parse(parameters).title,
+                Type: "Gameplay",
+                Info: null,
+                Local: _ltime
+            };
 
-            // Hide the UI
-            var _doc = document.getElementById("main");
-            document.body.style.background = "transparent";
-            _doc.style.display = "none";
+            var Obj = {
+                database: "activities",
+                values: aObj
+            };
 
-            // Remove Navigational Hooks
-            navigationInit.navigationDeinit(function() {});
+            api.emit('request', { request: 'storeData', param: Obj });
+            api.emit('request', { request: 'storeActivity', param: Obj.values });
 
-            // Open User Space
-            dialog.userSpace();
+            if (parameters) {
 
-            // Bind Navigation
-            navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
+                // Pause all UI Navigation
+                events.pauseSessionNavigation();
+
+                // Hide the UI
+                var _doc = document.getElementById("main");
+                document.body.style.background = "transparent";
+                _doc.style.display = "none";
+
+                // Remove Navigational Hooks
+                navigationInit.navigationDeinit(function() {});
+
+                // Open User Space
+                dialog.userSpace();
+
+                // Bind Navigation
+                navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
 
 
-            // Emit to Launc Game
-            api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
+                // Emit to Launc Game
+                api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
+            }
+
+        }
+
+        else {
+            console.log("Launch called, but no parameters specified");
         }
 
     },

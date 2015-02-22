@@ -29,6 +29,13 @@ var navigationKeyEvent      = require("./navigation.keyEvent.js"),
     _                       = require("lodash"),
     buttonTimestamp         = {};
 
+
+    // This is a dirty way to re-poll gamepads on script haulting error(s);
+    window.onerror = function() {
+        gamepadSupport.ticking = false;
+        gamepadSupport.startPolling();
+    };
+
 var gamepadSupport = {
 
         STATE_CHANGE: 0,
@@ -101,7 +108,7 @@ var gamepadSupport = {
             gamepadSupport.gamepads.push(event.gamepad);
 
             // Ask the tester to update the screen to show more gamepads.
-            tester.updateGamepads(gamepadSupport.gamepads);
+            // tester.updateGamepads(gamepadSupport.gamepads);
 
             // Start the polling loop to monitor button changes.
             gamepadSupport.startPolling();
@@ -254,6 +261,8 @@ var gamepadSupport = {
 
         buttonPressed: function(button) {
 
+            // console.log(button);
+
             gamepadSupport.doubleTap(button, function(dt) {
 
                 if (!dt) {
@@ -294,25 +303,25 @@ var gamepadSupport = {
                 if (!dt) {
 
                     if (axes[1] == 1) {
-                        // console.log("down");
+                        console.log("down");
                         Mousetrap.trigger('down');
 
                     }
                     if (axes[1] == -1) {
-                        // console.log("up");
+                        console.log("up");
                         Mousetrap.trigger('up');
                     }
 
                     if (axes[0] == 1) {
-                        // console.log("right");
-                        // navigationKeyEvent(39);
-                        Mousetrap.trigger('right');
+                        console.log("right");
+                        navigationKeyEvent(39);
+                        // Mousetrap.trigger('right');
                     }
                     if (axes[0] == -1) {
 
-                        // console.log("left");
-                        // navigationKeyEvent(37);
-                        Mousetrap.trigger('left');
+                        console.log("left");
+                        navigationKeyEvent(37);
+                        // Mousetrap.trigger('left');
                     }
                 }
 

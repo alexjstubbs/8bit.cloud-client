@@ -111,7 +111,7 @@ var events = {
     confirmShow: function(parameters) {
 
         console.log(parameters);
-        
+
         // Show Dialog
         dialog.show("Confirm", null, parameters);
 
@@ -695,45 +695,52 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        var _ltime = new Date().valueOf();
-
-        var aObj = {
-            Software: JSON.parse(parameters).title,
-            Type: "Gameplay",
-            Info: null,
-            Local: _ltime
-        };
-
-        var Obj = {
-            database: "activities",
-            values: aObj
-        };
-
-        api.emit('request', { request: 'storeData', param: Obj });
-        api.emit('request', { request: 'storeActivity', param: Obj.values });
-
         if (parameters) {
+            var _ltime = new Date().valueOf();
 
-            // Pause all UI Navigation
-            events.pauseSessionNavigation();
+            var aObj = {
+                Software: JSON.parse(parameters).title,
+                Type: "Gameplay",
+                Info: null,
+                Local: _ltime
+            };
 
-            // Hide the UI
-            var _doc = document.getElementById("main");
-            document.body.style.background = "transparent";
-            _doc.style.display = "none";
+            var Obj = {
+                database: "activities",
+                values: aObj
+            };
 
-            // Remove Navigational Hooks
-            navigationInit.navigationDeinit(function() {});
+            api.emit('request', { request: 'storeData', param: Obj });
+            api.emit('request', { request: 'storeActivity', param: Obj.values });
 
-            // Open User Space
-            dialog.userSpace();
+            if (parameters) {
 
-            // Bind Navigation
-            navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
+                // Pause all UI Navigation
+                events.pauseSessionNavigation();
+
+                // Hide the UI
+                var _doc = document.getElementById("main");
+                document.body.style.background = "transparent";
+                _doc.style.display = "none";
+
+                // Remove Navigational Hooks
+                navigationInit.navigationDeinit(function() {});
+
+                // Open User Space
+                dialog.userSpace();
+
+                // Bind Navigation
+                navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
 
 
-            // Emit to Launc Game
-            api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
+                // Emit to Launc Game
+                api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
+            }
+
+        }
+
+        else {
+            console.log("Launch called, but no parameters specified");
         }
 
     },

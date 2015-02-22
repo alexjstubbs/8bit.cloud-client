@@ -59,7 +59,6 @@ module.exports = React.createClass({
 
     componentWillUpdate: function(props, state) {
             // console.log(props);
-            console.log(state.isOnline);
     },
 
     getDefaultProps: function() {
