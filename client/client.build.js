@@ -2217,7 +2217,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         React.DOM.div({className: "col-xs-9 profile-section"}, 
 
-            React.DOM.hr(null), 
+            React.DOM.hr({className: "hr-thin"}), 
 
             React.DOM.h1(null, "Achievements"), 
 

@@ -229,7 +229,7 @@ module.exports = React.createClass({
 
         <div className="col-xs-9 profile-section">
 
-            <hr />
+            <hr className="hr-thin" />
 
             <h1>Achievements</h1>
 
