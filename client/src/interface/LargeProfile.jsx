@@ -13,6 +13,8 @@ var React           = require('react/addons'),
     SaveStates      = require('./SaveStates.jsx'),
     AchievementList = require('./AchievementList.jsx'),
     mixins          = require('./mixins/mixins.jsx'),
+    achieved        = 0,
+    achievementsLen = 0,
     launchContext   = {};
 
 module.exports = React.createClass({
@@ -162,7 +164,12 @@ module.exports = React.createClass({
                 return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />
             });
 
+            achievementsLen = this.state.crc32[0].Achievements.length;
+            achieved = document.querySelectorAll(".achieved").length;
+
         }
+
+
 
         return (
 
@@ -216,7 +223,11 @@ module.exports = React.createClass({
 
         <div className="col-xs-9 profile-section">
 
-            <h1>Achievements <span className="achievement-stats">0 out of 0 Accomplished.</span></h1>
+            <hr />
+
+            <h1>Achievements</h1>
+
+                <span className="achievement-stats">{achieved} out of {achievementsLen} Accomplished.</span>
 
         <ul id="achievements">
 

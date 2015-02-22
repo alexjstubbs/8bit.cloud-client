@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
    getInitialState: function() {
           return {
-            "achieved": false
+            "achieved": true
         };
     },
 
