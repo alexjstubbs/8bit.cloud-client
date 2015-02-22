@@ -4,6 +4,7 @@
 var KeyEvent                = require('./navigation.keyEvent'),
     api                 	= require('socket.io-client')('/api'),
     navigationBindings  	= require("./navigation.bindings"),
+    helpers                 = require("./helpers"),
     _                   	= require('lodash'),
     navigationInit      	= require("./navigation.init.js"),
     dialog              	= require('./dialogs'),
@@ -695,7 +696,8 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        if (parameters) {
+        if (helpers.isJSON(parameters)) {
+
             var _ltime = new Date().valueOf();
 
             var aObj = {

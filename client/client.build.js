@@ -1606,6 +1606,7 @@ module.exports = React.createClass({displayName: 'exports',
             }
 
         });
+        
 
     },
 
@@ -2047,6 +2048,8 @@ module.exports = React.createClass({displayName: 'exports',
 
     screenMount: function() {
         this.favoriteCheck();
+
+        console.log(launchContext);
     },
 
     favoriteCheck: function(obj) {
@@ -6523,11 +6526,11 @@ var navigationKeyEvent      = require("./navigation.keyEvent.js"),
     buttonTimestamp         = {};
 
 
-    // This is a dirty way to re-poll gamepads on script haulting error(s);
-    window.onerror = function() {
-        gamepadSupport.ticking = false;
-        gamepadSupport.startPolling();
-    };
+// Re-poll gamepads on script haulting error(s);
+window.onerror = function() {
+    gamepadSupport.ticking = false;
+    gamepadSupport.startPolling();
+};
 
 var gamepadSupport = {
 
@@ -6989,6 +6992,17 @@ exports.gamepadSupport = gamepadSupport;
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
+/*  Is valid JSON
+-------------------------------------------------- */
+var isJSON = function(data) {
+    try {
+        JSON.parse(data);
+    } catch (e) {
+        return false;
+    }
+    return true;
+};
+
 /* Get first child of element (minus textnodetype)
 -------------------------------------------------- */
 var getFirstChild = function(el) {
@@ -7029,9 +7043,10 @@ var preloadImage = function(url, callback) {
 
 /* Exports
 -------------------------------------------------- */
-exports.getFirstChild = getFirstChild;
-exports.removeBrackets = removeBrackets;
-exports.preloadImage = preloadImage;
+exports.isJSON          = isJSON;
+exports.getFirstChild   = getFirstChild;
+exports.removeBrackets  = removeBrackets;
+exports.preloadImage    = preloadImage;
 
 },{}],83:[function(require,module,exports){
 /* Init Modules - Entry point to clientside controllers
@@ -7249,6 +7264,7 @@ var browserNavigation = function(k) {
                 browserNavigationEvents(td);
             }
         }
+
     }
 
 };
@@ -7282,6 +7298,15 @@ var browserNavigationEvents = function(g) {
     }, function(result) {
 
             events.updateGame(result, filepath);
+
+            var launchContext = {
+                platform: document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
+                filepath: filepath,
+                shortname: shortname
+            };
+
+            events.launchContext(launchContext);
+
 
         }
     );
@@ -8439,6 +8464,7 @@ module.exports = function(k) {
 var KeyEvent                = require('./navigation.keyEvent'),
     api                 	= require('socket.io-client')('/api'),
     navigationBindings  	= require("./navigation.bindings"),
+    helpers                 = require("./helpers"),
     _                   	= require('lodash'),
     navigationInit      	= require("./navigation.init.js"),
     dialog              	= require('./dialogs'),
@@ -9130,7 +9156,8 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        if (parameters) {
+        if (helpers.isJSON(parameters)) {
+
             var _ltime = new Date().valueOf();
 
             var aObj = {
@@ -9314,7 +9341,7 @@ var events = {
 -------------------------------------------------- */
 exports.events = events;
 
-},{"../interface/Screens.jsx":42,"./dialogs":78,"./events":80,"./navigation.bindings":85,"./navigation.eventListeners":88,"./navigation.init.js":90,"./navigation.keyEvent":91,"./navigation.keyboardKeyEvents":93,"lodash":98,"socket.io-client":259}],96:[function(require,module,exports){
+},{"../interface/Screens.jsx":42,"./dialogs":78,"./events":80,"./helpers":82,"./navigation.bindings":85,"./navigation.eventListeners":88,"./navigation.init.js":90,"./navigation.keyEvent":91,"./navigation.keyboardKeyEvents":93,"lodash":98,"socket.io-client":259}],96:[function(require,module,exports){
 /* System Sounds
 -------------------------------------------------- */
 

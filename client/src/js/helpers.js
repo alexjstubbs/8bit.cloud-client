@@ -1,6 +1,17 @@
 /* Misc. Helper Functions
 -------------------------------------------------- */
 
+/*  Is valid JSON
+-------------------------------------------------- */
+var isJSON = function(data) {
+    try {
+        JSON.parse(data);
+    } catch (e) {
+        return false;
+    }
+    return true;
+};
+
 /* Get first child of element (minus textnodetype)
 -------------------------------------------------- */
 var getFirstChild = function(el) {
@@ -41,6 +52,7 @@ var preloadImage = function(url, callback) {
 
 /* Exports
 -------------------------------------------------- */
-exports.getFirstChild = getFirstChild;
-exports.removeBrackets = removeBrackets;
-exports.preloadImage = preloadImage;
+exports.isJSON          = isJSON;
+exports.getFirstChild   = getFirstChild;
+exports.removeBrackets  = removeBrackets;
+exports.preloadImage    = preloadImage;

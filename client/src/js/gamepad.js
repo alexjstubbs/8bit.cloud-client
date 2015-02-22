@@ -30,11 +30,11 @@ var navigationKeyEvent      = require("./navigation.keyEvent.js"),
     buttonTimestamp         = {};
 
 
-    // This is a dirty way to re-poll gamepads on script haulting error(s);
-    window.onerror = function() {
-        gamepadSupport.ticking = false;
-        gamepadSupport.startPolling();
-    };
+// Re-poll gamepads on script haulting error(s);
+window.onerror = function() {
+    gamepadSupport.ticking = false;
+    gamepadSupport.startPolling();
+};
 
 var gamepadSupport = {
 

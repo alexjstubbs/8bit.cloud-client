@@ -40,6 +40,7 @@ var browserNavigation = function(k) {
                 browserNavigationEvents(td);
             }
         }
+
     }
 
 };
@@ -73,6 +74,15 @@ var browserNavigationEvents = function(g) {
     }, function(result) {
 
             events.updateGame(result, filepath);
+
+            var launchContext = {
+                platform: document.querySelectorAll(".platform.selected")[0].getAttribute("data-title"),
+                filepath: filepath,
+                shortname: shortname
+            };
+
+            events.launchContext(launchContext);
+
 
         }
     );
