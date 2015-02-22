@@ -154,6 +154,9 @@ module.exports = React.createClass({
 
     render: function() {
 
+        achieved        = 0;
+        achievementsLen = 0;
+
         var saveNodes = this.state.savestates.map(function (state, i) {
             return <SaveStates filename={state.filename} image={state.image} slot={state.slot} navStack={i+1} />
         });
@@ -191,7 +194,10 @@ module.exports = React.createClass({
 
                <li className="hidden"><button className='btn btn-purple'><i className='fa fa-video-camera '></i> &nbsp; Live Stream</button></li>
 
-               <li><button id="toggle-favorite" className='btn red-bg noround navable' data-selection={this.state.title} data-function={this.state.favorite ? "removeFavorite" : "addFavorite"} data-parameters={launchContext}><i className={this.state.favorite ? "ion-heart-broken" : "ion-heart"}></i> &nbsp; {this.state.favorite ? "Remove" : "Add"} as a favorite</button></li>
+               <li><button id="toggle-favorite" className='btn-block btn red-bg noround navable' data-selection={this.state.title} data-function={this.state.favorite ? "removeFavorite" : "addFavorite"} data-parameters={launchContext}><i className={this.state.favorite ? "ion-heart-broken" : "ion-heart"}></i> &nbsp; {this.state.favorite ? "Remove" : "Add"} as a favorite</button></li>
+               <br />
+               <li><button id="toggle-favorite" className='btn-block btn purple-bg noround navable' data-selection={this.state.title} data-function="speedRunLaunch" data-parameters={launchContext}><i className="ion-ios-stopwatch"></i> &nbsp; Speed Run</button></li>
+
 
             </ul>
 

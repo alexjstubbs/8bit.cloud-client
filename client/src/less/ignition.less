@@ -87,16 +87,25 @@
 }
 
 button.red-bg {
+    border:2px solid @black;
     background:@red !important;
     color:white !important;
 }
 
 button.green-bg {
+    border:2px solid @black;
     background:@green !important;
     color:white !important;
 }
 
 button.purple-bg {
+    border:2px solid @black;
+    background:@purple !important;
+    color:white !important;
+}
+
+button.purple-bg {
+    border:2px solid @black;
     background:@purple !important;
     color:white !important;
 }
@@ -1954,8 +1963,6 @@ a.btn-alt {
 .profile-section span {
     color:@gray;
     font-size:1em;
-    position:relative;
-    top:-5px;
 }
 
 
@@ -1979,7 +1986,7 @@ ul#achievements {
 
 ul#achievements li {
     text-align:left;
-    margin:0 0 40px 0px;
+    margin:0 0 20px 0px;
 }
 
 ul#achievements li .trophy {
@@ -2013,7 +2020,17 @@ ul#achievements  li > .trophy-icon {
 
 ul#achievements li > .trophy-info {
     position:relative;
-    top:10px;
+    top:0px;
+}
+
+ul#achievements li .achievement-description {
+    position:relative;
+    top:5px;
+}
+
+.achievement-navable-wrapper {
+    padding:20px 0;
+    overflow:hidden;
 }
 
 /* Form / Sign up / Log in

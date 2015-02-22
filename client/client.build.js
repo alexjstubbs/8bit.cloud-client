@@ -42,7 +42,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
 
-            React.DOM.li({className: "col-xs-3"}, 
+            React.DOM.li({className: "col-xs-3 achievement-navable-wrapper navable"}, 
 
                React.DOM.div({className: "col-xs-4 pull-left trophy-icon"}, 
 
@@ -2142,6 +2142,9 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        achieved        = 0;
+        achievementsLen = 0;
+
         var saveNodes = this.state.savestates.map(function (state, i) {
             return SaveStates({filename: state.filename, image: state.image, slot: state.slot, navStack: i+1})
         });
@@ -2179,7 +2182,10 @@ module.exports = React.createClass({displayName: 'exports',
 
                React.DOM.li({className: "hidden"}, React.DOM.button({className: "btn btn-purple"}, React.DOM.i({className: "fa fa-video-camera "}), "   Live Stream")), 
 
-               React.DOM.li(null, React.DOM.button({id: "toggle-favorite", className: "btn red-bg noround navable", 'data-selection': this.state.title, 'data-function': this.state.favorite ? "removeFavorite" : "addFavorite", 'data-parameters': launchContext}, React.DOM.i({className: this.state.favorite ? "ion-heart-broken" : "ion-heart"}), "   ", this.state.favorite ? "Remove" : "Add", " as a favorite"))
+               React.DOM.li(null, React.DOM.button({id: "toggle-favorite", className: "btn-block btn red-bg noround navable", 'data-selection': this.state.title, 'data-function': this.state.favorite ? "removeFavorite" : "addFavorite", 'data-parameters': launchContext}, React.DOM.i({className: this.state.favorite ? "ion-heart-broken" : "ion-heart"}), "   ", this.state.favorite ? "Remove" : "Add", " as a favorite")), 
+               React.DOM.br(null), 
+               React.DOM.li(null, React.DOM.button({id: "toggle-favorite", className: "btn-block btn purple-bg noround navable", 'data-selection': this.state.title, 'data-function': "speedRunLaunch", 'data-parameters': launchContext}, React.DOM.i({className: "ion-ios-stopwatch"}), "   Speed Run"))
+
 
             )
 

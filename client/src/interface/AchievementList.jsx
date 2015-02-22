@@ -41,7 +41,7 @@ module.exports = React.createClass({
 
         return (
 
-            <li className='col-xs-3'>
+            <li className='col-xs-3 achievement-navable-wrapper navable'>
 
                <div className="col-xs-4 pull-left trophy-icon">
 
