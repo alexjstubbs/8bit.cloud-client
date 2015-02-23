@@ -84,6 +84,35 @@ var events = {
         eventDispatcher.changeView(parameters);
     },
 
+    /*  Trigger nextRow in navigation
+    -------------------------------------------------- */
+    navigationNextRow: function(parameters) {
+
+        var parents = document.querySelectorAll(".parent");
+
+        parents[0].classList.remove("parent");
+        parents[0].classList.add("_parent");
+
+        parents[1].classList.remove("_parent");
+        parents[1].classList.add("parent");
+
+        navigationInit.navigationInit();
+
+    },
+
+    /*  Trigger prevRow in navigation
+    -------------------------------------------------- */
+    navigationPrevRow: function(parameters) {
+
+        var parents = document.querySelectorAll("._parent");
+
+        parents[0].classList.remove("_parent");
+        parents[0].classList.add("parent");
+
+        navigationInit.navigationInit();
+
+    },
+
     /*  Trigger Dialog (via api)
     -------------------------------------------------- */
     dialogShow: function(parameters) {

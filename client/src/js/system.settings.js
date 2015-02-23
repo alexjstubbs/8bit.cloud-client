@@ -14,10 +14,15 @@ api.on('api', function(data) {
 
 /*  Get set defined settings
 -------------------------------------------------- */
-var settings = {    
-    get: {}
-};
+var settings = {
 
+    get: {},
+
+    refresh: function() {
+        api.emit('request', { request: 'getSettings', param: null });
+    }
+   
+};
 
 /*  Exports
 -------------------------------------------------- */

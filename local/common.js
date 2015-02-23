@@ -22,7 +22,8 @@ common = {
        systemWrite:                require(__base + 'system/system.write'),
        systemRead:                 require(__base + 'system/system.read'),
        wireless:                   require(__base + 'api/network/network.wireless'),
-       process:                    require(__base + "system/system.process")
+       process:                    require(__base + "system/system.process"),
+       settings:                   require(__base + "system/system.settings").settings
 
 };
 

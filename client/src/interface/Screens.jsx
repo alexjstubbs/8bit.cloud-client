@@ -15,6 +15,7 @@ var React 				= require('react/addons'),
 	Browser 			= require('./Browser.jsx'),
 	LargeProfile 		= require('./LargeProfile.jsx'),
 	Profiles 			= require('./Profiles.jsx'),
+	Settings 			= require('./Settings.jsx'),
 	init 				= require('../js/init.js'),
 	systemSettings      = require('../js/system.settings').settings,
 	navigationKeyEvent  = require("../js/navigation.keyEvent.js"),
@@ -31,8 +32,8 @@ var setupScreens = function(route) {
 	var container = document.getElementById("screens");
 
 	if (route == "/home" || route == "/home/" || route == "Dashboard") {
-		var _screens = ["Dashboard", "Browser", "Profile"];
-		var screens = [<Dashboard />, <Browser />, <LargeProfile />];
+		var _screens = ["Settings", "Dashboard", "Browser", "Profile"];
+		var screens = [<Settings />, <Dashboard />, <Browser />, <LargeProfile />];
 	}
 
 	if (route == "/welcome" || route == "Welcome") {

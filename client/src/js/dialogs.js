@@ -21,6 +21,7 @@ var events                  = require('./events.js'),
     AddFriend               = require('../interface/forms/AddFriend.jsx'),
     PassMessage             = require('../interface/forms/PassMessage.jsx'),
     CommunityInfo           = require('../interface/CommunityInfo.jsx'),
+    Settings                = require('../interface/Settings.jsx'),
     navigationInit          = require("./navigation.init.js"),
     Keyboard                = require("../interface/OnScreenKeyboard.jsx"),
     GeneralDialog           = require("../interface/GeneralDialog.jsx"),
@@ -158,6 +159,10 @@ var show = function(parent, parameters, arg) {
         case "PassMessage":
             properties = {backdrop: true};
             Child = PassMessage({To: parameters});
+            break;
+        case "Settings":
+            properties = {backdrop: true};
+            Child = Settings({});
             break;
         case "SoftwareOptions":
             properties = {backdrop: true};

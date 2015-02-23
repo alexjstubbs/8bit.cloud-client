@@ -34,6 +34,7 @@ module.exports = function(init) {
 
         var pauseNavigation = sessionStorage.getItem("navigationState");
 
+
         Mousetrap.bind('tab', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
@@ -104,6 +105,15 @@ module.exports = function(init) {
                 sysEvents.events.showTerminal();
             }
         });
+
+        Mousetrap.bind('ctrl+s', function(e) {
+            pauseNavigation = sessionStorage.getItem("navigationState");
+
+            if (pauseNavigation != "pauseAll") {
+                sysEvents.events.dialogShow("Settings");
+            }
+        });
+
 
         // if (e.preventDefault) {
         //     e.preventDefault();

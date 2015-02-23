@@ -187,6 +187,10 @@ var api = {
 
     sessionProfile: function(nsp) {
          common.profiles.getSession(nsp);
+    },
+
+    getSettings: function(nsp) {
+         common.settings.send(nsp);
     }
 
 

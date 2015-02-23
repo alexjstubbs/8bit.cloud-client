@@ -17,8 +17,7 @@ var settings = {
                             }
                         }
 
-                        __api.emit('api', {settingsObject: settings.get});
-
+                        settings.send();
 
                     }
 
@@ -30,7 +29,11 @@ var settings = {
 
     },
 
-    get: {}
+    get: {},
+
+    send: function() {
+        __api.emit('api', {settingsObject: settings.get});
+    }
 
 };
 

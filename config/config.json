@@ -1,6 +1,6 @@
 {
   "paths": {
-    "roms": "/root/roms/",
+    "roms": "/Users/alexstubbs/roms/",
     "saves": "/root/saves/",
     "covers": "/opt/ignition/databases/images/"
   },
