@@ -93,6 +93,7 @@ function achievementTimer(nsp, type, interval) {
     watch.on('close', function(code) {
         // TODO: If crash, restart with dialog and dump.
         console.log('(exitcode): ' + code);
+        exec('killall watch', function() {});
     });
 }
 

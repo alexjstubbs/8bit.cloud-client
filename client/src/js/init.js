@@ -7,6 +7,7 @@ var gamepad 			     = require("./gamepad"),
     api 				     = require("./api/connection"),
     browserNavigation	     = require('../js/navigation.browser').browserNavigation,
     database 			     = require('./database.helpers'),
+    systemSettings           = require('./system.settings').settings,
     navigationEventBinds     = require('./navigation.eventListeners'),
     sysEvents                = require('./system.events').events;
 

@@ -26,11 +26,12 @@
 var navigationKeyEvent      = require("./navigation.keyEvent.js"),
     sounds                  = require("./system.sounds.js"),
     mousetrap               = require("./mousetrap.min.js"),
+    systemSettings          = require('./system.settings').settings,
     _                       = require("lodash"),
     buttonTimestamp         = {};
 
 
-// Re-poll gamepads on script haulting error(s);
+// Re-poll gamepads on script haulting errors;
 window.onerror = function() {
     gamepadSupport.ticking = false;
     gamepadSupport.startPolling();
@@ -261,23 +262,21 @@ var gamepadSupport = {
 
         buttonPressed: function(button) {
 
-            // console.log(button);
-
-            gamepadSupport.doubleTap(button, function(dt) {
+                var buttonAction = function(dt) {
 
                 if (!dt) {
 
                     // Mappings
 
                     if (button[5]) {
-                        console.log("a");
+                        // console.log("a");
                         navigationKeyEvent(221);
                         // Mousetrap.trigger(']', null);
 
                     }
 
                     if (button[4]) {
-                        console.log("s");
+                        // console.log("s");
                         navigationKeyEvent(219);
                         // Mousetrap.trigger('[', null);
                     }
@@ -291,35 +290,51 @@ var gamepadSupport = {
                     }
                 }
 
-            });
+
+            };
+
+            if (systemSettings.get.controls.doubleTap) {
+
+                gamepadSupport.doubleTap(button, function(dt) {
+                    buttonAction(dt);
+                });
+
+            }
+
+            else {
+                buttonAction(false);
+            }
+
 
 
         },
 
         axesPressed: function(axes) {
 
-            gamepadSupport.doubleTap(axes, function(dt) {
+            var axesAction = function(dt) {
 
                 if (!dt) {
 
                     if (axes[1] == 1) {
-                        console.log("down");
-                        Mousetrap.trigger('down');
+                        // console.log("down");
+                        navigationKeyEvent(40);
+                        // Mousetrap.trigger('down');
 
                     }
+
                     if (axes[1] == -1) {
-                        console.log("up");
-                        Mousetrap.trigger('up');
+                        // console.log("up");
+                        navigationKeyEvent(38);
+                        // Mousetrap.trigger('up');
                     }
 
                     if (axes[0] == 1) {
-                        console.log("right");
+                        // console.log("right");
                         navigationKeyEvent(39);
                         // Mousetrap.trigger('right');
                     }
                     if (axes[0] == -1) {
-
-                        console.log("left");
+                        // console.log("left");
                         navigationKeyEvent(37);
                         // Mousetrap.trigger('left');
                     }
@@ -335,7 +350,20 @@ var gamepadSupport = {
                         navigationKeyEvent(219);
                     }
                 }
-            });
+            };
+
+            if (systemSettings.get.controls.doubleTap) {
+
+                gamepadSupport.doubleTap(axes, function(dt) {
+                    axesAction(dt);
+                });
+
+            }
+
+            else {
+                axesAction(false);
+            }
+
         },
 
         // This function is called only on Chrome, which does not yet support

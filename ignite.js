@@ -53,6 +53,15 @@ global.__api                = __io.of('/api');
 global.__sessionFile        = __appdirectory+"/config/profiles/Session.json";
 
 
+/*  Init User Config
+-------------------------------------------------- */
+var settings = require(__base + 'system/system.settings').settings;
+settings.init();
+
+// setTimeout(function() {
+//     console.log(settings.get.controls);
+// }, 2000);
+
 /* Server Configurtation
 -------------------------------------------------- */
 

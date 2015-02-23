@@ -11,6 +11,7 @@ var KeyEvent                = require('./navigation.keyEvent'),
     eventDispatcher     	= require('./events'),
     keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
     navigationEventBinds    = require('./navigation.eventListeners'),
+    systemSettings          = require('./system.settings'),
     Screens             	= require('../interface/Screens.jsx');
 
 

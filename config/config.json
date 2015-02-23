@@ -1,9 +1,12 @@
 {
   "roms": "/Users/alexstubbs/roms/",
   "saves": "/saves/",
-  "auto_login": false,
+  "auto_login": true,
   "auto_login_user": null,
   "theme": "moon",
-  "zoom": "1.5",
-  "browser_url": "http://ignition.io"
+  "zoom": "auto",
+  "browser_url": "http://ignition.io",
+  "controls": {
+      "doubleTap": true
+  }
 }
