@@ -16,6 +16,8 @@ var React 				= require('react/addons'),
 	LargeProfile 		= require('./LargeProfile.jsx'),
 	Profiles 			= require('./Profiles.jsx'),
 	init 				= require('../js/init.js'),
+	systemSettings      = require('../js/system.settings').settings,
+	navigationKeyEvent  = require("../js/navigation.keyEvent.js"),
 	navigationInit  	= require('../js/navigation.init.js');
 
 /* Init Clientside
@@ -53,9 +55,26 @@ var setupScreens = function(route) {
 
 	}).value();
 
+	setTimeout(function() {
 
-	// TODO: Get user defined screen to show at launch, do it here
-	_.first(container.children).id = "screen-active";
+		var userSelectedScreen = document.querySelectorAll("#screens ."+systemSettings.get.interface.screen)[0];
+
+		if (!userSelectedScreen) {
+			_.first(container.children).id = "screen-active";
+		}
+
+		else {
+			// TODO: Make this dynamic
+			_.first(container.children).id = "screen-active";
+			if (systemSettings.get.interface.screen == "Browser") {
+				navigationKeyEvent(221);
+			}
+			else {
+				_.first(container.children).id = "screen-active";
+			}
+		}
+
+	}, 150);
 
 	/* Init Navigation Controls
 	-------------------------------------------------- */

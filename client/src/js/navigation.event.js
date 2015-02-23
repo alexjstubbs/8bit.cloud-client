@@ -36,6 +36,7 @@ module.exports = function(e) {
   -------------------------------------------------- */
   function setScreen() {
 
+
         var parents = document.querySelectorAll(".parent");
         var otherParents = _.without(parents, screens[currentScreenId].querySelectorAll(".parent")[0]);
         var otherScreens = _.without(screens, screens[currentScreenId]);

@@ -31,7 +31,7 @@ function listRoms(nsp, obj) {
                         list,
                         _path;
 
-                    var initDir = config.roms + platforms[platform].short;
+                    var initDir = config.paths.roms + platforms[platform].short;
 
                     fs.readdir(initDir, function(err, list) {
 

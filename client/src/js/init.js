@@ -13,13 +13,13 @@ var gamepad 			     = require("./gamepad"),
 
 module.exports = function() {
 
+    /* Client and Backend Connection init
+    -------------------------------------------------- */
+    api.connect();
+
     /*  Clear local Storage
     -------------------------------------------------- */
     sessionStorage.removeItem("navigationState");
-
-	/* Client and Backend Connection init
-	-------------------------------------------------- */
-    api.connect();
 
     /* Bind local Navigation
     -------------------------------------------------- */
