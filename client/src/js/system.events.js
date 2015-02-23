@@ -100,6 +100,12 @@ var events = {
 
     },
 
+    throwMe: function(parameters) {
+
+        eventDispatcher.changeView(parameters);
+
+    },
+
     /*  Trigger prevRow in navigation
     -------------------------------------------------- */
     navigationPrevRow: function(parameters) {

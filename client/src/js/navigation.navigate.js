@@ -388,9 +388,17 @@ module.exports = function(k) {
         }
     }
 
-    var run = document.getElementsByClassName("selectedNav")[0].getAttribute("data-function");
-    var parameters = document.getElementsByClassName("selectedNav")[0].getAttribute("data-parameters");
+    // Setup any functions defined in button
+    var run          = document.getElementsByClassName("selectedNav")[0].getAttribute("data-function");
+    var parameters   = document.getElementsByClassName("selectedNav")[0].getAttribute("data-parameters");
+    var highlightRun = document.getElementsByClassName("selectedNav")[0].getAttribute("data-highlightFunction");
 
+    // Run any function defined by highlight
+    if (highlightRun) {
+        systemEvents.events[highlightRun](parameters);
+    }
+
+    // Run any function defined by click
     if (k == 'enter') {
         systemEvents.events[run](parameters);
     }

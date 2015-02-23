@@ -8,9 +8,11 @@ var React           = require('react/addons'),
     _               = require('lodash'),
     api             = require('socket.io-client')('/api'),
     Paths           = require('./forms/Paths.jsx'),
+    Interface       = require('./forms/Interface.jsx'),
     systemSettings  = require('../js/system.settings').settings,
     navigationInit  = require('../js/navigation.init'),
-    mixins          = require('./mixins/mixins.jsx');
+    mixins          = require('./mixins/mixins.jsx'),
+    currentNode;
 
 /* Components
 -------------------------------------------------- */
@@ -29,8 +31,6 @@ module.exports = React.createClass({
 
 
     componentWillUpdate: function(props, state) {
-
-        navigationInit.navigationInit();
 
     },
 
@@ -54,21 +54,57 @@ module.exports = React.createClass({
     },
 
     screenMount: function() {
+
+                        navigationInit.navigationInit();
+    },
+
+    changeView: function(view) {
+
+        var component = this;
+
+        view = view.charAt(0).toUpperCase() + view.slice(1);
+
+
+        if (view == "Paths") {
+            currentNode = <Paths />;
+        }
+
+        else {
+            currentNode = <Interface />;
+        }
+
+        component.forceUpdate();
+
     },
 
     componentDidMount: function() {
 
+        var component = this;
+
         systemSettings.refresh();
+
+        window.addEventListener("changeView", function(e) {
+              component.changeView(e.detail.view);
+        });
+
+
+        setTimeout(function() {
+            // navigationInit.navigationInit();
+        }, 1000);
 
     },
 
     render: function() {
 
+        if (!currentNode) {
+            currentNode = <Paths />;
+        }
+
         var component = this,
             settingsParents = _.keys(this.state.settingsObject),
             settingsMenuMarkup = settingsParents.map(function (parent, i) {
 
-            return <li><button data-function="navigationNextRow" data-parameters={parent} className="btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"><i className={component.props.icons[parent]}></i> &nbsp; <span>{parent}</span></button></li>;
+            return <li><button data-highlightfunction='throwMe' data-function="navigationNextRow" data-parameters={parent} className="btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"><i className={component.props.icons[parent]}></i> &nbsp; <span>{parent}</span></button></li>;
 
         });
 
@@ -89,9 +125,8 @@ module.exports = React.createClass({
                         <hr />
                         <br />
 
-                            <Paths />
+                            {currentNode}
 
-                    
                     </div>
             </div>
         )
