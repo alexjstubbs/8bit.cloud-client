@@ -3723,7 +3723,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.div({id: "settings-container", className: "col-xs-9"}, 
 
-                        React.DOM.h1({className: "text-right"}, React.DOM.i({className: "ion-ios-settings-strong"}), "   ", curView, " Settings"), 
+                        React.DOM.h1({className: "text-right"}, curView, " Settings   ", React.DOM.i({className: "ion-ios-settings-strong"})), 
 
                         React.DOM.hr(null), 
 
@@ -4718,8 +4718,8 @@ module.exports = React.createClass({displayName: 'exports',
                             React.DOM.h3({className: "col-xs-8 "}, 
 
                                 React.DOM.ul({id: "radio-defaultScreen", className: "radio-wrapper text-right"}, 
-                                    React.DOM.li({className: "col-xs-9"}, RadioSelect({group: "defaultScreen", id: "radio-defaultScreen-browser", label: "Games Browser", selected: "false"})), 
-                                    React.DOM.li({className: "col-xs-3"}, RadioSelect({group: "defaultScreen", id: "radio-defaultScreen-dashboard", label: "Dashboard", selected: "true"}))
+                                    React.DOM.li({className: "col-xs-8"}, RadioSelect({group: "defaultScreen", id: "radio-defaultScreen-dashboard", label: "Dashboard", name: "Dashboard", selected: this.props.settings.interface.screen == "Dashboard" ? "true" : "false"})), 
+                                    React.DOM.li({className: "col-xs-2"}, RadioSelect({group: "defaultScreen", id: "radio-defaultScreen-browser", label: "Games Browser", name: "Browser", selected: this.props.settings.interface.screen == "Browser" ? "true" : "false"}), "  ")
                                 )
                             ), 
 
@@ -4740,12 +4740,11 @@ module.exports = React.createClass({displayName: 'exports',
                         React.DOM.h3(null, React.DOM.i({className: "ion-home"}), "    Browser Homepage"), 
                         React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.interface.browser_url : null, name: "browser_url", type: "text"})
 
-
-
                         )
 
+                ), 
 
-                )
+                React.DOM.input({type: "hidden", id: "input-defaultScreen", name: "screen", value: ""})
 
             ), 
 
@@ -4969,6 +4968,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return {
             selected: false,
+            name: false,
             label: null,
             id: null,
             group: null,
@@ -4983,7 +4983,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div(null, 
 
-                React.DOM.span({id: this.props.id, className: JSON.parse(this.props.selected) ? this.props.classes + " label-selected" : this.props.classes + " label-unselected", 'data-function': "radioBox", 'data-parameters': this.props.id, 'data-group': this.props.group}, this.props.label)
+                React.DOM.span({id: this.props.id, 'data-name': this.props.name, className: JSON.parse(this.props.selected) ? this.props.classes + " label-selected" : this.props.classes + " label-unselected", 'data-function': "radioBox", 'data-parameters': this.props.id, 'data-group': this.props.group}, this.props.label)
 
             )
 
@@ -9007,6 +9007,8 @@ var events = {
 
         navigationInit.navigationInit();
 
+        eventDispatcher.changeView("Paths");
+
     },
 
     /*  Trigger Dialog (via api)
@@ -9825,10 +9827,16 @@ var events = {
          var group = document.getElementById(parameters).getAttribute('data-group');;
 
          var groupEls = document.querySelectorAll('[data-group='+group+']');
+         var input    = document.getElementById("input-"+group);
 
          _.each(groupEls, function (item) {
             item.classList.toggle("label-selected");
             item.classList.toggle("label-unselected");
+
+            if (input && item.classList.contains("label-selected")) {
+                input.value = item.getAttribute("data-name");
+            }
+
         });
 
     },

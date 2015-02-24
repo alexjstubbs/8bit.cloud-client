@@ -10,6 +10,7 @@ module.exports = React.createClass({
 
         return {
             selected: false,
+            name: false,
             label: null,
             id: null,
             group: null,
@@ -24,7 +25,7 @@ module.exports = React.createClass({
 
             <div>
 
-                <span id={this.props.id} className={JSON.parse(this.props.selected) ? this.props.classes + " label-selected" : this.props.classes + " label-unselected"} data-function="radioBox" data-parameters={this.props.id} data-group={this.props.group}>{this.props.label}</span>
+                <span id={this.props.id} data-name={this.props.name} className={JSON.parse(this.props.selected) ? this.props.classes + " label-selected" : this.props.classes + " label-unselected"} data-function="radioBox" data-parameters={this.props.id} data-group={this.props.group}>{this.props.label}</span>
 
             </div>
 

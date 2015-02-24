@@ -28,8 +28,8 @@ module.exports = React.createClass({
                             <h3 className="col-xs-8 ">
 
                                 <ul id="radio-defaultScreen" className="radio-wrapper text-right">
-                                    <li className="col-xs-9"><RadioSelect group="defaultScreen" id="radio-defaultScreen-browser" label='Games Browser' selected='false' /></li>
-                                    <li className="col-xs-3"><RadioSelect group="defaultScreen" id="radio-defaultScreen-dashboard" label='Dashboard' selected='true' /></li>
+                                    <li className="col-xs-8"><RadioSelect group="defaultScreen" id="radio-defaultScreen-dashboard" label='Dashboard' name="Dashboard" selected={this.props.settings.interface.screen == "Dashboard" ? "true" : "false" } /></li>
+                                    <li className="col-xs-2"><RadioSelect group="defaultScreen" id="radio-defaultScreen-browser" label='Games Browser' name="Browser" selected={this.props.settings.interface.screen == "Browser" ? "true" : "false" } />&nbsp; </li>
                                 </ul>
                             </h3>
 
@@ -50,12 +50,11 @@ module.exports = React.createClass({
                         <h3><i className="ion-home"></i> &nbsp;  Browser Homepage</h3>
                         <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.interface.browser_url : null} name="browser_url" type="text" />
 
-
-
                         </div>
 
-
                 </fieldset>
+
+                <input type="hidden" id="input-defaultScreen" name="screen" value="" />
 
             </form>
 

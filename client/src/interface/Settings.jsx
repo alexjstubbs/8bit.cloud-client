@@ -136,7 +136,7 @@ module.exports = React.createClass({
 
                     <div id="settings-container" className="col-xs-9">
 
-                        <h1 className="text-right"><i className="ion-ios-settings-strong"></i> &nbsp; {curView} Settings</h1>
+                        <h1 className="text-right">{curView} Settings &nbsp; <i className="ion-ios-settings-strong"></i></h1>
 
                         <hr />
 

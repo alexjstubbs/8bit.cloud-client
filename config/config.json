@@ -2,11 +2,12 @@
   "paths": {
     "roms": "/root/roms/",
     "saves": "/root/saves/",
-    "covers": "/opt/ignition/databases/images/"
+    "covers": "/opt/ignition/databases/images/",
+    "cover": "/opt/ignition/databases/images/"
   },
   "interface": {
-    "screen": "Dashboard",
-    "theme": "/opt/ignition/themes/moon/",
+    "screen": "Browser",
+    "theme": "moon",
     "zoom": "auto",
     "font": "Roboto",
     "browser_url": "http://ignition.io"
@@ -46,12 +47,6 @@
     "interface": "wlan0",
     "ssid": null,
     "passphrase": null
-  },
-  "server": {
-    "address": "ignition.io",
-    "protocol": "https://",
-    "port": 3000,
-    "api": "v1"
   },
   "profiles": {
     "auto_login": true,

@@ -124,6 +124,8 @@ var events = {
 
         navigationInit.navigationInit();
 
+        eventDispatcher.changeView("Paths");
+
     },
 
     /*  Trigger Dialog (via api)
@@ -942,10 +944,16 @@ var events = {
          var group = document.getElementById(parameters).getAttribute('data-group');;
 
          var groupEls = document.querySelectorAll('[data-group='+group+']');
+         var input    = document.getElementById("input-"+group);
 
          _.each(groupEls, function (item) {
             item.classList.toggle("label-selected");
             item.classList.toggle("label-unselected");
+
+            if (input && item.classList.contains("label-selected")) {
+                input.value = item.getAttribute("data-name");
+            }
+
         });
 
     },
