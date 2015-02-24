@@ -31,12 +31,6 @@ module.exports = React.createClass({
         };
     },
 
-
-    componentWillUpdate: function(props, state) {
-
-                // systemSettings.refresh();
-    },
-
     componentDidUpdate: function() {
 
         nodeUpdate++;

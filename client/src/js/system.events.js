@@ -934,6 +934,22 @@ var events = {
 
     },
 
+    /*  Radio button type select
+    -------------------------------------------------- */
+    radioBox: function(parameters) {
+
+         var radio = document.getElementById(parameters);
+         var group = document.getElementById(parameters).getAttribute('data-group');;
+
+         var groupEls = document.querySelectorAll('[data-group='+group+']');
+
+         _.each(groupEls, function (item) {
+            item.classList.toggle("label-selected");
+            item.classList.toggle("label-unselected");
+        });
+
+    },
+
 	/*  Choice Box (radio) for Options
 	-------------------------------------------------- */
     choiceBox: function(parameters) {
