@@ -3548,26 +3548,29 @@ var setupScreens = function(route) {
 
 	}).value();
 
-	setTimeout(function() {
+	// setTimeout(function() {
+	//
+	//
+	// 	var userSelectedScreen = document.querySelectorAll("#screens ."+systemSettings.get.interface.screen)[0];
+	//
+	// 	if (!userSelectedScreen) {
+	// 		_.first(container.children).id = "screen-active";
+	// 	}
+	//
+	// 	else {
 
-		var userSelectedScreen = document.querySelectorAll("#screens ."+systemSettings.get.interface.screen)[0];
+	// // TODO: Make this dynamic
+	// _.first(container.children).id = "screen-active";
+	// if (systemSettings.get.interface.screen == "Browser") {
+	// 	navigationKeyEvent(221);
+	// }
+	// else {
+		_.first(container.children).id = "screen-active";
+	// }
 
-		if (!userSelectedScreen) {
-			_.first(container.children).id = "screen-active";
-		}
-
-		else {
-			// TODO: Make this dynamic
-			_.first(container.children).id = "screen-active";
-			if (systemSettings.get.interface.screen == "Browser") {
-				navigationKeyEvent(221);
-			}
-			else {
-				_.first(container.children).id = "screen-active";
-			}
-		}
-
-	}, 150);
+	// 	}
+	//
+	// }, 2050);
 
 	/* Init Navigation Controls
 	-------------------------------------------------- */
@@ -4928,12 +4931,12 @@ module.exports = React.createClass({displayName: 'exports',
                             React.DOM.h3(null, React.DOM.i({className: "ion-folder"}), "   Path to ROMs folder"), " ", React.DOM.span({class: "mute"}, "Absolute path to the root of your roms folder"), 
                             React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.paths.roms : null, name: "roms", type: "text"}), 
 
-
+                            React.DOM.hr({className: "hr-thin"}), 
 
                             React.DOM.h3(null, React.DOM.i({className: "ion-folder"}), "   Path Save State folder"), React.DOM.span({class: "mute"}, "Absolute path to the root of your save states folder"), 
                             React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.paths.saves : null, name: "saves", type: "text"}), 
 
-
+                            React.DOM.hr({className: "hr-thin"}), 
 
                             React.DOM.h3(null, React.DOM.i({className: "ion-images"}), "   Path to Cover Art folder"), " ", React.DOM.span({class: "mute"}, "Any images located here will show by default"), 
                             React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.paths.covers : null, name: "cover", type: "text"})

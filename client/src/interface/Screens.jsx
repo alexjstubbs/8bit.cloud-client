@@ -56,26 +56,29 @@ var setupScreens = function(route) {
 
 	}).value();
 
-	setTimeout(function() {
+	// setTimeout(function() {
+	//
+	//
+	// 	var userSelectedScreen = document.querySelectorAll("#screens ."+systemSettings.get.interface.screen)[0];
+	//
+	// 	if (!userSelectedScreen) {
+	// 		_.first(container.children).id = "screen-active";
+	// 	}
+	//
+	// 	else {
 
-		var userSelectedScreen = document.querySelectorAll("#screens ."+systemSettings.get.interface.screen)[0];
+	// // TODO: Make this dynamic
+	// _.first(container.children).id = "screen-active";
+	// if (systemSettings.get.interface.screen == "Browser") {
+	// 	navigationKeyEvent(221);
+	// }
+	// else {
+		_.first(container.children).id = "screen-active";
+	// }
 
-		if (!userSelectedScreen) {
-			_.first(container.children).id = "screen-active";
-		}
-
-		else {
-			// TODO: Make this dynamic
-			_.first(container.children).id = "screen-active";
-			if (systemSettings.get.interface.screen == "Browser") {
-				navigationKeyEvent(221);
-			}
-			else {
-				_.first(container.children).id = "screen-active";
-			}
-		}
-
-	}, 150);
+	// 	}
+	//
+	// }, 2050);
 
 	/* Init Navigation Controls
 	-------------------------------------------------- */
