@@ -12,10 +12,14 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
 
+        screen: "Interface"
+
     },
 
     componentDidMount: function() {
         // navigationInit.navigationInit();
+
+        console.log(this.props);
     },
 
     render: function() {

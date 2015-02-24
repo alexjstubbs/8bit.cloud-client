@@ -150,9 +150,15 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.br(null), 
                 React.DOM.hr(null), 
 
-                React.DOM.button({'data-function': "navigationPrevRow", className: "navable btn btn-alt"}, React.DOM.i({className: "ion-close"}), "   Cancel Changes"), 
-                React.DOM.button({className: "navable btn btn-alt"}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes")
+                React.DOM.span({className: "pull-left"}, 
+                    React.DOM.button({'data-function': "navigationPrevRow", className: "navable btn btn-alt"}, React.DOM.i({className: "ion-close"}), "   Cancel Changes")
+                ), 
 
+                React.DOM.span({className: "pull-right"}, 
+                    React.DOM.button({className: "navable btn red-bg btn-alt"}, React.DOM.i({className: "ion-checkmark"}), "   Restore Defaults"), 
+                    React.DOM.button({className: "navable btn btn-alt"}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes")
+                )
+                
             )
 
         );
@@ -3589,6 +3595,7 @@ var React           = require('react/addons'),
     navigationInit  = require('../js/navigation.init'),
     mixins          = require('./mixins/mixins.jsx'),
     nodeUpdate      = 0,
+    curView,
     currentNode;
 
 /* Components
@@ -3615,9 +3622,11 @@ module.exports = React.createClass({displayName: 'exports',
 
         nodeUpdate++;
 
+        // TODO: Fix this, this is weak.
         if (nodeUpdate == 3) {
             navigationInit.navigationInit();
         }
+
     },
 
     getDefaultProps: function() {
@@ -3644,18 +3653,23 @@ module.exports = React.createClass({displayName: 'exports',
         var component = this;
 
         view = view.charAt(0).toUpperCase() + view.slice(1);
+        curView = view;
 
         switch (view) {
+
             case "Paths":
-                currentNode = Paths(null);
+                currentNode = Paths({settings: component.state.settingsObject, title: view});
                 break;
+
             case "Interface":
-                currentNode = Interface(null);
+                currentNode = Interface({settings: component.state.settingsObject, title: view});
                 break;
+
             default:
-                currentNode = Paths(null);
+                currentNode = Paths({settings: component.state.settingsObject, title: view});
                 break;
         }
+
 
         component.forceUpdate();
 
@@ -3679,8 +3693,13 @@ module.exports = React.createClass({displayName: 'exports',
     render: function() {
 
         if (!currentNode) {
-            currentNode = Paths(null);
+            currentNode = Paths({settings: this.state.settingsObject, title: "Paths"});
         }
+
+        if (_.isEmpty(currentNode.props.settings)) {
+            currentNode = Paths({settings: this.state.settingsObject, title: "Paths"});
+        }
+
 
         var component = this,
             settingsParents = _.keys(this.state.settingsObject),
@@ -3702,10 +3721,9 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.div({id: "settings-container", className: "col-xs-9"}, 
 
-                        React.DOM.h1({className: "text-right"}, React.DOM.i({className: "ion-ios-settings-strong"}), "    Settings"), 
+                        React.DOM.h1({className: "text-right"}, React.DOM.i({className: "ion-ios-settings-strong"}), "   ", curView, " Settings"), 
 
                         React.DOM.hr(null), 
-                        React.DOM.br(null), 
 
                             currentNode
 
@@ -4682,10 +4700,14 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
 
+        screen: "Interface"
+
     },
 
     componentDidMount: function() {
         // navigationInit.navigationInit();
+
+        console.log(this.props);
     },
 
     render: function() {
@@ -4870,24 +4892,15 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React           = require('react/addons'),
     ActionButtons   = require('../ActionButtons.jsx'),
-    navigationInit  = require('../../js/navigation.init');
+    navigationInit  = require('../../js/navigation.init'),
+    _               = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
-
-    getDefaultProps: function() {
-
-    },
-
-    componentDidMount: function() {
-        // navigationInit.navigationInit();
-    },
 
     render: function() {
 
         return (
             React.DOM.div({className: "_parent"}, 
-                "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
-
                 React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
 
@@ -4895,15 +4908,21 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.div({className: "form-group"}, 
 
-                            React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Username", name: "username", type: "text"}), 
+                            React.DOM.h3(null, React.DOM.i({className: "ion-folder"}), "   Path to ROMs folder"), " ", React.DOM.span({class: "mute"}, "Absolute path to the root of your roms folder"), 
+                            React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.paths.roms : null, name: "roms", type: "text"}), 
 
-                            React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", placeholder: "Password", name: "password", type: "password"})
+
+
+                            React.DOM.h3(null, React.DOM.i({className: "ion-folder"}), "   Path Save State folder"), React.DOM.span({class: "mute"}, "Absolute path to the root of your save states folder"), 
+                            React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.paths.saves : null, name: "saves", type: "text"}), 
+
+
+
+                            React.DOM.h3(null, React.DOM.i({className: "ion-images"}), "   Path to Cover Art folder"), " ", React.DOM.span({class: "mute"}, "Any images located here will show by default"), 
+                            React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.paths.covers : null, name: "cover", type: "text"})
+
 
                         ), 
-
-
-                    React.DOM.button({className: "btn btn-lg btn-blue btn-alt btn-block navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, "Log In"), 
-                    React.DOM.button({className: "btn btn-lg btn-alt btn-block navable", 'data-function': "closeDialog", 'data-parameters': this.props.form}, "Cancel"), 
 
                     React.DOM.input({type: "hidden", name: "server", value: this.props.server})
 
@@ -4918,7 +4937,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../js/navigation.init":94,"../ActionButtons.jsx":3,"react/addons":105}],62:[function(require,module,exports){
+},{"../../js/navigation.init":94,"../ActionButtons.jsx":3,"lodash":103,"react/addons":105}],62:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */

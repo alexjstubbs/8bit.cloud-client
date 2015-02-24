@@ -13,6 +13,7 @@ var React           = require('react/addons'),
     navigationInit  = require('../js/navigation.init'),
     mixins          = require('./mixins/mixins.jsx'),
     nodeUpdate      = 0,
+    curView,
     currentNode;
 
 /* Components
@@ -39,9 +40,11 @@ module.exports = React.createClass({
 
         nodeUpdate++;
 
+        // TODO: Fix this, this is weak.
         if (nodeUpdate == 3) {
             navigationInit.navigationInit();
         }
+
     },
 
     getDefaultProps: function() {
@@ -68,18 +71,23 @@ module.exports = React.createClass({
         var component = this;
 
         view = view.charAt(0).toUpperCase() + view.slice(1);
+        curView = view;
 
         switch (view) {
+
             case "Paths":
-                currentNode = <Paths />;
+                currentNode = <Paths settings={component.state.settingsObject} title={view} />;
                 break;
+
             case "Interface":
-                currentNode = <Interface />;
+                currentNode = <Interface settings={component.state.settingsObject} title={view} />;
                 break;
+
             default:
-                currentNode = <Paths />;
+                currentNode = <Paths settings={component.state.settingsObject} title={view} />;
                 break;
         }
+
 
         component.forceUpdate();
 
@@ -103,8 +111,13 @@ module.exports = React.createClass({
     render: function() {
 
         if (!currentNode) {
-            currentNode = <Paths />;
+            currentNode = <Paths settings={this.state.settingsObject} title ="Paths" />;
         }
+
+        if (_.isEmpty(currentNode.props.settings)) {
+            currentNode = <Paths settings={this.state.settingsObject} title ="Paths" />;
+        }
+
 
         var component = this,
             settingsParents = _.keys(this.state.settingsObject),
@@ -126,10 +139,9 @@ module.exports = React.createClass({
 
                     <div id="settings-container" className="col-xs-9">
 
-                        <h1 className="text-right"><i className="ion-ios-settings-strong"></i> &nbsp;  Settings</h1>
+                        <h1 className="text-right"><i className="ion-ios-settings-strong"></i> &nbsp; {curView} Settings</h1>
 
                         <hr />
-                        <br />
 
                             {currentNode}
 

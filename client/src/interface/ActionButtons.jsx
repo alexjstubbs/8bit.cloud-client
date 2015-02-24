@@ -21,9 +21,15 @@ module.exports = React.createClass({
                 <br />
                 <hr />
 
-                <button data-function="navigationPrevRow" className="navable btn btn-alt"><i className="ion-close"></i> &nbsp; Cancel Changes</button>
-                <button className="navable btn btn-alt"><i className="ion-checkmark"></i> &nbsp; Save Changes</button>
+                <span className="pull-left">
+                    <button data-function="navigationPrevRow" className="navable btn btn-alt"><i className="ion-close"></i> &nbsp; Cancel Changes</button>
+                </span>
 
+                <span className="pull-right">
+                    <button className="navable btn red-bg btn-alt"><i className="ion-checkmark"></i> &nbsp; Restore Defaults</button>
+                    <button className="navable btn btn-alt"><i className="ion-checkmark"></i> &nbsp; Save Changes</button>
+                </span>
+                
             </div>
 
         );

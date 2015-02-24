@@ -12,7 +12,7 @@
     "browser_url": "http://ignition.io"
   },
   "controls": {
-    "doubleTap": true,
+    "doubleTap": false,
     "shortcuts": {
       "exit_software": "btn_select + btn_start"
     },
