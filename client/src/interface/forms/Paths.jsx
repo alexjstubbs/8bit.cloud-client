@@ -15,7 +15,7 @@ module.exports = React.createClass({
 
         return (
             <div className="_parent">
-                <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
+                <form accept-charset="UTF-8" role="form" name="Paths" id="Paths">
 
 
                     <fieldset>
@@ -38,13 +38,12 @@ module.exports = React.createClass({
 
                         </div>
 
-                    <input type="hidden" name="server" value={this.props.server} />
 
                 </fieldset>
 
-                </form>
+            </form>
 
-                <ActionButtons />
+            <ActionButtons form="Paths" />
 
             </div>
         );

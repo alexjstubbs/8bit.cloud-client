@@ -11,7 +11,7 @@ var KeyEvent                = require('./navigation.keyEvent'),
     eventDispatcher     	= require('./events'),
     keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
     navigationEventBinds    = require('./navigation.eventListeners'),
-    systemSettings          = require('./system.settings'),
+    systemSettings          = require('./system.settings').settings,
     Screens             	= require('../interface/Screens.jsx');
 
 
@@ -86,7 +86,7 @@ var events = {
 
     /*  Trigger nextRow in navigation
     -------------------------------------------------- */
-    navigationNextRow: function(parameters) {
+    navigationNextRow: function() {
 
         var parent = document.querySelectorAll(".parent");
         var _parent = document.querySelectorAll("._parent");
@@ -101,7 +101,9 @@ var events = {
 
     },
 
-    throwMe: function(parameters) {
+    /*  Changes views children
+    -------------------------------------------------- */
+    showChildren: function(parameters) {
 
         eventDispatcher.changeView(parameters);
 
@@ -109,7 +111,7 @@ var events = {
 
     /*  Trigger prevRow in navigation
     -------------------------------------------------- */
-    navigationPrevRow: function(parameters) {
+    navigationPrevRow: function() {
 
         var parent = document.querySelectorAll(".parent");
         var _parent = document.querySelectorAll("._parent");
@@ -250,6 +252,40 @@ var events = {
         obj.formTitle = parameters;
 
         api.emit('request', { request: 'writeWifiConfig', param: obj });
+
+    },
+
+    /*  Restore default Config
+    -------------------------------------------------- */
+    restoreConfig: function() {
+        systemSettings.restore();
+        systemSettings.refresh();
+        events.navigationPrevRow();
+    },
+    /*  Update Main Config
+    -------------------------------------------------- */
+    updateConfig: function(parameters) {
+        var form = document.forms[parameters].elements;
+
+        var obj  = {},
+            nobj = {};
+
+        _.each(form, function(input) {
+            if (input.name && input.value) {
+               obj[input.name] = input.value;
+            }
+        });
+
+        var title = parameters.toLowerCase();
+
+
+         nobj[title] = obj;
+
+         nobj.path = "/config/";
+         nobj.filename = "config.json";
+
+        api.emit('request', { request: 'writeJSONSync', param: nobj });
+        events.navigationPrevRow();
 
     },
 

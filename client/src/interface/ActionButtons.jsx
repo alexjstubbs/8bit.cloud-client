@@ -26,10 +26,10 @@ module.exports = React.createClass({
                 </span>
 
                 <span className="pull-right">
-                    <button className="navable btn red-bg btn-alt"><i className="ion-checkmark"></i> &nbsp; Restore Defaults</button>
-                    <button className="navable btn btn-alt"><i className="ion-checkmark"></i> &nbsp; Save Changes</button>
+                    <button data-function="restoreConfig" className="navable btn red-bg btn-alt"><i className="ion-checkmark"></i> &nbsp; Restore Defaults</button>
+                    <button data-function="updateConfig" data-parameters={this.props.form} className="navable btn btn-alt"><i className="ion-checkmark"></i> &nbsp; Save Changes</button>
                 </span>
-                
+
             </div>
 
         );

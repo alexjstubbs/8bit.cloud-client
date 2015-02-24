@@ -20,8 +20,12 @@ var settings = {
 
     refresh: function() {
         api.emit('request', { request: 'getSettings', param: null });
+    },
+
+    restore: function() {
+        api.emit('request', {request: 'restoreSettings', param: null});
     }
-   
+
 };
 
 /*  Exports

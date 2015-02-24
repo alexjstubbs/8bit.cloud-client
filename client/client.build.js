@@ -155,10 +155,10 @@ module.exports = React.createClass({displayName: 'exports',
                 ), 
 
                 React.DOM.span({className: "pull-right"}, 
-                    React.DOM.button({className: "navable btn red-bg btn-alt"}, React.DOM.i({className: "ion-checkmark"}), "   Restore Defaults"), 
-                    React.DOM.button({className: "navable btn btn-alt"}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes")
+                    React.DOM.button({'data-function': "restoreConfig", className: "navable btn red-bg btn-alt"}, React.DOM.i({className: "ion-checkmark"}), "   Restore Defaults"), 
+                    React.DOM.button({'data-function': "updateConfig", 'data-parameters': this.props.form, className: "navable btn btn-alt"}, React.DOM.i({className: "ion-checkmark"}), "   Save Changes")
                 )
-                
+
             )
 
         );
@@ -1645,7 +1645,7 @@ module.exports = React.createClass({displayName: 'exports',
             }
 
         });
-        
+
 
     },
 
@@ -1674,7 +1674,9 @@ module.exports = React.createClass({displayName: 'exports',
                 }
 
                 else {
-                    nodeList[index].innerHTML = ".";
+                    if (nodeList[index]) {
+                        nodeList[index].innerHTML = ".";
+                    }
                 }
 
              alpha_list.push(alpha);
@@ -3616,6 +3618,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentWillUpdate: function(props, state) {
 
+                // systemSettings.refresh();
     },
 
     componentDidUpdate: function() {
@@ -3654,6 +3657,8 @@ module.exports = React.createClass({displayName: 'exports',
 
         view = view.charAt(0).toUpperCase() + view.slice(1);
         curView = view;
+
+        systemSettings.refresh();
 
         switch (view) {
 
@@ -3705,7 +3710,7 @@ module.exports = React.createClass({displayName: 'exports',
             settingsParents = _.keys(this.state.settingsObject),
             settingsMenuMarkup = settingsParents.map(function (parent, i) {
 
-                return React.DOM.li(null, React.DOM.button({'data-highlightfunction': "throwMe", 'data-function': "navigationNextRow", 'data-parameters': parent, className: "btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: component.props.icons[parent]}), "   ", React.DOM.span(null, parent)));
+                return React.DOM.li(null, React.DOM.button({'data-highlightfunction': "showChildren", 'data-function': "navigationNextRow", 'data-parameters': parent, className: "btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: component.props.icons[parent]}), "   ", React.DOM.span(null, parent)));
 
             });
 
@@ -4901,7 +4906,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         return (
             React.DOM.div({className: "_parent"}, 
-                React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
+                React.DOM.form({'accept-charset': "UTF-8", role: "form", name: "Paths", id: "Paths"}, 
 
 
                     React.DOM.fieldset(null, 
@@ -4922,15 +4927,14 @@ module.exports = React.createClass({displayName: 'exports',
                             React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.paths.covers : null, name: "cover", type: "text"})
 
 
-                        ), 
+                        )
 
-                    React.DOM.input({type: "hidden", name: "server", value: this.props.server})
 
                 )
 
-                ), 
+            ), 
 
-                ActionButtons(null)
+            ActionButtons({form: "Paths"})
 
             )
         );
@@ -8840,7 +8844,7 @@ var KeyEvent                = require('./navigation.keyEvent'),
     eventDispatcher     	= require('./events'),
     keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
     navigationEventBinds    = require('./navigation.eventListeners'),
-    systemSettings          = require('./system.settings'),
+    systemSettings          = require('./system.settings').settings,
     Screens             	= require('../interface/Screens.jsx');
 
 
@@ -8915,7 +8919,7 @@ var events = {
 
     /*  Trigger nextRow in navigation
     -------------------------------------------------- */
-    navigationNextRow: function(parameters) {
+    navigationNextRow: function() {
 
         var parent = document.querySelectorAll(".parent");
         var _parent = document.querySelectorAll("._parent");
@@ -8930,7 +8934,9 @@ var events = {
 
     },
 
-    throwMe: function(parameters) {
+    /*  Changes views children
+    -------------------------------------------------- */
+    showChildren: function(parameters) {
 
         eventDispatcher.changeView(parameters);
 
@@ -8938,7 +8944,7 @@ var events = {
 
     /*  Trigger prevRow in navigation
     -------------------------------------------------- */
-    navigationPrevRow: function(parameters) {
+    navigationPrevRow: function() {
 
         var parent = document.querySelectorAll(".parent");
         var _parent = document.querySelectorAll("._parent");
@@ -9079,6 +9085,40 @@ var events = {
         obj.formTitle = parameters;
 
         api.emit('request', { request: 'writeWifiConfig', param: obj });
+
+    },
+
+    /*  Restore default Config
+    -------------------------------------------------- */
+    restoreConfig: function() {
+        systemSettings.restore();
+        systemSettings.refresh();
+        events.navigationPrevRow();
+    },
+    /*  Update Main Config
+    -------------------------------------------------- */
+    updateConfig: function(parameters) {
+        var form = document.forms[parameters].elements;
+
+        var obj  = {},
+            nobj = {};
+
+        _.each(form, function(input) {
+            if (input.name && input.value) {
+               obj[input.name] = input.value;
+            }
+        });
+
+        var title = parameters.toLowerCase();
+
+
+         nobj[title] = obj;
+
+         nobj.path = "/config/";
+         nobj.filename = "config.json";
+
+        api.emit('request', { request: 'writeJSONSync', param: nobj });
+        events.navigationPrevRow();
 
     },
 
@@ -9774,8 +9814,12 @@ var settings = {
 
     refresh: function() {
         api.emit('request', { request: 'getSettings', param: null });
+    },
+
+    restore: function() {
+        api.emit('request', {request: 'restoreSettings', param: null});
     }
-   
+
 };
 
 /*  Exports

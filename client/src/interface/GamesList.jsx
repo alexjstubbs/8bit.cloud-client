@@ -64,7 +64,7 @@ module.exports = React.createClass({
             }
 
         });
-        
+
 
     },
 
@@ -93,7 +93,9 @@ module.exports = React.createClass({
                 }
 
                 else {
-                    nodeList[index].innerHTML = ".";
+                    if (nodeList[index]) {
+                        nodeList[index].innerHTML = ".";
+                    }
                 }
 
              alpha_list.push(alpha);

@@ -34,6 +34,7 @@ module.exports = React.createClass({
 
     componentWillUpdate: function(props, state) {
 
+                // systemSettings.refresh();
     },
 
     componentDidUpdate: function() {
@@ -72,6 +73,8 @@ module.exports = React.createClass({
 
         view = view.charAt(0).toUpperCase() + view.slice(1);
         curView = view;
+
+        systemSettings.refresh();
 
         switch (view) {
 
@@ -123,7 +126,7 @@ module.exports = React.createClass({
             settingsParents = _.keys(this.state.settingsObject),
             settingsMenuMarkup = settingsParents.map(function (parent, i) {
 
-                return <li><button data-highlightfunction='throwMe' data-function="navigationNextRow" data-parameters={parent} className="btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"><i className={component.props.icons[parent]}></i> &nbsp; <span>{parent}</span></button></li>;
+                return <li><button data-highlightfunction='showChildren' data-function="navigationNextRow" data-parameters={parent} className="btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"><i className={component.props.icons[parent]}></i> &nbsp; <span>{parent}</span></button></li>;
 
             });
 

@@ -190,7 +190,11 @@ var api = {
     },
 
     getSettings: function(nsp) {
-         common.settings.send(nsp);
+         common.settings.init(nsp);
+    },
+
+    restoreSettings: function(nsp) {
+         common.settings.restore(nsp);
     }
 
 
