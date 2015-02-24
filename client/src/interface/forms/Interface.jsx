@@ -23,9 +23,9 @@ module.exports = React.createClass({
 
                         <div className="form-group">
 
-                            <h3 className="col-xs-4 no-padding"><i className="ion-ios-monitor"></i> &nbsp; Default Screen:</h3>
+                            <h3 className="col-xs-4 no-padding no-margin"><i className="ion-ios-monitor"></i> &nbsp; Default Screen:</h3>
 
-                            <h3 className="col-xs-8 ">
+                            <h3 className="col-xs-8 no-padding no-margin">
 
                                 <ul id="radio-defaultScreen" className="radio-wrapper text-right">
                                     <li className="col-xs-8"><RadioSelect group="defaultScreen" id="radio-defaultScreen-dashboard" label='Dashboard' name="Dashboard" selected={this.props.settings.interface.screen == "Dashboard" ? "true" : "false" } /></li>
