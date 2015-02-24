@@ -4710,7 +4710,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.div({className: "form-group"}, 
 
-                            React.DOM.h3({className: "col-xs-4"}, "Default Screen:"), 
+                            React.DOM.h3({className: "col-xs-4 no-padding"}, React.DOM.i({className: "ion-ios-monitor"}), "   Default Screen:"), 
 
                             React.DOM.h3({className: "col-xs-8 "}, 
 
@@ -4718,7 +4718,25 @@ module.exports = React.createClass({displayName: 'exports',
                                     React.DOM.li({className: "col-xs-9"}, RadioSelect({group: "defaultScreen", id: "radio-defaultScreen-browser", label: "Games Browser", selected: "false"})), 
                                     React.DOM.li({className: "col-xs-3"}, RadioSelect({group: "defaultScreen", id: "radio-defaultScreen-dashboard", label: "Dashboard", selected: "true"}))
                                 )
-                            )
+                            ), 
+
+
+                        React.DOM.div({className: "clearfix"}), 
+                        React.DOM.hr({className: "hr-thin"}), 
+
+                        React.DOM.h3(null, React.DOM.i({className: "ion-android-color-palette"}), "   Theme Path"), 
+                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.interface.theme : null, name: "theme", type: "text"}), 
+
+                        React.DOM.hr({className: "hr-thin"}), 
+
+                        React.DOM.h3(null, React.DOM.i({className: "ion-search"}), "   Zoom Level"), 
+                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.interface.zoom : null, name: "zoom", type: "text"}), 
+
+                        React.DOM.hr({className: "hr-thin"}), 
+
+                        React.DOM.h3(null, React.DOM.i({className: "ion-home"}), "    Browser Homepage"), 
+                        React.DOM.input({className: "form-control input-lg navable", 'data-function': "inputFocus", value: !_.isEmpty(this.props.settings) ? this.props.settings.interface.browser_url : null, name: "browser_url", type: "text"})
+
 
 
                         )

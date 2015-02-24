@@ -6,7 +6,7 @@
   },
   "interface": {
     "screen": "Dashboard",
-    "theme": "moon",
+    "theme": "/opt/ignition/themes/moon/",
     "zoom": "auto",
     "font": "Roboto",
     "browser_url": "http://ignition.io"
