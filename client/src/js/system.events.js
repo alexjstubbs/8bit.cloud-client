@@ -88,13 +88,14 @@ var events = {
     -------------------------------------------------- */
     navigationNextRow: function(parameters) {
 
-        var parents = document.querySelectorAll(".parent");
+        var parent = document.querySelectorAll(".parent");
+        var _parent = document.querySelectorAll("._parent");
 
-        parents[0].classList.remove("parent");
-        parents[0].classList.add("_parent");
+        parent[0].classList.remove("parent");
+        parent[0].classList.add("_parent");
 
-        parents[1].classList.remove("_parent");
-        parents[1].classList.add("parent");
+        _parent[0].classList.remove("_parent");
+        _parent[0].classList.add("parent");
 
         navigationInit.navigationInit();
 
@@ -110,10 +111,14 @@ var events = {
     -------------------------------------------------- */
     navigationPrevRow: function(parameters) {
 
-        var parents = document.querySelectorAll("._parent");
+        var parent = document.querySelectorAll(".parent");
+        var _parent = document.querySelectorAll("._parent");
 
-        parents[0].classList.remove("_parent");
-        parents[0].classList.add("parent");
+        parent[0].classList.remove("parent");
+        parent[0].classList.add("_parent");
+
+        _parent[0].classList.remove("_parent");
+        _parent[0].classList.add("parent");
 
         navigationInit.navigationInit();
 

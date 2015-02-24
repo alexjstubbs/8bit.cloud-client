@@ -12,6 +12,7 @@ var React           = require('react/addons'),
     systemSettings  = require('../js/system.settings').settings,
     navigationInit  = require('../js/navigation.init'),
     mixins          = require('./mixins/mixins.jsx'),
+    nodeUpdate      = 0,
     currentNode;
 
 /* Components
@@ -36,6 +37,11 @@ module.exports = React.createClass({
 
     componentDidUpdate: function() {
 
+        nodeUpdate++;
+
+        if (nodeUpdate == 3) {
+            navigationInit.navigationInit();
+        }
     },
 
     getDefaultProps: function() {
@@ -54,8 +60,7 @@ module.exports = React.createClass({
     },
 
     screenMount: function() {
-
-                        navigationInit.navigationInit();
+        nodeUpdate++;
     },
 
     changeView: function(view) {
@@ -64,13 +69,16 @@ module.exports = React.createClass({
 
         view = view.charAt(0).toUpperCase() + view.slice(1);
 
-
-        if (view == "Paths") {
-            currentNode = <Paths />;
-        }
-
-        else {
-            currentNode = <Interface />;
+        switch (view) {
+            case "Paths":
+                currentNode = <Paths />;
+                break;
+            case "Interface":
+                currentNode = <Interface />;
+                break;
+            default:
+                currentNode = <Paths />;
+                break;
         }
 
         component.forceUpdate();
@@ -78,6 +86,8 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
+
+        nodeUpdate++;
 
         var component = this;
 
@@ -87,10 +97,6 @@ module.exports = React.createClass({
               component.changeView(e.detail.view);
         });
 
-
-        setTimeout(function() {
-            // navigationInit.navigationInit();
-        }, 1000);
 
     },
 
@@ -104,9 +110,9 @@ module.exports = React.createClass({
             settingsParents = _.keys(this.state.settingsObject),
             settingsMenuMarkup = settingsParents.map(function (parent, i) {
 
-            return <li><button data-highlightfunction='throwMe' data-function="navigationNextRow" data-parameters={parent} className="btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"><i className={component.props.icons[parent]}></i> &nbsp; <span>{parent}</span></button></li>;
+                return <li><button data-highlightfunction='throwMe' data-function="navigationNextRow" data-parameters={parent} className="btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"><i className={component.props.icons[parent]}></i> &nbsp; <span>{parent}</span></button></li>;
 
-        });
+            });
 
         return (
 

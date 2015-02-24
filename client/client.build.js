@@ -3588,6 +3588,7 @@ var React           = require('react/addons'),
     systemSettings  = require('../js/system.settings').settings,
     navigationInit  = require('../js/navigation.init'),
     mixins          = require('./mixins/mixins.jsx'),
+    nodeUpdate      = 0,
     currentNode;
 
 /* Components
@@ -3612,6 +3613,11 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidUpdate: function() {
 
+        nodeUpdate++;
+
+        if (nodeUpdate == 3) {
+            navigationInit.navigationInit();
+        }
     },
 
     getDefaultProps: function() {
@@ -3630,8 +3636,7 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     screenMount: function() {
-
-                        navigationInit.navigationInit();
+        nodeUpdate++;
     },
 
     changeView: function(view) {
@@ -3640,13 +3645,16 @@ module.exports = React.createClass({displayName: 'exports',
 
         view = view.charAt(0).toUpperCase() + view.slice(1);
 
-
-        if (view == "Paths") {
-            currentNode = Paths(null);
-        }
-
-        else {
-            currentNode = Interface(null);
+        switch (view) {
+            case "Paths":
+                currentNode = Paths(null);
+                break;
+            case "Interface":
+                currentNode = Interface(null);
+                break;
+            default:
+                currentNode = Paths(null);
+                break;
         }
 
         component.forceUpdate();
@@ -3654,6 +3662,8 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
+
+        nodeUpdate++;
 
         var component = this;
 
@@ -3663,10 +3673,6 @@ module.exports = React.createClass({displayName: 'exports',
               component.changeView(e.detail.view);
         });
 
-
-        setTimeout(function() {
-            // navigationInit.navigationInit();
-        }, 1000);
 
     },
 
@@ -3680,9 +3686,9 @@ module.exports = React.createClass({displayName: 'exports',
             settingsParents = _.keys(this.state.settingsObject),
             settingsMenuMarkup = settingsParents.map(function (parent, i) {
 
-            return React.DOM.li(null, React.DOM.button({'data-highlightfunction': "throwMe", 'data-function': "navigationNextRow", 'data-parameters': parent, className: "btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: component.props.icons[parent]}), "   ", React.DOM.span(null, parent)));
+                return React.DOM.li(null, React.DOM.button({'data-highlightfunction': "throwMe", 'data-function': "navigationNextRow", 'data-parameters': parent, className: "btn btn-block btn-nobg btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: component.props.icons[parent]}), "   ", React.DOM.span(null, parent)));
 
-        });
+            });
 
         return (
 
@@ -4679,13 +4685,13 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
-        navigationInit.navigationInit();
+        // navigationInit.navigationInit();
     },
 
     render: function() {
 
         return (
-            React.DOM.div({className: "parent"}, 
+            React.DOM.div({className: "_parent"}, 
 
                 React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
 
@@ -4873,13 +4879,13 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
-        navigationInit.navigationInit();
+        // navigationInit.navigationInit();
     },
 
     render: function() {
 
         return (
-            React.DOM.div({className: "parent"}, 
+            React.DOM.div({className: "_parent"}, 
                 "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.", 
 
                 React.DOM.form({'accept-charset': "UTF-8", role: "form", name: this.props.form, id: this.props.form}, 
@@ -8892,13 +8898,14 @@ var events = {
     -------------------------------------------------- */
     navigationNextRow: function(parameters) {
 
-        var parents = document.querySelectorAll(".parent");
+        var parent = document.querySelectorAll(".parent");
+        var _parent = document.querySelectorAll("._parent");
 
-        parents[0].classList.remove("parent");
-        parents[0].classList.add("_parent");
+        parent[0].classList.remove("parent");
+        parent[0].classList.add("_parent");
 
-        parents[1].classList.remove("_parent");
-        parents[1].classList.add("parent");
+        _parent[0].classList.remove("_parent");
+        _parent[0].classList.add("parent");
 
         navigationInit.navigationInit();
 
@@ -8914,10 +8921,14 @@ var events = {
     -------------------------------------------------- */
     navigationPrevRow: function(parameters) {
 
-        var parents = document.querySelectorAll("._parent");
+        var parent = document.querySelectorAll(".parent");
+        var _parent = document.querySelectorAll("._parent");
 
-        parents[0].classList.remove("_parent");
-        parents[0].classList.add("parent");
+        parent[0].classList.remove("parent");
+        parent[0].classList.add("_parent");
+
+        _parent[0].classList.remove("_parent");
+        _parent[0].classList.add("parent");
 
         navigationInit.navigationInit();
 

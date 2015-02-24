@@ -15,13 +15,13 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
-        navigationInit.navigationInit();
+        // navigationInit.navigationInit();
     },
 
     render: function() {
 
         return (
-            <div className="parent">
+            <div className="_parent">
 
                 <form accept-charset="UTF-8" role="form" name={this.props.form} id={this.props.form}>
 
