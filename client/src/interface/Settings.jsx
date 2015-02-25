@@ -9,6 +9,7 @@ var React           = require('react/addons'),
     api             = require('socket.io-client')('/api'),
     Paths           = require('./forms/Paths.jsx'),
     Network         = require('./forms/Network.jsx'),
+    Profiles        = require('./forms/Profiles.jsx'),
     Interface       = require('./forms/Interface.jsx'),
     systemSettings  = require('../js/system.settings').settings,
     navigationInit  = require('../js/navigation.init'),
@@ -83,6 +84,10 @@ module.exports = React.createClass({
 
             case "Network":
                 currentNode = <Network settings={component.state.settingsObject} title={view} />;
+                break;
+
+            case "Profiles":
+                currentNode = <Profiles settings={component.state.settingsObject} title={view} />;
                 break;
 
             default:

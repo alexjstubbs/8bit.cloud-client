@@ -23,9 +23,9 @@ module.exports = React.createClass({
 
                         <div className="form-group">
 
-                            <h3 className="col-xs-4 no-padding"><i className="ion-android-wifi"></i> &nbsp; Wireless Configuration</h3>
+                            <h3 className="col-xs-4 no-padding"><i className="ion-android-wifi"></i> &nbsp; Connection Type:</h3>
 
-                                <h3 className="col-xs-8">
+                                <h3 className="col-xs-8 wrapper">
 
                                     <ul id="radio-networkType" className="radio-wrapper text-right">
                                         <li className="col-xs-10"><RadioSelect group="networkType" id="radio-networkType-wired" label='Wired' name="Wired" selected={this.props.settings.network.type == "wired" ? "true" : "false" } /></li>
@@ -37,24 +37,23 @@ module.exports = React.createClass({
                             <hr className="hr-thin" />
 
                             <h3><i className="ion-outlet"></i> &nbsp; Interface</h3>
-                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.interface : null} name="cover" type="text" />
+                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.interface : null} name="interface" type="text" />
 
                             <hr className="hr-thin" />
 
-
-
-
                             <h3><i className="ion-wifi"></i> &nbsp; SSID</h3>
-                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.ssid : null} name="cover" type="text" />
+                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.ssid : null} name="ssid" type="text" />
 
                             <h3><i className="ion-lock-combination"></i> &nbsp; Passphrase</h3>
-                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.passphrase : null} name="cover" type="password" />
+                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.passphrase : null} name="passphrase" type="password" />
 
 
                         </div>
 
 
                 </fieldset>
+
+                <input type="hidden" id="input-networkType" name="type" value="" />
 
             </form>
 

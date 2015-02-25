@@ -44,10 +44,10 @@
     }
   },
   "network": {
-    "type": "wired",
+    "type": "Wireless",
     "interface": "eth0",
     "ssid": null,
-    "passphrase": null
+    "passphrase": null,
   },
   "profiles": {
     "auto_login": true,
