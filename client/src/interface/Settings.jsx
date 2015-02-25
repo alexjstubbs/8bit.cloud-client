@@ -10,6 +10,7 @@ var React           = require('react/addons'),
     Paths           = require('./forms/Paths.jsx'),
     Network         = require('./forms/Network.jsx'),
     Profiles        = require('./forms/Profiles.jsx'),
+    Gameplay        = require('./forms/Gameplay.jsx'),
     Interface       = require('./forms/Interface.jsx'),
     systemSettings  = require('../js/system.settings').settings,
     navigationInit  = require('../js/navigation.init'),
@@ -90,6 +91,10 @@ module.exports = React.createClass({
                 currentNode = <Profiles settings={component.state.settingsObject} title={view} />;
                 break;
 
+            case "Gameplay":
+                currentNode = <Gameplay settings={component.state.settingsObject} title={view} />;
+                break;
+
             default:
                 currentNode = <Paths settings={component.state.settingsObject} title={view} />;
                 break;
@@ -142,6 +147,10 @@ module.exports = React.createClass({
                         <ul>
                             {settingsMenuMarkup}
                         </ul>
+
+                        <br />
+
+                        <button className="navable btn btn-alt btn-block"><i className="ion-ios-color-wand"></i> &nbsp; Setup Wizard</button>
                     </div>
 
                     <div id="settings-container" className="col-xs-9">

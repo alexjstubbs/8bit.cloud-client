@@ -28,8 +28,8 @@ module.exports = React.createClass({
                                 <h3 className="col-xs-8 wrapper">
 
                                     <ul id="radio-networkType" className="radio-wrapper text-right">
-                                        <li className="col-xs-10"><RadioSelect group="networkType" id="radio-networkType-wired" label='Wired' name="Wired" selected={this.props.settings.network.type == "wired" ? "true" : "false" } /></li>
-                                        <li className="col-xs-2"><RadioSelect group="networkType" id="radio-networkType-wireless" label='Wireless' name="Wireless" selected={this.props.settings.network.type == "wireless" ? "true" : "false" } />&nbsp; </li>
+                                        <li className="col-xs-10"><RadioSelect group="networkType" id="radio-networkType-wired" label='Wired' name="Wired" selected={this.props.settings.network.type == "Wired" ? "true" : "false" } /></li>
+                                        <li className="col-xs-2"><RadioSelect group="networkType" id="radio-networkType-wireless" label='Wireless' name="Wireless" selected={this.props.settings.network.type == "Wireless" ? "true" : "false" } />&nbsp; </li>
                                     </ul>
                                 </h3>
 
