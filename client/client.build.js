@@ -4807,46 +4807,46 @@ module.exports = React.createClass({displayName: 'exports',
 
                             React.DOM.div({id: "gamepad-input-up", 'data-function': "gamepadMap", className: "navable-row input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-up-c"}))), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_up})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_up, name: "btn_up"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-right", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-right", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-right-c"}))), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_right})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_right, name: "btn_right"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-down", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-down", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-down-c"}))), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_down})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_down, name: "btn_down"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-left", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-left", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-left-c"}))), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_left})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_left, name: "btn_left"})
                             )
 
                         ), 
 
                         React.DOM.div({className: "form-group col-xs-12"}, 
 
-                            React.DOM.div({id: "gamepad-input-a", className: "navable-row input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-a", 'data-function': "gamepadMap", className: "navable-row input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "A")), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_a})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_a, name: "btn_a"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-b", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-b", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "B")), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_b})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_b, name: "btn_b"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-x", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-x", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "X")), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_x})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_x, name: "btn_x"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-y", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-y", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "Y")), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_y})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_y, name: "btn_y"})
                             )
 
                         ), 
@@ -4855,24 +4855,24 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.div({className: "form-group col-xs-12"}, 
 
-                            React.DOM.div({id: "gamepad-input-l1", className: "navable-row input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-l1", 'data-function': "gamepadMap", className: "navable-row input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "L1")), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_l1})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_l1, name: "btn_l1"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-l2", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-l2", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "L2")), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_l2})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_l2, name: "btn_l2"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-r1", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-r1", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "R1")), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_l3})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_r1, name: "btn_r1"})
                             ), 
 
-                            React.DOM.div({id: "gamepad-input-r2", className: "input-group navable col-xs-2 pull-left"}, 
+                            React.DOM.div({id: "gamepad-input-r2", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "R2")), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_l4})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_r2, name: "btn_r2"})
                             )
 
                         ), 
@@ -4881,14 +4881,14 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.div({className: "form-group col-xs-12"}, 
 
-                        React.DOM.div({id: "gamepad-input-select", className: "navable-row input-group navable col-xs-2 pull-left"}, 
+                        React.DOM.div({id: "gamepad-input-select", 'data-function': "gamepadMap", className: "navable-row input-group navable col-xs-2 pull-left"}, 
                               React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "SELECT")), 
-                              React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_select})
+                              React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_select, name: "btn_select"})
                         ), 
 
-                        React.DOM.div({id: "gamepad-input-start", className: "input-group navable col-xs-2 pull-left"}, 
+                        React.DOM.div({id: "gamepad-input-start", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                               React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "START")), 
-                              React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.default.mappings.btn_start})
+                              React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_start, name: "btn_start"})
                         )
 
                     ), 
@@ -7641,15 +7641,14 @@ var gamepadSupport = {
                     // Mappings
 
                     if (button[5]) {
-                        // navigationKeyEvent(221);
-                        Mousetrap.trigger(']', null);
+                        navigationKeyEvent(221);
+                        // Mousetrap.trigger(']', null);
 
                     }
 
                     if (button[4]) {
-                        // console.log("s");
-                        // navigationKeyEvent(219);
-                        Mousetrap.trigger('[', null);
+                        navigationKeyEvent(219);
+                        // Mousetrap.trigger('[', null);
                     }
 
                     if (button[8] || button[1] || button [3]) {
