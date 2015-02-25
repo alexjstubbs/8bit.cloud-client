@@ -3511,6 +3511,7 @@ var React 				= require('react/addons'),
 	init 				= require('../js/init.js'),
 	systemSettings      = require('../js/system.settings').settings,
 	navigationKeyEvent  = require("../js/navigation.keyEvent.js"),
+    eventDispatcher     = require('../js/events'),
 	navigationInit  	= require('../js/navigation.init.js');
 
 /* Init Clientside
@@ -3548,29 +3549,7 @@ var setupScreens = function(route) {
 
 	}).value();
 
-	// setTimeout(function() {
-	//
-	//
-	// 	var userSelectedScreen = document.querySelectorAll("#screens ."+systemSettings.get.interface.screen)[0];
-	//
-	// 	if (!userSelectedScreen) {
-	// 		_.first(container.children).id = "screen-active";
-	// 	}
-	//
-	// 	else {
-
-	// // TODO: Make this dynamic
-	// _.first(container.children).id = "screen-active";
-	// if (systemSettings.get.interface.screen == "Browser") {
-	// 	navigationKeyEvent(221);
-	// }
-	// else {
-		_.first(container.children).id = "screen-active";
-	// }
-
-	// 	}
-	//
-	// }, 2050);
+	_.first(container.children).id = "screen-active";
 
 	/* Init Navigation Controls
 	-------------------------------------------------- */
@@ -3584,7 +3563,7 @@ setupScreens(window.location.pathname);
 -------------------------------------------------- */
 exports.setupScreens = setupScreens;
 
-},{"../js/init.js":92,"../js/navigation.init.js":99,"../js/navigation.keyEvent.js":100,"../js/system.settings":105,"./Browser.jsx":7,"./Dashboard.jsx":11,"./LargeProfile.jsx":26,"./Profiles.jsx":39,"./Settings.jsx":44,"./forms/UserAgreement.jsx":69,"./onboarding/LoadingIgnition.jsx":74,"./onboarding/NetworkSetup.jsx":75,"./onboarding/NewProfile.jsx":77,"./onboarding/Welcome.jsx":80,"lodash":108,"react/addons":110}],44:[function(require,module,exports){
+},{"../js/events":89,"../js/init.js":92,"../js/navigation.init.js":99,"../js/navigation.keyEvent.js":100,"../js/system.settings":105,"./Browser.jsx":7,"./Dashboard.jsx":11,"./LargeProfile.jsx":26,"./Profiles.jsx":39,"./Settings.jsx":44,"./forms/UserAgreement.jsx":69,"./onboarding/LoadingIgnition.jsx":74,"./onboarding/NetworkSetup.jsx":75,"./onboarding/NewProfile.jsx":77,"./onboarding/Welcome.jsx":80,"lodash":108,"react/addons":110}],44:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -7040,6 +7019,7 @@ var api                 = require('socket.io-client')('/api'),
     events              = require('./events'),
     _                   = require('lodash'),
     dialog              = require('./dialogs'),
+    screenEvents        = require('./navigation.event'),
     uiNotification      = require('./ui.notification');
 
 /* TODO: Fix up to contain all detail
@@ -7096,7 +7076,25 @@ window.addEventListener("renderScreenComponents", function(e) {
 
 }, false);
 
-},{"./dialogs":87,"./events":89,"./ui.notification":107,"lodash":108,"socket.io-client":269}],89:[function(require,module,exports){
+
+/*  Switch Screen
+-------------------------------------------------- */
+window.addEventListener("switchScreen", function(e) {
+
+    switch (e.detail.screen) {
+
+     case "Dashboard":
+          screenEvents({keyCode: 221});
+          break;
+
+     case "Browser":
+            screenEvents({keyCode: 221});
+            screenEvents({keyCode: 221});
+    }
+
+}, false);
+
+},{"./dialogs":87,"./events":89,"./navigation.event":96,"./ui.notification":107,"lodash":108,"socket.io-client":269}],89:[function(require,module,exports){
 /* Custom Events
 -------------------------------------------------- */
 var api = require('socket.io-client')('/api');
@@ -7133,6 +7131,24 @@ var screenTransition = function(screen, hidden, parent) {
         window.dispatchEvent(event);
     }
 };
+
+/* Screen Switch Event
+-------------------------------------------------- */
+var switchScreen = function(screen) {
+
+    var event = new CustomEvent('switchScreen', {
+        'detail': {
+            screen: screen
+
+        }
+    });
+
+    if (event) {
+        window.dispatchEvent(event);
+    }
+
+};
+
 
 /* Change view of screen (to render child)
 -------------------------------------------------- */
@@ -7336,6 +7352,7 @@ var gamepadEvent = function(e) {
 -------------------------------------------------- */
 exports.renderScreenComponents  = renderScreenComponents;
 exports.screenTransition 		= screenTransition;
+exports.switchScreen     		= switchScreen;
 exports.dialog 			 		= dialog;
 exports.updateGame 		 		= updateGame;
 exports.changeView 		 		= changeView;
@@ -7956,6 +7973,7 @@ exports.preloadImage    = preloadImage;
  -------------------------------------------------- */
 
 var gamepad 			     = require("./gamepad"),
+    eventListeners 			 = require("./event.listeners"),
     navigationBindings       = require("./navigation.bindings"),
     navigationEvent 	     = require("./navigation.event"),
     api 				     = require("./api/connection"),
@@ -7963,7 +7981,8 @@ var gamepad 			     = require("./gamepad"),
     database 			     = require('./database.helpers'),
     systemSettings           = require('./system.settings').settings,
     navigationEventBinds     = require('./navigation.eventListeners'),
-    sysEvents                = require('./system.events').events;
+    sysEvents                = require('./system.events').events,
+    eventDispatcher          = require('./events');
 
 module.exports = function() {
 
@@ -7996,9 +8015,15 @@ module.exports = function() {
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
     }, 3500);
 
+    setTimeout(function() {
+        eventDispatcher.switchScreen(systemSettings.get.interface.screen);
+    }, 150);
+
+
+
 };
 
-},{"../js/navigation.browser":95,"./api/connection":85,"./database.helpers":86,"./gamepad":90,"./navigation.bindings":94,"./navigation.event":96,"./navigation.eventListeners":97,"./system.events":104,"./system.settings":105}],93:[function(require,module,exports){
+},{"../js/navigation.browser":95,"./api/connection":85,"./database.helpers":86,"./event.listeners":88,"./events":89,"./gamepad":90,"./navigation.bindings":94,"./navigation.event":96,"./navigation.eventListeners":97,"./system.events":104,"./system.settings":105}],93:[function(require,module,exports){
 /* mousetrap v1.4.6 craig.is/killing/mice */
 (function(J,r,f){function s(a,b,d){a.addEventListener?a.addEventListener(b,d,!1):a.attachEvent("on"+b,d)}function A(a){if("keypress"==a.type){var b=String.fromCharCode(a.which);a.shiftKey||(b=b.toLowerCase());return b}return h[a.which]?h[a.which]:B[a.which]?B[a.which]:String.fromCharCode(a.which).toLowerCase()}function t(a){a=a||{};var b=!1,d;for(d in n)a[d]?b=!0:n[d]=0;b||(u=!1)}function C(a,b,d,c,e,v){var g,k,f=[],h=d.type;if(!l[a])return[];"keyup"==h&&w(a)&&(b=[a]);for(g=0;g<l[a].length;++g)if(k=
 l[a][g],!(!c&&k.seq&&n[k.seq]!=k.level||h!=k.action||("keypress"!=h||d.metaKey||d.ctrlKey)&&b.sort().join(",")!==k.modifiers.sort().join(","))){var m=c&&k.seq==c&&k.level==v;(!c&&k.combo==e||m)&&l[a].splice(g,1);f.push(k)}return f}function K(a){var b=[];a.shiftKey&&b.push("shift");a.altKey&&b.push("alt");a.ctrlKey&&b.push("ctrl");a.metaKey&&b.push("meta");return b}function x(a,b,d,c){m.stopCallback(b,b.target||b.srcElement,d,c)||!1!==a(b,d)||(b.preventDefault?b.preventDefault():b.returnValue=!1,b.stopPropagation?
@@ -8285,8 +8310,8 @@ module.exports = function(e) {
     // OnScreen Keyboard
     var placeholder = document.getElementById("placehold_input");
 
-    if (placeholder && e.key.length === 1) {
-        keyboard.keypress(e.key);
+    if (placeholder && e.which.length === 1) {
+        keyboard.keypress(e.which);
     }
 
     var k                 = e.keyCode,
@@ -8296,10 +8321,10 @@ module.exports = function(e) {
         currentScreenId   = _.indexOf(screens, currentScreen),
         pauseNavigation   = sessionStorage.getItem("navigationState");
 
+
   /* Set Up Screen
   -------------------------------------------------- */
   function setScreen() {
-
 
         var parents = document.querySelectorAll(".parent");
         var otherParents = _.without(parents, screens[currentScreenId].querySelectorAll(".parent")[0]);
@@ -8351,6 +8376,8 @@ module.exports = function(e) {
 
 
     if (pauseNavigation != "pauseRight" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
+
+        console.log(screens.length);
 
           if (currentScreenId != screens.length-1) {
 

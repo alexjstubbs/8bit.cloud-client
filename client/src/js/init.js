@@ -2,6 +2,7 @@
  -------------------------------------------------- */
 
 var gamepad 			     = require("./gamepad"),
+    eventListeners 			 = require("./event.listeners"),
     navigationBindings       = require("./navigation.bindings"),
     navigationEvent 	     = require("./navigation.event"),
     api 				     = require("./api/connection"),
@@ -9,7 +10,8 @@ var gamepad 			     = require("./gamepad"),
     database 			     = require('./database.helpers'),
     systemSettings           = require('./system.settings').settings,
     navigationEventBinds     = require('./navigation.eventListeners'),
-    sysEvents                = require('./system.events').events;
+    sysEvents                = require('./system.events').events,
+    eventDispatcher          = require('./events');
 
 module.exports = function() {
 
@@ -41,5 +43,11 @@ module.exports = function() {
 
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
     }, 3500);
+
+    setTimeout(function() {
+        eventDispatcher.switchScreen(systemSettings.get.interface.screen);
+    }, 150);
+
+
 
 };

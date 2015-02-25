@@ -6,7 +6,7 @@
     "cover": "/opt/ignition/databases/images/"
   },
   "interface": {
-    "screen": "Dashboard",
+    "screen": "Browser",
     "theme": "moon",
     "zoom": "auto",
     "font": "Roboto",

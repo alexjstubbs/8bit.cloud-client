@@ -19,6 +19,7 @@ var React 				= require('react/addons'),
 	init 				= require('../js/init.js'),
 	systemSettings      = require('../js/system.settings').settings,
 	navigationKeyEvent  = require("../js/navigation.keyEvent.js"),
+    eventDispatcher     = require('../js/events'),
 	navigationInit  	= require('../js/navigation.init.js');
 
 /* Init Clientside
@@ -56,29 +57,7 @@ var setupScreens = function(route) {
 
 	}).value();
 
-	// setTimeout(function() {
-	//
-	//
-	// 	var userSelectedScreen = document.querySelectorAll("#screens ."+systemSettings.get.interface.screen)[0];
-	//
-	// 	if (!userSelectedScreen) {
-	// 		_.first(container.children).id = "screen-active";
-	// 	}
-	//
-	// 	else {
-
-	// // TODO: Make this dynamic
-	// _.first(container.children).id = "screen-active";
-	// if (systemSettings.get.interface.screen == "Browser") {
-	// 	navigationKeyEvent(221);
-	// }
-	// else {
-		_.first(container.children).id = "screen-active";
-	// }
-
-	// 	}
-	//
-	// }, 2050);
+	_.first(container.children).id = "screen-active";
 
 	/* Init Navigation Controls
 	-------------------------------------------------- */

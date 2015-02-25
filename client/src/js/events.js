@@ -35,6 +35,24 @@ var screenTransition = function(screen, hidden, parent) {
     }
 };
 
+/* Screen Switch Event
+-------------------------------------------------- */
+var switchScreen = function(screen) {
+
+    var event = new CustomEvent('switchScreen', {
+        'detail': {
+            screen: screen
+
+        }
+    });
+
+    if (event) {
+        window.dispatchEvent(event);
+    }
+
+};
+
+
 /* Change view of screen (to render child)
 -------------------------------------------------- */
 var changeView = function(view) {
@@ -237,6 +255,7 @@ var gamepadEvent = function(e) {
 -------------------------------------------------- */
 exports.renderScreenComponents  = renderScreenComponents;
 exports.screenTransition 		= screenTransition;
+exports.switchScreen     		= switchScreen;
 exports.dialog 			 		= dialog;
 exports.updateGame 		 		= updateGame;
 exports.changeView 		 		= changeView;

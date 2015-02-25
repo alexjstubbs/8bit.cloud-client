@@ -21,8 +21,8 @@ module.exports = function(e) {
     // OnScreen Keyboard
     var placeholder = document.getElementById("placehold_input");
 
-    if (placeholder && e.key.length === 1) {
-        keyboard.keypress(e.key);
+    if (placeholder && e.which.length === 1) {
+        keyboard.keypress(e.which);
     }
 
     var k                 = e.keyCode,
@@ -32,10 +32,10 @@ module.exports = function(e) {
         currentScreenId   = _.indexOf(screens, currentScreen),
         pauseNavigation   = sessionStorage.getItem("navigationState");
 
+
   /* Set Up Screen
   -------------------------------------------------- */
   function setScreen() {
-
 
         var parents = document.querySelectorAll(".parent");
         var otherParents = _.without(parents, screens[currentScreenId].querySelectorAll(".parent")[0]);
@@ -87,6 +87,8 @@ module.exports = function(e) {
 
 
     if (pauseNavigation != "pauseRight" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
+
+        console.log(screens.length);
 
           if (currentScreenId != screens.length-1) {
 

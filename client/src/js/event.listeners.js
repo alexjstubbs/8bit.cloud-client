@@ -4,6 +4,7 @@ var api                 = require('socket.io-client')('/api'),
     events              = require('./events'),
     _                   = require('lodash'),
     dialog              = require('./dialogs'),
+    screenEvents        = require('./navigation.event'),
     uiNotification      = require('./ui.notification');
 
 /* TODO: Fix up to contain all detail
@@ -57,5 +58,23 @@ window.addEventListener("renderScreenComponents", function(e) {
         localStorage.setItem("navigationState", "");
         return;
   }
+
+}, false);
+
+
+/*  Switch Screen
+-------------------------------------------------- */
+window.addEventListener("switchScreen", function(e) {
+
+    switch (e.detail.screen) {
+
+     case "Dashboard":
+          screenEvents({keyCode: 221});
+          break;
+
+     case "Browser":
+            screenEvents({keyCode: 221});
+            screenEvents({keyCode: 221});
+    }
 
 }, false);
