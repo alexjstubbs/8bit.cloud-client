@@ -236,6 +236,11 @@ textarea.textarea-height {
 	background:lighten(@gray-darker, 5%);
 }
 
+.well-dark-alt {
+	padding:7px 7px !important;
+	background:lighten(@gray-darker, 5%);
+}
+
 .well-small {
     font-size:0.8em !important;
 }
@@ -481,7 +486,7 @@ ul.radio-wrapper {
 }
 
 h3.wrapper {
-    height:30px;    
+    height:30px;
 }
 
 h3#noFriends {
@@ -2699,6 +2704,24 @@ legend {
 
 .input-group-addon {
     background-color: @btn-default-bg;
+    border-radius:0;
+}
+
+.input-group.navable {
+    border:2px solid @black;
+    margin:0 10px 0 0;
+}
+
+.input-group input {
+    border-radius:0;
+}
+
+span.sub-text {
+    display:block;
+    font-size:0.6em;
+    .mute;
+    position:relative;
+    top:7px;
 }
 
 // Navs =======================================================================

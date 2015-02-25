@@ -6,13 +6,13 @@
     "cover": "/opt/ignition/databases/images/"
   },
   "interface": {
-    "screen": "Browser",
+    "screen": "Dashboard",
     "theme": "moon",
     "zoom": "auto",
     "font": "Roboto",
     "browser_url": "http://ignition.io"
   },
-  "controls": {
+  "gamepad": {
     "doubleTap": false,
     "shortcuts": {
       "exit_software": "btn_select + btn_start"
