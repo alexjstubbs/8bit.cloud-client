@@ -26,9 +26,12 @@
 var navigationKeyEvent      = require("./navigation.keyEvent.js"),
     sounds                  = require("./system.sounds.js"),
     mousetrap               = require("./mousetrap.min.js"),
+    eventDispatcher     	= require('./events'),
+    api                     = require('socket.io-client')('/api'),
     systemSettings          = require('./system.settings').settings,
     _                       = require("lodash"),
-    buttonTimestamp         = {};
+    buttonTimestamp         = {},
+    _doubleTap;
 
 
 // Re-poll gamepads on script haulting errors;
@@ -71,6 +74,15 @@ var gamepadSupport = {
          * Initialize support for Gamepad API.
          */
         init: function() {
+
+
+            if (typeof systemSettings.get.gamepad === "undefined") {
+                _doubleTap = false;
+            }
+
+            else {
+                _doubleTap = systemSettings.get.gamepad.doubleTap;
+            }
 
             // As of writing, it seems impossible to detect Gamepad API support
             // in Firefox, hence we need to hardcode it in the third clause.
@@ -293,7 +305,7 @@ var gamepadSupport = {
 
             };
 
-            if (systemSettings.get.controls.doubleTap) {
+            if (_doubleTap) {
 
                 gamepadSupport.doubleTap(button, function(dt) {
                     buttonAction(dt);
@@ -352,7 +364,8 @@ var gamepadSupport = {
                 }
             };
 
-            if (systemSettings.get.controls.doubleTap) {
+
+            if (_doubleTap) {
 
                 gamepadSupport.doubleTap(axes, function(dt) {
                     axesAction(dt);
@@ -415,7 +428,10 @@ var gamepadSupport = {
 
                         console.log("[gamepad]: Gamepad Connected!");
 
-                        console.log(rawGamepads[0]);
+                        // console.log(rawGamepads[0]);
+
+                        eventDispatcher.gamepadConnected(rawGamepads[0]);
+
 
                         // console.log(navigator.getGamepads());
 
@@ -438,6 +454,9 @@ var gamepadSupport = {
                             // xmlhttpl.send("");
 
                             console.log("[gamepad]: Gamepad Disconnected!");
+
+                            eventDispatcher.gamepadConnected(rawGamepads[0]);
+
 
                             gamepadSupport.STATE_CHANGE = 0;
                             // sounds('notify_down.wav');

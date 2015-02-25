@@ -174,6 +174,21 @@ var toggleFavorite = function(obj) {
 };
 
 
+/* Gamepad Connection State
+-------------------------------------------------- */
+var gamepadConnected = function(obj) {
+
+    var event = new CustomEvent('gamepadConnected', {
+        'detail':{
+            gamepad: obj
+        }
+    });
+
+    if (event) {
+        window.dispatchEvent(event);
+    }
+};
+
 
 /* Exports
 -------------------------------------------------- */
@@ -186,3 +201,4 @@ exports.uiActionNotification 	= uiActionNotification;
 exports.launchContext       	= launchContext;
 exports.selectBox       	    = selectBox;
 exports.toggleFavorite    	    = toggleFavorite;
+exports.gamepadConnected        = gamepadConnected;

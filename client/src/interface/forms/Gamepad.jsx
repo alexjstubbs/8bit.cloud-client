@@ -8,11 +8,38 @@ var React           = require('react/addons'),
     ActionButtons   = require('../ActionButtons.jsx'),
     navigationInit  = require('../../js/navigation.init'),
     RadioSelect     = require('./RadioSelect.jsx'),
-    _               = require('lodash');
+    _               = require('lodash'),
+    gamepad;
 
 module.exports = React.createClass({
 
+    getInitialState: function() {
+            return {
+                gamepad: {
+                    id: "Not connected"
+                }
+            };
+    },
+
+    componentDidMount: function() {
+
+        var component = this;
+
+        window.addEventListener("gamepadConnected", function(e) {
+              component.setState({gamepad: e.detail.gamepad});
+        });
+
+    },
+
     render: function() {
+
+        if (typeof this.state.gamepad === "undefined") {
+            gamepad = "Not Connected";
+        }
+
+        else {
+            gamepad = this.state.gamepad.id;
+        }
 
         return (
             <div className="_parent">
@@ -27,7 +54,7 @@ module.exports = React.createClass({
                              <i className="ion-ios-game-controller-a-outline"></i> &nbsp; Gamepad Connected: <span id="controller-id"></span>
                          </span>
 
-                         <div className="well-small no-margin col-xs-8 text-right">Not connected</div>
+                         <div className="well-small no-margin col-xs-8 text-right">{gamepad}</div>
 
                      </h3>
 
@@ -37,22 +64,22 @@ module.exports = React.createClass({
 
                         <div className="form-group col-xs-12">
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div id="gamepad-input-up" data-function="gamepadMap" className="navable-row input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong><i className="ion-arrow-up-c"></i></strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_up} />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div  id="gamepad-input-right" className="input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong><i className="ion-arrow-right-c"></i></strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_right}  />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div  id="gamepad-input-down" className="input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong><i className="ion-arrow-down-c"></i></strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_down}  />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div id="gamepad-input-left" className="input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong><i className="ion-arrow-left-c"></i></strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_left}  />
                             </div>
@@ -61,22 +88,22 @@ module.exports = React.createClass({
 
                         <div className="form-group col-xs-12">
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div id="gamepad-input-a" className="navable-row input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong>A</strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_a} />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div id="gamepad-input-b" className="input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong>B</strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_b}  />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div id="gamepad-input-x" className="input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong>X</strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_x}  />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div id="gamepad-input-y" className="input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong>Y</strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_y}  />
                             </div>
@@ -87,23 +114,23 @@ module.exports = React.createClass({
 
                         <div className="form-group col-xs-12">
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div id="gamepad-input-l1" className="navable-row input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong>L1</strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_l1} />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
+                            <div id="gamepad-input-l2" className="input-group navable col-xs-2 pull-left">
                                   <div className="input-group-addon"><strong>L2</strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_l2}  />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
-                                  <div className="input-group-addon"><strong>L3</strong></div>
+                            <div id="gamepad-input-r1" className="input-group navable col-xs-2 pull-left">
+                                  <div className="input-group-addon"><strong>R1</strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_l3}  />
                             </div>
 
-                            <div className="input-group navable col-xs-2 pull-left">
-                                  <div className="input-group-addon"><strong>L4</strong></div>
+                            <div id="gamepad-input-r2" className="input-group navable col-xs-2 pull-left">
+                                  <div className="input-group-addon"><strong>R2</strong></div>
                                   <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_l4}  />
                             </div>
 
@@ -113,12 +140,12 @@ module.exports = React.createClass({
 
                     <div className="form-group col-xs-12">
 
-                        <div className="input-group navable col-xs-2 pull-left">
+                        <div id="gamepad-input-select" className="navable-row input-group navable col-xs-2 pull-left">
                               <div className="input-group-addon"><strong>SELECT</strong></div>
                               <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_select} />
                         </div>
 
-                        <div className="input-group navable col-xs-2 pull-left">
+                        <div id="gamepad-input-start" className="input-group navable col-xs-2 pull-left">
                               <div className="input-group-addon"><strong>START</strong></div>
                               <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.default.mappings.btn_start}  />
                         </div>

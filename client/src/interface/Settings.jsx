@@ -30,7 +30,7 @@ module.exports = React.createClass({
     getInitialState: function() {
         return {
 
-            settingsObject: {},
+            settingsObject: {}
 
         };
     },
@@ -85,7 +85,7 @@ module.exports = React.createClass({
                 break;
 
             case "Gamepad":
-                currentNode = <Gamepad settings={component.state.settingsObject} title={view} />;
+                currentNode = <Gamepad gamepad={component.state.gamepad} settings={component.state.settingsObject} title={view} />;
                 break;
 
             case "Network":
@@ -121,7 +121,6 @@ module.exports = React.createClass({
         window.addEventListener("changeView", function(e) {
               component.changeView(e.detail.view);
         });
-
 
     },
 

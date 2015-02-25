@@ -22,7 +22,7 @@ module.exports = React.createClass({
                 <hr />
 
                 <span className="pull-left">
-                    <button data-function="navigationPrevRow" className="navable btn btn-alt"><i className="ion-close"></i> &nbsp; Cancel Changes</button>
+                    <button data-function="navigationPrevRow" className="navable-row navable btn btn-alt"><i className="ion-close"></i> &nbsp; Cancel Changes</button>
                 </span>
 
                 <span className="pull-right">

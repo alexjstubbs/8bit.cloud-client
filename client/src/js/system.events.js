@@ -59,6 +59,15 @@ var events = {
 
     },
 
+    /*  Map gamepad button
+    -------------------------------------------------- */
+    gamepadMap: function() {
+        var selected = document.querySelectorAll(".selectedNav")[0];
+        if (selected) {
+            var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
+            selectedPre.classList.add("blue-bg");
+        }
+    },
 
     /* Trigger New Screen Set
     -------------------------------------------------- */
