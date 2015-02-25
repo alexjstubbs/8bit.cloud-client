@@ -59,14 +59,58 @@ var events = {
 
     },
 
+    /*  Resume Navigation post Play Session
+    -------------------------------------------------- */
+    pauseBindingNavigation: function() {
+
+        window.removeEventListener('gamepadEvent', navigationEventBinds.navigationEventListeners.passMappingKeyEvent);
+
+
+    },
+
+    /*  Resume Navigation post Play Session
+    -------------------------------------------------- */
+    resumeBindingNavigation: function() {
+
+        navigationEventBinds.navigationEventListeners.bindMappingNavigation();
+
+    },
+
+
     /*  Map gamepad button
     -------------------------------------------------- */
-    gamepadMap: function() {
+    gamepadMap: function(parameter) {
+
         var selected = document.querySelectorAll(".selectedNav")[0];
-        if (selected) {
-            var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
-            selectedPre.classList.add("blue-bg");
+
+        if (!parameter) {
+
+            if (selected) {
+                var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
+                selectedPre.classList.add("blue-bg");
+
+                events.pauseSessionNavigation();
+                events.resumeBindingNavigation();
+
+            }
         }
+
+        else {
+
+            if (selected) {
+
+                console.log("me");
+
+                var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
+                selectedPre.classList.remove("blue-bg");
+
+                events.resumeSessionNavigation();
+                events.pauseBindingNavigation();
+
+            }
+
+        }
+
     },
 
     /* Trigger New Screen Set

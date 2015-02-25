@@ -1,6 +1,7 @@
 /*  Exposed Navigation Event Listener(s)
 -------------------------------------------------- */
 var navigationEvent = require('./navigation.event'),
+    eventDispatcher = require('./events'),
     systemEvents    = require('./system.events');
 
 
@@ -36,7 +37,30 @@ var navigationEventListeners = {
 
         e.stopPropagation();
             return;
+    },
+
+    /*  Listen for keyboard keys strictly for mapping configs
+    -------------------------------------------------- */
+    bindMappingNavigation: function() {
+        window.addEventListener("keydown", navigationEventListeners.passMappingKeyEvent);
+        window.addEventListener("gamepadEvent", navigationEventListeners.passMappingKeyEvent);
+    },
+
+    passMappingKeyEvent: function (e) {
+
+        // console.log(e);
+
+        if (e.detail) {
+            console.log("key pressed:", e.detail.index);
+            eventDispatcher.bindKeyMapping(e);
         }
+
+        // else {
+        //     console.log("keyboard pressed", e.which);
+        // }
+
+    },
+
 
 };
 

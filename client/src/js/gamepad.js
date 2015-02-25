@@ -226,6 +226,7 @@ var gamepadSupport = {
 
                 gamepadSupport.buttonPressed(gamepad.buttons);
                 gamepadSupport.axesPressed(gamepad.axes);
+
             }
         },
 
@@ -274,6 +275,15 @@ var gamepadSupport = {
 
         buttonPressed: function(button) {
 
+                var index = _.indexOf(button, 1);
+
+                eventDispatcher.gamepadEvent({
+                    type: "button",
+                    index: index
+                });
+
+                // eventDispatcher.bindKeyMapping(_.indexOf(button, 1));
+
                 var buttonAction = function(dt) {
 
                 if (!dt) {
@@ -281,16 +291,15 @@ var gamepadSupport = {
                     // Mappings
 
                     if (button[5]) {
-                        // console.log("a");
-                        navigationKeyEvent(221);
-                        // Mousetrap.trigger(']', null);
+                        // navigationKeyEvent(221);
+                        Mousetrap.trigger(']', null);
 
                     }
 
                     if (button[4]) {
                         // console.log("s");
-                        navigationKeyEvent(219);
-                        // Mousetrap.trigger('[', null);
+                        // navigationKeyEvent(219);
+                        Mousetrap.trigger('[', null);
                     }
 
                     if (button[8] || button[1] || button [3]) {
@@ -338,12 +347,15 @@ var gamepadSupport = {
                         // console.log("up");
                         navigationKeyEvent(38);
                         // Mousetrap.trigger('up');
+
                     }
 
                     if (axes[0] == 1) {
                         // console.log("right");
                         navigationKeyEvent(39);
                         // Mousetrap.trigger('right');
+
+
                     }
                     if (axes[0] == -1) {
                         // console.log("left");
@@ -447,19 +459,10 @@ var gamepadSupport = {
 
                         if (gamepadSupport.STATE_CHANGE == 1) {
 
-
-                            // urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
-                            // var xmlhttpl = new XMLHttpRequest();
-                            // xmlhttpl.open("POST", urllaunch, true);
-                            // xmlhttpl.send("");
-
                             console.log("[gamepad]: Gamepad Disconnected!");
 
                             eventDispatcher.gamepadConnected(rawGamepads[0]);
-
-
                             gamepadSupport.STATE_CHANGE = 0;
-                            // sounds('notify_down.wav');
 
                         }
 
@@ -468,6 +471,7 @@ var gamepadSupport = {
                         //  notify.log("<i class='icon ion-game-controller-a'></i> No Gamepad Detected");
                         //  // once = 0;
                         // }
+
                     }
                     // tester.updateGamepads(gamepadSupport.gamepads);
                 }
@@ -477,7 +481,6 @@ var gamepadSupport = {
         // Call the tester with new state and ask it to update the visual
         // representation of a given gamepad.
         updateDisplay: function(gamepadId) {
-
 
             var gamepad = gamepadSupport.gamepads[gamepadId];
 
@@ -518,22 +521,22 @@ var gamepadSupport = {
             //     'stick-2-axis-y', 'stick-2', false);
 
             // Update extraneous buttons.
-            var extraButtonId = gamepadSupport.TYPICAL_BUTTON_COUNT;
-            while (typeof gamepad.buttons[extraButtonId] != 'undefined') {
-                tester.updateButton(gamepad.buttons[extraButtonId], gamepadId,
-                    'extra-button-' + extraButtonId);
-
-                extraButtonId++;
-            }
-
-            // Update extraneous axes.
-            var extraAxisId = gamepadSupport.TYPICAL_AXIS_COUNT;
-            while (typeof gamepad.axes[extraAxisId] != 'undefined') {
-                tester.updateAxis(gamepad.axes[extraAxisId], gamepadId,
-                    'extra-axis-' + extraAxisId);
-
-                extraAxisId++;
-            }
+            // var extraButtonId = gamepadSupport.TYPICAL_BUTTON_COUNT;
+            // while (typeof gamepad.buttons[extraButtonId] != 'undefined') {
+            //     tester.updateButton(gamepad.buttons[extraButtonId], gamepadId,
+            //         'extra-button-' + extraButtonId);
+            //
+            //     extraButtonId++;
+            // }
+            //
+            // // Update extraneous axes.
+            // var extraAxisId = gamepadSupport.TYPICAL_AXIS_COUNT;
+            // while (typeof gamepad.axes[extraAxisId] != 'undefined') {
+            //     tester.updateAxis(gamepad.axes[extraAxisId], gamepadId,
+            //         'extra-axis-' + extraAxisId);
+            //
+            //     extraAxisId++;
+            // }
         }
 };
 

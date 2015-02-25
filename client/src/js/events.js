@@ -189,6 +189,49 @@ var gamepadConnected = function(obj) {
     }
 };
 
+/* Bind a key mapping event
+-------------------------------------------------- */
+var bindKeyMapping = function(e) {
+
+    if (e != '-1') {
+        // console.log(e);
+    }
+
+    var event = new CustomEvent('bindKeyMapping', {
+        'detail':{
+            event: e
+        }
+    });
+
+    if (event) {
+        window.dispatchEvent(event);
+    }
+};
+
+/* Gamepad Event (button, axis, shortcut pressed)
+-------------------------------------------------- */
+var gamepadEvent = function(e) {
+
+    if (e.index == -1) {
+        e.event = "keyup";
+    }
+
+    else {
+        e.event = "keydown";
+    }
+
+    // console.log(e);
+
+    var event = new CustomEvent('gamepadEvent', {
+        'detail': e
+    });
+
+    if (event) {
+        window.dispatchEvent(event);
+    }
+};
+
+
 
 /* Exports
 -------------------------------------------------- */
@@ -202,3 +245,5 @@ exports.launchContext       	= launchContext;
 exports.selectBox       	    = selectBox;
 exports.toggleFavorite    	    = toggleFavorite;
 exports.gamepadConnected        = gamepadConnected;
+exports.bindKeyMapping          = bindKeyMapping;
+exports.gamepadEvent            = gamepadEvent;

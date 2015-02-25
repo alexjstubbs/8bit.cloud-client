@@ -8,6 +8,7 @@ var React           = require('react/addons'),
     ActionButtons   = require('../ActionButtons.jsx'),
     navigationInit  = require('../../js/navigation.init'),
     RadioSelect     = require('./RadioSelect.jsx'),
+    systemEvents    = require('../../js/system.events'),
     _               = require('lodash'),
     gamepad;
 
@@ -27,6 +28,33 @@ module.exports = React.createClass({
 
         window.addEventListener("gamepadConnected", function(e) {
               component.setState({gamepad: e.detail.gamepad});
+        });
+
+        window.addEventListener("bindKeyMapping", function(e) {
+
+            var index = e.detail.event.detail.index;
+            var selected = document.querySelectorAll(".selectedNav")[0];
+            var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
+
+            if (index != '-1') {
+
+                if (selected) {
+                    var input = document.querySelectorAll("#" + selected.getAttribute("id") + " input")[0];
+                    input.value = index;
+                    selectedPre.classList.add("selected");
+                }
+            }
+
+            else {
+
+
+                if (selectedPre.classList.contains("selected")) {
+
+                    selectedPre.classList.remove("selected");
+                    systemEvents.events.gamepadMap(true);
+                }
+            }
+
         });
 
     },

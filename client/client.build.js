@@ -4721,6 +4721,7 @@ var React           = require('react/addons'),
     ActionButtons   = require('../ActionButtons.jsx'),
     navigationInit  = require('../../js/navigation.init'),
     RadioSelect     = require('./RadioSelect.jsx'),
+    systemEvents    = require('../../js/system.events'),
     _               = require('lodash'),
     gamepad;
 
@@ -4740,6 +4741,33 @@ module.exports = React.createClass({displayName: 'exports',
 
         window.addEventListener("gamepadConnected", function(e) {
               component.setState({gamepad: e.detail.gamepad});
+        });
+
+        window.addEventListener("bindKeyMapping", function(e) {
+
+            var index = e.detail.event.detail.index;
+            var selected = document.querySelectorAll(".selectedNav")[0];
+            var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
+
+            if (index != '-1') {
+
+                if (selected) {
+                    var input = document.querySelectorAll("#" + selected.getAttribute("id") + " input")[0];
+                    input.value = index;
+                    selectedPre.classList.add("selected");
+                }
+            }
+
+            else {
+
+
+                if (selectedPre.classList.contains("selected")) {
+
+                    selectedPre.classList.remove("selected");
+                    systemEvents.events.gamepadMap(true);
+                }
+            }
+
         });
 
     },
@@ -4891,7 +4919,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../js/navigation.init":99,"../ActionButtons.jsx":3,"./RadioSelect.jsx":66,"lodash":108,"react/addons":110}],59:[function(require,module,exports){
+},{"../../js/navigation.init":99,"../../js/system.events":104,"../ActionButtons.jsx":3,"./RadioSelect.jsx":66,"lodash":108,"react/addons":110}],59:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -7260,6 +7288,49 @@ var gamepadConnected = function(obj) {
     }
 };
 
+/* Bind a key mapping event
+-------------------------------------------------- */
+var bindKeyMapping = function(e) {
+
+    if (e != '-1') {
+        // console.log(e);
+    }
+
+    var event = new CustomEvent('bindKeyMapping', {
+        'detail':{
+            event: e
+        }
+    });
+
+    if (event) {
+        window.dispatchEvent(event);
+    }
+};
+
+/* Gamepad Event (button, axis, shortcut pressed)
+-------------------------------------------------- */
+var gamepadEvent = function(e) {
+
+    if (e.index == -1) {
+        e.event = "keyup";
+    }
+
+    else {
+        e.event = "keydown";
+    }
+
+    // console.log(e);
+
+    var event = new CustomEvent('gamepadEvent', {
+        'detail': e
+    });
+
+    if (event) {
+        window.dispatchEvent(event);
+    }
+};
+
+
 
 /* Exports
 -------------------------------------------------- */
@@ -7273,6 +7344,8 @@ exports.launchContext       	= launchContext;
 exports.selectBox       	    = selectBox;
 exports.toggleFavorite    	    = toggleFavorite;
 exports.gamepadConnected        = gamepadConnected;
+exports.bindKeyMapping          = bindKeyMapping;
+exports.gamepadEvent            = gamepadEvent;
 
 },{"socket.io-client":269}],90:[function(require,module,exports){
 /**
@@ -7503,6 +7576,7 @@ var gamepadSupport = {
 
                 gamepadSupport.buttonPressed(gamepad.buttons);
                 gamepadSupport.axesPressed(gamepad.axes);
+
             }
         },
 
@@ -7551,6 +7625,15 @@ var gamepadSupport = {
 
         buttonPressed: function(button) {
 
+                var index = _.indexOf(button, 1);
+
+                eventDispatcher.gamepadEvent({
+                    type: "button",
+                    index: index
+                });
+
+                // eventDispatcher.bindKeyMapping(_.indexOf(button, 1));
+
                 var buttonAction = function(dt) {
 
                 if (!dt) {
@@ -7558,16 +7641,15 @@ var gamepadSupport = {
                     // Mappings
 
                     if (button[5]) {
-                        // console.log("a");
-                        navigationKeyEvent(221);
-                        // Mousetrap.trigger(']', null);
+                        // navigationKeyEvent(221);
+                        Mousetrap.trigger(']', null);
 
                     }
 
                     if (button[4]) {
                         // console.log("s");
-                        navigationKeyEvent(219);
-                        // Mousetrap.trigger('[', null);
+                        // navigationKeyEvent(219);
+                        Mousetrap.trigger('[', null);
                     }
 
                     if (button[8] || button[1] || button [3]) {
@@ -7615,12 +7697,15 @@ var gamepadSupport = {
                         // console.log("up");
                         navigationKeyEvent(38);
                         // Mousetrap.trigger('up');
+
                     }
 
                     if (axes[0] == 1) {
                         // console.log("right");
                         navigationKeyEvent(39);
                         // Mousetrap.trigger('right');
+
+
                     }
                     if (axes[0] == -1) {
                         // console.log("left");
@@ -7724,19 +7809,10 @@ var gamepadSupport = {
 
                         if (gamepadSupport.STATE_CHANGE == 1) {
 
-
-                            // urllaunch = "http://127.0.0.1:1210/clientNotification/" + 400 + "/gamepad_54.jpg/Gamepad Disconnected";
-                            // var xmlhttpl = new XMLHttpRequest();
-                            // xmlhttpl.open("POST", urllaunch, true);
-                            // xmlhttpl.send("");
-
                             console.log("[gamepad]: Gamepad Disconnected!");
 
                             eventDispatcher.gamepadConnected(rawGamepads[0]);
-
-
                             gamepadSupport.STATE_CHANGE = 0;
-                            // sounds('notify_down.wav');
 
                         }
 
@@ -7745,6 +7821,7 @@ var gamepadSupport = {
                         //  notify.log("<i class='icon ion-game-controller-a'></i> No Gamepad Detected");
                         //  // once = 0;
                         // }
+
                     }
                     // tester.updateGamepads(gamepadSupport.gamepads);
                 }
@@ -7754,7 +7831,6 @@ var gamepadSupport = {
         // Call the tester with new state and ask it to update the visual
         // representation of a given gamepad.
         updateDisplay: function(gamepadId) {
-
 
             var gamepad = gamepadSupport.gamepads[gamepadId];
 
@@ -7795,22 +7871,22 @@ var gamepadSupport = {
             //     'stick-2-axis-y', 'stick-2', false);
 
             // Update extraneous buttons.
-            var extraButtonId = gamepadSupport.TYPICAL_BUTTON_COUNT;
-            while (typeof gamepad.buttons[extraButtonId] != 'undefined') {
-                tester.updateButton(gamepad.buttons[extraButtonId], gamepadId,
-                    'extra-button-' + extraButtonId);
-
-                extraButtonId++;
-            }
-
-            // Update extraneous axes.
-            var extraAxisId = gamepadSupport.TYPICAL_AXIS_COUNT;
-            while (typeof gamepad.axes[extraAxisId] != 'undefined') {
-                tester.updateAxis(gamepad.axes[extraAxisId], gamepadId,
-                    'extra-axis-' + extraAxisId);
-
-                extraAxisId++;
-            }
+            // var extraButtonId = gamepadSupport.TYPICAL_BUTTON_COUNT;
+            // while (typeof gamepad.buttons[extraButtonId] != 'undefined') {
+            //     tester.updateButton(gamepad.buttons[extraButtonId], gamepadId,
+            //         'extra-button-' + extraButtonId);
+            //
+            //     extraButtonId++;
+            // }
+            //
+            // // Update extraneous axes.
+            // var extraAxisId = gamepadSupport.TYPICAL_AXIS_COUNT;
+            // while (typeof gamepad.axes[extraAxisId] != 'undefined') {
+            //     tester.updateAxis(gamepad.axes[extraAxisId], gamepadId,
+            //         'extra-axis-' + extraAxisId);
+            //
+            //     extraAxisId++;
+            // }
         }
 };
 
@@ -8327,6 +8403,7 @@ module.exports = function(e) {
 /*  Exposed Navigation Event Listener(s)
 -------------------------------------------------- */
 var navigationEvent = require('./navigation.event'),
+    eventDispatcher = require('./events'),
     systemEvents    = require('./system.events');
 
 
@@ -8362,7 +8439,30 @@ var navigationEventListeners = {
 
         e.stopPropagation();
             return;
+    },
+
+    /*  Listen for keyboard keys strictly for mapping configs
+    -------------------------------------------------- */
+    bindMappingNavigation: function() {
+        window.addEventListener("keydown", navigationEventListeners.passMappingKeyEvent);
+        window.addEventListener("gamepadEvent", navigationEventListeners.passMappingKeyEvent);
+    },
+
+    passMappingKeyEvent: function (e) {
+
+        // console.log(e);
+
+        if (e.detail) {
+            console.log("key pressed:", e.detail.index);
+            eventDispatcher.bindKeyMapping(e);
         }
+
+        // else {
+        //     console.log("keyboard pressed", e.which);
+        // }
+
+    },
+
 
 };
 
@@ -8371,7 +8471,7 @@ var navigationEventListeners = {
 -------------------------------------------------- */
 exports.navigationEventListeners = navigationEventListeners;
 
-},{"./navigation.event":96,"./system.events":104}],98:[function(require,module,exports){
+},{"./events":89,"./navigation.event":96,"./system.events":104}],98:[function(require,module,exports){
 /* UI Helper Functions
 -------------------------------------------------- */
 
@@ -9367,14 +9467,58 @@ var events = {
 
     },
 
+    /*  Resume Navigation post Play Session
+    -------------------------------------------------- */
+    pauseBindingNavigation: function() {
+
+        window.removeEventListener('gamepadEvent', navigationEventBinds.navigationEventListeners.passMappingKeyEvent);
+
+
+    },
+
+    /*  Resume Navigation post Play Session
+    -------------------------------------------------- */
+    resumeBindingNavigation: function() {
+
+        navigationEventBinds.navigationEventListeners.bindMappingNavigation();
+
+    },
+
+
     /*  Map gamepad button
     -------------------------------------------------- */
-    gamepadMap: function() {
+    gamepadMap: function(parameter) {
+
         var selected = document.querySelectorAll(".selectedNav")[0];
-        if (selected) {
-            var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
-            selectedPre.classList.add("blue-bg");
+
+        if (!parameter) {
+
+            if (selected) {
+                var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
+                selectedPre.classList.add("blue-bg");
+
+                events.pauseSessionNavigation();
+                events.resumeBindingNavigation();
+
+            }
         }
+
+        else {
+
+            if (selected) {
+
+                console.log("me");
+
+                var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
+                selectedPre.classList.remove("blue-bg");
+
+                events.resumeSessionNavigation();
+                events.pauseBindingNavigation();
+
+            }
+
+        }
+
     },
 
     /* Trigger New Screen Set
