@@ -3603,7 +3603,7 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidUpdate: function() {
-        
+
         document.body.style.WebkitTransform = 'scale('+this.state.settingsObject.interface.zoom+')';
 
         nodeUpdate++;
@@ -3728,7 +3728,8 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.br(null), 
 
-                        React.DOM.button({className: "navable btn btn-alt btn-block"}, React.DOM.i({className: "ion-ios-color-wand"}), "   Setup Wizard")
+                        React.DOM.button({'data-function': "setupWizard", className: "navable btn btn-alt btn-block"}, React.DOM.i({className: "ion-ios-color-wand"}), "   Setup Wizard")
+
                     ), 
 
                     React.DOM.div({id: "settings-container", className: "col-xs-9"}, 
@@ -10497,6 +10498,14 @@ var events = {
         var options = JSON.parse(parameters);
 
         dialog.show("SoftwareOptions", options);
+
+    },
+
+	/*  Go to Setup Wizard
+	-------------------------------------------------- */
+    setupWizard: function() {
+
+        window.location = 'http://127.0.0.1:1210/welcome';
 
     },
 

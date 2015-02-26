@@ -37,7 +37,7 @@ module.exports = React.createClass({
     },
 
     componentDidUpdate: function() {
-        
+
         document.body.style.WebkitTransform = 'scale('+this.state.settingsObject.interface.zoom+')';
 
         nodeUpdate++;
@@ -162,7 +162,8 @@ module.exports = React.createClass({
 
                         <br />
 
-                        <button className="navable btn btn-alt btn-block"><i className="ion-ios-color-wand"></i> &nbsp; Setup Wizard</button>
+                        <button data-function="setupWizard" className="navable btn btn-alt btn-block"><i className="ion-ios-color-wand"></i> &nbsp; Setup Wizard</button>
+
                     </div>
 
                     <div id="settings-container" className="col-xs-9">

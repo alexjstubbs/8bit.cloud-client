@@ -984,6 +984,14 @@ var events = {
 
     },
 
+	/*  Go to Setup Wizard
+	-------------------------------------------------- */
+    setupWizard: function() {
+
+        window.location = 'http://127.0.0.1:1210/welcome';
+
+    },
+
 	/*  Select Box UI for options
 	-------------------------------------------------- */
     selectBox: function(parameters) {

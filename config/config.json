@@ -40,12 +40,12 @@
     "passphrase": null
   },
   "profiles": {
-    "auto_login": "false",
+    "auto_login": "true",
     "auto_login_user": "default"
   },
   "gameplay": {
     "show_userspace": "true",
-    "run_achievements": "false"
+    "run_achievements": "true"
   },
   "about": {
     "version": "0.0.15-a1 (pre-alpha)",
