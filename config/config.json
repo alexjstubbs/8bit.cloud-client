@@ -47,6 +47,11 @@
     "show_userspace": "true",
     "run_achievements": "true"
   },
+  "calibration": {
+    "darkest": "#010101",
+    "darker": "#171717",
+    "dark": "#333333" 
+  },
   "about": {
     "version": "0.0.15-a1 (pre-alpha)",
     "license": "Apache-2.0",

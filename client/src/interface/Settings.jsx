@@ -11,6 +11,7 @@ var React           = require('react/addons'),
     Network         = require('./forms/Network.jsx'),
     Profiles        = require('./forms/Profiles.jsx'),
     About           = require('./forms/About.jsx'),
+    Calibration     = require('./ColorCalibration.jsx'),
     Gameplay        = require('./forms/Gameplay.jsx'),
     Gamepad         = require('./forms/Gamepad.jsx'),
     Interface       = require('./forms/Interface.jsx'),
@@ -60,6 +61,7 @@ module.exports = React.createClass({
                 'server':       'ion-earth',
                 'profiles':     'ion-person-stalker',
                 'gameplay':     'ion-monitor',
+                'calibration':  'ion-ios-color-filter',
                 'about':        'ion-ios-help'
             }
         };
@@ -102,6 +104,10 @@ module.exports = React.createClass({
 
             case "Gameplay":
                 currentNode = <Gameplay settings={component.state.settingsObject} title={view} />;
+                break;
+
+            case "Calibration":
+                currentNode = <Calibration settings={component.state.settingsObject} title={view} />;
                 break;
 
             case "About":
