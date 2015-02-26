@@ -4640,11 +4640,11 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.hr(null), 
 
-                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-image"}), "   Take Screenshot"), 
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "takeScreenshot"}, React.DOM.i({className: "ion-image"}), "   Take Screenshot"), 
                         React.DOM.br(null), React.DOM.br(null), 
-                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-ios-cloud-download-outline"}), "   Save State"), 
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "saveState"}, React.DOM.i({className: "ion-ios-cloud-download-outline"}), "   Save State"), 
                         React.DOM.br(null), React.DOM.br(null), 
-                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-more"}), "   Load State"), 
+                    React.DOM.a({className: "btn btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "loadState"}, React.DOM.i({className: "ion-more"}), "   Load State"), 
 
                         React.DOM.hr(null), 
 
@@ -10761,7 +10761,84 @@ var events = {
             api.emit('request', { request: 'getSpecificCommandLineConfig', param: doc.innerHTML });
 
     },
-    
+
+    /*  Take software screenshot
+    -------------------------------------------------- */
+    takeScreenshot: function(parameters) {
+
+            var process = sessionStorage.getItem("processStorage");
+            if (helpers.isJSON(process)) {
+
+                process = JSON.parse(process);
+                var name = process.processStorage.name;
+
+                switch (name) {
+
+                    case "retroarch":
+                        parameters = 'echo -n SCREENSHOT >/dev/udp/localhost/55355';
+                        api.emit('request', { request: 'execute', param: parameters });
+                        break;
+
+                    default:
+                        break;
+
+                    }
+            }
+
+    },
+
+    /*  Save current state
+    -------------------------------------------------- */
+    saveState: function(parameters) {
+
+            var process = sessionStorage.getItem("processStorage");
+            if (helpers.isJSON(process)) {
+
+                process = JSON.parse(process);
+                var name = process.processStorage.name;
+
+                switch (name) {
+
+                    case "retroarch":
+                        parameters = 'echo -n SAVE_STATE >/dev/udp/localhost/55355';
+                        api.emit('request', { request: 'execute', param: parameters });
+                        break;
+
+                    default:
+                        break;
+
+                    }
+            }
+
+    },
+
+
+    /*  Save current state
+    -------------------------------------------------- */
+    loadState: function(parameters) {
+
+            var process = sessionStorage.getItem("processStorage");
+            if (helpers.isJSON(process)) {
+
+                process = JSON.parse(process);
+                var name = process.processStorage.name;
+
+                switch (name) {
+
+                    case "retroarch":
+                        parameters = 'echo -n LOAD_STATE >/dev/udp/localhost/55355';
+                        api.emit('request', { request: 'execute', param: parameters });
+                        break;
+
+                    default:
+                        break;
+
+                    }
+            }
+
+    },
+
+
 
 };
 

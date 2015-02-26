@@ -53,11 +53,11 @@ module.exports = React.createClass({
 
                         <hr />
 
-                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-image"></i> &nbsp; Take Screenshot</a>
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="takeScreenshot"><i className="ion-image"></i> &nbsp; Take Screenshot</a>
                         <br /><br />
-                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-ios-cloud-download-outline"></i> &nbsp; Save State</a>
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="saveState"><i className="ion-ios-cloud-download-outline"></i> &nbsp; Save State</a>
                         <br /><br />
-                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-more"></i> &nbsp; Load State</a>
+                    <a className="btn btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="loadState"><i className="ion-more"></i> &nbsp; Load State</a>
 
                         <hr />
 

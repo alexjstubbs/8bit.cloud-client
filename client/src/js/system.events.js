@@ -1064,7 +1064,84 @@ var events = {
             api.emit('request', { request: 'getSpecificCommandLineConfig', param: doc.innerHTML });
 
     },
-    
+
+    /*  Take software screenshot
+    -------------------------------------------------- */
+    takeScreenshot: function(parameters) {
+
+            var process = sessionStorage.getItem("processStorage");
+            if (helpers.isJSON(process)) {
+
+                process = JSON.parse(process);
+                var name = process.processStorage.name;
+
+                switch (name) {
+
+                    case "retroarch":
+                        parameters = 'echo -n SCREENSHOT >/dev/udp/localhost/55355';
+                        api.emit('request', { request: 'execute', param: parameters });
+                        break;
+
+                    default:
+                        break;
+
+                    }
+            }
+
+    },
+
+    /*  Save current state
+    -------------------------------------------------- */
+    saveState: function(parameters) {
+
+            var process = sessionStorage.getItem("processStorage");
+            if (helpers.isJSON(process)) {
+
+                process = JSON.parse(process);
+                var name = process.processStorage.name;
+
+                switch (name) {
+
+                    case "retroarch":
+                        parameters = 'echo -n SAVE_STATE >/dev/udp/localhost/55355';
+                        api.emit('request', { request: 'execute', param: parameters });
+                        break;
+
+                    default:
+                        break;
+
+                    }
+            }
+
+    },
+
+
+    /*  Save current state
+    -------------------------------------------------- */
+    loadState: function(parameters) {
+
+            var process = sessionStorage.getItem("processStorage");
+            if (helpers.isJSON(process)) {
+
+                process = JSON.parse(process);
+                var name = process.processStorage.name;
+
+                switch (name) {
+
+                    case "retroarch":
+                        parameters = 'echo -n LOAD_STATE >/dev/udp/localhost/55355';
+                        api.emit('request', { request: 'execute', param: parameters });
+                        break;
+
+                    default:
+                        break;
+
+                    }
+            }
+
+    },
+
+
 
 };
 

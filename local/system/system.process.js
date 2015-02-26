@@ -2,6 +2,22 @@
 -------------------------------------------------- */
 var exec = require('child_process').exec;
 
+/*  Execute a system command via front-end
+-------------------------------------------------- */
+var execute = function(nsp, params) {
+
+    var child = exec(params);
+
+    child.stdout.on('data', function(data) {
+        console.log('(stdout) | ' + data);
+    });
+
+    child.stderr.on('data', function(data) {
+        console.log('(stderr) | ' + data);
+    });
+
+};
+
 /*  Kill All
 -------------------------------------------------- */
 var killall = function(nsp, params, callback) {
@@ -55,6 +71,7 @@ var kill = function(nsp, params, callback) {
 
 /*  Exports
 -------------------------------------------------- */
+exports.execute = execute;
 exports.killall = killall;
 exports.signal  = signal;
 exports.kill    = kill;

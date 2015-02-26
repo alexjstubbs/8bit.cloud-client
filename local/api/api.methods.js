@@ -3,6 +3,10 @@
 
 var api = {
 
+    execute: function(nsp, param){
+         common.process.execute(nsp, param);
+    },
+
     kill: function(nsp, param){
          common.process.kill(nsp, param);
     },
