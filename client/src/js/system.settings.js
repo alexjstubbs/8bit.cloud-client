@@ -8,6 +8,7 @@ api.on('api', function(data) {
 
     if (data.settingsObject) {
         settings.get = data.settingsObject;
+        localStorage.setItem("ignition_settings", JSON.stringify(data.settingsObject));
     }
 
 });

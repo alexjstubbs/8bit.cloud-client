@@ -14,7 +14,8 @@ module.exports = React.createClass({
             label: null,
             id: null,
             group: null,
-            classes: "navable label label-lg"
+            row: false,
+            classes: "navable-row navable label label-lg"
         };
     },
 

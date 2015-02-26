@@ -1,8 +1,7 @@
 /* Game Image
 -------------------------------------------------- */
-var fs   = require('fs-extra'),
-    PATH = require('path'),
-    exec = require('child_process').exec;
+var fs          = require('fs-extra'),
+    settings    = require(__base + 'system/system.settings').settings;
 
 exports.gameImage = function(req, res, callback) {
 
@@ -12,7 +11,7 @@ exports.gameImage = function(req, res, callback) {
 
         if (!type) type = 'box';
 
-    var path = './databases/images/'+platform+'/'+name+'/'+type+'.png',
+    var path = settings.get.paths.covers+platform+'/'+name+'/'+type+'.png',
         img;
 
         path = path.replace(":", " - ");

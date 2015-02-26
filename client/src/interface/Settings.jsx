@@ -10,6 +10,7 @@ var React           = require('react/addons'),
     Paths           = require('./forms/Paths.jsx'),
     Network         = require('./forms/Network.jsx'),
     Profiles        = require('./forms/Profiles.jsx'),
+    About           = require('./forms/About.jsx'),
     Gameplay        = require('./forms/Gameplay.jsx'),
     Gamepad         = require('./forms/Gamepad.jsx'),
     Interface       = require('./forms/Interface.jsx'),
@@ -52,11 +53,12 @@ module.exports = React.createClass({
             icons: {
                 'paths':        'ion-filing',
                 'interface':    'ion-easel',
-                'gamepad':     'ion-ios-game-controller-b',
+                'gamepad':      'ion-ios-game-controller-b',
                 'network':      'ion-outlet',
                 'server':       'ion-earth',
                 'profiles':     'ion-person-stalker',
-                'gameplay':     'ion-monitor'
+                'gameplay':     'ion-monitor',
+                'about':        'ion-ios-help'
             }
         };
     },
@@ -98,6 +100,10 @@ module.exports = React.createClass({
 
             case "Gameplay":
                 currentNode = <Gameplay settings={component.state.settingsObject} title={view} />;
+                break;
+
+            case "About":
+                currentNode = <About settings={component.state.settingsObject} title={view} />;
                 break;
 
             default:

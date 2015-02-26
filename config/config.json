@@ -1,9 +1,8 @@
 {
   "paths": {
-    "roms": "/root/roms/",
+    "roms": "/Users/alexstubbs/roms/",
     "saves": "/root/saves/",
-    "covers": "/opt/ignition/databases/images/",
-    "cover": "/opt/ignition/databases/images/"
+    "covers": "/opt/ignition/databases/images/"
   },
   "interface": {
     "screen": "Dashboard",
@@ -50,5 +49,11 @@
   "gameplay": {
     "show_userspace": true,
     "run_achievements": true
+  },
+  "about": {
+    "version": "0.0.15-a1 (pre-alpha)",
+    "license": "Apache-2.0",
+    "author": "Alexander Stubbs",
+    "release": "3/5/2015"
   }
 }

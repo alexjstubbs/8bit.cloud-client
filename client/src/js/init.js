@@ -44,9 +44,14 @@ module.exports = function() {
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
     }, 3500);
 
-    setTimeout(function() {
-        eventDispatcher.switchScreen(systemSettings.get.interface.screen);
-    }, 150);
+    var ignitionSettings = localStorage.getItem("ignition_settings");
+
+    if (ignitionSettings && ignitionSettings.length > 5) {
+        ignitionSettings = JSON.parse(ignitionSettings);
+        setTimeout(function() {
+            eventDispatcher.switchScreen(ignitionSettings.interface.screen);
+        }, 500);
+    }
 
 
 

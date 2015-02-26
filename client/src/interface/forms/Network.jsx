@@ -37,15 +37,15 @@ module.exports = React.createClass({
                             <hr className="hr-thin" />
 
                             <h3><i className="ion-outlet"></i> &nbsp; Interface</h3>
-                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.interface : null} name="interface" type="text" />
+                            <input className="navable-row form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.interface : null} name="interface" type="text" />
 
                             <hr className="hr-thin" />
 
                             <h3><i className="ion-wifi"></i> &nbsp; SSID</h3>
-                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.ssid : null} name="ssid" type="text" />
+                            <input className="navable-row form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.ssid : null} name="ssid" type="text" />
 
                             <h3><i className="ion-lock-combination"></i> &nbsp; Passphrase</h3>
-                            <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.passphrase : null} name="passphrase" type="password" />
+                            <input className="navable-row form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.network.passphrase : null} name="passphrase" type="password" />
 
 
                         </div>

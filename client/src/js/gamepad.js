@@ -434,21 +434,14 @@ var gamepadSupport = {
                 // on the screen.
                 if (gamepadsChanged) {
 
+                    console.log("changed", rawGamepads[0]);
+
                     // Event Change (ignition):
                     if (rawGamepads[0]) {
 
                         console.log("[gamepad]: Gamepad Connected!");
 
-                        // console.log(rawGamepads[0]);
-
                         eventDispatcher.gamepadConnected(rawGamepads[0]);
-
-
-                        // console.log(navigator.getGamepads());
-
-                        // console.log(rawGamepads[0]);
-
-                        // sounds('notify_up.wav');
 
                         gamepadSupport.STATE_CHANGE = 1;
 

@@ -38,17 +38,17 @@ module.exports = React.createClass({
                         <hr className="hr-thin" />
 
                         <h3><i className="ion-android-color-palette"></i> &nbsp; Theme Path</h3>
-                        <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.interface.theme : null} name="theme" type="text" />
+                        <input className="navable-row form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.interface.theme : null} name="theme" type="text" />
 
                         <hr className="hr-thin" />
 
                         <h3><i className="ion-search"></i> &nbsp; Zoom Level</h3>
-                        <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.interface.zoom : null} name="zoom" type="text" />
+                        <input className="navable-row form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.interface.zoom : null} name="zoom" type="text" />
 
                         <hr className="hr-thin" />
 
                         <h3><i className="ion-home"></i> &nbsp;  Browser Homepage</h3>
-                        <input className="form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.interface.browser_url : null} name="browser_url" type="text" />
+                        <input className="navable-row form-control input-lg navable" data-function='inputFocus' value={!_.isEmpty(this.props.settings) ? this.props.settings.interface.browser_url : null} name="browser_url" type="text" />
 
                         </div>
 
