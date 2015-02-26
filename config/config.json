@@ -12,7 +12,7 @@
     "browser_url": "http://polygon.com"
   },
   "gamepad": {
-    "doubleTap": "false",
+    "doubleTap": "true",
     "btn_a": "1",
     "btn_b": "2",
     "btn_y": "3",
@@ -40,7 +40,7 @@
     "passphrase": null
   },
   "profiles": {
-    "auto_login": "true",
+    "auto_login": "false",
     "auto_login_user": "default"
   },
   "gameplay": {

@@ -52,8 +52,8 @@ module.exports = React.createClass({
 
                 </fieldset>
 
-                <input type="hidden" id="input-userSpace" name="show_userspace" value="false" />
-                <input type="hidden" id="input-achievements" name="run_achievements" value="false" />
+                <input type="hidden" id="input-userSpace" name="show_userspace" value="" />
+                <input type="hidden" id="input-achievements" name="run_achievements" value="" />
 
             </form>
 

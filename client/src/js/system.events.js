@@ -1010,15 +1010,33 @@ var events = {
          var groupEls = document.querySelectorAll('[data-group='+group+']');
          var input    = document.getElementById("input-"+group);
 
-         _.each(groupEls, function (item) {
-            item.classList.toggle("label-selected");
-            item.classList.toggle("label-unselected");
 
-            if (input && item.classList.contains("label-selected")) {
-                input.value = item.getAttribute("data-name");
+         if (groupEls.length >= 2) {
+             _.each(groupEls, function (item) {
+
+                item.classList.toggle("label-selected");
+                item.classList.toggle("label-unselected");
+
+                if (input && item.classList.contains("label-selected")) {
+                    input.value = item.getAttribute("data-name");
+                }
+        });
+
+        }
+
+        else {
+
+            groupEls[0].classList.toggle("label-selected");
+            groupEls[0].classList.toggle("label-unselected");
+
+            if (input && groupEls[0].classList.contains("label-selected")) {
+                input.value = "true";
             }
 
-        });
+            else {
+                input.value = "false";
+            }
+        }
 
     },
 
