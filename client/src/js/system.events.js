@@ -867,7 +867,12 @@ var events = {
                 navigationInit.navigationDeinit(function() {});
 
                 // Open User Space
-                dialog.userSpace();
+                if (typeof systemSettings.get.gameplay != "undefined") {
+                    if (systemSettings.get.gameplay.show_userspace != "false") {
+                        dialog.userSpace();
+                    }
+                }
+
 
                 // Bind Navigation
                 navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();

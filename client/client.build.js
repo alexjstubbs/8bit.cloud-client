@@ -4841,7 +4841,7 @@ module.exports = React.createClass({displayName: 'exports',
                      React.DOM.h3({className: "no-padding no-margin"}, 
 
                          React.DOM.span({className: "col-xs-4"}, 
-                             React.DOM.i({className: "ion-ios-game-controller-a-outline"}), "   Gamepad Connected: ", React.DOM.span({id: "controller-id"})
+                             React.DOM.i({className: "ion-ios-game-controller-b"}), "   Gamepad Connected: ", React.DOM.span({id: "controller-id"})
                          ), 
 
                          React.DOM.div({className: "well-small no-margin col-xs-8 text-right"}, gamepad)
@@ -5000,7 +5000,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 React.DOM.h3({className: "col-xs-5"}, 
 
                                     React.DOM.ul({id: "radio-userSpace", className: "radio-wrapper text-right"}, 
-                                        React.DOM.li({className: "col-xs-12"}, RadioSelect({row: "true", group: "userSpace", id: "userSpace", label: "Enabled", name: "show_userspace", selected: this.props.settings.gameplay.show_userspace == true ? "true" : "false"}))
+                                        React.DOM.li({className: "col-xs-12"}, RadioSelect({row: "true", group: "userSpace", id: "userSpace", label: "Enabled", name: "true", selected: this.props.settings.gameplay.show_userspace == "true" ? "true" : "false"}))
                                     )
 
                                 ), 
@@ -5013,7 +5013,7 @@ module.exports = React.createClass({displayName: 'exports',
                                     React.DOM.h3({className: "col-xs-5"}, 
 
                                         React.DOM.ul({id: "radio-achievements", className: "radio-wrapper text-right"}, 
-                                            React.DOM.li({className: "col-xs-12"}, RadioSelect({row: "true", group: "achievements", id: "achievements-enable", label: "Enabled", name: "run_achievements", selected: this.props.settings.gameplay.run_achievements == true ? "true" : "false"}))
+                                            React.DOM.li({className: "col-xs-12"}, RadioSelect({row: "true", group: "achievements", id: "achievements-enable", label: "Enabled", name: "true", selected: this.props.settings.gameplay.run_achievements == "true" ? "true" : "false"}))
                                         )
 
                                 )
@@ -5024,7 +5024,8 @@ module.exports = React.createClass({displayName: 'exports',
 
                 ), 
 
-                React.DOM.input({type: "hidden", id: "input-userSpace", name: "screen", value: "false"})
+                React.DOM.input({type: "hidden", id: "input-userSpace", name: "show_userspace", value: "false"}), 
+                React.DOM.input({type: "hidden", id: "input-achievements", name: "run_achievements", value: "false"})
 
             ), 
 
@@ -5401,7 +5402,7 @@ module.exports = React.createClass({displayName: 'exports',
                                 React.DOM.h3({className: "col-xs-5"}, 
 
                                     React.DOM.ul({id: "radio-networkType", className: "radio-wrapper text-right"}, 
-                                        React.DOM.li({className: "col-xs-12"}, RadioSelect({group: "autoLogin", id: "radio-autoLogin", label: "Enable", name: "auto_login", selected: this.props.settings.profiles.auto_login == true ? "true" : "false"}))
+                                        React.DOM.li({className: "col-xs-12"}, RadioSelect({group: "autoLogin", id: "radio-autoLogin", label: "Enable", name: "true", selected: this.props.settings.profiles.auto_login == "true" ? "true" : "false"}))
                                     )
 
                                 )
@@ -5412,7 +5413,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 ), 
 
-                React.DOM.input({type: "hidden", id: "input-autoLogin", name: "screen", value: ""})
+                React.DOM.input({type: "hidden", id: "input-autoLogin", name: "auto_login", value: "false"})
 
             ), 
 
@@ -10382,7 +10383,12 @@ var events = {
                 navigationInit.navigationDeinit(function() {});
 
                 // Open User Space
-                dialog.userSpace();
+                if (typeof systemSettings.get.gameplay != "undefined") {
+                    if (systemSettings.get.gameplay.show_userspace != "false") {
+                        dialog.userSpace();
+                    }
+                }
+
 
                 // Bind Navigation
                 navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();

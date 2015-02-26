@@ -28,7 +28,7 @@ module.exports = React.createClass({
                                 <h3 className="col-xs-5">
 
                                     <ul id="radio-userSpace" className="radio-wrapper text-right">
-                                        <li className="col-xs-12"><RadioSelect row="true" group="userSpace" id="userSpace" label='Enabled' name="show_userspace" selected={this.props.settings.gameplay.show_userspace == true ? "true" : "false" } /></li>
+                                        <li className="col-xs-12"><RadioSelect row="true" group="userSpace" id="userSpace" label='Enabled' name="true" selected={this.props.settings.gameplay.show_userspace == "true" ? "true" : "false" } /></li>
                                     </ul>
 
                                 </h3>
@@ -41,7 +41,7 @@ module.exports = React.createClass({
                                     <h3 className="col-xs-5">
 
                                         <ul id="radio-achievements" className="radio-wrapper text-right">
-                                            <li className="col-xs-12"><RadioSelect row="true" group="achievements" id="achievements-enable" label='Enabled' name="run_achievements" selected={this.props.settings.gameplay.run_achievements == true ? "true" : "false" } /></li>
+                                            <li className="col-xs-12"><RadioSelect row="true" group="achievements" id="achievements-enable" label='Enabled' name="true" selected={this.props.settings.gameplay.run_achievements == "true" ? "true" : "false" } /></li>
                                         </ul>
 
                                 </h3>
@@ -52,7 +52,8 @@ module.exports = React.createClass({
 
                 </fieldset>
 
-                <input type="hidden" id="input-userSpace" name="screen" value="false" />
+                <input type="hidden" id="input-userSpace" name="show_userspace" value="false" />
+                <input type="hidden" id="input-achievements" name="run_achievements" value="false" />
 
             </form>
 

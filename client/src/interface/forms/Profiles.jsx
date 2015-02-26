@@ -28,7 +28,7 @@ module.exports = React.createClass({
                                 <h3 className="col-xs-5">
 
                                     <ul id="radio-networkType" className="radio-wrapper text-right">
-                                        <li className="col-xs-12"><RadioSelect group="autoLogin" id="radio-autoLogin" label='Enable' name="auto_login" selected={this.props.settings.profiles.auto_login == true ? "true" : "false" } /></li>
+                                        <li className="col-xs-12"><RadioSelect group="autoLogin" id="radio-autoLogin" label='Enable' name="true" selected={this.props.settings.profiles.auto_login == "true" ? "true" : "false" } /></li>
                                     </ul>
 
                                 </h3>
@@ -39,7 +39,7 @@ module.exports = React.createClass({
 
                 </fieldset>
 
-                <input type="hidden" id="input-autoLogin" name="screen" value="" />
+                <input type="hidden" id="input-autoLogin" name="auto_login" value="false" />
 
             </form>
 

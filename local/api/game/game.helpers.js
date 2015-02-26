@@ -7,6 +7,7 @@ var spawn               = require('child_process').spawn,
     listPlatforms       = require(__base + 'api/api.platforms').listPlatforms,
     execute             = require(__base + 'system/system.exec'),
     readJSON            = require(__base + 'system/system.read').readJSONFile,
+    settings            = require(__base + 'system/system.settings').settings,
     achievements        = require(__base + 'system/achievements/achievement.loop');
 
 /* Check for valid JSON return
@@ -199,7 +200,7 @@ function gameLaunch(nsp, payload) {
                 nsp.emit('processStorage', { processStorage: processObj });
 
                 // Start Achievement Loop
-                if (asupport) { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing);}, 10000); }
+                if (asupport && settings.get.gameplay.run_achievements == "true") { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing); }, 10000); }
 
                 // TODO: On exit, crash, return to ignition
 

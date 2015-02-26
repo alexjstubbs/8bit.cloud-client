@@ -79,7 +79,7 @@ module.exports = React.createClass({
                      <h3 className="no-padding no-margin">
 
                          <span className="col-xs-4">
-                             <i className="ion-ios-game-controller-a-outline"></i> &nbsp; Gamepad Connected: <span id="controller-id"></span>
+                             <i className="ion-ios-game-controller-b"></i> &nbsp; Gamepad Connected: <span id="controller-id"></span>
                          </span>
 
                          <div className="well-small no-margin col-xs-8 text-right">{gamepad}</div>
