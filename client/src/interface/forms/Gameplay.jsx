@@ -52,7 +52,7 @@ module.exports = React.createClass({
 
                 </fieldset>
 
-                <input type="hidden" id="input-userSpace" name="screen" value="" />
+                <input type="hidden" id="input-userSpace" name="screen" value="false" />
 
             </form>
 

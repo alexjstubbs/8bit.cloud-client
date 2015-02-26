@@ -20,6 +20,7 @@ module.exports = React.createClass({
 
         navigationInit.navigationInit();
 
+        
         // document.getElementsByTagName("iframe")[0].focus();
     },
 

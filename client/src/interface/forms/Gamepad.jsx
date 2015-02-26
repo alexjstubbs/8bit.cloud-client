@@ -189,13 +189,14 @@ module.exports = React.createClass({
                         <h3 className="col-xs-5">
 
                             <ul id="radio-doubleTap" className="radio-wrapper text-right">
-                                <li className="col-xs-12"><RadioSelect group="doubleTap" id="doubleTap-enable" label='Enabled' name="double_tap" selected={this.props.settings.gamepad.doubleTap == true ? "true" : "false" } /></li>
+                                <li className="col-xs-12"><RadioSelect group="doubleTap" id="doubleTap-enable" label='Enabled' name="true" selected={this.props.settings.gamepad.doubleTap == "true" ? "true" : "false" } /></li>
                             </ul>
 
                     </h3>
 
                 </fieldset>
 
+                <input type="hidden" id="input-doubleTap" name="doubleTap" value="false" />
 
             </form>
 

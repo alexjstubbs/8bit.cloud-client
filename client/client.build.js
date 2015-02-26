@@ -4588,6 +4588,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         navigationInit.navigationInit();
 
+        
         // document.getElementsByTagName("iframe")[0].focus();
     },
 
@@ -4950,13 +4951,14 @@ module.exports = React.createClass({displayName: 'exports',
                         React.DOM.h3({className: "col-xs-5"}, 
 
                             React.DOM.ul({id: "radio-doubleTap", className: "radio-wrapper text-right"}, 
-                                React.DOM.li({className: "col-xs-12"}, RadioSelect({group: "doubleTap", id: "doubleTap-enable", label: "Enabled", name: "double_tap", selected: this.props.settings.gamepad.doubleTap == true ? "true" : "false"}))
+                                React.DOM.li({className: "col-xs-12"}, RadioSelect({group: "doubleTap", id: "doubleTap-enable", label: "Enabled", name: "true", selected: this.props.settings.gamepad.doubleTap == "true" ? "true" : "false"}))
                             )
 
                     )
 
-                )
+                ), 
 
+                React.DOM.input({type: "hidden", id: "input-doubleTap", name: "doubleTap", value: "false"})
 
             ), 
 
@@ -5022,7 +5024,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 ), 
 
-                React.DOM.input({type: "hidden", id: "input-userSpace", name: "screen", value: ""})
+                React.DOM.input({type: "hidden", id: "input-userSpace", name: "screen", value: "false"})
 
             ), 
 

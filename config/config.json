@@ -12,10 +12,7 @@
     "browser_url": "http://polygon.com"
   },
   "gamepad": {
-    "doubleTap": false,
-    "shortcuts": {
-      "exit_software": "btn_select + btn_start"
-    },
+    "doubleTap": "false",
     "btn_a": "1",
     "btn_b": "2",
     "btn_y": "3",
