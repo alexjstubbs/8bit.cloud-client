@@ -3603,6 +3603,8 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidUpdate: function() {
+        
+        document.body.style.WebkitTransform = 'scale('+this.state.settingsObject.interface.zoom+')';
 
         nodeUpdate++;
 
@@ -3752,13 +3754,18 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React = require('react/addons');
 
+
 module.exports = React.createClass({displayName: 'exports',
+
     render: function() {
+        var ignitionSettings = localStorage.getItem("ignition_settings");
+            ignitionSettings = JSON.parse(ignitionSettings);
+
         return (
             React.DOM.div({className: "dashboard-tools well home_well col-xs-12"}, 
                 React.DOM.ul(null, 
                     React.DOM.li({className: "col-xs-1"}), 
-                    React.DOM.li({className: "col-xs-2 navable navable-row", 'data-function': "launchBrowser", 'data-parameters': "http://ignition.io"}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
+                    React.DOM.li({className: "col-xs-2 navable navable-row", 'data-function': "launchBrowser", 'data-parameters': ignitionSettings.interface.browser_url}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "showTerminal"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-terminal"})), " Terminal"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "settingsShow"}, React.DOM.strong(null, React.DOM.i({className: "ion-gear-a"})), " Settings"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "logOut"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-sign-out"})), " Logout"), 
@@ -8076,6 +8083,7 @@ module.exports = function() {
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
     }, 3500);
 
+    // Settings
     var ignitionSettings = localStorage.getItem("ignition_settings");
 
     if (ignitionSettings && ignitionSettings.length > 5) {
@@ -8088,7 +8096,7 @@ module.exports = function() {
 
         if (ignitionSettings.interface.zoom != "auto" &&  _.isNumber(parseInt(ignitionSettings.interface.zoom))) {
 
-            document.body.style.WebkitTransform = 'scale('+ignitionSettings.interface.zoom+')'
+            document.body.style.WebkitTransform = 'scale('+ignitionSettings.interface.zoom+')';
 
         }
 

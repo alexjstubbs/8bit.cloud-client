@@ -45,6 +45,7 @@ module.exports = function() {
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
     }, 3500);
 
+    // Settings
     var ignitionSettings = localStorage.getItem("ignition_settings");
 
     if (ignitionSettings && ignitionSettings.length > 5) {
@@ -57,7 +58,7 @@ module.exports = function() {
 
         if (ignitionSettings.interface.zoom != "auto" &&  _.isNumber(parseInt(ignitionSettings.interface.zoom))) {
 
-            document.body.style.WebkitTransform = 'scale('+ignitionSettings.interface.zoom+')'
+            document.body.style.WebkitTransform = 'scale('+ignitionSettings.interface.zoom+')';
 
         }
 

@@ -37,6 +37,8 @@ module.exports = React.createClass({
     },
 
     componentDidUpdate: function() {
+        
+        document.body.style.WebkitTransform = 'scale('+this.state.settingsObject.interface.zoom+')';
 
         nodeUpdate++;
 
