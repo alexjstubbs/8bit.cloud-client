@@ -88,8 +88,6 @@ module.exports = function(e) {
 
     if (pauseNavigation != "pauseRight" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
-        console.log(screens.length);
-
           if (currentScreenId != screens.length-1) {
 
             currentScreenId++;

@@ -8042,7 +8042,8 @@ var gamepad 			     = require("./gamepad"),
     systemSettings           = require('./system.settings').settings,
     navigationEventBinds     = require('./navigation.eventListeners'),
     sysEvents                = require('./system.events').events,
-    eventDispatcher          = require('./events');
+    eventDispatcher          = require('./events'),
+    _                        = require('lodash');
 
 module.exports = function() {
 
@@ -8078,17 +8079,24 @@ module.exports = function() {
     var ignitionSettings = localStorage.getItem("ignition_settings");
 
     if (ignitionSettings && ignitionSettings.length > 5) {
+
         ignitionSettings = JSON.parse(ignitionSettings);
         setTimeout(function() {
             eventDispatcher.switchScreen(ignitionSettings.interface.screen);
         }, 500);
+
+
+        if (ignitionSettings.interface.zoom != "auto" &&  _.isNumber(parseInt(ignitionSettings.interface.zoom))) {
+
+            document.body.style.WebkitTransform = 'scale('+ignitionSettings.interface.zoom+')'
+
+        }
+
     }
-
-
 
 };
 
-},{"../js/navigation.browser":96,"./api/connection":86,"./database.helpers":87,"./event.listeners":89,"./events":90,"./gamepad":91,"./navigation.bindings":95,"./navigation.event":97,"./navigation.eventListeners":98,"./system.events":105,"./system.settings":106}],94:[function(require,module,exports){
+},{"../js/navigation.browser":96,"./api/connection":86,"./database.helpers":87,"./event.listeners":89,"./events":90,"./gamepad":91,"./navigation.bindings":95,"./navigation.event":97,"./navigation.eventListeners":98,"./system.events":105,"./system.settings":106,"lodash":109}],94:[function(require,module,exports){
 /* mousetrap v1.4.6 craig.is/killing/mice */
 (function(J,r,f){function s(a,b,d){a.addEventListener?a.addEventListener(b,d,!1):a.attachEvent("on"+b,d)}function A(a){if("keypress"==a.type){var b=String.fromCharCode(a.which);a.shiftKey||(b=b.toLowerCase());return b}return h[a.which]?h[a.which]:B[a.which]?B[a.which]:String.fromCharCode(a.which).toLowerCase()}function t(a){a=a||{};var b=!1,d;for(d in n)a[d]?b=!0:n[d]=0;b||(u=!1)}function C(a,b,d,c,e,v){var g,k,f=[],h=d.type;if(!l[a])return[];"keyup"==h&&w(a)&&(b=[a]);for(g=0;g<l[a].length;++g)if(k=
 l[a][g],!(!c&&k.seq&&n[k.seq]!=k.level||h!=k.action||("keypress"!=h||d.metaKey||d.ctrlKey)&&b.sort().join(",")!==k.modifiers.sort().join(","))){var m=c&&k.seq==c&&k.level==v;(!c&&k.combo==e||m)&&l[a].splice(g,1);f.push(k)}return f}function K(a){var b=[];a.shiftKey&&b.push("shift");a.altKey&&b.push("alt");a.ctrlKey&&b.push("ctrl");a.metaKey&&b.push("meta");return b}function x(a,b,d,c){m.stopCallback(b,b.target||b.srcElement,d,c)||!1!==a(b,d)||(b.preventDefault?b.preventDefault():b.returnValue=!1,b.stopPropagation?
@@ -8441,8 +8449,6 @@ module.exports = function(e) {
 
 
     if (pauseNavigation != "pauseRight" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
-
-        console.log(screens.length);
 
           if (currentScreenId != screens.length-1) {
 

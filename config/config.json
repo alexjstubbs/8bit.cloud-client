@@ -7,7 +7,7 @@
   "interface": {
     "screen": "Dashboard",
     "theme": "moon",
-    "zoom": "auto",
+    "zoom": "1",
     "font": "Roboto",
     "browser_url": "http://ignition.io"
   },

@@ -11,7 +11,8 @@ var gamepad 			     = require("./gamepad"),
     systemSettings           = require('./system.settings').settings,
     navigationEventBinds     = require('./navigation.eventListeners'),
     sysEvents                = require('./system.events').events,
-    eventDispatcher          = require('./events');
+    eventDispatcher          = require('./events'),
+    _                        = require('lodash');
 
 module.exports = function() {
 
@@ -47,12 +48,19 @@ module.exports = function() {
     var ignitionSettings = localStorage.getItem("ignition_settings");
 
     if (ignitionSettings && ignitionSettings.length > 5) {
+
         ignitionSettings = JSON.parse(ignitionSettings);
         setTimeout(function() {
             eventDispatcher.switchScreen(ignitionSettings.interface.screen);
         }, 500);
+
+
+        if (ignitionSettings.interface.zoom != "auto" &&  _.isNumber(parseInt(ignitionSettings.interface.zoom))) {
+
+            document.body.style.WebkitTransform = 'scale('+ignitionSettings.interface.zoom+')'
+
+        }
+
     }
-
-
 
 };
