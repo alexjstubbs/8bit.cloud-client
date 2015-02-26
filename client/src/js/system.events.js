@@ -187,6 +187,12 @@ var events = {
         dialog.show(parameters);
     },
 
+    /*  Show Settings
+    -------------------------------------------------- */
+    settingsShow: function() {
+        eventDispatcher.switchScreen("Settings");
+    },
+
     /*  Prompt Show (via api)
     -------------------------------------------------- */
     promptShow: function(parameters) {

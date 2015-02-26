@@ -3754,7 +3754,7 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.li({className: "col-xs-1"}), 
                     React.DOM.li({className: "col-xs-2 navable navable-row", 'data-function': "launchBrowser", 'data-parameters': "http://ignition.io"}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "showTerminal"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-terminal"})), " Terminal"), 
-                    React.DOM.li({className: "col-xs-2 navable", 'data-function': "dialogShow", 'data-parameters': "Settings"}, React.DOM.strong(null, React.DOM.i({className: "ion-gear-a"})), " Settings"), 
+                    React.DOM.li({className: "col-xs-2 navable", 'data-function': "settingsShow"}, React.DOM.strong(null, React.DOM.i({className: "ion-gear-a"})), " Settings"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "logOut"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-sign-out"})), " Logout"), 
                     React.DOM.li({className: "col-xs-2 navable"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-power-off"})), " Shutdown")
                 )
@@ -7083,6 +7083,10 @@ window.addEventListener("switchScreen", function(e) {
 
     switch (e.detail.screen) {
 
+     case "Settings":
+          screenEvents({keyCode: 219});
+          break;
+
      case "Dashboard":
           screenEvents({keyCode: 221});
           break;
@@ -9619,6 +9623,12 @@ var events = {
     -------------------------------------------------- */
     dialogShow: function(parameters) {
         dialog.show(parameters);
+    },
+
+    /*  Show Settings
+    -------------------------------------------------- */
+    settingsShow: function() {
+        eventDispatcher.switchScreen("Settings");
     },
 
     /*  Prompt Show (via api)

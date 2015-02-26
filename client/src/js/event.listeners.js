@@ -68,6 +68,10 @@ window.addEventListener("switchScreen", function(e) {
 
     switch (e.detail.screen) {
 
+     case "Settings":
+          screenEvents({keyCode: 219});
+          break;
+
      case "Dashboard":
           screenEvents({keyCode: 221});
           break;
