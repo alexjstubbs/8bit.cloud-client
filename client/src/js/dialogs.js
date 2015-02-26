@@ -9,6 +9,7 @@ var events                  = require('./events.js'),
     Friends                 = require('../interface/Friends.jsx'),
     SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
     FriendNotification      = require('../interface/FriendNotification.jsx'),
+    AchievementNodes        = require("../interface/AchievementNodes.jsx"),
     AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
     FriendLarge             = require('../interface/FriendLarge.jsx'),
     Prompt                  = require('../interface/Prompt.jsx'),
@@ -163,6 +164,10 @@ var show = function(parent, parameters, arg) {
         case "Settings":
             properties = {backdrop: true};
             Child = Settings({});
+            break;
+        case "AchievementNodes":
+            properties = {backdrop: true};
+            Child = AchievementNodes({control: true});
             break;
         case "SoftwareOptions":
             properties = {backdrop: true};

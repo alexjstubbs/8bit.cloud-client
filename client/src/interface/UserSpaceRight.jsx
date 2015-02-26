@@ -49,7 +49,7 @@ module.exports = React.createClass({
                         <br /><br />
                     <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="viewMessages"><i className="ion-chatbubbles"></i> &nbsp; Messages</a>
                         <br /><br />
-                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-trophy"></i> &nbsp; View Achievements</a>
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="dialogShow" data-parameters="AchievementNodes"><i className="ion-trophy"></i> &nbsp; View Achievements</a>
 
                         <hr />
 

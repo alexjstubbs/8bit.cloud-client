@@ -7,15 +7,16 @@
 
 'use strict';
 
-var React           = require('react/addons'),
-    api             = require('socket.io-client')('/api'),
-    _               = require('lodash'),
-    SaveStates      = require('./SaveStates.jsx'),
-    AchievementList = require('./AchievementList.jsx'),
-    mixins          = require('./mixins/mixins.jsx'),
-    achieved        = 0,
-    achievementsLen = 0,
-    launchContext   = {};
+var React               = require('react/addons'),
+    api                 = require('socket.io-client')('/api'),
+    _                   = require('lodash'),
+    SaveStates          = require('./SaveStates.jsx'),
+    AchievementList     = require('./AchievementList.jsx'),
+    AchievementNodes    = require('./AchievementNodes.jsx'),
+    mixins              = require('./mixins/mixins.jsx'),
+    achieved            = 0,
+    achievementsLen     = 0,
+    launchContext       = {};
 
 module.exports = React.createClass({
 
@@ -161,16 +162,16 @@ module.exports = React.createClass({
             return <SaveStates filename={state.filename} image={state.image} slot={state.slot} navStack={i+1} />
         });
 
-        if (this.state.crc32 && this.state.crc32 != "null") {
-
-            var achievementNodes = this.state.crc32[0].Achievements.map(function (achievement, i) {
-                return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />
-            });
-
-            achievementsLen = this.state.crc32[0].Achievements.length;
-            achieved = document.querySelectorAll(".achieved").length;
-
-        }
+        // if (this.state.crc32 && this.state.crc32 != "null") {
+        //
+        //     var achievementNodes = this.state.crc32[0].Achievements.map(function (achievement, i) {
+        //         return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />
+        //     });
+        //
+        //     achievementsLen = this.state.crc32[0].Achievements.length;
+        //     achieved = document.querySelectorAll(".achieved").length;
+        //
+        // }
 
 
 
@@ -233,13 +234,8 @@ module.exports = React.createClass({
 
             <h1>Achievements</h1>
 
-                <span className="achievement-stats">{achieved} out of {achievementsLen} Accomplished.</span>
 
-        <ul id="achievements">
-
-             {achievementNodes}
-
-        </ul>
+             <AchievementNodes />
 
         </div>
 

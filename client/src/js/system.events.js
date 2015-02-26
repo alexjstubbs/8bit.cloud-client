@@ -1064,6 +1064,7 @@ var events = {
             api.emit('request', { request: 'getSpecificCommandLineConfig', param: doc.innerHTML });
 
     },
+    
 
 };
 
