@@ -100,8 +100,6 @@ var events = {
 
             if (selected) {
 
-                console.log("me");
-
                 var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
                 selectedPre.classList.remove("blue-bg");
 
@@ -219,12 +217,10 @@ var events = {
     /*  Confirm Show (via api)
     -------------------------------------------------- */
     confirmShow: function(parameters) {
+        var prompt            = new Prompt();
+            prompt.message    = parameters;
 
-        console.log(parameters);
-
-        // Show Dialog
-        dialog.show("Confirm", null, parameters);
-
+            prompt.display();
     },
 
     /* Focus form inputs on Action button/keypress
@@ -237,6 +233,7 @@ var events = {
     /* Close current Dialog
     -------------------------------------------------- */
     closeDialog: function() {
+        var dialog = new Dialog();
         dialog.close();
     },
 
@@ -688,6 +685,7 @@ var events = {
         var dialog            = new Dialog();
             dialog.child      = "Messages";
             dialog.display();
+
     },
 
     /*  View Single Message
@@ -721,7 +719,10 @@ var events = {
     /* View Friends
     -------------------------------------------------- */
     viewFriend: function(parameters) {
-        dialog.show("FriendLarge", parameters);
+        var dialog            = new Dialog();
+            dialog.child      = "FriendLarge";
+            dialog.compProps  = parameters;
+            dialog.display();
     },
 
     /* Add a Friend(Request)
@@ -995,7 +996,10 @@ var events = {
 
         var options = JSON.parse(parameters);
 
-        dialog.show("SoftwareOptions", options);
+        var dialog            = new Dialog();
+            dialog.child      = "SoftwareOptions";
+            dialog.compProps  = { payload: options };
+            dialog.display();
 
     },
 

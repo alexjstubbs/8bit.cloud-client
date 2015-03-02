@@ -180,7 +180,7 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize) {
 
                     }
 
-                    else if (result && multiplier == 0) {
+                    else if (result && multiplier === 0) {
                         achievementUnlocked(nsp, gameAchievements.Achievements[key]);
                         if (debug) { console.log('[!!] Single Achievement Unlocked!!!'); }
 

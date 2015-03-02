@@ -72,26 +72,27 @@ Prompt.prototype = {
     }
 };
 
-var test12 = function() {
+/*  Achievements
+-------------------------------------------------- */
+function Achievement(message, agree, disagree, params) {
+    this.message     = message;
+    this.agree       = agree;
+    this.disagree    = disagree;
+    this.params      = params;
+}
 
-    var prompt = new Prompt("Here is a message", "OK", "NOPE");
-
-
-    // var invite = new Invite();
-    //     invite.type      = "Invitation";
-    //     invite.timestamp = Date.now();
-    //     invite.message   = "Hey Hey Hey";
-    //
-        setTimeout(function() {
-            prompt.display();
-        }, 1500);
-
-
+Prompt.prototype = {
+    display: function() {
+        Dialog            = new Dialog();
+        Dialog.child      = "Prompt";
+        Dialog.compProps  = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+        Dialog.display();
+    }
 };
 
 
 /*  Exports
 -------------------------------------------------- */
-exports.test12 = test12;
-exports.Invite = Invite;
-exports.Prompt = Prompt;
+exports.Invite      = Invite;
+exports.Prompt      = Prompt;
+exports.Achievement = Prompt;

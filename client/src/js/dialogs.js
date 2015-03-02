@@ -79,7 +79,7 @@ var children = function(props) {
             child: new Settings(props)
         },
         "AchievementNodes": {
-            child: new AchievementNodes(props)
+            child: new AchievementNodes({control: true})
         },
         "SoftwareOptions": {
             child: new SoftwareOptions(props)
@@ -91,51 +91,14 @@ var children = function(props) {
             child: new Messages(props)
         },
         "Community": {
-            child: new CommunityInfo(props)
+            child: new CommunityInfo({classList: "container ignition-modal systemNotificationContent community-modal"})
         }
     };
 
 };
 
-// case "":
-//     properties = {backdrop: true};
-//     Child = Prompt({message: arg.message, agree: arg.agree, disagree: arg.disagree, parameters: arg.parameters});
-//     break;
-// case "Confirm":
-//     properties = {backdrop: true};
-//     Child = Confirm({message: arg});
-//     break;
-// case "PassMessage":
-//     properties = {backdrop: true};
-//     Child = PassMessage({To: parameters});
-//     break;
-
-// case "AchievementNodes":
-//     properties = {backdrop: true};
-//     Child = AchievementNodes({control: true});
-//     break;
-// case "SoftwareOptions":
-//     properties = {backdrop: true};
-//     Child = SoftwareOptions({payload: parameters });
-//     break;
-// case "Messages":
-//     Child = Messages({});
-//     break;
-// case "Message":
-//     properties = {backdrop: true};
-//     Child = Message({message: parameters});
-//     break;
-// case "Community":
-//     properties = {backdrop: true};
-//     properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
-//     Child = CommunityInfo({});
-//     break;
-//
 /**
- * Construct a new Dialog object
- *
- * @param type [string] the type of dialog. e.g. 'game'
- *
+ * Construct a new DOM Mount
  */
 
 function constructMount() {
@@ -180,9 +143,11 @@ Dialog.prototype = {
     // Display Dialog
     display: function() {
 
-        if (typeof constructMount() === "object") {
+        var mount = constructMount();
+
+        if (typeof mount === "object") {
             sessionStorage.setItem("navigationState", "pause");
-            React.renderComponent(new Modal({}, children(this.compProps)[this.child]), constructMount());
+            React.renderComponent(new Modal({}, children(this.compProps)[this.child]), mount);
         }
 
         else {
@@ -191,7 +156,7 @@ Dialog.prototype = {
 
     },
 
-    // Close top-most Dialog
+    // Close top-most (current) Dialog
     close: function(modal, callback, exception) {
 
         sessionStorage.removeItem("navigationState");
@@ -228,6 +193,7 @@ Dialog.prototype = {
         if (callback || typeof callback === "function") callback();
 
     }
+
 };
 
 /**
@@ -236,12 +202,11 @@ Dialog.prototype = {
  * @param type [string] the type of dialog. e.g. 'game'
  */
 
- var Notification = function(type) {
-     this.type = type;
- };
+var Notification = function(type) {
+    this.type = type;
+};
 
 Notification.prototype = new Dialog();
-
 
 Notification.prototype = {
      display: function() {
@@ -251,7 +216,6 @@ Notification.prototype = {
          if (this.params.hasOwnProperty('achievementObj')) {
              achievementObj = JSON.parse(this.params.achievementObj);
             }
-
 
          var _index = document.querySelectorAll(".ignition-modal-");
 
@@ -267,38 +231,6 @@ Notification.prototype = {
      }
 };
 
-/*  Close all Dialogs
--------------------------------------------------- */
-var closeAll = function(callback) {
-
-        var allDialogs = document.querySelectorAll(".ui-window");
-        _(allDialogs).forEach(function(el) { el.remove(); }).value();
-
-        callback();
-};
-
-/* Prompt Dialog
--------------------------------------------------- */
-var prompt = function() {
-
-    var div = document.createElement("div");
-    div.classList.add("ignition-modal", "ignition-popup");
-    document.body.appendChild(div);
-
-    React.renderComponent(Modal({children: Prompt(null)}), div);
-
-};
-
-/* General Message Dialog
--------------------------------------------------- */
-var popup = function() {
-
-    var div = document.createElement("div");
-    div.classList.add("ignition-modal", "ignition-popup");
-    document.body.appendChild(div);
-
-    React.renderComponent(Modal({children: SignUp(null)}), div);
-};
 
 /* Show General/Error Modal
 -------------------------------------------------- */
@@ -322,137 +254,7 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
 
     document.body.insertBefore(fragment, document.body.firstChild);
 
-    React.renderComponent(Modal({backdrop: true, children: GeneralDialog({type: _type, body: body, dataFunction: dataFunction, dataParameters: dataParameters, button: button })}), _div);
-
-};
-
-/* Show Content Modal
--------------------------------------------------- */
-var show = function(parent, parameters, arg) {
-
-    var properties,
-        Child;
-
-    // TODO: Use another method.
-    switch(parent) {
-        case "WebBrowser":
-            properties = {backdrop: true};
-            Child = WebBrowser({url: parameters});
-            break;
-        case "Terminal":
-            properties = {backdrop: true};
-            Child = Terminal();
-            break;
-        case "Prompt":
-            properties = {backdrop: true};
-            Child = Prompt({message: arg.message, agree: arg.agree, disagree: arg.disagree, parameters: arg.parameters});
-            break;
-        case "Confirm":
-            properties = {backdrop: true};
-            Child = Confirm({message: arg});
-            break;
-        case "SignUp":
-            Child = SignUp({});
-            break;
-        case "LogIn":
-            Child = LogIn({});
-            break;
-        case "SignUpSync":
-            Child = SignUpSync({});
-            break;
-        case "Friends":
-            Child = Friends({});
-            break;
-        case "FriendLarge":
-            Child = FriendLarge({friend: parameters});
-            break;
-        case "AddFriend":
-            Child = AddFriend({});
-            break;
-        case "PassMessage":
-            properties = {backdrop: true};
-            Child = PassMessage({To: parameters});
-            break;
-        case "Settings":
-            properties = {backdrop: true};
-            Child = Settings({});
-            break;
-        case "AchievementNodes":
-            properties = {backdrop: true};
-            Child = AchievementNodes({control: true});
-            break;
-        case "SoftwareOptions":
-            properties = {backdrop: true};
-            Child = SoftwareOptions({payload: parameters });
-            break;
-        case "Messages":
-            Child = Messages({});
-            break;
-        case "Message":
-            properties = {backdrop: true};
-            Child = Message({message: parameters});
-            break;
-        case "Community":
-            properties = {backdrop: true};
-            properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
-            Child = CommunityInfo({});
-            break;
-        default:
-            Child = AddFriend({});
-            break;
-    }
-
-    React.renderComponent(new Modal(properties, Child), constructMount());
-
-
-};
-
-/* Close Modal
--------------------------------------------------- */
-var close = function(modal, callback, exception) {
-
-    var container = document.getElementById("main");
-
-    // UnPause screen switching in background
-    sessionStorage.setItem("navigationState", "");
-
-
-    // Rpi1 runs out of memory:
-    //  var opacits = document.querySelectorAll(".opacity-50");
-    //  var opacits_ = document.querySelectorAll(".opacity-0");
-     //
-    //  _(opacits).forEach(function(el) {
-    //         el.classList.remove("opacity-50");
-    //  }).value();
-     //
-     //
-    //  if (_.first(opacits_)) {
-    //      _.first(opacits_).classList.remove("opacity-0");
-    //  }
-
-    var _index      = document.querySelectorAll(".ignition-modal");
-
-    // var lastWindow = _.last(_index);
-    // if (lastWindow) { lastWindow.classList.remove("opacity-50") }
-    //
-    // console.log(lastWindow);
-
-    modal = document.querySelectorAll(".ignition-modal-parent")[0];
-
-    // Re-render dashboard
-    if (modal.length == 1 && container.getAttribute("data-screen") == "Dashboard") {
-        events.renderScreenComponents("Dashboard");
-    }
-
-    modal.parentNode.removeChild(modal);
-
-    if (!exception) {
-        navigationInit.navigationInit();
-    }
-
-    if (callback || typeof callback === "function") {
-        callback();
-    }
+    React.renderComponent(new Modal({backdrop: true, children: new GeneralDialog({type: _type, body: body, dataFunction: dataFunction, dataParameters: dataParameters, button: button })}), _div);
 
 };
 
@@ -482,7 +284,7 @@ var keyboard = function(input) {
     input.classList.add("activeInput");
 
     // FIX ME: take styles from ignition modal, remov class name
-    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
+    React.renderComponent(new Modal({backdrop: false, classList: "container ignition-modal systemNotificationContent keyboard-modal"}, new Keyboard({input: input.type, value:input.value, type:"alpha", tabIndex: 0})), div);
 
 };
 
@@ -501,7 +303,7 @@ var friendNotification = function(friendObj) {
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-friendNotification systemNotificationContent"}, FriendNotification({friend: friendObj})), div);
+    React.renderComponent(new Modal({backdrop: false, classList: "container ignition-modal ignition-modal-friendNotification systemNotificationContent"}, new FriendNotification({friend: friendObj})), div);
 
 };
 
@@ -520,7 +322,7 @@ var uiNotification = function(achievementObj) {
 
     document.body.insertBefore(div, document.getElementById("ui-notifications"));
 
-    React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({achievement: achievementObj})), div);
+    React.renderComponent(new Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, new AchievementUnlocked({achievement: achievementObj})), div);
 
 };
 
@@ -528,12 +330,11 @@ var uiNotification = function(achievementObj) {
 -------------------------------------------------- */
 var userSpace = function() {
 
-
     var div = document.createElement("div");
     div.classList.add("user-space-left", "ui-window");
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-    React.renderComponent(UserSpace({}), div);
+    React.renderComponent(new UserSpace({}), div);
 
 };
 
@@ -546,18 +347,13 @@ var userSpaceRight = function() {
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-    React.renderComponent(UserSpaceRight({}), div);
+    React.renderComponent(new UserSpaceRight({}), div);
 
 };
 
 /* Exports
 -------------------------------------------------- */
-exports.closeAll            = closeAll;
-exports.prompt              = prompt;
-exports.show                = show;
-exports.close               = close;
 exports.keyboard            = keyboard;
-exports.popup               = popup;
 exports.general             = general;
 exports.friendNotification  = friendNotification;
 exports.uiNotification      = uiNotification;
