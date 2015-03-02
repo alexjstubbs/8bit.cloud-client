@@ -1,3 +1,6 @@
+/* jslint node: true */
+"use strict";
+
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
@@ -32,6 +35,237 @@ var events                  = require('./events.js'),
 
     var _div;
 
+
+
+/*  Child Objects
+-------------------------------------------------- */
+var children = function(props) {
+
+    return {
+        "Terminal": {
+            child: new Terminal(props)
+        },
+        "WebBrowser": {
+            child: new WebBrowser(props)
+        },
+        "Prompt": {
+            child: new Prompt(props)
+        },
+        "Confirm": {
+            child: new Confirm(props)
+        },
+        "SignUp": {
+            child: new SignUp(props)
+        },
+        "SignUpSync": {
+            child: new SignUpSync(props)
+        },
+        "LogIn": {
+            child: new LogIn(props)
+        },
+        "Friends": {
+            child: new Friends(props)
+        },
+        "FriendLarge": {
+            child: new FriendLarge(props)
+        },
+        "AddFriend": {
+            child: new AddFriend(props)
+        },
+        "PassMessage": {
+            child: new PassMessage(props)
+        },
+        "Settings": {
+            child: new Settings(props)
+        },
+        "AchievementNodes": {
+            child: new AchievementNodes(props)
+        },
+        "SoftwareOptions": {
+            child: new SoftwareOptions(props)
+        },
+        "Message": {
+            child: new Message(props)
+        },
+        "Messages": {
+            child: new Messages(props)
+        },
+        "Community": {
+            child: new CommunityInfo(props)
+        }
+    };
+
+};
+
+// case "":
+//     properties = {backdrop: true};
+//     Child = Prompt({message: arg.message, agree: arg.agree, disagree: arg.disagree, parameters: arg.parameters});
+//     break;
+// case "Confirm":
+//     properties = {backdrop: true};
+//     Child = Confirm({message: arg});
+//     break;
+// case "PassMessage":
+//     properties = {backdrop: true};
+//     Child = PassMessage({To: parameters});
+//     break;
+
+// case "AchievementNodes":
+//     properties = {backdrop: true};
+//     Child = AchievementNodes({control: true});
+//     break;
+// case "SoftwareOptions":
+//     properties = {backdrop: true};
+//     Child = SoftwareOptions({payload: parameters });
+//     break;
+// case "Messages":
+//     Child = Messages({});
+//     break;
+// case "Message":
+//     properties = {backdrop: true};
+//     Child = Message({message: parameters});
+//     break;
+// case "Community":
+//     properties = {backdrop: true};
+//     properties = {classList: "container ignition-modal systemNotificationContent community-modal"};
+//     Child = CommunityInfo({});
+//     break;
+//
+/**
+ * Construct a new Dialog object
+ *
+ * @param type [string] the type of dialog. e.g. 'game'
+ *
+ */
+
+function constructMount() {
+
+    var _index      = document.querySelectorAll(".ignition-modal"),
+        fragment    = document.createDocumentFragment(),
+        div         = document.createElement("div");
+
+    var mountPoint = document.createElement("div");
+    fragment.appendChild(mountPoint);
+
+    mountPoint.classList.add("ignition-modal-notification", "ui-window");
+    div.classList.add("ignition-modal-parent");
+    div.style.zIndex = _index.length+150;
+
+    fragment.appendChild(div);
+
+    document.body.insertBefore(fragment, document.body.firstChild);
+
+    return div;
+}
+
+/**
+ * Construct a new Dialog object
+ *
+ * @param type [string] the type of dialog. e.g. 'modal'
+ * @param child [string] the child of dialog. e.g. 'Invitation'
+ * @param compProps [object] an object containing needed component Propertes e.g. '{backdrop: true}'
+ * @param classList [array] an array of class names. e.g. 'ignition-modal, achievement-window'
+ *
+ */
+
+function Dialog(type, child, compProps, classList) {
+    this.type       = type;
+    this.child      = child;
+    this.compProps  = compProps;
+    this.classList  = classList;
+}
+
+Dialog.prototype = {
+
+    // Display Dialog
+    display: function() {
+
+        if (typeof constructMount() === "object") {
+            sessionStorage.setItem("navigationState", "pause");
+            React.renderComponent(new Modal({}, children(this.compProps)[this.child]), constructMount());
+        }
+
+        else {
+            throw "Failed to construct window. Constructor did not return an Object";
+        }
+
+    },
+
+    // Close top-most Dialog
+    close: function(modal, callback, exception) {
+
+        sessionStorage.removeItem("navigationState");
+
+        var container = document.getElementById("main");
+            modal     = document.querySelectorAll(".ignition-modal-parent")[0];
+
+        // Re-render dashboard
+        if (modal.length == 1 && container.getAttribute("data-screen") == "Dashboard") {
+            events.renderScreenComponents("Dashboard");
+        }
+
+        modal.parentNode.removeChild(modal);
+
+        if (!exception) {
+            navigationInit.navigationInit();
+        }
+
+        if (callback || typeof callback === "function") {
+            callback();
+        }
+
+    },
+
+    // Close all Dialogs
+    closeAll: function(callback) {
+
+        var allDialogs = document.querySelectorAll(".ui-window");
+
+        _(allDialogs).forEach(function(element) {
+            element.remove();
+        }).value();
+
+        if (callback || typeof callback === "function") callback();
+
+    }
+};
+
+/**
+ * Construct a new System-wide notification object
+ *
+ * @param type [string] the type of dialog. e.g. 'game'
+ */
+
+ var Notification = function(type) {
+     this.type = type;
+ };
+
+Notification.prototype = new Dialog();
+
+
+Notification.prototype = {
+     display: function() {
+
+         var achievementObj;
+
+         if (this.params.hasOwnProperty('achievementObj')) {
+             achievementObj = JSON.parse(this.params.achievementObj);
+            }
+
+
+         var _index = document.querySelectorAll(".ignition-modal-");
+
+         var div = document.createElement("div");
+         div.classList.add("ignition-modal-parent");
+         div.classList.add("ui-window");
+         div.style.zIndex = _index.length+250;
+
+         document.body.insertBefore(div, document.getElementById("ui-notifications"));
+
+         React.renderComponent(new Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, new AchievementUnlocked({achievement: achievementObj})), div);
+
+     }
+};
 
 /*  Close all Dialogs
 -------------------------------------------------- */
@@ -96,30 +330,8 @@ var general = function(input, _type, body, dataFunction, dataParameters, button)
 -------------------------------------------------- */
 var show = function(parent, parameters, arg) {
 
-    var Child;
-
-     // Pause screen switching in background
-    sessionStorage.setItem("navigationState", "pause");
-
-    var _index      = document.querySelectorAll(".ignition-modal"),
-        fragment    = document.createDocumentFragment(),
-        properties  = {};
-
-        // var lastWindow = _.last(_index);
-        // if (lastWindow) { lastWindow.classList.add("opacity-50") }
-
-    _div = document.createElement("div");
-    _div.classList.add("ignition-modal-parent");
-
-    _notification = document.createElement("div");
-    _notification.classList.add("ignition-modal-notification", "ui-window");
-    fragment.appendChild(_notification);
-
-    _div.style.zIndex = _index.length+150;
-
-    fragment.appendChild(_div);
-
-    document.body.insertBefore(fragment, document.body.firstChild);
+    var properties,
+        Child;
 
     // TODO: Use another method.
     switch(parent) {
@@ -190,10 +402,8 @@ var show = function(parent, parameters, arg) {
             break;
     }
 
+    React.renderComponent(new Modal(properties, Child), constructMount());
 
-    React.renderComponent(Modal(properties, Child), _div);
-
-    _div.classList.add("animateUp");
 
 };
 
@@ -308,7 +518,7 @@ var uiNotification = function(achievementObj) {
     div.classList.add("ui-window");
     div.style.zIndex = _index.length+250;
 
-    document.body.insertBefore(div,  document.getElementById("ui-notifications"));
+    document.body.insertBefore(div, document.getElementById("ui-notifications"));
 
     React.renderComponent(Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, AchievementUnlocked({achievement: achievementObj})), div);
 
@@ -353,3 +563,5 @@ exports.friendNotification  = friendNotification;
 exports.uiNotification      = uiNotification;
 exports.userSpace           = userSpace;
 exports.userSpaceRight      = userSpaceRight;
+exports.Dialog              = Dialog;
+exports.Notification        = Notification;

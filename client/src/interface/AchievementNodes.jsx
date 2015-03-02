@@ -75,7 +75,7 @@ module.exports = React.createClass({
 
     render: function() {
 
-        console.log(this.props);
+        // console.log(this.props);
 
         gameInfo = localStorage.getItem("gameInfo");
 
@@ -86,15 +86,18 @@ module.exports = React.createClass({
             achieved        = 0;
             achievementsLen = 0;
 
-            if (gameInfo.crc32 && gameInfo.crc32 != "null") {
+            if (gameInfo) {
 
-                var achievementNodes = gameInfo.crc32[0].Achievements.map(function (achievement, i) {
-                    return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />
-                });
+                if (gameInfo.crc32 && gameInfo.crc32 != "null") {
 
-                achievementsLen = gameInfo.crc32[0].Achievements.length;
-                achieved = document.querySelectorAll(".achieved").length;
+                    var achievementNodes = gameInfo.crc32[0].Achievements.map(function (achievement, i) {
+                        return <AchievementList title={achievement.title} description={achievement.description} navStack={i+1} />
+                    });
 
+                    achievementsLen = gameInfo.crc32[0].Achievements.length;
+                    achieved = document.querySelectorAll(".achieved").length;
+
+                }
             }
 
             return (

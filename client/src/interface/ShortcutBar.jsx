@@ -21,7 +21,7 @@ module.exports = React.createClass({
                     <li className="col-xs-2 navable" data-function="showTerminal"><strong><i className="icon fa fa-terminal"></i></strong> Terminal</li>
                     <li className="col-xs-2 navable" data-function="settingsShow"><strong><i className="ion-gear-a"></i></strong> Settings</li>
                     <li className="col-xs-2 navable" data-function="logOut"><strong><i className="icon fa fa-sign-out"></i></strong> Logout</li>
-                    <li className="col-xs-2 navable"><strong><i className="icon fa fa-power-off"></i></strong> Shutdown</li>
+                    <li className="col-xs-2 navable" data-function="rebootOS"><strong><i className="icon fa fa-power-off"></i></strong> Shutdown</li>
                 </ul>
 
             </div>

@@ -45,6 +45,7 @@
       "window",
       "document",
       "console",
+      "common",
       "sessionStorage",
       "localStorage",
       "setTimeout",

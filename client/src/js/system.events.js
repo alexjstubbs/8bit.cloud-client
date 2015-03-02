@@ -12,8 +12,9 @@ var KeyEvent                = require('./navigation.keyEvent'),
     keyboardKeyEvents     	= require('./navigation.keyboardKeyEvents'),
     navigationEventBinds    = require('./navigation.eventListeners'),
     systemSettings          = require('./system.settings').settings,
-    Screens             	= require('../interface/Screens.jsx');
-
+    Screens             	= require('../interface/Screens.jsx'),
+    Dialog                  = require('./dialogs').Dialog,
+    Prompt                  = require('./notifications').Prompt;
 
 var events = {
 
@@ -184,7 +185,9 @@ var events = {
     /*  Trigger Dialog (via api)
     -------------------------------------------------- */
     dialogShow: function(parameters) {
-        dialog.show(parameters);
+        var dialog            = new Dialog();
+            dialog.child      = parameters;
+            dialog.display();
     },
 
     /*  Show Settings
@@ -196,19 +199,21 @@ var events = {
     /*  Prompt Show (via api)
     -------------------------------------------------- */
     promptShow: function(parameters) {
+        if (helpers.isJSON(JSON.parse(parameters))) {
+            var json = JSON.parse(parameters);
 
-        var json = JSON.parse(parameters);
+            var prompt            = new Prompt();
+                prompt.message    = json.message;
+                prompt.agree      = json.agree;
+                prompt.disagree   = json.disagree;
+                prompt.params     = json.parameters;
 
-        var arg = {
-            message: json.message,
-            agree: json.agree,
-            disagree: json.disagree,
-            parameters: json.parameters
-        };
+                prompt.display();
+        }
 
-        // Show Dialog
-        dialog.show("Prompt", null, arg);
-
+        else {
+            throw "Could not open Prompt window. Parameter returned was not an Object";
+        }
     },
 
     /*  Confirm Show (via api)
@@ -368,20 +373,18 @@ var events = {
 
     /*  Sign Up Dialog
     -------------------------------------------------- */
-    signUpSubmit: function(parameters) {
-
-        // Show Dialog
-        dialog.show("SignUpSync");
-
+    signUpSubmit: function() {
+        var dialog            = new Dialog();
+            dialog.child      = "SignUpSync";
+            dialog.display();
     },
 
     /*  Log In Dialog
     -------------------------------------------------- */
-    logInDialog: function(parameters) {
-
-        // Show Dialog
-        dialog.show("LogIn");
-
+    logInDialog: function() {
+        var dialog            = new Dialog();
+            dialog.child      = "LogIn";
+            dialog.display();
     },
 
     /* Submit form on Action button/keypress
@@ -495,30 +498,30 @@ var events = {
     /* Get Community Info
     -------------------------------------------------- */
     moreCommunity: function() {
-        dialog.show("Community");
+        var dialog            = new Dialog();
+            dialog.child      = "Community";
+            dialog.display();
     },
 
     /* Web Browser
     -------------------------------------------------- */
     launchBrowser: function(parameters) {
-        dialog.show("WebBrowser", parameters);
+        var dialog            = new Dialog();
+            dialog.child      = "WebBrowser";
+            dialog.compProps  = {url: parameters};
+            dialog.display();
     },
 
     /* Web Browser
     -------------------------------------------------- */
     browserFocus: function(parameters) {
+        var prompt            = new Prompt();
+            prompt.message    = "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?";
+            prompt.agree      = "browserFocusAgree";
+            prompt.disagree   = "closeDialog";
+            prompt.params     = parameters;
 
-        // Build Prompt Message Object
-        var arg = {
-            message: "Enabling Control of the Browser will enable your mouse. This requires a mouse to navigate and exit control of the browser. Do not proceed without a mouse. Are you sure you want to continue?",
-            agree: "browserFocusAgree",
-            disagree: "closeDialog",
-            parameters: parameters
-        };
-
-        // Show Dialog
-        dialog.show("Prompt", null, arg);
-
+            prompt.display();
     },
 
     /* Focus Agreement
@@ -529,7 +532,7 @@ var events = {
         events.mouseControlEnable();
 
         // Close the Dialog
-        dialog.close();
+        Dialog.close();
 
         // Focus (hack delay) the iFrame
         setTimeout(function() {
@@ -540,7 +543,9 @@ var events = {
     /* Terminal
     -------------------------------------------------- */
     showTerminal: function() {
-        dialog.show("Terminal");
+        var dialog            = new Dialog();
+            dialog.child      = "Terminal";
+            dialog.display();
     },
 
     /* Go to URL (web browser)
@@ -656,16 +661,13 @@ var events = {
     /*  Delete Message Prompt
     -------------------------------------------------- */
     deleteMessage: function(parameters) {
+        var prompt            = new Prompt();
+            prompt.message    = "Are you sure you want to delete this message?";
+            prompt.agree      = "deleteMessageConfirmed";
+            prompt.disagree   = "closeDialog";
+            prompt.params     = parameters;
 
-        var arg = {
-            message: "Are you sure you want to delete this message?",
-            agree: "deleteMessageConfirmed",
-            disagree: "closeDialog",
-            parameters: parameters
-        };
-
-        dialog.show("Prompt", null, arg);
-
+            prompt.display();
     },
 
     /* Delete Message
@@ -675,34 +677,45 @@ var events = {
         api.emit('request', { request: 'deleteMessage', param: parameters });
         api.emit('request', { request: 'messages', param: null });
 
-        dialog.close();
-        dialog.close();
+        Dialog.close();
+        Dialog.close();
 
     },
 
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function() {
-        dialog.show("Messages");
+        var dialog            = new Dialog();
+            dialog.child      = "Messages";
+            dialog.display();
     },
 
     /*  View Single Message
     -------------------------------------------------- */
     viewMessage: function(parameters) {
-        dialog.show("Message", parameters);
         api.emit('request', { request: 'messages', param: null });
+
+        var dialog            = new Dialog();
+            dialog.child      = "Message";
+            dialog.compProps  = {To: parameters};
+            dialog.display();
     },
 
     /* Send Message
     -------------------------------------------------- */
     passMessage: function(parameters) {
-        dialog.show("PassMessage", parameters);
+        var dialog            = new Dialog();
+            dialog.child      = "PassMessage";
+            dialog.compProps  = parameters;
+            dialog.display();
     },
 
     /* View Friends
     -------------------------------------------------- */
     viewFriends: function() {
-        dialog.show("Friends");
+        var dialog            = new Dialog();
+            dialog.child      = "Friends";
+            dialog.display();
     },
 
     /* View Friends
@@ -714,7 +727,9 @@ var events = {
     /* Add a Friend(Request)
     -------------------------------------------------- */
     addFriend: function() {
-        dialog.show("AddFriend");
+        var dialog            = new Dialog();
+            dialog.child      = "AddFriend";
+            dialog.display();
     },
 
     /* Friend Online
@@ -1086,6 +1101,7 @@ var events = {
                         break;
 
                     }
+                events.toggleUserSpaceSidebar();
             }
 
     },
@@ -1111,6 +1127,8 @@ var events = {
                         break;
 
                     }
+
+                events.toggleUserSpaceSidebar();
             }
 
     },
@@ -1137,10 +1155,17 @@ var events = {
                         break;
 
                     }
+
+                events.toggleUserSpaceSidebar();
             }
 
     },
 
+    rebootOS: function(parameters) {
+        parameters = "reboot";
+        api.emit('request', { request: 'execute', param: parameters });
+
+    }
 
 
 };
@@ -1148,4 +1173,4 @@ var events = {
 
 /* Exports
 -------------------------------------------------- */
-exports.events = events;
+exports.events      = events;

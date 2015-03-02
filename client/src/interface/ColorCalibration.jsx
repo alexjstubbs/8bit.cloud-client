@@ -16,7 +16,7 @@ module.exports = React.createClass({
             <div className="_parent">
 
 
-                    <h3>Adjust your television display settings so that the far left icon is just barely visible</h3>
+                    <h3 className="text-center">Adjust your television display settings so that only 2 boxes are visible</h3>
 
                     <hr className="hr-thin" />
 
@@ -33,8 +33,6 @@ module.exports = React.createClass({
                     </span>
 
                     <div className="clearfix"></div>
-                
-
 
 
             <ActionButtons form="Profiles" />
