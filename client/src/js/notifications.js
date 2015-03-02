@@ -33,7 +33,6 @@ function Invite(type, message, title, platform, software, version, crc32, timest
 }
 
 Invite.prototype = {
-
     accept: function() {
         console.log("accepted", this.timestamp);
     },
@@ -43,13 +42,18 @@ Invite.prototype = {
     },
 
     reply: function() {
+        console.log("reply", this);
         // Create new Message object then Message.send method;
     },
 
+    notify: function() {
+        console.log("recieved", this);
+    },
+
     display: function() {
-        Dialog            = new Dialog();
+        Dialog            = new Dialog("Dialog");
+        Dialog.child      = "Invite";
         Dialog.params     = this;
-        Dialog.child      = "WebBrowser";
         Dialog.display();
     }
 };
@@ -65,7 +69,7 @@ function Prompt(message, agree, disagree, params) {
 
 Prompt.prototype = {
     display: function() {
-        Dialog            = new Dialog();
+        Dialog            = new Dialog("Prompt");
         Dialog.child      = "Prompt";
         Dialog.compProps  = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
         Dialog.display();
@@ -81,10 +85,10 @@ function Achievement(message, agree, disagree, params) {
     this.params      = params;
 }
 
-Prompt.prototype = {
+Achievement.prototype = {
     display: function() {
         Dialog            = new Dialog();
-        Dialog.child      = "Prompt";
+        Dialog.child      = "AchievementUnlocked";
         Dialog.compProps  = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
         Dialog.display();
     }
@@ -95,4 +99,4 @@ Prompt.prototype = {
 -------------------------------------------------- */
 exports.Invite      = Invite;
 exports.Prompt      = Prompt;
-exports.Achievement = Prompt;
+exports.Achievement = Achievement;

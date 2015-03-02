@@ -268,7 +268,6 @@ var keyboard = function(input) {
 
     var _index = document.querySelectorAll(".ui-window");
 
-
     var div = document.createElement("div");
     div.classList.add("ignition-modal-parent", "ignition-keyboard", "ui-window");
     div.style.zIndex = _index.length+150;

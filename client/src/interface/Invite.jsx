@@ -8,7 +8,6 @@ var React           = require('react/addons'),
     navigationInit  = require('../js/navigation.init'),
     UserAvatar      = require('./Avatar.jsx'),
     UserStatus      = require('./UserStatus.jsx'),
-    helpers         = require('../js/helpers'),
     moment          = require('moment');
 
 module.exports = React.createClass({
@@ -23,34 +22,32 @@ module.exports = React.createClass({
 
             var readItems = [];
 
-            // readItems.push(localStorage.getItem("read_messages"));
-            // readItems.push(JSON.parse(this.props._id));
-            //
-            // localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
+            readItems.push(localStorage.getItem("read_messages"));
+            readItems.push(JSON.parse(this.props.message)._id);
+
+            localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
 
 
-        // navigationInit.navigationInit();
+        navigationInit.navigationInit();
 
     },
 
     getDefaultProps: function() {
 
         return {
-            navable: true,
-            navStack: 2,
-            From: null,
-            Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
-            Body: "No Content",
-            messageId: null,
-            Type: "Message"
+            From:       null,
+            Avatar:     <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
+            Body:       "No Content",
+            messageId:  null,
+            Type:       "Message"
         }
     },
- 
+
     render: function() {
 
-        console.log(this.props);
 
-            var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
+        var message = JSON.parse(this.props.message),
+            _moment  = moment(message.Timestamp, "YYYYMMDDhhmms").fromNow();
 
         return (
 
@@ -59,15 +56,15 @@ module.exports = React.createClass({
                 <div className="col-xs-12" className="full-message">
 
                     <div className="col-xs-1">
-                        <UserAvatar username={this.props.From} />
+                        <UserAvatar username={message.From} />
                     </div>
 
                     <div className="col-xs-6">
 
-                        <div className="no-padding no-margin">{this.props.From}</div><br />
+                        <div className="no-padding no-margin">{message.From}</div><br />
                         <div className="mute down5">sent {_moment}</div>
 
-                        <UserStatus Username={this.props.From} />
+                        <UserStatus Username={message.From} />
                         <br />
 
                     </div>
@@ -82,7 +79,7 @@ module.exports = React.createClass({
                     <br />
 
                     <div className="well-alt coll-xs-12 scrollable">
-                        {this.props.Body}
+                        {message.Body}
                     </div>
                 </div>
 
@@ -95,8 +92,8 @@ module.exports = React.createClass({
                 </div>
 
                 <div className="pull-right">
-                    <button className="navable btn btn-alt btn-alt-size" data-function="deleteMessage" data-parameters={this.props._id}><i className="ion-trash-a red"></i> &nbsp; Delete Message</button>
-                    <button className="navable btn btn-alt btn-alt-size" data-function="passMessage" data-parameters={this.props.From}><i className="ion-reply green"></i> &nbsp; Reply</button>
+                    <button className="navable btn btn-alt btn-alt-size" data-function="deleteMessage" data-parameters={message._id}><i className="ion-trash-a red"></i> &nbsp; Delete Message</button>
+                    <button className="navable btn btn-alt btn-alt-size" data-function="passMessage" data-parameters={message.From}><i className="ion-reply green"></i> &nbsp; Reply</button>
                 </div>
             </div>
 

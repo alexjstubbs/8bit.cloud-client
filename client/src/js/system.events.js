@@ -183,7 +183,7 @@ var events = {
     /*  Trigger Dialog (via api)
     -------------------------------------------------- */
     dialogShow: function(parameters) {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = parameters;
             dialog.display();
     },
@@ -371,7 +371,7 @@ var events = {
     /*  Sign Up Dialog
     -------------------------------------------------- */
     signUpSubmit: function() {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "SignUpSync";
             dialog.display();
     },
@@ -379,7 +379,7 @@ var events = {
     /*  Log In Dialog
     -------------------------------------------------- */
     logInDialog: function() {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "LogIn";
             dialog.display();
     },
@@ -503,7 +503,7 @@ var events = {
     /* Web Browser
     -------------------------------------------------- */
     launchBrowser: function(parameters) {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "WebBrowser";
             dialog.compProps  = {url: parameters};
             dialog.display();
@@ -682,7 +682,7 @@ var events = {
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function() {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "Messages";
             dialog.display();
 
@@ -693,16 +693,17 @@ var events = {
     viewMessage: function(parameters) {
         api.emit('request', { request: 'messages', param: null });
 
-        var dialog            = new Dialog();
+
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "Message";
-            dialog.compProps  = {To: parameters};
+            dialog.compProps  = JSON.parse(parameters);
             dialog.display();
     },
 
     /* Send Message
     -------------------------------------------------- */
     passMessage: function(parameters) {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "PassMessage";
             dialog.compProps  = parameters;
             dialog.display();
@@ -711,7 +712,7 @@ var events = {
     /* View Friends
     -------------------------------------------------- */
     viewFriends: function() {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "Friends";
             dialog.display();
     },
@@ -719,7 +720,7 @@ var events = {
     /* View Friends
     -------------------------------------------------- */
     viewFriend: function(parameters) {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "FriendLarge";
             dialog.compProps  = parameters;
             dialog.display();
@@ -728,7 +729,7 @@ var events = {
     /* Add a Friend(Request)
     -------------------------------------------------- */
     addFriend: function() {
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "AddFriend";
             dialog.display();
     },
@@ -996,7 +997,7 @@ var events = {
 
         var options = JSON.parse(parameters);
 
-        var dialog            = new Dialog();
+        var dialog            = new Dialog("Dialog");
             dialog.child      = "SoftwareOptions";
             dialog.compProps  = { payload: options };
             dialog.display();
