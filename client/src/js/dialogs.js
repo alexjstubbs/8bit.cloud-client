@@ -4,34 +4,34 @@
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var events                  = require('./events.js'),
-    React                   = require('react/addons'),
-    Modal                   = require('../interface/Modal.jsx'),
-    Message                 = require('../interface/Message.jsx'),
-    Messages                = require('../interface/Messages.jsx'),
-    Friends                 = require('../interface/Friends.jsx'),
-    SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
-    FriendNotification      = require('../interface/FriendNotification.jsx'),
-    AchievementNodes        = require("../interface/AchievementNodes.jsx"),
-    AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
-    FriendLarge             = require('../interface/FriendLarge.jsx'),
-    Prompt                  = require('../interface/Prompt.jsx'),
-    Confirm                 = require('../interface/Confirm.jsx'),
-    Terminal                = require('../interface/Terminal.jsx'),
-    WebBrowser              = require('../interface/WebBrowser.jsx'),
-    SignUp                  = require('../interface/forms/SignUp.jsx'),
-    LogIn                   = require('../interface/forms/LogIn.jsx'),
-    SignUpSync              = require('../interface/SignUpSync.jsx'),
-    AddFriend               = require('../interface/forms/AddFriend.jsx'),
-    PassMessage             = require('../interface/forms/PassMessage.jsx'),
-    CommunityInfo           = require('../interface/CommunityInfo.jsx'),
-    Settings                = require('../interface/Settings.jsx'),
-    navigationInit          = require("./navigation.init.js"),
-    Keyboard                = require("../interface/OnScreenKeyboard.jsx"),
-    GeneralDialog           = require("../interface/GeneralDialog.jsx"),
-    UserSpace               = require("../interface/UserSpace.jsx"),
-    UserSpaceRight          = require("../interface/UserSpaceRight.jsx"),
-    _                       = require('lodash');
+var events              = require('./events.js'),
+    React               = require('react/addons'),
+    Modal               = require('../interface/Modal.jsx'),
+    Message             = require('../interface/Message.jsx'),
+    Messages            = require('../interface/Messages.jsx'),
+    Friends             = require('../interface/Friends.jsx'),
+    SoftwareOptions     = require('../interface/SoftwareOptions.jsx'),
+    FriendNotification  = require('../interface/FriendNotification.jsx'),
+    AchievementNodes    = require("../interface/AchievementNodes.jsx"),
+    AchievementUnlocked = require('../interface/AchievementUnlocked.jsx'),
+    FriendLarge         = require('../interface/FriendLarge.jsx'),
+    Prompt              = require('../interface/Prompt.jsx'),
+    Confirm             = require('../interface/Confirm.jsx'),
+    Terminal            = require('../interface/Terminal.jsx'),
+    WebBrowser          = require('../interface/WebBrowser.jsx'),
+    SignUp              = require('../interface/forms/SignUp.jsx'),
+    LogIn               = require('../interface/forms/LogIn.jsx'),
+    SignUpSync          = require('../interface/SignUpSync.jsx'),
+    AddFriend           = require('../interface/forms/AddFriend.jsx'),
+    PassMessage         = require('../interface/forms/PassMessage.jsx'),
+    CommunityInfo       = require('../interface/CommunityInfo.jsx'),
+    Settings            = require('../interface/Settings.jsx'),
+    navigationInit      = require("./navigation.init.js"),
+    Keyboard            = require("../interface/OnScreenKeyboard.jsx"),
+    GeneralDialog       = require("../interface/GeneralDialog.jsx"),
+    UserSpace           = require("../interface/UserSpace.jsx"),
+    UserSpaceRight      = require("../interface/UserSpaceRight.jsx"),
+    _                   = require('lodash');
 
     var _div;
 
@@ -42,56 +42,56 @@ var events                  = require('./events.js'),
 var children = function(props) {
 
     return {
-        "Terminal": {
-            child: new Terminal(props)
+        "Terminal"         : {
+            child          : new Terminal(props)
         },
-        "WebBrowser": {
-            child: new WebBrowser(props)
+        "WebBrowser"       : {
+            child          : new WebBrowser(props)
         },
-        "Prompt": {
-            child: new Prompt(props)
+        "Prompt"           : {
+            child          : new Prompt(props)
         },
-        "Confirm": {
-            child: new Confirm(props)
+        "Confirm"          : {
+            child          : new Confirm(props)
         },
-        "SignUp": {
-            child: new SignUp(props)
+        "SignUp"           : {
+            child          : new SignUp(props)
         },
-        "SignUpSync": {
-            child: new SignUpSync(props)
+        "SignUpSync"       : {
+            child          : new SignUpSync(props)
         },
-        "LogIn": {
-            child: new LogIn(props)
+        "LogIn"            : {
+            child          : new LogIn(props)
         },
-        "Friends": {
-            child: new Friends(props)
+        "Friends"          : {
+            child          : new Friends(props)
         },
-        "FriendLarge": {
-            child: new FriendLarge(props)
+        "FriendLarge"      : {
+            child          : new FriendLarge(props)
         },
-        "AddFriend": {
-            child: new AddFriend(props)
+        "AddFriend"        : {
+            child          : new AddFriend(props)
         },
-        "PassMessage": {
-            child: new PassMessage(props)
+        "PassMessage"      : {
+            child          : new PassMessage(props)
         },
-        "Settings": {
-            child: new Settings(props)
+        "Settings"         : {
+            child          : new Settings(props)
         },
-        "AchievementNodes": {
-            child: new AchievementNodes({control: true})
+        "AchievementNodes" : {
+            child          : new AchievementNodes({control: true})
         },
-        "SoftwareOptions": {
-            child: new SoftwareOptions(props)
+        "SoftwareOptions"  : {
+            child          : new SoftwareOptions(props)
         },
-        "Message": {
-            child: new Message(props)
+        "Message"          : {
+            child          : new Message(props)
         },
-        "Messages": {
-            child: new Messages(props)
+        "Messages"         : {
+            child          : new Messages(props)
         },
-        "Community": {
-            child: new CommunityInfo({classList: "container ignition-modal systemNotificationContent community-modal"})
+        "Community"        : {
+            child          : new CommunityInfo({classList: "container ignition-modal systemNotificationContent community-modal"})
         }
     };
 
@@ -103,9 +103,9 @@ var children = function(props) {
 
 function constructMount() {
 
-    var _index      = document.querySelectorAll(".ignition-modal"),
-        fragment    = document.createDocumentFragment(),
-        div         = document.createElement("div");
+    var _index   = document.querySelectorAll(".ignition-modal"),
+        fragment = document.createDocumentFragment(),
+        div      = document.createElement("div");
 
     var mountPoint = document.createElement("div");
     fragment.appendChild(mountPoint);
@@ -142,8 +142,6 @@ Dialog.prototype = {
 
     // Display Dialog
     display: function() {
-
-        console.log(this.compProps);
 
         var mount = constructMount();
 

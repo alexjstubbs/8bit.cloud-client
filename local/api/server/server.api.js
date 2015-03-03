@@ -81,17 +81,17 @@ var passMessage = function(nsp, data) {
 
     else {
         var _data = {
-            To: data.To,
-            Type: data.Type,
-            Attachment: false,
-            Body: data.Body,
-            Invite: {
-                gameTitle: data.Invite.gameTitle,
-                platform: data.Invite.platform,
-                software: data.Invite.software,
-                version: data.Invite.version,
-                md5: data.Invite.md5,
-                crc32: data.Invite.crc32
+            To         : data.To,
+            Type       : data.Type,
+            Attachment : false,
+            Body       : data.Body,
+            Invite     : {
+                gameTitle : data.Invite.gameTitle,
+                platform  : data.Invite.platform,
+                software  : data.Invite.software,
+                version   : data.Invite.version,
+                md5       : data.Invite.md5,
+                crc32     : data.Invite.crc32
             }
         };
 

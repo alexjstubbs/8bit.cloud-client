@@ -2,11 +2,11 @@
 * @jsx React.DOM
 */
 
-var React           = require('react/addons'),
-    _               = require('lodash'),
-    UserStatus      = require('./UserStatus.jsx'),
-    navigationInit  = require('../js/navigation.init'),
-    UserAvatar      = require('./Avatar.jsx');
+var React          = require('react/addons'),
+    _              = require('lodash'),
+    UserStatus     = require('./UserStatus.jsx'),
+    navigationInit = require('../js/navigation.init'),
+    UserAvatar     = require('./Avatar.jsx');
 
 module.exports = React.createClass({
 
@@ -48,16 +48,15 @@ module.exports = React.createClass({
 
         var cx = React.addons.classSet;
         var classes = cx({
-            'avatared': Avatar,
-            'square': true,
-            'pull-left': true
+            'avatared'  : Avatar,
+            'square'    : true,
+            'pull-left' : true
         });
 
         var parentClasses = cx({
-            'navable': true,
-            'message-preview': true
+            'navable'         : true,
+            'message-preview' : true
         });
-
 
 
         return (

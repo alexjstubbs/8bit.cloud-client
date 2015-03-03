@@ -682,10 +682,10 @@ var events = {
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function() {
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "Messages";
-            dialog.display();
+        var dialog       = new Dialog("Dialog");
+            dialog.child = "Messages";
 
+            dialog.display();
     },
 
     /*  View Single Message
@@ -693,48 +693,68 @@ var events = {
     viewMessage: function(parameters) {
         api.emit('request', { request: 'messages', param: null });
 
+        var dialog           = new Dialog("Dialog");
+            dialog.child     = "Message";
+            dialog.compProps = JSON.parse(parameters);
 
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "Message";
-            dialog.compProps  = JSON.parse(parameters);
             dialog.display();
     },
 
     /* Send Message
     -------------------------------------------------- */
     passMessage: function(parameters) {
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "PassMessage";
-            dialog.compProps  = parameters;
+        var dialog           = new Dialog("Dialog");
+            dialog.child     = "PassMessage";
+            dialog.compProps = parameters;
+
             dialog.display();
     },
 
     /* View Friends
     -------------------------------------------------- */
-    viewFriends: function(parameters) {
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "Friends";
-            dialog.compProps   = parameters;
+    viewFriends : function(parameters) {
+
+
+        var dialog           = new Dialog("Dialog");
+            dialog.child     = "Friends";
+
+            if (parameters) {
+                dialog.compProps = {Invite: parameters};
+            }
+
+            else {
+                console.log("says nulll");
+                dialog.compProps = {Invite: "null"};
+            }
+
             dialog.display();
     },
 
     /* View Friends
     -------------------------------------------------- */
     viewFriend: function(parameters) {
+        var dialog           = new Dialog("Dialog");
+            dialog.child     = "FriendLarge";
+            dialog.compProps = parameters;
 
-        console.log(parameters);
-
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "FriendLarge";
-            dialog.compProps  = parameters;
             dialog.display();
     },
 
     /* Add a Friend(Request)
     -------------------------------------------------- */
     addFriend: function() {
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "AddFriend";
+        var dialog       = new Dialog("Dialog");
+            dialog.child = "AddFriend";
+
+            dialog.display();
+    },
+
+    /* Send Invite(Request)
+    -------------------------------------------------- */
+    sendInvite: function() {
+        var dialog       = new Dialog("Dialog");
+            dialog.child = "AddFriend";
+
             dialog.display();
     },
 
@@ -758,15 +778,15 @@ var events = {
         var _ltime = new Date().valueOf();
 
         var aObj = {
-            Software: JSON.parse(parameters).title,
-            Type: "Achievement",
-            Info: null,
-            Local: _ltime
+            Software : JSON.parse(parameters).title,
+            Type     : "Achievement",
+            Info     : null,
+            Local    : _ltime
         };
 
         var Obj = {
-            database: "activities",
-            values: aObj
+            database : "activities",
+            values   : aObj
         };
 
         api.emit('request', { request: 'storeData', param: Obj });

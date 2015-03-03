@@ -2,14 +2,16 @@
 * @jsx React.DOM
 */
 
-var React               = require('react/addons'),
-    _                   = require('lodash'),
-    moment              = require('moment'),
-    FriendNode          = require('./Friend.jsx'),
-    api                 = require('socket.io-client')('/api'),
-    navigationInit      = require('../js/navigation.init'),
-    UserAvatar          = require('./Avatar.jsx'),
+var React          = require('react/addons'),
+    _              = require('lodash'),
+    moment         = require('moment'),
+    FriendNode     = require('./Friend.jsx'),
+    api            = require('socket.io-client')('/api'),
+    navigationInit = require('../js/navigation.init'),
+    UserAvatar     = require('./Avatar.jsx'),
+    helpers        = require('../js/helpers'),
     Avatar,
+    functionCall,
     noFriends;
 
 module.exports = React.createClass({
@@ -46,22 +48,33 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
         return {
-            navable: true,
-            functionCall: "viewFriend"
+            navable      : true,
+            functionCall : "viewFriend",
+            Invite       : null
         };
+
     },
 
     render: function() {
 
+        functionCall = this.props.functionCall;
+
+        if (this.props.Invite != "null") {
+            functionCall = "sendInvite";
+        }
+
+        console.log(functionCall);
+
+        // if (this.props.Invite.hasOwnProperty(""))
         var noFriends_ = document.getElementById("noFriends");
-        var component = this;
+        var component  = this;
 
         var friendsNodes = this.state.friends.map(function (friend, i) {
 
             var time = moment(friend.LastSeen).format('YYYY-MM-DD hh:mm:ss');
                 time = moment(time).fromNow();
 
-            return <FriendNode key={i.id} functionCall={component.props.functionCall} friend={friend} Username={friend.Username} Avatar={friend.Avatar} Playing={friend.Playing} Online={friend.Online} IP={friend.IP} LastSeen={time} />
+            return <FriendNode key={i.id} functionCall={functionCall} friend={friend} Username={friend.Username} Avatar={friend.Avatar} Playing={friend.Playing} Online={friend.Online} IP={friend.IP} LastSeen={time} />
 
         });
 

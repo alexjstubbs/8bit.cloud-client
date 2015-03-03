@@ -1309,11 +1309,11 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React           = require('react/addons'),
-    _               = require('lodash'),
-    UserStatus      = require('./UserStatus.jsx'),
-    navigationInit  = require('../js/navigation.init'),
-    UserAvatar      = require('./Avatar.jsx');
+var React          = require('react/addons'),
+    _              = require('lodash'),
+    UserStatus     = require('./UserStatus.jsx'),
+    navigationInit = require('../js/navigation.init'),
+    UserAvatar     = require('./Avatar.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -1355,16 +1355,15 @@ module.exports = React.createClass({displayName: 'exports',
 
         var cx = React.addons.classSet;
         var classes = cx({
-            'avatared': Avatar,
-            'square': true,
-            'pull-left': true
+            'avatared'  : Avatar,
+            'square'    : true,
+            'pull-left' : true
         });
 
         var parentClasses = cx({
-            'navable': true,
-            'message-preview': true
+            'navable'         : true,
+            'message-preview' : true
         });
-
 
 
         return (
@@ -1579,14 +1578,16 @@ module.exports = React.createClass({displayName: 'exports',
 * @jsx React.DOM
 */
 
-var React               = require('react/addons'),
-    _                   = require('lodash'),
-    moment              = require('moment'),
-    FriendNode          = require('./Friend.jsx'),
-    api                 = require('socket.io-client')('/api'),
-    navigationInit      = require('../js/navigation.init'),
-    UserAvatar          = require('./Avatar.jsx'),
+var React          = require('react/addons'),
+    _              = require('lodash'),
+    moment         = require('moment'),
+    FriendNode     = require('./Friend.jsx'),
+    api            = require('socket.io-client')('/api'),
+    navigationInit = require('../js/navigation.init'),
+    UserAvatar     = require('./Avatar.jsx'),
+    helpers        = require('../js/helpers'),
     Avatar,
+    functionCall,
     noFriends;
 
 module.exports = React.createClass({displayName: 'exports',
@@ -1623,22 +1624,33 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
         return {
-            navable: true,
-            functionCall: "viewFriend"
+            navable      : true,
+            functionCall : "viewFriend",
+            Invite       : null
         };
+
     },
 
     render: function() {
 
+        functionCall = this.props.functionCall;
+
+        if (this.props.Invite != "null") {
+            functionCall = "sendInvite";
+        }
+
+        console.log(functionCall);
+
+        // if (this.props.Invite.hasOwnProperty(""))
         var noFriends_ = document.getElementById("noFriends");
-        var component = this;
+        var component  = this;
 
         var friendsNodes = this.state.friends.map(function (friend, i) {
 
             var time = moment(friend.LastSeen).format('YYYY-MM-DD hh:mm:ss');
                 time = moment(time).fromNow();
 
-            return FriendNode({key: i.id, functionCall: component.props.functionCall, friend: friend, Username: friend.Username, Avatar: friend.Avatar, Playing: friend.Playing, Online: friend.Online, IP: friend.IP, LastSeen: time})
+            return FriendNode({key: i.id, functionCall: functionCall, friend: friend, Username: friend.Username, Avatar: friend.Avatar, Playing: friend.Playing, Online: friend.Online, IP: friend.IP, LastSeen: time})
 
         });
 
@@ -1683,7 +1695,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../js/navigation.init":103,"./Avatar.jsx":6,"./Friend.jsx":17,"lodash":113,"moment":114,"react/addons":115,"socket.io-client":274}],21:[function(require,module,exports){
+},{"../js/helpers":95,"../js/navigation.init":103,"./Avatar.jsx":6,"./Friend.jsx":17,"lodash":113,"moment":114,"react/addons":115,"socket.io-client":274}],21:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -7041,34 +7053,34 @@ exports.initLocalDatabase = initLocalDatabase;
 /* Dialogs and Modals interface
 -------------------------------------------------- */
 
-var events                  = require('./events.js'),
-    React                   = require('react/addons'),
-    Modal                   = require('../interface/Modal.jsx'),
-    Message                 = require('../interface/Message.jsx'),
-    Messages                = require('../interface/Messages.jsx'),
-    Friends                 = require('../interface/Friends.jsx'),
-    SoftwareOptions         = require('../interface/SoftwareOptions.jsx'),
-    FriendNotification      = require('../interface/FriendNotification.jsx'),
-    AchievementNodes        = require("../interface/AchievementNodes.jsx"),
-    AchievementUnlocked     = require('../interface/AchievementUnlocked.jsx'),
-    FriendLarge             = require('../interface/FriendLarge.jsx'),
-    Prompt                  = require('../interface/Prompt.jsx'),
-    Confirm                 = require('../interface/Confirm.jsx'),
-    Terminal                = require('../interface/Terminal.jsx'),
-    WebBrowser              = require('../interface/WebBrowser.jsx'),
-    SignUp                  = require('../interface/forms/SignUp.jsx'),
-    LogIn                   = require('../interface/forms/LogIn.jsx'),
-    SignUpSync              = require('../interface/SignUpSync.jsx'),
-    AddFriend               = require('../interface/forms/AddFriend.jsx'),
-    PassMessage             = require('../interface/forms/PassMessage.jsx'),
-    CommunityInfo           = require('../interface/CommunityInfo.jsx'),
-    Settings                = require('../interface/Settings.jsx'),
-    navigationInit          = require("./navigation.init.js"),
-    Keyboard                = require("../interface/OnScreenKeyboard.jsx"),
-    GeneralDialog           = require("../interface/GeneralDialog.jsx"),
-    UserSpace               = require("../interface/UserSpace.jsx"),
-    UserSpaceRight          = require("../interface/UserSpaceRight.jsx"),
-    _                       = require('lodash');
+var events              = require('./events.js'),
+    React               = require('react/addons'),
+    Modal               = require('../interface/Modal.jsx'),
+    Message             = require('../interface/Message.jsx'),
+    Messages            = require('../interface/Messages.jsx'),
+    Friends             = require('../interface/Friends.jsx'),
+    SoftwareOptions     = require('../interface/SoftwareOptions.jsx'),
+    FriendNotification  = require('../interface/FriendNotification.jsx'),
+    AchievementNodes    = require("../interface/AchievementNodes.jsx"),
+    AchievementUnlocked = require('../interface/AchievementUnlocked.jsx'),
+    FriendLarge         = require('../interface/FriendLarge.jsx'),
+    Prompt              = require('../interface/Prompt.jsx'),
+    Confirm             = require('../interface/Confirm.jsx'),
+    Terminal            = require('../interface/Terminal.jsx'),
+    WebBrowser          = require('../interface/WebBrowser.jsx'),
+    SignUp              = require('../interface/forms/SignUp.jsx'),
+    LogIn               = require('../interface/forms/LogIn.jsx'),
+    SignUpSync          = require('../interface/SignUpSync.jsx'),
+    AddFriend           = require('../interface/forms/AddFriend.jsx'),
+    PassMessage         = require('../interface/forms/PassMessage.jsx'),
+    CommunityInfo       = require('../interface/CommunityInfo.jsx'),
+    Settings            = require('../interface/Settings.jsx'),
+    navigationInit      = require("./navigation.init.js"),
+    Keyboard            = require("../interface/OnScreenKeyboard.jsx"),
+    GeneralDialog       = require("../interface/GeneralDialog.jsx"),
+    UserSpace           = require("../interface/UserSpace.jsx"),
+    UserSpaceRight      = require("../interface/UserSpaceRight.jsx"),
+    _                   = require('lodash');
 
     var _div;
 
@@ -7079,56 +7091,56 @@ var events                  = require('./events.js'),
 var children = function(props) {
 
     return {
-        "Terminal": {
-            child: new Terminal(props)
+        "Terminal"         : {
+            child          : new Terminal(props)
         },
-        "WebBrowser": {
-            child: new WebBrowser(props)
+        "WebBrowser"       : {
+            child          : new WebBrowser(props)
         },
-        "Prompt": {
-            child: new Prompt(props)
+        "Prompt"           : {
+            child          : new Prompt(props)
         },
-        "Confirm": {
-            child: new Confirm(props)
+        "Confirm"          : {
+            child          : new Confirm(props)
         },
-        "SignUp": {
-            child: new SignUp(props)
+        "SignUp"           : {
+            child          : new SignUp(props)
         },
-        "SignUpSync": {
-            child: new SignUpSync(props)
+        "SignUpSync"       : {
+            child          : new SignUpSync(props)
         },
-        "LogIn": {
-            child: new LogIn(props)
+        "LogIn"            : {
+            child          : new LogIn(props)
         },
-        "Friends": {
-            child: new Friends(props)
+        "Friends"          : {
+            child          : new Friends(props)
         },
-        "FriendLarge": {
-            child: new FriendLarge(props)
+        "FriendLarge"      : {
+            child          : new FriendLarge(props)
         },
-        "AddFriend": {
-            child: new AddFriend(props)
+        "AddFriend"        : {
+            child          : new AddFriend(props)
         },
-        "PassMessage": {
-            child: new PassMessage(props)
+        "PassMessage"      : {
+            child          : new PassMessage(props)
         },
-        "Settings": {
-            child: new Settings(props)
+        "Settings"         : {
+            child          : new Settings(props)
         },
-        "AchievementNodes": {
-            child: new AchievementNodes({control: true})
+        "AchievementNodes" : {
+            child          : new AchievementNodes({control: true})
         },
-        "SoftwareOptions": {
-            child: new SoftwareOptions(props)
+        "SoftwareOptions"  : {
+            child          : new SoftwareOptions(props)
         },
-        "Message": {
-            child: new Message(props)
+        "Message"          : {
+            child          : new Message(props)
         },
-        "Messages": {
-            child: new Messages(props)
+        "Messages"         : {
+            child          : new Messages(props)
         },
-        "Community": {
-            child: new CommunityInfo({classList: "container ignition-modal systemNotificationContent community-modal"})
+        "Community"        : {
+            child          : new CommunityInfo({classList: "container ignition-modal systemNotificationContent community-modal"})
         }
     };
 
@@ -7140,9 +7152,9 @@ var children = function(props) {
 
 function constructMount() {
 
-    var _index      = document.querySelectorAll(".ignition-modal"),
-        fragment    = document.createDocumentFragment(),
-        div         = document.createElement("div");
+    var _index   = document.querySelectorAll(".ignition-modal"),
+        fragment = document.createDocumentFragment(),
+        div      = document.createElement("div");
 
     var mountPoint = document.createElement("div");
     fragment.appendChild(mountPoint);
@@ -7179,8 +7191,6 @@ Dialog.prototype = {
 
     // Display Dialog
     display: function() {
-
-        console.log(this.compProps);
 
         var mount = constructMount();
 
@@ -9853,14 +9863,14 @@ var Dialog = require('./dialogs').Dialog;
  */
 
 function Invite(type, message, title, platform, software, version, crc32, timestamp) {
-    this.type         = type;
-    this.message      = message;
-    this.title        = title;
-    this.platform     = platform;
-    this.software     = software;
-    this.version      = version;
-    this.crc32        = crc32;
-    this.timestamp    = timestamp;
+    this.type      = type;
+    this.message   = message;
+    this.title     = title;
+    this.platform  = platform;
+    this.software  = software;
+    this.version   = version;
+    this.crc32     = crc32;
+    this.timestamp = timestamp;
 }
 
 Invite.prototype = {
@@ -9885,9 +9895,10 @@ Invite.prototype = {
 
         // Inherit props from "MSG" (which come from Serv)
 
-        Dialog            = new Dialog("Dialog");
-        Dialog.child      = "Invite";
-        Dialog.params     = this;
+        Dialog        = new Dialog("Dialog");
+        Dialog.child  = "Invite";
+        Dialog.params = this;
+
         Dialog.display();
     }
 };
@@ -9895,17 +9906,18 @@ Invite.prototype = {
 /*  Prompts
 -------------------------------------------------- */
 function Prompt(message, agree, disagree, params) {
-    this.message     = message;
-    this.agree       = agree;
-    this.disagree    = disagree;
-    this.params      = params;
+    this.message  = message;
+    this.agree    = agree;
+    this.disagree = disagree;
+    this.params   = params;
 }
 
 Prompt.prototype = {
     display: function() {
-        Dialog            = new Dialog("Prompt");
-        Dialog.child      = "Prompt";
-        Dialog.compProps  = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+        Dialog           = new Dialog("Prompt");
+        Dialog.child     = "Prompt";
+        Dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+
         Dialog.display();
     }
 };
@@ -9913,17 +9925,18 @@ Prompt.prototype = {
 /*  Achievements
 -------------------------------------------------- */
 function Achievement(message, agree, disagree, params) {
-    this.message     = message;
-    this.agree       = agree;
-    this.disagree    = disagree;
-    this.params      = params;
+    this.message  = message;
+    this.agree    = agree;
+    this.disagree = disagree;
+    this.params   = params;
 }
 
 Achievement.prototype = {
     display: function() {
-        Dialog            = new Dialog();
-        Dialog.child      = "AchievementUnlocked";
-        Dialog.compProps  = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+        Dialog           = new Dialog();
+        Dialog.child     = "AchievementUnlocked";
+        Dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+
         Dialog.display();
     }
 };
@@ -10620,10 +10633,10 @@ var events = {
     /* View Messages event
     -------------------------------------------------- */
     viewMessages: function() {
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "Messages";
-            dialog.display();
+        var dialog       = new Dialog("Dialog");
+            dialog.child = "Messages";
 
+            dialog.display();
     },
 
     /*  View Single Message
@@ -10631,48 +10644,68 @@ var events = {
     viewMessage: function(parameters) {
         api.emit('request', { request: 'messages', param: null });
 
+        var dialog           = new Dialog("Dialog");
+            dialog.child     = "Message";
+            dialog.compProps = JSON.parse(parameters);
 
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "Message";
-            dialog.compProps  = JSON.parse(parameters);
             dialog.display();
     },
 
     /* Send Message
     -------------------------------------------------- */
     passMessage: function(parameters) {
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "PassMessage";
-            dialog.compProps  = parameters;
+        var dialog           = new Dialog("Dialog");
+            dialog.child     = "PassMessage";
+            dialog.compProps = parameters;
+
             dialog.display();
     },
 
     /* View Friends
     -------------------------------------------------- */
-    viewFriends: function(parameters) {
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "Friends";
-            dialog.compProps   = parameters;
+    viewFriends : function(parameters) {
+
+
+        var dialog           = new Dialog("Dialog");
+            dialog.child     = "Friends";
+
+            if (parameters) {
+                dialog.compProps = {Invite: parameters};
+            }
+
+            else {
+                console.log("says nulll");
+                dialog.compProps = {Invite: "null"};
+            }
+
             dialog.display();
     },
 
     /* View Friends
     -------------------------------------------------- */
     viewFriend: function(parameters) {
+        var dialog           = new Dialog("Dialog");
+            dialog.child     = "FriendLarge";
+            dialog.compProps = parameters;
 
-        console.log(parameters);
-
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "FriendLarge";
-            dialog.compProps  = parameters;
             dialog.display();
     },
 
     /* Add a Friend(Request)
     -------------------------------------------------- */
     addFriend: function() {
-        var dialog            = new Dialog("Dialog");
-            dialog.child      = "AddFriend";
+        var dialog       = new Dialog("Dialog");
+            dialog.child = "AddFriend";
+
+            dialog.display();
+    },
+
+    /* Send Invite(Request)
+    -------------------------------------------------- */
+    sendInvite: function() {
+        var dialog       = new Dialog("Dialog");
+            dialog.child = "AddFriend";
+
             dialog.display();
     },
 
@@ -10696,15 +10729,15 @@ var events = {
         var _ltime = new Date().valueOf();
 
         var aObj = {
-            Software: JSON.parse(parameters).title,
-            Type: "Achievement",
-            Info: null,
-            Local: _ltime
+            Software : JSON.parse(parameters).title,
+            Type     : "Achievement",
+            Info     : null,
+            Local    : _ltime
         };
 
         var Obj = {
-            database: "activities",
-            values: aObj
+            database : "activities",
+            values   : aObj
         };
 
         api.emit('request', { request: 'storeData', param: Obj });

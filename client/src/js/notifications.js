@@ -22,14 +22,14 @@ var Dialog = require('./dialogs').Dialog;
  */
 
 function Invite(type, message, title, platform, software, version, crc32, timestamp) {
-    this.type         = type;
-    this.message      = message;
-    this.title        = title;
-    this.platform     = platform;
-    this.software     = software;
-    this.version      = version;
-    this.crc32        = crc32;
-    this.timestamp    = timestamp;
+    this.type      = type;
+    this.message   = message;
+    this.title     = title;
+    this.platform  = platform;
+    this.software  = software;
+    this.version   = version;
+    this.crc32     = crc32;
+    this.timestamp = timestamp;
 }
 
 Invite.prototype = {
@@ -54,9 +54,10 @@ Invite.prototype = {
 
         // Inherit props from "MSG" (which come from Serv)
 
-        Dialog            = new Dialog("Dialog");
-        Dialog.child      = "Invite";
-        Dialog.params     = this;
+        Dialog        = new Dialog("Dialog");
+        Dialog.child  = "Invite";
+        Dialog.params = this;
+
         Dialog.display();
     }
 };
@@ -64,17 +65,18 @@ Invite.prototype = {
 /*  Prompts
 -------------------------------------------------- */
 function Prompt(message, agree, disagree, params) {
-    this.message     = message;
-    this.agree       = agree;
-    this.disagree    = disagree;
-    this.params      = params;
+    this.message  = message;
+    this.agree    = agree;
+    this.disagree = disagree;
+    this.params   = params;
 }
 
 Prompt.prototype = {
     display: function() {
-        Dialog            = new Dialog("Prompt");
-        Dialog.child      = "Prompt";
-        Dialog.compProps  = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+        Dialog           = new Dialog("Prompt");
+        Dialog.child     = "Prompt";
+        Dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+
         Dialog.display();
     }
 };
@@ -82,17 +84,18 @@ Prompt.prototype = {
 /*  Achievements
 -------------------------------------------------- */
 function Achievement(message, agree, disagree, params) {
-    this.message     = message;
-    this.agree       = agree;
-    this.disagree    = disagree;
-    this.params      = params;
+    this.message  = message;
+    this.agree    = agree;
+    this.disagree = disagree;
+    this.params   = params;
 }
 
 Achievement.prototype = {
     display: function() {
-        Dialog            = new Dialog();
-        Dialog.child      = "AchievementUnlocked";
-        Dialog.compProps  = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+        Dialog           = new Dialog();
+        Dialog.child     = "AchievementUnlocked";
+        Dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+
         Dialog.display();
     }
 };
