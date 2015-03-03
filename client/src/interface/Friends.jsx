@@ -46,20 +46,23 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
         return {
-            navable: true
+            navable: true,
+            functionCall: "viewFriend"
         };
     },
 
     render: function() {
 
         var noFriends_ = document.getElementById("noFriends");
+        var component = this;
 
         var friendsNodes = this.state.friends.map(function (friend, i) {
 
             var time = moment(friend.LastSeen).format('YYYY-MM-DD hh:mm:ss');
                 time = moment(time).fromNow();
 
-            return <FriendNode key={i.id} friend={friend} Username={friend.Username} Avatar={friend.Avatar} Playing={friend.Playing} Online={friend.Online} IP={friend.IP} LastSeen={time} />
+            return <FriendNode key={i.id} functionCall={component.props.functionCall} friend={friend} Username={friend.Username} Avatar={friend.Avatar} Playing={friend.Playing} Online={friend.Online} IP={friend.IP} LastSeen={time} />
+
         });
 
         friendsNodes.reverse();

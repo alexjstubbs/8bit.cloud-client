@@ -44,7 +44,7 @@ module.exports = React.createClass({
             "gamesList":      [],
             "platforms":      [],
 
-            "savestates": [{"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}],
+            "savestates": [{"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/null.srm"}],
 
             "crc32":          null,
 
@@ -220,7 +220,7 @@ module.exports = React.createClass({
             <a id="play-game" className='btn-alt btn-lg navable defaultSelection' data-function="launchGame" data-parameters={launchContext}>Play Game</a>
             &nbsp;
 
-            <a className='btn-alt btn-lg navable'>Multiplayer</a>
+            <a className='btn-alt btn-lg navable' data-function="viewFriends" data-parameters={launchContext}>Multiplayer</a>
 
             <a className='btn-alt btn-lg navable' data-function='softwareOptions' data-parameters={launchContext}><i className="ion-gear-a"></i></a>
 

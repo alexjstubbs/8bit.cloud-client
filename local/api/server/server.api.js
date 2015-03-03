@@ -84,7 +84,15 @@ var passMessage = function(nsp, data) {
             To: data.To,
             Type: data.Type,
             Attachment: false,
-            Body: data.Body
+            Body: data.Body,
+            Invite: {
+                gameTitle: data.Invite.gameTitle,
+                platform: data.Invite.platform,
+                software: data.Invite.software,
+                version: data.Invite.version,
+                md5: data.Invite.md5,
+                crc32: data.Invite.crc32
+            }
         };
 
         sockets.networkInterface(nsp, { cmd: 'passMessage', parameters: _data });

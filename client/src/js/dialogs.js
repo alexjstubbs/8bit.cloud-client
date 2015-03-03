@@ -143,6 +143,8 @@ Dialog.prototype = {
     // Display Dialog
     display: function() {
 
+        console.log(this.compProps);
+
         var mount = constructMount();
 
         if (typeof mount === "object") {

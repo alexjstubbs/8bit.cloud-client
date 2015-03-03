@@ -11,6 +11,8 @@ var React           = require('react/addons'),
     api             = require('socket.io-client')('/api'),
     moment          = require('moment'),
     parsedLocation,
+    avatar,
+    _location,
     throttled;
 
 module.exports = React.createClass({
@@ -45,22 +47,33 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
 
-        return {
-            Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
-            Location: <span className="mute">Somewhere on earth</span>
-        }
     },
 
     componentWillUpdate: function() {
-        console.log("wt");
         // this.getLocation();
     },
 
     render: function() {
 
+        if (this.props.hasOwnProperty("Avatar")) {
+            avatar = this.props.Avatar;
+        }
+
+        else {
+            avatar = <div className='col-xs-3 pull-left square dark-gray'><i className='ion-person'></i></div>;
+        }
+
+        if (this.props.hasOwnProperty("Location")) {
+            _location = this.props.Location;
+        }
+
+        else {
+            _location = <span className='mute'>Somewhere on earth</span>;
+        }
+
         // throttled = _.throttle(this.getLocation, 3000);
 
-        var friend = JSON.parse(this.props.friend),
+        var friend = JSON.parse(this.props),
             _moment  = moment(friend.LastSeen, "YYYYMMDDhhmms").fromNow();
 
         return (
@@ -76,7 +89,7 @@ module.exports = React.createClass({
                     <div className="col-xs-7">
 
                         <h2 className="no-margin">{friend.Username}</h2>
-                        {this.state.requestedIpLocation ? <h3><i className="ion-earth"></i> &nbsp; {parsedLocation}</h3> : <h3><i className="ion-earth mute"></i> &nbsp; {this.props.Location}</h3> }
+                        {this.state.requestedIpLocation ? <h3><i className="ion-earth"></i> &nbsp; {parsedLocation}</h3> : <h3><i className="ion-earth mute"></i> &nbsp; {_location}</h3> }
 
                     </div>
 

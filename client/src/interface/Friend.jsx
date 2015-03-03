@@ -25,7 +25,8 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
         return {
-            Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>
+            Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
+            functionCall: "viewFriend"
         }
     },
 
@@ -57,10 +58,12 @@ module.exports = React.createClass({
             'message-preview': true
         });
 
+
+
         return (
 
 
-            <div className={parentClasses} data-function="viewFriend" data-parameters={friendObj}>
+            <div className={parentClasses} data-function={this.props.functionCall} data-parameters={friendObj}>
 
             <div className="col-xs-1">
                 <div className={classes}>

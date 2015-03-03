@@ -51,6 +51,9 @@ Invite.prototype = {
     },
 
     display: function() {
+
+        // Inherit props from "MSG" (which come from Serv)
+
         Dialog            = new Dialog("Dialog");
         Dialog.child      = "Invite";
         Dialog.params     = this;

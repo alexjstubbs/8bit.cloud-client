@@ -1332,7 +1332,8 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
         return {
-            Avatar: React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"}))
+            Avatar: React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
+            functionCall: "viewFriend"
         }
     },
 
@@ -1364,10 +1365,12 @@ module.exports = React.createClass({displayName: 'exports',
             'message-preview': true
         });
 
+
+
         return (
 
 
-            React.DOM.div({className: parentClasses, 'data-function': "viewFriend", 'data-parameters': friendObj}, 
+            React.DOM.div({className: parentClasses, 'data-function': this.props.functionCall, 'data-parameters': friendObj}, 
 
             React.DOM.div({className: "col-xs-1"}, 
                 React.DOM.div({className: classes}, 
@@ -1411,6 +1414,8 @@ var React           = require('react/addons'),
     api             = require('socket.io-client')('/api'),
     moment          = require('moment'),
     parsedLocation,
+    avatar,
+    _location,
     throttled;
 
 module.exports = React.createClass({displayName: 'exports',
@@ -1445,22 +1450,33 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
 
-        return {
-            Avatar: React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
-            Location: React.DOM.span({className: "mute"}, "Somewhere on earth")
-        }
     },
 
     componentWillUpdate: function() {
-        console.log("wt");
         // this.getLocation();
     },
 
     render: function() {
 
+        if (this.props.hasOwnProperty("Avatar")) {
+            avatar = this.props.Avatar;
+        }
+
+        else {
+            avatar = React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"}));
+        }
+
+        if (this.props.hasOwnProperty("Location")) {
+            _location = this.props.Location;
+        }
+
+        else {
+            _location = React.DOM.span({className: "mute"}, "Somewhere on earth");
+        }
+
         // throttled = _.throttle(this.getLocation, 3000);
 
-        var friend = JSON.parse(this.props.friend),
+        var friend = JSON.parse(this.props),
             _moment  = moment(friend.LastSeen, "YYYYMMDDhhmms").fromNow();
 
         return (
@@ -1476,7 +1492,7 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.div({className: "col-xs-7"}, 
 
                         React.DOM.h2({className: "no-margin"}, friend.Username), 
-                        this.state.requestedIpLocation ? React.DOM.h3(null, React.DOM.i({className: "ion-earth"}), "   ", parsedLocation) : React.DOM.h3(null, React.DOM.i({className: "ion-earth mute"}), "   ", this.props.Location)
+                        this.state.requestedIpLocation ? React.DOM.h3(null, React.DOM.i({className: "ion-earth"}), "   ", parsedLocation) : React.DOM.h3(null, React.DOM.i({className: "ion-earth mute"}), "   ", _location)
 
                     ), 
 
@@ -1607,20 +1623,23 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
         return {
-            navable: true
+            navable: true,
+            functionCall: "viewFriend"
         };
     },
 
     render: function() {
 
         var noFriends_ = document.getElementById("noFriends");
+        var component = this;
 
         var friendsNodes = this.state.friends.map(function (friend, i) {
 
             var time = moment(friend.LastSeen).format('YYYY-MM-DD hh:mm:ss');
                 time = moment(time).fromNow();
 
-            return FriendNode({key: i.id, friend: friend, Username: friend.Username, Avatar: friend.Avatar, Playing: friend.Playing, Online: friend.Online, IP: friend.IP, LastSeen: time})
+            return FriendNode({key: i.id, functionCall: component.props.functionCall, friend: friend, Username: friend.Username, Avatar: friend.Avatar, Playing: friend.Playing, Online: friend.Online, IP: friend.IP, LastSeen: time})
+
         });
 
         friendsNodes.reverse();
@@ -2351,7 +2370,7 @@ module.exports = React.createClass({displayName: 'exports',
             "gamesList":      [],
             "platforms":      [],
 
-            "savestates": [{"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/blah.srm"}],
+            "savestates": [{"slot": 1, "time": "1/12/1 1pm", "path": "/root/software/saves/null.srm"}],
 
             "crc32":          null,
 
@@ -2527,7 +2546,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable defaultSelection", 'data-function': "launchGame", 'data-parameters': launchContext}, "Play Game"), 
             " ", 
 
-            React.DOM.a({className: "btn-alt btn-lg navable"}, "Multiplayer"), 
+            React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "viewFriends", 'data-parameters': launchContext}, "Multiplayer"), 
 
             React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "softwareOptions", 'data-parameters': launchContext}, React.DOM.i({className: "ion-gear-a"}))
 
@@ -7161,6 +7180,8 @@ Dialog.prototype = {
     // Display Dialog
     display: function() {
 
+        console.log(this.compProps);
+
         var mount = constructMount();
 
         if (typeof mount === "object") {
@@ -9861,6 +9882,9 @@ Invite.prototype = {
     },
 
     display: function() {
+
+        // Inherit props from "MSG" (which come from Serv)
+
         Dialog            = new Dialog("Dialog");
         Dialog.child      = "Invite";
         Dialog.params     = this;
@@ -10625,15 +10649,19 @@ var events = {
 
     /* View Friends
     -------------------------------------------------- */
-    viewFriends: function() {
+    viewFriends: function(parameters) {
         var dialog            = new Dialog("Dialog");
             dialog.child      = "Friends";
+            dialog.compProps   = parameters;
             dialog.display();
     },
 
     /* View Friends
     -------------------------------------------------- */
     viewFriend: function(parameters) {
+
+        console.log(parameters);
+
         var dialog            = new Dialog("Dialog");
             dialog.child      = "FriendLarge";
             dialog.compProps  = parameters;

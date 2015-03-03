@@ -711,15 +711,19 @@ var events = {
 
     /* View Friends
     -------------------------------------------------- */
-    viewFriends: function() {
+    viewFriends: function(parameters) {
         var dialog            = new Dialog("Dialog");
             dialog.child      = "Friends";
+            dialog.compProps   = parameters;
             dialog.display();
     },
 
     /* View Friends
     -------------------------------------------------- */
     viewFriend: function(parameters) {
+
+        console.log(parameters);
+
         var dialog            = new Dialog("Dialog");
             dialog.child      = "FriendLarge";
             dialog.compProps  = parameters;
