@@ -714,7 +714,6 @@ var events = {
     -------------------------------------------------- */
     viewFriends : function(parameters) {
 
-
         var dialog           = new Dialog("Dialog");
             dialog.child     = "Friends";
 
@@ -723,6 +722,7 @@ var events = {
             }
 
             else {
+
                 dialog.compProps = {Invite: "null"};
             }
 
@@ -752,7 +752,6 @@ var events = {
     -------------------------------------------------- */
     sendInvite: function(parameters) {
 
-        console.log(parameters);
 
         var dialog            = new Dialog("Dialog");
             dialog.child      = "PassInvite";

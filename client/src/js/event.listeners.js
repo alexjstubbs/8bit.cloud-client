@@ -14,6 +14,10 @@ api.on('api', function(_event){
     if (_event.updateGame) {
         events.updateGame(_event.updateGame.games.game);
     }
+
+    // Store
+    localStorage.setItem(Object.keys(_event)[0], JSON.stringify(_event));
+
 });
 
 /* Dialog (react bug workaround)

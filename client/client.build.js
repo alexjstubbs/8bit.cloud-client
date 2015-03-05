@@ -2493,6 +2493,13 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
+        console.log(this.state)
+
+        var inviteContext = {
+                crc32: this.props.crc32
+
+        };
+
         achieved        = 0;
         achievementsLen = 0;
 
@@ -2558,7 +2565,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable defaultSelection", 'data-function': "launchGame", 'data-parameters': launchContext}, "Play Game"), 
             " ", 
 
-            React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "viewFriends", 'data-parameters': launchContext}, "Multiplayer"), 
+            React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "viewFriends", 'data-parameters': inviteContext}, "Multiplayer"), 
 
             React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "softwareOptions", 'data-parameters': launchContext}, React.DOM.i({className: "ion-gear-a"}))
 
@@ -5558,15 +5565,22 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React           = require('react/addons'),
-    navigationInit  = require('../../js/navigation.init'),
-    Avatar          = require('../Avatar.jsx');
+var React          = require('react/addons'),
+    navigationInit = require('../../js/navigation.init'),
+    mixins         = require('../mixins/mixins.jsx'),
+    api            = require('socket.io-client')('/api'),
+    Avatar         = require('../Avatar.jsx'),
+    title;
 
 module.exports = React.createClass({displayName: 'exports',
 
+    mixins: [mixins.listener],
+
     getInitialState: function() {
             return {
-                type: "message"
+                "type"       : "message",
+                "gameInfo"   : {},
+                "updateGame" : {}
             };
     },
 
@@ -5583,16 +5597,22 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
         navigationInit.navigationInit();
+
+        title = localStorage.getItem("gameInfo");
+        title = JSON.parse(title);
+
+        console.log(title);
+
     },
 
     render: function() {
 
-        console.log(this.props);
+        console.log(this.state);
 
         return (
             React.DOM.div({className: "parent"}, 
 
-            React.DOM.div({className: "col-xs-1 square"}, 
+            React.DOM.div({className: "col-xs-1 square purple-bg"}, 
                 React.DOM.h2(null, React.DOM.i({className: "ion-ios-game-controller-b"}))
             ), 
 
@@ -5603,9 +5623,12 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.span({className: "col-xs-12"}, 
 
-                    React.DOM.input({className: "form-control input-lg", 'data-function': "inputFocus", placeholder: "Recipient Username", value: this.props.To, name: "To", type: "text"}), 
+                    React.DOM.input({className: "form-control input-lg col-xs-6 pull-left", 'data-function': "inputFocus", placeholder: "Recipient Username", value: this.props.To, name: "To", type: "text"}), 
 
-                    React.DOM.textarea({'data-function': "inputFocus", name: "Body", className: "textarea-height navable scrollable form-control"}
+                    React.DOM.div({className: "clearfix"}), 
+
+                    React.DOM.textarea({'data-function': "inputFocus", name: "Body", className: "textarea-height navable scrollable form-control"}, 
+                        "Let's Play" 
                     )
 
                 )
@@ -5618,8 +5641,8 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.div({className: "pull-right"}, 
 
-                React.DOM.button({className: "btn btn-alt btn-alt-size navable", 'data-function': "closeDialog"}, " ", React.DOM.i({className: "ion-close red"}), "   Cancel Message"), 
-                React.DOM.button({className: "btn btn-alt btn-alt-size navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, " ", React.DOM.i({className: "ion-person-add green"}), "   Send Message")
+                React.DOM.button({className: "btn btn-alt btn-alt-size navable", 'data-function': "closeDialog"}, " ", React.DOM.i({className: "ion-close red"}), "   Cancel Game Invite"), 
+                React.DOM.button({className: "btn btn-alt btn-alt-size navable default-navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, " ", React.DOM.i({className: "ion-person-add green"}), "   Send Game Invite")
 
             ), 
 
@@ -5633,7 +5656,7 @@ module.exports = React.createClass({displayName: 'exports',
     }
 });
 
-},{"../../js/navigation.init":104,"../Avatar.jsx":6,"react/addons":116}],68:[function(require,module,exports){
+},{"../../js/navigation.init":104,"../Avatar.jsx":6,"../mixins/mixins.jsx":77,"react/addons":116,"socket.io-client":275}],68:[function(require,module,exports){
 /**
 * @jsx React.DOM
 */
@@ -7518,6 +7541,10 @@ api.on('api', function(_event){
     if (_event.updateGame) {
         events.updateGame(_event.updateGame.games.game);
     }
+
+    // Store
+    localStorage.setItem(Object.keys(_event)[0], JSON.stringify(_event));
+
 });
 
 /* Dialog (react bug workaround)
@@ -10758,7 +10785,6 @@ var events = {
     -------------------------------------------------- */
     viewFriends : function(parameters) {
 
-
         var dialog           = new Dialog("Dialog");
             dialog.child     = "Friends";
 
@@ -10767,6 +10793,7 @@ var events = {
             }
 
             else {
+
                 dialog.compProps = {Invite: "null"};
             }
 
@@ -10796,7 +10823,6 @@ var events = {
     -------------------------------------------------- */
     sendInvite: function(parameters) {
 
-        console.log(parameters);
 
         var dialog            = new Dialog("Dialog");
             dialog.child      = "PassInvite";

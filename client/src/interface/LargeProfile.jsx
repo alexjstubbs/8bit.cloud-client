@@ -155,6 +155,13 @@ module.exports = React.createClass({
 
     render: function() {
 
+        console.log(this.state)
+
+        var inviteContext = {
+                crc32: this.props.crc32
+
+        };
+
         achieved        = 0;
         achievementsLen = 0;
 
@@ -220,7 +227,7 @@ module.exports = React.createClass({
             <a id="play-game" className='btn-alt btn-lg navable defaultSelection' data-function="launchGame" data-parameters={launchContext}>Play Game</a>
             &nbsp;
 
-            <a className='btn-alt btn-lg navable' data-function="viewFriends" data-parameters={launchContext}>Multiplayer</a>
+            <a className='btn-alt btn-lg navable' data-function="viewFriends" data-parameters={inviteContext}>Multiplayer</a>
 
             <a className='btn-alt btn-lg navable' data-function='softwareOptions' data-parameters={launchContext}><i className="ion-gear-a"></i></a>
 
