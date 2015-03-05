@@ -9,7 +9,7 @@ var React          = require('react/addons'),
     mixins         = require('../mixins/mixins.jsx'),
     api            = require('socket.io-client')('/api'),
     Avatar         = require('../Avatar.jsx'),
-    title;
+    title, hash;
 
 module.exports = React.createClass({
 
@@ -17,7 +17,7 @@ module.exports = React.createClass({
 
     getInitialState: function() {
             return {
-                "type"       : "message",
+                "type"       : "invite",
                 "gameInfo"   : {},
                 "updateGame" : {}
             };
@@ -37,16 +37,37 @@ module.exports = React.createClass({
     componentDidMount: function() {
         navigationInit.navigationInit();
 
-        title = localStorage.getItem("gameInfo");
-        title = JSON.parse(title);
-
-        console.log(title);
 
     },
 
     render: function() {
 
-        console.log(this.state);
+        title = localStorage.getItem("gameInfo");
+        hash = localStorage.getItem("crc32hash");
+
+
+        if (title) {
+            title = JSON.parse(title);
+            title = title.title;
+        }
+
+        if (hash) {
+            hash = JSON.parse(hash);
+            hash = hash.crc32hash;
+        }
+
+        var platform = document.querySelectorAll(".platform-list .selected")[0].getAttribute("data-parameters");
+
+        var obj = {
+                gameTitle: title,
+                platform : platform,
+                software : "RetroArch",
+                version  : null,
+                md5      : null,
+                crc32    : hash
+        };
+
+        obj = JSON.stringify(obj);
 
         return (
             <div className="parent">
@@ -66,8 +87,7 @@ module.exports = React.createClass({
 
                     <div className="clearfix"></div>
 
-                    <textarea data-function='inputFocus' name="Body" className='textarea-height navable scrollable form-control'>
-                        Let's Play 
+                    <textarea data-function='inputFocus' value={"Let's play " + title} name="Body" className='textarea-height-alt navable scrollable form-control'>
                     </textarea>
 
                 </span>
@@ -81,11 +101,12 @@ module.exports = React.createClass({
             <div className="pull-right">
 
                 <button className="btn btn-alt btn-alt-size navable" data-function='closeDialog'> <i className="ion-close red"></i> &nbsp; Cancel Game Invite</button>
-                <button className="btn btn-alt btn-alt-size navable default-navable" data-function='submitForm' data-parameters={this.props.form}> <i className="ion-person-add green"></i> &nbsp; Send Game Invite</button>
+                <button className="btn btn-alt btn-alt-size navable defaultSelection" data-function='submitForm' data-parameters={this.props.form}> <i className="ion-person-add green"></i> &nbsp; Send Game Invite</button>
 
             </div>
 
             <input type="hidden" name="Type" value={this.state.type} />
+            <input type="hidden" name="Invite" value={obj} />
             <input type="hidden" name="server" value={this.props.server} />
 
             </form>

@@ -88,6 +88,8 @@ function readHex(req, res, callback) {
 -------------------------------------------------- */
 function getCRC32(nsp, filepath, callback) {
 
+    var buffered;
+
     if (filepath) {
 
         fs.readFile(filepath, function(err, data) {
@@ -99,11 +101,15 @@ function getCRC32(nsp, filepath, callback) {
                 if (buffered) {
                     if (data) {
                         if (nsp) nsp.emit('api', {crc32: data});
+                        if (nsp) nsp.emit('api', {crc32hash: buffered});
+
                         if (callback) callback({crc32: data});
                     }
 
                     else {
                         if (nsp) nsp.emit('api', {crc32: "null"});
+                        if (nsp) nsp.emit('api', {crc32hash: buffered});
+
                         if (callback) callback({crc32: "null"});
                     }
                 }});
@@ -111,6 +117,8 @@ function getCRC32(nsp, filepath, callback) {
 
             else {
                 if (nsp) nsp.emit('api', {crc32: "null"});
+                if (nsp) nsp.emit('api', {crc32hash: buffered});
+
                 if (callback) callback({crc32: "null"});
             }
 

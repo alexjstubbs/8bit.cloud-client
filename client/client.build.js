@@ -2493,13 +2493,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        console.log(this.state)
-
-        var inviteContext = {
-                crc32: this.props.crc32
-
-        };
-
         achieved        = 0;
         achievementsLen = 0;
 
@@ -2565,7 +2558,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable defaultSelection", 'data-function': "launchGame", 'data-parameters': launchContext}, "Play Game"), 
             " ", 
 
-            React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "viewFriends", 'data-parameters': inviteContext}, "Multiplayer"), 
+            React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "viewFriends", 'data-parameters': launchContext}, "Multiplayer"), 
 
             React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "softwareOptions", 'data-parameters': launchContext}, React.DOM.i({className: "ion-gear-a"}))
 
@@ -2663,9 +2656,13 @@ var React           = require('react/addons'),
     UserAvatar      = require('./Avatar.jsx'),
     UserStatus      = require('./UserStatus.jsx'),
     helpers         = require('../js/helpers'),
-    moment          = require('moment');
+    mixins          = require('./mixins/mixins.jsx'),
+    moment          = require('moment'),
+    image;
 
 module.exports = React.createClass({displayName: 'exports',
+
+    // mixins: [mixins.listener],
 
     getInitialState: function() {
         return {
@@ -2685,6 +2682,8 @@ module.exports = React.createClass({displayName: 'exports',
 
         // navigationInit.navigationInit();
 
+
+            //// TODO: get invite data from message, parse image URL
     },
 
     getDefaultProps: function() {
@@ -2696,13 +2695,23 @@ module.exports = React.createClass({displayName: 'exports',
             Avatar: React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
             Body: "No Content",
             messageId: null,
-            Type: "Message"
+            Type: "message"
         }
+
     },
- 
+
     render: function() {
 
-        console.log(this.props);
+        console.log(this.props.Invite);
+
+        if (helpers.isJSON(this.props.Invite)) {
+
+            var obj = JSON.parse(this.props.Invite);
+            image = "http://127.0.0.1:1210/games/"+obj.platform+"/"+obj.gameTitle;
+
+            console.log(image);
+
+        };
 
             var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
 
@@ -2727,7 +2736,18 @@ module.exports = React.createClass({displayName: 'exports',
                     ), 
 
                     React.DOM.div({className: "col-xs-5 text-right"}, 
-                        React.DOM.h2(null, React.DOM.i({className: "ion-ios-chatboxes-outline"}), "   Message")
+                        React.DOM.h2(null, 
+                            
+                                this.props.Type == "message" ?
+
+                                React.DOM.span(null, React.DOM.i({className: "ion-ios-chatboxes-outline"}), "   Message")
+
+                            :
+
+                                React.DOM.span(null, React.DOM.i({className: "ion-ios-game-controller-b"}), "   Invite")
+                            
+
+                        )
                     ), 
 
 
@@ -2735,9 +2755,34 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.br(null), 
 
+                    
+
+                        this.props.Type == "message" ?
+
+
+                        React.DOM.div({className: "well-alt coll-xs-12 scrollable"}, 
+                            this.props.Body
+                        )
+
+
+                    :
+
                     React.DOM.div({className: "well-alt coll-xs-12 scrollable"}, 
-                        this.props.Body
+
+                        React.DOM.div({className: "col-xs-10"}, 
+                            this.props.Body
+                        ), 
+
+                        React.DOM.div({className: "col-xs-2"}, 
+                            React.DOM.img({src: image, className: "img-responsive"})
+                        ), 
+
+                        React.DOM.div({className: "clearfix"})
+
                     )
+
+                    
+
                 ), 
 
                 React.DOM.div({className: "clearfix"}), 
@@ -2748,17 +2793,30 @@ module.exports = React.createClass({displayName: 'exports',
                     React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "closeDialog"}, React.DOM.i({className: "ion-close red"}), "   Close Message")
                 ), 
 
+                
+                    this.props.Type == "message" ?
+
                 React.DOM.div({className: "pull-right"}, 
                     React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "deleteMessage", 'data-parameters': this.props._id}, React.DOM.i({className: "ion-trash-a red"}), "   Delete Message"), 
                     React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "passMessage", 'data-parameters': this.props.From}, React.DOM.i({className: "ion-reply green"}), "   Reply")
                 )
+
+                :
+
+                React.DOM.div({className: "pull-right"}, 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "deleteMessage", 'data-parameters': this.props._id}, React.DOM.i({className: "ion-close red"}), "   Decline Invite"), 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "passMessage", 'data-parameters': this.props.From}, React.DOM.i({className: "ion-checkmark green"}), "   Accept")
+                )
+
+                
+
             )
 
         );
     }
 });
 
-},{"../js/helpers":96,"../js/navigation.init":104,"./Avatar.jsx":6,"./NetworkStatus.jsx":35,"./UserStatus.jsx":58,"lodash":114,"moment":115,"react/addons":116}],32:[function(require,module,exports){
+},{"../js/helpers":96,"../js/navigation.init":104,"./Avatar.jsx":6,"./NetworkStatus.jsx":35,"./UserStatus.jsx":58,"./mixins/mixins.jsx":77,"lodash":114,"moment":115,"react/addons":116}],32:[function(require,module,exports){
 /**
  * @jsx React.DOM
  */
@@ -5570,7 +5628,7 @@ var React          = require('react/addons'),
     mixins         = require('../mixins/mixins.jsx'),
     api            = require('socket.io-client')('/api'),
     Avatar         = require('../Avatar.jsx'),
-    title;
+    title, hash;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -5578,7 +5636,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
             return {
-                "type"       : "message",
+                "type"       : "invite",
                 "gameInfo"   : {},
                 "updateGame" : {}
             };
@@ -5598,16 +5656,37 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
         navigationInit.navigationInit();
 
-        title = localStorage.getItem("gameInfo");
-        title = JSON.parse(title);
-
-        console.log(title);
 
     },
 
     render: function() {
 
-        console.log(this.state);
+        title = localStorage.getItem("gameInfo");
+        hash = localStorage.getItem("crc32hash");
+
+
+        if (title) {
+            title = JSON.parse(title);
+            title = title.title;
+        }
+
+        if (hash) {
+            hash = JSON.parse(hash);
+            hash = hash.crc32hash;
+        }
+
+        var platform = document.querySelectorAll(".platform-list .selected")[0].getAttribute("data-parameters");
+
+        var obj = {
+                gameTitle: title,
+                platform : platform,
+                software : "RetroArch",
+                version  : null,
+                md5      : null,
+                crc32    : hash
+        };
+
+        obj = JSON.stringify(obj);
 
         return (
             React.DOM.div({className: "parent"}, 
@@ -5627,8 +5706,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.div({className: "clearfix"}), 
 
-                    React.DOM.textarea({'data-function': "inputFocus", name: "Body", className: "textarea-height navable scrollable form-control"}, 
-                        "Let's Play" 
+                    React.DOM.textarea({'data-function': "inputFocus", value: "Let's play " + title, name: "Body", className: "textarea-height-alt navable scrollable form-control"}
                     )
 
                 )
@@ -5642,11 +5720,12 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "pull-right"}, 
 
                 React.DOM.button({className: "btn btn-alt btn-alt-size navable", 'data-function': "closeDialog"}, " ", React.DOM.i({className: "ion-close red"}), "   Cancel Game Invite"), 
-                React.DOM.button({className: "btn btn-alt btn-alt-size navable default-navable", 'data-function': "submitForm", 'data-parameters': this.props.form}, " ", React.DOM.i({className: "ion-person-add green"}), "   Send Game Invite")
+                React.DOM.button({className: "btn btn-alt btn-alt-size navable defaultSelection", 'data-function': "submitForm", 'data-parameters': this.props.form}, " ", React.DOM.i({className: "ion-person-add green"}), "   Send Game Invite")
 
             ), 
 
             React.DOM.input({type: "hidden", name: "Type", value: this.state.type}), 
+            React.DOM.input({type: "hidden", name: "Invite", value: obj}), 
             React.DOM.input({type: "hidden", name: "server", value: this.props.server})
 
             )
@@ -7542,7 +7621,7 @@ api.on('api', function(_event){
         events.updateGame(_event.updateGame.games.game);
     }
 
-    // Store
+    // Store (move to indexdb if supported by renderer)
     localStorage.setItem(Object.keys(_event)[0], JSON.stringify(_event));
 
 });

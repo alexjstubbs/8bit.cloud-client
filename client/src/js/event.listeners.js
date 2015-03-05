@@ -15,7 +15,7 @@ api.on('api', function(_event){
         events.updateGame(_event.updateGame.games.game);
     }
 
-    // Store
+    // Store (move to indexdb if supported by renderer)
     localStorage.setItem(Object.keys(_event)[0], JSON.stringify(_event));
 
 });

@@ -2,7 +2,7 @@
 -------------------------------------------------- */
 var achievementHelpers = require(__base + 'system/achievements/achievement.helpers'),
     Datastore          = require('nedb'),
-    _                  = require('lodash');
+    db;
 
 /* Init Databases (called on profile creation?)
 -------------------------------------------------- */
