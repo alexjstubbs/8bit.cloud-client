@@ -723,7 +723,6 @@ var events = {
             }
 
             else {
-                console.log("says nulll");
                 dialog.compProps = {Invite: "null"};
             }
 
@@ -751,9 +750,13 @@ var events = {
 
     /* Send Invite(Request)
     -------------------------------------------------- */
-    sendInvite: function() {
-        var dialog       = new Dialog("Dialog");
-            dialog.child = "AddFriend";
+    sendInvite: function(parameters) {
+
+        console.log(parameters);
+
+        var dialog            = new Dialog("Dialog");
+            dialog.child      = "PassInvite";
+            dialog.compProps = {To: JSON.parse(parameters).Username};
 
             dialog.display();
     },

@@ -4,6 +4,7 @@ var api                 = require('socket.io-client')('/api'),
     events              = require('./events'),
     _                   = require('lodash'),
     dialog              = require('./dialogs'),
+    Dialog              = require('./dialogs').Dialog,
     screenEvents        = require('./navigation.event'),
     uiNotification      = require('./ui.notification');
 
@@ -22,8 +23,9 @@ window.addEventListener("dialog", function(e) {
   switch (e.detail.action) {
 
   	case "close":
-  	  	dialog.close();
-  	  	return;
+        var dialog = new Dialog();
+        dialog.close();
+        return;
 
   }
 

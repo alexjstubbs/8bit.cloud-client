@@ -24,6 +24,7 @@ var events              = require('./events.js'),
     SignUpSync          = require('../interface/SignUpSync.jsx'),
     AddFriend           = require('../interface/forms/AddFriend.jsx'),
     PassMessage         = require('../interface/forms/PassMessage.jsx'),
+    PassInvite          = require('../interface/forms/PassInvite.jsx'),
     CommunityInfo       = require('../interface/CommunityInfo.jsx'),
     Settings            = require('../interface/Settings.jsx'),
     navigationInit      = require("./navigation.init.js"),
@@ -74,6 +75,9 @@ var children = function(props) {
         },
         "PassMessage"      : {
             child          : new PassMessage(props)
+        },
+        "PassInvite"      : {
+            child          : new PassInvite(props)
         },
         "Settings"         : {
             child          : new Settings(props)
@@ -161,8 +165,10 @@ Dialog.prototype = {
 
         sessionStorage.removeItem("navigationState");
 
-        var container = document.getElementById("main");
+        var container = document.getElementById("main"),
+            parent    = document.querySelectorAll(".ignition-modal-notification")[0];
             modal     = document.querySelectorAll(".ignition-modal-parent")[0];
+
 
         // Re-render dashboard
         if (modal.length == 1 && container.getAttribute("data-screen") == "Dashboard") {
@@ -170,6 +176,9 @@ Dialog.prototype = {
         }
 
         modal.parentNode.removeChild(modal);
+
+        if (parent) parent.parentNode.removeChild(parent);
+
 
         if (!exception) {
             navigationInit.navigationInit();
