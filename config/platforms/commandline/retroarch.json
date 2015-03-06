@@ -131,6 +131,35 @@
         "required": true,
         "value": null
     },
+    "multiplayer": {
+        "host": {
+            "arg0": {
+                "cmd": "-H"
+            },
+            "arg1": {
+                "cmd": "--nick",
+                "option": "Username"
+            },
+            "arg2": {
+                "cmd": "--port",
+                "option": "Port"
+            }
+        },
+        "connect": {
+            "arg0": {
+                "cmd": "-C",
+                "option": "IP"
+            },
+            "arg1": {
+                "cmd": "--nick",
+                "option": "Username"
+            },
+            "arg2": {
+                "cmd": "--port",
+                "option": "Port"
+            }
+        }
+    },
     "arguements": {
         "-c": {
             "arg": "-c",
