@@ -659,7 +659,6 @@ var events = {
     -------------------------------------------------- */
     acceptInvite: function(parameters) {
 
-        // console.log(parameters);
         api.emit('request', { request: 'acceptInvite', param: parameters});
 
     },

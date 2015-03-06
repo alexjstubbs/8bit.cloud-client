@@ -63,11 +63,14 @@ module.exports = React.createClass({
             invitationObj = {
                 invite    : obj,
                 Username  : this.props.From,
+                IP        : this.props.IP,
                 _id       : this.props._id,
                 Timestamp : this.props.Timestamp
             }
 
         };
+
+        console.log(invitationObj);
 
         var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
 
@@ -161,7 +164,7 @@ module.exports = React.createClass({
 
                 <div className="pull-right">
                     <button className="navable btn btn-alt btn-alt-size" data-function="declineInvite" data-parameters={this.props._id}><i className="ion-close red"></i> &nbsp; Decline Invite</button>
-                    <button className="navable btn btn-alt btn-alt-size" data-function="acceptInvite" data-parameters={JSON.parse(invitationObj)}><i className="ion-checkmark green"></i> &nbsp; Accept</button>
+                    <button className="navable btn btn-alt btn-alt-size" data-function="acceptInvite" data-parameters={JSON.stringify(invitationObj)}><i className="ion-checkmark green"></i> &nbsp; Accept</button>
                 </div>
 
                 }

@@ -2710,11 +2710,14 @@ module.exports = React.createClass({displayName: 'exports',
             invitationObj = {
                 invite    : obj,
                 Username  : this.props.From,
+                IP        : this.props.IP,
                 _id       : this.props._id,
                 Timestamp : this.props.Timestamp
             }
 
         };
+
+        console.log(invitationObj);
 
         var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
 
@@ -2808,7 +2811,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.div({className: "pull-right"}, 
                     React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "declineInvite", 'data-parameters': this.props._id}, React.DOM.i({className: "ion-close red"}), "   Decline Invite"), 
-                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "acceptInvite", 'data-parameters': JSON.parse(invitationObj)}, React.DOM.i({className: "ion-checkmark green"}), "   Accept")
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "acceptInvite", 'data-parameters': JSON.stringify(invitationObj)}, React.DOM.i({className: "ion-checkmark green"}), "   Accept")
                 )
 
                 
@@ -4133,20 +4136,28 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React = require('react/addons');
-
+var React = require('react/addons'),
+    url;
 
 module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
         var ignitionSettings = localStorage.getItem("ignition_settings");
+
+        if (ignitionSettings && ignitionSettings.length > 5) {
             ignitionSettings = JSON.parse(ignitionSettings);
+            url = ignitionSettings.interface.browser_url;
+        }
+
+        else {
+            url = "http://ignition.io";
+        }
 
         return (
             React.DOM.div({className: "dashboard-tools well home_well col-xs-12"}, 
                 React.DOM.ul(null, 
                     React.DOM.li({className: "col-xs-1"}), 
-                    React.DOM.li({className: "col-xs-2 navable navable-row", 'data-function': "launchBrowser", 'data-parameters': ignitionSettings.interface.browser_url}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
+                    React.DOM.li({className: "col-xs-2 navable navable-row", 'data-function': "launchBrowser", 'data-parameters': url}, React.DOM.strong(null, React.DOM.i({className: "ion-earth"})), " Web Browser"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "showTerminal"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-terminal"})), " Terminal"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "settingsShow"}, React.DOM.strong(null, React.DOM.i({className: "ion-gear-a"})), " Settings"), 
                     React.DOM.li({className: "col-xs-2 navable", 'data-function': "logOut"}, React.DOM.strong(null, React.DOM.i({className: "icon fa fa-sign-out"})), " Logout"), 
@@ -10812,7 +10823,6 @@ var events = {
     -------------------------------------------------- */
     acceptInvite: function(parameters) {
 
-        // console.log(parameters);
         api.emit('request', { request: 'acceptInvite', param: parameters});
 
     },

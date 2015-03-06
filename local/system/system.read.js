@@ -1,8 +1,59 @@
 /* Reading filesystem
 -------------------------------------------------- */
 
-var fs   = require('fs-extra')
-,   _    = require('lodash');
+var fs       = require('fs-extra'),
+    _        = require('lodash'),
+    settings = require(__base + 'system/system.settings').settings,
+    crc      = require('crc');
+    var res;
+
+/*  Read directory, find CRC32 match
+-------------------------------------------------- */
+var readDirCRC = function(platform, crc32) {
+    console.log(platform);
+    console.log(crc32);
+
+    var path = settings.get.paths.roms+platform;
+
+
+
+    fs.readdir(path, function(err, results) {
+
+        if (!err) {
+
+            var buffered,
+                filepath;
+
+                _(results).forEach(function(result) {
+
+                filepath = path + "/" + result;
+
+
+                    fs.readFile(filepath, function(err, data) {
+
+                        if (data) {
+
+                            buffered = crc.crc32(data).toString(16);
+
+                            if (buffered == crc32) {
+                                console.log("FOUND", result);
+                                // Launch RA from here with custom multi config. (Join game of IP)
+                            }
+                        }
+                });
+
+
+            }).value();
+
+        }
+
+        else {
+            console.log(err);
+        }
+
+    });
+
+};
 
 /* Read JSON file
 -------------------------------------------------- */
@@ -74,5 +125,6 @@ var findJSONFiles = function(path, callback) {
 
 /* Exports
 -------------------------------------------------- */
+exports.readDirCRC     = readDirCRC;
 exports.readJSONFile   = readJSONFile;
 exports.findJSONFiles  = findJSONFiles;
