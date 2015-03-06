@@ -2658,7 +2658,7 @@ var React           = require('react/addons'),
     helpers         = require('../js/helpers'),
     mixins          = require('./mixins/mixins.jsx'),
     moment          = require('moment'),
-    image;
+    image, invitationObj;
 
 module.exports = React.createClass({displayName: 'exports',
 
@@ -2682,8 +2682,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         // navigationInit.navigationInit();
 
-
-            //// TODO: get invite data from message, parse image URL
     },
 
     getDefaultProps: function() {
@@ -2702,18 +2700,23 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        console.log(this.props.Invite);
+        console.log(this.props);
 
         if (helpers.isJSON(this.props.Invite)) {
 
             var obj = JSON.parse(this.props.Invite);
             image = "http://127.0.0.1:1210/games/"+obj.platform+"/"+obj.gameTitle;
 
-            console.log(image);
+            invitationObj = {
+                invite    : obj,
+                Username  : this.props.From,
+                _id       : this.props._id,
+                Timestamp : this.props.Timestamp
+            }
 
         };
 
-            var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
+        var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
 
         return (
 
@@ -2804,8 +2807,8 @@ module.exports = React.createClass({displayName: 'exports',
                 :
 
                 React.DOM.div({className: "pull-right"}, 
-                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "deleteMessage", 'data-parameters': this.props._id}, React.DOM.i({className: "ion-close red"}), "   Decline Invite"), 
-                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "passMessage", 'data-parameters': this.props.From}, React.DOM.i({className: "ion-checkmark green"}), "   Accept")
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "declineInvite", 'data-parameters': this.props._id}, React.DOM.i({className: "ion-close red"}), "   Decline Invite"), 
+                    React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "acceptInvite", 'data-parameters': JSON.parse(invitationObj)}, React.DOM.i({className: "ion-checkmark green"}), "   Accept")
                 )
 
                 
@@ -10803,6 +10806,15 @@ var events = {
     -------------------------------------------------- */
     highlightPanel: function() {
         KeyEvent(40);
+    },
+
+    /*  Accept an Invite
+    -------------------------------------------------- */
+    acceptInvite: function(parameters) {
+
+        // console.log(parameters);
+        api.emit('request', { request: 'acceptInvite', param: parameters});
+
     },
 
     /*  Delete Message Prompt

@@ -11,7 +11,7 @@ var React           = require('react/addons'),
     helpers         = require('../js/helpers'),
     mixins          = require('./mixins/mixins.jsx'),
     moment          = require('moment'),
-    image;
+    image, invitationObj;
 
 module.exports = React.createClass({
 
@@ -35,8 +35,6 @@ module.exports = React.createClass({
 
         // navigationInit.navigationInit();
 
-
-            //// TODO: get invite data from message, parse image URL
     },
 
     getDefaultProps: function() {
@@ -55,18 +53,23 @@ module.exports = React.createClass({
 
     render: function() {
 
-        console.log(this.props.Invite);
+        console.log(this.props);
 
         if (helpers.isJSON(this.props.Invite)) {
 
             var obj = JSON.parse(this.props.Invite);
             image = "http://127.0.0.1:1210/games/"+obj.platform+"/"+obj.gameTitle;
 
-            console.log(image);
+            invitationObj = {
+                invite    : obj,
+                Username  : this.props.From,
+                _id       : this.props._id,
+                Timestamp : this.props.Timestamp
+            }
 
         };
 
-            var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
+        var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
 
         return (
 
@@ -157,8 +160,8 @@ module.exports = React.createClass({
                 :
 
                 <div className="pull-right">
-                    <button className="navable btn btn-alt btn-alt-size" data-function="deleteMessage" data-parameters={this.props._id}><i className="ion-close red"></i> &nbsp; Decline Invite</button>
-                    <button className="navable btn btn-alt btn-alt-size" data-function="passMessage" data-parameters={this.props.From}><i className="ion-checkmark green"></i> &nbsp; Accept</button>
+                    <button className="navable btn btn-alt btn-alt-size" data-function="declineInvite" data-parameters={this.props._id}><i className="ion-close red"></i> &nbsp; Decline Invite</button>
+                    <button className="navable btn btn-alt btn-alt-size" data-function="acceptInvite" data-parameters={JSON.parse(invitationObj)}><i className="ion-checkmark green"></i> &nbsp; Accept</button>
                 </div>
 
                 }

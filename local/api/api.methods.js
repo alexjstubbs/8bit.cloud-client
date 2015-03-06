@@ -3,6 +3,10 @@
 
 var api = {
 
+    acceptInvite: function(nsp, param){
+         common.invite.acceptInvite(nsp, param);
+    },
+
     execute: function(nsp, param){
          common.process.execute(nsp, param);
     },

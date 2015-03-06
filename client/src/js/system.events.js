@@ -655,6 +655,15 @@ var events = {
         KeyEvent(40);
     },
 
+    /*  Accept an Invite
+    -------------------------------------------------- */
+    acceptInvite: function(parameters) {
+
+        // console.log(parameters);
+        api.emit('request', { request: 'acceptInvite', param: parameters});
+
+    },
+
     /*  Delete Message Prompt
     -------------------------------------------------- */
     deleteMessage: function(parameters) {
