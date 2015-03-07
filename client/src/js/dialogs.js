@@ -147,14 +147,15 @@ Dialog.prototype = {
     showTopMostDialog: function() {
         var modals = document.querySelectorAll(".ignition-modal-parent");
 
-        _(modals).forEach(function(element) {
-            element.style.display = "none";
-        }).value();
+        if (modals) {
 
-        _.first(modals).style.display = "inline";
+            _(modals).forEach(function(element) {
+                element.style.display = "none";
+            }).value();
 
-        console.log(modals);
-        console.log(_.last(modals));
+            _.first(modals).style.display = "inline";
+
+        }
 
     },
     // Display Dialog
