@@ -40,13 +40,13 @@ module.exports = React.createClass({
     getDefaultProps: function() {
 
         return {
-            navable: true,
-            navStack: 2,
-            From: null,
-            Avatar: <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
-            Body: "No Content",
-            messageId: null,
-            Type: "message"
+            navable   : true,
+            navStack  : 2,
+            From      : null,
+            Avatar    : <div className="col-xs-3 pull-left square dark-gray"><i className='ion-person'></i></div>,
+            Body      : "No Content",
+            messageId : null,
+            Type      : "message"
         }
 
     },

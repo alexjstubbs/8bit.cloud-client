@@ -2687,13 +2687,13 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
 
         return {
-            navable: true,
-            navStack: 2,
-            From: null,
-            Avatar: React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
-            Body: "No Content",
-            messageId: null,
-            Type: "message"
+            navable   : true,
+            navStack  : 2,
+            From      : null,
+            Avatar    : React.DOM.div({className: "col-xs-3 pull-left square dark-gray"}, React.DOM.i({className: "ion-person"})),
+            Body      : "No Content",
+            messageId : null,
+            Type      : "message"
         }
 
     },
@@ -7391,6 +7391,19 @@ function Dialog(type, child, compProps, classList) {
 
 Dialog.prototype = {
 
+    showTopMostDialog: function() {
+        var modals = document.querySelectorAll(".ignition-modal-parent");
+
+        _(modals).forEach(function(element) {
+            element.style.display = "none";
+        }).value();
+
+        _.first(modals).style.display = "inline";
+
+        console.log(modals);
+        console.log(_.last(modals));
+
+    },
     // Display Dialog
     display: function() {
 
@@ -7399,6 +7412,8 @@ Dialog.prototype = {
         if (typeof mount === "object") {
             sessionStorage.setItem("navigationState", "pause");
             React.renderComponent(new Modal({}, children(this.compProps)[this.child]), mount);
+
+            this.showTopMostDialog();
         }
 
         else {
@@ -7434,6 +7449,8 @@ Dialog.prototype = {
         if (callback || typeof callback === "function") {
             callback();
         }
+
+        this.showTopMostDialog();
 
     },
 
