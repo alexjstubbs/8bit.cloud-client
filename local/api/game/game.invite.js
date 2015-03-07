@@ -1,7 +1,8 @@
 /* Invite System
 -------------------------------------------------- */
 var server  = require(__base + 'api/server/server.api'),
-    sysRead = require(__base + 'system/system.read');
+    sysRead = require(__base + 'system/system.read'),
+    game    = require(__base + 'api/game/game.helpers');
 
 /* Accept Invite
 -------------------------------------------------- */
@@ -11,12 +12,17 @@ var acceptInvite = function(nsp, json) {
 
     sysRead.readDirCRC(payload.invite.platform, payload.invite.crc32, function(err, result) {
 
-        if (!err) {
-            console.log(result);
+        if (!err && result) {
+            console.log("result", result);
+            game.multiplayerPrep(nsp, json);
+        }
+
+        else if (err) {
+            nsp.emit('messaging', {type: 0, body: err });
         }
 
         else {
-            console.log(err);
+            nsp.emit('messaging', {type: 0, body: "No compatable ROMs found on your system. Please check version and checksum. CRC32 checksum needed for ROM: " + payload.invite.crc32 });
         }
 
     });

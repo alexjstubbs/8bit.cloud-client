@@ -8,6 +8,7 @@ var spawn               = require('child_process').spawn,
     execute             = require(__base + 'system/system.exec'),
     readJSON            = require(__base + 'system/system.read').readJSONFile,
     settings            = require(__base + 'system/system.settings').settings,
+    helpers             = require(__base + 'system/system.helpers'),
     achievements        = require(__base + 'system/achievements/achievement.loop');
 
 /* Check for valid JSON return
@@ -115,6 +116,24 @@ function getCommandlineConfig(nsp, payload, callback) {
             });
 
         });
+    }
+
+}
+
+/*  Set up Multiplayer Launch
+-------------------------------------------------- */
+function multiplayerPrep(nsp, payload) {
+
+    if (helpers.isJSON(payload)) {
+
+        payload = JSON.parse(payload);
+
+        console.log("payload", payload);
+
+    }
+
+    else {
+        nsp.emit('messaging', {type: 0, body: "Invite contained malformed data." });
     }
 
 }
@@ -378,8 +397,9 @@ function gameProfileSmall(nsp, game) {
 
 /* Exports
 -------------------------------------------------- */
-exports.apicall                         = apicall;
-exports.gameLaunch                      = gameLaunch;
-exports.gameProfileSmall                = gameProfileSmall;
-exports.getCommandlineConfig            = getCommandlineConfig;
-exports.getSpecificCommandLineConfig    = getSpecificCommandLineConfig;
+exports.apicall                      = apicall;
+exports.multiplayerPrep              = multiplayerPrep;
+exports.gameLaunch                   = gameLaunch;
+exports.gameProfileSmall             = gameProfileSmall;
+exports.getCommandlineConfig         = getCommandlineConfig;
+exports.getSpecificCommandLineConfig = getSpecificCommandLineConfig;

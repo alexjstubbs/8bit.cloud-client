@@ -9,13 +9,11 @@ var fs       = require('fs-extra'),
 
 /*  Read directory, find CRC32 match
 -------------------------------------------------- */
-var readDirCRC = function(platform, crc32) {
-    console.log(platform);
-    console.log(crc32);
+var readDirCRC = function(platform, crc32, callback) {
+    // console.log(platform);
+    // console.log(crc32);
 
     var path = settings.get.paths.roms+platform;
-
-
 
     fs.readdir(path, function(err, results) {
 
@@ -28,27 +26,45 @@ var readDirCRC = function(platform, crc32) {
 
                 filepath = path + "/" + result;
 
-
                     fs.readFile(filepath, function(err, data) {
 
-                        if (data) {
+                        if (!err) {
 
-                            buffered = crc.crc32(data).toString(16);
+                            if (data) {
 
-                            if (buffered == crc32) {
-                                console.log("FOUND", result);
-                                // Launch RA from here with custom multi config. (Join game of IP)
+                                buffered = crc.crc32(data).toString(16);
+
+                                if (buffered == crc32) {
+                                    if (callback && typeof callback === "function") {
+                                        callback(null, result);
+                                    }
+                                }
+                            }
+
+                            else {
+                                if (callback && typeof callback === "function") {
+                                    callback(null, null);
+                                }
+                            }
+                        }
+
+                        else {
+                            if (err.code != "EISDIR") {
+                                if (callback && typeof callback === "function") {
+                                    callback(err, null);
+                                }
                             }
                         }
                 });
-
 
             }).value();
 
         }
 
         else {
-            console.log(err);
+            if (callback && typeof callback === "function") {
+                callback(err, null);
+            }
         }
 
     });

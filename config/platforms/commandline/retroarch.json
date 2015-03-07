@@ -143,6 +143,10 @@
             "arg2": {
                 "cmd": "--port",
                 "option": "Port"
+            },
+            "arg3": {
+                "cmd": "--frames",
+                "option": "Frames"
             }
         },
         "connect": {
@@ -157,6 +161,10 @@
             "arg2": {
                 "cmd": "--port",
                 "option": "Port"
+            },
+            "arg3": {
+                "cmd": "--frames",
+                "option": "Frames"
             }
         }
     },
