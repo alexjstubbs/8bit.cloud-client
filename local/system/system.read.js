@@ -41,7 +41,7 @@ var readDirCRC = function(platform, crc32, callback) {
 
                                 if (buffered == crc32) {
                                     if (callback && typeof callback === "function") {
-                                        callback(null, result);
+                                        callback(null, path+"/"+result);
                                         match++;
                                     }
                                 }

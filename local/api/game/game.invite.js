@@ -14,7 +14,7 @@ var acceptInvite = function(nsp, json) {
 
         if (!err && result) {
             console.log("result", result);
-            game.multiplayerPrep(nsp, json);
+            game.multiplayerPrep(nsp, json, result);
         }
 
         else if (err) {
@@ -27,12 +27,6 @@ var acceptInvite = function(nsp, json) {
 
 
     });
-
-    // payload.invite.platform
-    // payload.invite.crc32
-
-    // "gameTitle":"Advanced Dungeons & Dragons - Heroes of the Lance","platform":"nes","software":"RetroArch","version":null,"md5":null,"crc32":"e880d426"}" client.build.js:10810:8
-
 
 };
 

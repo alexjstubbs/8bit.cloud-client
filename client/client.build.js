@@ -11107,7 +11107,7 @@ var events = {
                 navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
 
 
-                // Emit to Launc Game
+                // Emit to Launch Game
                 api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
             }
 

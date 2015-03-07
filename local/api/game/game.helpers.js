@@ -122,14 +122,37 @@ function getCommandlineConfig(nsp, payload, callback) {
 
 /*  Set up Multiplayer Launch
 -------------------------------------------------- */
-function multiplayerPrep(nsp, payload) {
+function multiplayerPrep(nsp, payload, result) {
 
     if (helpers.isJSON(payload)) {
 
         payload = JSON.parse(payload);
 
         console.log("payload", payload);
+        console.log("result", result);
 
+        // { invite:
+        //    { gameTitle: '0 Super Mario Bros.',
+        //      platform: 'nes',
+        //      software: 'RetroArch',
+        //      version: null,
+        //      md5: null,
+        //      crc32: '3448e736' },
+        //   Username: 'alex22',
+        //   IP: '162.204.117.255',
+        //   _id: '54f92529a1d8ea647ac2f407',
+        //   Timestamp: '2015-03-06T03:55:21.375Z' }
+
+
+        // Payload:
+        //     { platform: 'Nintendo',
+        //   filepath: '/Users/alexstubbs/roms/nes/0 Super Mario Bros..zip',
+        //   shortname: 'nes',
+        //   title: '' }
+
+        var options = {
+
+        };
 
     }
 
@@ -141,7 +164,7 @@ function multiplayerPrep(nsp, payload) {
 
 /* Launch Game/Emulator
 -------------------------------------------------- */
-function gameLaunch(nsp, payload) {
+function gameLaunch(nsp, payload, options) {
 
     var bufferSize,
         stateSize,
