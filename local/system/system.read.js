@@ -20,13 +20,18 @@ var readDirCRC = function(platform, crc32, callback) {
         if (!err) {
 
             var buffered,
-                filepath;
+                filepath,
+                i = 0,
+                match = 0;
+
 
                 _(results).forEach(function(result) {
 
                 filepath = path + "/" + result;
 
-                    fs.readFile(filepath, function(err, data) {
+                fs.readFile(filepath, function(err, data) {
+
+                    i++;
 
                         if (!err) {
 
@@ -37,8 +42,15 @@ var readDirCRC = function(platform, crc32, callback) {
                                 if (buffered == crc32) {
                                     if (callback && typeof callback === "function") {
                                         callback(null, result);
+                                        match++;
                                     }
                                 }
+
+                                else {
+
+                                }
+
+                                // console.log(match);
                             }
 
                             else {
@@ -55,11 +67,26 @@ var readDirCRC = function(platform, crc32, callback) {
                                 }
                             }
                         }
+
+
+                    // Check if match
+                    if (i == results.length) {
+
+                        if (match === 0) {
+                            if (callback && typeof callback === "function") {
+                                callback(null, null);
+                            }
+                        }
+
+                    }
                 });
+
 
             }).value();
 
+
         }
+
 
         else {
             if (callback && typeof callback === "function") {
@@ -67,7 +94,11 @@ var readDirCRC = function(platform, crc32, callback) {
             }
         }
 
+
+
     });
+
+
 
 };
 

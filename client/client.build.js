@@ -2700,8 +2700,6 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        console.log(this.props);
-
         if (helpers.isJSON(this.props.Invite)) {
 
             var obj = JSON.parse(this.props.Invite);
@@ -2716,8 +2714,6 @@ module.exports = React.createClass({displayName: 'exports',
             }
 
         };
-
-        console.log(invitationObj);
 
         var _moment  = moment(this.props.Timestamp, "YYYYMMDDhhmms").fromNow();
 

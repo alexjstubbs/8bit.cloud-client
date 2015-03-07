@@ -21,9 +21,10 @@ var acceptInvite = function(nsp, json) {
             nsp.emit('messaging', {type: 0, body: err });
         }
 
-        else {
+        else if (!err && !result) {
             nsp.emit('messaging', {type: 0, body: "No compatable ROMs found on your system. Please check version and checksum. CRC32 checksum needed for ROM: " + payload.invite.crc32 });
         }
+
 
     });
 
