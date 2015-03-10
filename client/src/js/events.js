@@ -157,6 +157,7 @@ var launchContext = function(context) {
     if (event) {
         document.dispatchEvent(event);
     }
+
 };
 
 

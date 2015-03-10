@@ -5,7 +5,6 @@ var fs       = require('fs-extra'),
     _        = require('lodash'),
     settings = require(__base + 'system/system.settings').settings,
     crc      = require('crc');
-    var res;
 
 /*  Read directory, find CRC32 match
 -------------------------------------------------- */
@@ -23,7 +22,6 @@ var readDirCRC = function(platform, crc32, callback) {
                 filepath,
                 i = 0,
                 match = 0;
-
 
                 _(results).forEach(function(result) {
 

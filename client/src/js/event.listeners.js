@@ -20,6 +20,16 @@ api.on('api', function(_event){
 
 });
 
+
+
+/* Launch Context
+-------------------------------------------------- */
+document.addEventListener("launchContext", function(e) {
+
+    localStorage.setItem("launchContext", JSON.stringify(e.detail));
+
+}, false);
+
 /* Dialog (react bug workaround)
 -------------------------------------------------- */
 window.addEventListener("dialog", function(e) {

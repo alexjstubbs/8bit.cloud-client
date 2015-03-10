@@ -4803,14 +4803,15 @@ module.exports = React.createClass({displayName: 'exports',
 
 'use strict';
 
-var React               = require('react/addons'),
-    _                   = require('lodash'),
-    Avatar              = require('./Avatar.jsx'),
-    api                 = require('socket.io-client')('/api'),
-    mixins              = require('./mixins/mixins.jsx'),
-    NetworkStatus       = require('./NetworkStatus.jsx'),
-    navigationInit      = require('../js/navigation.init'),
-    Timer               = require('./Timer.jsx');
+var React          = require('react/addons'),
+    _              = require('lodash'),
+    Avatar         = require('./Avatar.jsx'),
+    api            = require('socket.io-client')('/api'),
+    mixins         = require('./mixins/mixins.jsx'),
+    NetworkStatus  = require('./NetworkStatus.jsx'),
+    navigationInit = require('../js/navigation.init'),
+    Timer          = require('./Timer.jsx'),
+    launchContext  = {};
 
 /* Components
 -------------------------------------------------- */
@@ -4826,9 +4827,12 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
         navigationInit.navigationInit();
+
     },
 
     render: function() {
+
+        launchContext = localStorage.getItem("launchContext");
 
         return (
 
@@ -4844,7 +4848,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.small(null, 
 
-                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"}, React.DOM.i({className: "ion-ios-game-controller-b"}), "   Invite Friend"), 
+                    React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "viewFriends", 'data-parameters': launchContext}, React.DOM.i({className: "ion-ios-game-controller-b"}), "   Invite Friend"), 
                         React.DOM.br(null), React.DOM.br(null), 
                     React.DOM.a({className: "btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row", 'data-function': "viewMessages"}, React.DOM.i({className: "ion-chatbubbles"}), "   Messages"), 
                         React.DOM.br(null), React.DOM.br(null), 
@@ -7401,6 +7405,7 @@ Dialog.prototype = {
         }
 
     },
+
     // Display Dialog
     display: function() {
 
@@ -7654,6 +7659,16 @@ api.on('api', function(_event){
 
 });
 
+
+
+/* Launch Context
+-------------------------------------------------- */
+document.addEventListener("launchContext", function(e) {
+
+    localStorage.setItem("launchContext", JSON.stringify(e.detail));
+
+}, false);
+
 /* Dialog (react bug workaround)
 -------------------------------------------------- */
 window.addEventListener("dialog", function(e) {
@@ -7883,6 +7898,7 @@ var launchContext = function(context) {
     if (event) {
         document.dispatchEvent(event);
     }
+
 };
 
 

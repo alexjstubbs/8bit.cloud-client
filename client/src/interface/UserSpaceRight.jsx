@@ -4,14 +4,15 @@
 
 'use strict';
 
-var React               = require('react/addons'),
-    _                   = require('lodash'),
-    Avatar              = require('./Avatar.jsx'),
-    api                 = require('socket.io-client')('/api'),
-    mixins              = require('./mixins/mixins.jsx'),
-    NetworkStatus       = require('./NetworkStatus.jsx'),
-    navigationInit      = require('../js/navigation.init'),
-    Timer               = require('./Timer.jsx');
+var React          = require('react/addons'),
+    _              = require('lodash'),
+    Avatar         = require('./Avatar.jsx'),
+    api            = require('socket.io-client')('/api'),
+    mixins         = require('./mixins/mixins.jsx'),
+    NetworkStatus  = require('./NetworkStatus.jsx'),
+    navigationInit = require('../js/navigation.init'),
+    Timer          = require('./Timer.jsx'),
+    launchContext  = {};
 
 /* Components
 -------------------------------------------------- */
@@ -27,9 +28,12 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
         navigationInit.navigationInit();
+
     },
 
     render: function() {
+
+        launchContext = localStorage.getItem("launchContext");
 
         return (
 
@@ -45,7 +49,7 @@ module.exports = React.createClass({
 
                     <small>
 
-                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row"><i className="ion-ios-game-controller-b"></i> &nbsp; Invite Friend</a>
+                    <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="viewFriends" data-parameters={launchContext}><i className="ion-ios-game-controller-b"></i> &nbsp; Invite Friend</a>
                         <br /><br />
                     <a className="btn btn-alt btn-block btn-left-align btn-alt btn-sm navable navable-row" data-function="viewMessages"><i className="ion-chatbubbles"></i> &nbsp; Messages</a>
                         <br /><br />

@@ -132,7 +132,7 @@ function multiplayerPrep(nsp, payload, result) {
         console.log("result", result);
 
         // { invite:
-        //    { gameTitle: '0 Super Mario Bros.',
+        //    { gameTitle: '0 SMB.',
         //      platform: 'nes',
         //      software: 'RetroArch',
         //      version: null,
@@ -146,7 +146,7 @@ function multiplayerPrep(nsp, payload, result) {
 
         // Payload:
         //     { platform: 'Nintendo',
-        //   filepath: '/Users/alexstubbs/roms/nes/0 Super Mario Bros..zip',
+        //   filepath: '/Users/alexstubbs/roms/nes/0 SMB..zip',
         //   shortname: 'nes',
         //   title: '' }
 
@@ -164,7 +164,7 @@ function multiplayerPrep(nsp, payload, result) {
 
 /* Launch Game/Emulator
 -------------------------------------------------- */
-function gameLaunch(nsp, payload, options) {
+function gameLaunch(nsp, payload, config) {
 
     var bufferSize,
         stateSize,
@@ -172,6 +172,8 @@ function gameLaunch(nsp, payload, options) {
         offset,
         timing,
         asupport = false;
+
+    // if (!config) {
 
     getCommandlineConfig(null, payload, function(err, results) {
 
@@ -197,11 +199,11 @@ function gameLaunch(nsp, payload, options) {
 
                     if (results.cores[core].achievements) {
 
-                        asupport        = true;
-                        offset          = results.cores[core].achievements.offset;
-                        timing          = results.cores[core].achievements.default_timing;
-                        bufferSize      = results.cores[core].achievements.buffer_length;
-                        stateSize       = results.cores[core].achievements.state_size;
+                        asupport   = true;
+                        offset     = results.cores[core].achievements.offset;
+                        timing     = results.cores[core].achievements.default_timing;
+                        bufferSize = results.cores[core].achievements.buffer_length;
+                        stateSize  = results.cores[core].achievements.state_size;
                     }
 
                 }
@@ -212,11 +214,11 @@ function gameLaunch(nsp, payload, options) {
                     var achievement_list = _.pluck(_.where(commandline, { 'path': commandline[ind] }), 'achievements');
 
                     if (achievement_list) {
-                        asupport    = true;
-                        offset      = achievement_list.offset;
-                        bufferSize  = achievement_list.buffer_length;
-                        stateSize   = achievement_list.state_size;
-                        timing      = achievement_list.default_timing;
+                        asupport   = true;
+                        offset     = achievement_list.offset;
+                        bufferSize = achievement_list.buffer_length;
+                        stateSize  = achievement_list.state_size;
+                        timing     = achievement_list.default_timing;
                     }
                 }
 
@@ -229,16 +231,20 @@ function gameLaunch(nsp, payload, options) {
                 if (asupport && !timing) timing = 1;
                 if (asupport && !atype)  atype = "UDP";
 
-                execute('killall qmlscene | renice +20 -p $(pidof qtbrowser)', function(err, stderr, stdout) {});
+                execute('killall qmlscene | renice +20 -p $(pidof qtbrowser)', function() {});
 
                 var _child = spawn(results.expath, commandline.concat(payload.filepath));
+
+                // '-c',
+                // '/opt/configs/all/retroarch.cfg',
+                // '-L',
+                // '/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so',
+                // '/Users/alexstubbs/roms/nes/0 Super Mario Bros..zip' ]
 
                 var processObj = {
                     name: results.package,
                     pid: _child.pid
                 };
-
-                console.log(processObj);
 
                 nsp.emit('processStorage', { processStorage: processObj });
 
@@ -271,7 +277,7 @@ function gameLaunch(nsp, payload, options) {
                 });
 
 
-            });
+            }); // End of Launch Func/Obj
 
         }
 

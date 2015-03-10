@@ -13,7 +13,6 @@ var acceptInvite = function(nsp, json) {
     sysRead.readDirCRC(payload.invite.platform, payload.invite.crc32, function(err, result) {
 
         if (!err && result) {
-            console.log("result", result);
             game.multiplayerPrep(nsp, json, result);
         }
 
@@ -24,7 +23,6 @@ var acceptInvite = function(nsp, json) {
         else if (!err && !result) {
             nsp.emit('messaging', {type: 0, body: "No compatable ROMs found on your system. Please check version and checksum. CRC32 checksum needed for ROM: " + payload.invite.crc32 });
         }
-
 
     });
 

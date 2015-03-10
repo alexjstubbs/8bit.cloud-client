@@ -158,6 +158,7 @@ Dialog.prototype = {
         }
 
     },
+
     // Display Dialog
     display: function() {
 
