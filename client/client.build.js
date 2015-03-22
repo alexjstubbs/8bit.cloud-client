@@ -10160,15 +10160,16 @@ function Prompt(message, agree, disagree, params) {
     this.agree    = agree;
     this.disagree = disagree;
     this.params   = params;
+
 }
 
 Prompt.prototype = {
     display: function() {
-        Dialog           = new Dialog("Prompt");
-        Dialog.child     = "Prompt";
-        Dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+    var dialog           = new Dialog("Prompt");
+        dialog.child     = "Prompt";
+        dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
 
-        Dialog.display();
+        dialog.display();
     }
 };
 
