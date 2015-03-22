@@ -1,6 +1,7 @@
 /* Ignition Server Messaging Methods
 -------------------------------------------------- */
 // var io = require('socket.io-client')('/api');
+var server = require(__base + 'api/server/server.api');
 
 var methods = {
 
@@ -20,8 +21,9 @@ var methods = {
         __api.emit('clientEvent', {command: "confirmShow", params: object.result.message });
     },
 
-    new_message: function(object){
+    new_message: function(object, nsp){
         console.log(object);
+        server.getMessages(nsp);
     }
 
 };

@@ -52,7 +52,6 @@ module.exports = function() {
 
         ignitionSettings = JSON.parse(ignitionSettings);
 
-
         setTimeout(function() {
             eventDispatcher.switchScreen(ignitionSettings.interface.screen);
         }, 500);

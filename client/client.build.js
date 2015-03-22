@@ -8661,7 +8661,6 @@ module.exports = function() {
 
         ignitionSettings = JSON.parse(ignitionSettings);
 
-
         setTimeout(function() {
             eventDispatcher.switchScreen(ignitionSettings.interface.screen);
         }, 500);
@@ -10884,9 +10883,8 @@ var events = {
         api.emit('request', { request: 'deleteMessage', param: parameters });
         api.emit('request', { request: 'messages', param: null });
 
-        Dialog.close();
-        Dialog.close();
-
+        var dialog = new Dialog();
+        dialog.close();
     },
 
     /* View Messages event

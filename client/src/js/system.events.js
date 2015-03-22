@@ -682,9 +682,8 @@ var events = {
         api.emit('request', { request: 'deleteMessage', param: parameters });
         api.emit('request', { request: 'messages', param: null });
 
-        Dialog.close();
-        Dialog.close();
-
+        var dialog = new Dialog();
+        dialog.close();
     },
 
     /* View Messages event

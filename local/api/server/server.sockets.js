@@ -123,7 +123,7 @@ var networkConnection = function(token, ansp, callback) {
         if (data.result) {
 
             try {
-                networkMethod[data.result.id](data);
+                networkMethod[data.result.id](data, sock);
             } catch (e) {
                 return false;
             }
