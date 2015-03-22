@@ -54,11 +54,11 @@ Invite.prototype = {
 
         // Inherit props from "MSG" (which come from Serv)
 
-        Dialog        = new Dialog("Dialog");
-        Dialog.child  = "Invite";
-        Dialog.params = this;
+    var dialog        = new Dialog("Dialog");
+        dialog.child  = "Invite";
+        dialog.params = this;
 
-        Dialog.display();
+        dialog.display();
     }
 };
 
@@ -93,11 +93,11 @@ function Achievement(message, agree, disagree, params) {
 
 Achievement.prototype = {
     display: function() {
-        Dialog           = new Dialog();
-        Dialog.child     = "AchievementUnlocked";
-        Dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+    var dialog           = new Dialog();
+        dialog.child     = "AchievementUnlocked";
+        dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
 
-        Dialog.display();
+        dialog.display();
     }
 };
 

@@ -562,7 +562,9 @@ var events = {
     closeDialogDisableMouse: function() {
 
         document.body.classList.remove("mouse");
-        dialog.close();
+
+        var dialog = new Dialog();
+            dialog.close();
 
     },
 
@@ -661,6 +663,12 @@ var events = {
 
         api.emit('request', { request: 'acceptInvite', param: parameters});
 
+    },
+
+    /*  Decline an Invite
+    -------------------------------------------------- */
+    declineInvite: function(parameters) {
+        events.deleteMessageConfirmed(parameters);
     },
 
     /*  Delete Message Prompt

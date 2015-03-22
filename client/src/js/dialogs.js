@@ -153,7 +153,11 @@ Dialog.prototype = {
                 element.style.display = "none";
             }).value();
 
-            _.first(modals).style.display = "inline";
+            try {
+                _.first(modals).style.display = "inline";
+            } catch (e) {
+                return false;
+            }
 
         }
 

@@ -20,13 +20,20 @@ module.exports = React.createClass({
 
         navigationInit.navigationInit();
 
-        
+
         // document.getElementsByTagName("iframe")[0].focus();
     },
 
 
 
     render: function() {
+
+        var _domain = this.props.url.split("/");
+
+        // Illegal on some renderers
+        // TODO: use other method
+
+        document.domain = _domain[2].replace("www.","");
 
         return (
             <div className="parent">
@@ -42,6 +49,7 @@ module.exports = React.createClass({
             <div className="clearfix"></div>
 
             <iframe id={this.props.id} src={this.props.url} className="navable browser-frame" data-function="browserFocus" data-parameters={this.props.id}></iframe>
+
 
             <hr />
 

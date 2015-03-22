@@ -4979,13 +4979,20 @@ module.exports = React.createClass({displayName: 'exports',
 
         navigationInit.navigationInit();
 
-        
+
         // document.getElementsByTagName("iframe")[0].focus();
     },
 
 
 
     render: function() {
+
+        var _domain = this.props.url.split("/");
+
+        // Illegal on some renderers
+        // TODO: use other method
+
+        document.domain = _domain[2].replace("www.","");
 
         return (
             React.DOM.div({className: "parent"}, 
@@ -5001,6 +5008,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "clearfix"}), 
 
             React.DOM.iframe({id: this.props.id, src: this.props.url, className: "navable browser-frame", 'data-function': "browserFocus", 'data-parameters': this.props.id}), 
+
 
             React.DOM.hr(null), 
 
@@ -7400,7 +7408,11 @@ Dialog.prototype = {
                 element.style.display = "none";
             }).value();
 
-            _.first(modals).style.display = "inline";
+            try {
+                _.first(modals).style.display = "inline";
+            } catch (e) {
+                return false;
+            }
 
         }
 
@@ -8105,7 +8117,7 @@ var gamepadSupport = {
             if (!gamepadSupportAvailable) {
                 // It doesn’t seem Gamepad API is available – show a message telling
                 // the visitor about it.
-                tester.showNotSupported();
+                // tester.showNotSupported();
             } else {
                 // Firefox supports the connect/disconnect event, so we attach event
                 // handlers to those.
@@ -10145,11 +10157,11 @@ Invite.prototype = {
 
         // Inherit props from "MSG" (which come from Serv)
 
-        Dialog        = new Dialog("Dialog");
-        Dialog.child  = "Invite";
-        Dialog.params = this;
+    var dialog        = new Dialog("Dialog");
+        dialog.child  = "Invite";
+        dialog.params = this;
 
-        Dialog.display();
+        dialog.display();
     }
 };
 
@@ -10184,11 +10196,11 @@ function Achievement(message, agree, disagree, params) {
 
 Achievement.prototype = {
     display: function() {
-        Dialog           = new Dialog();
-        Dialog.child     = "AchievementUnlocked";
-        Dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
+    var dialog           = new Dialog();
+        dialog.child     = "AchievementUnlocked";
+        dialog.compProps = {message: this.message, agree: this.agree, disagree: this.disagree, parameters: this.params};
 
-        Dialog.display();
+        dialog.display();
     }
 };
 
@@ -10764,7 +10776,9 @@ var events = {
     closeDialogDisableMouse: function() {
 
         document.body.classList.remove("mouse");
-        dialog.close();
+
+        var dialog = new Dialog();
+            dialog.close();
 
     },
 
@@ -10863,6 +10877,12 @@ var events = {
 
         api.emit('request', { request: 'acceptInvite', param: parameters});
 
+    },
+
+    /*  Decline an Invite
+    -------------------------------------------------- */
+    declineInvite: function(parameters) {
+        events.deleteMessageConfirmed(parameters);
     },
 
     /*  Delete Message Prompt
