@@ -51,6 +51,8 @@ module.exports = function() {
     if (ignitionSettings && ignitionSettings.length > 5) {
 
         ignitionSettings = JSON.parse(ignitionSettings);
+
+
         setTimeout(function() {
             eventDispatcher.switchScreen(ignitionSettings.interface.screen);
         }, 500);
@@ -62,6 +64,12 @@ module.exports = function() {
 
         }
 
+    }
+
+    else {
+        setTimeout(function() {
+            eventDispatcher.switchScreen("Dashboard");
+        }, 500);
     }
 
 };

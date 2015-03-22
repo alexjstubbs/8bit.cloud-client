@@ -1200,12 +1200,20 @@ var events = {
 
     },
 
+    /*  Reboot the OS
+    -------------------------------------------------- */
     rebootOS: function(parameters) {
         parameters = "reboot";
         api.emit('request', { request: 'execute', param: parameters });
 
-    }
+    },
 
+    /*  Force Networks Up (try again)
+    -------------------------------------------------- */
+    forceUp: function(parameters) {
+        parameters = 'ifup -f eth0';
+        api.emit('request', { request: 'execute', param: parameters });
+    }
 
 };
 

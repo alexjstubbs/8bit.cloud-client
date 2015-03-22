@@ -5,7 +5,7 @@
 'use strict';
 
 var React           = require('react/addons'),
-    api             = require('socket.io-client')('/api'),   
+    api             = require('socket.io-client')('/api'),
     WizardHeader    = require('./WizardHeader.jsx');
 
 module.exports = React.createClass({
@@ -72,6 +72,7 @@ module.exports = React.createClass({
 				<br />
 
 				<button id="network-skip" data-function="changeView" data-parameters="WifiConfiguration" className="hidden navable btn pull-left btn-lg btn-alt">Continue Offline &nbsp; <i className="ion-ios-arrow-forward"></i></button>
+				<button id="network-ifup" data-function="forceUp" className="hidden navable btn pull-left btn-lg btn-alt">Try Again &nbsp; <i className="ion-loop"></i></button>
 				<button id="network-next" data-function={status.functionCall} data-parameters={status.functionParameters} className="hidden navable btn pull-right btn-lg btn-alt defaultSelection">{status.button} &nbsp; <i className="ion-ios-arrow-forward"></i></button>
 
 			</div>

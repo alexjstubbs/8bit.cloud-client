@@ -3096,21 +3096,21 @@ module.exports = React.createClass({displayName: 'exports',
 'use strict';
 
 var React = require('react/addons'),
-    api = require('socket.io-client')('/api');
+    api   = require('socket.io-client')('/api');
 
 module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
-            ip: '127.0.0.1',
-            isOnline: false
+            ip       : '127.0.0.1',
+            isOnline : false
         };
     },
 
     componentDidMount: function () {
 
-        var _this = this;
-        var user = this.props.username;
+        var _this = this,
+        user      = this.props.username;
 
         api.emit('request', { request: 'isOnline', param: null});
         api.emit('request', { request: 'ipInfo', param: null});
@@ -3125,19 +3125,18 @@ module.exports = React.createClass({displayName: 'exports',
             padding: '2px 10px'
         };
 
-
         var cx = React.addons.classSet;
         var classes = cx({
-            'ion-ios-circle-outline': true,
-            'purple': true,
-            'green': this.state.isOnline
+            'ion-ios-circle-outline' : true,
+            'purple'                 : true,
+            'green'                  : this.state.isOnline
         });
 
         return (
             React.DOM.span(null, 
                 React.DOM.span({className: "muted well-alt online", 'data-location': this.state.ip, style: inlineStyle}, React.DOM.strong(null, React.DOM.i({className: classes})), " ", this.state.isOnline ? "Online" : "Offline")
             )
-            )
+        )
     }
 });
 
@@ -6674,7 +6673,7 @@ module.exports = React.createClass({displayName: 'exports',
 'use strict';
 
 var React           = require('react/addons'),
-    api             = require('socket.io-client')('/api'),   
+    api             = require('socket.io-client')('/api'),
     WizardHeader    = require('./WizardHeader.jsx');
 
 module.exports = React.createClass({displayName: 'exports',
@@ -6741,6 +6740,7 @@ module.exports = React.createClass({displayName: 'exports',
 				React.DOM.br(null), 
 
 				React.DOM.button({id: "network-skip", 'data-function': "changeView", 'data-parameters': "WifiConfiguration", className: "hidden navable btn pull-left btn-lg btn-alt"}, "Continue Offline   ", React.DOM.i({className: "ion-ios-arrow-forward"})), 
+				React.DOM.button({id: "network-ifup", 'data-function': "forceUp", className: "hidden navable btn pull-left btn-lg btn-alt"}, "Try Again   ", React.DOM.i({className: "ion-loop"})), 
 				React.DOM.button({id: "network-next", 'data-function': status.functionCall, 'data-parameters': status.functionParameters, className: "hidden navable btn pull-right btn-lg btn-alt defaultSelection"}, status.button, "   ", React.DOM.i({className: "ion-ios-arrow-forward"}))
 
 			)
@@ -8660,6 +8660,8 @@ module.exports = function() {
     if (ignitionSettings && ignitionSettings.length > 5) {
 
         ignitionSettings = JSON.parse(ignitionSettings);
+
+
         setTimeout(function() {
             eventDispatcher.switchScreen(ignitionSettings.interface.screen);
         }, 500);
@@ -8671,6 +8673,12 @@ module.exports = function() {
 
         }
 
+    }
+
+    else {
+        setTimeout(function() {
+            eventDispatcher.switchScreen("Dashboard");
+        }, 500);
     }
 
 };
@@ -11394,12 +11402,20 @@ var events = {
 
     },
 
+    /*  Reboot the OS
+    -------------------------------------------------- */
     rebootOS: function(parameters) {
         parameters = "reboot";
         api.emit('request', { request: 'execute', param: parameters });
 
-    }
+    },
 
+    /*  Force Networks Up (try again)
+    -------------------------------------------------- */
+    forceUp: function(parameters) {
+        parameters = 'ifup -f eth0';
+        api.emit('request', { request: 'execute', param: parameters });
+    }
 
 };
 
