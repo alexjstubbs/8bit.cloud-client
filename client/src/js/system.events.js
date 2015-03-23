@@ -665,6 +665,10 @@ var events = {
 
     },
 
+    loadSave: function(parameters) {
+            console.log("parm", parameters);
+    },
+
     /*  Decline an Invite
     -------------------------------------------------- */
     declineInvite: function(parameters) {
@@ -901,6 +905,8 @@ var events = {
     /* Launch selected game
     -------------------------------------------------- */
     launchGame: function(parameters) {
+
+        console.log(parameters);
 
         if (helpers.isJSON(parameters)) {
 

@@ -3,6 +3,7 @@
 var spawn               = require('child_process').spawn,
     fs                  = require('fs-extra'),
     _                   = require('lodash'),
+    path                = require('path'),
     database            = require(__base + 'api/database/database.local'),
     listPlatforms       = require(__base + 'api/api.platforms').listPlatforms,
     execute             = require(__base + 'system/system.exec'),
@@ -20,6 +21,39 @@ function isJson(data) {
         return false;
     }
     return true;
+}
+
+/*  List Save States
+-------------------------------------------------- */
+function listSaveStates(nsp, filepath) {
+
+    var root = path.basename(filepath, path.extname(filepath));
+
+    // console.log(root);
+    // console.log(settings.get.paths.saves);
+    var results = [];
+    fs.readdir(settings.get.paths.saves, function(err, resultsObj) {
+
+        if (err) { console.log(err); }
+
+        // console.log(resultsObj);
+
+        _(resultsObj).forEach(function(filename, i) {
+             if (filename.indexOf(root+".state") > -1) {
+                 results.push(filename);
+
+                //  fs.stat(settings.get.paths.saves+"/"+resultsObj[i], function(err, stats) {
+                //     console.log(stats.mtime);
+                //  });
+             }
+        }).value();
+
+        if (results) {
+            results = results.slice(0,3);
+            nsp.emit('api', { saveStates: results });
+        }
+
+    });
 }
 
 /* Check For Sequels
@@ -427,6 +461,7 @@ function gameProfileSmall(nsp, game) {
 
 /* Exports
 -------------------------------------------------- */
+exports.listSaveStates               = listSaveStates;
 exports.apicall                      = apicall;
 exports.multiplayerPrep              = multiplayerPrep;
 exports.gameLaunch                   = gameLaunch;

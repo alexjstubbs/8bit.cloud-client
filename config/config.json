@@ -1,7 +1,7 @@
 {
   "paths": {
     "roms": "/Users/alexstubbs/roms/",
-    "saves": "/root/saves/",
+    "saves": "/Users/alexstubbs/roms/saves/",
     "covers": "/opt/ignition/databases/images/"
   },
   "interface": {
@@ -9,7 +9,7 @@
     "theme": "moon",
     "zoom": "1",
     "font": "Roboto",
-    "browser_url": "http://polygon.com"
+    "browser_url": "http://ignition.io"
   },
   "gamepad": {
     "doubleTap": "true",
@@ -50,7 +50,7 @@
   "calibration": {
     "darkest": "#010101",
     "darker": "#171717",
-    "dark": "#333333" 
+    "dark": "#333333"
   },
   "about": {
     "version": "0.0.15-a1 (pre-alpha)",

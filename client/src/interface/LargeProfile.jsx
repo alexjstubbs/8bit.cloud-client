@@ -16,7 +16,8 @@ var React               = require('react/addons'),
     mixins              = require('./mixins/mixins.jsx'),
     achieved            = 0,
     achievementsLen     = 0,
-    launchContext       = {};
+    launchContext       = {},
+    _path;
 
 module.exports = React.createClass({
 
@@ -158,8 +159,17 @@ module.exports = React.createClass({
         achieved        = 0;
         achievementsLen = 0;
 
+        // api.emit('request', { request: 'listSaveStates', param: this.props.Username});
+
+        try {
+            _path = JSON.parse(launchContext).filepath;
+        
+        }
+        catch (e) {}
+
+
         var saveNodes = this.state.savestates.map(function (state, i) {
-            return <SaveStates filename={state.filename} image={state.image} slot={state.slot} navStack={i+1} />
+            return <SaveStates filename={_path} image={state.image} slot={state.slot} navStack={i+1} />
         });
 
         // if (this.state.crc32 && this.state.crc32 != "null") {

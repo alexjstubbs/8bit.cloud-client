@@ -11,6 +11,10 @@ var api = {
          common.process.execute(nsp, param);
     },
 
+    listSaveStates: function(nsp, param) {
+        common.game.listSaveStates(nsp, param);
+    },
+
     kill: function(nsp, param){
          common.process.kill(nsp, param);
     },
