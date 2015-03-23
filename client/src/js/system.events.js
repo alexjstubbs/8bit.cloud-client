@@ -692,6 +692,16 @@ var events = {
 
         var dialog = new Dialog();
         dialog.close();
+
+        // var readItems = [];
+        //
+        // var readMessages = localStorage.getItem("read_messages");
+        //
+        // readItems.push(parameters);
+        //
+        // localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
+        //
+        // console.log(localStorage.getItem("read_messages"));
     },
 
     /* View Messages event

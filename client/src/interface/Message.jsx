@@ -26,11 +26,10 @@ module.exports = React.createClass({
     componentDidMount: function() {
 
             var readItems = [];
+            readItems.push(localStorage.getItem("read_messages"));
+            readItems.push(this.props._id);
 
-            // readItems.push(localStorage.getItem("read_messages"));
-            // readItems.push(JSON.parse(this.props._id));
-            //
-            // localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
+            localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
 
 
         // navigationInit.navigationInit();

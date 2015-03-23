@@ -18,7 +18,7 @@ module.exports = React.createClass({
             myMessages: [],
             newMessages: false,
             messageCount: 0,
-            shortcutKey: "F9",
+            shortcutKey: <span>&circ;M</span>,
             functionCall: "viewMessages",
             classString: "col-xs-3 pull-left square dark-gray",
             id: "inbox",
@@ -27,16 +27,19 @@ module.exports = React.createClass({
     },
     render: function() {
 
-        newMessages = this.props.myMessages.length;
+        var newMessages  = this.props.myMessages.length,
+            readMessages = localStorage.getItem("read_messages"),
+            unread       = false;
 
-        if (this.props.unread > 0) {
+        if (this.props.unread > 0 && this.props.unread > readMessages.split(",").length) {
+            unread = true;
             icon = "ion-email-unread ";
         }
 
         var cx = React.addons.classSet;
         var classes = cx({
             'gray': true,
-            'red': this.props.unread
+            'red': unread
         });
 
         return (
@@ -45,7 +48,7 @@ module.exports = React.createClass({
                 <i className={icon + classes}></i>
             </div>
             <div className="hello col-xs-7 pad_h_5">
-                <h4 className="nopadding">{this.props.unread ? this.props.unread + " New messages" : "Messages"}</h4>
+                <h4 className="nopadding">{unread ? this.props.unread + " New messages" : "Messages"}</h4>
                 <span className="muted">Press {this.props.shortcutKey} to read</span>
             </div>
         </div>

@@ -1722,7 +1722,7 @@ module.exports = React.createClass({displayName: 'exports',
             navStack: 1,
             icon: "ion-person-stalker ",
             friendsOnline: 0,
-            shortcutKey: "F5",
+            shortcutKey: React.DOM.span(null, "ˆF"),
             functionCall: "viewFriends",
             classString: 'col-xs-3 pull-left square dark-gray',
             id: "friendsBox"
@@ -2149,7 +2149,7 @@ module.exports = React.createClass({displayName: 'exports',
             myMessages: [],
             newMessages: false,
             messageCount: 0,
-            shortcutKey: "F9",
+            shortcutKey: React.DOM.span(null, "ˆM"),
             functionCall: "viewMessages",
             classString: "col-xs-3 pull-left square dark-gray",
             id: "inbox",
@@ -2158,16 +2158,19 @@ module.exports = React.createClass({displayName: 'exports',
     },
     render: function() {
 
-        newMessages = this.props.myMessages.length;
+        var newMessages  = this.props.myMessages.length,
+            readMessages = localStorage.getItem("read_messages"),
+            unread       = false;
 
-        if (this.props.unread > 0) {
+        if (this.props.unread > 0 && this.props.unread > readMessages.split(",").length) {
+            unread = true;
             icon = "ion-email-unread ";
         }
 
         var cx = React.addons.classSet;
         var classes = cx({
             'gray': true,
-            'red': this.props.unread
+            'red': unread
         });
 
         return (
@@ -2176,7 +2179,7 @@ module.exports = React.createClass({displayName: 'exports',
                 React.DOM.i({className: icon + classes})
             ), 
             React.DOM.div({className: "hello col-xs-7 pad_h_5"}, 
-                React.DOM.h4({className: "nopadding"}, this.props.unread ? this.props.unread + " New messages" : "Messages"), 
+                React.DOM.h4({className: "nopadding"}, unread ? this.props.unread + " New messages" : "Messages"), 
                 React.DOM.span({className: "muted"}, "Press ", this.props.shortcutKey, " to read")
             )
         )
@@ -2673,11 +2676,10 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
 
             var readItems = [];
+            readItems.push(localStorage.getItem("read_messages"));
+            readItems.push(this.props._id);
 
-            // readItems.push(localStorage.getItem("read_messages"));
-            // readItems.push(JSON.parse(this.props._id));
-            //
-            // localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
+            localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
 
 
         // navigationInit.navigationInit();
@@ -8742,7 +8744,24 @@ module.exports = function(init) {
 
         var pauseNavigation = sessionStorage.getItem("navigationState");
 
+        // Shortcuts
+        Mousetrap.bind('ctrl+m', function(e) {
+            pauseNavigation = sessionStorage.getItem("navigationState");
 
+            if (pauseNavigation != "pauseAll") {
+                sysEvents.events.viewMessages();
+            }
+        });
+
+        Mousetrap.bind('ctrl+f', function(e) {
+            pauseNavigation = sessionStorage.getItem("navigationState");
+
+            if (pauseNavigation != "pauseAll") {
+                sysEvents.events.viewFriends();
+            }
+        });
+
+        // Bindings
         Mousetrap.bind('tab', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 
@@ -10906,6 +10925,16 @@ var events = {
 
         var dialog = new Dialog();
         dialog.close();
+
+        // var readItems = [];
+        //
+        // var readMessages = localStorage.getItem("read_messages");
+        //
+        // readItems.push(parameters);
+        //
+        // localStorage.setItem("read_messages", _.compact(_.uniq(readItems)));
+        //
+        // console.log(localStorage.getItem("read_messages"));
     },
 
     /* View Messages event

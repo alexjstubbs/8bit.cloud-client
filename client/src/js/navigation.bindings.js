@@ -34,7 +34,24 @@ module.exports = function(init) {
 
         var pauseNavigation = sessionStorage.getItem("navigationState");
 
+        // Shortcuts
+        Mousetrap.bind('ctrl+m', function(e) {
+            pauseNavigation = sessionStorage.getItem("navigationState");
 
+            if (pauseNavigation != "pauseAll") {
+                sysEvents.events.viewMessages();
+            }
+        });
+
+        Mousetrap.bind('ctrl+f', function(e) {
+            pauseNavigation = sessionStorage.getItem("navigationState");
+
+            if (pauseNavigation != "pauseAll") {
+                sysEvents.events.viewFriends();
+            }
+        });
+
+        // Bindings
         Mousetrap.bind('tab', function(e) {
             pauseNavigation = sessionStorage.getItem("navigationState");
 

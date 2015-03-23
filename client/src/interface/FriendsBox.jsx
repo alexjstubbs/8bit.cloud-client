@@ -24,7 +24,7 @@ module.exports = React.createClass({
             navStack: 1,
             icon: "ion-person-stalker ",
             friendsOnline: 0,
-            shortcutKey: "F5",
+            shortcutKey: <span>&circ;F</span>,
             functionCall: "viewFriends",
             classString: 'col-xs-3 pull-left square dark-gray',
             id: "friendsBox"
