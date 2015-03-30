@@ -11016,9 +11016,10 @@ var events = {
     /* Send Message
     -------------------------------------------------- */
     passMessage: function(parameters) {
+
         var dialog           = new Dialog("Dialog");
             dialog.child     = "PassMessage";
-            dialog.compProps = parameters;
+            dialog.compProps = {To: parameters };
 
             dialog.display();
     },
