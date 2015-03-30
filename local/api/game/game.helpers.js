@@ -23,9 +23,15 @@ function isJson(data) {
     return true;
 }
 
+
+
 /*  List Save States
 -------------------------------------------------- */
-function listSaveStates(nsp, filepath) {
+var listSaveStates = _.debounce(_listSaveStates, 1000);
+
+function _listSaveStates(nsp, filepath) {
+
+    console.log("called");
 
     var root = path.basename(filepath, path.extname(filepath));
 
