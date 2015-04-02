@@ -163,7 +163,7 @@ module.exports = React.createClass({
 
         try {
             _path = JSON.parse(launchContext).filepath;
-        
+
         }
         catch (e) {}
 
@@ -205,7 +205,7 @@ module.exports = React.createClass({
 
                <li className="hidden"><button className='btn btn-purple'><i className='fa fa-video-camera '></i> &nbsp; Live Stream</button></li>
 
-               <li><button id="toggle-favorite" className='btn-block btn red-bg noround navable' data-selection={this.state.title} data-function={this.state.favorite ? "removeFavorite" : "addFavorite"} data-parameters={launchContext}><i className={this.state.favorite ? "ion-heart-broken" : "ion-heart"}></i> &nbsp; {this.state.favorite ? "Remove" : "Add"} as a favorite</button></li>
+               <li><button id="toggle-favorite" className='btn-block btn red-bg noround navable' data-selection={this.state.title} data-function={this.state.favorite ? "removeFavorite" : "addFavorite"} data-parameters={launchContext}><i className={this.state.favorite ? "ion-heart-broken" : "ion-heart"}></i> &nbsp; {this.state.favorite ? "Remove" : "Add"} favorite</button></li>
                <br />
                <li><button id="toggle-favorite" className='btn-block btn purple-bg noround navable' data-selection={this.state.title} data-function="speedRunLaunch" data-parameters={launchContext}><i className="ion-ios-stopwatch"></i> &nbsp; Speed Run</button></li>
 

@@ -2504,7 +2504,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         try {
             _path = JSON.parse(launchContext).filepath;
-        
+
         }
         catch (e) {}
 
@@ -2546,7 +2546,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                React.DOM.li({className: "hidden"}, React.DOM.button({className: "btn btn-purple"}, React.DOM.i({className: "fa fa-video-camera "}), "   Live Stream")), 
 
-               React.DOM.li(null, React.DOM.button({id: "toggle-favorite", className: "btn-block btn red-bg noround navable", 'data-selection': this.state.title, 'data-function': this.state.favorite ? "removeFavorite" : "addFavorite", 'data-parameters': launchContext}, React.DOM.i({className: this.state.favorite ? "ion-heart-broken" : "ion-heart"}), "   ", this.state.favorite ? "Remove" : "Add", " as a favorite")), 
+               React.DOM.li(null, React.DOM.button({id: "toggle-favorite", className: "btn-block btn red-bg noround navable", 'data-selection': this.state.title, 'data-function': this.state.favorite ? "removeFavorite" : "addFavorite", 'data-parameters': launchContext}, React.DOM.i({className: this.state.favorite ? "ion-heart-broken" : "ion-heart"}), "   ", this.state.favorite ? "Remove" : "Add", " favorite")), 
                React.DOM.br(null), 
                React.DOM.li(null, React.DOM.button({id: "toggle-favorite", className: "btn-block btn purple-bg noround navable", 'data-selection': this.state.title, 'data-function': "speedRunLaunch", 'data-parameters': launchContext}, React.DOM.i({className: "ion-ios-stopwatch"}), "   Speed Run"))
 
