@@ -43,7 +43,9 @@ module.exports = React.createClass({
             if (data.friends) {
                 _this.setState(data);
 
-                onlineFriends = _.compact(_.flatten(data.friends, 'Online')).length;
+                var _friends  = _.compact(_.flatten(data.friends, 'Online'));
+                var _online   = _.remove(_friends, function(obj) { return obj.Online; });
+                onlineFriends = _online.length
 
                 _this.forceUpdate();
             }

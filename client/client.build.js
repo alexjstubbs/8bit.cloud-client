@@ -1541,6 +1541,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
         return {
+            shortcutkey: React.DOM.span(null, "ˆi")
         };
     },
 
@@ -1563,7 +1564,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.div({className: "col-xs-9 achievement-title-container"}, 
 
                 React.DOM.h3(null, this.props.friend.object.Username, " is online!"), 
-                React.DOM.span({className: "modal-achievement-desc"}, "F9 to invite to a game")
+                React.DOM.span({className: "modal-achievement-desc"}, this.props.shortcutkey, " to invite to a game")
             )
 
         )
@@ -1741,7 +1742,9 @@ module.exports = React.createClass({displayName: 'exports',
             if (data.friends) {
                 _this.setState(data);
 
-                onlineFriends = _.compact(_.flatten(data.friends, 'Online')).length;
+                var _friends  = _.compact(_.flatten(data.friends, 'Online'));
+                var _online   = _.remove(_friends, function(obj) { return obj.Online; });
+                onlineFriends = _online.length
 
                 _this.forceUpdate();
             }

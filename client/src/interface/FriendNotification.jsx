@@ -12,6 +12,7 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
         return {
+            shortcutkey: <span>&circ;i</span>
         };
     },
 
@@ -34,7 +35,7 @@ module.exports = React.createClass({
             <div className="col-xs-9 achievement-title-container">
 
                 <h3>{this.props.friend.object.Username} is online!</h3>
-                <span className="modal-achievement-desc">F9 to invite to a game</span>
+                <span className="modal-achievement-desc">{this.props.shortcutkey} to invite to a game</span>
             </div>
 
         </div>
