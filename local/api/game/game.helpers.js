@@ -265,59 +265,69 @@ function gameLaunch(nsp, payload, config) {
             }
 
             // Launch Emulator
-            achievements.dumpRetroRamInit(payload.filepath, function(listedAchievements) {
+            if (payload.filepath) {
+                console.log(payload);
+                achievements.dumpRetroRamInit(payload.filepath, function(listedAchievements) {
 
-                if (!isJson) asupport = false;
-                if (asupport && !timing) timing = 1;
-                if (asupport && !atype)  atype = "UDP";
+                    if (!isJson) asupport = false;
+                    if (asupport && !timing) timing = 1;
+                    if (asupport && !atype)  atype = "UDP";
 
-                execute('killall qmlscene | renice +20 -p $(pidof qtbrowser)', function() {});
+                    execute('killall qmlscene | renice +20 -p $(pidof qtbrowser)', function() {});
 
-                var _child = spawn(results.expath, commandline.concat(payload.filepath));
+                    var _child = spawn(results.expath, commandline.concat(payload.filepath));
 
-                // '-c',
-                // '/opt/configs/all/retroarch.cfg',
-                // '-L',
-                // '/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so',
-                // '/Users/alexstubbs/roms/nes/0 Super Mario Bros..zip' ]
+                    // '-c',
+                    // '/opt/configs/all/retroarch.cfg',
+                    // '-L',
+                    // '/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so',
+                    // '/Users/alexstubbs/roms/nes/0 Super Mario Bros..zip' ]
 
-                var processObj = {
-                    name: results.package,
-                    pid: _child.pid
-                };
+                    var processObj = {
+                        name: results.package,
+                        pid: _child.pid
+                    };
 
-                nsp.emit('processStorage', { processStorage: processObj });
+                    nsp.emit('processStorage', { processStorage: processObj });
 
-                // Start Achievement Loop
-                if (asupport && settings.get.gameplay.run_achievements == "true") { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing); }, 10000); }
+                    // Start Achievement Loop
+                    if (asupport && settings.get.gameplay.run_achievements == "true") { setTimeout(function() { achievements.achievementTimer(nsp, atype, timing); }, 10000); }
 
-                // TODO: On exit, crash, return to ignition
+                    // TODO: On exit, crash, return to ignition
 
-                _child.stdout.on('data', function(data) {
-                    console.log('(stdout) : ' + data);
-                });
+                    _child.stdout.on('data', function(data) {
+                        console.log('(stdout) : ' + data);
+                    });
 
 
-                _child.stderr.on('data', function(data) {
+                    _child.stderr.on('data', function(data) {
 
-                    if (data.length >= stateSize) {
+                        if (data.length >= stateSize) {
 
-                        if (asupport && listedAchievements) {
-                            achievements.achievementCheck(nsp, listedAchievements[0], data, offset, bufferSize, function() {});
+                            if (asupport && listedAchievements) {
+                                achievements.achievementCheck(nsp, listedAchievements[0], data, offset, bufferSize, function() {});
+                            }
+
+                            else {
+                                // console.log('(stderr) : ' + data);
+                            }
                         }
 
                         else {
                             // console.log('(stderr) : ' + data);
                         }
-                    }
-
-                    else {
-                        // console.log('(stderr) : ' + data);
-                    }
-                });
+                    });
 
 
-            }); // End of Launch Func/Obj
+                }); // End of Launch Func/Obj
+        }
+
+        else {
+            nsp.emit('clientEvent', {command: "resumeClient", params: null });
+            var err = "Filepath to ROM is empty or not found";
+            nsp.emit('messaging', {type: 0, body: err });
+
+        }
 
         }
 

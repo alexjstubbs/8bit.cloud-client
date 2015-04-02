@@ -11292,6 +11292,7 @@ var events = {
         _doc.style.display = "block";
 
         // Close User Space
+        var dialog = new Dialog("Dialog");
         dialog.closeAll(function() {
 
             // Get Process Object
