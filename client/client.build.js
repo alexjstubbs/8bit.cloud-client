@@ -534,6 +534,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
     screenTransition: function(e) {
+
         if (e.detail.screen === "Browser") {
             this.setProps(e.detail);
             document.getElementById("main").setAttribute("data-screen", "browser");
@@ -556,6 +557,7 @@ module.exports = React.createClass({displayName: 'exports',
         var short = document.querySelectorAll(".platform.selected"),
         selectedNav = document.querySelectorAll(".selectedNav")[0];
 
+
         if (short.length > 1) {
             selectedNav.classList.remove("selectedNav");
             _.first(short).classList.remove("selected");
@@ -566,6 +568,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
         return {
+            screen: "Browser",
           hidden: true,
             parent: false,
             params: "",
@@ -4774,7 +4777,9 @@ module.exports = React.createClass({displayName: 'exports',
     getDefaultProps: function() {
         return {
 
-            id: "userspace"
+            id: "userspace",
+            achievementtotals: 0,
+            achieved: 0
 
         };
     },
@@ -4817,7 +4822,7 @@ module.exports = React.createClass({displayName: 'exports',
                         ), 
 
                         React.DOM.div({className: "col-xs-9 user-space-count"}, 
-                            "3/21"
+                            this.props.achieved, "/", this.props.achievementtotals
                         ), 
 
                         React.DOM.div({className: "clearfix"}), 

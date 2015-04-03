@@ -27,6 +27,7 @@ module.exports = React.createClass({
 
 
     screenTransition: function(e) {
+
         if (e.detail.screen === "Browser") {
             this.setProps(e.detail);
             document.getElementById("main").setAttribute("data-screen", "browser");
@@ -49,6 +50,7 @@ module.exports = React.createClass({
         var short = document.querySelectorAll(".platform.selected"),
         selectedNav = document.querySelectorAll(".selectedNav")[0];
 
+
         if (short.length > 1) {
             selectedNav.classList.remove("selectedNav");
             _.first(short).classList.remove("selected");
@@ -59,6 +61,7 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
         return {
+            screen: "Browser",
           hidden: true,
             parent: false,
             params: "",

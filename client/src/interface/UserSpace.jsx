@@ -33,7 +33,9 @@ module.exports = React.createClass({
     getDefaultProps: function() {
         return {
 
-            id: "userspace"
+            id: "userspace",
+            achievementtotals: 0,
+            achieved: 0
 
         };
     },
@@ -76,7 +78,7 @@ module.exports = React.createClass({
                         </div>
 
                         <div className="col-xs-9 user-space-count">
-                            3/21
+                            {this.props.achieved}/{this.props.achievementtotals}
                         </div>
 
                         <div className="clearfix"></div>

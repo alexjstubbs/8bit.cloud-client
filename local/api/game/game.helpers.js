@@ -266,7 +266,9 @@ function gameLaunch(nsp, payload, config) {
 
             // Launch Emulator
             if (payload.filepath) {
+
                 console.log(payload);
+
                 achievements.dumpRetroRamInit(payload.filepath, function(listedAchievements) {
 
                     if (!isJson) asupport = false;
