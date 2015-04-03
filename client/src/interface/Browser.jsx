@@ -61,7 +61,7 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
         return {
-            screen: "Browser",
+          screen: "Browser",
           hidden: true,
             parent: false,
             params: "",

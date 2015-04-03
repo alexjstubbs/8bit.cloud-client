@@ -568,7 +568,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
         return {
-            screen: "Browser",
+          screen: "Browser",
           hidden: true,
             parent: false,
             params: "",
@@ -4614,14 +4614,41 @@ module.exports = React.createClass({displayName: 'exports',
 
 var React  = require('react/addons');
 
+
+
+
 module.exports = React.createClass({displayName: 'exports',
 
+
     getInitialState: function() {
-        return {secondsElapsed: 0};
+        return {
+            _secondsElapsed: 0,
+            secondsElapsed: 0
+            };
     },
 
     tick: function() {
-        this.setState({secondsElapsed: this.state.secondsElapsed + 1});
+
+        // This is a quick hack, please forgive me
+        // TODO: Port the timer to singular module for use in saving, charting. Share <module /> here
+
+        String.prototype.toHHMMSS = function () {
+            var sec_num = parseInt(this, 10); // don't forget the second param
+            var hours   = Math.floor(sec_num / 3600);
+            var minutes = Math.floor((sec_num - (hours * 3600)) / 60);
+            var seconds = sec_num - (hours * 3600) - (minutes * 60);
+
+            if (hours   < 10) {hours   = "0"+hours;}
+            if (minutes < 10) {minutes = "0"+minutes;}
+            if (seconds < 10) {seconds = "0"+seconds;}
+            var time    = hours+':'+minutes+':'+seconds;
+            return time;
+        };
+        
+        var toStr = this.state._secondsElapsed.toString();
+
+        this.setState({_secondsElapsed: this.state._secondsElapsed + 1 });
+        this.setState({secondsElapsed: toStr.toHHMMSS() });
     },
 
     componentDidMount: function() {
@@ -4634,7 +4661,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
         return (
-            React.DOM.div(null, "Seconds Elapsed: ", this.state.secondsElapsed)
+            React.DOM.div(null, this.state.secondsElapsed)
         );
     }
 
@@ -4764,6 +4791,7 @@ module.exports = React.createClass({displayName: 'exports',
 
     getInitialState: function() {
         return {
+            timer: false,
             session: {
                 Username: "Guest"
             }
@@ -4771,6 +4799,9 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentDidMount: function() {
+        var _timer = localStorage.getItem("timed");
+        this.setState({timer: _timer});
+
         api.emit('request', { request: 'getSession'} );
     },
 
@@ -4797,9 +4828,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.div({className: "clearfix"}), 
 
-
                     React.DOM.hr(null), 
-
 
                         React.DOM.div({className: "user-space-player col-xs-12"}, 
 
@@ -4842,7 +4871,7 @@ module.exports = React.createClass({displayName: 'exports',
                         ), 
 
                         React.DOM.div({className: "col-xs-9 user-space-count"}, 
-                            React.DOM.span({className: "mute"}, "off")
+                            React.DOM.span({className: "mute"}, this.state.timer == "set" ? Timer(null) : "off")
                         ), 
 
                         React.DOM.div({className: "user-space-bottom"}
@@ -11199,7 +11228,7 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        console.log(parameters);
+        console.log("payload", parameters);
 
         if (helpers.isJSON(parameters)) {
 
@@ -11290,9 +11319,16 @@ var events = {
 
     },
 
+    speedRunLaunch: function(launchContext) {
+        localStorage.setItem("timed", "set");
+        events.launchGame(launchContext);
+    },
+
 	/*  Resume Client
 	-------------------------------------------------- */
     resumeClient: function() {
+
+        localStorage.setItem("timed", false);
 
         // Show the UI
         var _doc = document.getElementById("main");

@@ -907,7 +907,7 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        console.log(parameters);
+        console.log("payload", parameters);
 
         if (helpers.isJSON(parameters)) {
 
@@ -998,9 +998,16 @@ var events = {
 
     },
 
+    speedRunLaunch: function(launchContext) {
+        localStorage.setItem("timed", "set");
+        events.launchGame(launchContext);
+    },
+
 	/*  Resume Client
 	-------------------------------------------------- */
     resumeClient: function() {
+
+        localStorage.setItem("timed", false);
 
         // Show the UI
         var _doc = document.getElementById("main");

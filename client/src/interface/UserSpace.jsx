@@ -20,6 +20,7 @@ module.exports = React.createClass({
 
     getInitialState: function() {
         return {
+            timer: false,
             session: {
                 Username: "Guest"
             }
@@ -27,6 +28,9 @@ module.exports = React.createClass({
     },
 
     componentDidMount: function() {
+        var _timer = localStorage.getItem("timed");
+        this.setState({timer: _timer});
+
         api.emit('request', { request: 'getSession'} );
     },
 
@@ -53,9 +57,7 @@ module.exports = React.createClass({
 
                         <div className="clearfix"></div>
 
-
                     <hr />
-
 
                         <div className="user-space-player col-xs-12">
 
@@ -98,7 +100,7 @@ module.exports = React.createClass({
                         </div>
 
                         <div className="col-xs-9 user-space-count">
-                            <span className="mute">off</span>
+                            <span className="mute">{this.state.timer == "set" ? <Timer /> : "off" }</span>
                         </div>
 
                         <div className="user-space-bottom">
