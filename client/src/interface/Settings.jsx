@@ -30,16 +30,22 @@ module.exports = React.createClass({
     mixins: [mixins.listener, mixins.screenMount],
 
     getInitialState: function() {
+
         return {
 
-            settingsObject: {}
+            settingsObject: {},
+            view: "Paths",
+            screen: "Settings"
 
         };
+
     },
 
     componentDidUpdate: function() {
 
-        document.body.style.WebkitTransform = 'scale('+this.state.settingsObject.interface.zoom+')';
+        if (typeof this.state.settingsObject.interface !== "undefined") {
+            document.body.style.WebkitTransform = 'scale('+this.state.settingsObject.interface.zoom+')';
+        }
 
         nodeUpdate++;
 
@@ -47,6 +53,11 @@ module.exports = React.createClass({
         if (nodeUpdate == 3) {
             navigationInit.navigationInit();
         }
+
+    },
+
+    componentWillUpdate: function(props, state) {
+            console.log("state", state);
 
     },
 
@@ -69,6 +80,10 @@ module.exports = React.createClass({
 
     screenMount: function() {
         nodeUpdate++;
+
+        this.setState({view: "Paths" });
+        this.changeView(this.state.view);
+
     },
 
     changeView: function(view) {
@@ -79,6 +94,8 @@ module.exports = React.createClass({
         curView = view;
 
         systemSettings.refresh();
+
+        this.setState({view: view });
 
         switch (view) {
 
@@ -174,7 +191,7 @@ module.exports = React.createClass({
 
                     <div id="settings-container" className="col-xs-9">
 
-                        <h1 className="text-right">{curView} Settings &nbsp; <i className="ion-ios-settings-strong"></i></h1>
+                        <h1 className="text-right">{this.state.view} Settings &nbsp; <i className="ion-ios-settings-strong"></i></h1>
 
                         <hr />
 

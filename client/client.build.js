@@ -2979,7 +2979,6 @@ module.exports = React.createClass({displayName: 'exports',
 
         });
 
-
         navigationInit.navigationInit();
     },
 
@@ -4027,16 +4026,22 @@ module.exports = React.createClass({displayName: 'exports',
     mixins: [mixins.listener, mixins.screenMount],
 
     getInitialState: function() {
+
         return {
 
-            settingsObject: {}
+            settingsObject: {},
+            view: "Paths",
+            screen: "Settings"
 
         };
+
     },
 
     componentDidUpdate: function() {
 
-        document.body.style.WebkitTransform = 'scale('+this.state.settingsObject.interface.zoom+')';
+        if (typeof this.state.settingsObject.interface !== "undefined") {
+            document.body.style.WebkitTransform = 'scale('+this.state.settingsObject.interface.zoom+')';
+        }
 
         nodeUpdate++;
 
@@ -4044,6 +4049,11 @@ module.exports = React.createClass({displayName: 'exports',
         if (nodeUpdate == 3) {
             navigationInit.navigationInit();
         }
+
+    },
+
+    componentWillUpdate: function(props, state) {
+            console.log("state", state);
 
     },
 
@@ -4066,6 +4076,10 @@ module.exports = React.createClass({displayName: 'exports',
 
     screenMount: function() {
         nodeUpdate++;
+
+        this.setState({view: "Paths" });
+        this.changeView(this.state.view);
+
     },
 
     changeView: function(view) {
@@ -4076,6 +4090,8 @@ module.exports = React.createClass({displayName: 'exports',
         curView = view;
 
         systemSettings.refresh();
+
+        this.setState({view: view });
 
         switch (view) {
 
@@ -4171,7 +4187,7 @@ module.exports = React.createClass({displayName: 'exports',
 
                     React.DOM.div({id: "settings-container", className: "col-xs-9"}, 
 
-                        React.DOM.h1({className: "text-right"}, curView, " Settings   ", React.DOM.i({className: "ion-ios-settings-strong"})), 
+                        React.DOM.h1({className: "text-right"}, this.state.view, " Settings   ", React.DOM.i({className: "ion-ios-settings-strong"})), 
 
                         React.DOM.hr(null), 
 
@@ -5939,6 +5955,10 @@ var React           = require('react/addons'),
     _               = require('lodash');
 
 module.exports = React.createClass({displayName: 'exports',
+
+    componentDidMount: function() {
+        // settingsObject
+    },
 
     render: function() {
 
@@ -10486,6 +10506,9 @@ var events = {
     -------------------------------------------------- */
     navigationPrevRow: function() {
 
+
+        systemSettings.refresh();
+
         var parent = document.querySelectorAll(".parent");
         var _parent = document.querySelectorAll("._parent");
 
@@ -10649,6 +10672,7 @@ var events = {
     /*  Update Main Config
     -------------------------------------------------- */
     updateConfig: function(parameters) {
+
         var form = document.forms[parameters].elements;
 
         var obj  = {},
@@ -10669,6 +10693,7 @@ var events = {
          nobj.filename = "config.json";
 
         api.emit('request', { request: 'writeJSONSync', param: nobj });
+
         events.navigationPrevRow();
 
     },

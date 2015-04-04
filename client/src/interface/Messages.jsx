@@ -39,7 +39,6 @@ module.exports = React.createClass({
 
         });
 
-
         navigationInit.navigationInit();
     },
 

@@ -165,6 +165,9 @@ var events = {
     -------------------------------------------------- */
     navigationPrevRow: function() {
 
+
+        systemSettings.refresh();
+
         var parent = document.querySelectorAll(".parent");
         var _parent = document.querySelectorAll("._parent");
 
@@ -328,6 +331,7 @@ var events = {
     /*  Update Main Config
     -------------------------------------------------- */
     updateConfig: function(parameters) {
+
         var form = document.forms[parameters].elements;
 
         var obj  = {},
@@ -348,6 +352,7 @@ var events = {
          nobj.filename = "config.json";
 
         api.emit('request', { request: 'writeJSONSync', param: nobj });
+
         events.navigationPrevRow();
 
     },
