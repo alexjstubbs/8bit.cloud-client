@@ -57,8 +57,12 @@ module.exports = React.createClass({
     },
 
     componentWillUpdate: function(props, state) {
-            console.log("state", state);
+            // console.log("state", state);
 
+            var component = this;
+            if (currentNode) {
+                currentNode.props.settings = component.state.settingsObject;
+            }
     },
 
     getDefaultProps: function() {
@@ -156,6 +160,10 @@ module.exports = React.createClass({
     },
 
     render: function() {
+
+        var component = this;
+
+
 
         if (!currentNode) {
             currentNode = <Paths settings={this.state.settingsObject} title ="Paths" />;

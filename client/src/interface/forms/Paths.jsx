@@ -13,6 +13,9 @@ module.exports = React.createClass({
 
     componentDidMount: function() {
         // settingsObject
+        // getSettings
+
+
     },
 
     render: function() {

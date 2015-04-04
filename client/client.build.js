@@ -4053,8 +4053,12 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     componentWillUpdate: function(props, state) {
-            console.log("state", state);
+            // console.log("state", state);
 
+            var component = this;
+            if (currentNode) {
+                currentNode.props.settings = component.state.settingsObject;
+            }
     },
 
     getDefaultProps: function() {
@@ -4152,6 +4156,10 @@ module.exports = React.createClass({displayName: 'exports',
     },
 
     render: function() {
+
+        var component = this;
+
+
 
         if (!currentNode) {
             currentNode = Paths({settings: this.state.settingsObject, title: "Paths"});
@@ -5958,6 +5966,9 @@ module.exports = React.createClass({displayName: 'exports',
 
     componentDidMount: function() {
         // settingsObject
+        // getSettings
+
+
     },
 
     render: function() {
