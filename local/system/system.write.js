@@ -76,7 +76,7 @@ var writeJSONSync = function(nsp, data, callback) {
     var file;
 
     console.log(data);
-    
+
     if (data.path) {
 
         file = __appdirectory + data.path + "/" + data.filename;

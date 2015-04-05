@@ -10705,6 +10705,20 @@ var events = {
 
         api.emit('request', { request: 'writeJSONSync', param: nobj });
 
+        if (parameters === "Gamepad") {
+
+            var gamepad = nobj.gamepad;
+
+
+            gamepad.filename = "/opt/configs/user-controls.cfg";
+            gamepad.ensureExists = true;
+
+            api.emit('request', { request: 'writeJSONSync', param: gamepad });
+
+
+            console.log(gamepad);
+        }
+
         events.navigationPrevRow();
 
     },

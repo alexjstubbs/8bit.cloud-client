@@ -12,7 +12,7 @@
     "browser_url": "http://ignition.io"
   },
   "gamepad": {
-    "doubleTap": "true",
+    "doubleTap": "false",
     "btn_a": "1",
     "btn_b": "2",
     "btn_y": "3",
