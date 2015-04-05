@@ -8,6 +8,8 @@ To use place the Updater folder in /opt/. And to use just run
 
     bash update.js
 
+#####To use this properly the node_modlules requires a file named check.txt to allow the Updater to check if the files have been copied properly!
+
 ###!Requires root privileges to be able to write to /opt/!
 
 To use it there need to be a way for the end user to be notified of an update and needs a way to stop Ignition before the update can take place.
