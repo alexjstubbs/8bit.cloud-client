@@ -284,6 +284,28 @@ textarea.textarea-height-alt {
     color:@green;
 }
 
+#ui-progress {
+    position: relative;
+    z-index: 9999999;
+    bottom: -99vh;
+    height: 3px;
+}
+
+#ui-progress .progress {
+    height:10px;
+    width:103vw;
+    /* left:-3vw; */
+}
+
+
+#ui-progress .progress-bar {
+    -webkit-filter: grayscale(1);
+}
+
+#ui-progress .progress-bar.active-bar {
+    -webkit-filter: grayscale(0);
+}
+
 /* Screen Active Styles
 -------------------------------------------------- */
 #screen-active.Dashboard {

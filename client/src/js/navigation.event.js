@@ -85,15 +85,33 @@ module.exports = function(e) {
 
   if (k == 221) {
 
-
     if (pauseNavigation != "pauseRight" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
           if (currentScreenId != screens.length-1) {
+
+            var activeBar = document.querySelectorAll(".active-bar")[0];
+            var activeBari = activeBar.getAttribute("data-order");
+
+            if (activeBari <= 2) {
+                activeBari++;
+            }
+
+            var _next = document.querySelectorAll("[data-order='"+activeBari+"']")[0];
+
+            activeBar.classList.remove("active-bar");
+            _next.classList.add("active-bar");
+
 
             currentScreenId++;
             currentScreen.id = null;
 
             setScreen();
+
+            var bar = document.getElementById("#active-bar");
+
+            console.log(bar);
+
+
          }
       }
 
@@ -112,6 +130,19 @@ module.exports = function(e) {
       if (pauseNavigation != "pauseLeft" && pauseNavigation != "pause" && pauseNavigation != "pauseAll") {
 
           if (currentScreenId !== 0) {
+
+              var activeBar = document.querySelectorAll(".active-bar")[0];
+              var activeBari = activeBar.getAttribute("data-order");
+
+              if (activeBari >= 1) {
+                  activeBari--;
+              }
+
+              var _next = document.querySelectorAll("[data-order='"+activeBari+"']")[0];
+
+              activeBar.classList.remove("active-bar");
+              _next.classList.add("active-bar");
+
 
             currentScreenId--;
             currentScreen.id = null;

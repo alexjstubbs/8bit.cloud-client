@@ -358,10 +358,23 @@ var events = {
             var gamepad = nobj.gamepad;
 
 
-            gamepad.filename = "/opt/configs/user-controls.cfg";
-            gamepad.ensureExists = true;
+            // for (var key in gamepad) {
+            //   if (gamepad.hasOwnProperty(key)) {
+            //     gamepad[key] = gamepad[key].replace(":", "=");
+            //   }
+            // }
 
-            api.emit('request', { request: 'writeJSONSync', param: gamepad });
+            console.log(gamepad);
+
+
+            // "doubleTap": "false"
+            // input_player1_b_btn = "14"
+            // input_player1_y_btn = "15"
+
+            // gamepad.filename = "/opt/configs/user-controls.cfg";
+            // gamepad.ensureExists = true;
+            //
+            // api.emit('request', { request: 'writeJSONSync', param: gamepad });
 
 
             console.log(gamepad);
