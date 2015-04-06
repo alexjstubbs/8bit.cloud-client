@@ -4,7 +4,7 @@
 #See LICENSE file for copyright and license details
 #Part of Ignition http://ignition.io
 
-#Updater Version 4.0
+#plugins Version 4.1
 #NOT READY FOR USE YET!
 
 #Needs to excuted with root privilages!
@@ -12,21 +12,21 @@
 #Shortcuts
 #------------------------
 #defines place where Ignition is stored.
-files="/opt/"
-ignition="/opt/ignition/"
+Files="/opt/"
+Ignition="/opt/ignition/"
 #Tempory files storage during testing.
 FileStore="http://ignition.bezrepo.fluctis.com"
 UpdateFile="ignition.zip"
 #lists the Github repo for easily  moving to git later in devlopment and launch.
 GitRepositoryBase="https://github.com/alexjstubbs"
 BaseRepositoryName="ignition"
-#Place where the Updater script and temp files are stored.
-UpdatesStore="/opt/Updater/updates"
-Updater="/opt/Updater"
-Updates="/opt/Updater/updates/ignition/"
+#Place where the updater script and temp files are stored.
+UpdatesStore="/opt/uplugins/updates"
+Updater="/opt/plugins"
+Updates="/opt/plugins/updates/ignition/"
 #Used for fixing the Ignition Directory if it fails to install correctly
 FixerFile="fixer.zip"
-Fixer="/opt/Updater/fixer"
+Fixer="/opt/plugins/fixer"
 
 
 #!STILL NEEDS A WAY TO START UPDATE IN IGNITION!
@@ -55,21 +55,21 @@ unzip $UpdateFile
 clear
 echo "Checking if file was downloaded succsessfully"
 #Checks if the ignite.js is present in the updates folder.
-if [ -f /opt/Updater/updates/ignition/ignite.js ]
+if [ -f /opt/plugins/updates/ignition/ignite.js ]
   then
     # If download was successful it moves node_modules out and to the new folder and delets the /opt/ignition folder and copies the new one in place.
     echo "Download successful. Installing update now."
     #Goes into the /opt/ignition directory
-    cd $ignition
+    cd $Ignition
     #moves the node_modules folder
     echo "Moving Files into place"
     mv node_modules $Updates
     clear
     #Checks if node_modules copied correctly
-    if [ -f /opt/Updater/updates/ignition/node_modules/check.txt ]
+    if [ -f /opt/plugins/updates/ignition/node_modules/check.txt ]
       then
         #If copied correctly it will continue with the update
-        cd $files
+        cd $Files
         #Delets the Ignition folder to make way for the new one
         rm -rf ignition
         #Changes directory back to the updates folder.
@@ -78,7 +78,7 @@ if [ -f /opt/Updater/updates/ignition/ignite.js ]
         clear
         #Moves the Ignition folder into place.
         echo "Moving into place"
-        mv ignition $files
+        mv ignition $Files
         #Checks for a extra updates in a form of a extra.sh files that contains the extra updates
         echo "Checking of extra Updates!"
         sleep 1
@@ -87,11 +87,11 @@ if [ -f /opt/Updater/updates/ignition/ignite.js ]
             clear
             #If extra updates are found it deletes the previous update file and copys the new one in place.
             echo "Extra Updates found! Now Running Extra Updates!"
-            cd /opt/Updater
+            cd /opt/plugins
             rm extra.sh
             cd /opt/ignition/extra.sh
-            mv /opt/ignition/extra.sh /opt/Updater
-            cd /opt/Updater
+            mv /opt/ignition/extra.sh /opt/plugins
+            cd /opt/plugins
             #Starts the extra.sh update script.
             bash extra.sh
             echo "Extra updates Installed!"
@@ -124,7 +124,7 @@ if [ -f /opt/Updater/updates/ignition/ignite.js ]
         wget $FileStore/$FixerFile
         echo "Checking Fixer File!"
         unzip $FixerFile
-        mv ignition $files
+        mv ignition $Files
         echo "Fixer Done!"
         echo "Please rerun the updater after reboot!"
         sleep 2
