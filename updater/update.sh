@@ -21,12 +21,12 @@ UpdateFile="ignition.zip"
 GitRepositoryBase="https://github.com/alexjstubbs"
 BaseRepositoryName="ignition"
 #Place where the updater script and temp files are stored.
-UpdatesStore="/opt/uplugins/updates"
-Updater="/opt/plugins"
-Updates="/opt/plugins/updates/ignition/"
+UpdatesStore="/opt/updater/updates"
+Updater="/opt/updater"
+Updates="/opt/updater/updates/ignition/"
 #Used for fixing the Ignition Directory if it fails to install correctly
 FixerFile="fixer.zip"
-Fixer="/opt/plugins/fixer"
+Fixer="/opt/updater/fixer"
 
 
 #!STILL NEEDS A WAY TO START UPDATE IN IGNITION!
@@ -66,7 +66,7 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
     mv node_modules $Updates
     clear
     #Checks if node_modules copied correctly
-    if [ -f /opt/plugins/updates/ignition/node_modules/check.txt ]
+    if [ -f /opt/updater/updates/ignition/node_modules/check.txt ]
       then
         #If copied correctly it will continue with the update
         cd $Files
@@ -87,11 +87,11 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
             clear
             #If extra updates are found it deletes the previous update file and copys the new one in place.
             echo "Extra Updates found! Now Running Extra Updates!"
-            cd /opt/plugins
+            cd /opt/updater
             rm extra.sh
             cd /opt/ignition/extra.sh
-            mv /opt/ignition/extra.sh /opt/plugins
-            cd /opt/plugins
+            mv /opt/ignition/extra.sh /opt/updater
+            cd /opt/updater
             #Starts the extra.sh update script.
             bash extra.sh
             echo "Extra updates Installed!"

@@ -4,9 +4,9 @@ This is a way to update Ignition itself over the air, does nothing else. This do
 
 This is a backbone and still needs a front end in Ignition itself to take advantage of the update script.
 
-To use place the Updater folder in /opt/. And to use just run
+###To use place the updater folder in /opt/. And to use just run
 
-    bash update.js
+    bash /opt/updater/update.js
 
 #####To use this properly the node_modlules requires a file named check.txt to allow the Updater to check if the files have been copied properly!
 
