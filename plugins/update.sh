@@ -4,7 +4,7 @@
 #See LICENSE file for copyright and license details
 #Part of Ignition http://ignition.io
 
-#plugins Version 4.1
+#Updater Version 4.1
 #NOT READY FOR USE YET!
 
 #Needs to excuted with root privilages!
