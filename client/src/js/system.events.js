@@ -356,28 +356,31 @@ var events = {
         if (parameters === "Gamepad") {
 
             var gamepad = nobj.gamepad;
+            delete gamepad.doubleTap;
 
+            gamepad = JSON.stringify(gamepad);
 
-            // for (var key in gamepad) {
-            //   if (gamepad.hasOwnProperty(key)) {
-            //     gamepad[key] = gamepad[key].replace(":", "=");
-            //   }
-            // }
+            gamepad = gamepad.replace(/:/g, "=");
+            gamepad = gamepad.replace("{", "");
+            gamepad = gamepad.replace("}", "");
+            gamepad = gamepad.replace(/"/g, "");
+            gamepad = gamepad.replace(/,/g, '\n');
 
-            console.log(gamepad);
-
+            // console.log(gamepad);
 
             // "doubleTap": "false"
             // input_player1_b_btn = "14"
             // input_player1_y_btn = "15"
 
-            // gamepad.filename = "/opt/configs/user-controls.cfg";
-            // gamepad.ensureExists = true;
-            //
-            // api.emit('request', { request: 'writeJSONSync', param: gamepad });
+            var content = {
+                text: gamepad
+            };
 
+            content.filename = "/opt/configs/user-controls.cfg";
+            content.ensureExists = true;
 
-            console.log(gamepad);
+            api.emit('request', { request: 'writeTextSync', param: content });
+
         }
 
         events.navigationPrevRow();

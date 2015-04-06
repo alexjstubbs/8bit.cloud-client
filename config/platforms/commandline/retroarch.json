@@ -180,10 +180,10 @@
         "--appendconfig": {
             "arg": "--appendconfig",
             "desc": "Extra config files are loaded in, and take priority over config selected in -c (or default). Multiple configs are delimited by ','.",
-            "defaults": false,
+            "defaults": "/opt/configs/user-controls.cfg",
             "subfield": true,
             "required": false,
-            "ticked": false
+            "ticked": true
         },
         "-L": {
             "arg": "-L",

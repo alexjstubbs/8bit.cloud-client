@@ -107,11 +107,6 @@ module.exports = function(e) {
 
             setScreen();
 
-            var bar = document.getElementById("#active-bar");
-
-            console.log(bar);
-
-
          }
       }
 

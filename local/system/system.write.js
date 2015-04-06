@@ -374,6 +374,44 @@ var writeWifiConfig = function(nsp, data, callback) {
 -------------------------------------------------- */
 var writeTextSync = function(nsp, data, callback) {
 
+    var file;
+
+    if (data.path) {
+
+        file = __appdirectory + data.path + "/" + data.filename;
+
+    }
+
+    else {
+
+         file = data.filename;
+
+    }
+
+    delete data.filename;
+    delete data.formTitle;
+    delete data.path;
+
+    fs.outputFile(file, data.text, function(err) {
+
+        if (err) {
+
+            if (callback || typeof callback == "function") {
+                callback(err, null);
+            }
+
+        }
+
+        else {
+
+                if (callback || typeof callback == "function") {
+                    callback(null, data);
+                }
+
+            }
+
+    });
+
 };
 
 /* Exports
@@ -381,7 +419,7 @@ var writeTextSync = function(nsp, data, callback) {
 exports.removeFile              = removeFile;
 exports.writeJSONSync           = writeJSONSync;
 exports.writeJSON               = writeJSON;
-exports.writeTextync            = writeTextSync;
+exports.writeTextSync            = writeTextSync;
 exports.copyFile                = copyFile;
 exports.writeWifiConfig         = writeWifiConfig;
 exports.writeAdvancedConfig     = writeAdvancedConfig;
