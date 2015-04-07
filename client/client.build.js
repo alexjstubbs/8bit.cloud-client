@@ -8794,9 +8794,14 @@ module.exports = function() {
 
         ignitionSettings = JSON.parse(ignitionSettings);
 
-        setTimeout(function() {
-            eventDispatcher.switchScreen(ignitionSettings.interface.screen);
-        }, 500);
+        console.log(window.location.pathname);
+
+        if (window.location.pathname != "/welcome") {
+
+            setTimeout(function() {
+                eventDispatcher.switchScreen(ignitionSettings.interface.screen);
+            }, 500);
+        }
 
 
         if (ignitionSettings.interface.zoom != "auto" &&  _.isNumber(parseInt(ignitionSettings.interface.zoom))) {
