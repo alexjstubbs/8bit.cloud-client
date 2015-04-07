@@ -360,7 +360,7 @@ var events = {
 
             gamepad = JSON.stringify(gamepad);
 
-            gamepad = gamepad.replace(/:/g, "=");
+            gamepad = gamepad.replace(/:/g, " = ");
             gamepad = gamepad.replace("{", "");
             gamepad = gamepad.replace("}", "");
             gamepad = gamepad.replace(/"/g, "");

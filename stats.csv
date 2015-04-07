@@ -1,5 +1,5 @@
-files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=32.55 s (25.1 files/s, 8881.1 lines/s)"
-206,Javascript,26498,44114,89246
+files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=19.16 s (42.7 files/s, 15093.3 lines/s)"
+207,Javascript,26523,44127,89292
 181,HTML,4376,1935,34265
 230,LESS,6678,4458,26096
 112,ActionScript,1231,2593,16451
@@ -7,7 +7,7 @@ files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=32.55 s
 4,YAML,905,2,5316
 35,SASS,1210,151,3668
 2,C,87,119,2260
-7,Bourne Shell,22,99,241
+8,Bourne Shell,27,107,247
 4,make,53,29,140
 2,Ruby,49,18,121
 1,ASP.Net,0,0,59

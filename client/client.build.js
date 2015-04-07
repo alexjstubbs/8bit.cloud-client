@@ -8794,10 +8794,7 @@ module.exports = function() {
 
         ignitionSettings = JSON.parse(ignitionSettings);
 
-        console.log(window.location.pathname);
-
         if (window.location.pathname != "/welcome") {
-
             setTimeout(function() {
                 eventDispatcher.switchScreen(ignitionSettings.interface.screen);
             }, 500);
@@ -10743,7 +10740,7 @@ var events = {
 
             gamepad = JSON.stringify(gamepad);
 
-            gamepad = gamepad.replace(/:/g, "=");
+            gamepad = gamepad.replace(/:/g, " = ");
             gamepad = gamepad.replace("{", "");
             gamepad = gamepad.replace("}", "");
             gamepad = gamepad.replace(/"/g, "");

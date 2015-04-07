@@ -52,10 +52,7 @@ module.exports = function() {
 
         ignitionSettings = JSON.parse(ignitionSettings);
 
-        console.log(window.location.pathname);
-
         if (window.location.pathname != "/welcome") {
-
             setTimeout(function() {
                 eventDispatcher.switchScreen(ignitionSettings.interface.screen);
             }, 500);
