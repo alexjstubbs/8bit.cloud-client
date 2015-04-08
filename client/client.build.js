@@ -5100,13 +5100,13 @@ module.exports = React.createClass({displayName: 'exports',
 
 
     render: function() {
-        // 
-        // var _domain = this.props.url.split("/");
-        //
-        // // Illegal on some renderers
-        // // TODO: use other method
-        //
-        // document.domain = _domain[2].replace("www.","");
+    
+        var _domain = this.props.url.split("/");
+
+        // Illegal on some renderers
+        // TODO: use other method
+
+        document.domain = _domain[2].replace("www.","");
 
         return (
             React.DOM.div({className: "parent"}, 
@@ -11334,7 +11334,7 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        console.log("payload", parameters);
+        // console.log("payload", parameters);
 
         if (helpers.isJSON(parameters)) {
 
@@ -11379,6 +11379,9 @@ var events = {
                 // Bind Navigation
                 navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
 
+                // Hide Screen bars
+                var el = document.getElementById("ui-progress");
+                el.classList.add("hidden");
 
                 // Emit to Launch Game
                 api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
@@ -11478,6 +11481,9 @@ var events = {
             // UnBind Navigation for Play Session
             window.removeEventListener('keydown', navigationEventBinds.navigationEventListeners.passSessionKeyEvent);
 
+            // Show Screen bars
+            var el = document.getElementById("ui-progress");
+            el.classList.remove("hidden");
 
         });
 

@@ -942,7 +942,7 @@ var events = {
     -------------------------------------------------- */
     launchGame: function(parameters) {
 
-        console.log("payload", parameters);
+        // console.log("payload", parameters);
 
         if (helpers.isJSON(parameters)) {
 
@@ -987,6 +987,9 @@ var events = {
                 // Bind Navigation
                 navigationEventBinds.navigationEventListeners.bindPlaySessionNavigation();
 
+                // Hide Screen bars
+                var el = document.getElementById("ui-progress");
+                el.classList.add("hidden");
 
                 // Emit to Launch Game
                 api.emit('request', { request: 'launchGame', param: JSON.parse(parameters) });
@@ -1086,6 +1089,9 @@ var events = {
             // UnBind Navigation for Play Session
             window.removeEventListener('keydown', navigationEventBinds.navigationEventListeners.passSessionKeyEvent);
 
+            // Show Screen bars
+            var el = document.getElementById("ui-progress");
+            el.classList.remove("hidden");
 
         });
 

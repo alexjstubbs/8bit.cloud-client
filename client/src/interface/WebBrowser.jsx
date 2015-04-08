@@ -27,13 +27,13 @@ module.exports = React.createClass({
 
 
     render: function() {
-        // 
-        // var _domain = this.props.url.split("/");
-        //
-        // // Illegal on some renderers
-        // // TODO: use other method
-        //
-        // document.domain = _domain[2].replace("www.","");
+    
+        var _domain = this.props.url.split("/");
+
+        // Illegal on some renderers
+        // TODO: use other method
+
+        document.domain = _domain[2].replace("www.","");
 
         return (
             <div className="parent">
