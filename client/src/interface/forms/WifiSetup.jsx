@@ -57,7 +57,7 @@ module.exports = React.createClass({
         }
 
         else {
-            nextButton = <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='nextScreen' data-parameters={type}><i className="ion-close-circled red pull-left"></i> &nbsp; Continue Offline</button>
+            nextButton = <button className="btn btn-lg btn-alt btn-left-align btn-block navable" data-function='preloadDashboard' data-parameters={type}><i className="ion-close-circled red pull-left"></i> &nbsp; Continue Offline</button>
         }
 
         return (

@@ -22,9 +22,9 @@ module.exports = React.createClass({displayName: 'exports',
 
     getDefaultProps: function() {
             return {
-               "title": "",
-               "description": "",
-               "achievedClass": "fa-stack sub fa-lg "
+               "title"         : "",
+               "description"   : "",
+               "achievedClass" : "fa-stack sub fa-lg "
            };
     },
 
@@ -32,11 +32,11 @@ module.exports = React.createClass({displayName: 'exports',
 
         var cx = React.addons.classSet;
         var classes = cx({
-            'achieved': this.state.achieved,
-            'icon': true,
-            'base': true,
-            'fa': true,
-            'fa-trophy': true
+            'achieved'  : this.state.achieved,
+            'icon'      : true,
+            'base'      : true,
+            'fa'        : true,
+            'fa-trophy' : true
         });
 
 
@@ -49,7 +49,6 @@ module.exports = React.createClass({displayName: 'exports',
                   React.DOM.span({className: "trophy"}, 
 
                      React.DOM.i({className: classes}), 
-
 
                   React.DOM.span({className: this.state.achieved ? this.props.achievedClass : "hidden"}, 
                      React.DOM.i({className: "fa fa-circle fa-stack-2x"}), 
@@ -1365,7 +1364,8 @@ module.exports = React.createClass({displayName: 'exports',
 
         var parentClasses = cx({
             'navable'         : true,
-            'message-preview' : true
+            'message-preview' : true,
+            'navable-row'     : true
         });
 
 
@@ -1684,7 +1684,7 @@ module.exports = React.createClass({displayName: 'exports',
             React.DOM.hr(null), 
 
             React.DOM.span({className: "pull-left"}, 
-                React.DOM.button({className: "navable btn btn-alt btn-alt-size", 'data-function': "closeDialog"}, 
+                React.DOM.button({className: "navable navable-row btn btn-alt btn-alt-size", 'data-function': "closeDialog"}, 
                 React.DOM.i({className: "ion-close red"}), "   Close Window")
             ), 
 
@@ -2574,7 +2574,7 @@ module.exports = React.createClass({displayName: 'exports',
 
             React.DOM.br(null), 
 
-            React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable defaultSelection", 'data-function': "launchGame", 'data-parameters': launchContext}, "Play Game"), 
+            React.DOM.a({id: "play-game", className: "btn-alt btn-lg navable defaultSelection navable-row", 'data-function': "launchGame", 'data-parameters': launchContext}, "Play Game"), 
             " ", 
 
             React.DOM.a({className: "btn-alt btn-lg navable", 'data-function': "viewFriends", 'data-parameters': launchContext}, "Multiplayer"), 
@@ -5351,7 +5351,8 @@ module.exports = React.createClass({displayName: 'exports',
 
                  React.DOM.fieldset(null, 
 
-                     React.DOM.h3({className: "no-padding no-margin"}, 
+                     React.DOM.h3(null, "Gamepad Button Bindings"), 
+                     React.DOM.h3({className: "no-padding no-margin hidden"}, 
 
                          React.DOM.span({className: "col-xs-4"}, 
                              React.DOM.i({className: "ion-ios-game-controller-b"}), "   Gamepad Connected: ", React.DOM.span({id: "controller-id"})
@@ -6442,7 +6443,7 @@ module.exports = React.createClass({displayName: 'exports',
         }
 
         else {
-            nextButton = React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "nextScreen", 'data-parameters': type}, React.DOM.i({className: "ion-close-circled red pull-left"}), "   Continue Offline")
+            nextButton = React.DOM.button({className: "btn btn-lg btn-alt btn-left-align btn-block navable", 'data-function': "preloadDashboard", 'data-parameters': type}, React.DOM.i({className: "ion-close-circled red pull-left"}), "   Continue Offline")
         }
 
         return (
@@ -6844,6 +6845,7 @@ module.exports = React.createClass({displayName: 'exports',
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
                 document.getElementById("network-skip").classList.remove("hidden");
+                document.getElementById("network-ifup").classList.remove("hidden");
                 return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-android-cancel red", text: "Cannot establish internet connection...", button: "Configure Network Settings"};
             }
         };
@@ -8475,6 +8477,16 @@ var gamepadSupport = {
         },
 
         axesPressed: function(axes) {
+
+            // TODO: Work out
+
+            // var index = _.indexOf(button, 1);
+            //
+            // eventDispatcher.gamepadEvent({
+            //     type: "axis",
+            //     index: index
+            // });
+
 
             var axesAction = function(dt) {
 
@@ -11660,6 +11672,8 @@ var events = {
     forceUp: function(parameters) {
         parameters = 'ifup -f eth0';
         api.emit('request', { request: 'execute', param: parameters });
+        window.location = "http://127.0.0.1:1210/welcome";
+        events.nextScreen();
     }
 
 };

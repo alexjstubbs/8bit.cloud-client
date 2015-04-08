@@ -21,9 +21,9 @@ module.exports = React.createClass({
 
     getDefaultProps: function() {
             return {
-               "title": "",
-               "description": "",
-               "achievedClass": "fa-stack sub fa-lg "
+               "title"         : "",
+               "description"   : "",
+               "achievedClass" : "fa-stack sub fa-lg "
            };
     },
 
@@ -31,11 +31,11 @@ module.exports = React.createClass({
 
         var cx = React.addons.classSet;
         var classes = cx({
-            'achieved': this.state.achieved,
-            'icon': true,
-            'base': true,
-            'fa': true,
-            'fa-trophy': true
+            'achieved'  : this.state.achieved,
+            'icon'      : true,
+            'base'      : true,
+            'fa'        : true,
+            'fa-trophy' : true
         });
 
 
@@ -48,7 +48,6 @@ module.exports = React.createClass({
                   <span className='trophy'>
 
                      <i className={classes}></i>
-
 
                   <span className={this.state.achieved ? this.props.achievedClass : "hidden"}>
                      <i className="fa fa-circle fa-stack-2x"></i>

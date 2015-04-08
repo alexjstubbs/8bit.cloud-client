@@ -47,6 +47,7 @@ module.exports = React.createClass({
             2: function() {
                 document.getElementById("network-next").classList.remove("hidden");
                 document.getElementById("network-skip").classList.remove("hidden");
+                document.getElementById("network-ifup").classList.remove("hidden");
                 return {functionCall: "changeView", functionParameters: "WifiConfiguration", icon: "ion-android-cancel red", text: "Cannot establish internet connection...", button: "Configure Network Settings"};
             }
         };

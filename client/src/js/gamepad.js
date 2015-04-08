@@ -331,6 +331,16 @@ var gamepadSupport = {
 
         axesPressed: function(axes) {
 
+            // TODO: Work out
+
+            // var index = _.indexOf(button, 1);
+            //
+            // eventDispatcher.gamepadEvent({
+            //     type: "axis",
+            //     index: index
+            // });
+
+
             var axesAction = function(dt) {
 
                 if (!dt) {

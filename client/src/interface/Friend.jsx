@@ -55,7 +55,8 @@ module.exports = React.createClass({
 
         var parentClasses = cx({
             'navable'         : true,
-            'message-preview' : true
+            'message-preview' : true,
+            'navable-row'     : true
         });
 
 

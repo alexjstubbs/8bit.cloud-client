@@ -104,7 +104,7 @@ module.exports = React.createClass({
             <hr />
 
             <span className="pull-left">
-                <button className="navable btn btn-alt btn-alt-size" data-function="closeDialog">
+                <button className="navable navable-row btn btn-alt btn-alt-size" data-function="closeDialog">
                 <i className='ion-close red'></i> &nbsp; Close Window</button>
             </span>
 

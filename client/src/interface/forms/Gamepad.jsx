@@ -76,7 +76,8 @@ module.exports = React.createClass({
 
                  <fieldset>
 
-                     <h3 className="no-padding no-margin">
+                     <h3>Gamepad Button Bindings</h3>
+                     <h3 className="no-padding no-margin hidden">
 
                          <span className="col-xs-4">
                              <i className="ion-ios-game-controller-b"></i> &nbsp; Gamepad Connected: <span id="controller-id"></span>

@@ -227,7 +227,7 @@ module.exports = React.createClass({
 
             <br />
 
-            <a id="play-game" className='btn-alt btn-lg navable defaultSelection' data-function="launchGame" data-parameters={launchContext}>Play Game</a>
+            <a id="play-game" className='btn-alt btn-lg navable defaultSelection navable-row' data-function="launchGame" data-parameters={launchContext}>Play Game</a>
             &nbsp;
 
             <a className='btn-alt btn-lg navable' data-function="viewFriends" data-parameters={launchContext}>Multiplayer</a>

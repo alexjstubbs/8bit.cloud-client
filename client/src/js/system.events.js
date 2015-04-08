@@ -1280,6 +1280,8 @@ var events = {
     forceUp: function(parameters) {
         parameters = 'ifup -f eth0';
         api.emit('request', { request: 'execute', param: parameters });
+        window.location = "http://127.0.0.1:1210/welcome";
+        events.nextScreen();
     }
 
 };
