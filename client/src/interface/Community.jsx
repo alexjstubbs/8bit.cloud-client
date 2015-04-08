@@ -34,20 +34,21 @@ module.exports = React.createClass({
     componentDidMount: function() {
 
         api.emit('request', { request: 'community'});
-        
+
         navigationInit.navigationInit();
 
     },
 
     render: function() {
 
+
         var imageStyles = this.state.community[0].Styles;
 
         var component = this;
 
-        helpers.preloadImage(this.state.community[0].Image, function() {
-            document.getElementById("community_image").classList.remove("hidden");
-        });
+        // helpers.preloadImage(this.state.community[0].Image, function() {
+        //     document.getElementById("community_image").classList.remove("hidden");
+        // });
 
         return (
 
@@ -70,14 +71,14 @@ module.exports = React.createClass({
 
                 <br />
 
-                  <span className="rImg"><img id="community_image" src={this.state.community[0].Image} className='img-responsive hidden' style={imageStyles} /></span>
+                  <span className="rImg"><img id="community_image" src={this.state.community[0].Image} className='img-responsive' style={imageStyles} /></span>
                 </td>
             </tr>
 
             <tr>
                 <td colSpan='2' id="rss_info">
                     <br />
-                    { this.state.community.subtitle ? <h4 className="rss_title pull-left"><i className='ion-speakerphone'></i> {this.state.community[0].subtitle}</h4> : null }
+                    { this.state.community[0].subtitle ? <h4 className="rss_title pull-left"><i className='ion-speakerphone'></i> &nbsp; {this.state.community[0].subtitle}</h4> : null }
                     <span className="rss_author pull-right"></span>
                 </td>
             </tr>

@@ -345,11 +345,15 @@ var events = {
 
         var title = parameters.toLowerCase();
 
-
          nobj[title] = obj;
 
          nobj.path = "/config/";
          nobj.filename = "config.json";
+
+         if (parameters === "Paths") {
+                 console.log(nobj);
+                //  nobj.paths.roms.length -1];
+         }
 
         api.emit('request', { request: 'writeJSONSync', param: nobj });
 

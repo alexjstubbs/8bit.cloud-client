@@ -745,20 +745,21 @@ module.exports = React.createClass({displayName: 'exports',
     componentDidMount: function() {
 
         api.emit('request', { request: 'community'});
-        
+
         navigationInit.navigationInit();
 
     },
 
     render: function() {
 
+
         var imageStyles = this.state.community[0].Styles;
 
         var component = this;
 
-        helpers.preloadImage(this.state.community[0].Image, function() {
-            document.getElementById("community_image").classList.remove("hidden");
-        });
+        // helpers.preloadImage(this.state.community[0].Image, function() {
+        //     document.getElementById("community_image").classList.remove("hidden");
+        // });
 
         return (
 
@@ -781,14 +782,14 @@ module.exports = React.createClass({displayName: 'exports',
 
                 React.DOM.br(null), 
 
-                  React.DOM.span({className: "rImg"}, React.DOM.img({id: "community_image", src: this.state.community[0].Image, className: "img-responsive hidden", style: imageStyles}))
+                  React.DOM.span({className: "rImg"}, React.DOM.img({id: "community_image", src: this.state.community[0].Image, className: "img-responsive", style: imageStyles}))
                 )
             ), 
 
             React.DOM.tr(null, 
                 React.DOM.td({colSpan: "2", id: "rss_info"}, 
                     React.DOM.br(null), 
-                     this.state.community.subtitle ? React.DOM.h4({className: "rss_title pull-left"}, React.DOM.i({className: "ion-speakerphone"}), " ", this.state.community[0].subtitle) : null, 
+                     this.state.community[0].subtitle ? React.DOM.h4({className: "rss_title pull-left"}, React.DOM.i({className: "ion-speakerphone"}), "   ", this.state.community[0].subtitle) : null, 
                     React.DOM.span({className: "rss_author pull-right"})
                 )
             )
@@ -10737,11 +10738,15 @@ var events = {
 
         var title = parameters.toLowerCase();
 
-
          nobj[title] = obj;
 
          nobj.path = "/config/";
          nobj.filename = "config.json";
+
+         if (parameters === "Paths") {
+                 console.log(nobj);
+                //  nobj.paths.roms.length -1];
+         }
 
         api.emit('request', { request: 'writeJSONSync', param: nobj });
 
