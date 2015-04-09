@@ -334,7 +334,7 @@ var friendNotification = function(friendObj) {
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-    React.renderComponent(new Modal({backdrop: false, classList: "container ignition-modal ignition-modal-friendNotification systemNotificationContent"}, new FriendNotification({friend: friendObj})), div);
+    React.renderComponent(new Modal({backdrop: false, navdisable: true, classList: "container ignition-modal ignition-modal-friendNotification systemNotificationContent"}, new FriendNotification({friend: friendObj})), div);
 
 };
 
@@ -353,7 +353,7 @@ var uiNotification = function(achievementObj) {
 
     document.body.insertBefore(div, document.getElementById("ui-notifications"));
 
-    React.renderComponent(new Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, new AchievementUnlocked({achievement: achievementObj})), div);
+    React.renderComponent(new Modal({backdrop: false, navdisable: true, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, new AchievementUnlocked({achievement: achievementObj})), div);
 
 };
 

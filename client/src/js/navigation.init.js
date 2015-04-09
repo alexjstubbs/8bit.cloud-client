@@ -28,7 +28,14 @@ var navigationInit = function(element, callback) {
     }
 
     // Get all Local (screen, dialog) navable elements
-    navables = parent.querySelectorAll('.navable');
+    if (parent) {
+        navables = parent.querySelectorAll('.navable');
+    }
+
+    else {
+        navables = null;
+    }
+
 
     // Add navigation index based on position
     _(navables).forEach(function(el, i) {

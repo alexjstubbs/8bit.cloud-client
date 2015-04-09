@@ -866,8 +866,13 @@ var events = {
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
+
+            console.log("1");
+
             var notification = document.querySelectorAll(".ignition-modal-achievement")[0];
-            notification.parentNode.removeChild(notification);
+            notification.parentElement.removeChild(notification);
+
+            console.log("2", notification);
         }, 3500);
 
     },

@@ -28,7 +28,7 @@ function isJson(data) {
 /*  List Save States
 -------------------------------------------------- */
 var listSaveStates = function() {
-    console.log("no");
+    // Temporarily Disabled.
 }
 // var listSaveStates = _.debounce(_listSaveStates, 1000);
 

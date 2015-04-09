@@ -18,6 +18,7 @@ module.exports = React.createClass({
             backdrop: false,
             classList: "container ignition-modal systemNotificationContent",
             children: [],
+            navdisable: false,
             input: null,
             columns: "col-xs-12"
         };
@@ -42,8 +43,11 @@ module.exports = React.createClass({
         //
         // }
 
-        console.log(this.props);
-        navigationInit.navigationInit();
+    
+        if (this.props.navdisable !== true) {
+            console.log("not disabled");
+            navigationInit.navigationInit();
+        }
     },
 
     render: function() {

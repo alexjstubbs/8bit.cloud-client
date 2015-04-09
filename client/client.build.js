@@ -3061,6 +3061,7 @@ module.exports = React.createClass({displayName: 'exports',
             backdrop: false,
             classList: "container ignition-modal systemNotificationContent",
             children: [],
+            navdisable: false,
             input: null,
             columns: "col-xs-12"
         };
@@ -3085,8 +3086,11 @@ module.exports = React.createClass({displayName: 'exports',
         //
         // }
 
-        console.log(this.props);
-        navigationInit.navigationInit();
+    
+        if (this.props.navdisable !== true) {
+            console.log("not disabled");
+            navigationInit.navigationInit();
+        }
     },
 
     render: function() {
@@ -7310,8 +7314,6 @@ var connect = function() {
   -------------------------------------------------- */
   api.on('processStorage', function(data) {
 
-      console.log("got Storage");
-      
       sessionStorage.setItem("processStorage", JSON.stringify(data));
 
   });
@@ -7719,7 +7721,7 @@ var friendNotification = function(friendObj) {
 
     document.body.insertBefore(div,  document.getElementById("ui-notifications"));
 
-    React.renderComponent(new Modal({backdrop: false, classList: "container ignition-modal ignition-modal-friendNotification systemNotificationContent"}, new FriendNotification({friend: friendObj})), div);
+    React.renderComponent(new Modal({backdrop: false, navdisable: true, classList: "container ignition-modal ignition-modal-friendNotification systemNotificationContent"}, new FriendNotification({friend: friendObj})), div);
 
 };
 
@@ -7738,7 +7740,7 @@ var uiNotification = function(achievementObj) {
 
     document.body.insertBefore(div, document.getElementById("ui-notifications"));
 
-    React.renderComponent(new Modal({backdrop: false, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, new AchievementUnlocked({achievement: achievementObj})), div);
+    React.renderComponent(new Modal({backdrop: false, navdisable: true, classList: "container ignition-modal ignition-modal-achievement systemNotificationContent"}, new AchievementUnlocked({achievement: achievementObj})), div);
 
 };
 
@@ -9429,7 +9431,14 @@ var navigationInit = function(element, callback) {
     }
 
     // Get all Local (screen, dialog) navable elements
-    navables = parent.querySelectorAll('.navable');
+    if (parent) {
+        navables = parent.querySelectorAll('.navable');
+    }
+
+    else {
+        navables = null;
+    }
+
 
     // Add navigation index based on position
     _(navables).forEach(function(el, i) {
@@ -11265,8 +11274,13 @@ var events = {
         dialog.uiNotification(parameters);
 
         setTimeout(function() {
+
+            console.log("1");
+
             var notification = document.querySelectorAll(".ignition-modal-achievement")[0];
-            notification.parentNode.removeChild(notification);
+            notification.parentElement.removeChild(notification);
+
+            console.log("2", notification);
         }, 3500);
 
     },
