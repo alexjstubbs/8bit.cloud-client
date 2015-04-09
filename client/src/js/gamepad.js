@@ -275,12 +275,19 @@ var gamepadSupport = {
 
         buttonPressed: function(button) {
 
+            // Dont get confused with axis negatives
+
+
                 var index = _.indexOf(button, 1);
 
-                eventDispatcher.gamepadEvent({
-                    type: "button",
-                    index: index
-                });
+                if (index !== -1) {
+
+                    eventDispatcher.gamepadEvent({
+                        type: "button",
+                        index: index
+                    });
+
+                }
 
                 // eventDispatcher.bindKeyMapping(_.indexOf(button, 1));
 
@@ -331,9 +338,39 @@ var gamepadSupport = {
 
         axesPressed: function(axes) {
 
-            // TODO: Work out
+            console.log("axes "+axes.length);
+            // NOT a button misinterpreted as an axis press
+            if (axes[0] || axes[1]) {
 
-            // var index = _.indexOf(button, 1);
+                var index;
+
+                if (axes[0] == 1) {
+                        index = "+0";
+                    }
+
+                    if (axes[0] == -1) {
+                        index = "-0";
+                    }
+
+                    if (axes[1] == 1) {
+                        index = "+1";
+                    }
+
+                    if (axes[1] == -1) {
+                        index = "-1";
+                    }
+
+                    eventDispatcher.gamepadEvent({
+                        type: "axis",
+                        index: index
+                    });
+            }
+
+
+            //
+            // var index = _.indexOf(axes, 1);
+            //
+            // console.log(index);
             //
             // eventDispatcher.gamepadEvent({
             //     type: "axis",

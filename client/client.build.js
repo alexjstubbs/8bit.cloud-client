@@ -1164,7 +1164,7 @@ module.exports = React.createClass({displayName: 'exports',
         return (
 
         React.DOM.div({className: "col-xs-4"}, 
-            React.DOM.span(null, React.DOM.i({className: eventString.length ? this.props.classString + eventString[0].icon : this.props.classString}), "   ", React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
+            React.DOM.span(null, React.DOM.i({className: "ion-radio-waves"}), React.DOM.span({className: "large-notification"}, this.props.eventAppend)), 
             React.DOM.span({className: "muted left-adjust"}, eventString.length ? eventString[0].shortcut : " ", " to update")
         )
 
@@ -3086,9 +3086,8 @@ module.exports = React.createClass({displayName: 'exports',
         //
         // }
 
-    
+
         if (this.props.navdisable !== true) {
-            console.log("not disabled");
             navigationInit.navigationInit();
         }
     },
@@ -5320,24 +5319,17 @@ module.exports = React.createClass({displayName: 'exports',
             var selected = document.querySelectorAll(".selectedNav")[0];
             var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
 
-            if (index != '-1') {
-
                 if (selected) {
                     var input = document.querySelectorAll("#" + selected.getAttribute("id") + " input")[0];
                     input.value = index;
                     selectedPre.classList.add("selected");
+
+                    if (selectedPre.classList.contains("selected")) {
+
+                        selectedPre.classList.remove("selected");
+                        systemEvents.events.gamepadMap(true);
+                    }
                 }
-            }
-
-            else {
-
-
-                if (selectedPre.classList.contains("selected")) {
-
-                    selectedPre.classList.remove("selected");
-                    systemEvents.events.gamepadMap(true);
-                }
-            }
 
         });
 
@@ -5379,22 +5371,22 @@ module.exports = React.createClass({displayName: 'exports',
 
                             React.DOM.div({id: "gamepad-input-up", 'data-function': "gamepadMap", className: "navable-row input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-up-c"}))), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_up, name: "input_player1_up_btn"})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_up, name: "input_player1_up_axis"})
                             ), 
 
                             React.DOM.div({id: "gamepad-input-right", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-right-c"}))), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_right, name: "input_player1_right_btn"})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_right, name: "input_player1_right_axis"})
                             ), 
 
                             React.DOM.div({id: "gamepad-input-down", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-down-c"}))), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_down, name: "input_player1_down_btn"})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_down, name: "input_player1_down_axis"})
                             ), 
 
                             React.DOM.div({id: "gamepad-input-left", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                                   React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, React.DOM.i({className: "ion-arrow-left-c"}))), 
-                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_left, name: "input_player1_left_btn"})
+                                  React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_left, name: "input_player1_left_axis"})
                             )
 
                         ), 
@@ -8116,15 +8108,31 @@ var bindKeyMapping = function(e) {
 -------------------------------------------------- */
 var gamepadEvent = function(e) {
 
-    if (e.index == -1) {
-        e.event = "keyup";
+    // Buttons
+    if (e.type == "button") {
+
+        if (e.index == -1) {
+            e.event = "keyup";
+        }
+
+        else {
+            e.event = "keydown";
+        }
+
     }
 
+    // Axis
     else {
-        e.event = "keydown";
-    }
 
-    // console.log(e);
+        if (e.index) {
+            e.event = "keydown";
+        }
+
+        else {
+            e.event = "keyup";
+        }
+
+    }
 
     var event = new CustomEvent('gamepadEvent', {
         'detail': e
@@ -8431,12 +8439,19 @@ var gamepadSupport = {
 
         buttonPressed: function(button) {
 
+            // Dont get confused with axis negatives
+
+
                 var index = _.indexOf(button, 1);
 
-                eventDispatcher.gamepadEvent({
-                    type: "button",
-                    index: index
-                });
+                if (index !== -1) {
+
+                    eventDispatcher.gamepadEvent({
+                        type: "button",
+                        index: index
+                    });
+
+                }
 
                 // eventDispatcher.bindKeyMapping(_.indexOf(button, 1));
 
@@ -8487,9 +8502,39 @@ var gamepadSupport = {
 
         axesPressed: function(axes) {
 
-            // TODO: Work out
+            console.log("axes "+axes.length);
+            // NOT a button misinterpreted as an axis press
+            if (axes[0] || axes[1]) {
 
-            // var index = _.indexOf(button, 1);
+                var index;
+
+                if (axes[0] == 1) {
+                        index = "+0";
+                    }
+
+                    if (axes[0] == -1) {
+                        index = "-0";
+                    }
+
+                    if (axes[1] == 1) {
+                        index = "+1";
+                    }
+
+                    if (axes[1] == -1) {
+                        index = "-1";
+                    }
+
+                    eventDispatcher.gamepadEvent({
+                        type: "axis",
+                        index: index
+                    });
+            }
+
+
+            //
+            // var index = _.indexOf(axes, 1);
+            //
+            // console.log(index);
             //
             // eventDispatcher.gamepadEvent({
             //     type: "axis",
@@ -9332,10 +9377,8 @@ var navigationEventListeners = {
 
     passMappingKeyEvent: function (e) {
 
-        // console.log(e);
-
         if (e.detail) {
-            console.log("key pressed:", e.detail.index);
+            console.log("key pressed: " + e.detail.index);
             eventDispatcher.bindKeyMapping(e);
         }
 
@@ -10782,7 +10825,7 @@ var events = {
 
             // "doubleTap": "false"
             // input_player1_b_btn = "14"
-            // input_player1_y_btn = "15"
+            // input_player1_
 
             var content = {
                 text: gamepad

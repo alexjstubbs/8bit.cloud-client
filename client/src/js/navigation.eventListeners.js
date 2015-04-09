@@ -48,10 +48,8 @@ var navigationEventListeners = {
 
     passMappingKeyEvent: function (e) {
 
-        // console.log(e);
-
         if (e.detail) {
-            console.log("key pressed:", e.detail.index);
+            console.log("key pressed: " + e.detail.index);
             eventDispatcher.bindKeyMapping(e);
         }
 

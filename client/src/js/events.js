@@ -231,15 +231,31 @@ var bindKeyMapping = function(e) {
 -------------------------------------------------- */
 var gamepadEvent = function(e) {
 
-    if (e.index == -1) {
-        e.event = "keyup";
+    // Buttons
+    if (e.type == "button") {
+
+        if (e.index == -1) {
+            e.event = "keyup";
+        }
+
+        else {
+            e.event = "keydown";
+        }
+
     }
 
+    // Axis
     else {
-        e.event = "keydown";
-    }
 
-    // console.log(e);
+        if (e.index) {
+            e.event = "keydown";
+        }
+
+        else {
+            e.event = "keyup";
+        }
+
+    }
 
     var event = new CustomEvent('gamepadEvent', {
         'detail': e

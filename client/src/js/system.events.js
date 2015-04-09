@@ -374,7 +374,7 @@ var events = {
 
             // "doubleTap": "false"
             // input_player1_b_btn = "14"
-            // input_player1_y_btn = "15"
+            // input_player1_
 
             var content = {
                 text: gamepad

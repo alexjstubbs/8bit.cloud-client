@@ -43,9 +43,8 @@ module.exports = React.createClass({
         //
         // }
 
-    
+
         if (this.props.navdisable !== true) {
-            console.log("not disabled");
             navigationInit.navigationInit();
         }
     },
