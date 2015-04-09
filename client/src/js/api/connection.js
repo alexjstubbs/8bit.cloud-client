@@ -41,8 +41,10 @@ var connect = function() {
   -------------------------------------------------- */
   api.on('processStorage', function(data) {
 
-      sessionStorage.setItem("processStorage", JSON.stringify(data));
+      console.log("got Storage");
       
+      sessionStorage.setItem("processStorage", JSON.stringify(data));
+
   });
 
 };

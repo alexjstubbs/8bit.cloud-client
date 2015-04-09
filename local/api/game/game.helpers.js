@@ -267,7 +267,7 @@ function gameLaunch(nsp, payload, config) {
             // Launch Emulator
             if (payload.filepath) {
 
-                console.log(payload);
+                // console.log(payload);
 
                 achievements.dumpRetroRamInit(payload.filepath, function(listedAchievements) {
 
@@ -285,11 +285,15 @@ function gameLaunch(nsp, payload, config) {
                     // '/opt/emulatorcores/fceu-next/fceumm-code/fceumm_libretro.so',
                     // '/Users/alexstubbs/roms/nes/0 Super Mario Bros..zip' ]
 
+                    console.log("setting process object");
+
                     var processObj = {
                         name: results.package,
                         pid: _child.pid
                     };
 
+                    console.log("sent process storage requirest");
+                    __api.emit('processStorage', { processStorage: processObj });
                     nsp.emit('processStorage', { processStorage: processObj });
 
                     // Start Achievement Loop

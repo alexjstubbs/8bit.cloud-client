@@ -11,24 +11,24 @@ function checkHex(stdin, offset, bufflength, addresses, callback) {
     var hexArray = [];
         buffer   = stdin;
 
-        console.log(addresses);
+        // console.log(addresses);
 
         // Check each Hex in Achievement array
         addresses.forEach(function(i) {
 
-            console.log("i: "+i);
-            console.log("offset: "+offset);
+            // console.log("i: "+i);
+            // console.log("offset: "+offset);
 
             var nup = parseInt(i) + parseInt(offset);
 
 
-            console.log("nup: "+nup);
+            // console.log("nup: "+nup);
 
             var hex = buffer[nup]; // sometimes null on gen
 
             if (!hex) {
-                console.log(nup);
-                console.log(buffer[nup]);
+                // console.log(nup);
+                // console.log(buffer[nup]);
             }
 
             if (hex) { hex = hex.toString(16); }

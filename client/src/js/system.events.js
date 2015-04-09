@@ -867,7 +867,7 @@ var events = {
 
         setTimeout(function() {
             var notification = document.querySelectorAll(".ignition-modal-achievement")[0];
-            notification.parentElement.removeChild(notification);
+            notification.parentNode.removeChild(notification);
         }, 3500);
 
     },
@@ -1049,6 +1049,8 @@ var events = {
 	-------------------------------------------------- */
     resumeClient: function() {
 
+        api.emit('request', { request: 'killall', param: "watch" });
+
         localStorage.setItem("timed", false);
 
         // Show the UI
@@ -1062,6 +1064,8 @@ var events = {
 
             // Get Process Object
             var processObj = sessionStorage.getItem("processStorage");
+
+            console.log("processObj", processObj);
 
                 if (processObj) {
                     processObj = JSON.parse(processObj);
@@ -1081,6 +1085,7 @@ var events = {
 
                 // Send a Request to Node to Resume Process
                 api.emit('request', { request: 'processSignal', param: processObj });
+
             }
 
             // Add needed navigation hooks

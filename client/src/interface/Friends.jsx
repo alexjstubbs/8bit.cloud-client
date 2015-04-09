@@ -31,6 +31,7 @@ module.exports = React.createClass({
 
         api.on('network-api', function(data) {
 
+
             if (data.friends) {
 
                 _this.setState(data);
@@ -63,16 +64,18 @@ module.exports = React.createClass({
             functionCall = "sendInvite";
         }
 
-        console.log(functionCall);
-
         // if (this.props.Invite.hasOwnProperty(""))
         var noFriends_ = document.getElementById("noFriends");
         var component  = this;
 
+
         var friendsNodes = this.state.friends.map(function (friend, i) {
+
 
             var time = moment(friend.LastSeen).format('YYYY-MM-DD hh:mm:ss');
                 time = moment(time).fromNow();
+
+
 
             return <FriendNode key={i.id} functionCall={functionCall} friend={friend} Username={friend.Username} Avatar={friend.Avatar} Playing={friend.Playing} Online={friend.Online} IP={friend.IP} LastSeen={time} />
 

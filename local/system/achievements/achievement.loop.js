@@ -108,7 +108,7 @@ function achievementCheck(nsp, gameAchievements, stdin, offset, bufferSize) {
 
     var address     = '',
         addresses   = [],
-        debug       = true;
+        debug       = false;
 
     // Create Array of Addresses
     for (var key in gameAchievements.Achievements) {

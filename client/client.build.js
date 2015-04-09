@@ -1612,6 +1612,7 @@ module.exports = React.createClass({displayName: 'exports',
 
         api.on('network-api', function(data) {
 
+
             if (data.friends) {
 
                 _this.setState(data);
@@ -1644,16 +1645,18 @@ module.exports = React.createClass({displayName: 'exports',
             functionCall = "sendInvite";
         }
 
-        console.log(functionCall);
-
         // if (this.props.Invite.hasOwnProperty(""))
         var noFriends_ = document.getElementById("noFriends");
         var component  = this;
 
+
         var friendsNodes = this.state.friends.map(function (friend, i) {
+
 
             var time = moment(friend.LastSeen).format('YYYY-MM-DD hh:mm:ss');
                 time = moment(time).fromNow();
+
+
 
             return FriendNode({key: i.id, functionCall: functionCall, friend: friend, Username: friend.Username, Avatar: friend.Avatar, Playing: friend.Playing, Online: friend.Online, IP: friend.IP, LastSeen: time})
 
@@ -7306,8 +7309,10 @@ var connect = function() {
   -------------------------------------------------- */
   api.on('processStorage', function(data) {
 
-      sessionStorage.setItem("processStorage", JSON.stringify(data));
+      console.log("got Storage");
       
+      sessionStorage.setItem("processStorage", JSON.stringify(data));
+
   });
 
 };
@@ -8798,7 +8803,7 @@ module.exports = function() {
         document.body.style.opacity = 1;
 
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
-    }, 3500);
+    }, 4000);
 
     // Settings
     var ignitionSettings = localStorage.getItem("ignition_settings");
@@ -11260,7 +11265,7 @@ var events = {
 
         setTimeout(function() {
             var notification = document.querySelectorAll(".ignition-modal-achievement")[0];
-            notification.parentElement.removeChild(notification);
+            notification.parentNode.removeChild(notification);
         }, 3500);
 
     },
@@ -11442,6 +11447,8 @@ var events = {
 	-------------------------------------------------- */
     resumeClient: function() {
 
+        api.emit('request', { request: 'killall', param: "watch" });
+
         localStorage.setItem("timed", false);
 
         // Show the UI
@@ -11455,6 +11462,8 @@ var events = {
 
             // Get Process Object
             var processObj = sessionStorage.getItem("processStorage");
+
+            console.log("processObj", processObj);
 
                 if (processObj) {
                     processObj = JSON.parse(processObj);
@@ -11474,6 +11483,7 @@ var events = {
 
                 // Send a Request to Node to Resume Process
                 api.emit('request', { request: 'processSignal', param: processObj });
+
             }
 
             // Add needed navigation hooks
