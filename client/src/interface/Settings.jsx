@@ -19,6 +19,7 @@ var React           = require('react/addons'),
     navigationInit  = require('../js/navigation.init'),
     mixins          = require('./mixins/mixins.jsx'),
     nodeUpdate      = 0,
+    viewUpdate      = 0,
     curView,
     currentNode;
 
@@ -62,7 +63,9 @@ module.exports = React.createClass({
             var component = this;
             if (currentNode) {
                 currentNode.props.settings = component.state.settingsObject;
+
             }
+
     },
 
     getDefaultProps: function() {

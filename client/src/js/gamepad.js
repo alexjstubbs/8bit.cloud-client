@@ -338,7 +338,6 @@ var gamepadSupport = {
 
         axesPressed: function(axes) {
 
-            console.log("axes "+axes.length);
             // NOT a button misinterpreted as an axis press
             if (axes[0] || axes[1]) {
 

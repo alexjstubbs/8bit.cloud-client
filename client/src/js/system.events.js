@@ -82,31 +82,25 @@ var events = {
     -------------------------------------------------- */
     gamepadMap: function(parameter) {
 
-        var selected = document.querySelectorAll(".selectedNav")[0];
+        var blued       = document.querySelectorAll(".currently-selected-blue")[0],
+            selected    = document.querySelectorAll(".selectedNav")[0],
+            selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
 
-        if (!parameter) {
 
-            if (selected) {
-                var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
-                selectedPre.classList.add("blue-bg");
-
-                events.pauseSessionNavigation();
-                events.resumeBindingNavigation();
-
-            }
+        if (typeof blued === "undefined") {
+            selectedPre.classList.add("blue-bg");
+            selectedPre.classList.add("currently-selected-blue");
+            events.pauseSessionNavigation();
+            events.resumeBindingNavigation();
         }
 
         else {
-
-            if (selected) {
-
-                var selectedPre = document.querySelectorAll("#" + selected.getAttribute("id") + " .input-group-addon")[0];
-                selectedPre.classList.remove("blue-bg");
-
+            selectedPre.classList.remove("blue-bg");
+            selectedPre.classList.remove("currently-selected-blue");
+            setTimeout(function() {
                 events.resumeSessionNavigation();
                 events.pauseBindingNavigation();
-
-            }
+            },100);
 
         }
 
