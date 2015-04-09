@@ -3085,6 +3085,7 @@ module.exports = React.createClass({displayName: 'exports',
         //
         // }
 
+        console.log(this.props);
         navigationInit.navigationInit();
     },
 
