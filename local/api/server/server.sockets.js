@@ -206,9 +206,9 @@ var tNetworkCommand = function(json) {
     network.emit('cmd', json);
 };
 
-var throttleNetworkCmd = _.debounce(tNetworkCommand, 5000);
+// var throttleNetworkCmd = _.debounce(tNetworkCommand, 5000);
 
-// var throttleNetworkCmd = tNetworkCommand
+var throttleNetworkCmd = tNetworkCommand
 
 /* Send Command to Network
 -------------------------------------------------- */

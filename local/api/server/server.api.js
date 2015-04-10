@@ -283,7 +283,8 @@ var getSession = function(nsp, callback) {
 
         if (err) {
 
-            nsp.emit('messaging', {type: 0, body: err });
+            console.log("error with session: "+err);
+            // nsp.emit('messaging', {type: 0, body: err });
 
         }
 

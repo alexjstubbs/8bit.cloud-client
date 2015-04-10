@@ -55,9 +55,11 @@ function sysIsOnline(nsp, callback) {
     // }, 15000);
 
 
+
     require('dns').resolve('www.google.com', function(err) {
 
       if (err) {
+          __api.emit('messaging', {type: 1, body: err });
           timeout = true;
           if (nsp) { nsp.emit('api', {internetConnected: "disconnected"}); }
           if (callback) { callback(false); }
