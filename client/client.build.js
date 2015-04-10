@@ -5456,12 +5456,12 @@ module.exports = React.createClass({displayName: 'exports',
 
                         React.DOM.div({id: "gamepad-input-select", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                               React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "SELECT")), 
-                              React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_select, name: "input_player1_select_btn"})
+                              React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.input_player1_select_btn, name: "input_player1_select_btn"})
                         ), 
 
                         React.DOM.div({id: "gamepad-input-start", 'data-function': "gamepadMap", className: "input-group navable col-xs-2 pull-left"}, 
                               React.DOM.div({className: "input-group-addon"}, React.DOM.strong(null, "START")), 
-                              React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.btn_start, name: "input_player1_start_btn"})
+                              React.DOM.input({type: "text", className: "no-margin input-lg form-control", value: this.props.settings.gamepad.input_player1_select_btn, name: "input_player1_start_btn"})
                         )
 
                     ), 
@@ -8833,7 +8833,7 @@ module.exports = function() {
         document.body.style.opacity = 1;
 
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
-    }, 4000);
+    }, 6000);
 
     // Settings
     var ignitionSettings = localStorage.getItem("ignition_settings");

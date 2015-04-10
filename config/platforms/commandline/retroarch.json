@@ -26,8 +26,20 @@
                 "Pocket SNES"
             ]
         },
+        "gb": {
+            "title": "gb",
+            "cores": [
+                "Gambatte"
+            ]
+        },
         "gbc": {
             "title": "gbc",
+            "cores": [
+                "Gambatte"
+            ]
+        },
+        "gba": {
+            "title": "gba",
             "cores": [
                 "Gambatte"
             ]

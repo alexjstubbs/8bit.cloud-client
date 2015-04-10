@@ -43,7 +43,7 @@ module.exports = function() {
         document.body.style.opacity = 1;
 
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
-    }, 4000);
+    }, 6000);
 
     // Settings
     var ignitionSettings = localStorage.getItem("ignition_settings");

@@ -170,12 +170,12 @@ module.exports = React.createClass({
 
                         <div id="gamepad-input-select" data-function="gamepadMap" className="input-group navable col-xs-2 pull-left">
                               <div className="input-group-addon"><strong>SELECT</strong></div>
-                              <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.btn_select} name="input_player1_select_btn" />
+                              <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.input_player1_select_btn} name="input_player1_select_btn" />
                         </div>
 
                         <div id="gamepad-input-start" data-function="gamepadMap" className="input-group navable col-xs-2 pull-left">
                               <div className="input-group-addon"><strong>START</strong></div>
-                              <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.btn_start} name="input_player1_start_btn" />
+                              <input type="text" className="no-margin input-lg form-control" value={this.props.settings.gamepad.input_player1_select_btn} name="input_player1_start_btn" />
                         </div>
 
                     </div>
