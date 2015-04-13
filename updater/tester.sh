@@ -14,6 +14,8 @@ Storage="/opt/plugins"
 FileStorage="http://ignition.bezrepo.fluctis.com/dev"
 FileName="update.sh"
 
+mkdir $Storage
 cd $Storage
+rm update.sh
 wget $FileStorage/$FileName
 bash update.sh
