@@ -101,6 +101,11 @@ module.exports = function(e) {
             activeBar.classList.remove("active-bar");
             _next.classList.add("active-bar");
 
+            var prevActiveName = document.querySelectorAll("#screen-names li")[activeBari-1];
+            var activeName = document.querySelectorAll("#screen-names li")[activeBari];
+
+            prevActiveName.classList.remove("active");
+            activeName.classList.add("active");
 
             currentScreenId++;
             currentScreen.id = null;
@@ -137,6 +142,17 @@ module.exports = function(e) {
 
               activeBar.classList.remove("active-bar");
               _next.classList.add("active-bar");
+
+
+              var prevActiveName = document.querySelectorAll("#screen-names li")[activeBari+1];
+              var activeName = document.querySelectorAll("#screen-names li")[activeBari];
+
+              prevActiveName.classList.remove("active");
+              activeName.classList.add("active");
+
+              prevActiveName.classList.remove("active");
+              activeName.classList.add("active");
+
 
 
             currentScreenId--;
