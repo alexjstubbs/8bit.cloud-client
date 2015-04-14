@@ -84,16 +84,27 @@ module.exports = React.createClass({
 
     render: function() {
 
-        var Avatar;
-
-        Avatar = true;
+        var Avatar = true,
+            avatarPlaceholder;
 
         if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.state.session.Avatar)) {
             Avatar = true
         }
 
+        // http://www.tinygraphs.com/spaceinvaders/alexander?theme=berrypie&numcolors=2&inv=1
+
         else {
-            Avatar = false;
+
+            if (this.state.profile.Online) {
+                Avatar = false;
+                avatarPlaceholder = <img src={"http://www.tinygraphs.com/spaceinvaders/"+this.state.session.Username+"?&numcolors=2&inv=0&bg=1F80ED"} className='img-responsive'/>;        
+            }
+
+            else {
+                Avatar = false;
+                avatarPlaceholder = <i className='ion-person'></i>;
+            }
+
         }
 
         var cx = React.addons.classSet;
@@ -108,7 +119,7 @@ module.exports = React.createClass({
 
 
             <div className={classes}>
-                {Avatar ? <img src={this.state.session.Avatar} className='img-responsive' /> : <i className='ion-person'></i>}
+                {Avatar ? <img src={this.state.session.Avatar} className='img-responsive' /> : {avatarPlaceholder} }
             </div>
         );
     }

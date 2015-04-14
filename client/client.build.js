@@ -443,16 +443,27 @@ module.exports = React.createClass({displayName: 'exports',
 
     render: function() {
 
-        var Avatar;
-
-        Avatar = true;
+        var Avatar = true,
+            avatarPlaceholder;
 
         if (/(jpg|gif|png|JPG|GIF|PNG|JPEG|jpeg)$/.test(this.state.session.Avatar)) {
             Avatar = true
         }
 
+        // http://www.tinygraphs.com/spaceinvaders/alexander?theme=berrypie&numcolors=2&inv=1
+
         else {
-            Avatar = false;
+
+            if (this.state.profile.Online) {
+                Avatar = false;
+                avatarPlaceholder = React.DOM.img({src: "http://www.tinygraphs.com/spaceinvaders/"+this.state.session.Username+"?&numcolors=2&inv=0&bg=1F80ED", className: "img-responsive"});        
+            }
+
+            else {
+                Avatar = false;
+                avatarPlaceholder = React.DOM.i({className: "ion-person"});
+            }
+
         }
 
         var cx = React.addons.classSet;
@@ -467,7 +478,7 @@ module.exports = React.createClass({displayName: 'exports',
 
 
             React.DOM.div({className: classes}, 
-                Avatar ? React.DOM.img({src: this.state.session.Avatar, className: "img-responsive"}) : React.DOM.i({className: "ion-person"})
+                Avatar ? React.DOM.img({src: this.state.session.Avatar, className: "img-responsive"}) : {avatarPlaceholder}
             )
         );
     }
