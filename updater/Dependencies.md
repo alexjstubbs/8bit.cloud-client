@@ -2,6 +2,6 @@
 
 Dependencies are enquired to download ad install the updates.
 
-Git (optional)[Currently not installed]
-Unzip[Included]
-wget[Included]
+1. Git (optional)[Currently not installed]
+2. Unzip[Included]
+3. wget[Included]
