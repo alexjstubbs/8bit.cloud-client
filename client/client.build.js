@@ -1113,7 +1113,6 @@ module.exports = React.createClass({displayName: 'exports',
                 )
                 ), 
 
-                IgnitionEvents({eventSet: eventSet}), 
 
                 React.DOM.div({class: "clearfix"}), 
                 React.DOM.br(null), 
@@ -8833,7 +8832,7 @@ module.exports = function() {
         document.body.style.opacity = 1;
 
         api.api.emit('request', { request: 'killall', param: "qmlscene" });
-    }, 6000);
+    }, 500);
 
     // Settings
     var ignitionSettings = localStorage.getItem("ignition_settings");
