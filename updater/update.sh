@@ -50,8 +50,6 @@ echo "and the size of the update!"
 sleep 1
 wget $FileStore/$UpdateFile
 unzip $UpdateFile
-#Uncomment line 49 if you want to use git to update and comment out line 44,47
-# git clone $GitRepositoryBase/$BaseRepositoryName
 clear
 echo "Checking if file was downloaded succsessfully"
 #Checks if the ignite.js is present in the updates folder.
@@ -61,9 +59,10 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
     echo "Download successful. Installing update now."
     #Goes into the /opt/ignition directory
     cd $Ignition
-    #moves the node_modules folder
+    #moves the node_modules and configs folder
     echo "Moving Files into place"
     mv node_modules $Updates
+    mv config $Updates
     clear
     #Checks if node_modules copied correctly
     if [ -f /opt/updater/updates/ignition/node_modules/check.txt ]
@@ -85,7 +84,7 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
         if [ -f /opt/ignition/extra.sh ]
           then
             clear
-            #If extra updates are found it deletes the previous update file and copys the new one in place.
+            #If extra updates are found it deletes the previous extra update file and copies the new one in place.
             echo "Extra Updates found! Now Running Extra Updates!"
             cd /opt/updater
             rm extra.sh
@@ -137,7 +136,7 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
     clear
     echo "Error 2"
     echo "Failed to download! Aborting Further Action!"
-    echo "Likely due to a server downage or not internet connection!"
+    echo "Likely due to a server downage or not having an internet connection!"
     echo "Ignition will still work"
     echo "Rebooting in 3 Seconds"
     sleep 3
