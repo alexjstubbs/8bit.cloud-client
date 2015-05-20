@@ -8,4 +8,4 @@ Git only works with public repositories. Private repositories aren't currently s
 
 This is not recommended for public use as it may break peoples copies and should only be used for easily updating development copies.
 
-This currently won't work with the way Ignition is compiled with QT Webkit.
+###This currently won't work with the way Ignition is compiled with QT Webkit.
