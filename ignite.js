@@ -29,7 +29,6 @@ else {
 
 var path                    = require('path');
 
-
 global.config               = require('konfig')();
 global.__appdirectory       = path.dirname(require.main.filename);
 
@@ -104,7 +103,6 @@ app.get('/games/:platform/:name', common.db.gameImage);
 // app.get('/hex/:offset/:bufflength/:address', common.hex.readHex);
 // app.get('/achievement', common.achievements.achievementCheck);
 // app.post('/hash', common.hash.getCRC32);
-//
 
 /* Server Initialization
 -------------------------------------------------- */
@@ -139,7 +137,6 @@ http.listen(1210, "127.0.0.1", function(err, result) {
                 else {
                     firstrun = true;
                 }
-
 
                     if (firstrun) {
                         _location = 'http://127.0.0.1:1210/welcome';

@@ -106,7 +106,6 @@ module.exports = React.createClass({
             }
 
         }
-
         var cx = React.addons.classSet;
         var classes = cx({
             'avatared': Avatar,
@@ -114,12 +113,12 @@ module.exports = React.createClass({
             'pull-left': true
         });
 
-
         return (
-
-
+    
             <div className={classes}>
+    
                 {Avatar ? <img src={this.state.session.Avatar} className='img-responsive' /> : {avatarPlaceholder} }
+                
             </div>
         );
     }
