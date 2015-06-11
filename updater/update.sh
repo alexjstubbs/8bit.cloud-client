@@ -85,6 +85,7 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
           then
             clear
             #If extra updates are found it deletes the previous extra update file and copies the new one in place.
+            #Read "extra updates.md" for more infomation
             echo "Extra Updates found! Now Running Extra Updates!"
             cd /opt/updater
             rm extra.sh
