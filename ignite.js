@@ -6,7 +6,7 @@
 
 /* Working Enviorment
 -------------------------------------------------- */
-var iEnviorment = "Alpha";
+var iEnviorment = "Nightly";
 
 if (iEnviorment === "production") {
     global.__base = __dirname + '/production/';
@@ -146,7 +146,7 @@ http.listen(1210, "127.0.0.1", function(err, result) {
                         _location = 'http://127.0.0.1:1210/home';
                     }
 
-                    var child = exec('setsid qtbrowser --webkit=1 --missing-image=no --websecurity=off --app-name=IgnitionOS --validate-ca=off --transparent --url='+_location + "| /usr/bin/qmlscene /boot/loading/loading-ui.qml");
+                    var child = exec('setsid qtbrowser  --inspector=9945 --webkit=1 --missing-image=no --websecurity=off --app-name=IgnitionClient --validate-ca=off --transparent --url='+_location + "| /usr/bin/qmlscene /boot/loading/loading-ui.qml");
 
                     child.stdout.on('data', function(data) {
                         console.log('(stdout) | ' + data);
