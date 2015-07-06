@@ -1,0 +1,19 @@
+{
+    "package": "fastdosbox",
+    "expath": "/opt/emulators/fastdosbox-1.5/src/dosbox",
+    "platforms": {
+        "dos": {
+            "title": "dos"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

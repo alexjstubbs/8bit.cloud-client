@@ -1,0 +1,19 @@
+{
+    "package": "linapple",
+    "expath": "/opt/emulators/linapple-src_2a/linapple",
+    "platforms": {
+        "apple": {
+            "title": "apple"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

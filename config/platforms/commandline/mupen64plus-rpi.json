@@ -1,0 +1,19 @@
+{
+    "package": "mupen64plus-rpi",
+    "expath": "/opt/emulators/mupen64plus-rpi/test/mupen64plus",
+    "platforms": {
+        "n64": {
+            "title": "n64"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

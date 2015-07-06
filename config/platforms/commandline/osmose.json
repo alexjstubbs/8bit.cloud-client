@@ -1,0 +1,22 @@
+{
+    "package": "osmose",
+    "expath": "/opt/emulators/osmose-0.8.1+rpi20121122/osmose",
+    "platforms": {
+        "sms": {
+            "title": "sms"
+        },
+        "gamegear": {
+            "title": "gamegear"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

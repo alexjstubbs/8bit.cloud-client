@@ -1,0 +1,19 @@
+{
+    "package": "atari800",
+    "expath": "/opt/emulators/atari800-3.0.0/src/atari800",
+    "platforms": {
+        "atari8000": {
+            "title": "atari8000"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

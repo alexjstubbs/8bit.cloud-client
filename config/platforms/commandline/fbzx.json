@@ -1,0 +1,19 @@
+{
+    "package": "fbzx",
+    "expath": "/opt/emulators/fbzx-2.10.0/fbzx",
+    "platforms": {
+        "z80": {
+            "title": "z80"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

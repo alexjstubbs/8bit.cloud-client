@@ -1,0 +1,29 @@
+{
+    "default": {
+        "port": 1210
+    },
+
+    "osx": {
+        "cache_assets": false
+    },
+
+    "pi": {
+        "port": 1210
+    },
+
+    "pi2": {
+        "port": 1210
+    },
+
+    "odroidc1": {
+        "port": 1210
+    },
+
+    "banana": {
+        "port": 1210
+    },
+
+    "hummingboard": {
+        "port": 1210
+    }
+}

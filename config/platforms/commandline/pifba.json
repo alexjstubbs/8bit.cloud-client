@@ -1,0 +1,19 @@
+{
+    "package": "pifba",
+    "expath": "/opt/emulators/pifba/pifba",
+    "platforms": {
+        "arcade": {
+            "title": "arcade"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "package": "gpsp",
+    "expath": "/opt/emulators/gpsp/gpsp",
+    "platforms": {
+        "gba": {
+            "title": "gba"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}

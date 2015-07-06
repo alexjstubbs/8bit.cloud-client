@@ -1,0 +1,56 @@
+{
+  "name": "ignition-client",
+  "license": "Apache-2.0",
+  "main": "ignite.html",
+  "node-main": "ignite.js",
+  "version": "0.0.15",
+  "private": true,
+  "scripts": {
+    "start": "node ignite"
+  },
+  "dependencies": {
+    "async": "^0.9.0",
+    "busboy": "^0.2.9",
+    "express": "^3.0.4",
+    "jsonwebtoken": "^1.1.2",
+    "lodash": "^3.0.0",
+    "method-override": "^2.3.0",
+    "moment": "^2.8.1",
+    "mongodb": "1.3.5",
+    "mu2express": "0.0.1",
+    "mustache": "0.7.1",
+    "nedb": "^0.9.4",
+    "node-jsx": "^0.11.0",
+    "request": "^2.42.0",
+    "socket.io": "^1.0.6",
+    "socket.io-client": "^1.0.6",
+    "stringify": "^3.0.0",
+    "validate.js": "^0.3.2",
+    "wireless": "^0.3.2"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-concurrent": "^1.0.0",
+    "grunt-contrib-less": "^0.11.4",
+    "grunt-contrib-uglify": "^0.7.0",
+    "grunt-react": "^0.9.0",
+    "grunt-uncss": "^0.3.6"
+  },
+  "jshintConfig": {
+    "undef": true,
+    "unused": true,
+    "predef": [
+      "__appdirectory",
+      "require",
+      "window",
+      "document",
+      "console",
+      "common",
+      "sessionStorage",
+      "localStorage",
+      "setTimeout",
+      "__base",
+      "global"
+    ]
+  }
+}

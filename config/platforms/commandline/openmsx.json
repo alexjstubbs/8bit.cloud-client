@@ -1,0 +1,19 @@
+{
+    "package": "mame4all-pi",
+    "expath": "/opt/emulators/mame4all-pi/mame",
+    "platforms": {
+        "arcade": {
+            "title": "arcade"
+        }
+    },
+    "achievements": {
+    },
+    "option_index": 1,
+    "suppliment": {
+        "index": 0,
+        "required": true,
+        "value": null
+    },
+    "arguements": {
+    }
+}
