@@ -24,6 +24,8 @@ BaseRepositoryName="ignition"
 UpdatesStore="/opt/updater/updates"
 Updater="/opt/updater"
 Updates="/opt/updater/updates/ignition/"
+#Defines the Platform the it needs to update from
+Platform="Pi2"
 #Used for fixing the Ignition Directory if it fails to install correctly
 FixerFile="fixer.zip"
 Fixer="/opt/updater/fixer"
@@ -48,7 +50,7 @@ echo "This can take a while depending "
 echo "on the platform you are using Ignition on"
 echo "and the size of the update!"
 sleep 1
-wget $FileStore/$UpdateFile
+wget $FileStore/$Platform/$UpdateFile
 unzip $UpdateFile
 clear
 echo "Checking if file was downloaded succsessfully"
@@ -121,7 +123,7 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
         echo "Move of node_modules Failed! Starting fixer!"
         sleep 2
         cd $Fixer
-        wget $FileStore/$FixerFile
+        wget $FileStore/$Platform/$FixerFile
         echo "Checking Fixer File!"
         unzip $FixerFile
         mv ignition $Files
