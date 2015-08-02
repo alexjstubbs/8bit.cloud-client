@@ -25,6 +25,8 @@ FixerFile="fixer.zip"
 #Place where the Updater script and files are stored.
 Fixer="/opt/updater/fixer/"
 FixerIgnition="/opt/updater/fixer/ignition"
+#Defines the Platform
+Platform="Pi2"
 
 clear
 echo "We DO NOT take reposibility it this fixer breaks Ignition!"
@@ -37,7 +39,7 @@ sleep 1
 cd $Fixer
 rm -rf $FixerFile
 rm -rf ignition
-wget $FileStore/$FixerFile
+wget $FileStore/$Platform/$FixerFile
 clear
 unzip $FixerFile
 cd $Files

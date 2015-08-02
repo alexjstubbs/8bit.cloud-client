@@ -1,10 +1,7 @@
-#Web Updater Downloaded
+#This is a test script that allows me to test on a pi without using a pen drive
+#by downloading a copy from the dev server.
 
-#This is a download script to download and update Ignition.
-#This downloads the updater.sh file in this repo and loads it.
-#This is used currently to test versions of the updater.sh script.
-
-#Not to be used in this form for final public version!
+#DO NOT INCLUDE IN SOFTWARE!!
 
 #(C) Vincent Lee / vlee489
 

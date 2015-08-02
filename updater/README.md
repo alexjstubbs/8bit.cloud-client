@@ -6,7 +6,7 @@ This is a backbone and still needs a front end in Ignition itself to take advant
 
 ###To use place the updater folder in /opt/.
 
-    bash /opt/updater/update.js
+    bash /opt/updater/update.sh
 
 ###You Need to change the platform for each platform. E.g. Pi1 or Pi2. This is done by changing the platform name on line 28.
 
