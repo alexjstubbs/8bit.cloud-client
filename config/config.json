@@ -1,7 +1,7 @@
 {
   "paths": {
-    "roms": "/Users/alexstubbs/roms/",
-    "saves": "/Users/alexstubbs/roms/saves/",
+    "roms": "/root/roms/",
+    "saves": "/root/saves/",
     "covers": "/opt/ignition/databases/images/"
   },
   "interface": {

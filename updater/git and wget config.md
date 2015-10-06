@@ -1,5 +1,7 @@
 #How to switch from wget to git
 
+###This is only here for reference back to the updaterold.sh
+
 To configure to use git comment out lines 33 and 34 and uncomment line 36.
 
 This will make the updater use git that allows the newest, freshest features to be implemented.

@@ -43,7 +43,7 @@ wget $FileStore/$UpdateFile
 echo "Unziping files. May take a while depending on the size."
 sleep 2
 unzip $UpdateFile
-#Uncomment line 44 if you want to use git to update and comment out line 40,42
+#Uncomment line 47 if you want to use git to update and comment out line 42,45
 # git clone $GitRepositoryBase/$BaseRepositoryName
 clear
 echo "Checking if file was downloaded succsessfully"

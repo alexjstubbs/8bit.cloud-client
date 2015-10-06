@@ -356,7 +356,7 @@ function gameLaunch(nsp, payload, config) {
 function apicall(nsp, game, callback) {
 
     // python archive_api_call.py api.archive.vg/2.0/Archive.search/json/ Super+Castlevania
-    var vg = spawn('python', ['/Users/alexstubbs/projects/Ignition/Release/local/api/database/py/archive_api_call.py', 'api.archive.vg/2.0/Archive.search/json/', game]);
+    var vg = spawn('python', ['/opt/ignition/local/api/database/py/archive_api_call.py', 'api.archive.vg/2.0/Archive.search/json/', game]);
 
     var data = '';
 

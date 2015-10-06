@@ -19,11 +19,13 @@ FileStore="http://ignition.bezrepo.fluctis.com"
 UpdateFile="ignition.zip"
 #lists the Github repo for easily  moving to git later in devlopment and launch.
 GitRepositoryBase="https://github.com/alexjstubbs"
-BaseRepositoryName="ignition"
+BaseRepositoryName="ignition-dev"
 #Place where the updater script and temp files are stored.
 UpdatesStore="/opt/updater/updates"
 Updater="/opt/updater"
 Updates="/opt/updater/updates/ignition/"
+#Defines the Platform the it needs to update from
+Platform="Pi2"
 #Used for fixing the Ignition Directory if it fails to install correctly
 FixerFile="fixer.zip"
 Fixer="/opt/updater/fixer"
@@ -48,7 +50,7 @@ echo "This can take a while depending "
 echo "on the platform you are using Ignition on"
 echo "and the size of the update!"
 sleep 1
-wget $FileStore/$UpdateFile
+wget $FileStore/$Platform/$UpdateFile
 unzip $UpdateFile
 clear
 echo "Checking if file was downloaded succsessfully"
@@ -86,7 +88,8 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
             clear
             #If extra updates are found it deletes the previous extra update file and copies the new one in place.
             #Read "extra updates.md" for more infomation
-            echo "Extra Updates found! Now Running Extra Updates!"
+            echo "Extra Updates found!"
+            echo "Now Running Extra Updates!"
             cd /opt/updater
             rm extra.sh
             cd /opt/ignition/extra.sh
@@ -119,9 +122,10 @@ if [ -f /opt/plugins/updates/ignition/ignite.js ]
         #If not it will start the fixer to update back to the last working version.
         echo "Error 1"
         echo "Move of node_modules Failed! Starting fixer!"
+        echo "Do Not Reboot or Power Off During This is Running"
         sleep 2
         cd $Fixer
-        wget $FileStore/$FixerFile
+        wget $FileStore/$Platform/$FixerFile
         echo "Checking Fixer File!"
         unzip $FixerFile
         mv ignition $Files
