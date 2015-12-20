@@ -32,3 +32,6 @@ production
 
 #profiles
 config/profiles
+
+#CLOC Stats
+stats.csv
