@@ -1,7 +1,15 @@
-#Ignition
+# Ignition Client
+
 ###### A modern social retro gaming OS designed for your living room.
 
---
+![io logo](http://i.imgur.com/G7Uwcoq.png)
+
+
+[![badge](https://img.shields.io/badge/CHAT%20NOW-%20SLACK-blue.svg)](https://slackignition.azurewebsites.net/) [![report bugs](https://img.shields.io/badge/REPORT-ISSUES-red.svg)](http://ignitionio.atlassian.net/) [![wiki](https://img.shields.io/badge/PROJECT-WIKI-brightgreen.svg)](https://ignitionio.atlassian.net/wiki/#all-updates)
+
+---
+
+
 
 ### What is ignition?
 
@@ -19,6 +27,9 @@ The ignition software aims to add additional and modern features to the gameplay
 
 --
 
+#This Informaion Below Is Soon To Be Updated. Read Wiki for more Information.
+
+
 ### The software stack
 
 The ignition software is a collection of modules written mostly in Javascript utilizing NodeJS.
@@ -29,12 +40,5 @@ The communication between the software and client are done via WebSockets which 
 
 Some core elements of the software package, such as the low-level graphics API, are written in C++ as well as C/Python.
 
---
-
-### The operating system
-
-While ignition can be built to run on nearly all Operating Systems (OSX, Windows, Popular Linux Distros, etc.), it retains a specific distribution built utilizing a Buildroot tool and custom package configs. This allows for easy cross-compilation of needed packages and offical configs for various CPU architectures.
-
---
 
 **Questions?** [admin@ignition.io](mailto:admin@ignition.io)

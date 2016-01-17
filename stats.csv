@@ -1,16 +1,23 @@
-files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.60  T=10.47 s (77.3 files/s, 22149.8 lines/s)"
-199,Javascript,18013,26556,61165
-181,HTML,4376,1935,34265
+files,language,blank,comment,code,"http://cloc.sourceforge.net v 1.64  T=24.03 s (132.9 files/s, 33156.2 lines/s)"
+1958,Javascript,79800,124236,373088
+495,HTML,10500,6459,88291
 229,LESS,6124,4328,23867
+45,CSS,1581,523,16866
 112,ActionScript,1231,2593,16451
-26,CSS,1172,304,14995
-4,YAML,905,2,5316
-35,SASS,1210,151,3668
+142,JSON,15,0,10563
+59,Mustache,812,16,7229
+29,YAML,939,27,5508
+35,SASS,1210,63,3756
+10,C++,714,456,2840
 2,C,87,119,2260
-8,Bourne Shell,26,90,213
-4,make,53,29,140
-2,Ruby,49,18,121
+18,make,243,380,802
+19,CoffeeScript,226,30,791
+4,Python,79,162,308
+14,Bourne Shell,30,101,235
+3,Ruby,64,21,171
+3,C/C++ Header,37,48,137
+10,D,0,0,117
 1,ASP.Net,0,0,51
-3,Python,6,7,24
 1,Perl,6,0,23
 2,Cython,2,0,12
+1,DOS Batch,1,0,11
